@@ -1,38 +1,60 @@
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class FaceBookSignIn {
+    
+  GetStorage dataStore = GetStorage();
 
-   final FacebookLogin facebookSignIn = FacebookLogin();
-   
+   final fb = FacebookLogin();
+
    String message = 'Log in/out by pressing the buttons below.';
 
     Future<Null> login() async {
-    final FacebookLoginResult result =
-    await facebookSignIn.logIn(['email']);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken accessToken = result.accessToken;
-        showMessage('''
-         Logged in!
-         Token: ${accessToken.token}
-         User id: ${accessToken.userId}
-         Expires: ${accessToken.expires}
-         Permissions: ${accessToken.permissions}
-         Declined permissions: ${accessToken.declinedPermissions}
-         ''');
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        // showMessage('Login cancelled by the user.');
-        break;
-      case FacebookLoginStatus.error:
-        // showMessage('Something went wrong with the login process.\n'
-        //     'Here\'s the error Facebook gave us: ${result.errorMessage}');
-        break;
-    }
+      
+      final res = await fb.logIn(permissions: [
+        FacebookPermission.publicProfile,
+        FacebookPermission.email,
+      ]);
+
+      switch (res.status) {
+        case FacebookLoginStatus.success:
+
+          print('Access token: ${res.accessToken!.token}');
+          // var accessToken = res.accessToken!.token.split(":");
+          if(res.accessToken != null ) {
+            dataStore.write("access_token",res.accessToken!.token);
+            Get.toNamed('/home');
+          }
+          // Get profile data
+          final profile = await fb.getUserProfile();
+          print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+
+          // Get user profile image url
+          final imageUrl = await fb.getProfileImageUrl(width: 100);
+          print('Your profile image: $imageUrl');
+
+          // Get email (since we request email permission)
+          final email = await fb.getUserEmail();
+          // But user can decline permission
+          if (email != null)
+            print('And your email is $email');
+
+          break;
+        case FacebookLoginStatus.cancel:
+          // User cancel log in
+          break;
+        case FacebookLoginStatus.error:
+          // Log in failed
+          print('Error while log in: ${res.error}');
+          break;
+      }
+
+
   }
 
   Future<Null> logOut() async {
-    await facebookSignIn.logOut();
+    await fb.logOut();
     showMessage('Logged out.');
   }
 
