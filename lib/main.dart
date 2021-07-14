@@ -6,6 +6,7 @@ var auth;
 var role;
 var waiterKey;
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     SuccessApp(),
   );
