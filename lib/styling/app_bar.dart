@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/text_style.dart';
 
-Widget appbar(String text) {
-  return AppBar(
-    title: Text( 
-      text, style: AppTextStyles.appTextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.w600)
-    ),
-    centerTitle: false,
-    // leading:
-    //   IconButton(icon: iconButton, color: Colors.white, onPressed: (){}),
-    
-    flexibleSpace: Container(
-      decoration:  BoxDecoration(
-        image: DecorationImage( 
-          image: AssetImage(""),
-          fit: BoxFit.cover,
-        ),
+
+ Widget appbar(context, icon ,image) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading: IconButton(
+        icon: Icon(icon,
+        color: AppColors.backArrow),
+        onPressed: () => Navigator.of(context).pop(),
       ),
-    ),
-    backgroundColor: AppColors.appBar,
-  );
-}
+      title: Image.asset(image, height: 40), 
+      // actions: [
+      //   Container(
+      //     alignment: Alignment.center,
+      //     child: Image.asset(
+      //       image
+      //     ),
+      //   )
+      // ],
+      backgroundColor: AppColors.appBarBackGroundColor
+    );
+  }
