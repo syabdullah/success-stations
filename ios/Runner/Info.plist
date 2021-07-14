@@ -20,6 +20,32 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+<<<<<<< HEAD
+=======
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+			<string>com.googleusercontent.apps.958707106290-j3eglmtt8pb8s72vuc7kn66amfhp5jnk</string>
+			<string>fb495109941777752</string>
+			</array>
+		</dict>
+    </array>	
+	<key>FacebookAppID</key>
+	<string>495109941777752</string>
+	<key>FacebookDisplayName</key>
+	<string>success-station</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
+>>>>>>> 3b844cd49da4cf784fb353e8e7e741e72ae51191
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
