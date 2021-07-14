@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.success_stations">
+    package="com.codility.success_stations">
    <application
         android:label="success_stations"
         android:icon="@mipmap/ic_launcher">
