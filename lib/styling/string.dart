@@ -7,5 +7,10 @@ class AppString {
   static String city = 'City';
   static String university = 'University';
   static String college = 'College';
-  static String termServices = 'I agree to the Term and Conditions';
+  static String signUp = 'SIGN UP';
+  static String existAccount = 'Do you have and account?';
+  static String termServices = 'I agree to the';
+  static String termCondition = ' Terms and Conditions';
+
+  static String signIn = 'SIGN IN';
 }
