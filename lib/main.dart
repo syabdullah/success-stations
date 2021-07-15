@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/sign_in.dart';
-import 'package:success_stations/view/sign_up.dart';
+import 'package:success_stations/view/student_sign_up.dart';
 import 'package:success_stations/view/tab_bar.dart';
 
 var auth;

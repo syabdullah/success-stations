@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/sign_up.dart';
+import 'package:success_stations/view/company_sign_up.dart';
+import 'package:success_stations/view/student_sign_up.dart';
 
 class TabBarPage extends StatefulWidget {
   _TabBarState createState() => _TabBarState();
@@ -64,7 +65,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                     physics: NeverScrollableScrollPhysics(),
                     children: <Widget>[
                       SignUp(),
-                      Text("Hi"),
+                      CompanySignUp()
                     ]
                   ),
                 ),
