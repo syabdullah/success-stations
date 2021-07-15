@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 class CustomTextFiled extends StatefulWidget {
   final String hintText;
@@ -47,6 +46,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         Padding(
          padding: widget.padding,
           child: TextFormField(
+            
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,
@@ -54,6 +54,8 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             obscureText: widget.isObscure,
             onSaved: widget.onSaved,
             decoration: InputDecoration(
+              fillColor: AppColors.inputColor,
+              filled: true,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.outline

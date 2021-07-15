@@ -12,4 +12,9 @@ class AppString {
   // Sign In
   static String loginEmail = 'Phone Number,email or name';
   static String password = 'Password';
+  static String signUp = 'SIGN UP';
+  static String existAccount = 'Do you have and account?';
+  static String termCondition = ' Terms and Conditions';
+
+  static String signIn = 'SIGN IN';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
+import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
@@ -28,7 +29,7 @@ class _SignPageState extends State<SignIn> {
     GoogleSignInC().singIn();
   }
 
-   loginUser() {
+   signIn() {
     final form = formKey.currentState;
     if (form!.validate()) {
       form.save();
@@ -56,6 +57,11 @@ class _SignPageState extends State<SignIn> {
                   SizedBox(height:10),
                   passwordW(),
                   SizedBox(height:Get.height/9.5),
+                  submitButton(
+                    bgcolor: AppColors.appBarBackGroundColor,  
+                    textColor: AppColors.appBarBackGroun,
+                    buttonText: AppString.signIn
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -127,6 +133,19 @@ class _SignPageState extends State<SignIn> {
         validator: (value) {  }, 
         errorText: '',
       ),
+    );
+  }
+
+
+   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+    return AppButton(
+      buttonText: buttonText, 
+      callback: callback,
+      bgcolor: bgcolor,
+      textColor: textColor,
+      fontFamily: fontFamily ,
+      fontWeight: fontWeight ,
+      fontSize: fontSize,      
     );
   }
 }
