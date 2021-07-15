@@ -8,13 +8,18 @@ class AppString {
   static String university = 'University';
   static String college = 'College';
   static String termServices = 'I agree to the Term and Conditions';
-
-  // Sign In
-  static String loginEmail = 'Phone Number,email or name';
-  static String password = 'Password';
   static String signUp = 'SIGN UP';
   static String existAccount = 'Do you have and account?';
   static String termCondition = ' Terms and Conditions';
 
+  // Sign In
+  static String loginEmail = 'Phone Number,email or name';
+  static String password = 'Password';
+  static String google = 'Google';
+  static String facebook = 'Facebook';
   static String signIn = 'SIGN IN';
+  static String forgotPass = 'Forgot Password?';
+  static String goForSignup = 'Don\'t have an account? ';
+
+
 }

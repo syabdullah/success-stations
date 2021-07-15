@@ -56,37 +56,68 @@ class _SignPageState extends State<SignIn> {
                   eMail(),
                   SizedBox(height:10),
                   passwordW(),
-                  SizedBox(height:Get.height/9.5),
+                  SizedBox(height:10),
+                  GestureDetector(
+                    onTap: () {
+
+                    },
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.only(bottom:10,right: 10,top: 10),
+                      child: Text(AppString.forgotPass,textAlign:TextAlign.end),
+                    ),
+                  ),
                   submitButton(
                     bgcolor: AppColors.appBarBackGroundColor,  
                     textColor: AppColors.appBarBackGroun,
-                    buttonText: AppString.signIn
+                    buttonText: AppString.signIn,
+                    callback: navigateToHomeScreen
+                  ),
+                  // SizedBox(height:Get.height/10.5*0.5),
+                  Container(
+                    margin: EdgeInsets.only(top:10,bottom:10),
+                    child: Text("OR"),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextButton(
-                        onPressed: () {
-                           GoogleSignInC().handleSignIn();
-                        },
-                        child: Container(
-                          color: Colors.blue,
-                          height: 50,
-                          width: 100,
-                          child: Text("Google",style: TextStyle(color: Colors.white))
-                        )
-                      ),
-                      TextButton(
-                        onPressed: () {
-                        FaceBookSignIn().login();
-                        },
-                        child: Container(
-                          color: Colors.blue,
-                          height: 50,
-                          width: 100,
-                          child: Text("FaceBook",style: TextStyle(color: Colors.white),)
-                        )
-                      )
+                      submitButton(
+                      bgcolor: AppColors.appBarBackGroundColor,  
+                      textColor: AppColors.appBarBackGroun,
+                      buttonText: AppString.facebook,
+                      callback: navigateToHomeScreen,
+                      width: Get.width/2.3
+                    ),
+                    SizedBox(width:20),
+                    submitButton(
+                      bgcolor: AppColors.appBarBackGroundColor,  
+                      textColor: AppColors.appBarBackGroun,
+                      buttonText: AppString.google,
+                      callback: navigateToHomeScreen,
+                      width: Get.width/2.3
+                    ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //      GoogleSignInC().handleSignIn();
+                      //   },
+                      //   child: Container(
+                      //     color: Colors.blue,
+                      //     height: 50,
+                      //     width: 100,
+                      //     child: Text("Google",style: TextStyle(color: Colors.white))
+                      //   )
+                      // ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //   FaceBookSignIn().login();
+                      //   },
+                      //   child: Container(
+                      //     color: Colors.blue,
+                      //     height: 50,
+                      //     width: 100,
+                      //     child: Text("FaceBook",style: TextStyle(color: Colors.white),)
+                      //   )
+                      // )
                     ],
                   ),                  
                 ],
@@ -137,7 +168,7 @@ class _SignPageState extends State<SignIn> {
   }
 
 
-   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width}) {
     return AppButton(
       buttonText: buttonText, 
       callback: callback,
@@ -145,8 +176,15 @@ class _SignPageState extends State<SignIn> {
       textColor: textColor,
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
-      fontSize: fontSize,      
+      fontSize: fontSize,    
+      // height: height,
+      width: width,  
     );
+  }
+
+    void navigateToHomeScreen() {
+    print("................");
+    // PageUtils.pushPage(SignupOption());
   }
 }
  
