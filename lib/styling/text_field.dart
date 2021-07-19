@@ -45,8 +45,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       children: [
         Padding(
          padding: widget.padding,
-          child: TextFormField(
-            
+          child: TextFormField(           
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,
@@ -56,6 +55,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             decoration: InputDecoration(
               fillColor: AppColors.inputColor,
               filled: true,
+              border: InputBorder.none,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.outline

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // signUP
   static Color appBarBackGroundColor = Color(0xFF4BA7E4);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
   static Color backArrow = Color(0xFFF0F7FD);
@@ -11,5 +12,8 @@ class AppColors {
   static Color inputTextColor = Color(0xFFA09D9E);
   static Color textInput = Color(0xFF868282);
 
-  
+  // login
+
+  static Color facebook = Color(0xFF3A5CA9);
+  static Color google = Color(0xFFA09D9E);
 }

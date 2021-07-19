@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:success_stations/styling/responsive.dart';
+import 'package:success_stations/styling/string.dart';
 
 class AppButton extends StatelessWidget {
   final  buttonText;
   final  callback;
   final  bgcolor;
+  final image;
   final  textColor;
   final  fontFamily;
   final  fontSize;
@@ -21,6 +23,7 @@ class AppButton extends StatelessWidget {
       this.buttonText,
       this.callback,
       this.bgcolor,
+      this.image,
       this.textColor,
       this.width,
       this.fontStyle,
@@ -39,7 +42,6 @@ class AppButton extends StatelessWidget {
       child: GestureDetector(
         onTap: callback,
         child: Container(
-          // margin: EdgeInsets.only(left:10),
           alignment: Alignment.center,
           width: width ?? ResponsizeSize.sizeWidth(context) * 0.9,
           height: height ?? 56,
@@ -52,7 +54,9 @@ class AppButton extends StatelessWidget {
               color:borderColor ?? Colors.white
             )
           ),
-          child: Container(
+          child:
+           buttonText == AppString.signIn ? 
+           Container(
             margin:EdgeInsets.only(left:10),
             child: Text(
               buttonText,
@@ -63,7 +67,9 @@ class AppButton extends StatelessWidget {
                 fontFamily: fontFamily ?? 'SF Pro Text',
               ),
             ),
-          ),
+          ): Container(
+            child: Image.asset(image,fit: BoxFit.contain,)
+          )
         ),
       ),
     );
