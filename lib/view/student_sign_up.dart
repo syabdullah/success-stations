@@ -1,19 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/city_controller.dart';
+import 'package:success_stations/controller/college_controller.dart';
+import 'package:success_stations/controller/country_controller.dart';
+import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/sign_up_controller.dart';
+import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 
-class SignUp extends StatefulWidget {
+class StudentSignUp extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
 }
-class _SignPageState extends State<SignUp> {
+class _SignPageState extends State<StudentSignUp> {
+
+   var selectedCountry,  selectedCity , selectedRegion, selectedUniversity, selectedCollege;
+
+   late String firstName, emailSaved , mobileSaved, dobSaved;
+
+   final TextEditingController fullName =  TextEditingController();
+   final TextEditingController emailController =  TextEditingController();
+   final TextEditingController dobController =  TextEditingController();
+   final TextEditingController mobileController =  TextEditingController();
+   var selectCountry;
+
+
+
+  final countryPut = Get.put(ContryController());
+
+  @override 
+  void initState() {
+    countryPut.getCountries();
+    super.initState();
+  }
+
+  createUser(){
+    var json = {
+      "name":fullName,
+      'email': emailSaved,
+      "mobile":mobileSaved, 
+      "country_id":1,
+      "city_id":1,
+      "region_id":1,
+      "user_type":2,
+      "date_of_birth":dobSaved,
+      "college_id": 1,
+      'university_id':1
+    };
+    print(".........create user.../?@@@@@?///////,,,,,,,,                     $json");
+    Get.find<SignUpController>().createAccountData(json);
+
+  }
+
 
   bool rememberMe = true;
 
-  TextEditingController fulNameController = TextEditingController();
+  
+  
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(20, context));
@@ -23,21 +69,48 @@ class _SignPageState extends State<SignUp> {
         child: Column(
           children: [
             space20,
-            fullName(),
+            fullNameStudent(),
             space10,
             eMail(),
             space10,
             mobile(),
             space10,
-            country(),
+            studentdob(),
             space10,
-            region(),
+            GetBuilder<ContryController>(
+              init: ContryController(),
+              builder:(val) {
+                return country(val.countryListdata);
+              } ,
+            ),
             space10,
-            city(),
+            GetBuilder<RegionController>(
+              init: RegionController(),
+              builder: (val){
+                return region(val.listDataRegion);
+              },
+            ),
             space10,
-            university(),
+            GetBuilder<CityController>(
+              init: CityController(),
+              builder: (val){
+                return city(val.cityListData);
+              },
+            ),
             space10,
-            college(),
+            GetBuilder<UniversityController>(
+              init: UniversityController(),
+              builder: (val){
+                return university(val.listUniData);
+              },
+            ),
+            space10,
+            GetBuilder<CollegeController>(
+              init: CollegeController(),
+              builder: (val){
+                return college(val.listCollegeData);
+              },
+            ),
             space10,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +139,8 @@ class _SignPageState extends State<SignUp> {
             submitButton(
               buttonText: AppString.signUp, 
               bgcolor: AppColors.appBarBackGroundColor,  
-              textColor: AppColors.appBarBackGroun
+              textColor: AppColors.appBarBackGroun,
+              callback: createUser()
             ),
             space20,
             Row(
@@ -87,7 +161,7 @@ class _SignPageState extends State<SignUp> {
     );
   }
 
-  Widget fullName() {
+  Widget fullNameStudent() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -96,10 +170,12 @@ class _SignPageState extends State<SignUp> {
         hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
         onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
+        // isObscure: true,
+        textController: fullName,
+        onSaved: (newValue) { 
+          fullName.text = newValue!;
+        }, 
         validator: (value) {  }, 
         errorText: '',
       ),
@@ -115,11 +191,13 @@ class _SignPageState extends State<SignUp> {
         hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
+        onSaved: (newValue) { 
+          emailController.text = newValue! ;
+        }, 
         onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
-        validator: (value) {  }, 
+        // isObscure: false,
+        textController: emailController,
+        validator: (value) {}, 
         errorText: '',
       ),
     );
@@ -134,112 +212,219 @@ class _SignPageState extends State<SignUp> {
         hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          isObscure: true,
-          textController: fulNameController,
+          
+          onFieldSubmitted: (value) {}, 
+          // isObscure: false,
+          textController: mobileController,
+          onSaved: (String? newValue) {
+            mobileController.text = newValue!; 
+          }, 
           validator: (value) {  }, 
           errorText: '',
       ),
     );
   }
-
-  Widget country() {
+  Widget studentdob() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        hintText: AppString.country,
+        hintText: AppString.dob,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          isObscure: true,
-          textController: fulNameController,
-          validator: (value) {  }, 
-          errorText: '',
-      ),
-    );
-  }
-
-  Widget region() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        hintText: AppString.region,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
+       
         onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
+        // isObscure: true,
+        textController: dobController,
+        onSaved: (String? newValue) { 
+          dobController.text= newValue!; 
+        }, 
         validator: (value) {  }, 
         errorText: '',
       ),
     );
   }
 
-  Widget city() {
+  Widget country(List data) {
+    return Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text("Country", style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            value: selectedCountry, 
+            items: data.map((coun) {
+              return DropdownMenuItem(
+                value: coun,
+                child:Text(coun['name'])
+              );
+            }).toList(),
+            onChanged: (value) {
+              print("...////////......value... of the countryyyyy..........>>>$value ");
+              setState(() {
+                selectCountry = value;
+                // selectedCountry =  id;
+                print("..!!!>...!!!!!!!${selectedCountry = value}");
+                // box.write('city-Id',coun['id'] );
+              });
+            },
+          )
+        )
+      )
+    );
+  }
+
+  Widget region(List dataRegion) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        hintText: AppString.city,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
-        validator: (value) {  }, 
-        errorText: '',
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
       ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text("Region", style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            value: selectedRegion, 
+            items: dataRegion.map((reg) {
+              return DropdownMenuItem(
+                value: reg,
+                child:Text(
+                  reg['region']
+                )
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                selectedRegion = value;
+              });
+            },
+          )
+        )
+      )
+    );
+  }
+
+  Widget city(citydata) {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text("City",style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inputColor,
+            icon: Icon(Icons.arrow_drop_down),
+            value: selectedCity, 
+            items: citydata.map((citt) {
+              return DropdownMenuItem(
+                value: citt,
+                child:Text(citt['city'])
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                selectedCity = value;
+              });
+            },
+          )
+        )
+      )
     );
   }
   
-  Widget university() {
+  Widget university(List universityData) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        hintText: AppString.university,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
-        validator: (value) {  }, 
-        errorText: '',
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
       ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text("University",style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            value: selectedUniversity, 
+            items: universityData.map((uni) {
+              return DropdownMenuItem(
+                value: uni,
+                child:Text(uni['name'])
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                selectedUniversity = value;
+              });
+            },
+          )
+        )
+      )
     );
   }
 
-  Widget college() {
+  Widget college(List collegeData) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        hintText: AppString.college,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
-        isObscure: true,
-        textController: fulNameController,
-        validator: (value) {  }, 
-        errorText: '',
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
       ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text("College", style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            value: selectedCollege, 
+            items: collegeData.map((coll) {
+              return DropdownMenuItem(
+                value: coll,
+                child:Text(coll['college'])
+              );
+            }).toList(),
+            onChanged: (value) {
+              print("val;ue.............vsalue of the college ....>$value");
+              setState(() {
+                  selectedCollege =  value;
+              
+              });
+            },
+          )
+        )
+      )
     );
   }
 
-   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
     return AppButton(
       buttonText: buttonText, 
       callback: callback,
@@ -248,8 +433,6 @@ class _SignPageState extends State<SignUp> {
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
       fontSize: fontSize,
-      
-
     );
   }
 

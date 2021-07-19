@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/company_sign_up.dart';
 import 'package:success_stations/view/student_sign_up.dart';
@@ -31,8 +30,8 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   TextEditingController fulNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
+    // final space20 = SizedBox(height: getSize(20, context));
+    // final space10 = SizedBox(height: getSize(10, context));
     return  Scaffold(
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
       child: appbar('',Icons.arrow_back_ios, AppImages.appBarLogo )),
@@ -45,10 +44,17 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                   color:Colors.white,
                   child:TabBar(
                     controller: controller1,
+                    indicatorColor: Colors.grey,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
                     tabs: <Tab>[
                       Tab(
                         child: Text(
-                          'Student', style: TextStyle(color: Colors.blue)
+                          'Student',
+                          style: TextStyle(
+                            color:controller1.index==1 ?   Colors.blue : Colors.grey
+                          
+                          )
                         )
                       ),
                       Tab(
@@ -64,7 +70,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                     controller: controller1, 
                     physics: NeverScrollableScrollPhysics(),
                     children: <Widget>[
-                      SignUp(),
+                      StudentSignUp(),
                       CompanySignUp()
                     ]
                   ),

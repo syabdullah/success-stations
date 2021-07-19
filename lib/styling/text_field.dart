@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 class CustomTextFiled extends StatefulWidget {
   final String hintText;
   final hintStyle;
   final String errorText;
-  final bool isObscure;
+  // final bool isObscure;
   final bool isIcon;
   final TextEditingController textController;
   final EdgeInsets padding;
@@ -20,7 +19,7 @@ class CustomTextFiled extends StatefulWidget {
     {
       this.hintText ='',
       required this.errorText,
-      required this.isObscure ,
+      // required this.isObscure ,
       required this.textController,
       this.isIcon = true,
       this.padding = const EdgeInsets.all(0),
@@ -47,12 +46,11 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         Padding(
          padding: widget.padding,
           child: TextFormField(
-            
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,
             validator: widget.validator,
-            obscureText: widget.isObscure,
+            // obscureText: widget.isObscure,
             onSaved: widget.onSaved,
             decoration: InputDecoration(
               fillColor: AppColors.inputColor,

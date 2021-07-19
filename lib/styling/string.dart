@@ -8,16 +8,26 @@ class AppString {
   static String city = 'City';
   static String university = 'University';
   static String college = 'College';
+  static String termServices = 'I agree to the';
   static String signUp = 'SIGN UP';
   static String idIqama = 'ID/ Iqama';
   static String response = 'Responsible';
   static String mobNum = 'Mobile Number';
   static String accType = 'Account Type :';
+  static String dob = 'Date Of Birth';
 
   
   static String existAccount = 'Do you have and account?';
-  static String termServices = 'I agree to the';
   static String termCondition = ' Terms and Conditions';
-  //sign in 
-  static String signIn = ' SIGN IN';
+
+  // Sign In
+  static String loginEmail = 'Phone Number,email or name';
+  static String password = 'Password';
+  static String google = 'Google';
+  static String facebook = 'Facebook';
+  static String signIn = 'SIGN IN';
+  static String forgotPass = 'Forgot Password?';
+  static String goForSignup = 'Don\'t have an account? ';
+
+
 }
