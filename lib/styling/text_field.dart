@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 class CustomTextFiled extends StatefulWidget {
   final String hintText;

@@ -20,7 +20,7 @@ class SuccessApp extends StatelessWidget {
       builder:() => GetMaterialApp(      
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
-        theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black),
+        theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
           home: AddPostingScreen(),
         // initialRoute: '/login',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:success_stations/main.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/custom_button.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,19 +23,25 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
    int activeStep = 0; // Initial step set to 5.
 
   int upperBound = 3; // 
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     print(activeStep);
     return SafeArea(
       child: Scaffold(
-        appBar:AppBar(),
+        appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+        child: appbar('',Icons.arrow_back_ios,AppImages.appBarLogo,AppImages.appBarSearch),
+       ),
         body: ListView(
           children: [
             ImageStepper(
+              
+              stepColor: Colors.yellow,
               lineDotRadius: 0.1,
               lineColor: Colors.grey,
-              activeStepColor: Colors.blue,
-              activeStepBorderColor: Colors.blue,
+              activeStepColor: AppColors.appBarBackGroundColor,
+              activeStepBorderColor: Colors.grey[700],
               lineLength: 75,
               enableNextPreviousButtons: false,
               images: [
@@ -39,15 +50,15 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 AssetImage(AppImages.istStepIcon),
                 activeStep == 1 ?
                 AssetImage(AppImages.ssecStepIcon):
-                AssetImage(AppImages.istStepIcon),
+                AssetImage(AppImages.secStepIcon),
                 activeStep == 2 ?
                 AssetImage(AppImages.strdStepIcon):
                 AssetImage(AppImages.trdStepIcon),
               ],
-    
+          
               // activeStep property set to activeStep variable defined above.
               activeStep: activeStep,
-    
+          
               // This ensures step-tapping updates the activeStep. 
               onStepReached: (index) {
                 setState(() {
@@ -56,182 +67,40 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               },
             ),
             header(),
-            Column(
-              children: [
-                activeStep == 0 ?
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 5.h,),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal:15.0),
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey,width: 1),
-                          borderRadius: BorderRadius.all(
-                          Radius.circular(5.0) //                 <--- border radius here
-                          ),
-                        ),
-                        child: ListTile(
-                          tileColor: Colors.grey[200],
-                          title: Text("Category",style: 
-                            TextStyle(
-                              fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,
-                            ),
-                          ),
-                          trailing: DropdownButton<String>(
-                          items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                          return DropdownMenuItem<String>(value: value,
-                            child: new Text(value),
-                           );
-                          }).toList(),
-                          onChanged: (_) {},
-                          ),
-                        ),
-                      ),
-                    SizedBox(height: 5.h,),
-                    Container(
-                    margin: const EdgeInsets.symmetric(horizontal:15.0),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1),
-                      borderRadius: BorderRadius.all(
-                      Radius.circular(5.0) //                 <--- border radius here
-                      ),  
-                    ),
-                    child: ListTile(
-                      tileColor: Colors.grey[200],
-                      title: Text("Type",style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,)),
-                      trailing: DropdownButton<String>(
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return DropdownMenuItem<String>(value: value,
-                        child: new Text(value),
-                       );
-                      }).toList(),
-                      onChanged: (_) {},
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.h,),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal:15.0),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1),
-                      borderRadius: BorderRadius.all(
-                      Radius.circular(5.0) //                 <--- border radius here
-                      ),
-                      
-                    ),
-                    child: ListTile(
-                      tileColor: Colors.grey[200],
-                      title: Text("Status",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-                      trailing: DropdownButton<String>(
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return DropdownMenuItem<String>(value: value,
-                        child: new Text(value),
-                       );
-                      }).toList(),
-                      onChanged: (_) {},
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.h,),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal:15.0),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1),
-                      borderRadius: BorderRadius.all(
-                      Radius.circular(5.0) //                 <--- border radius here
-                      ),
-                      
-                    ),
-                    child: ListTile(
-                      tileColor: Colors.grey[200],
-                      title: Text("Title",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-                      trailing: DropdownButton<String>(
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                      return DropdownMenuItem<String>(value: value,
-                        child: new Text(value),
-                       );
-                      }).toList(),
-                      onChanged: (_) {},
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.h,),
-                  Container(
-                    height: 100.h,
-                    margin: const EdgeInsets.all(15.0),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1),
-                      borderRadius: BorderRadius.all(
-                      Radius.circular(5.0) //                 <--- border radius here
-                      ),
-                      
-                    ),
-                    child: Container(
-                      color: AppColors.inPutFieldColor,
-                      child: TextField(
-                        style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
-                        decoration:InputDecoration(
-                          
-                          hintText: "Description",
-                          border: OutlineInputBorder(
-                            
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide.none,
-                        ),
-                        ) ,
-                      ),
-                    )
-                  ),
-                  SizedBox(height: 5.h,),
-                   Container(
-                    // height: 150,
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey,width: 1),
-                      borderRadius: BorderRadius.all(
-                      Radius.circular(5.0) //                 <--- border radius here
-                      ),
-                      
-                    ),
-                    
-                    child: Container(
-                      color: Colors.grey[50],
-                      child: TextField(
-                        style: TextStyle(
-                          color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                        ),
-                        decoration:InputDecoration( 
-                          hintText: "Price",
-                          border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide.none,
-                        ),
-                        ) ,
-                      ),
-                     )
-                    ),
-                  SizedBox(height: 5.h,),
-                 ],
-                ),
-              )
-                
-                : activeStep == 1 ? Text("Tahir") : activeStep==2 ? Text("Maryam") : Container()
-              ],
-            ),
-            Row(
+            activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ? thirdStep() : Container(),
+           activeStep == 0 ? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // previousButton(),
-                nextButton(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: nextButton(),
+                ),
               ],
-            ),
+            ): activeStep == 1 ?Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                previousButton(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: nextButton(),
+                ),
+              ],
+            ) :Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                 mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  saveAsDraftButton(),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: publishButton(),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -242,12 +111,19 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   /// Returns the next button.
   Widget nextButton() {
     return Container(
+      height: 40.h,
+      width: 130.w,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
-        onPressed: () {
+        
+        onPressed:  () {
+          
+  
           // Increment activeStep, when the next button is tapped. However, check for upper bound.
-          if (activeStep < upperBound) {
+        if (activeStep < upperBound && _formKey.currentState!.validate()) {
+          
             setState(() {
+              
               activeStep++;
             });
           }
@@ -259,16 +135,29 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
   /// Returns the previous button.
   Widget previousButton() {
-    return ElevatedButton(
-      onPressed: () {
-        // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
-        if (activeStep > 0) {
-          setState(() {
-            activeStep--;
-          });
-        }
-      },
-      child: Text('Prev'),
+    return Container(
+       height: 40.h,
+      width: 130.w,
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                
+                textStyle: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold)),
+        onPressed: () {
+           
+          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+          if (activeStep > 0) {
+            setState(() {
+              activeStep--;
+            });
+          }
+          
+        },
+        child: Text('PREVIOUS'),
+      ),
     );
   }
 
@@ -290,10 +179,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           ),
         activeStep == 1 ?
         Text(AppString.secStep,textAlign: TextAlign.center,style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)):
-        Text(AppString.istStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
+        Text(AppString.secStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
         activeStep == 2 ?
         Text(AppString.thrStep,textAlign: TextAlign.center,style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)):
-        Text(AppString.istStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
+        Text(AppString.thrStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
 
       ],
     );
@@ -323,4 +212,410 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   //     default:
   //       return 'Introduction';
   //   }
+
+Widget istStep(){
+  return  Form(
+    key: _formKey,
+    child: Column(
+                children: [
+                
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5.h,),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal:15.0),
+                          padding: const EdgeInsets.all(3.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey,width: 1),
+                            borderRadius: BorderRadius.all(
+                            Radius.circular(5.0) //                 <--- border radius here
+                            ),
+                          ),
+                          child: ListTile(
+                            tileColor: Colors.grey[200],
+                            title: Text("Category",style: 
+                              TextStyle(
+                                fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,
+                              ),
+                            ),
+                            trailing: DropdownButton<String>(
+                            items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                            return DropdownMenuItem<String>(value: value,
+                              child: new Text(value),
+                             );
+                            }).toList(),
+                            onChanged: (_) {},
+                            ),
+                          ),
+                        ),
+                      SizedBox(height: 5.h,),
+                      Container(
+                      margin: const EdgeInsets.symmetric(horizontal:15.0),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey,width: 1),
+                        borderRadius: BorderRadius.all(
+                        Radius.circular(5.0) //                 <--- border radius here
+                        ),  
+                      ),
+                      child: ListTile(
+                        tileColor: Colors.grey[200],
+                        title: Text("Type",style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,)),
+                        trailing: DropdownButton<String>(
+                        items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                        return DropdownMenuItem<String>(value: value,
+                          child: new Text(value),
+                         );
+                        }).toList(),
+                        onChanged: (_) {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal:15.0),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey,width: 1),
+                        borderRadius: BorderRadius.all(
+                        Radius.circular(5.0) //                 <--- border radius here
+                        ),
+                        
+                      ),
+                      child: ListTile(
+                        tileColor: Colors.grey[200],
+                        title: Text("Status",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
+                        trailing: DropdownButton<String>(
+                        items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                        return DropdownMenuItem<String>(value: value,
+                          child: new Text(value),
+                         );
+                        }).toList(),
+                        onChanged: (_) {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal:15.0),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey,width: 1),
+                        borderRadius: BorderRadius.all(
+                        Radius.circular(5.0) //                 <--- border radius here
+                        ),
+                        
+                      ),
+                      child: ListTile(
+                        tileColor: Colors.grey[200],
+                        title: Text("Title",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
+                        trailing: DropdownButton<String>(
+                        items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                        return DropdownMenuItem<String>(value: value,
+                          child: new Text(value),
+                         );
+                        }).toList(),
+                        onChanged: (_) {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal:15,),
+                      color: AppColors.inPutFieldColor,
+                      child: TextFormField(
+  
+                        textAlignVertical: TextAlignVertical.top,
+                        
+                                validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                        style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
+                        decoration:InputDecoration(
+                            contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
+                          hintText: "Description",
+                          border: OutlineInputBorder(
+                            
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        ) ,
+                      ),
+                    ),
+                    SizedBox(height: 5.h,),
+                     Container(
+                       padding: EdgeInsets.symmetric(horizontal:15),
+                       child: TextFormField(
+                         validator: (value) {
+                          if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                         style: TextStyle(
+                           color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                         ),
+                         decoration:InputDecoration( 
+                           hintText: "Price",
+                           border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(10.0),
+                             borderSide: BorderSide(color: Colors.grey),
+                         ),
+                       ) ,
+                     ),
+                    ),
+                    SizedBox(height: 5.h,),
+                   ],
+                  ),
+                )
+                  
+              
+                ],
+              ),
+  );
+}
+
+Widget secondStep(){
+  return Form(
+    key: _formKey,
+    child:Column(
+      children: [
+        SizedBox(height:10.h),
+      Container(
+        margin:EdgeInsets.symmetric(horizontal: 20),
+        width: Get.width * 0.9,
+        child: CustomTextFiled(
+          hintText: AppString.fullName,
+          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+          hintColor: AppColors.inputTextColor,
+          onChanged: (value) {  },
+          onSaved: (String? newValue) {  }, 
+          onFieldSubmitted: (value) {  }, 
+          isObscure: true,
+          textController: textEditingController ,
+          validator: (value) {  
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+          },
+          errorText: 'Please Enter Full Name',  
+        ),
+        ),
+        SizedBox(height:10.h),
+        Container(
+        margin:EdgeInsets.symmetric(horizontal: 20),
+        width: Get.width * 0.9,
+        child: CustomTextFiled(
+          hintText: AppString.mobileNo,
+          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+          hintColor: AppColors.inputTextColor,
+          onChanged: (value) {  },
+          onSaved: (String? newValue) {  }, 
+          onFieldSubmitted: (value) {  }, 
+          isObscure: true,
+          textController: textEditingController ,
+          validator: (value) {  
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+          },
+          errorText: 'Please Enter Full Name',  
+        ),
+        ),
+        SizedBox(height:10.h),
+        Container(
+        margin:EdgeInsets.symmetric(horizontal: 20),
+        width: Get.width * 0.9,
+        child: CustomTextFiled(
+          hintText: AppString.telephoneNo,
+          hintStyle: TextStyle(fontSize: 13,fontWeight:FontWeight.bold),
+          hintColor: AppColors.inputTextColor,
+          onChanged: (value) {  },
+          onSaved: (String? newValue) {  }, 
+          onFieldSubmitted: (value) {  }, 
+          isObscure: true,
+          textController: textEditingController ,
+          validator: (value) {  
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+          },
+          errorText: 'Please Enter Full Name',  
+        ),
+        ),
+        SizedBox(height:10.h),
+        Container(
+        margin:EdgeInsets.symmetric(horizontal: 20),
+        width: Get.width * 0.9,
+        child: CustomTextFiled(
+          hintText: AppString.email,
+          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+          hintColor: AppColors.inputTextColor,
+          onChanged: (value) {  },
+          onSaved: (String? newValue) {  }, 
+          onFieldSubmitted: (value) {  }, 
+          isObscure: true,
+          textController: textEditingController ,
+          validator: (value) {  
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+          },
+          errorText: 'Please Enter Full Name',  
+        ),
+        ),
+        SizedBox(height:15.h),
+      ],
+    ) ,
+    );
+  } 
+  Widget thirdStep(){
+    return Column(
+      children: [
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.h,vertical: 15.h),
+          child: Image.asset(AppImages.sampleImage),
+        ),
+        
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:15.0),
+          child: Card(
+            child: Column(
+              children: [
+                Padding(
+                   padding: const EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("TITLE GOES HERE",style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                      Text("SAR 112",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20.h,),
+                          Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 20.h,),
+                           Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 10.h,),
+                        ],
+                      ),
+                    ),
+                     Expanded(
+                       flex: 2,
+                       child: Padding(
+                         padding: const EdgeInsets.only(right:25),
+                         child: Column(
+                          children: [
+                            SizedBox(height: 20.h,),
+                            Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                            Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 20.h,),
+                             Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                            Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 10.h),
+                          ],
+                        ),
+                       ),
+                     ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Card(child:Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+              SizedBox(height:5.h),
+              Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
+            ],
+          ),
+        ),
+        ),
+      ),
+      Row(children: [
+        
+      ],)
+      ],
+    );
   }
+
+  
+   Widget publishButton() {
+    return Container(
+       height: 40.h,
+      width: 130.w,
+      margin: EdgeInsets.symmetric(horizontal: 15.h),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                
+                textStyle: TextStyle(
+                fontSize: 13.w,
+                fontWeight: FontWeight.bold)),
+        onPressed: () {
+           
+          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+          // if (activeStep > 0) {
+          //   setState(() {
+          //     // activeStep--;
+          //   });
+          // }
+          
+        },
+        child: Text('PUBLISH'),
+      ),
+    );
+  }
+   Widget saveAsDraftButton() {
+    return Container(
+       height: 40.h,
+      width: 130.w,
+      margin: EdgeInsets.symmetric(horizontal: 15.h),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                
+                textStyle: TextStyle(
+                fontSize: 13.w,
+                fontWeight: FontWeight.bold)),
+        onPressed: () {
+           
+          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+          // if (activeStep > 0) {
+          //   setState(() {
+          //     activeStep--;
+          //   });
+          // }
+          
+        },
+        child: Text('SAVE AS DRAFT',textAlign: TextAlign.left,),
+      ),
+    );
+  }
+}
