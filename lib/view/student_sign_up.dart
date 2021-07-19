@@ -4,6 +4,7 @@ import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
@@ -17,19 +18,21 @@ class StudentSignUp extends StatefulWidget {
 }
 class _SignPageState extends State<StudentSignUp> {
 
-   var selectedCountry,  selectedCity , selectedRegion, selectedUniversity, selectedCollege;
+  var selectedCountry,  selectedCity , selectedRegion, selectedUniversity, selectedCollege;
 
-   late String firstName, emailSaved , mobileSaved, dobSaved;
+  late String firstName, emailSaved , mobileSaved, dobSaved;
+  var selectCountry;
+  var selectCollege;
 
-   final TextEditingController fullName =  TextEditingController();
-   final TextEditingController emailController =  TextEditingController();
-   final TextEditingController dobController =  TextEditingController();
-   final TextEditingController mobileController =  TextEditingController();
-   var selectCountry;
+  final TextEditingController nameController =  TextEditingController();
+  final TextEditingController emailController =  TextEditingController();
+  final TextEditingController dobController =  TextEditingController();
+  final TextEditingController mobileController =  TextEditingController();
 
-
+  bool rememberMe = true;
 
   final countryPut = Get.put(ContryController());
+  final signUpCont = Get.put(SignUpController());
 
   @override 
   void initState() {
@@ -37,28 +40,23 @@ class _SignPageState extends State<StudentSignUp> {
     super.initState();
   }
 
-  createUser(){
+  void createUser() {
     var json = {
-      "name":fullName,
-      'email': emailSaved,
-      "mobile":mobileSaved, 
-      "country_id":1,
-      "city_id":1,
-      "region_id":1,
-      "user_type":2,
-      "date_of_birth":dobSaved,
+      "name":nameController.text,
+      'email': emailController.text,
+      "mobile": mobileController.text, 
+      "country_id": 1,
+      "city_id": 1,
+      "region_id": 1,
+      "user_type": 2,
+      "date_of_birth": dobController.text,
       "college_id": 1,
       'university_id':1
     };
-    print(".........create user.../?@@@@@?///////,,,,,,,,                     $json");
-    Get.find<SignUpController>().createAccountData(json);
+    print(".........create user.../?@@@@@?///////,,,,,,,,         $json");
+    signUpCont.createAccountData(json);
 
   }
-
-
-  bool rememberMe = true;
-
-  
   
   @override
   Widget build(BuildContext context) {
@@ -137,10 +135,10 @@ class _SignPageState extends State<StudentSignUp> {
             ),
             space20,
             submitButton(
-              buttonText: AppString.signUp, 
               bgcolor: AppColors.appBarBackGroundColor,  
               textColor: AppColors.appBarBackGroun,
-              callback: createUser()
+              buttonText: AppString.signUp,
+              callback: createUser
             ),
             space20,
             Row(
@@ -172,9 +170,9 @@ class _SignPageState extends State<StudentSignUp> {
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  }, 
         // isObscure: true,
-        textController: fullName,
+        textController: nameController,
         onSaved: (newValue) { 
-          fullName.text = newValue!;
+          // fullName.text = newValue!;
         }, 
         validator: (value) {  }, 
         errorText: '',
@@ -192,7 +190,7 @@ class _SignPageState extends State<StudentSignUp> {
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (newValue) { 
-          emailController.text = newValue! ;
+          // emailController.text = newValue! ;
         }, 
         onFieldSubmitted: (value) {  }, 
         // isObscure: false,
@@ -217,7 +215,7 @@ class _SignPageState extends State<StudentSignUp> {
           // isObscure: false,
           textController: mobileController,
           onSaved: (String? newValue) {
-            mobileController.text = newValue!; 
+            // mobileController.text = newValue!; 
           }, 
           validator: (value) {  }, 
           errorText: '',
@@ -238,7 +236,7 @@ class _SignPageState extends State<StudentSignUp> {
         // isObscure: true,
         textController: dobController,
         onSaved: (String? newValue) { 
-          dobController.text= newValue!; 
+          // dobController.text= newValue!; 
         }, 
         validator: (value) {  }, 
         errorText: '',
@@ -273,9 +271,9 @@ class _SignPageState extends State<StudentSignUp> {
               print("...////////......value... of the countryyyyy..........>>>$value ");
               setState(() {
                 selectCountry = value;
-                // selectedCountry =  id;
+                // selectedCountry =  value['id'];
                 print("..!!!>...!!!!!!!${selectedCountry = value}");
-                // box.write('city-Id',coun['id'] );
+              
               });
             },
           )
@@ -320,7 +318,7 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
-  Widget city(citydata) {
+  Widget city( List citydata) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -413,10 +411,11 @@ class _SignPageState extends State<StudentSignUp> {
             }).toList(),
             onChanged: (value) {
               print("val;ue.............vsalue of the college ....>$value");
-              setState(() {
-                  selectedCollege =  value;
-              
-              });
+              setState(() =>
+                selectedCollege =  value!.id
+
+
+              );
             },
           )
         )
@@ -424,7 +423,8 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
+     print("../././/......$image");
     return AppButton(
       buttonText: buttonText, 
       callback: callback,
@@ -432,7 +432,11 @@ class _SignPageState extends State<StudentSignUp> {
       textColor: textColor,
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
-      fontSize: fontSize,
+      fontSize: fontSize,    
+      // borderColor: borderColor,
+      image: image,
+      // height: height,
+      width: width,  
     );
   }
 
