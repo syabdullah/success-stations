@@ -27,8 +27,8 @@ class SuccessApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SuccessStation Codility',
       theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black),
-      home:TabBarPage(),
-      // initialRoute: auth == null ?  '/login' : '/home',
+      // home:TabBarPage(),
+      initialRoute: auth == null ?  '/login' : '/tabs',
       onGenerateRoute: SuccessStationRoutes.successStationRoutes,
     );
   }

@@ -411,10 +411,9 @@ class _SignPageState extends State<StudentSignUp> {
             }).toList(),
             onChanged: (value) {
               print("val;ue.............vsalue of the college ....>$value");
-              setState(() =>
-                selectedCollege =  value!.id
-
-
+              setState(() {
+                // selectedCollege =  value!['id'].toString() ;
+              }
               );
             },
           )

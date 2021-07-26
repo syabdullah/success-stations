@@ -55,7 +55,7 @@ class AppButton extends StatelessWidget {
             )
           ),
           child:
-          //  buttonText == AppString.signIn ? 
+           buttonText == AppString.signIn ? 
            Container(
             margin:EdgeInsets.only(left:10),
             child: Text(
@@ -68,9 +68,9 @@ class AppButton extends StatelessWidget {
               ),
             ),
           )
-          // : Container(
-          //   child: Image.asset(image,fit: BoxFit.contain,)
-          // )
+          : Container(
+            child: Image.asset(image,fit: BoxFit.contain,)
+          )
         ),
       ),
     );
