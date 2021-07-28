@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 
 
@@ -9,7 +10,7 @@ import 'package:success_stations/styling/colors.dart';
       leading: IconButton(
         icon: Icon(icon,
         color: AppColors.backArrow),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Get.back()
       ),
       title: Image.asset(image, height: 40), 
       // actions: [

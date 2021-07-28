@@ -1,0 +1,395 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/styling/string.dart';
+
+class FriendProfile extends StatefulWidget {
+  _FriendProfileState createState() => _FriendProfileState();
+}
+class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveClientMixin<FriendProfile> {
+ late TabController _controller;
+  int _selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    // _controller = TabController(length: 2,vsync: this); 
+  }
+  @override
+  bool get wantKeepAlive => true;
+  @override
+  Widget build(BuildContext context) {
+    print(Get.width);
+    print(Get.height);
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: Column(
+          children: [        
+            profileDetail(),
+            tabs(),
+            general(),
+          ],
+        ),
+      ),
+    );
+  } 
+
+  Widget profileDetail() { 
+    return Stack(
+      children: [         
+        Container(
+          height: Get.height/2.5,
+          width: Get.width,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
+            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top:30),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed:() {
+                  Get.back();
+                },
+                icon: Icon(Icons.arrow_back,color: Colors.white,)
+              ),
+              Center(
+                widthFactor: 3,
+                child: Container(
+                  child: Text("PROFILE",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
+                ),
+              )
+            ],
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/6.5),
+                child: CircleAvatar(
+                  backgroundColor: Colors.red[100],
+                  child: Image.asset(AppImages.call,height: 25,)
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top:10),
+              child: Text("Maryam Cheema",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
+            ),
+             Container(
+               margin: EdgeInsets.only(top:6),
+              child: Text("Mobile Developer",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top:6),
+                  child: Image.asset(AppImages.location,height: 15)
+                ),
+                SizedBox(width:5),
+                Container(
+                  margin: EdgeInsets.only(top:6),
+                  child: Text("Codility Solutions",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget tabs() {
+    return  Wrap(
+      children: [
+        FractionalTranslation(
+          translation:  const Offset(0.5, -0.5),
+          child: 
+          Container(
+            // margin: EdgeInsets.only(left: 250),
+            child: Container(
+              height: Get.height/9*0.5,
+              width:Get.width/3.2,
+              decoration: BoxDecoration(
+                color: AppColors.appBarBackGroundColor,
+                borderRadius: BorderRadius.circular(50)
+              ),
+              child: Center(child: Text("Add Friend",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
+            ),
+          ),
+        ),
+        FractionalTranslation(
+          translation:  const Offset(0.7, -0.5),
+          child: 
+          GestureDetector(
+            // margin: EdgeInsets.only(left: 250),
+            child: Container(
+              height: Get.height/9*0.5,
+              width:Get.width/3.2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+                 border: Border.all(
+                    color: AppColors.appBarBackGroundColor,
+                    width: 2,
+                  )
+
+              ),
+              child: Center(child: Text("Message",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold))),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 30,
+          child: 
+             TabBar(
+               indicatorColor: AppColors.appBarBackGroundColor,
+               indicatorWeight: 5.0,
+              tabs: [
+                Tab(
+                  child: Text("General",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
+                ),
+                Tab(
+                  child:Text("Ads",style:TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+          
+        ),
+      ],
+    );
+  }
+  Widget general() {
+    return Expanded(
+      child: TabBarView(
+        children: [
+          ListView(
+            children: [
+              Card(
+                elevation: 2,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top:20,left: 10),
+                              child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 15,top: 5),
+                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ), 
+                            Container(
+                              
+                              margin: EdgeInsets.only(top:25),
+                              child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ),               
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top:25),
+                              child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 15,top:5),
+                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ), 
+                            Container(
+                              margin: EdgeInsets.only(top:20),
+                              child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(bottom:20,top: 5),
+                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ),               
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                elevation: 2,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top:20,left: 10),
+                              child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 15,top: 5),
+                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ), 
+                            Container(
+                              
+                              margin: EdgeInsets.only(top:25),
+                              child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ),               
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top:25),
+                              child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 15,top:5),
+                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ), 
+                            Container(
+                              margin: EdgeInsets.only(top:20),
+                              child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(bottom:20,top: 5),
+                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                            ),               
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                      child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                      child: Text("this is about textttxttxtx xttxtxtxt txtxttx txttxtxtx jdvjdfv hbcdjv  dcdsvdsbd")
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+          ads()
+        ],
+      ),
+    ); 
+  }
+
+  Widget ads() {
+    return Expanded(
+      child: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (BuildContext,index) {
+              return GestureDetector(
+                onTap: (){
+                  
+                },
+                child: Container(
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(AppImages.profileBg,height: 80,fit: BoxFit.fitHeight,)
+                        )
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.bold),),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(AppImages.location,height: 15,),
+                              SizedBox(width:5),
+                              Container(
+                                child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Image.asset(AppImages.location,height: 15,),
+                              Icon(Icons.person,color: Colors.grey),
+                              SizedBox(width:5),
+                              Container(
+                                child: Text("codility solutions"),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Align(
+                        widthFactor: Get.width < 400 ? 2.2: 3.0,
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,height:50)
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+
+                                  },
+                                child: Image.asset(AppImages.blueHeart,height: 25,)
+                                ),
+                                SizedBox(width:5),
+                                GestureDetector(
+                                  onTap: (){
+
+                                  },
+                                child: Image.asset(AppImages.call,height: 25,)
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+
+            },
+          ) , 
+    
+    );
+  }
+}

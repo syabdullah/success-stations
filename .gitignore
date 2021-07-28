@@ -63,7 +63,7 @@ ios/Pods
 ios/Podfile
 ios/Podfile.lock
 .packages
-# ios/Runner.xcodeproj/project.pbxproj
+ios/Runner.xcodeproj/project.pbxproj
 ios/.symlinks
 android/.project
 android/.settings/org.eclipse.buildship.core.prefs 
