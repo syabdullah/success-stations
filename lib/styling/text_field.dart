@@ -56,6 +56,16 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
               fillColor: AppColors.inputColor,
               filled: true,
               border: InputBorder.none,
+              errorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.outline

@@ -28,6 +28,24 @@ class AppString {
   static String signIn = 'SIGN IN';
   static String forgotPass = 'Forgot Password?';
   static String goForSignup = 'Don\'t have an account? ';
+   
+  // friend list
+
+  static String filter = 'Filter';
+  static String cancel = 'Cancel';
+  static String addFriend = 'Add Friend';
+  static String remove = 'Remove';
+  static String name = 'Name';
+  static String address = 'Address';
+  static String smester = 'Smester';
+  static String degree = 'Degree';
+
+  // ads 
+   static String cato = 'Advertising Categories';
+   static String all = 'All';
+   static String featured = 'Featured Ads';
+   static String specialOffer = 'Special Offer';
+   
 
 
 }

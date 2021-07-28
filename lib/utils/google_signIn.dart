@@ -10,7 +10,7 @@ class GoogleSignInC {
   GoogleSignIn googleSignIn = GoogleSignIn(   
     scopes: <String>[
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
+      // 'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
    
@@ -35,7 +35,7 @@ class GoogleSignInC {
               print(googleKey.accessToken);
               print(googleKey.idToken);
               if(googleKey.accessToken != null) {
-                Get.toNamed('/home');
+                Get.toNamed('/tabs');
               }
               // print(googleSignIn.currentUser.displayName);
         }).catchError((err){

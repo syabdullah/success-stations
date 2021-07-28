@@ -35,6 +35,10 @@ dependencies:
   flutter_login_facebook: ^1.0.1
   http: ^0.13.3
   font_awesome_flutter: ^9.1.0
+<<<<<<< HEAD
+=======
+  carousel_slider: ^4.0.0
+>>>>>>> 89f3d421bbad2ffa71082e53882ac5ad647d4a7f
 
 dev_dependencies:
   flutter_test:
