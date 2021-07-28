@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/tab_bar.dart';
-
+import 'package:success_stations/view/auth/country.dart';
+import 'package:success_stations/view/auth/forgot/reset_password.dart';
+import 'package:success_stations/view/auth/language.dart';
 var auth;
 
 void main() async {
@@ -27,9 +28,10 @@ class SuccessApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SuccessStation Codility',
       theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black),
-      // home:TabBarPage(),
-      initialRoute: auth == null ?  '/login' : '/tabs',
+      
+      initialRoute: auth == null ?  '/langua' : '/home',
       onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+      // home: Ccountry(),
     );
   }
 }

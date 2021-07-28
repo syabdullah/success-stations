@@ -10,6 +10,7 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/facebook_signIn.dart';
 import 'package:success_stations/utils/google_signIn.dart';
+import 'package:success_stations/view/auth/tab_bar.dart';
 
 class SignIn extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
@@ -73,6 +74,7 @@ class _SignPageState extends State<SignIn> {
                     SizedBox(height:10),
                     GestureDetector(
                       onTap: () {
+                        Navigator.pushNamed(context, '/forgotPass');
 
                       },
                       child: Container(
@@ -175,7 +177,7 @@ class _SignPageState extends State<SignIn> {
           Text(AppString.goForSignup),
           GestureDetector(
             onTap: (){
-              // Get.toNamed('/');
+              Get.to(TabBarPage());
             },
             child: Text(AppString.signUp,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
           ),
@@ -185,7 +187,6 @@ class _SignPageState extends State<SignIn> {
   }
 
    Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
-     print("../././/......$image");
     return AppButton(
       buttonText: buttonText, 
       callback: callback,
