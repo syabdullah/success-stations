@@ -35,7 +35,7 @@ class GoogleSignInC {
               print(googleKey.accessToken);
               print(googleKey.idToken);
               if(googleKey.accessToken != null) {
-                Get.toNamed('/home');
+                Get.toNamed('/tabs');
               }
               // print(googleSignIn.currentUser.displayName);
         }).catchError((err){

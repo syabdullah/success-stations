@@ -104,7 +104,7 @@ class _SignPageState extends State<SignIn> {
                         SizedBox(width:20),
                         submitButton( 
                           textColor: AppColors.google,
-                          buttonText: AppString.google,
+                          buttonText: AppString.facebook,
                           borderColor: AppColors.google,
                           callback: navigateToGoogleLogin,
                           width: Get.width/2.3,
@@ -194,9 +194,7 @@ class _SignPageState extends State<SignIn> {
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
       fontSize: fontSize,    
-      // borderColor: borderColor,
       image: image,
-      // height: height,
       width: width,  
     );
   }
