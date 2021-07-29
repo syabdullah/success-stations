@@ -19,4 +19,5 @@ class AppColors {
   static Color google = Color(0xFFA09D9E);
   //forrgort
   static Color forgotPassText = Color(0xFF918D8D);
+  static Color grey = Color(0xFFBDBDBD);
 }

@@ -30,7 +30,8 @@ class CustomTextFiled extends StatefulWidget {
       this.autoFocus = false,
       required this.validator,
       required this.onSaved,
-      this.hintStyle
+      this.hintStyle,
+
     }
   );
   @override

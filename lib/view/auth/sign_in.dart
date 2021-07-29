@@ -177,7 +177,8 @@ class _SignPageState extends State<SignIn> {
           Text(AppString.goForSignup),
           GestureDetector(
             onTap: (){
-              Get.to(TabBarPage());
+              print("ontap itmemmm.....>!!!");
+             Navigator.pushNamed(context, '/signUp');
             },
             child: Text(AppString.signUp,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
           ),
@@ -204,7 +205,7 @@ class _SignPageState extends State<SignIn> {
     GoogleSignInC().handleSignIn();
   }
   void navigateToGoogleFaceBook() {
-    FaceBookSignIn().login();
+    // FaceBookSignIn().login();
   }
 }
  

@@ -34,7 +34,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
     // final space10 = SizedBox(height: getSize(10, context));
     return  Scaffold(
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar('',Icons.arrow_back_ios, AppImages.appBarLogo )),
+      child: appbar('', AppImages.appBarLogo, AppImages.appBarLogo )),
       body: Column(
         children: [
           Expanded(
