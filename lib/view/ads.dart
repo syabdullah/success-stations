@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 
 
@@ -25,55 +28,59 @@ class _AdsViewState extends State<AdsView> {
   
   @override
   Widget build(BuildContext context) {
+    print("........${Get.width}");
     return ListView(
-      padding: EdgeInsets.symmetric(horizontal:15),
+      padding: EdgeInsets.symmetric(horizontal:20),
       children: [
          carosalImage(),
-         text(AppString.cato,AppString.all)
-         
+         text(AppString.cato,AppString.all),
+         advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,),
+         text(AppString.featured,AppString.all),  
+         featuredAdsList(),
+         text(AppString.specialOffer,AppString.all),
+         advertisingList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,),
       ],
     );
   }
 
   Widget carosalImage() {
-    return Expanded(
-      child: Column(
-        children: [
-          CarouselSlider(
-            items: imageSliders,
-            carouselController: _controller,
-            options: CarouselOptions(
-              autoPlay: true,
-              enlargeCenterPage: true,
-              aspectRatio: 2.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }
-            ),
+    return Column(
+      children: [
+        CarouselSlider(
+          items: imageSliders,
+          carouselController: _controller,
+          options: CarouselOptions(
+            viewportFraction: Get.width < 420 ? 0.9*1.1: 0.9*2,
+            // autoPlay: true,
+            // enlargeCenterPage: true,
+            aspectRatio: 1.8,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _current = index;
+              });
+            }
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: imgList.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: 20.0,
-                  height: 4.0,
-                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: (Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : AppColors.appBarBackGroundColor)
-                        .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: imgList.asMap().entries.map((entry) {
+            return GestureDetector(
+              onTap: () => _controller.animateToPage(entry.key),
+              child: Container(
+                width: 20.0,
+                height: 4.0,
+                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: (Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : AppColors.appBarBackGroundColor)
+                      .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );     
   }
 
@@ -82,14 +89,130 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          child: Text(text1)
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
+          )
         ),
         Container(
-          child: Text(text2)
+          margin: EdgeInsets.only(right:10),
+          child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
         )
       ],
     );
   }
+
+  advertisingList(conHeight,imageW,imageH) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical:15),
+        height: conHeight,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 10,
+          itemBuilder: (BuildContext,index) {
+            return Column(
+              children: [
+                Card(
+                  elevation: 3,
+                  shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      width: imageW,
+                      height: imageH,
+                      child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text("Category1",style: TextStyle(color: AppColors.grey)),
+                )
+              ],
+            );
+          }
+        ),
+      )
+    );
+  }
+
+  featuredAdsList() {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical:15),
+        height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (BuildContext,index) {
+            return 
+            Card(
+              elevation: 1,
+              shape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                    child: Container(
+                      width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
+                      height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                      child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top:6,left: 10),
+                    child: Text(AppString.titleHere,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
+                  ),
+                  Container(
+                    width: Get.width/2.3,
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top:6,left: 10),
+                          child: Image.asset(AppImages.location,height: 15)
+                        ),
+                        SizedBox(width:5),
+                        Container(
+                          margin: EdgeInsets.only(top:6),
+                          child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        ),
+                        Spacer(flex: 2),
+                        Container(
+                           margin: EdgeInsets.only(right:6),
+                          child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        )
+                      ],
+                    ),
+                  ),  
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top:6,left: 5),
+                        child: Icon(Icons.person,color:AppColors.grey),
+                        // child: Image.asset(AppImages.location,height: 15)
+                      ),
+                      SizedBox(width:5),
+                      Container(
+                        margin: EdgeInsets.only(top:6),
+                        child: Text("Username",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                      ),
+                    ],
+                  ),               
+                ],
+              ),
+            );
+          }
+        ),
+      )
+    );
+  }
+
 }
 
 final List<Widget> imageSliders = imgList

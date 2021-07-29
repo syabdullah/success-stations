@@ -45,6 +45,7 @@ class AppString {
    static String all = 'All';
    static String featured = 'Featured Ads';
    static String specialOffer = 'Special Offer';
+   static String titleHere = 'Title Here';
    
 
 
