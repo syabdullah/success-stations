@@ -6,12 +6,46 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 
-class SignUp extends StatefulWidget {
-  _SignPageState createState() => _SignPageState();
+class CompanySignUp extends StatefulWidget {
+
+  final val;
+
+  CompanySignUp({this.val});
+
+  _CompanySignPageState createState() => _CompanySignPageState();
 }
-class _SignPageState extends State<SignUp> {
+class _CompanySignPageState extends State<CompanySignUp> {
 
   bool rememberMe = true;
+
+  var valueRadio; 
+  
+  var v = 1;
+
+   List<GroupModel> _group = [
+    GroupModel(
+      text: ' Individual',
+      index:1 
+    ),
+    GroupModel(
+      text: 'Company',
+      index:2 
+    ),
+  ];
+  
+
+  @override 
+  void initState() {
+    super.initState();
+    // setState(() {
+    //   valueRadio =  widget.val;
+    //   if(valueRadio['gender'] == 'female') {
+    //     setState(() {
+    //       v = 2;
+    //     });
+    //   }
+    // });
+  }
 
   TextEditingController fulNameController = TextEditingController();
   @override
@@ -35,9 +69,13 @@ class _SignPageState extends State<SignUp> {
             space10,
             city(),
             space10,
-            university(),
+            radioalert(),
+            
+            iqama(),
             space10,
-            college(),
+            responsible(),
+            space10,
+            mobileNumber(),
             space10,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +144,7 @@ class _SignPageState extends State<SignUp> {
     );
   }
 
-   Widget eMail() { 
+   Widget eMail() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -239,6 +277,63 @@ class _SignPageState extends State<SignUp> {
     );
   }
 
+  Widget iqama() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        hintText: AppString.idIqama,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onSaved: (String? newValue) {  }, 
+        onFieldSubmitted: (value) {  }, 
+        // isObscure: true,
+        textController: fulNameController,
+        validator: (value) {  }, 
+        errorText: '',
+      ),
+    );
+  }
+
+  Widget responsible() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        hintText: AppString.response,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onSaved: (String? newValue) {  }, 
+        onFieldSubmitted: (value) {  }, 
+        // isObscure: true,
+        textController: fulNameController,
+        validator: (value) {  }, 
+        errorText: '',
+      ),
+    );
+  }
+
+  Widget mobileNumber() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        hintText: AppString.mobNum,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onSaved: (String? newValue) {  }, 
+        onFieldSubmitted: (value) {  }, 
+        // isObscure: true,
+        textController: fulNameController,
+        validator: (value) {  }, 
+        errorText: '',
+      ),
+    );
+  }
+
    Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
     return AppButton(
       buttonText: buttonText, 
@@ -253,8 +348,38 @@ class _SignPageState extends State<SignUp> {
     );
   }
 
+  radioalert() {
+    return 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _group.map((t) => 
+          Expanded(
+            child: RadioListTile(
+              title: Text(t.text),
+              value: t.index,
+              groupValue: v,
+              activeColor: Colors.blue,
+              onChanged: (value) {
+                // setState(() {
+                //   **_radioSelected = value;
+                //   _radioVal = 'male';**
+                // });
+              },
+            ),
+          )).toList()
+          );
+      
+
+  }
+
   // void navigateToHomeScreen() {
   //   PageUtils.pushPage(SignupOption());
   // }
+}
+
+class GroupModel {
+  String text;
+  int index;
+  GroupModel({required this.text, required this.index});
 }
 

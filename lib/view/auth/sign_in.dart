@@ -47,7 +47,8 @@ class _SignPageState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Center(
+      body: Obx(() {
+      return Center(
         child: ListView(
           children: [
             Center(
@@ -64,6 +65,11 @@ class _SignPageState extends State<SignIn> {
                     eMail(),
                     SizedBox(height:10),
                     passwordW(),
+                   loginCont.resultInvalid.isTrue ? Container(
+                     child: Container(
+                       child: Text("Invalid login credentials.Please try again."),
+                     ),
+                   ):Container(),
                     SizedBox(height:10),
                     GestureDetector(
                       onTap: () {
@@ -81,7 +87,6 @@ class _SignPageState extends State<SignIn> {
                       buttonText: AppString.signIn,
                       callback: signIn
                     ),
-                    // SizedBox(height:Get.height/10.5*0.5),
                     Container(
                       margin: EdgeInsets.only(top:10,bottom:10),
                       child: Text("OR"),
@@ -90,18 +95,16 @@ class _SignPageState extends State<SignIn> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         submitButton(
-                          // bgcolor: AppColors.facebook,  
                           textColor: AppColors.appBarBackGroun,
                           buttonText: AppString.facebook,
-                          // callback: navigateToGoogleFaceBook,
+                          callback: navigateToGoogleFaceBook,
                           width: Get.width/2.3,
                           image: AppImages.fb
                         ),
                         SizedBox(width:20),
-                        submitButton(
-                          bgcolor: AppColors.appBarBackGroun,  
+                        submitButton( 
                           textColor: AppColors.google,
-                          buttonText: AppString.google,
+                          buttonText: AppString.facebook,
                           borderColor: AppColors.google,
                           callback: navigateToGoogleLogin,
                           width: Get.width/2.3,
@@ -116,7 +119,9 @@ class _SignPageState extends State<SignIn> {
             )
           ],
         ),
-      ),
+      );
+      }
+      )
     );
   }
 
@@ -131,9 +136,8 @@ class _SignPageState extends State<SignIn> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 
         onFieldSubmitted: (value) {  }, 
-        isObscure: false,
         textController: fulNameController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        validator: (value) => value == '' ?  'Email Required' :  !GetUtils.isEmail(value)  ? 'Enter valid Email':null,
         errorText: '',
       ),
     );
@@ -150,10 +154,9 @@ class _SignPageState extends State<SignIn> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 
         onFieldSubmitted: (value) {  }, 
-        isObscure: true,
         textController: password,
         validator: (val) => val == ''
-          ? 'Password is required' :
+          ? 'Enter a Password ' :
             val.length < 4
           ? 'Password too short'
           : null,
@@ -191,9 +194,7 @@ class _SignPageState extends State<SignIn> {
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
       fontSize: fontSize,    
-      // borderColor: borderColor,
       image: image,
-      // height: height,
       width: width,  
     );
   }
@@ -201,8 +202,8 @@ class _SignPageState extends State<SignIn> {
     void navigateToGoogleLogin() {
     GoogleSignInC().handleSignIn();
   }
-  // void navigateToGoogleFaceBook() {
-  //   FaceBookSignIn().login();
-  // }
+  void navigateToGoogleFaceBook() {
+    // FaceBookSignIn().login();
+  }
 }
  

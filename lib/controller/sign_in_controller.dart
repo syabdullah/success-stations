@@ -6,9 +6,10 @@ import 'package:success_stations/action/sign_in_action.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();
-  var logindata;
+  var logindata = [].obs;
   var subDom;
   var result = true;
+   var resultInvalid = false.obs;
    RxBool isLoading = false.obs;
   loginUserdata(data) async {
     isLoading(true);

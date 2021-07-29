@@ -63,34 +63,36 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               onStepReached: (index) {
                 setState(() {
                   activeStep = index;
-                });
+                }
+              );
               },
             ),
             header(),
             activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container(),
-           activeStep == 0 ? Row(
+            activeStep == 0 ? Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // previousButton(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: nextButton(),
                 ),
               ],
-            ): activeStep == 1 ?Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
+              ): activeStep == 1 ?
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                 previousButton(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: nextButton(),
                 ),
-              ],
-            ) :Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+               ],
+              ):
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
                   saveAsDraftButton(),
                   Expanded(
                     child: Padding(
@@ -105,7 +107,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
         ),
       ),
     );
-    
   }
 
   /// Returns the next button.
@@ -121,7 +122,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               activeStep++;
             });
           }
-        },
+         },
         child: Text('Next'),
       ),
     );
@@ -140,7 +141,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
          fontSize: 15,
          fontWeight: FontWeight.bold)),
          onPressed: () {
-           //Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
           if (activeStep > 0) {
             setState(() {
               activeStep--;
@@ -169,12 +169,19 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             )
           ),
         activeStep == 1 ?
-        Text(AppString.secStep,textAlign: TextAlign.center,style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)):
-        Text(AppString.secStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
+        Text(AppString.secStep,textAlign: TextAlign.center,
+          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+        ):
+        Text(AppString.secStep,textAlign: TextAlign.center, 
+          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
+        ),
         activeStep == 2 ?
-        Text(AppString.thrStep,textAlign: TextAlign.center,style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)):
-        Text(AppString.thrStep,textAlign: TextAlign.center, style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
-
+        Text(AppString.thrStep,textAlign: TextAlign.center,
+          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+        ):
+        Text(AppString.thrStep,textAlign: TextAlign.center, 
+          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
+        ),
       ],
     );
   }
@@ -219,8 +226,8 @@ Widget istStep(){
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey,width: 1),
                   borderRadius: BorderRadius.all(
-                  Radius.circular(5.0) //                 <--- border radius here
-                  ),
+                    Radius.circular(5.0) //                 <--- border radius here
+                    ),
                 ),
                 child: ListTile(
                   tileColor: Colors.grey[200],
@@ -251,7 +258,9 @@ Widget istStep(){
             ),
             child: ListTile(
               tileColor: Colors.grey[200],
-              title: Text("Type",style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,)),
+              title: Text("Type",
+                style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,)
+              ),
               trailing: DropdownButton<String>(
               items: <String>['A', 'B', 'C', 'D'].map((String value) {
               return DropdownMenuItem<String>(value: value,
@@ -261,107 +270,105 @@ Widget istStep(){
               onChanged: (_) {},
               ),
             ),
-          ),
-                SizedBox(height: 5.h,),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal:15.0),
-                  padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey,width: 1),
-                    borderRadius: BorderRadius.all(
-                    Radius.circular(5.0) //                 <--- border radius here
-                    ),
-                    
-                  ),
-                  child: ListTile(
-                    tileColor: Colors.grey[200],
-                    title: Text("Status",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-                    trailing: DropdownButton<String>(
-                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                    return DropdownMenuItem<String>(value: value,
-                      child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                    ),
-                  ),
-                ),
-                SizedBox(height: 5.h,),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal:15.0),
-                  padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey,width: 1),
-                    borderRadius: BorderRadius.all(
-                    Radius.circular(5.0) //                 <--- border radius here
-                    ),
-                    
-                  ),
-                  child: ListTile(
-                    tileColor: Colors.grey[200],
-                    title: Text("Title",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-                    trailing: DropdownButton<String>(
-                    items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                    return DropdownMenuItem<String>(value: value,
-                      child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
-                    ),
-                  ),
-                ),
-                SizedBox(height: 5.h,),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal:15,),
-                  color: AppColors.inPutFieldColor,
-                  child: TextFormField(
-                    textAlignVertical: TextAlignVertical.top,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
-                    decoration:InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
-                      hintText: "Description",
-                      border: OutlineInputBorder( 
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    ) ,
-                  ),
-                ),
-                SizedBox(height: 5.h,),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal:15),
-                  child: TextFormField(
-                    validator: (value) {
-                    if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                      color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                    ),
-                    decoration:InputDecoration( 
-                      hintText: "Price",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(color: Colors.grey),
-                    ),
-                  ) ,
-                ),
+           ),
+           SizedBox(height: 5.h,),
+           Container(
+             margin: const EdgeInsets.symmetric(horizontal:15.0),
+             padding: const EdgeInsets.all(3.0),
+             decoration: BoxDecoration(
+               border: Border.all(color: Colors.grey,width: 1),
+               borderRadius: BorderRadius.all(
+               Radius.circular(5.0) //                 <--- border radius here
               ),
-              SizedBox(height: 5.h,),
-            ],
+            ),
+            child: ListTile(
+              tileColor: Colors.grey[200],
+              title: Text("Status",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
+              trailing: DropdownButton<String>(
+              items: <String>['A', 'B', 'C', 'D'].map((String value) {
+              return DropdownMenuItem<String>(value: value,
+                child: new Text(value),
+                );
+              }).toList(),
+              onChanged: (_) {},
+              ),
+            ),
+           ),
+           SizedBox(height: 5.h,),
+           Container(
+             margin: const EdgeInsets.symmetric(horizontal:15.0),
+             padding: const EdgeInsets.all(3.0),
+             decoration: BoxDecoration(
+               border: Border.all(color: Colors.grey,width: 1),
+               borderRadius: BorderRadius.all(
+               Radius.circular(5.0) //                 <--- border radius here
+              ),
+            ),
+            child: ListTile(
+              tileColor: Colors.grey[200],
+              title: Text("Title",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
+              trailing: DropdownButton<String>(
+              items: <String>['A', 'B', 'C', 'D'].map((String value) {
+              return DropdownMenuItem<String>(value: value,
+                child: new Text(value),
+                );
+                }).toList(),
+                onChanged: (_) {},
+              ),
+            ),
           ),
-        )
-      ],
-    ),
-  );
+          SizedBox(height: 5.h,),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal:15,),
+            color: AppColors.inPutFieldColor,
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
+              decoration:InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
+                hintText: "Description",
+                border: OutlineInputBorder( 
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              ) ,
+            ),
+           ),
+            SizedBox(height: 5.h,),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText: "Price",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
+              ) ,
+            ),
+           ),
+           SizedBox(height: 5.h,),
+          ],
+        ),
+      )
+    ],
+  ),
+);
 }
 
 Widget secondStep(){
@@ -380,7 +387,7 @@ Widget secondStep(){
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
-          isObscure: true,
+          // isObscure: true,
           textController: textEditingController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
@@ -401,7 +408,7 @@ Widget secondStep(){
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
-          isObscure: true,
+          // isObscure: true,
           textController: textEditingController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
@@ -422,7 +429,7 @@ Widget secondStep(){
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
-          isObscure: true,
+          // isObscure: true,
           textController: textEditingController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
@@ -443,7 +450,7 @@ Widget secondStep(){
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
-          isObscure: true,
+          // isObscure: true,
           textController: textEditingController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {

@@ -4,7 +4,7 @@ class CustomTextFiled extends StatefulWidget {
   final String hintText;
   final hintStyle;
   final String errorText;
-  final bool isObscure;
+  // final bool isObscure;
   final bool isIcon;
   final TextEditingController textController;
   final EdgeInsets padding;
@@ -21,7 +21,7 @@ class CustomTextFiled extends StatefulWidget {
     {
       this.hintText ='',
       required this.errorText,
-      required this.isObscure ,
+      // required this.isObscure ,
       required this.textController,
       this.isIcon = true,
       this.padding = const EdgeInsets.all(0),
@@ -53,12 +53,22 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,
             validator: widget.validator,
-            obscureText: widget.isObscure,
+            // obscureText: widget.isObscure,
             onSaved: widget.onSaved,
             decoration: InputDecoration(
               fillColor: AppColors.inputColor,
               filled: true,
               border: InputBorder.none,
+              errorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.outline

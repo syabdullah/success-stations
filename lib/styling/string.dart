@@ -1,4 +1,5 @@
 class AppString {
+  //company/Student signUp
   static String fullName = 'Full Name';
   static String email = 'E-mail';
   static String mobile = 'Mobile';
@@ -29,6 +30,15 @@ class AppString {
   // static String details = 'DETAILS';
 
   static String signUp = 'SIGN UP';
+  // static String termServices = 'I agree to the';
+  // static String signUp = 'SIGN UP';
+  static String idIqama = 'ID/ Iqama';
+  static String response = 'Responsible';
+  static String mobNum = 'Mobile Number';
+  static String accType = 'Account Type :';
+  static String dob = 'Date Of Birth';
+
+  
   static String existAccount = 'Do you have and account?';
   static String termCondition = ' Terms and Conditions';
 
@@ -58,6 +68,27 @@ class AppString {
   static String adress = 'ADRESS';
   static String mobilec = 'MOBILE';
    static String emailc = 'EMAIL';
+   
+  // friend list
+
+  static String filter = 'Filter';
+  static String cancel = 'Cancel';
+  static String addFriend = 'Add Friend';
+  static String remove = 'Remove';
+  static String name = 'Name';
+  static String address = 'Address';
+  static String smester = 'Smester';
+  static String degree = 'Degree';
+
+  // ads 
+   static String cato = 'Advertising Categories';
+   static String all = 'All';
+   static String featured = 'Featured Ads';
+   static String specialOffer = 'Special Offer';
+   static String lastOffer = 'Last Offers';
+   static String lastAds = 'Last Ads';
+   static String lastLocations = 'Last Locations';
+   
 
 
 }

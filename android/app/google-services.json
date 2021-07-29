@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "958707106290-3fc8fdv4j2cplnnpsvnnj6vh0alqh3s2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codility.success_stations",
+            "certificate_hash": "a3748ffd11ab3a04ba91674faefc79a0c19cd1bb"
+          }
+        },
+        {
           "client_id": "958707106290-blherc872ig41kksa7sg5v27ij9tmjsv.apps.googleusercontent.com",
           "client_type": 3
         }

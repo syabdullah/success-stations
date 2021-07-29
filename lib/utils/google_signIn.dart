@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:success_stations/view/auth/sign_up.dart';
+import 'package:success_stations/view/student_sign_up.dart';
 
 class GoogleSignInC {
   GetStorage dataStore = GetStorage();
@@ -10,7 +10,7 @@ class GoogleSignInC {
   GoogleSignIn googleSignIn = GoogleSignIn(   
     scopes: <String>[
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
+      // 'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
    
@@ -35,7 +35,7 @@ class GoogleSignInC {
               print(googleKey.accessToken);
               print(googleKey.idToken);
               if(googleKey.accessToken != null) {
-                Get.toNamed('/home');
+                Get.toNamed('/tabs');
               }
               // print(googleSignIn.currentUser.displayName);
         }).catchError((err){
@@ -43,7 +43,7 @@ class GoogleSignInC {
         });
       } 
       );
-      Get.to(SignUp());
+      Get.to(StudentSignUp());
     } catch (error) {
       print(error);
     }

@@ -6,6 +6,8 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/ad_views/about_tab.dart';
+import 'package:success_stations/view/ad_views/add_offer_tab.dart';
+import 'package:success_stations/view/ad_views/location_tab.dart';
 
 class AdViewTab extends StatefulWidget {
   
@@ -24,51 +26,30 @@ class _AdViewTabState extends State<AdViewTab>
     Tab(text: 'Location'),
     Tab(text: 'Ads'),
   ];
-
-  // TabController ? _tabController;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _tabController = TabController(vsync: this, length: myTabs.length);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _tabController!.dispose();
-  //   super.dispose();
-  // }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length:  myTabs.length,
       child: Scaffold(
-        // appBar:TabBar(
-        //     labelColor: AppColors.appBarBackGroundColor,
-        //     unselectedLabelColor: AppColors.inputTextColor,
-        //     controller: _tabController,
-        //     tabs: myTabs,
-        //   ),
-        
         body: NestedScrollView(
-           headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled){
-                  return [
-                  SliverToBoxAdapter(child:topImage())];
-                },
+          headerSliverBuilder:
+            (BuildContext context, bool innerBoxIsScrolled){
+              return [
+                SliverToBoxAdapter(child:topImage()
+              )
+            ];
+          },
           body: Container(
             height: Get.height,
             child: Column(
               children: [
-                
                 SizedBox(height: 50.h),
                 TabBar(
-              labelColor: AppColors.appBarBackGroundColor,
-              unselectedLabelColor: AppColors.inputTextColor,
-              // controller: _tabController,
-              tabs: myTabs,
-            ),
-             tabBarView()
+                labelColor: AppColors.appBarBackGroundColor,
+                unselectedLabelColor: AppColors.inputTextColor,
+                tabs: myTabs,
+               ),
+              tabBarView()
              ],
             ),
           ),
@@ -82,12 +63,13 @@ class _AdViewTabState extends State<AdViewTab>
 Widget topImage(){
   return Stack(
     children: [
-      
-      ClipRRect( 
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),bottomRight: Radius.circular(20.0)),
-        child: Image.asset(AppImages.topImage,fit: BoxFit.fill,)
+      Container(
+        width: Get.width,
+        child: ClipRRect( 
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),bottomRight: Radius.circular(20.0)),
+          child: Image.asset(AppImages.topImage,fit: BoxFit.fill,)
+        ),
       ),
-     
       Column(
         children: [
           Container(
@@ -97,15 +79,15 @@ Widget topImage(){
                  Image.asset(AppImages.arrowBack),
                  Center(
                    widthFactor:4,
-                   child: Text("TED LIBRARY",style:AppTextStyles.appTextStyle(
-                      fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
-                ),
+                   child: Text("TED LIBRARY",
+                   style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
+                  ),
                  ),
               ],
             ),
           ),
-          Text("Edwardian House Library,Screening \n mainstreaming loerm films ",textAlign: TextAlign.center,style:AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
+          Text("Edwardian House Library,Screening \n mainstreaming loerm films ",textAlign: TextAlign.center,
+            style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
           ),
         ],
       ),
@@ -129,8 +111,8 @@ Widget tabBarView(){
   return Expanded(
     child: TabBarView(children: [
      AboutTab(),
-      Text("1"),
-      Text("1"),
+     AdOffers(),
+     LocationTab(),
       Text("1")
     ]),
   );

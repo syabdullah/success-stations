@@ -38,6 +38,7 @@ class AppButton extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
+    print(buttonText);
     return Center(
       child: GestureDetector(
         onTap: callback,
@@ -56,6 +57,7 @@ class AppButton extends StatelessWidget {
           ),
           child:
            buttonText == AppString.signIn ? 
+           buttonText != AppString.facebook ? 
            Container(
             margin:EdgeInsets.only(left:10),
             child: Text(
@@ -68,6 +70,8 @@ class AppButton extends StatelessWidget {
               ),
             ),
           ): Container(
+          )
+          : Container(
             child: Image.asset(image,fit: BoxFit.contain,)
           )
         ),
