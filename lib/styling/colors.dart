@@ -16,4 +16,5 @@ class AppColors {
 
   static Color facebook = Color(0xFF3A5CA9);
   static Color google = Color(0xFFA09D9E);
+  static Color grey = Color(0xFFBDBDBD);
 }

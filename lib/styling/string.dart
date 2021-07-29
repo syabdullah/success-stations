@@ -85,6 +85,7 @@ class AppString {
    static String all = 'All';
    static String featured = 'Featured Ads';
    static String specialOffer = 'Special Offer';
+   static String titleHere = 'Title Here';
    static String lastOffer = 'Last Offers';
    static String lastAds = 'Last Ads';
    static String lastLocations = 'Last Locations';

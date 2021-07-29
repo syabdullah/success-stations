@@ -9,11 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
       centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.only(top:10.0),
-      //   child: IconButton(
-      //     icon: Icon(icon,
-      //     color: AppColors.backArrow),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
+        child: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: AppColors.backArrow),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       //
        ),
       title: Padding(
@@ -24,7 +24,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
         Padding(
           padding: const EdgeInsets.only(top:12.0,right: 10,),
           child: Image.asset(
-           AppImages.appBarSearch,color: Colors.white,width: 25.w,
+             searchImage,color: Colors.white,width: 20.w,
           ),
         )
       ],
