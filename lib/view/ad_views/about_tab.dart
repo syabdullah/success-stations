@@ -219,9 +219,115 @@ Widget lastAds(){
    ),
  );
 }
+// Widget lastLocations(){
+//   return Container(
+//     margin: EdgeInsets.symmetric(vertical:15),
+//     height: Get.height/4,
+//     child: ListView.builder(
+//       scrollDirection: Axis.horizontal,
+//       itemCount: 10,
+//       // ignore: non_constant_identifier_names
+//       itemBuilder: (BuildContext,index) {
+//         return Card(
+//           elevation: 3,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(15.0),
+//           ),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               ClipRRect(
+//                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+//                 child: Container(
+//                   width: Get.width/2.3,
+//                   height: Get.height/7.5,
+//                   child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
+//                 ),
+//               ),
+//              Container(
+//               margin: EdgeInsets.only(top: 7),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                 children: [
+//                   Row(
+//                     children: [
+//                       RatingBar.builder(
+//                         initialRating: 3,
+//                         minRating: 1,
+//                         direction: Axis.horizontal,
+//                         allowHalfRating: true,
+//                         itemCount: 5,
+//                         itemSize: 13,
+//                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+//                         itemBuilder: (context, _) => Icon(
+//                           Icons.star,
+//                           color: Colors.amber,
+//                         ),
+//                         onRatingUpdate: (rating) {
+//                           print(rating);
+//                         },
+//                       ),
+//                       Container(
+//                         child: Text(
+//                           '(567)',
+//                           style: TextStyle(
+//                             fontSize: 10,
+//                             color: Colors.grey,
+//                             fontWeight:FontWeight.normal
+//                           ),
+//                         ),
+//                       ),
+                      
+//                     ],
+//                   ),
+//                   PopupMenuButton<int>(
+//                     icon: Icon(Icons.more_vert),
+//                     onSelected: (int item) => handleClick(item),
+//                     itemBuilder: (context) => [
+//                       PopupMenuItem<int>(value: 0, child: Text('Logout')),
+//                       PopupMenuItem<int>(value: 1, child: Text('Settings')),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//              ),
+//             Container(
+//               margin: EdgeInsets.only(left:9,right: 2),
+//               width: Get.width/2.55,
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Row(children: [
+//                     Row(
+//                       children: [
+//                         Text("Zealot Utopia",
+//                           style: TextStyle(
+//                             color: Colors.grey[900],
+//                             fontSize: 13,
+//                             fontWeight: FontWeight.bold
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(height: 8),
+//                   ]
+//               ),
+//                 Image.asset(AppImages.heart),
+//               ],
+//             ),
+//             ),
+//             // SizedBox(height: 6,),
+            
+//          ],
+//        ),
+//      );
+//     }
+//    ),
+//  );
+// }
 Widget lastLocations(){
   return Container(
-    margin: EdgeInsets.symmetric(vertical:15),
+    // margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -244,78 +350,63 @@ Widget lastLocations(){
                   child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
                 ),
               ),
-             Container(
-              margin: EdgeInsets.only(left:3.5,top: 7),
-              child: Row(
-                children: [
-                  RatingBar.builder(
-                    initialRating: 3,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 13,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                    },
-                  ),
-                  Container(
-                    
-                    child: Text(
-                      '(567)',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.grey,
-                        fontWeight:FontWeight.normal
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin:EdgeInsets.only(left:4),
-                    child: PopupMenuButton<int>(
-                      icon: Icon(Icons.more_vert),
-                      onSelected: (int item) => handleClick(item),
-                      itemBuilder: (context) => [
-                        PopupMenuItem<int>(value: 0, child: Text('Logout')),
-                        PopupMenuItem<int>(value: 1, child: Text('Settings')),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-             ),
             Container(
-              margin: EdgeInsets.only(left:9,right: 4),
-              width: Get.width/2.8,
+              margin: EdgeInsets.only(left:9,),
+              width: Get.width/2.5,
+              child: Container(
+                 width: Get.width/2.5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 13.5,
+                      // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                  SizedBox(width: 2,),
+                  Text("(657)",
+                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                   ),
+                   Spacer(flex:2),
+                   PopupMenuButton<int>(
+                  icon: Icon(Icons.more_vert),
+                  onSelected: (int item) => handleClick(item),
+                  itemBuilder: (context) => [
+                    PopupMenuItem<int>(value: 0, child: Text('Logout')),
+                    PopupMenuItem<int>(value: 1, child: Text('Settings')),
+                  ],
+                ),
+                 ]
+                ),
+              ),
+            ),
+            Container(
+               margin: EdgeInsets.only(left:10),
+              width: Get.width/3,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(children: [
-                    Row(
-                      children: [
-                        Text("Zealot Utopia",
-                          style: TextStyle(
-                            color: Colors.grey[900],
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
+                    Text("Zealot Ulotpia",
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
                     ),
-                    SizedBox(height: 8),
                   ]
-              ),
-                Image.asset(AppImages.heart),
+                ),
+                Image.asset(AppImages.heart)
               ],
             ),
-            ),
-            // SizedBox(height: 6,),
-            
+           ),
          ],
        ),
      );
@@ -323,7 +414,6 @@ Widget lastLocations(){
    ),
  );
 }
-
 void handleClick(int item) {
   switch (item) {
     case 0:
