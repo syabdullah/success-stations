@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/sign_up_action.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 
 class SignUpController extends GetxController{
   bool isLoading = false;
@@ -20,18 +22,15 @@ class SignUpController extends GetxController{
     isLoading = true;
     await createAccount(data).then((res){
       if(res.statusCode == 422|| res.statusCode == 401) {
-        print("res . of . status.code  422 .....................${res.statusCode}");
-      }else if(res.statusCode ==200){
-        print("status cose of 20000000000000 ............... ${res.statusCode}");
-        result = true;
-        update();  
+      }else if(res.statusCode == 200){
+        print("res.statuscode.............${res.statusCode}");
         signup = jsonDecode(res.body);
-        print("/.............>ignUp............$signup");
+        print("sign up ..............$signup");
         isLoading = false;
-         result = true;
+        Get.to(SignIn());
       }
-      
     });
+     update();
 
   }
 }

@@ -20,7 +20,6 @@ class CityController extends GetxController {
       cityData = jsonDecode(res.body);
       print(".....city data ...!!!>..........CITY...DATA....$cityData");
       for( int ci =0; ci < cityData.length; ci++){
-       
         cityListData.add(cityData['data'][ci]);
         print("city data of the Controller .............${cityData['data'][ci]}");
       }

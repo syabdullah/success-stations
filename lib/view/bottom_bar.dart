@@ -4,6 +4,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ads.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 
@@ -19,7 +20,7 @@ class _BottomTabsState extends State<BottomTabs> {
   final List<Widget> _children = [
     Dashboard(),
     FriendList(),
-    Dashboard(),
+    MyAdds(),
     AdsView()
   ];
 

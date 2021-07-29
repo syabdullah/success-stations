@@ -5,7 +5,8 @@ import 'package:success_stations/action/university_action.dart';
 class UniversityController extends GetxController {
   bool isLoading = false; 
   var universityData;
-  List listUniData = [];
+  List dataUni = [] ;
+
 
   @override
   void onInit(){
@@ -18,10 +19,8 @@ class UniversityController extends GetxController {
     isLoading = true ;
     await university().then((res) {
       universityData = jsonDecode(res.body);
-      for(int uni =0; uni < universityData.length; uni++){
-        listUniData.add(universityData['data'][uni]);
-
-      }
+      print("university data of the object..>!!!! $universityData");
+      dataUni = universityData['data'];
       isLoading = false;
     });
     update();
