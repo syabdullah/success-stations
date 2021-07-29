@@ -71,7 +71,8 @@ class _CountryPageState extends State<Ccountry> {
             children: [
               SizedBox(height:5),
               Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+                // height: 10,
+                margin: EdgeInsets.only(left: 10),
                 padding: EdgeInsets.only(top: 9),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -81,7 +82,7 @@ class _CountryPageState extends State<Ccountry> {
                  ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.asset(_dataSettings[key][k]['images'],
-                    width: 110.0, height: 110.0),
+                    width: 105.0, height: 103.0),
               )),
                 //  Image.asset(_dataSettings[key][k]['images'])
               
@@ -110,14 +111,13 @@ class _CountryPageState extends State<Ccountry> {
         children: [
           space50, 
           mainLogo(),
-           SizedBox(height:50),
+           SizedBox(height:40),
           chooseLanguage(),
-           SizedBox(height:50),
+           SizedBox(height:40),
           Row(
-           children:
-             settingData()
+           children:settingData()
           ),
-          SizedBox(height:50),
+          SizedBox(height:20),
           submitButton(
             bgcolor: AppColors.appBarBackGroundColor,  
             textColor: AppColors.appBarBackGroun,
@@ -125,7 +125,7 @@ class _CountryPageState extends State<Ccountry> {
             fontSize: 18.toDouble()
             // callback: signIn
           ),
-         SizedBox(height: 30),
+         SizedBox(height: 10),
           Container(
             alignment: Alignment.bottomRight,
             child: existingAccount()),

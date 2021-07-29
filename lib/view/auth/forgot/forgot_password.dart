@@ -22,32 +22,34 @@ class _ForgotPageState extends State<ForgotPassword> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      body: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            space50, 
-            Container(
-              margin: EdgeInsets.only(top: 60),
-              child: Center(
-                child: Image.asset(
-                  AppImages.appLogo, height: Get.height / 4.40
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              space50, 
+              Container(
+                margin: EdgeInsets.only(top: 60),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.appLogo, height: Get.height / 4.40
+                  ),
                 ),
               ),
-            ),
-            space50,
-            textHint(),
-            space10,
-            eMail(),
-            space20,
-            submitButton(
-              bgcolor: AppColors.appBarBackGroundColor,  
-              textColor: AppColors.appBarBackGroun,
-              buttonText: AppString.next,
-              fontSize: 18.toDouble(),
-              callback: navigateToHomeScreen
-            ),
-          ],
+              space50,
+              textHint(),
+              space10,
+              eMail(),
+              space20,
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,  
+                textColor: AppColors.appBarBackGroun,
+                buttonText: AppString.next,
+                fontSize: 18.toDouble(),
+                callback: navigateToHomeScreen
+              ),
+            ],
+          ),
         ),
       ),
     );

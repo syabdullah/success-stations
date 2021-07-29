@@ -5,6 +5,9 @@ import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/auth/country.dart';
 import 'package:success_stations/view/auth/forgot/reset_password.dart';
 import 'package:success_stations/view/auth/language.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+
+import 'view/bottom_bar.dart';
 var auth;
 
 void main() async {
@@ -29,9 +32,9 @@ class SuccessApp extends StatelessWidget {
       title: 'SuccessStation Codility',
       theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black),
       
-      initialRoute: auth == null ?  '/langua' : '/home',
+      // initialRoute: auth == null ?  '/langua' : '/home',
       onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-      // home: Ccountry(),
+      home: BottomTabs(),
     );
   }
 }

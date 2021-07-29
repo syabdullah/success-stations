@@ -70,7 +70,7 @@ class _LanguagePageState extends State<Language> {
           Container(
             alignment: Alignment.bottomRight,
             child: existingAccount()),
-          space50,
+          // space50,
           
         ],
       ),

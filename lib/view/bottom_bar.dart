@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ads.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 
@@ -17,7 +18,7 @@ class _BottomTabsState extends State<BottomTabs> {
   final List<Widget> _children = [
     Dashboard(),
     FriendList(),
-    Dashboard(),
+    MyAdds(),
     AdsView()
   ];
 
@@ -46,7 +47,7 @@ class _BottomTabsState extends State<BottomTabs> {
             label: 'Friends',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.add_shopping_cart_rounded, color: Colors.grey,),
             label: 'Location'
           ),
           BottomNavigationBarItem(

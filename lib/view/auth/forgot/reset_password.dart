@@ -75,43 +75,45 @@ class _ResetPasswordState extends State<ResetPassword> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      body: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            space50, 
-            Container(
-              margin: EdgeInsets.only(top: 60),
-              child: Center(
-                child: Image.asset(
-                  AppImages.appLogo, height: Get.height / 4.40
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              space50, 
+              Container(
+                margin: EdgeInsets.only(top: 60),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.appLogo, height: Get.height / 4.40
+                  ),
                 ),
               ),
-            ),
-            space50,
-            resetPass(),
-            space10,
-            password(),
-            space10,
-            newpassword(),
-            space20,
-            // ignore: deprecated_member_use
-            RaisedButton(
-              color: AppColors.appBarBackGroundColor,
-              child: Container(
-                width: Get.width / 1.3,
-                height: Get.height * 0.05,
-                child: Center(
-                  child: Text(
-                    AppString.resetButton, style: TextStyle(color: AppColors.backArrow )
+              space50,
+              resetPass(),
+              space10,
+              password(),
+              space10,
+              newpassword(),
+              space20,
+              // ignore: deprecated_member_use
+              RaisedButton(
+                color: AppColors.appBarBackGroundColor,
+                child: Container(
+                  width: Get.width / 1.3,
+                  height: Get.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      AppString.resetButton, style: TextStyle(color: AppColors.backArrow )
+                    )
                   )
-                )
+                ),
+                onPressed: () {
+                 _showModal();
+                }
               ),
-              onPressed: () {
-               _showModal();
-              }
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
