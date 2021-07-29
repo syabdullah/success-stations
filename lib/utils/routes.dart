@@ -5,6 +5,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
+import 'package:success_stations/view/member_ship/member_ship.dart';
 
 const String login = '/login';
 const String home = '/home';
@@ -13,6 +14,7 @@ const String adPostingScreen = '/adPostingScreen';
 
 const String tabs = '/tabs';
 const String friendPro = '/friendProfile';
+const String member = '/membership';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -28,6 +30,8 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => BottomTabs());
         case friendPro:
         return MaterialPageRoute(builder: (_) =>  FriendProfile());
+        case member:
+        return MaterialPageRoute(builder: (_) => MemberShip());
       default:
         return MaterialPageRoute(builder: (_) => SignIn());
     }

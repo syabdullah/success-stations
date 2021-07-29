@@ -1,0 +1,149 @@
+
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:success_stations/styling/app_bar.dart';
+import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/drawer_screen.dart';
+
+class MemberShip extends StatefulWidget {
+  _MemberShipState createState() => _MemberShipState();
+}
+class _MemberShipState extends State<MemberShip> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  Color selectplanFree = AppColors.appBarBackGroundColor;
+  Color selectplanPro = Colors.transparent;
+  bool border = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch )),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
+      body: Column(
+        // padding: EdgeInsets.symmetric(horizontal: 15),
+        children: [
+          Container(
+            margin: EdgeInsets.only(top:20,bottom:20),
+            child: Text("Choose The Plsn Thats's right for you.",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[600],fontSize: 16)),
+          ),
+          plansButton(),
+          planText("info"),
+          registerButton("Register"),
+        ],
+      ),
+    );    
+  }
+
+  Widget plansButton() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      border = false;
+                      selectplanFree = AppColors.appBarBackGroundColor;
+                      selectplanPro = Colors.transparent;
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left:15),
+                    width: Get.width/2.2,
+                    height: Get.height/7,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: border == false ? Colors.white : Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                      color: selectplanFree
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Free",style: TextStyle(fontWeight: FontWeight.bold,color: border == true ? Colors.grey[600] : Colors.white,fontSize: 18)),
+                        Text("Student",style: TextStyle(fontWeight: FontWeight.w600,color: border == true ? Colors.grey[600] : Colors.white,fontSize: 16)),
+                        
+                      ],
+                    ),
+                  ),
+                ),
+                
+                
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  border = true;
+                  selectplanFree =  Colors.transparent;
+                  selectplanPro = AppColors.appBarBackGroundColor;
+                });
+              },
+              child: Container(
+                width: Get.width/2.2,
+                height: Get.height/7,
+                margin: EdgeInsets.only(right:15),
+                decoration: BoxDecoration(
+                  border: Border.all(color: border == true ? Colors.white : Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: selectplanPro
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Pro",style: TextStyle(fontWeight: FontWeight.bold,color: border == false ? Colors.grey[600] : Colors.white,fontSize: 18)),
+                    Text("Service Provider",style: TextStyle(fontWeight: FontWeight.w600,color:border == false ? Colors.grey[600] : Colors.white,fontSize: 16))
+                  ],
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+    Widget planText(text) {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext,index) {
+            return Container(
+              width: Get.width/2.5,
+              alignment: Alignment.center,
+              margin: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(text),
+
+                  Text(text),
+                ],
+              ),
+            );
+          }
+        ),
+      );
+    }
+    Widget registerButton(text) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal:15),
+        width: Get.width,
+        height: Get.height/9.5*.6,
+        decoration: BoxDecoration(
+          color: AppColors.appBarBackGroundColor,
+          borderRadius: BorderRadius.circular(20)
+        ),
+        child: Center(child: Text(text,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 16))),
+      );
+    }
+}

@@ -50,9 +50,7 @@ class _AdsViewState extends State<AdsView> {
           items: imageSliders,
           carouselController: _controller,
           options: CarouselOptions(
-            viewportFraction: Get.width < 420 ? 0.9*1.1: 0.9*2,
-            // autoPlay: true,
-            // enlargeCenterPage: true,
+            viewportFraction: 0.9*1.1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -101,115 +99,111 @@ class _AdsViewState extends State<AdsView> {
   }
 
   advertisingList(conHeight,imageW,imageH) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical:15),
-        height: conHeight,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (BuildContext,index) {
-            return Column(
-              children: [
-                Card(
-                  elevation: 3,
-                  shape:  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: imageW,
-                      height: imageH,
-                      child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
-                    ),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical:15),
+      height: conHeight,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (BuildContext,index) {
+          return Column(
+            children: [
+              Card(
+                elevation: 3,
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    width: imageW,
+                    height: imageH,
+                    child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
-                Container(
-                  child: Text("Category1",style: TextStyle(color: AppColors.grey)),
-                )
-              ],
-            );
-          }
-        ),
-      )
+              ),
+              Container(
+                child: Text("Category1",style: TextStyle(color: AppColors.grey)),
+              )
+            ],
+          );
+        }
+      ),
     );
   }
 
   featuredAdsList() {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical:15),
-        height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (BuildContext,index) {
-            return 
-            Card(
-              elevation: 1,
-              shape:  RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                    child: Container(
-                      width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                      child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
-                    ),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical:15),
+      height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (BuildContext,index) {
+          return 
+          Card(
+            elevation: 1,
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                  child: Container(
+                    width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
+                    height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                    child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top:6,left: 10),
-                    child: Text(AppString.titleHere,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    width: Get.width/2.3,
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top:6,left: 10),
-                          child: Image.asset(AppImages.location,height: 15)
-                        ),
-                        SizedBox(width:5),
-                        Container(
-                          margin: EdgeInsets.only(top:6),
-                          child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
-                        ),
-                        Spacer(flex: 2),
-                        Container(
-                           margin: EdgeInsets.only(right:6),
-                          child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
-                        )
-                      ],
-                    ),
-                  ),  
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  margin: EdgeInsets.only(top:6,left: 10),
+                  child: Text(AppString.titleHere,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
+                ),
+                Container(
+                  width: Get.width/2.3,
+                  child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top:6,left: 5),
-                        child: Icon(Icons.person,color:AppColors.grey),
-                        // child: Image.asset(AppImages.location,height: 15)
+                        margin: EdgeInsets.only(top:6,left: 10),
+                        child: Image.asset(AppImages.location,height: 15)
                       ),
                       SizedBox(width:5),
                       Container(
                         margin: EdgeInsets.only(top:6),
-                        child: Text("Username",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
                       ),
+                      Spacer(flex: 2),
+                      Container(
+                         margin: EdgeInsets.only(right:6),
+                        child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                      )
                     ],
-                  ),               
-                ],
-              ),
-            );
-          }
-        ),
-      )
+                  ),
+                ),  
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top:6,left: 5),
+                      child: Icon(Icons.person,color:AppColors.grey),
+                      // child: Image.asset(AppImages.location,height: 15)
+                    ),
+                    SizedBox(width:5),
+                    Container(
+                      margin: EdgeInsets.only(top:6),
+                      child: Text("Username",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                    ),
+                  ],
+                ),               
+              ],
+            ),
+          );
+        }
+      ),
     );
   }
 

@@ -11,7 +11,7 @@ class SignUp extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
 }
 class _SignPageState extends State<SignUp> {
-
+ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController fulNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _SignPageState extends State<SignUp> {
     return  Scaffold(
       appBar:
        PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar('',Icons.arrow_back_ios, AppImages.appBarLogo, )),
+      child: appbar(_scaffoldKey,context,Icons.arrow_back_ios, AppImages.appBarLogo, )),
       body: Column(
         children: [
           space20,

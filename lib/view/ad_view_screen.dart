@@ -18,11 +18,12 @@ class AdViewScreen extends StatefulWidget {
 
 class _AdViewScreenState extends State<AdViewScreen> {
   TextEditingController textEditingController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar('',AppImages.appBarLogo,AppImages.appBarSearch),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
        ),
        body: SingleChildScrollView(
          child: Padding(
