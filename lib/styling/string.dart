@@ -25,6 +25,39 @@ class AppString {
   static String details = 'DETAILS';
   static String saveAsDraft = 'SAVE AS DRAFT';
   static String publish = 'PUBLISH';
+  static String status = 'STATUS';
   // static String details = 'DETAILS';
+
+  static String signUp = 'SIGN UP';
+  static String existAccount = 'Do you have and account?';
+  static String termCondition = ' Terms and Conditions';
+
+  // Sign In
+  static String loginEmail = 'Phone Number,email or name';
+  static String password = 'Password';
+  static String google = 'Google';
+  static String facebook = 'Facebook';
+  static String signIn = 'SIGN IN';
+  static String forgotPass = 'Forgot Password?';
+  static String goForSignup = 'Don\'t have an account? ';
+
+//AppDrawer
+
+  static String profile = "PROFILE";
+  static String menu = "MAIN MENU";
+  static String overview = "OVERVIEW AND DEFINATIONS";
+
+  //Add Posting Screen
+  static String seeProfile = "See Profile";
+  static String adpostedat = "Ad Posted at";
+  static String addComment = "ADD COMMENT";
+  static String contact = "CONTACT";
+  static String fav =  "FAVOURITES";
+  static String report  = "Report";
+  static String namec = 'NAME';
+  static String adress = 'ADRESS';
+  static String mobilec = 'MOBILE';
+   static String emailc = 'EMAIL';
+
 
 }

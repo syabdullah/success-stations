@@ -15,6 +15,8 @@ class CustomTextFiled extends StatefulWidget {
   final ValueChanged onChanged;
   final bool autoFocus;
   final FormFieldValidator validator;
+  
+
   CustomTextFiled(
     {
       this.hintText ='',
@@ -30,7 +32,8 @@ class CustomTextFiled extends StatefulWidget {
       this.autoFocus = false,
       required this.validator,
       required this.onSaved,
-      this.hintStyle
+      this.hintStyle,
+
     }
   );
   @override
@@ -45,7 +48,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       children: [
         Padding(
          padding: widget.padding,
-          child: TextFormField(
+          child: TextFormField(           
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,
@@ -53,6 +56,9 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             obscureText: widget.isObscure,
             onSaved: widget.onSaved,
             decoration: InputDecoration(
+              fillColor: AppColors.inputColor,
+              filled: true,
+              border: InputBorder.none,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.outline
