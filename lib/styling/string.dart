@@ -110,6 +110,8 @@ class AppString {
   static String changedPasww = 'Password Changed,';
  static String successResetPass=  'You can now login with your new password';
   static String forgotPassText= 'Forgot Password';
-
+//contact
+ static String send = 'SEND';
+  static String phoneNumber = 'Phone Number';
 
 }
