@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/tab_bar.dart';
+import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 
 var auth;
 
@@ -22,14 +23,18 @@ getData() async{
 
 class SuccessApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) { 
-    return GetMaterialApp(      
-      debugShowCheckedModeBanner: false,
-      title: 'SuccessStation Codility',
-      theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black),
-      // home:TabBarPage(),
-      initialRoute: auth == null ?  '/tabs' : '/tabs',
-      onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      builder:() => GetMaterialApp(      
+        debugShowCheckedModeBanner: false,
+        title: 'SuccessStation Codility',
+        theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
+          // home: AdViewTab(),
+        initialRoute: auth == null ?  '/tabs' : '/tabs',
+        onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+        // home: SignUp(),
+      ),
+       designSize: const Size(360, 640),
     );
   }
 }

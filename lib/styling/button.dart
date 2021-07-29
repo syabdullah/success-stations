@@ -56,6 +56,7 @@ class AppButton extends StatelessWidget {
             )
           ),
           child:
+          //  buttonText == AppString.signIn ? 
            buttonText != AppString.facebook ? 
            Container(
             margin:EdgeInsets.only(left:10),
