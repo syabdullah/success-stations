@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
+import 'package:success_stations/view/auth/advertise.dart';
+import 'package:success_stations/view/auth/contact.dart';
 
 import 'view/bottom_bar.dart';
 var auth;
@@ -33,7 +35,7 @@ class SuccessApp extends StatelessWidget {
           home: AdViewTab(),
         // initialRoute: auth == null ?  '/langua' : '/home',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        // home: SignUp(),
+        // home: AdvertisePage(),
       ),
        designSize: const Size(360, 640),
     );
