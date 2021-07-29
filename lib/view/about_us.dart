@@ -17,9 +17,9 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: CustomBottomBar(),
+      bottomNavigationBar: CustomBottomBar(),
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: stringAppbar('','ABOUT US',AppImages.appBarSearch),
+       child: stringAppbar('','', 'ABOUT US',AppImages.appBarSearch),
       ),
      body: Column(
       children: [
