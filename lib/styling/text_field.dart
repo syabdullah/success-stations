@@ -15,6 +15,8 @@ class CustomTextFiled extends StatefulWidget {
   final ValueChanged onChanged;
   final bool autoFocus;
   final FormFieldValidator validator;
+  
+
   CustomTextFiled(
     {
       this.hintText ='',
@@ -30,7 +32,8 @@ class CustomTextFiled extends StatefulWidget {
       this.autoFocus = false,
       required this.validator,
       required this.onSaved,
-      this.hintStyle
+      this.hintStyle,
+
     }
   );
   @override

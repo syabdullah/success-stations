@@ -203,7 +203,7 @@ class _SignPageState extends State<SignIn> {
     GoogleSignInC().handleSignIn();
   }
   void navigateToGoogleFaceBook() {
-    FaceBookSignIn().login();
+    // FaceBookSignIn().login();
   }
 }
  

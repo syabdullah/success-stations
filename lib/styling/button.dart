@@ -56,6 +56,7 @@ class AppButton extends StatelessWidget {
             )
           ),
           child:
+           buttonText == AppString.signIn ? 
            buttonText != AppString.facebook ? 
            Container(
             margin:EdgeInsets.only(left:10),
@@ -68,6 +69,7 @@ class AppButton extends StatelessWidget {
                 fontFamily: fontFamily ?? 'SF Pro Text',
               ),
             ),
+          ): Container(
           )
           : Container(
             child: Image.asset(image,fit: BoxFit.contain,)
