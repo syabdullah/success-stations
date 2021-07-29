@@ -36,7 +36,11 @@ class AppString {
   static String response = 'Responsible';
   static String mobNum = 'Mobile Number';
   static String accType = 'Account Type :';
-  static String dob = 'Date Of Birth';
+  static String dob = 'YYYY-MM-DD';
+  static String accountType = 'Account Type:';
+  static String companyName = 'Company Name';
+  static String cr = 'CR';
+
 
   
   static String existAccount = 'Do you have and account?';
@@ -85,10 +89,27 @@ class AppString {
    static String all = 'All';
    static String featured = 'Featured Ads';
    static String specialOffer = 'Special Offer';
+   static String titleHere = 'Title Here';
    static String lastOffer = 'Last Offers';
    static String lastAds = 'Last Ads';
    static String lastLocations = 'Last Locations';
    
+  static String login = 'LOGIN';
+  //forgotPassword
+  static String next = 'NEXT';
+  static String recieveEmailID = 'Type your email-ID to recieve password by Email.';
+  static String emailAddress = 'Email address';
+  static String digitsCode = 'Enter the 4 digits code';
+  static String codeMail = 'Enter the 4 digits code that you recieved in your email';
+  //reset password 
+ static String resetPassword = 'Reset Password';
+ static String resetSetPass =  'Set the new password to login';
+ static String resetButton = 'RESET';
+ static String newPass = 'New Password';
+ static String confirmPass = ' Confirm Password';
+  static String changedPasww = 'Password Changed,';
+ static String successResetPass=  'You can now login with your new password';
+  static String forgotPassText= 'Forgot Password';
 
 
 }

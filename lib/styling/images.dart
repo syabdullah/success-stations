@@ -64,4 +64,12 @@ class AppImages {
   static String blueHeart =  imagePath + 'Group -57@3x.png';
   static String call =  imagePath + 'Group -54@3x.png';
   static String profileBg =  imagePath + 'bg.png';
+  static String mainLogo =  imagePath + 'logo.png';
+  static String saudiaImage =  imagePath +  'saudia flags.png';
+  static String misarImage =  imagePath +  'misar.png';
+  static String arabImage =  imagePath +  'arab.png';
+  static String callerImage =  imagePath + 'caller.png';
+  static String plusImage = imagePath + 'plus@3x.png';
+  static String listing = imagePath + 'Grouplist.png';
+  static String bgImage = imagePath + 'bg.png';
 }

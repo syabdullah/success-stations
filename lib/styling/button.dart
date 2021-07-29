@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
   final image;
   final  textColor;
   final  fontFamily;
-  final  fontSize;
+  final fontSize;
   final  width;
   final  fontStyle;
   final  height;
@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
       this.width,
       this.fontStyle,
       this.fontFamily,
-      this.fontSize,
+      required this.fontSize,
       this.fontWeight,
       this.height,
       this.borderColor,
@@ -64,7 +64,7 @@ class AppButton extends StatelessWidget {
               buttonText,
               style: fontStyle ??TextStyle(
                 color: textColor ?? Colors.white,
-                fontSize: fontSize ?? 10,
+                fontSize: fontSize,
                 fontWeight : fontWeight,
                 fontFamily: fontFamily ?? 'SF Pro Text',
               ),
