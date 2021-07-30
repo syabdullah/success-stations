@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 
+import 'view/bottom_bar.dart';
 var auth;
 
 void main() async {
@@ -30,7 +31,7 @@ class SuccessApp extends StatelessWidget {
         title: 'SuccessStation Codility',
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
           // home: AdViewTab(),
-        initialRoute: auth == null ?  '/tabs' : '/tabs',
+        initialRoute: auth == null ?  '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: SignUp(),
       ),

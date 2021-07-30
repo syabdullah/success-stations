@@ -14,9 +14,7 @@ class CustomTextFiled extends StatefulWidget {
   final FormFieldSetter<String> onSaved;
   final ValueChanged onChanged;
   final bool autoFocus;
-  final FormFieldValidator validator;
-  
-
+  final  validator;
   CustomTextFiled(
     {
       this.hintText ='',

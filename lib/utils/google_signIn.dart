@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:success_stations/view/student_sign_up.dart';
+import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 
 class GoogleSignInC {
   GetStorage dataStore = GetStorage();

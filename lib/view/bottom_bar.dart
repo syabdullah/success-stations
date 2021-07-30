@@ -4,6 +4,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ads.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
@@ -21,8 +22,8 @@ class _BottomTabsState extends State<BottomTabs> {
   final List<Widget> _children = [
     Dashboard(),
     FriendList(),
-    Dashboard(),
-    MemberShip()
+    MyAdds(),
+    AdsView()
   ];
 
   void onTabTapped(int index) {
@@ -36,7 +37,7 @@ class _BottomTabsState extends State<BottomTabs> {
     return Scaffold(
       key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch )),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
       drawer: Theme(
         data: Theme.of(context).copyWith(
           // canvasColor: AppColors.botomTiles

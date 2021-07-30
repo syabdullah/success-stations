@@ -14,6 +14,7 @@ class _MemberShipState extends State<MemberShip> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Color selectplanFree = AppColors.appBarBackGroundColor;
   Color selectplanPro = Colors.transparent;
+  var items = ['info','info','info','info','info','info','info','info'];
   bool border = false;
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,10 @@ class _MemberShipState extends State<MemberShip> {
         children: [
           Container(
             margin: EdgeInsets.only(top:20,bottom:20),
-            child: Text("Choose The Plsn Thats's right for you.",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[600],fontSize: 16)),
+            child: Text("Choose The Plan Thats's right for you.",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[600],fontSize: 16)),
           ),
           plansButton(),
-          planText("info"),
+          Spacer(),
           registerButton("Register"),
         ],
       ),
@@ -76,35 +77,79 @@ class _MemberShipState extends State<MemberShip> {
                     ),
                   ),
                 ),
-                
-                
+                Container(
+                  height:Get.height/2,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        for (var item in items)
+                        Container(
+                          width: Get.width/2.7,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(item,style: TextStyle(fontWeight: FontWeight.w600,color: border == true ? Colors.grey[600] : AppColors.appBarBackGroundColor)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  border = true;
-                  selectplanFree =  Colors.transparent;
-                  selectplanPro = AppColors.appBarBackGroundColor;
-                });
-              },
-              child: Container(
-                width: Get.width/2.2,
-                height: Get.height/7,
-                margin: EdgeInsets.only(right:15),
-                decoration: BoxDecoration(
-                  border: Border.all(color: border == true ? Colors.white : Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                  color: selectplanPro
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      border = true;
+                      selectplanFree =  Colors.transparent;
+                      selectplanPro = AppColors.appBarBackGroundColor;
+                    });
+                  },
+                  child: Container(
+                    width: Get.width/2.2,
+                    height: Get.height/7,
+                    margin: EdgeInsets.only(right:15),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: border == true ? Colors.white : Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                      color: selectplanPro
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Pro",style: TextStyle(fontWeight: FontWeight.bold,color: border == false ? Colors.grey[600] : Colors.white,fontSize: 18)),
+                        Text("Service Provider",style: TextStyle(fontWeight: FontWeight.w600,color:border == false ? Colors.grey[600] : Colors.white,fontSize: 16))
+                      ],
+                    ),
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Pro",style: TextStyle(fontWeight: FontWeight.bold,color: border == false ? Colors.grey[600] : Colors.white,fontSize: 18)),
-                    Text("Service Provider",style: TextStyle(fontWeight: FontWeight.w600,color:border == false ? Colors.grey[600] : Colors.white,fontSize: 16))
-                  ],
-                ),
-              ),
+                Container(
+                  height:Get.height/2,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        for (var item in items)
+                        Container(
+                          width: Get.width/2.7,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(item,style: TextStyle(fontWeight: FontWeight.w600,color: border == false ? Colors.grey[600] : AppColors.appBarBackGroundColor)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         )
@@ -125,8 +170,6 @@ class _MemberShipState extends State<MemberShip> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(text),
-
-                  Text(text),
                 ],
               ),
             );
@@ -136,12 +179,12 @@ class _MemberShipState extends State<MemberShip> {
     }
     Widget registerButton(text) {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal:15),
+        margin: EdgeInsets.symmetric(horizontal:15,vertical: 10),
         width: Get.width,
         height: Get.height/9.5*.6,
         decoration: BoxDecoration(
           color: AppColors.appBarBackGroundColor,
-          borderRadius: BorderRadius.circular(20)
+          borderRadius: BorderRadius.circular(8)
         ),
         child: Center(child: Text(text,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 16))),
       );

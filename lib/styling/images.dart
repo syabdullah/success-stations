@@ -2,7 +2,7 @@ class AppImages {
   static String imagePath = 'assets/images/';
   // static String appBarLogo =  imagePath + 'logoIcon.png';
   static String appBarLogo =  imagePath + 'logo-icon@3x.png';
-  static String appBarSearch = imagePath + "search_appbar.png";
+  static String appBarSearch = imagePath + "search.png";
 
   //Steps Images
   static String istStepIcon = imagePath + "01.png";
@@ -64,4 +64,12 @@ class AppImages {
   static String blueHeart =  imagePath + 'Group -57@3x.png';
   static String call =  imagePath + 'Group -54@3x.png';
   static String profileBg =  imagePath + 'bg.png';
+  static String mainLogo =  imagePath + 'logo.png';
+  static String saudiaImage =  imagePath +  'saudia flags.png';
+  static String misarImage =  imagePath +  'misar.png';
+  static String arabImage =  imagePath +  'arab.png';
+  static String callerImage =  imagePath + 'caller.png';
+  static String plusImage = imagePath + 'plus@3x.png';
+  static String listing = imagePath + 'Grouplist.png';
+  static String bgImage = imagePath + 'bg.png';
 }
