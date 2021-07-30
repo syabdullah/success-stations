@@ -67,9 +67,14 @@ class _MyAddsState extends State<MyAdds> {
                   ),
                 ),
               ),
-              Container(
-                margin:EdgeInsets.only(left:10),
-                child: Image.asset(AppImages.plusImage, height:24)
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/adPostingScreen');
+                },
+                child: Container(
+                  margin:EdgeInsets.only(left:10),
+                  child: Image.asset(AppImages.plusImage, height:24)
+                ),
               )
             ],
           ),
