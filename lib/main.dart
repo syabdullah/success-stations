@@ -29,7 +29,7 @@ class SuccessApp extends StatelessWidget {
         title: 'SuccessStation Codility',
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
           // home: AdViewTab(),
-        initialRoute:   '/tabs',
+        initialRoute: auth == null ?  '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: OfferList(),
       ),

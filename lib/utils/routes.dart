@@ -12,6 +12,9 @@ import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
+import 'package:success_stations/view/member_ship/become_member.dart';
+import 'package:success_stations/view/member_ship/member_ship.dart';
+import 'package:success_stations/view/messages/inbox.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 
 const String login = '/login';
@@ -26,6 +29,8 @@ const String forgot = '/forgotPass';
 const String language = '/langua';
 const String country = '/Country';
 const String tabBar = '/signUp';
+const String becomeMember = '/beMember';
+const String inbox = '/inbox';
 const String adverrtise = '/advertisement';
 const String myAdd = '/myAddsPage';
 const String contact = '/contact';
@@ -59,8 +64,12 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => Language());
         case country:
         return MaterialPageRoute(builder: (_) => Ccountry());
+        case becomeMember : 
+        return MaterialPageRoute(builder: (_) => BecomeMember());
         case forgot:
         return MaterialPageRoute(builder: (_) => ForgotPassword());
+         case inbox:
+        return MaterialPageRoute(builder: (_) => Inbox());
       default:
         return MaterialPageRoute(builder: (_) => Language());
     }

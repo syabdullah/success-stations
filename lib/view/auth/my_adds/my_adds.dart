@@ -5,6 +5,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
@@ -21,9 +22,16 @@ class _MyAddsState extends State<MyAdds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
         child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
        ),
+       drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body: Column(
         children: [
           topWidget(),
