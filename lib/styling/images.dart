@@ -2,7 +2,7 @@ class AppImages {
   static String imagePath = 'assets/images/';
   // static String appBarLogo =  imagePath + 'logoIcon.png';
   static String appBarLogo =  imagePath + 'logo-icon@3x.png';
-  static String appBarSearch = imagePath + "search_appbar.png";
+  static String appBarSearch = imagePath + "search.png";
 
   //Steps Images
   static String istStepIcon = imagePath + "01.png";
