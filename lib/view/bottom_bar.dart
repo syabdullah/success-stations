@@ -5,6 +5,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ads.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
@@ -20,9 +21,9 @@ class _BottomTabsState extends State<BottomTabs> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Dashboard(),
+    OfferList(),
     FriendList(),
-    MyAdds(),
+    Dashboard(),
     AdsView()
   ];
 

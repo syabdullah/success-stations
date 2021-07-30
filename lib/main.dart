@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/view/auth/offer_list.dart';
 var auth;
 
 void main() async {
@@ -30,7 +31,7 @@ class SuccessApp extends StatelessWidget {
           // home: AdViewTab(),
         initialRoute: auth == null ?  '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        // home: AdvertisePage(),
+        // home: OfferList(),
       ),
        designSize: const Size(360, 640),
     );
