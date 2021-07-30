@@ -20,8 +20,6 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-<<<<<<< HEAD
-=======
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -45,7 +43,6 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
->>>>>>> c175a78a69b19f6acf8651703755b9de65efe7bd
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
