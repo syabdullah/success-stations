@@ -6,7 +6,9 @@ import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ads.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/dashboard.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
+import 'package:success_stations/view/member_ship/member_ship.dart';
 
 class BottomTabs extends StatefulWidget {
  @override
@@ -15,7 +17,7 @@ class BottomTabs extends StatefulWidget {
   }
 }
 class _BottomTabsState extends State<BottomTabs> {
-
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
     Dashboard(),
@@ -33,32 +35,35 @@ class _BottomTabsState extends State<BottomTabs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar('',AppImages.appBarLogo, AppImages.appBarSearch )),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
           onTap: onTabTapped,
         items: [
           BottomNavigationBarItem(
-              
-              // ignore: deprecated_member_use
-              title: Text('Offers', style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
-                ),
-              icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+            title: Text('Offers', style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+              ) 
+            ),
+            icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
-              // ignore: deprecated_member_use
               title: Text('Friends' ,style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
-                ),
+                ) 
+              ),
               icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
-              // ignore: deprecated_member_use
               title: Text('Locations', style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 

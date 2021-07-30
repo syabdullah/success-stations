@@ -3,19 +3,14 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
- Widget appbar(context ,image,searchImage,) {
+ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,) {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(top:10.0),
-      //   child: IconButton(
-      //     icon: Icon(icon,
-      //     color: AppColors.backArrow),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
-      //
-       ),
+      leading: IconButton(
+        iconSize: 20,
+        icon: Icon(Icons.menu,color: Colors.white),
+        onPressed: () => globalKey.currentState!.openDrawer()),
       title: Padding(
        padding: const EdgeInsets.only(top:10.0),
         child: Image.asset(image, height: 40),

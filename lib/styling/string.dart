@@ -8,7 +8,7 @@ class AppString {
   static String city = 'City';
   static String university = 'University';
   static String college = 'College';
-  static String termServices = 'I agree to the Term and Conditions';
+  static String termServices = 'I agree to the ';
 
 
 
