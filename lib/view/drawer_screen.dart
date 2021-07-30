@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
+import 'package:success_stations/view/messages/inbox.dart';
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -70,7 +71,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
                           CustomListTile(AppImages.ma, 'MY ADS', () => {} ,15.0),
-                          CustomListTile(AppImages.message, 'MESSAGE', () => {},15.0 ),
+                          CustomListTile(AppImages.message, 'MESSAGE', ()  {
+                            Get.to(Inbox());
+                          },15.0 ),
                           CustomListTile(AppImages.membership, 'MEMBERSHIP', () {
                             print("jjjhjjnj");
                             Get.to(MemberShip());
