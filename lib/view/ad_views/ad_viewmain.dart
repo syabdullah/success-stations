@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/ad_views/about_tab.dart';
 import 'package:success_stations/view/ad_views/add_offer_tab.dart';
+import 'package:success_stations/view/ad_views/adtab.dart';
 import 'package:success_stations/view/ad_views/location_tab.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class AdViewTab extends StatefulWidget {
   
@@ -31,6 +32,7 @@ class _AdViewTabState extends State<AdViewTab>
     return DefaultTabController(
       length:  myTabs.length,
       child: Scaffold(
+        drawer: AppDrawer(),
         body: NestedScrollView(
           headerSliverBuilder:
             (BuildContext context, bool innerBoxIsScrolled){
@@ -113,7 +115,7 @@ Widget tabBarView(){
      AboutTab(),
      AdOffers(),
      LocationTab(),
-      Text("1")
+     AdListTab()
     ]),
   );
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/about_us.dart';
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -23,14 +23,11 @@ class _AppDrawerState extends State<AppDrawer> {
               borderRadius: BorderRadius.only(topRight: Radius.circular(30.0),bottomRight: Radius.circular(30.0),
               ),
             ),
-            child: ListView(
+            child: Column(
               children: [
-                DrawerHeader(
-                  decoration:BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(30.0),
-                    ),
-                  ),
+                Container(
+                  width: Get.width,
+                  color: Colors.blue,
                   child: Stack(
                     children: [
                       FractionalTranslation(
@@ -72,13 +69,18 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                         ),
                       ),
-                      CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
-                      CustomListTile(AppImages.ma, 'MY ADS', () => {} ,15.0),
-                      CustomListTile(AppImages.message, 'MESSAGE', () => {},15.0 ),
-                      CustomListTile(AppImages.membership, 'MEMBERSHIP', () => {},13.2 ),
-                      CustomListTile(AppImages.notification, 'NOTIFICATIONS', () => {},15.0 ),
-                      CustomListTile(AppImages.freq, 'FRIEND REQUESTS', () => {} ,15.0), 
-                      CustomListTile(AppImages.fav, 'FAVOURITES', () => {},15.0 ), 
+            //           CustomListTile(AppImages.userProfile, 'PROFILE', () => {
+            //             Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => AboutUs()),
+            // )
+            //           },15.0 ),
+            //           CustomListTile(AppImages.ma, 'MY ADS', () => {} ,15.0),
+            //           CustomListTile(AppImages.message, 'MESSAGE', () => {},15.0 ),
+            //           CustomListTile(AppImages.membership, 'MEMBERSHIP', () => {},13.2 ),
+            //           CustomListTile(AppImages.notification, 'NOTIFICATIONS', () => {},15.0 ),
+            //           CustomListTile(AppImages.freq, 'FRIEND REQUESTS', () => {} ,15.0), 
+            //           CustomListTile(AppImages.fav, 'FAVOURITES', () => {},15.0 ), 
                       SizedBox(height: 10.h),
                       Divider(),
                       SizedBox(height: 10.h),
@@ -92,14 +94,15 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                       ),
                       SizedBox(height: 10.h),
-                      CustomListTile(AppImages.aboutus, 'ABOUT US', () => {},15.0 ),
-                      CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {},15.0 ),
-                      CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
-                      CustomListTile(AppImages.ugr, 'USAGE AGREEMENT', () => {},12.0 ),
-                      CustomListTile(AppImages.contactus, 'CONTACT US', () => {},15.0 ),
-                      SizedBox(height: 10.h),
-                      Divider(),
-                      CustomListTile(AppImages.logout, 'LOGOUT', () => {},15.0 ),
+                      CustomListTile(AppImages.aboutus, 'ABOUT US', (){print("bye");},
+                      15.0 ),
+                      // CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {},15.0 ),
+                      // CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
+                      // CustomListTile(AppImages.ugr, 'USAGE AGREEMENT', () => {},12.0 ),
+                      // CustomListTile(AppImages.contactus, 'CONTACT US', () => {},15.0 ),
+                      // SizedBox(height: 10.h),
+                      // Divider(),
+                      // CustomListTile(AppImages.logout, 'LOGOUT', () => {},15.0 ),
                     ],
                   ),
                 ),
@@ -119,10 +122,10 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Padding (
       padding: EdgeInsets.fromLTRB(15.0, 0, 8.0, 0),
-      child: InkWell(
-        splashColor: Colors.grey,
-        // onTap: onTap,
-        child:Container(
+      child: ListTile(
+        // splashColor: Colors.grey,
+         onTap:(){onTap();},
+        title:Container(
           height: 50,
           child: Row(
             children: [
