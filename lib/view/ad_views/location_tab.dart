@@ -44,7 +44,7 @@ class _LocationTabState extends State<LocationTab> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor:Colors.white,
-      isScrollControlled: true,
+      // isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
       ),
@@ -55,7 +55,7 @@ class _LocationTabState extends State<LocationTab> {
           duration: const Duration(milliseconds: 100),
             curve: Curves.decelerate,
           child: Container(
-             height:Get.height/2,
+            //  height:Get.height/2,
             child: Container(
               margin:EdgeInsets.only(top: 20, left: 40,right: 30),
               child: Column(
@@ -192,7 +192,6 @@ class _LocationTabState extends State<LocationTab> {
                             // Get.to(SignIn());
                           }
                         ),
-                        
                       ),
                     ],
                   )
