@@ -11,6 +11,7 @@ class AppColors {
   static Color inPutFieldColor = Color(0xFFFAF9FB);
   static Color inputTextColor = Color(0xFFA09D9E);
   static Color textInput = Color(0xFF868282);
+  static Color darkgrey = Colors.grey.shade900;
    static Color themecolor = Color(0xFF4AA6E);
 
   // login

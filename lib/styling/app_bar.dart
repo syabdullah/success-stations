@@ -19,7 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
         Padding(
           padding: const EdgeInsets.only(top:12.0,right: 10,),
           child: Image.asset(
-             searchImage,color: Colors.white,width: 20.w,
+           AppImages.appBarSearch,color: Colors.white,width: 25.w,
           ),
         )
       ],
@@ -27,24 +27,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
     );
   }
 
- Widget stringAppbar(context ,string ,searchImage,) {
+ Widget stringAppbar(context ,icon,string ,searchImage,) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      // automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: Padding(
-        padding: const EdgeInsets.only(top:10.0),
-      //   child: IconButton(
-      //     icon: Icon(icon,
-      //     color: AppColors.backArrow),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
+      leading: 
+      // Padding(
+        // padding: const EdgeInsets.only(top:10.0),
+        IconButton(
+          icon: Icon(icon,
+          color: AppColors.backArrow),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       //
-       ),
+      //  ),
       title: Text(string), 
       actions: [
         Padding(
-          padding: const EdgeInsets.only(top:12.0,right: 10,),
-          child: Image.asset(
+          padding: const EdgeInsets.only(right: 10,),
+       child:  Image.asset(
            AppImages.appBarSearch,color: Colors.white,width: 25.w,
           ),
         )

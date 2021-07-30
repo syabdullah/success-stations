@@ -8,7 +8,7 @@ class AppString {
   static String city = 'City';
   static String university = 'University';
   static String college = 'College';
-  static String termServices = 'I agree to the Term and Conditions';
+  static String termServices = 'I agree to the ';
 
 
 
@@ -110,6 +110,9 @@ class AppString {
   static String changedPasww = 'Password Changed,';
  static String successResetPass=  'You can now login with your new password';
   static String forgotPassText= 'Forgot Password';
+//contact
+ static String send = 'SEND';
+  static String phoneNumber = 'Phone Number';
 
 
 }
