@@ -69,7 +69,9 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                           ),
                           CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
-                          CustomListTile(AppImages.ma, 'MY ADS', () => {} ,15.0),
+                          CustomListTile(AppImages.ma, 'MY ADS', () => {
+                            Navigator.pushNamed(context,'/myAddsPage')
+                          } ,15.0),
                           CustomListTile(AppImages.message, 'MESSAGE', () => {},15.0 ),
                           CustomListTile(AppImages.membership, 'MEMBERSHIP', () {
                             print("jjjhjjnj");
@@ -94,10 +96,14 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'ABOUT US', () => {
                             
                           },15.0 ),
-                          CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {},15.0 ),
+                          CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
+                            Navigator.pushNamed(context, '/advertisement')
+                          },15.0 ),
                           CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
                           CustomListTile(AppImages.ugr, 'USAGE AGREEMENT', () => {},12.0 ),
-                          CustomListTile(AppImages.contactus, 'CONTACT US', () => {},15.0 ),
+                          CustomListTile(AppImages.contactus, 'CONTACT US', () => {
+                            Navigator.pushNamed(context, '/contact')
+                          },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'LOGOUT', () => {},15.0 ),
