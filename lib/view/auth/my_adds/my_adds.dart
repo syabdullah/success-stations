@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -9,6 +10,7 @@ class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
 }
 class _MyAddsState extends State<MyAdds> {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3', 'Categoryt 4', 'Categoryt 5'];
   var listtype = 'list';
   bool _value = false;
@@ -18,14 +20,19 @@ class _MyAddsState extends State<MyAdds> {
   Color listIconColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-        topWidget(),
-          headingUpsell(),
-        Expanded(
-          child: listtype == 'list' ? myAddsList() : myAddGridView()
-        ),
-      ],
+    return Scaffold(
+      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
+       ),
+      body: Column(
+        children: [
+          topWidget(),
+            headingUpsell(),
+          Expanded(
+            child: listtype == 'list' ? myAddsList() : myAddGridView()
+          ),
+        ],
+      ),
     );
   }
 
@@ -65,7 +72,10 @@ class _MyAddsState extends State<MyAdds> {
                   grid = AppImages.grid;
                 });             
               },
-              icon: Image.asset(grid)
+              icon: 
+              // Container(
+                // height: 100,
+                Image.asset(grid),
             ),
             Container(
               margin: EdgeInsets.only(bottom:15),
