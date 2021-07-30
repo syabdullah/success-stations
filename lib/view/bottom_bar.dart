@@ -23,7 +23,7 @@ class _BottomTabsState extends State<BottomTabs> {
   final List<Widget> _children = [
     OfferList(),
     FriendList(),
-    MyAdds(),
+    Dashboard(),
     AdsView()
   ];
 

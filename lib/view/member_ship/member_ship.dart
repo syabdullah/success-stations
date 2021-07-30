@@ -19,16 +19,15 @@ class _MemberShipState extends State<MemberShip> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
       child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch )),
       drawer: Theme(
         data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
         ),
         child: AppDrawer(),
       ),
       body: Column(
-        // padding: EdgeInsets.symmetric(horizontal: 15),
         children: [
           Container(
             margin: EdgeInsets.only(top:20,bottom:20),
@@ -178,15 +177,20 @@ class _MemberShipState extends State<MemberShip> {
       );
     }
     Widget registerButton(text) {
-      return Container(
-        margin: EdgeInsets.symmetric(horizontal:15,vertical: 10),
-        width: Get.width,
-        height: Get.height/9.5*.6,
-        decoration: BoxDecoration(
-          color: AppColors.appBarBackGroundColor,
-          borderRadius: BorderRadius.circular(8)
+      return GestureDetector(
+        onTap: () {
+          Get.toNamed('/beMember');
+        },
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal:15,vertical: 10),
+          width: Get.width,
+          height: Get.height/9.5*.6,
+          decoration: BoxDecoration(
+            color: AppColors.appBarBackGroundColor,
+            borderRadius: BorderRadius.circular(8)
+          ),
+          child: Center(child: Text(text,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 16))),
         ),
-        child: Center(child: Text(text,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 16))),
       );
     }
 }
