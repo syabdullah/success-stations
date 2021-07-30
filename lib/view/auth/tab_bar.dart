@@ -8,7 +8,7 @@ class TabBarPage extends StatefulWidget {
   _TabBarState createState() => _TabBarState();
 }
 class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var tabIndex = 0;
 
   late TabController controller1;
@@ -30,11 +30,9 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   TextEditingController fulNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // final space20 = SizedBox(height: getSize(20, context));
-    // final space10 = SizedBox(height: getSize(10, context));
     return  Scaffold(
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar('', AppImages.appBarLogo, AppImages.appBarLogo )),
+      child: appbar(_scaffoldKey,context,Icons.arrow_back_ios, AppImages.appBarLogo )),
       body: Column(
         children: [
           Expanded(

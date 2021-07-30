@@ -32,13 +32,12 @@ dependencies:
   google_fonts: ^2.1.0
   cupertino_icons: ^1.0.3
   google_sign_in: ^5.0.4
-  # flutter_login_facebook: ^1.0.1
   http: ^0.13.3
   font_awesome_flutter: ^9.1.0
   im_stepper: ^0.1.3
   flutter_screenutil: ^5.0.0+2
   persistent_bottom_nav_bar: ^4.0.2
-  # flutter_login_facebook: ^1.0.1
+  flutter_login_facebook: ^1.0.1
   # http: ^0.13.3
   carousel_slider: ^4.0.0
   animated_widgets: ^1.1.0

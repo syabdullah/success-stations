@@ -20,7 +20,7 @@ class AddPostingScreen extends StatefulWidget {
 }
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
- 
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int activeStep = 0; // Initial step set to 5.
 
   int upperBound = 3; // 
@@ -34,7 +34,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
         bottomNavigationBar: CustomBottomBar(),
         drawer: AppDrawer(),
         appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar('',AppImages.appBarLogo,AppImages.appBarSearch),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
        ),
         body: ListView(
           children: [
