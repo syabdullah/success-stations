@@ -67,6 +67,7 @@ class AppImages {
   static String plusImage = imagePath + 'plus@3x.png';
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
+  static String nearby = imagePath + 'nearby.png';
 
   // memberShip
 

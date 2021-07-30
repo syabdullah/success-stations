@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
@@ -96,8 +95,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'ABOUT US', () => {
-                            
+                          CustomListTile(AppImages.aboutus, 'ABOUT US', ()  {
+                            Get.toNamed('/aboutUs');
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
                           CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {

@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/auth/offer_list.dart';
+import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/ad_views/ad_viewmain.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 var auth;
 
 void main() async {
