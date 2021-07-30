@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -9,6 +10,8 @@ class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
 }
 class _MyAddsState extends State<MyAdds> {
+     RangeValues _currentRangeValues = const RangeValues(1,100);
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3', 'Categoryt 4', 'Categoryt 5'];
   var listtype = 'list';
   bool _value = false;
@@ -18,77 +21,296 @@ class _MyAddsState extends State<MyAdds> {
   Color listIconColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-        topWidget(),
-          headingUpsell(),
-        Expanded(
-          child: listtype == 'list' ? myAddsList() : myAddGridView()
-        ),
-      ],
+    return Scaffold(
+      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
+       ),
+      body: Column(
+        children: [
+          topWidget(),
+            headingUpsell(),
+          Expanded(
+            child: listtype == 'list' ? myAddsList() : myAddGridView()
+          ),
+        ],
+      ),
     );
   }
-
-  Widget topWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left:10),
-              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15) ,
-              color: Colors.grey[200],
-              child: Row(
-                children: [
-                  Image.asset(AppImages.filter,height: 15),
-                  SizedBox(width:5),
-                  Text( 
-                    "Filter",style: TextStyle(color: Colors.grey[700]),
+    Widget topWidget() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              InkWell(
+                onTap: (){ _adsfiltringheet();},
+                child: Container(
+                  margin: EdgeInsets.only(left:10),
+                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15) ,
+                  color: Colors.grey[200],
+                  child: Row(
+                    children: [
+                      Image.asset(AppImages.filter,height: 15),
+                      SizedBox(width:5),
+                      Text( 
+                        "Filter",style: TextStyle(color: Colors.grey[700]),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin:EdgeInsets.only(left:10),
+                child: Image.asset(AppImages.plusImage, height:24)
+              )
+            ],
+          ),
+          Row(
+            children: [
+              IconButton(
+                onPressed: (){
+                  setState(() {
+                    listtype = 'grid';
+                    listIconColor = Colors.grey;
+                    grid = AppImages.grid;
+                  });             
+                },
+                icon: 
+                // Container(
+                  // height: 100,
+                  Image.asset(grid),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom:15),
+                child: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      listtype = 'list';
+                      listIconColor = AppColors.appBarBackGroundColor;
+                      grid = AppImages.gridOf;
+                    });
+                  },
+                  icon: Container(
+                    padding:  EdgeInsets.only(top:10),
+                    child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
+                  )
+                ),
+              ),
+              SizedBox(height: 30,width: 15,)
+            ],
+          )
+        ],
+      );
+    }
+void _adsfiltringheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor:Colors.white,
+      // isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) { 
+        return  AnimatedPadding(
+          padding: MediaQuery.of(context).viewInsets,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.decelerate,
+          child: Container(
+            //  height:Get.height/1,
+            child: Container(
+              margin:EdgeInsets.only(top: 20, left: 40,right: 30),
+                child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[   
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppString.filters ,style:  TextStyle(fontSize: 20, color: Colors.black)
+                      ),
+                      Container(
+                        // margin:EdgeInsets.only(right:30),
+                          child: InkWell(
+                          onTap:()=> Get.back(),
+                          child: Icon(Icons.close))
+                      )
+                    ],
+                  ),
+                  SizedBox(height:10),
+                  Text("Type",style:TextStyle(fontSize: 15)),
+                   SizedBox(height:10),
+                  Row(
+                    children: [
+                      FittedBox(
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[100],
+                            border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
+                        ),
+                        child: Center(
+                          child: Text(
+                            "  Books  ",softWrap: true,
+                            style:  TextStyle(fontSize: 15, color: Colors.blue)
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width:10),
+                    FittedBox(
+                      child: Container(
+                        height: 30,
+                        // width: Get.width/4.5,
+                        decoration: BoxDecoration(
+                          // color: Colors.blue[100],
+                          border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(5))
+                        ),
+                        child: Center(
+                          child: Text(
+                            "  Engg Books  ",softWrap: true,
+                            style:  TextStyle(fontSize: 15, color: Colors.blue)
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                  SizedBox(height: 15,),
+                  Text("Condition",
+                    style:TextStyle(fontSize: 15)
+                  ),
+                  SizedBox(height:10),
+                  Row(
+                    children: [
+                      FittedBox(
+                        child: Container(
+                          height: 30,
+                         width: Get.width/5,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[100],
+                            border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
+                          ),
+                          child: Center(
+                            child: Container(
+                              margin: EdgeInsets.only(left:5),
+                              child: Text(
+                                "New",softWrap: true,textAlign: TextAlign.center,
+                                style:  TextStyle(fontSize: 15, color: Colors.blue)
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width:10),
+                      FittedBox(
+                        child: Container(
+                          height: 30,
+                          width: Get.width/6,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[100],
+                            border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(5))
+                          ),
+                          child: Center(
+                            child: Text(
+                              "  Old  ",softWrap: true,
+                              style:  TextStyle(fontSize: 15, color: Colors.blue)
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    "Price ",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                     "SAR 50 - SAR 200 ",style:  TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.normal)
+                    ),
+                    RangeSlider(
+                      values: _currentRangeValues,
+                      min: 1,
+                      max: 100,
+                      // divisions: 5,
+                      labels: RangeLabels(
+                        _currentRangeValues.start.round().toString(),
+                        _currentRangeValues.end.round().toString(),
+                      ),
+                      onChanged: (values) {
+                        setState(() {
+                          print("start : ${values.start}, end: ${values.end}");
+                          _currentRangeValues = values;
+                        });
+                      },
+                    ),
+                    
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top:20),
+                        // ignore: deprecated_member_use
+                        child: RaisedButton(
+                          color: Colors.grey[100],
+                          child: Container(
+                            width: Get.width / 4,
+                            child: Center(child: Text(AppString.resetButton, style: TextStyle(color: AppColors.inputTextColor )))
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/login');
+                            // Get.to(SignIn());
+                          }
+                        ),
+                        
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:20),
+                        // ignore: deprecated_member_use
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          child: Container(
+                            width: Get.width / 4,
+                            child: Center(child: Text("Apply", style: TextStyle(color:Colors.white)))
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/login');
+                            // Get.to(SignIn());
+                          }
+                        ),
+                        
+                      ),
+                    ],
                   )
                 ],
               ),
             ),
-            Container(
-              margin:EdgeInsets.only(left:10),
-              child: Image.asset(AppImages.plusImage, height:24)
-            )
-          ],
-        ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: (){
-                setState(() {
-                  listtype = 'grid';
-                  listIconColor = Colors.grey;
-                  grid = AppImages.grid;
-                });             
-              },
-              icon: Image.asset(grid)
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom:15),
-              child: IconButton(
-                onPressed: (){
-                  setState(() {
-                    listtype = 'list';
-                    listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.gridOf;
-                  });
-                },
-                icon: Container(
-                  padding:  EdgeInsets.only(top:10),
-                  child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
-                )
-              ),
-            ),
-            SizedBox(height: 30,width: 15,)
-          ],
-        )
-      ],
-    );
+          ),
+        );
+    }
+  );
   }
+ );
+  
+}
+  
 
   Widget myAddsList() {
     return ListView.builder(
