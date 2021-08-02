@@ -73,4 +73,9 @@ class AppImages {
 
   static String cross = imagePath + 'cross@3x.png';
   static String memberSuccess = imagePath + 'illustration@3x.png';
+
+  //maps
+
+  static String map= imagePath + "map.png";
+  static String gridView = imagePath + 'grid.png';
 }

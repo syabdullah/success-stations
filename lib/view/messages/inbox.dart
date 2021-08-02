@@ -15,7 +15,6 @@ class _InboxState extends State<Inbox> {
     return Scaffold(
       body: Stack(
         children: [
-          
           Container(
             height: Get.height,
             width: Get.width,
@@ -23,29 +22,25 @@ class _InboxState extends State<Inbox> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top:45,left: 12),
-                  child: Row(
-                    children: [
-                        Image.asset(AppImages.arrowBack),
-                        Center(
-                          widthFactor:5,
-                          child: Text("INBOX",
-                          style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                        ),
-                        ),
-                    ],
-                  ),
-                ),
+                 AppBar(
+                   leading:Image.asset(AppImages.arrowBack),
+                  elevation: 0,
+                  backgroundColor: AppColors.appBarBackGroundColor,
+                    centerTitle: true,
+                     title:
+                      Text("INBOX",
+                      style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+                      )
+                    ),
                  Padding(
-                   padding: const EdgeInsets.only(top:30.0,left:20),
+                   padding: const EdgeInsets.only(top:0.0,left:20),
                    child: Text("Recently Contacted",
                      style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.normal, color:Colors.white,),
                     ),
                  ),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(top:5.0,),
+                    margin: const EdgeInsets.only(top:25.0,),
                     // color: Colors.white,
                     height: Get.height,
                     child: recentlyContacted()
