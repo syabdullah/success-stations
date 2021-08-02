@@ -9,6 +9,7 @@ import 'package:success_stations/view/auth/language.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/dashboard.dart';
@@ -37,6 +38,7 @@ const String adverrtise = '/advertisement';
 const String myAdd = '/myAddsPage';
 const String contact = '/contact';
 const String adViewTab = "/adViewTab";
+const String notification = '/notification';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -58,6 +60,8 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => MemberShip());
         case adverrtise:
         return MaterialPageRoute(builder: (_) => AdvertisePage());
+        case notification:
+        return MaterialPageRoute(builder: (_) => NotificationPage());
         case myAdd:
         return MaterialPageRoute(builder: (_) => MyAdds());
         case contact:

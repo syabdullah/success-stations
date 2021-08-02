@@ -35,7 +35,7 @@ class SuccessApp extends StatelessWidget {
           home: MapView(),
         // initialRoute: auth == null ?  '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        // home: OfferList(),
+        // home: NotificationPage(),
       ),
        designSize: const Size(360, 640),
     );
