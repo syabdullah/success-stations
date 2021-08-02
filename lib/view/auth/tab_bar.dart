@@ -32,7 +32,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,Icons.arrow_back_ios, AppImages.appBarLogo )),
+      child: sAppbar(context,Icons.arrow_back_ios, AppImages.appBarLogo )),
       body: Column(
         children: [
           Expanded(

@@ -68,6 +68,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                             ),
                           ),
+                          CustomListTile(AppImages.aboutus, 'Home', ()  {
+                            Get.toNamed('/tabs');
+                          },15.0 ),
                           CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
                           CustomListTile(AppImages.ma, 'MY ADS', ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
@@ -108,7 +111,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
-                          CustomListTile(AppImages.logout, 'LOGOUT', () => {},15.0 ),
+                          CustomListTile(AppImages.logout, 'LOGOUT', ()  {
+                            Get.toNamed('/login');
+                          },15.0 ),
                         ],
                       ),
                     ),

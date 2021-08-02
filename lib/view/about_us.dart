@@ -19,7 +19,7 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       bottomNavigationBar: CustomBottomBar(),
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: stringAppbar('',Icons.arrow_back_ios_new_sharp, 'ABOUT US',AppImages.appBarSearch),
+       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ABOUT US',AppImages.appBarSearch),
       ),
      body: Column(
       children: [

@@ -432,7 +432,7 @@ void _adsfiltringheet() {
             Container(
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
-              // height: Get.height < 420 ? Get.height/3.6: Get.height/8.2,
+              height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                   child:  Card(
                     elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -451,7 +451,7 @@ void _adsfiltringheet() {
                         ),
                         Container(
                           alignment: Alignment.topLeft,
-                          margin: EdgeInsets.only(top:6,left: 10),
+                          margin: EdgeInsets.only(left: 10),
                           child: Text('Sheeza Tariq',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                         ),
                         Container(
