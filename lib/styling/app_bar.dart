@@ -27,6 +27,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
     );
   }
 
+Widget sAppbar(context ,icon,image,) {
+    return AppBar(
+      // automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading: 
+      // Padding(
+        // padding: const EdgeInsets.only(top:10.0),
+        IconButton(
+          icon: Icon(icon,
+          color: AppColors.backArrow),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      //
+      //  ),
+    title: Padding(
+       padding: const EdgeInsets.only(top:10.0),
+        child: Image.asset(image, height: 40),
+      ),
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
+
  Widget stringAppbar(context ,icon,string ,searchImage,) {
     return AppBar(
       // automaticallyImplyLeading: false,

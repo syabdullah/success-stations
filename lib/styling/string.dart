@@ -76,6 +76,7 @@ class AppString {
   // friend list
 
   static String filter = 'Filter';
+  static String filters = 'Filters';
   static String cancel = 'Cancel';
   static String addFriend = 'Add Friend';
   static String remove = 'Remove';

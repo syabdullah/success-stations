@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:success_stations/view/about_us.dart';
+import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/contact.dart';
 import 'package:success_stations/view/auth/country.dart';
@@ -21,7 +23,7 @@ const String login = '/login';
 const String home = '/home';
 const String adViewScreen = '/adviewScreen';
 const String adPostingScreen = '/adPostingScreen';
-
+const String aboutUs = '/aboutUs';
 const String tabs = '/tabs';
 const String friendPro = '/friendProfile';
 const String member = '/membership';
@@ -34,6 +36,7 @@ const String inbox = '/inbox';
 const String adverrtise = '/advertisement';
 const String myAdd = '/myAddsPage';
 const String contact = '/contact';
+const String adViewTab = "/adViewTab";
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -59,7 +62,6 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => MyAdds());
         case contact:
         return MaterialPageRoute(builder: (_) => Contact());
-
         case language:
         return MaterialPageRoute(builder: (_) => Language());
         case country:
@@ -68,6 +70,10 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => BecomeMember());
         case forgot:
         return MaterialPageRoute(builder: (_) => ForgotPassword());
+        case aboutUs:
+        return MaterialPageRoute(builder: (_) => AboutUs());
+        case adViewTab:
+        return MaterialPageRoute(builder: (_) => AdViewTab());
          case inbox:
         return MaterialPageRoute(builder: (_) => Inbox());
       default:

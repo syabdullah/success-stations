@@ -13,11 +13,15 @@ class _InboxState extends State<Inbox> {
     return Scaffold(
       body: Stack(
         children: [
+          
           Container(
-            height: Get.height/3.0,
+            height: Get.height,
             width: Get.width,
             color: AppColors.appBarBackGroundColor,
-          )
+          ),
+          messageList(
+
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -30,9 +34,12 @@ class _InboxState extends State<Inbox> {
     );
   }
   Widget messageList() {
-    return SingleChildScrollView(
+    return ClipRRect(
+      borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(110)),
       child: Container(
-        
+        margin: EdgeInsets.only(top:Get.height/3.0),
+        height: Get.height/1.3,
+        color: Colors.orange,
       ),
     );
   }

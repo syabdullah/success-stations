@@ -108,7 +108,7 @@ class _OfferListState extends State<OfferList> {
                       ClipRRect(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
                         child: Container(
-                          height: Get.height *0.20,
+                          height: Get.height *0.18,
                           child: Image.asset('assets/images/coppsule.png',fit: BoxFit.fitHeight)
                         )
                       )

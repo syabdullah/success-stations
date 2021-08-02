@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
@@ -69,6 +68,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                             ),
                           ),
+                          CustomListTile(AppImages.aboutus, 'Home', ()  {
+                            Get.toNamed('/tabs');
+                          },15.0 ),
                           CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
                           CustomListTile(AppImages.ma, 'MY ADS', ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
@@ -96,8 +98,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'ABOUT US', () => {
-                            
+                          CustomListTile(AppImages.aboutus, 'ABOUT US', ()  {
+                            Get.toNamed('/aboutUs');
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
                           CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
@@ -109,7 +111,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
-                          CustomListTile(AppImages.logout, 'LOGOUT', () => {},15.0 ),
+                          CustomListTile(AppImages.logout, 'LOGOUT', ()  {
+                            Get.toNamed('/login');
+                          },15.0 ),
                         ],
                       ),
                     ),

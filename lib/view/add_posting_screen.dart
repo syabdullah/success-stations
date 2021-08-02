@@ -567,7 +567,9 @@ Widget secondStep(){
         textStyle: TextStyle(
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
-        onPressed: () {  },
+        onPressed: () { 
+          Get.toNamed('/tabs');
+         },
         child: Text('PUBLISH'),
       ),
     );
