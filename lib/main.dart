@@ -31,10 +31,9 @@ class SuccessApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
-          home: Inbox(),
-        // initialRoute: auth == null ?  '/langua' : '/tabs',
+        initialRoute:  auth == null ? '/langua ' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        // home: OfferList(),
+        // home: NotificationPage(),
       ),
        designSize: const Size(360, 640),
     );
