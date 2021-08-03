@@ -69,6 +69,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.name,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
@@ -97,6 +98,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.phoneNumber,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,

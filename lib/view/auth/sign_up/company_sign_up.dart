@@ -219,6 +219,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.fullName,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -247,6 +248,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.email,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -276,6 +278,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.mobile,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -308,6 +311,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.dob,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -335,6 +339,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.companyName,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -484,6 +489,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.idIqama,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -517,6 +523,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.response,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -536,6 +543,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.mobNum,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -557,6 +565,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.cr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
