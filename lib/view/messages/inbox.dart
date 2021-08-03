@@ -20,12 +20,6 @@ class _InboxState extends State<Inbox> {
             height: Get.height,
             width: Get.width,
             color: AppColors.appBarBackGroundColor,
-<<<<<<< HEAD
-          ),
-          messageList(
-
-          ),
-=======
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,7 +53,6 @@ class _InboxState extends State<Inbox> {
           ),
           messageList(),
           
->>>>>>> 25dced9f01bc288375a433b8388b28aa1def7fd1
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -72,19 +65,10 @@ class _InboxState extends State<Inbox> {
     );
   }
   Widget messageList() {
-<<<<<<< HEAD
-    return ClipRRect(
-      borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(110)),
-      child: Container(
-        margin: EdgeInsets.only(top:Get.height/3.0),
-        height: Get.height/1.3,
-        color: Colors.orange,
-=======
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
            color: Colors.white,
->>>>>>> 25dced9f01bc288375a433b8388b28aa1def7fd1
       ),
       margin: EdgeInsets.only(top:Get.height/3.0),
       height: Get.height/1.2,
