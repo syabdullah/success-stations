@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 
 class GoogleSignInC {
@@ -26,13 +27,21 @@ class GoogleSignInC {
   }
 
   Future<void> handleSignIn() async {
+   final login =  Get.put(LoginController());
     print("..........................");
     try {
       await googleSignIn.signIn().then((value) {
-        value!.authentication.then((googleKey){
-          dataStore.write("access_token", googleKey.accessToken);
-          dataStore.write("id_token", googleKey.idToken);
-              print(googleKey.accessToken);
+        print(value);
+        var json = {
+           "email" : value!.email,
+           'name' : value.displayName,
+           'provider_id' : value.id
+        };
+        login.loginSocial(json);
+        value.authentication.then((googleKey){
+          // dataStore.write("access_token", googleKey.accessToken);
+          // dataStore.write("id_token", googleKey.idToken);
+              print(googleKey);
               print(googleKey.idToken);
               if(googleKey.accessToken != null) {
                 Get.toNamed('/tabs');

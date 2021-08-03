@@ -142,6 +142,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.newPass,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.textInput,
@@ -167,6 +168,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.confirmPass,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.textInput,

@@ -381,6 +381,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          isObscure: false,
           hintText: AppString.fullName,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
@@ -402,6 +403,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          isObscure: false,
           hintText: AppString.mobileNo,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
@@ -423,6 +425,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          isObscure: false,
           hintText: AppString.telephoneNo,
           hintStyle: TextStyle(fontSize: 13,fontWeight:FontWeight.bold),
           hintColor: AppColors.inputTextColor,
@@ -444,6 +447,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          isObscure: false,
           hintText: AppString.email,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,

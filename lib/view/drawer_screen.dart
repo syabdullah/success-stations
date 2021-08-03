@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
@@ -14,6 +15,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  GetStorage box = GetStorage();
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -112,6 +114,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'LOGOUT', ()  {
+                            box.remove("access_token");
                             Get.toNamed('/login');
                           },15.0 ),
                         ],

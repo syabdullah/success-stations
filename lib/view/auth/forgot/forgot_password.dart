@@ -78,6 +78,7 @@ class _ForgotPageState extends State<ForgotPassword> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.emailAddress,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,

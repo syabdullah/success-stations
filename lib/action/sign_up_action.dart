@@ -7,6 +7,7 @@ Future<http.Response> createAccount(data) async{
   print("sign in .....");
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}register");
+  print("......... student sign..........$url");
   final result = await http.post(
     url,body: jsonEncode(data),headers: ApiHeaders().headers);
     return result;

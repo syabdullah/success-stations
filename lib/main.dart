@@ -20,6 +20,7 @@ void main() async {
 GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
+  print("...........$auth");
 }
 
 class SuccessApp extends StatelessWidget {
