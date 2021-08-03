@@ -15,12 +15,6 @@ class CustomBottomBar extends StatefulWidget {
 
 class _CustomBottomBarState extends State<CustomBottomBar> {
   int _currentIndex = 0;
-  final List<Widget> _children = [
-   AboutUs(),
-   AddPostingScreen(),
-   AboutUs(),
-   AddPostingScreen(),
-  ];
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;

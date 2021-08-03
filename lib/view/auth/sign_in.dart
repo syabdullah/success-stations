@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
@@ -10,7 +9,10 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/facebook_signIn.dart';
 import 'package:success_stations/utils/google_signIn.dart';
-import 'package:success_stations/view/auth/tab_bar.dart';
+import 'package:success_stations/utils/page_util.dart';
+import 'package:success_stations/view/bottom_bar.dart';
+
+import 'forgot/forgot_code.dart';
 
 class SignIn extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
@@ -255,6 +257,9 @@ class _SignPageState extends State<SignIn> {
   }
   void navigateToGoogleFaceBook() {
     FaceBookSignIn().login();
+  }
+  void navaigateToTabs() {
+   PageUtils.pushPage(BottomTabs());
   }
 }
  
