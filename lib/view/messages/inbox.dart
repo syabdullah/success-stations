@@ -15,6 +15,7 @@ class _InboxState extends State<Inbox> {
     return Scaffold(
       body: Stack(
         children: [
+          
           Container(
             height: Get.height,
             width: Get.width,

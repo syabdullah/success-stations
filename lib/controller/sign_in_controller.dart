@@ -3,22 +3,49 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/sign_in_action.dart';
+import 'package:success_stations/action/social_register.dart';
+import 'package:success_stations/utils/routes.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();
-  var logindata = [].obs;
+  var logindata;
   var subDom;
   var result = true;
    var resultInvalid = false.obs;
    RxBool isLoading = false.obs;
   loginUserdata(data) async {
     isLoading(true);
-    await login(data).then((res) {    
+    await simplelogin(data).then((res) {    
       logindata = jsonDecode(res.body);
-      print(logindata);
-      if(res.statusCode == 200) {
+      
+      if(res.statusCode == 200 || res.statusCode < 400 ) {
+         box.write('access_token',logindata['data']['token']);
+         print("..././///////////${logindata['data']['token']}.................${res.body}");
+        box.write('email',logindata['data']['email']);
+        box.write('name',logindata['data']['nam']);
+
         isLoading(false);
-      } else {
+        Get.toNamed('/tabs');
+      } else if(logindata['success'] == false) {
+        resultInvalid(true);
+        isLoading(false);
+      }
+    });
+    update();
+  }
+
+  loginSocial(data) async {
+    isLoading(true);
+    await socialLogin(data).then((res) {    
+      logindata = jsonDecode(res.body);
+       print("...............$logindata");
+      print(res.statusCode);
+      if(res.statusCode == 200 || res.statusCode < 400) {
+        box.write('access_token',logindata['data']['token']);
+        box.write('email',logindata['data']['email']);
+        isLoading(false);
+      } else if(logindata['message'] == 'The given data was invalid.') {
+        resultInvalid(true);
         isLoading(false);
       }
     });

@@ -65,6 +65,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.fullName,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -84,6 +85,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText:AppString.email,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -103,6 +105,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.mobile,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -122,6 +125,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.country,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -141,6 +145,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.region,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -160,6 +165,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.city,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -179,6 +185,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.university,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,
@@ -198,6 +205,7 @@ class _SignPageState extends State<SignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        isObscure: false,
         hintText: AppString.college,
         hintStyle: TextStyle(fontSize: 13,),
         hintColor: AppColors.inputTextColor,

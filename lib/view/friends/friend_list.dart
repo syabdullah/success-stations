@@ -12,7 +12,7 @@ class FriendList extends StatefulWidget {
 class _FriendListState extends State<FriendList> {
   var listtype = 'list';
   var grid = AppImages.gridOf;
-  Color listIconColor = Colors.grey;
+  Color listIconColor = AppColors.appBarBackGroundColor;
   @override
   Widget build(BuildContext context) {
     return  Column(
