@@ -225,13 +225,12 @@ class _SignPageState extends State<SignIn> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(AppString.goForSignup),
+          Text("Dont_have_account".tr),
           GestureDetector(
             onTap: (){
-              print("ontap itmemmm.....>!!!");
              Navigator.pushNamed(context, '/signUp');
             },
-            child: Text(AppString.signUp,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
+            child: Text('sign_up_text'.tr,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
           ),
         ],
       ),

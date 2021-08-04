@@ -21,4 +21,6 @@ class AppColors {
   //forrgort
   static Color forgotPassText = Color(0xFF918D8D);
   static Color grey = Color(0xFFBDBDBD);
+  //snackBar
+  static Color snackBarColor = Color(0xFFD63B00);
 }
