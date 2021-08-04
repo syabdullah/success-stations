@@ -38,7 +38,7 @@ class LoginController extends GetxController {
     isLoading(true);
     await socialLogin(data).then((res) {    
       logindata = jsonDecode(res.body);
-       print("...............$logindata");
+       print("...............${logindata['data']['token']}");
       print(res.statusCode);
       if(res.statusCode == 200 || res.statusCode < 400) {
         box.write('access_token',logindata['data']['token']);

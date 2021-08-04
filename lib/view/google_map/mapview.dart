@@ -4,6 +4,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class MapView extends StatefulWidget {
   const MapView({ Key? key }) : super(key: key);
@@ -56,10 +57,16 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-     bottomNavigationBar: CustomBottomBar(),
-      appBar: 
-      PreferredSize( preferredSize: Size.fromHeight(70.0),
-         child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+    //  bottomNavigationBar: CustomBottomBar(),
+      // appBar: 
+      // PreferredSize( preferredSize: Size.fromHeight(70.0),
+      //    child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+      //    drawer: Theme(
+      //   data: Theme.of(context).copyWith(
+      //     // canvasColor: AppColors.botomTiles
+      //   ),
+      //   child: AppDrawer(),
+      // ),
       body: Stack(
         children: [
            Expanded(

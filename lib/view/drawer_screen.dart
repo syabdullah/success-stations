@@ -73,7 +73,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'Home', ()  {
                             Get.toNamed('/tabs');
                           },15.0 ),
-                          CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
+                          CustomListTile(AppImages.userProfile, 'PROFILE', ()  {
+                            Get.toNamed('/friendProfile');
+                          },15.0 ),
                           CustomListTile(AppImages.ma, 'MY ADS', ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
                           } ,15.0),

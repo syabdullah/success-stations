@@ -122,8 +122,8 @@ class _CountryPageState extends State<Ccountry> {
             bgcolor: AppColors.appBarBackGroundColor,  
             textColor: AppColors.appBarBackGroun,
             buttonText: AppString.next,
-            fontSize: 18.toDouble()
-            // callback: signIn
+            fontSize: 18.toDouble(),
+            callback: next
           ),
          SizedBox(height: 10),
           Container(
@@ -185,6 +185,9 @@ class _CountryPageState extends State<Ccountry> {
       image: image,
       width: width,  
     );
+  }
+  next() {
+    Get.toNamed('/signUp');
   }
 }
  

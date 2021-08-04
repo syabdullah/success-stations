@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/styling/responsive.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/utils/skalton.dart';
 
 class FriendList extends StatefulWidget {
   _FriendListState createState() => _FriendListState();
 }
 class _FriendListState extends State<FriendList> {
+  final friCont = Get.put(FriendsController());
   var listtype = 'list';
   var grid = AppImages.gridOf;
   Color listIconColor = AppColors.appBarBackGroundColor;
+
+  @override
+  void initState() {
+    super.initState();
+    friCont.getFriendsList();
+  }
   @override
   Widget build(BuildContext context) {
     return  Column(
       children: [
         topWidget(),
-        Expanded(
-          child: listtype == 'list' ? friendList() : friendGridView()
-        ),
+        GetBuilder<FriendsController>(
+          init: FriendsController(),
+          builder: (val) {
+            print("/././././././${val.friendsData}");
+            return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0  || val.friendsData == null? Container(
+              child: Text("no suggestions "),
+            ) :  Expanded(
+              child: listtype == 'list' ? friendList(val.friendsData['data']) : friendGridView(val.friendsData['data'])
+            );
+        })
       ],
     );
   }
@@ -75,9 +92,9 @@ class _FriendListState extends State<FriendList> {
     );
   }
 
-  Widget friendList() {
+  Widget friendList(data) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: data.length,
       itemBuilder: (BuildContext,index) {
         return GestureDetector(
           onTap: (){
@@ -85,19 +102,20 @@ class _FriendListState extends State<FriendList> {
           },
           child: Card(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child: Icon(Icons.person),
+                    child: Image.network(data[index]['user_requisted']['city']['image']['url']),
                   ),
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(data[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     Container(
                       child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
@@ -108,41 +126,76 @@ class _FriendListState extends State<FriendList> {
                         Image.asset(AppImages.location,height: 15,),
                         SizedBox(width:5),
                         Container(
-                          child: Text("codility solutions"),
+                          child: Text(data[index]['user_requisted']['city']['city']),
                         ),
                       ],
                     ),
                   ],
                 ),
-                submitButton(
-                  bgcolor: AppColors.appBarBackGroundColor,
-                  textColor: AppColors.appBarBackGroun,
-                  buttonText: AppString.addFriend,
-                  callback: navigateToGoogleLogin,
-                  width: Get.width/4.8,
-                  height: 35.0
-                ),
-                submitButton(
-                  bgcolor: Colors.grey,
-                  textColor: AppColors.appBarBackGroun,
-                  buttonText: AppString.remove,
-                  callback: navigateToGoogleLogin,
-                  width: Get.width/4.8,
-                  height: 35.0
-                ),
+                Spacer(),
+                data[index]['status'] != "Accepted" ? 
+                GestureDetector(
+                  onTap: (){ addFriend(data[index]['id']);},
+                  child: Container( 
+                     margin:EdgeInsets.only(right:10),
+                    alignment: Alignment.center,
+                    width: Get.width/4.2,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      color: AppColors.appBarBackGroundColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child:
+                    Container(
+                     
+                      child: Text(
+                        AppString.addFriend,
+                        style:TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ),
+                ): Container(),
+                data[index]['status'] != "Accepted" ? 
+                GestureDetector(
+                  onTap: (){rejFriend(data[index]['id']);},
+                  child: Container( 
+                    alignment: Alignment.center,
+                    width: Get.width/4.2,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child:
+                    Container(
+                      margin:EdgeInsets.only(left:10),
+                      child: Text(
+                        AppString.remove,
+                        style:TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ),
+                ): Container(),
               ],
             ),
           ),
         );
-
       },
     );
   }
 
-  Widget friendGridView() {
+  Widget friendGridView(data) {
     return GridView.count(
       crossAxisCount: 2,
-      children: List.generate(100, (index) {
+      children: List.generate(data.length, (index) {
         return GestureDetector(
           onTap: (){
             Get.toNamed('/friendProfile');
@@ -156,13 +209,13 @@ class _FriendListState extends State<FriendList> {
                   margin: EdgeInsets.symmetric(horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child: Icon(Icons.person),
+                    child:Image.network(data[index]['user_requisted']['city']['image']['url']),
                   ),
                 ),
                 Column(
                   children: [
                     Container(
-                      child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(data[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     Container(
                       child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
@@ -173,32 +226,67 @@ class _FriendListState extends State<FriendList> {
                         Image.asset(AppImages.location,height: 15),
                         SizedBox(width:5),
                         Container(
-                          child: Text("codility solutions"),
+                          child: Text(data[index]['user_requisted']['city']['city']),
                         ),
                       ],
                     ),
                   ],
                 ),
+                data[index]['status'] != "Accepted" ? 
                 Row(
                   children: [
-                    submitButton(
-                      bgcolor: AppColors.appBarBackGroundColor,
-                      textColor: AppColors.appBarBackGroun,
-                      buttonText: AppString.addFriend,
-                      callback: navigateToGoogleLogin,
-                      width: Get.width/4.2,
-                      height: 35.0
+
+                    GestureDetector(
+                      onTap: (){ addFriend(data[index]['id']);},
+                      child: Container( 
+                        alignment: Alignment.center,
+                        width: Get.width/4.2,
+                        height: 35.0,
+                        decoration: BoxDecoration(
+                          color: AppColors.appBarBackGroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child:
+                        Container(
+                          // margin:EdgeInsets.only(left:10),
+                          child: Text(
+                            AppString.addFriend,
+                            style:TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ),
                     ),
-                    submitButton(
-                      bgcolor: Colors.grey,
-                      textColor: AppColors.appBarBackGroun,
-                      buttonText: AppString.remove,
-                      callback: navigateToGoogleLogin,
-                      width: Get.width/4.2,
-                      height: 35.0
+
+                    GestureDetector(
+                      onTap: (){rejFriend(data[index]['id']);},
+                      child: Container( 
+                        alignment: Alignment.center,
+                        width: Get.width/4.2,
+                        height: 35.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child:
+                        Container(
+                          margin:EdgeInsets.only(left:10),
+                          child: Text(
+                            AppString.remove,
+                            style:TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ),
                     ),
                   ],
-                ),
+                ):Container(),
                 SizedBox(height:8),
               ],
             ),
@@ -226,6 +314,10 @@ class _FriendListState extends State<FriendList> {
     );
   }
   
-  void navigateToGoogleLogin() {
+   addFriend(id) {
+    friCont.appFriend(id);
+  }
+  rejFriend(id) {
+    // friCont.appFriend(id);
   }
 }

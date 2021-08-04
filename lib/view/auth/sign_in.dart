@@ -229,7 +229,7 @@ class _SignPageState extends State<SignIn> {
           GestureDetector(
             onTap: (){
               print("ontap itmemmm.....>!!!");
-             Navigator.pushNamed(context, '/signUp');
+             Get.toNamed('/langua');
             },
             child: Text(AppString.signUp,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
           ),
