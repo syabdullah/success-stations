@@ -15,11 +15,10 @@ class CollegeController extends GetxController {
   }
 
   getCollegeByUniversities() async{
-    print("getCountry.......!!!!!!");
     isLoading = true ;
     await college().then((res) {
       collegeData = jsonDecode(res.body);
-      for(int col = 0; col < collegeData.length;col++ ){
+      for(int col = 0; col < collegeData['data'].length;col++ ){
         listCollegeData.add(collegeData['data'][col]);
       }
       isLoading = false;

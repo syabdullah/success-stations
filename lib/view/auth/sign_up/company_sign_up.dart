@@ -58,7 +58,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   void initState() {
     super.initState();
   }
-  void createUser() {
+  companyUser() {
     final form = formKey.currentState;
     if(form!.validate()){
       form.save();
@@ -72,12 +72,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "user_type":  4,
         "cr_number":  crController.text ,
         'company_name':comNameController.text,
-
       };
-      signUpCont.createAccountData(json);
+      print("......!!!!!!! jsong of the company$json ");
+      signUpCont.companyAccountData(json);
     }
   }
   individualSignUp() {
+    print("...................");
     final form = formKey.currentState;
     if(form!.validate()){
       form.save();
@@ -93,7 +94,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text
 
       };
-      signUpCont.createAccountData(individualJson);
+      print("......!!!!!!! jsong of the company$individualJson ");
+      signUpCont.individualAccountData(individualJson);
     }
  }
  
@@ -188,7 +190,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 buttonText: AppString.signUp, 
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun, 
-                callback:   v == 1 ? individualSignUp : createUser
+                callback: v == 1 ? individualSignUp : companyUser
               ),
               space20,
               GestureDetector(
@@ -243,7 +245,35 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
-   Widget eMail() {
+  //  Widget eMail() {
+  //   return  Container(
+  //     margin:EdgeInsets.only(left:20, right: 20),
+  //     width: Get.width * 0.9,
+  //     child: CustomTextFiled(
+  //       hintText:AppString.email,
+  //       hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+  //       hintColor: AppColors.inputTextColor,
+  //       onChanged: (value) {  },
+  //       onSaved: (String? newValue) {  }, 
+  //       onFieldSubmitted: (value) {  }, 
+  //       // isObscure: true,
+  //       textController: emailController,
+  //       validator: (val) {
+  //         String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  //         RegExp regExp = RegExp(pattern);
+  //         if ( val.length == 0 ){
+  //           return 'Enter an Email';
+  //         }
+  //         else if (!regExp.hasMatch(val)) {
+  //           return "Enter Valid Email Address";
+  //         }
+  //         return null;
+  //       }, 
+  //       errorText: '',
+  //     ),
+  //   );
+  // }
+  Widget eMail() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -253,15 +283,15 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
-        // isObscure: true,
+        onSaved: (newValue) {
+        }, 
+        onFieldSubmitted: (value) {  },
         textController: emailController,
         validator: (val) {
           String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
-            return 'Enter an Email';
+            return 'Enter An Email';
           }
           else if (!regExp.hasMatch(val)) {
             return "Enter Valid Email Address";
@@ -269,6 +299,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           return null;
         }, 
         errorText: '',
+        
       ),
     );
   }
@@ -345,7 +376,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {},  
-        textController: dobController,
+        textController: comNameController,
         onSaved: (String? newValue) {  
         }, 
         validator: (value) { 
@@ -465,6 +496,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
+              print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
               return DropdownMenuItem(
                 value: citt,
                 child:Text(citt['city'])
@@ -601,7 +633,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         ),
         Expanded(
           child: Row(
-            children:  _group.map((t) => 
+            children: _group.map((t) => 
             Expanded(
               child: Row(
                 children: [
@@ -611,6 +643,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     activeColor: Colors.blue,
                     onChanged: (int?value ) {
                       setState(() {
+                        print(" radio button values................$value");
                         v = value!;
                       });
                     },

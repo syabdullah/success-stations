@@ -6,7 +6,7 @@ class RegionController extends GetxController {
   bool isLoading = false; 
   List listDataRegion = [];
   var regionData;
-
+  
   @override
   void onInit(){
     isLoading = true;
@@ -17,9 +17,12 @@ class RegionController extends GetxController {
     isLoading = true ;
     await region().then((res) {
       regionData = jsonDecode(res.body);
-      for(int r = 0; r < regionData.length; r++){
-        listDataRegion.add(regionData['data'][r]);
+      if(regionData['data'].length !=null ){
+        for(int r = 0; r < regionData['data'].length; r++){
+          listDataRegion.add(regionData['data'][r]);
+        }
       }
+      
       isLoading = false;
     });
     update();
