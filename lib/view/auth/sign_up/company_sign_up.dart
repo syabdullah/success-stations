@@ -116,7 +116,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10 ,
               v != 2 ? SizedBox(
                 height: 
-                Get.height / 10.3,
+                Get.height / 9.3,
                 child: companyDob()
               ): 
               space10,
@@ -144,7 +144,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               radioalert(),
               v == 2 ? 
               SizedBox(
-                height: Get.height/ 10.3,
+                height: Get.height/ 9.3,
                 child: comName()
               ):
               space10,
@@ -152,7 +152,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               cR():
               space10,
               v == 1 ? SizedBox(
-                height: Get.height / 10.3,
+                height: Get.height / 9.3,
                 child: iqama()
               ): 
               space10,
