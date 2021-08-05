@@ -95,7 +95,7 @@ class _CountryPageState extends State<Ccountry> {
                   // ),
                   // width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                   // height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                  child: Image.asset(AppImages.profileBg,)
+                  // child: Image.asset(AppImages.profileBg,)
                 ),
               ),
               Container(
@@ -187,9 +187,9 @@ class _CountryPageState extends State<Ccountry> {
           submitButton(
             bgcolor: AppColors.appBarBackGroundColor,  
             textColor: AppColors.appBarBackGroun,
-            buttonText: "next".tr,
-            fontSize: 18.toDouble()
-            // callback: signIn
+            buttonText: AppString.next,
+            fontSize: 18.toDouble(),
+            callback: next
           ),
          SizedBox(height: 10),
           Container(
@@ -251,6 +251,9 @@ class _CountryPageState extends State<Ccountry> {
       image: image,
       width: width,  
     );
+  }
+  next() {
+    Get.toNamed('/signUp');
   }
 }
  

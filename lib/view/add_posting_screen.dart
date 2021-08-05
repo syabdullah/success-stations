@@ -31,11 +31,16 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     print(activeStep);
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: CustomBottomBar(),
-        drawer: AppDrawer(),
-        appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
-       ),
+        // bottomNavigationBar: CustomBottomBar(),
+        key: _scaffoldKey,
+      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
         body: ListView(
           children: [
             ImageStepper(
