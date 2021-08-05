@@ -15,6 +15,8 @@ class Contact extends StatefulWidget {
 }
 class ContactPageState extends State<Contact> {
   TextEditingController emailController = TextEditingController();
+      FocusNode textSecondFocusNode = new FocusNode();
+
   
   final formKey = new GlobalKey<FormState>();
   @override

@@ -36,7 +36,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
 
-  bool rememberMe = true;
+  bool _isChecked = true;
 
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
@@ -118,7 +118,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10 ,
               v != 2 ? SizedBox(
                 height: 
-                Get.height / 10.3,
+                Get.height / 9.3,
                 child: companyDob()
               ): 
               space10,
@@ -146,7 +146,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               radioalert(),
               v == 2 ? 
               SizedBox(
-                height: Get.height/ 10.3,
+                height: Get.height/ 9.3,
                 child: comName()
               ):
               space10,
@@ -154,7 +154,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               cR():
               space10,
               v == 1 ? SizedBox(
-                height: Get.height / 10.3,
+                height: Get.height / 9.3,
                 child: iqama()
               ): 
               space10,
@@ -165,13 +165,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    focusColor: Colors.lightBlue,
+                   Checkbox(
                     activeColor: Colors.blue,
-                    value: rememberMe,
-                    onChanged: (newValue) {
-                      // setState(() => rememberMe = newValue);
-                    }
+                    value: _isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _isChecked= value!;
+                      });
+                    },
                   ),
                   Text(
                     AppString.termServices, 

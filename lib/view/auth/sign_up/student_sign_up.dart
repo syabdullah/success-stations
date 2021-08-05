@@ -11,7 +11,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
-import 'package:success_stations/utils/app_method.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 
@@ -32,7 +31,7 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController dobController =  TextEditingController();
   final TextEditingController mobileController =  TextEditingController();
 
-  bool rememberMe = true;
+  bool _isChecked=false;
   
   final countryPut = Get.put(ContryController());
   final signUpCont = Get.put(SignUpController());
@@ -121,21 +120,23 @@ class _SignPageState extends State<StudentSignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    focusColor: Colors.lightBlue,
+                  new Checkbox(
                     activeColor: Colors.blue,
-                    value: rememberMe,
-                    onChanged: (newValue) {
-                    }
+                    value: _isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _isChecked= value!;
+                      });
+                    },
                   ),
                   Text(
-                    AppString.termServices, 
+                    'terms'.tr, 
                     style: TextStyle( 
                       fontSize: 14, fontWeight: FontWeight.w300
                     )
                   ),
                   Text(
-                    AppString.termCondition, style: TextStyle(
+                    "terms_condition".tr, style: TextStyle(
                     fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold)
                   ),
                 ],
@@ -144,7 +145,7 @@ class _SignPageState extends State<StudentSignUp> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: AppString.signUp,
+                buttonText: "sign_up_text".tr,
                 callback: createUser
               ),
               space20,
@@ -155,11 +156,11 @@ class _SignPageState extends State<StudentSignUp> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(AppString.existAccount, 
+                    Text("have_account".tr,
                       style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
                       ),
                     ),
-                    Text(AppString.signIn, style: TextStyle( fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+                    Text("sign_in".tr, style: TextStyle( fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),
@@ -177,7 +178,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.fullName,
+        hintText: 'full_name'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -207,7 +208,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.email,
+        hintText: 'email'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -238,7 +239,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.mobile,
+        hintText: 'mobile'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -309,7 +310,7 @@ class _SignPageState extends State<StudentSignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint: Text(
-              hintTextCountry != null ? hintTextCountry : 'country', 
+              hintTextCountry != null ? hintTextCountry : 'country'.tr, 
               style:  TextStyle(fontSize: 13,  color: AppColors.inputTextColor )
             ),
             dropdownColor: AppColors.inPutFieldColor,
@@ -347,7 +348,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintRegionText !=null ?hintRegionText : "Region", 
+            hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
               style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
             
             ),
@@ -389,7 +390,7 @@ class _SignPageState extends State<StudentSignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint:Text(
-              hintcityText !=null ? hintcityText : "City", style: TextStyle(
+              hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
                 fontSize: 13, color: AppColors.inputTextColor
               )
             ),
@@ -428,7 +429,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintUniText !=null ? hintUniText: "University",style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            hint:Text(hintUniText !=null ? hintUniText: "university".tr,style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: daattta.map((uni) {
@@ -463,7 +464,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint: Text(hintClgText !=null ? hintClgText: "College", style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            hint: Text(hintClgText !=null ? hintClgText: "college".tr, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: collegeData.map((coll) {
