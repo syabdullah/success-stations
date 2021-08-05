@@ -38,7 +38,6 @@ class AppButton extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    print(buttonText);
     return Center(
       child: GestureDetector(
         onTap: callback,

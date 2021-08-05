@@ -14,6 +14,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:success_stations/view/member_ship/become_member.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
@@ -39,6 +40,7 @@ const String myAdd = '/myAddsPage';
 const String contact = '/contact';
 const String adViewTab = "/adViewTab";
 const String notification = '/notification';
+const String friReq = '/friReq';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -80,6 +82,8 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => AdViewTab());
          case inbox:
         return MaterialPageRoute(builder: (_) => Inbox());
+        case friReq:
+        return MaterialPageRoute(builder: (_) => FriendReqList());
       default:
         return MaterialPageRoute(builder: (_) => Language());
     }

@@ -8,6 +8,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/responsive.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/skalton.dart';
+import 'package:success_stations/view/friends/friends_profile.dart';
 
 class FriendList extends StatefulWidget {
   _FriendListState createState() => _FriendListState();
@@ -22,6 +23,7 @@ class _FriendListState extends State<FriendList> {
   void initState() {
     super.initState();
     friCont.getFriendsList();
+    friCont.getSuggestionsList();
   }
   @override
   Widget build(BuildContext context) {
@@ -92,13 +94,18 @@ class _FriendListState extends State<FriendList> {
     );
   }
 
-  Widget friendList(data) {
+  Widget friendList(dataa) {
+   
     return ListView.builder(
-      itemCount: data.length,
+      itemCount: dataa.length,
       itemBuilder: (BuildContext,index) {
-        return GestureDetector(
+        
+        return 
+        dataa[index]['status'] == "Accepted" ? 
+         GestureDetector(
           onTap: (){
-            Get.toNamed('/friendProfile');
+             print("..............${dataa[index]['id']}");
+            Get.to(FriendProfile(),arguments:dataa[index]['id']);
           },
           child: Card(
             child: Row(
@@ -108,14 +115,14 @@ class _FriendListState extends State<FriendList> {
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child: Image.network(data[index]['user_requisted']['city']['image']['url']),
+                    child: Image.network(dataa[index]['user_requisted']['city']['image']['url']),
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text(data[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(dataa[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                     ),
                     Container(
                       child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
@@ -126,77 +133,77 @@ class _FriendListState extends State<FriendList> {
                         Image.asset(AppImages.location,height: 15,),
                         SizedBox(width:5),
                         Container(
-                          child: Text(data[index]['user_requisted']['city']['city']),
+                          child: Text(dataa[index]['user_requisted']['city']['city']),
                         ),
                       ],
                     ),
                   ],
                 ),
                 Spacer(),
-                data[index]['status'] != "Accepted" ? 
-                GestureDetector(
-                  onTap: (){ addFriend(data[index]['id']);},
-                  child: Container( 
-                     margin:EdgeInsets.only(right:10),
-                    alignment: Alignment.center,
-                    width: Get.width/4.2,
-                    height: 35.0,
-                    decoration: BoxDecoration(
-                      color: AppColors.appBarBackGroundColor,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                    ),
-                    child:
-                    Container(
+        //         GestureDetector(
+        //           onTap: (){ addFriend(data[index]['id']);},
+        //           child: Container( 
+        //              margin:EdgeInsets.only(right:10),
+        //             alignment: Alignment.center,
+        //             width: Get.width/4.2,
+        //             height: 35.0,
+        //             decoration: BoxDecoration(
+        //               color: AppColors.appBarBackGroundColor,
+        //               borderRadius: BorderRadius.all(
+        //                 Radius.circular(8),
+        //               ),
+        //             ),
+        //             child:
+        //             Container(
                      
-                      child: Text(
-                        AppString.addFriend,
-                        style:TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ),
-                ): Container(),
-                data[index]['status'] != "Accepted" ? 
-                GestureDetector(
-                  onTap: (){rejFriend(data[index]['id']);},
-                  child: Container( 
-                    alignment: Alignment.center,
-                    width: Get.width/4.2,
-                    height: 35.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                    ),
-                    child:
-                    Container(
-                      margin:EdgeInsets.only(left:10),
-                      child: Text(
-                        AppString.remove,
-                        style:TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ),
-                ): Container(),
+        //               child: Text(
+        //                 AppString.addFriend,
+        //                 style:TextStyle(
+        //                   color: Colors.white,
+        //                 ),
+        //               ),
+        //             )
+        //           ),
+        //         ),
+        //         GestureDetector(
+        //           onTap: (){rejFriend(data[index]['id']);},
+        //           child: Container( 
+        //             alignment: Alignment.center,
+        //             width: Get.width/4.2,
+        //             height: 35.0,
+        //             decoration: BoxDecoration(
+        //               color: Colors.grey,
+        //               borderRadius: BorderRadius.all(
+        //                 Radius.circular(8),
+        //               ),
+        //             ),
+        //             child:
+        //             Container(
+        //               margin:EdgeInsets.only(left:10),
+        //               child: Text(
+        //                 AppString.remove,
+        //                 style:TextStyle(
+        //                   color: Colors.white,
+        //                 ),
+        //               ),
+        //             )
+        //           ),
+        //         )
               ],
             ),
           ),
-        );
+        ): Container();
       },
     );
   }
 
   Widget friendGridView(data) {
+     print("..............0000000099$data");
     return GridView.count(
       crossAxisCount: 2,
       children: List.generate(data.length, (index) {
-        return GestureDetector(
+        return data[index]['status'] == "Accepted" ? 
+         GestureDetector(
           onTap: (){
             Get.toNamed('/friendProfile');
           },
@@ -209,7 +216,7 @@ class _FriendListState extends State<FriendList> {
                   margin: EdgeInsets.symmetric(horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child:Image.network(data[index]['user_requisted']['city']['image']['url']),
+                    child:Image.network(data[index]['user_requisted']['image']['url']),
                   ),
                 ),
                 Column(
@@ -232,66 +239,66 @@ class _FriendListState extends State<FriendList> {
                     ),
                   ],
                 ),
-                data[index]['status'] != "Accepted" ? 
-                Row(
-                  children: [
+                // data[index]['status'] != "Accepted" ? 
+                // Row(
+                //   children: [
 
-                    GestureDetector(
-                      onTap: (){ addFriend(data[index]['id']);},
-                      child: Container( 
-                        alignment: Alignment.center,
-                        width: Get.width/4.2,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: AppColors.appBarBackGroundColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                        child:
-                        Container(
-                          // margin:EdgeInsets.only(left:10),
-                          child: Text(
-                            AppString.addFriend,
-                            style:TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
+                //     GestureDetector(
+                //       onTap: (){ addFriend(data[index]['id']);},
+                //       child: Container( 
+                //         alignment: Alignment.center,
+                //         width: Get.width/4.2,
+                //         height: 35.0,
+                //         decoration: BoxDecoration(
+                //           color: AppColors.appBarBackGroundColor,
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //         ),
+                //         child:
+                //         Container(
+                //           // margin:EdgeInsets.only(left:10),
+                //           child: Text(
+                //             AppString.addFriend,
+                //             style:TextStyle(
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         )
+                //       ),
+                //     ),
 
-                    GestureDetector(
-                      onTap: (){rejFriend(data[index]['id']);},
-                      child: Container( 
-                        alignment: Alignment.center,
-                        width: Get.width/4.2,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                        child:
-                        Container(
-                          margin:EdgeInsets.only(left:10),
-                          child: Text(
-                            AppString.remove,
-                            style:TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ),
-                    ),
-                  ],
-                ):Container(),
+                //     GestureDetector(
+                //       onTap: (){rejFriend(data[index]['id']);},
+                //       child: Container( 
+                //         alignment: Alignment.center,
+                //         width: Get.width/4.2,
+                //         height: 35.0,
+                //         decoration: BoxDecoration(
+                //           color: Colors.grey,
+                //           borderRadius: BorderRadius.all(
+                //             Radius.circular(8),
+                //           ),
+                //         ),
+                //         child:
+                //         Container(
+                //           margin:EdgeInsets.only(left:10),
+                //           child: Text(
+                //             AppString.remove,
+                //             style:TextStyle(
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         )
+                //       ),
+                //     ),
+                  // ],
+                // ):Container(),
                 SizedBox(height:8),
               ],
             ),
           ),
-        );
+        ):Container();
 
       },
       )

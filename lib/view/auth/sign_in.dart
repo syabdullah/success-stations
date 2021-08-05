@@ -34,7 +34,8 @@ class _SignPageState extends State<SignIn> {
     GoogleSignInC().singIn();
   }
 
-   void signIn() {
+    signIn() {
+     print("........//////=======");
     final form = formKey.currentState;
     if (form!.validate()) {
       form.save();
@@ -42,8 +43,9 @@ class _SignPageState extends State<SignIn> {
         "email":fulNameController.text,
         "password":password.text
       };
-      dataStore.write('email', fulNameController.text);
-      dataStore.write('password', password.text);
+      print("........//////=======111111");
+      // dataStore.write('email', fulNameController.text);
+      // dataStore.write('password', password.text);
        loginCont.loginUserdata(jsonData);
     }
   }
@@ -144,7 +146,7 @@ class _SignPageState extends State<SignIn> {
         onSaved: (String? newValue) {  }, 
         onFieldSubmitted: (value) {  }, 
         textController: fulNameController,
-        validator: (value) => value == '' ?  'Email Required' :  !GetUtils.isEmail(value)  ? 'Enter valid Email':null,
+        validator: (value) => value == '' ?  'Email Required' :  !value.contains('@') || !value.contains('.')  ? 'Enter valid Email':null,
         errorText: '',
       ),
     );
@@ -225,13 +227,13 @@ class _SignPageState extends State<SignIn> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(AppString.goForSignup),
+          Text("Dont_have_account".tr),
           GestureDetector(
             onTap: (){
               print("ontap itmemmm.....>!!!");
              Get.toNamed('/langua');
             },
-            child: Text(AppString.signUp,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
+            child: Text('sign_up_text'.tr,style: TextStyle(color:AppColors.appBarBackGroundColor, ),)
           ),
         ],
       ),

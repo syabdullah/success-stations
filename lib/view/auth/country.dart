@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -60,45 +61,104 @@ class _CountryPageState extends State<Ccountry> {
       children: list
     );
   }
-
-  List<Widget> settingData() {
-    List<Widget> settingz = [];
-    for ( int j = 0; j < _dataSettings.length; j++ ) {
-      var key = _dataSettings.keys.elementAt(j);
-      for ( int k =0 ; k < _dataSettings[key].length; k++ ) {
-        settingz.add(
-          Column(
+  Widget featureCountryList(countryListData){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical:15),
+      height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: countryListData.length, 
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
             children: [
-              SizedBox(height:5),
-              Container(
-                // height: 10,
-                margin: EdgeInsets.only(left: 10),
-                padding: EdgeInsets.only(top: 9),
+              ClipRRect(
+                  // shape: BoxShape.circle,
+                    // borderRadius: BorderRadius.circular(80),
+                // borderRadius: BorderRadius.only(topLeft: Radius.circular(60),topRight: Radius.circular(60), bottomRight: Radius.circular(60),bottomLeft: Radius.circular(60)),
+                child: Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                // padding: EdgeInsets.all(10),
+                height: Get.height * 0.25,
+                width: Get.width/4,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(
+                    // color:Colors.grey
+                      color: Colors.grey 
+                   ),
                 ),
-                child:
-                 ClipRRect(
-                borderRadius: BorderRadius.circular(60),
-                child: Image.asset(_dataSettings[key][k]['images'],
-                    width: 105.0, height: 103.0),
-              )),
-                //  Image.asset(_dataSettings[key][k]['images'])
-              
-              SizedBox(height: 20),
-              Container(
-                child:Center(
-                  child: Text(_dataSettings[key][k]['text'])
-                )
+                  // decoration: BoxDecoration(
+                    
+                  //   shape: BoxShape.circle,
+                  //   border: Border.all(width: 5.0, color: Colors.white),
+                  // ),
+                  // width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
+                  // height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                  // child: Image.asset(AppImages.profileBg,)
+                ),
               ),
-            ]
-          ),
-        );
-      }
-    }
-    return settingz; 
+              Container(
+                child: Text(
+                  countryListData[index]['name']
+                )
+              )
+
+            ],
+             
+            ); 
+       
+        }
+      ),
+    );
+
   }
+
+  // List<Widget> settingData(countryListData) {
+  //   print(" sheeza setting data of the country ...!!!!!!!!!!!@@@@@@@@@@@@@@@@~~~~~~~~~~~~    $countryListData");
+  //   List<Widget> settingz = [];
+  //   for (int j = 0; j < countryListData.length; j++ ) {
+  //     // var key = _dataSettings.keys.elementAt(j);
+  //       settingz.add(
+  //         Column(
+  //           children: [
+  //             // SizedBox(height:5),
+  //             Container(
+  //               height: Get.height/ 2,
+  //               width: Get.width/ 7.0,
+  //               child: ListView(
+  //                 scrollDirection: Axis.horizontal,
+  //                 children: [
+  //                   Container(
+  //                     // margin: EdgeInsets.only(left: 10),
+  //                     // padding: EdgeInsets.only(top: 9),
+  //                     decoration: BoxDecoration(
+  //                       shape: BoxShape.circle,
+  //                       border: Border.all(color: Colors.black),
+  //                     ),
+  //                     child: ClipRRect(
+  //                       borderRadius: BorderRadius.circular(60),
+  //                       child: Icon(Icons.access_alarm_outlined),
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 20),
+  //                   Container(
+  //                     // height: 100,
+  //                     child: Center(
+  //                       child: Text(
+  //                         countryListData[j]['name']
+  //                       )
+  //                     )
+  //                   )
+  //                 ]
+  //               ),
+  //             ),
+  //           ]
+  //         ),
+  //       );
+  //   }
+  //   return settingz; 
+  // }
 
 
   @override
@@ -113,10 +173,16 @@ class _CountryPageState extends State<Ccountry> {
           mainLogo(),
            SizedBox(height:40),
           chooseLanguage(),
-           SizedBox(height:40),
-          Row(
-           children:settingData()
+          // SizedBox(height:40),
+          GetBuilder<ContryController>(
+            init: ContryController(),
+            builder: (data){
+              return data.isLoading == true ? CircularProgressIndicator(): 
+             featureCountryList(data.countryListdata);
+            
+            },
           ),
+          
           SizedBox(height:20),
           submitButton(
             bgcolor: AppColors.appBarBackGroundColor,  
@@ -156,11 +222,11 @@ class _CountryPageState extends State<Ccountry> {
         child:Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(AppString.existAccount, 
+            Text("have_account".tr, 
               style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
               ),
             ),
-            Text(AppString.signIn, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+            Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
         ), 
       ),
@@ -169,7 +235,7 @@ class _CountryPageState extends State<Ccountry> {
   
   Widget chooseLanguage(){
     return Container(
-      child: Text("اختر اللغة", style: TextStyle(fontSize: 23, color: AppColors.black),)
+      child: Text("choose_country".tr, style: TextStyle(fontSize: 23, color: AppColors.black),)
     );
   }
 
