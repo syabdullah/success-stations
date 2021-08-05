@@ -10,6 +10,7 @@ import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
+import 'package:success_stations/view/google_map/mapview.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 
 class BottomTabs extends StatefulWidget {
@@ -24,7 +25,7 @@ class _BottomTabsState extends State<BottomTabs> {
   final List<Widget> _children = [
     OfferList(),
     FriendList(),
-    AdViewTab(),
+    MapView(),
     AdsView()
   ];
 

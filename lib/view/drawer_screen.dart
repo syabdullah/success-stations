@@ -73,7 +73,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'Home', ()  {
                             Get.toNamed('/tabs');
                           },15.0 ),
-                          CustomListTile(AppImages.userProfile, 'PROFILE', () => {},15.0 ),
+                          CustomListTile(AppImages.userProfile, 'PROFILE', ()  {
+                            Get.toNamed('/friendProfile');
+                          },15.0 ),
                           CustomListTile(AppImages.ma, 'MY ADS', ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
                           } ,15.0),
@@ -87,7 +89,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.notification, 'NOTIFICATIONS', () => {
                             Get.toNamed('/notification')
                           },15.0 ),
-                          CustomListTile(AppImages.freq, 'FRIEND REQUESTS', () => {} ,15.0), 
+                          CustomListTile(AppImages.freq, 'FRIEND REQUESTS', ()  {
+                            Get.toNamed('/friReq');
+                          } ,15.0), 
                           CustomListTile(AppImages.fav, 'FAVOURITES', () => {},15.0 ), 
                           SizedBox(height: 10.h),
                           Divider(),
@@ -116,7 +120,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'LOGOUT', ()  {
-                            box.remove("access_token");
+                            // box.remove("access_token");
                             Get.toNamed('/login');
                           },15.0 ),
                         ],

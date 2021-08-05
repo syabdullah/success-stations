@@ -145,5 +145,8 @@ class _CountryPageState extends State<Ccountry> {
       width: width,  
     );
   }
+  next() {
+    Get.toNamed('/signUp');
+  }
 }
  

@@ -22,15 +22,16 @@ class SignUpController extends GetxController{
   createAccountData(data) async{
     isLoading = true;
     await createAccount(data).then((res){
-      if(res.statusCode == 422|| res.statusCode == 401) {
-      }else if(res.statusCode == 200){
-        signup = jsonDecode(res.body);
-        // if(signup['success'] == true){
+      print("........////....${res.body}");
+       if(res.statusCode == 200 || res.statusCode < 400){
 
-        //   SnackBarWidget().showToast("", "Email has been sent to you successfully");  
-        // }
+        signup = jsonDecode(res.body);
         isLoading = false;
         Get.to(SignIn());
+        if(signup['success'] == true){
+          SnackBarWidget().showToast("",signup['message'] );  
+        }
+        
       }
     });
      update();
@@ -39,32 +40,32 @@ class SignUpController extends GetxController{
   individualAccountData(data) async{
     isLoading = true;
     await individualUser(data).then((res){
-      if(res.statusCode == 422|| res.statusCode == 401) {
-      }else if(res.statusCode == 200){
+       if(res.statusCode == 200 || res.statusCode < 400){
         indiviualSignup = jsonDecode(res.body);
+        isLoading = false;
+        Get.to(SignIn());
         if(indiviualSignup['success'] == true){
           SnackBarWidget().showToast("", indiviualSignup['message']);  
         }
         
       }
-      isLoading = false;
-        Get.to(SignIn());
     });
     update();
   }
 
   companyAccountData(data) async{
+     print("........////....;;;;;;;;;;;;");
     isLoading = true;
     await companyUser(data).then((res){
-      if(res.statusCode == 422|| res.statusCode == 401) {
-      }else if(res.statusCode == 200){
+       if(res.statusCode == 200 ||res.statusCode < 400 ){
         companySignUp = jsonDecode(res.body);
+        print("........////....${res.body}");
+        isLoading = false;
+        Get.to(SignIn());
         if(companySignUp['success'] == true){
           SnackBarWidget().showToast("", companySignUp['message']);  
         }
       }
-      isLoading = false;
-      Get.to(SignIn());
     });
     update();
   }
