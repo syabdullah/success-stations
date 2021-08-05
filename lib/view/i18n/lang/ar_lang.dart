@@ -1,6 +1,7 @@
 const Map<String, String> ar = {
   "set_new_pass": "قم بتعيين كلمة المرور الجديدة لتسجيل الدخول",
-  "terms_condition": "أوافق على الشروط",
+  "terms":"أوافق ",
+  "terms_condition": " على الشروط",
   "Responsible": "مسؤول",
   "forget_Desc": "اكتب معرف البريد الإلكتروني الخاص بك لتلقي كلمة المرور عن طريق البريد الإلكتروني",
   "Account_type": "نوع الحساب ",

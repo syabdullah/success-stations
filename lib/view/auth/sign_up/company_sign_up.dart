@@ -36,7 +36,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
 
-  bool rememberMe = true;
+  bool _isChecked = true;
 
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
@@ -165,13 +165,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    focusColor: Colors.lightBlue,
+                   Checkbox(
                     activeColor: Colors.blue,
-                    value: rememberMe,
-                    onChanged: (newValue) {
-                      // setState(() => rememberMe = newValue);
-                    }
+                    value: _isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _isChecked= value!;
+                      });
+                    },
                   ),
                   Text(
                     AppString.termServices, 

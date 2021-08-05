@@ -19,7 +19,6 @@ import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:success_stations/view/member_ship/become_member.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
-import 'package:success_stations/view/member_ship/member_ship.dart';
 
 const String login = '/login';
 const String home = '/home';

@@ -1,12 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
@@ -15,71 +17,71 @@ class Language extends StatefulWidget {
   _LanguagePageState createState() => _LanguagePageState();
 }
 class _LanguagePageState extends State<Language> {
+
+  allWordsCapitilize (String str) {
+    return str.toLowerCase().split(' ').map((word) {
+      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+      return word[0].toUpperCase() + leftText;
+    }).join(' ');
+  }
+
+  TextEditingController emailController = TextEditingController();
   final getLang = Get.put(LanguageController());
   GetStorage box = GetStorage();
-  // bool _colorContainer = Colors.grey;
   bool pressAttention = false;
- String selected = "first";
+  var index;
 
   @override
   void initState() {
-  
     getLang.getLanguas();
     super.initState();
   }
-  TextEditingController emailController = TextEditingController();
-
+  
   List<Widget> getTextWidgets(dataLanguage){
     List<Widget> langua = [];
     if( dataLanguage['data'] !=null || dataLanguage['data'].length !=null ) {
       for(var i = 0; i < dataLanguage['data'].length; i++){
-      print("printed dat aof the field ..............${dataLanguage['data'][i]['id']}");
-      langua.add(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
+        langua.add(
+          GestureDetector(
+            child: Center(
               child: Container(
-                // color: pressAttention ? Colors.grey : Colors.blue,
-                margin: EdgeInsets.only(left: 20, right: 20),
-                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(left:20),
                 height: Get.height * 0.25,
-                width: Get.width/4,
+                width: Get.width/3,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    // color:Colors.grey
-                      color: pressAttention ? Colors.grey : Colors.blue,
-                   ),
+                    width: 2,
+                    color: index== i ? AppColors.appBarBackGroundColor: AppColors.grey
+                  ),
                 ),
-                child: dataLanguage['data'][i]['name'] != null ? Center(
-                  child: Text(dataLanguage['data'][i]['name']),
+                child: dataLanguage['data'][i]['name'] != null ?
+                Center(
+                  child: Text(
+                  allWordsCapitilize(dataLanguage['data'][i]['name'],),  style: TextStyle(
+                      fontSize: 18, color: index== i ? AppColors.appBarBackGroundColor:  Colors.grey
+                    ),
+                  ),
                 ): Container()
               ),
-              onTap: () {
-                setState(() {
-                  pressAttention = true;
-                  pressAttention = !pressAttention;
-                  box.write('lang_id',dataLanguage['data'][i]['id']);
-                  LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
-                  
-                });
-              },
             ),
-          ],
-        )
-      );
+            onTap: () {
+              setState(() {
+                index = i;
+                box.write('lang_id',dataLanguage['data'][i]['id']);
+                LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
+                
+              });
+            },
+          ),
+        );
+      }
     }
-
-    }
-   
     return langua;
   }
 
   @override
   Widget build(BuildContext context) {
-    final space10 = SizedBox(height: getSize(10, context));
-    final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
       body:Column(
@@ -87,11 +89,17 @@ class _LanguagePageState extends State<Language> {
           space50, 
           mainLogo(),
           space50,
-          chooseLanguage(),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+            child: chooseLanguage()
+          ),
           GetBuilder<LanguageController>(
             init: LanguageController(),
             builder:(data){
-             return  data.isLoading == true ? CircularProgressIndicator():  Row(
+              return  data.isLoading == true ? Container(
+                height: Get.height * 0.25,
+              ):  Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: getTextWidgets(data.languageList)
               );
             }
@@ -125,17 +133,22 @@ class _LanguagePageState extends State<Language> {
   }
 
   Widget existingAccount(){
-    return Container(
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("have_account".tr, 
-            style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
+    return GestureDetector(
+      onTap: (){
+        Get.toNamed('/login');
+      },
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("have_account".tr, 
+              style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
+              ),
             ),
-          ),
-          Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
-        ],
-      ), 
+            Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+          ],
+        ), 
+      ),
     );
   }
   

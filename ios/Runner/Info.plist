@@ -28,12 +28,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 			<string>com.googleusercontent.apps.958707106290-j3eglmtt8pb8s72vuc7kn66amfhp5jnk</string>
-			<string>fb919991085218076</string>
+			<string>fb495109941777752</string>
 			</array>
 		</dict>
     </array>	
 	<key>FacebookAppID</key>
-	<string>919991085218076</string>
+	<string>495109941777752</string>
 	<key>FacebookDisplayName</key>
 	<string>success-station</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -64,9 +64,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationAlwaysUsageDescription</key>
-    <string></string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
 </dict>
 </plist>

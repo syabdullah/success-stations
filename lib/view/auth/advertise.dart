@@ -14,6 +14,8 @@ class AdvertisePage extends StatefulWidget {
   AdvertiseStatePage createState() => AdvertiseStatePage();
 }
 class AdvertiseStatePage extends State<AdvertisePage> {
+    FocusNode textSecondFocusNode = new FocusNode();
+
   TextEditingController emailController = TextEditingController();
   
   final formKey = new GlobalKey<FormState>();
@@ -98,7 +100,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        isObscure: false,
+         isObscure: false,
         hintText:AppString.phoneNumber,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
