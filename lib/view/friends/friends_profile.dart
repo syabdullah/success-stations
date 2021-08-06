@@ -6,6 +6,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/utils/skalton.dart';
 
 class FriendProfile extends StatefulWidget {
   _FriendProfileState createState() => _FriendProfileState();
@@ -35,7 +36,10 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         body: GetBuilder<FriendsController>(
           init: FriendsController(),
           builder:(val) { 
-            return Column(
+            return val.friendProfileData == null ? SingleChildScrollView( 
+              child:Container(
+                margin: EdgeInsets.only(top: 20),
+              child: viewCardLoading(context))) :  Column(
               children: [        
                 profileDetail(val.friendProfileData['data']),
                 tabs(),
@@ -179,6 +183,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     );
   }
   Widget general(data) {
+    print("......\\\\\\\ ${data['college']}");
     return Expanded(
       child: TabBarView(
         children: [
@@ -255,7 +260,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 15,top: 5),
-                              child: Text(data['college']['region'],style: TextStyle(fontWeight: FontWeight.w600)),
+                              // child: Text(data['college']['region'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               
@@ -277,7 +282,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 15,top:5),
-                              child: Text(data['university']['name'],style: TextStyle(fontWeight: FontWeight.w600)),
+                              // child: Text(data['university']['name'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               margin: EdgeInsets.only(top:20),

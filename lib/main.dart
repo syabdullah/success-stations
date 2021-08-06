@@ -46,8 +46,13 @@ class SuccessApp extends StatelessWidget {
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
+<<<<<<< HEAD
            home: ForgotPassword(),
         // initialRoute: auth == null ?  '/langua' : '/tabs',
+=======
+          // home: MapView(),
+        initialRoute: auth == null ? '/langua' : '/tabs',
+>>>>>>> 27c84640595e376965737d28824f0ebb2e4cf7f3
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
       ),

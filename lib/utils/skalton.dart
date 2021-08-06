@@ -7,7 +7,7 @@ Widget shimmer() {
     bool _enabled = true;
     return  Expanded(
        child:  Shimmer.fromColors(
-        baseColor: AppColors.grey,
+        baseColor: AppColors.shimmer,
         highlightColor: AppColors.greySkalton,
         enabled: _enabled,
       child: ListView.builder(
@@ -26,7 +26,7 @@ Widget shimmer() {
                     Container(
                       width: double.infinity,
                       height: 18.0,
-                      color: AppColors.grey,
+                      color: AppColors.shimmer,
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 2.0),
@@ -34,7 +34,7 @@ Widget shimmer() {
                     Container(
                       width: double.infinity,
                       height: 18.0,
-                      color: AppColors.grey,
+                      color: AppColors.shimmer,
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 2.0),
@@ -42,7 +42,7 @@ Widget shimmer() {
                     Container(
                       width: 40.0,
                       height: 18.0,
-                      color: AppColors.grey,
+                      color: AppColors.shimmer,
                     ),
                   ],
                 ),
@@ -53,6 +53,23 @@ Widget shimmer() {
         itemCount: 10,
       ),
        )
-    );
-    
+    );  
   }
+
+   Widget viewCardLoading(context) {
+    bool _enabled = true;
+    return  Expanded(
+      child:  Shimmer.fromColors(
+        baseColor: AppColors.shimmer,
+        highlightColor: AppColors.greySkalton,
+        enabled: _enabled,
+        child:Card(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height/2,
+          color: AppColors.shimmer,
+        ),
+      ),
+    )
+  );
+}
