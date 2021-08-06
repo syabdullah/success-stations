@@ -1,5 +1,8 @@
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:success_stations/action/categories_action.dart';
 
 class CategoryController extends GetxController {
   bool isLoading = false; 
@@ -12,6 +15,9 @@ class CategoryController extends GetxController {
   }
 
   getCityByRegion() async{
-    
+    category().then((value) {
+      cateList = jsonDecode(value.body);
+      print("............$cateList");
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -21,6 +22,7 @@ class AddPostingScreen extends StatefulWidget {
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   final catogoryController = Get.put(CategoryController());
   int activeStep = 0; // Initial step set to 5.
 
   int upperBound = 3; // 
@@ -29,87 +31,88 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   @override
   Widget build(BuildContext context) {
     print(activeStep);
-    return SafeArea(
-      child: Scaffold(
-        // bottomNavigationBar: CustomBottomBar(),
-        key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
+    return Scaffold(
+      // bottomNavigationBar: CustomBottomBar(),
+      key: _scaffoldKey,
+    appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+    child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+    drawer: Theme(
+      data: Theme.of(context).copyWith(
+        // canvasColor: AppColors.botomTiles
       ),
-        body: ListView(
-          children: [
-            ImageStepper(
-              stepColor: Colors.yellow,
-              lineDotRadius: 0.1,
-              lineColor: Colors.grey,
-              activeStepColor: AppColors.appBarBackGroundColor,
-              activeStepBorderColor: Colors.grey[700],
-              lineLength: 75,
-              enableNextPreviousButtons: false,
-              images: [
-                activeStep == 0 ?
-                AssetImage(AppImages.sistStepIcon):
-                AssetImage(AppImages.istStepIcon),
-                activeStep == 1 ?
-                AssetImage(AppImages.ssecStepIcon):
-                AssetImage(AppImages.secStepIcon),
-                activeStep == 2 ?
-                AssetImage(AppImages.strdStepIcon):
-                AssetImage(AppImages.trdStepIcon),
-              ],
-              // activeStep property set to activeStep variable defined above.
-              activeStep: activeStep,
-              // This ensures step-tapping updates the activeStep. 
-              onStepReached: (index) {
-                setState(() {
-                  activeStep = index;
-                }
-              );
-              },
-            ),
-            header(),
-            activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container(),
+      child: AppDrawer(),
+    ),
+      body: ListView(
+        children: [
+          ImageStepper(
+            stepColor: Colors.yellow,
+            lineDotRadius: 0.1,
+            lineColor: Colors.grey,
+            activeStepColor: AppColors.appBarBackGroundColor,
+            activeStepBorderColor: Colors.grey[700],
+            lineLength: 75,
+            enableNextPreviousButtons: false,
+            images: [
+              activeStep == 0 ?
+              AssetImage(AppImages.sistStepIcon):
+              AssetImage(AppImages.istStepIcon),
+              activeStep == 1 ?
+              AssetImage(AppImages.ssecStepIcon):
+              AssetImage(AppImages.secStepIcon),
+              activeStep == 2 ?
+              AssetImage(AppImages.strdStepIcon):
+              AssetImage(AppImages.trdStepIcon),
+            ],
+            // activeStep property set to activeStep variable defined above.
+            activeStep: activeStep,
+            // This ensures step-tapping updates the activeStep. 
+            onStepReached: (index) {
+              setState(() {
+                activeStep = index;
+              }
+            );
+            },
+          ),
+          header(),
+          GetBuilder<CategoryController>( 
+          init: CategoryController(),
+          builder:(val) {
+            return activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container();}),
             activeStep == 0 ? Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: nextButton(),
-                ),
-              ],
-              ): activeStep == 1 ?
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                previousButton(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: nextButton(),
-                ),
-               ],
-              ):
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                  saveAsDraftButton(),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: publishButton(),
-                    ),
-                  ),
-                ],
+                child: nextButton(),
               ),
-            )
-          ],
-        ),
+            ],
+            ): activeStep == 1 ?
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+              previousButton(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: nextButton(),
+              ),
+             ],
+            ):
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                saveAsDraftButton(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: publishButton(),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
