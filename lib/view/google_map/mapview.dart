@@ -15,6 +15,7 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
+  
   var listtype = 'map'; 
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
@@ -56,6 +57,7 @@ class _MapViewState extends State<MapView> {
   }
   @override
   Widget build(BuildContext context) {
+    print(Get.height);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
      bottomNavigationBar: CustomBottomBar(),
@@ -100,10 +102,9 @@ Widget lastLocations(){
         // padding: const EdgeInsets.all(0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 10, mainAxisSpacing: 20, crossAxisCount: 2,
-          childAspectRatio: Get.width /
-              (Get.height/ 1.4),
+        childAspectRatio: Get.width /
+        (Get.height >= 800 ? Get.height/ 1.55 :Get.height <= 800 ? Get.height/ 1.40 :0),
         ),
-
         itemCount: 6,
         itemBuilder: (BuildContext context, int index) {
           return Card(

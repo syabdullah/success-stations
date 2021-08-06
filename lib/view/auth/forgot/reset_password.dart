@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/rest_password_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -9,6 +11,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
+
 class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState();
 }
@@ -16,8 +19,10 @@ class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController passwordControlller = TextEditingController();
   TextEditingController confirmPasswordControlller = TextEditingController();
   
+   GetStorage box = GetStorage();
+   
   final formKey = new GlobalKey<FormState>();
-
+   final resetPasss = Get.put(ResetPassWordController());
   void _showModal() {
     showModalBottomSheet<void>(
       context: context,
@@ -56,6 +61,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                           // Get.to(SignIn());
+                        
                         }
                       ),
                     ),
@@ -68,7 +74,22 @@ class _ResetPasswordState extends State<ResetPassword> {
       }
     );
   }
-
+ 
+void requiredPassword(){
+   var forgetemailid = box.read('forgetEmail');
+    final form = formKey.currentState;
+    if(form!.validate()){
+      form.save();
+      var json = {
+        'email' : forgetemailid,
+        'password' : passwordControlller.text,
+        'password_confirmation' : confirmPasswordControlller.text
+      };
+      resetPasss.passwordreset(json);
+      print(json);
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
@@ -109,7 +130,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   )
                 ),
                 onPressed: () {
-                 _showModal();
+                  requiredPassword();
+                 
                 }
               ),
             ],
@@ -151,12 +173,10 @@ class _ResetPasswordState extends State<ResetPassword> {
         onFieldSubmitted: (value) { },
         textController: passwordControlller,
         validator: (value) {
-          if (value.length == 0) {
+          if (value.isEmpty) {
             return 'Enter Password';
           }
-          else if (value.length < 8) {
-            return 'Use 8 or more characters with a mix of letters, numbers & symbols';
-          }
+          
           return null;
         },
         errorText: '',
@@ -177,9 +197,12 @@ class _ResetPasswordState extends State<ResetPassword> {
         onFieldSubmitted: (value) { },
         textController: confirmPasswordControlller,
         validator: (value) {
-          if(value != passwordControlller){
-          return 'Password must be match';
-        }
+           if (value.isEmpty) {
+            return 'Enter Password';
+          }
+          if(value != passwordControlller.text ){
+            return "password does'nt match ";
+          }
         return null; 
         } ,
         errorText: '',

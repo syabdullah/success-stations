@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -7,44 +9,72 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
+import 'package:success_stations/view/i18n/app_language.dart';
 
 class Language extends StatefulWidget {
   _LanguagePageState createState() => _LanguagePageState();
 }
 class _LanguagePageState extends State<Language> {
-  var languageList = ["English", "العربية",]; 
+  final getLang = Get.put(LanguageController());
+  GetStorage box = GetStorage();
+  // bool _colorContainer = Colors.grey;
+  bool pressAttention = false;
+ String selected = "first";
+
+  @override
+  void initState() {
+  
+    getLang.getLanguas();
+    super.initState();
+  }
   TextEditingController emailController = TextEditingController();
 
-  Widget getTextWidgets(List<String> strings){
-    List<Widget> list = [];
-    for(var i = 0; i < strings.length; i++){
-      list.add(
+  List<Widget> getTextWidgets(dataLanguage){
+    List<Widget> langua = [];
+    if( dataLanguage['data'] !=null || dataLanguage['data'].length !=null ) {
+      for(var i = 0; i < dataLanguage['data'].length; i++){
+      print("printed dat aof the field ..............${dataLanguage['data'][i]['id']}");
+      langua.add(
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              // padding: EdgeInsets.all(10),
-              height: Get.height * 0.25,
-              width: Get.width/4,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.black),
+            GestureDetector(
+              child: Container(
+                // color: pressAttention ? Colors.grey : Colors.blue,
+                margin: EdgeInsets.only(left: 20, right: 20),
+                padding: EdgeInsets.all(10),
+                height: Get.height * 0.25,
+                width: Get.width/4,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    // color:Colors.grey
+                      color: pressAttention ? Colors.grey : Colors.blue,
+                   ),
+                ),
+                child: dataLanguage['data'][i]['name'] != null ? Center(
+                  child: Text(dataLanguage['data'][i]['name']),
+                ): Container()
               ),
-              child: Center(
-                child: Text(strings[i]),
-              ),
+              onTap: () {
+                setState(() {
+                  pressAttention = true;
+                  pressAttention = !pressAttention;
+                  box.write('lang_id',dataLanguage['data'][i]['id']);
+                  LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
+                  
+                });
+              },
             ),
           ],
         )
       );
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: list
-    );
-  }
 
+    }
+   
+    return langua;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +88,26 @@ class _LanguagePageState extends State<Language> {
           mainLogo(),
           space50,
           chooseLanguage(),
-          getTextWidgets(languageList),
+          GetBuilder<LanguageController>(
+            init: LanguageController(),
+            builder:(data){
+             return  data.isLoading == true ? CircularProgressIndicator():  Row(
+                children: getTextWidgets(data.languageList)
+              );
+            }
+          ),
           submitButton(
             bgcolor: AppColors.appBarBackGroundColor,  
             textColor: AppColors.appBarBackGroun,
-            buttonText: AppString.next,
+            buttonText: "next".tr,
             fontSize: 18.toDouble(),
             callback: navigateToHomeScreen
           ),
-         SizedBox(height: Get.height * 0.13),
+          SizedBox(height: Get.height * 0.13),
           Container(
             alignment: Alignment.bottomRight,
-            child: existingAccount()),
-          // space50,
-          
+            child: existingAccount()
+          ),
         ],
       ),
     );
@@ -93,11 +129,11 @@ class _LanguagePageState extends State<Language> {
       child:Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(AppString.existAccount, 
+          Text("have_account".tr, 
             style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
             ),
           ),
-          Text(AppString.signIn, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+          Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
         ],
       ), 
     );
@@ -105,7 +141,7 @@ class _LanguagePageState extends State<Language> {
   
   Widget chooseLanguage(){
     return Container(
-      child: Text("اختر اللغة", style: TextStyle(fontSize: 23, color: AppColors.black),)
+      child: Text("choose_language".tr, style: TextStyle(fontSize: 23, color: AppColors.black),)
     );
   }
 

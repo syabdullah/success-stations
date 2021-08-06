@@ -48,7 +48,6 @@ class GoogleSignInC {
               }
               // print(googleSignIn.currentUser.displayName);
         }).catchError((err){
-            print('inner error');
         });
       } 
       );
