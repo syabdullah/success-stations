@@ -495,38 +495,7 @@ void _adsfiltringheet() {
                               )
                             ],
                           ),
-                        ),  
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.start,
-                        //   children: [
-                        //     Container(
-                        //       // margin: EdgeInsets.only(top:6,left: 5),
-                        //       child: Icon(Icons.person,color:Colors.grey),
-                        //       // child: Image.asset(AppImages.location,height: 15)
-                        //     ),
-                        //     // SizedBox(width:5),
-                        //     Container(
-                        //       margin: EdgeInsets.only(top:6),
-                        //       child: Text("Username",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //     ),
-                        //     Spacer(flex: 1),
-                        //     Transform.scale(
-                        //       scale: 0.35,
-                        //       child: Switch(
-                        //         value: _value,
-                        //         onChanged: (value) {
-                        //           setState(() {
-                        //             _value = value;
-                        //           });
-                        //         },
-                        //         activeColor: Colors.blue,
-                        //         activeTrackColor: Colors.grey,
-                        //         inactiveThumbColor: Colors.pink,
-                        //         inactiveTrackColor: Colors.red
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),               
+                        ),              
                       ],
                     ),
                   )
