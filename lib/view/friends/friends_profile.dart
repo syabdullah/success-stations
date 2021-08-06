@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/utils/routes.dart';
 
 class FriendProfile extends StatefulWidget {
   _FriendProfileState createState() => _FriendProfileState();
@@ -11,9 +13,14 @@ class FriendProfile extends StatefulWidget {
 class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveClientMixin<FriendProfile> {
  late TabController _controller;
   int _selectedIndex = 0;
+  final friCont = Get.put(FriendsController());
   @override
   void initState() {
     super.initState();
+    
+    var id = Get.arguments;
+    print("../././....----------$id");
+    friCont.friendDetails(id);
     // _controller = TabController(length: 2,vsync: this); 
   }
   @override
@@ -25,18 +32,23 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        body: Column(
-          children: [        
-            profileDetail(),
-            tabs(),
-            general(),
-          ],
+        body: GetBuilder<FriendsController>(
+          init: FriendsController(),
+          builder:(val) { 
+            return Column(
+              children: [        
+                profileDetail(val.friendProfileData['data']),
+                tabs(),
+                general(val.friendProfileData['data']),
+              ],
+            );
+          }
         ),
       ),
     );
   } 
 
-  Widget profileDetail() { 
+  Widget profileDetail(data) { 
     return Stack(
       children: [         
         Container(
@@ -55,7 +67,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                 onPressed:() {
                   Get.back();
                 },
-                icon: Icon(Icons.arrow_back,color: Colors.white,)
+                icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
               Center(
                 widthFactor: 3,
@@ -80,26 +92,26 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
             ),
             Container(
               margin: EdgeInsets.only(top:10),
-              child: Text("Maryam Cheema",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
+              child: Text(data['name'],style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
             ),
              Container(
                margin: EdgeInsets.only(top:6),
               child: Text("Mobile Developer",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top:6),
-                  child: Image.asset(AppImages.location,height: 15)
-                ),
-                SizedBox(width:5),
-                Container(
-                  margin: EdgeInsets.only(top:6),
-                  child: Text("Codility Solutions",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       margin: EdgeInsets.only(top:6),
+            //       child: Image.asset(AppImages.location,height: 15)
+            //     ),
+            //     SizedBox(width:5),
+            //     Container(
+            //       margin: EdgeInsets.only(top:6),
+            //       child: Text("Codility Solutions",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ],
@@ -166,7 +178,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
       ],
     );
   }
-  Widget general() {
+  Widget general(data) {
     return Expanded(
       child: TabBarView(
         children: [
@@ -188,7 +200,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 15,top: 5),
-                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['name'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               
@@ -197,7 +209,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                                 margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['mobile'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
                         ),
@@ -210,7 +222,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 15,top:5),
-                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['email'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               margin: EdgeInsets.only(top:20),
@@ -243,7 +255,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 15,top: 5),
-                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['college']['region'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               
@@ -265,7 +277,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 15,top:5),
-                              child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['university']['name'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               margin: EdgeInsets.only(top:20),

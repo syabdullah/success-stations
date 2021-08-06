@@ -27,7 +27,7 @@ class CustomTextFiled extends StatefulWidget {
       this.iconColor = Colors.black  ,
       required this.onFieldSubmitted,
       required this.onChanged,
-      this.autoFocus = false,
+      this.autoFocus = true,
       required this.validator,
       required this.onSaved,
       this.hintStyle,
@@ -46,7 +46,8 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       children: [
         Padding(
          padding: widget.padding,
-          child: TextFormField(           
+          child: TextFormField(     
+            focusNode: FocusNode(),      
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,

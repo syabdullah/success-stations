@@ -1,6 +1,7 @@
 const Map<String, String> en = {
   "set_new_pass": "Set the new password to login",
-  "terms_condition": "I agree to the Terms and Conditions",
+  "terms": "I agree to the",
+  "terms_condition":  "Terms and Conditions",
   "Responsible": "Responsible",
   "forget_Desc": "Type your email-ID to receive password by Email",
   "Account_type": "Account Type : ",

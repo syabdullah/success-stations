@@ -6,6 +6,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class MapView extends StatefulWidget {
   const MapView({ Key? key }) : super(key: key);
@@ -60,10 +61,16 @@ class _MapViewState extends State<MapView> {
     print(Get.height);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-     bottomNavigationBar: CustomBottomBar(),
-      appBar: 
-      PreferredSize( preferredSize: Size.fromHeight(70.0),
-         child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+    //  bottomNavigationBar: CustomBottomBar(),
+      // appBar: 
+      // PreferredSize( preferredSize: Size.fromHeight(70.0),
+      //    child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+      //    drawer: Theme(
+      //   data: Theme.of(context).copyWith(
+      //     // canvasColor: AppColors.botomTiles
+      //   ),
+      //   child: AppDrawer(),
+      // ),
       body: Stack(
         children: [
            listtype == 'map' ? googleMap() : lastLocations(),
@@ -107,73 +114,78 @@ Widget lastLocations(){
         ),
         itemCount: 6,
         itemBuilder: (BuildContext context, int index) {
-          return Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-               borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                child: Container(
-                  width: Get.width/2.2,
-                    height: Get.height/5,
-                  child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
-                ),
-              ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          return GestureDetector(
+            onTap: () {
+              Get.toNamed('/adViewTab');
+            },
+            child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              RatingBar.builder(
-                initialRating: 3,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 13.5,
-                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
+                ClipRRect(
+                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                  child: Container(
+                    width: Get.width/2.2,
+                      height: Get.height/5,
+                    child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
+                  ),
                 ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-              SizedBox(width: 2,),
-              Text("(657)",
-                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 13.5,
+                  // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                ),
+                SizedBox(width: 2,),
+                Text("(657)",
+                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                 ),
 
-               PopupMenuButton<int>(
-              icon: Icon(Icons.more_vert),
-              onSelected: (int item) => handleClick(item),
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(value: 0, child: Text('Logout')),
-                PopupMenuItem<int>(value: 1, child: Text('Settings')),
-              ],
-            ),
-             ]
-            ),
-            Row(
-              children: [
-                Container(
-                   margin: EdgeInsets.only(left:10),
-                  width: Get.width/3,
-                  child:
-                      Text("Zealot Ulotpia",
-                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                      ),
-           ),
-                Image.asset(AppImages.heart)
-              ],
-            ),
-              SizedBox(height: 15,)
+                 PopupMenuButton<int>(
+                icon: Icon(Icons.more_vert),
+                onSelected: (int item) => handleClick(item),
+                itemBuilder: (context) => [
+                  PopupMenuItem<int>(value: 0, child: Text('Logout')),
+                  PopupMenuItem<int>(value: 1, child: Text('Settings')),
+                ],
+              ),
+               ]
+              ),
+              Row(
+                children: [
+                  Container(
+                     margin: EdgeInsets.only(left:10),
+                    width: Get.width/3,
+                    child:
+                        Text("Zealot Ulotpia",
+                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                        ),
+             ),
+                  Image.asset(AppImages.heart)
+                ],
+              ),
+                SizedBox(height: 15,)
          ],
        ),
-     );
+     ),
+          );
           }
   );
 }

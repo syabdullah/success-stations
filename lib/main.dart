@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -35,6 +36,14 @@ class SuccessApp extends StatelessWidget {
       builder:() => GetMaterialApp(      
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: LocalizationServices.locale,
+        fallbackLocale: LocalizationServices.fallbackLocale,
+        translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
            home: ForgotPassword(),
         // initialRoute: auth == null ?  '/langua' : '/tabs',
