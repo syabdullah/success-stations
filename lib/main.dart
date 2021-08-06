@@ -9,6 +9,7 @@ import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
+import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 
 import 'view/auth/forgot/forgot_password.dart';
