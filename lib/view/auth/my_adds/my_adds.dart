@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -36,7 +38,14 @@ class _MyAddsState extends State<MyAdds> {
       body: Column(
         children: [
           topWidget(),
-            headingUpsell(),
+          GetBuilder<MyAddsController>(
+            init: MyAddsController(),
+            builder: (val){
+              return val.isLoading == true ? Container(): addsCategoryWidget(val.addsCategoryArray);
+
+            },
+          ),
+            
           Expanded(
             child: listtype == 'list' ? myAddsList() : myAddGridView()
           ),
@@ -495,38 +504,7 @@ void _adsfiltringheet() {
                               )
                             ],
                           ),
-                        ),  
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.start,
-                        //   children: [
-                        //     Container(
-                        //       // margin: EdgeInsets.only(top:6,left: 5),
-                        //       child: Icon(Icons.person,color:Colors.grey),
-                        //       // child: Image.asset(AppImages.location,height: 15)
-                        //     ),
-                        //     // SizedBox(width:5),
-                        //     Container(
-                        //       margin: EdgeInsets.only(top:6),
-                        //       child: Text("Username",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //     ),
-                        //     Spacer(flex: 1),
-                        //     Transform.scale(
-                        //       scale: 0.35,
-                        //       child: Switch(
-                        //         value: _value,
-                        //         onChanged: (value) {
-                        //           setState(() {
-                        //             _value = value;
-                        //           });
-                        //         },
-                        //         activeColor: Colors.blue,
-                        //         activeTrackColor: Colors.grey,
-                        //         inactiveThumbColor: Colors.pink,
-                        //         inactiveTrackColor: Colors.red
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),               
+                        ),              
                       ],
                     ),
                   )
@@ -559,7 +537,8 @@ void _adsfiltringheet() {
   void navigateToGoogleLogin() {
   }
 
-  Widget headingUpsell(){
+  Widget addsCategoryWidget(listingCategoriesData){
+    print("........heading of the list ...........  widget data ...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -567,7 +546,7 @@ void _adsfiltringheet() {
           height:MediaQuery.of(context).size.height/ 9.22,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: litems.length,
+            itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
               return Row(
                 children: [
@@ -593,13 +572,13 @@ void _adsfiltringheet() {
                           ],
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          litems[index],
+                        child: listingCategoriesData[index]['category'].length !=null ? Text(
+                          listingCategoriesData[index]['category']['category_name'],
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white : Colors.black,
-                            fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "SF Pro Text", fontStyle:FontStyle.normal, 
+                            color: selectedIndex == index ? Colors.white : Colors.blue,
+                            fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
-                        ),
+                        ):Container()
                       ),
                     ),
                   ),

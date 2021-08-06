@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/forget_password_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -14,8 +16,20 @@ class ForgotPassword extends StatefulWidget {
 }
 class _ForgotPageState extends State<ForgotPassword> {
   TextEditingController emailController = TextEditingController();
-  
+  final pwdforget = Get.put(ForgetPasswordController());
   final formKey = new GlobalKey<FormState>();
+  GetStorage box = GetStorage();
+  void requiredEmail(){
+    final form = formKey.currentState;
+    if(form!.validate()){
+      form.save();
+      var json= {
+        'email' : emailController.text
+      };
+      pwdforget.forgetPassword(json);
+     box.write('forgetEmail', emailController.text); 
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
@@ -42,11 +56,12 @@ class _ForgotPageState extends State<ForgotPassword> {
               eMail(),
               space20,
               submitButton(
+                
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
                 buttonText: AppString.next,
                 fontSize: 18.toDouble(),
-                callback: navigateToHomeScreen
+                callback: requiredEmail
               ),
             ],
           ),
@@ -86,7 +101,7 @@ class _ForgotPageState extends State<ForgotPassword> {
         onSaved: (String? newValue) {}, 
         onFieldSubmitted: (value) { },
         textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        validator: (value) => !GetUtils.isEmail(value)  ? 'Enter valid email': value == '' ? 'Enter Email adress' : null,
         errorText: '',
       ),
     );

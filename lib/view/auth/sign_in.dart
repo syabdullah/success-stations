@@ -54,7 +54,7 @@ class _SignPageState extends State<SignIn> {
     return  Scaffold(
       body: GetBuilder<LoginController>( 
         init: LoginController(),
-        builder: (val){
+        builder: (val) {
           return Center(
             child: ListView(
               children: [

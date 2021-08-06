@@ -24,9 +24,12 @@ class FriendsController extends GetxController {
   getSuggestionsList() async {
     isLoading = true ;
     await suggestions().then((res) {
-      suggestionsData = jsonDecode(res.body);
+      var data = jsonDecode(res.body);
+      suggestionsData = data['data'];
       // print("..........ssssss.....$suggestionsData");
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -37,6 +40,8 @@ class FriendsController extends GetxController {
       friendsData = jsonDecode(res.body);
       // print("...............$friendsData");
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -49,6 +54,8 @@ class FriendsController extends GetxController {
       getFriendsList();
       // friendsData = jsonDecode(res.body);
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -62,6 +69,8 @@ class FriendsController extends GetxController {
       getFriendsList();
 
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -77,6 +86,8 @@ class FriendsController extends GetxController {
       getFriendsList();
       print(".,.,.,.,RRRRR.,.,$sendReq");
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -86,6 +97,8 @@ class FriendsController extends GetxController {
     await delFriendReq(id).then((res) {
       friendsData = jsonDecode(res.body);
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }
@@ -97,6 +110,8 @@ class FriendsController extends GetxController {
       friendProfileData = jsonDecode(res.body);
       print("/././././.-----$friendProfileData");
       isLoading = false;  
+    }).catchError((e){
+      return e;
     });
     update();
   }

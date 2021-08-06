@@ -85,7 +85,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                Get.toNamed('/friendProfile');
+                // Get.toNamed('/friendProfile');
               },
               child: Card(
                 child: Row(
@@ -215,7 +215,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                Get.toNamed('/friendProfile');
+                // Get.toNamed('/friendProfile');
               },
               child: Card(
                 child: Row(
