@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
@@ -23,23 +22,22 @@ class AddPostingScreen extends StatefulWidget {
 class _AddPostingScreenState extends State<AddPostingScreen> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    final catogoryController = Get.put(CategoryController());
-  int activeStep = 0; // Initial step set to 5.
-
-  int upperBound = 3; // 
+  int activeStep = 0;
+  int upperBound = 3;  
   final _formKey = GlobalKey<FormState>();
+  List list= [];
+  var selectedCategory;
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     print(activeStep);
     return Scaffold(
-      // bottomNavigationBar: CustomBottomBar(),
       key: _scaffoldKey,
-    appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-    child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
-    drawer: Theme(
-      data: Theme.of(context).copyWith(
-        // canvasColor: AppColors.botomTiles
-      ),
+      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+        ),
       child: AppDrawer(),
     ),
       body: ListView(
@@ -77,7 +75,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            return activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container();}),
+            val.getCityByRegion();
+             list = val.cateList['data'];
+            // for(int i; i<= list = val.cateList['data'][2]['çategory']; );
+            // print('sadasasdasdasdasd $list');
+            return activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container();
+            
+            }
+            ),
             activeStep == 0 ? Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -237,23 +242,39 @@ Widget istStep(){
                     Radius.circular(5.0) //                 <--- border radius here
                     ),
                 ),
-                child: ListTile(
-                  tileColor: Colors.grey[200],
-                  title: Text("Category",style: 
-                    TextStyle(
-                      fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,
-                    ),
-                  ),
-                  trailing: DropdownButton<String>(
-                  items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                  return DropdownMenuItem<String>(value: value,
-                    child: new Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (_) {},
-                  ),
-                ),
+                child:  ButtonTheme(
+        alignedDropdown: true,
+        child: Container(
+          width: Get.width,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+              hint: Text(
+                 selectedCategory != null ? selectedCategory : 'country', 
+                style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
               ),
+              dropdownColor: AppColors.inPutFieldColor,
+              icon: Icon(Icons.arrow_drop_down),
+              items: list.map((coun) {
+                return DropdownMenuItem(
+                  value: coun,
+                  child:Text(coun['category'])
+                );
+              }).toList(),
+              onChanged: (val) {
+                var adCategory;
+                setState(() {
+                  adCategory = val as Map;
+                  selectedCategory = adCategory['category'];
+                  // hintTextCountry = mapCountry['name'];
+                  // selectedCountry = mapCountry['id'];
+                });
+              },
+            )
+          ),
+        )
+      )
+                ),
+              
             SizedBox(height: 5.h,),
             Container(
               margin: const EdgeInsets.symmetric(horizontal:15.0),
@@ -477,6 +498,7 @@ Widget secondStep(){
     ) ,
     );
   } 
+  
   // Widget thirdStep(){
   //   return Column(
   //     children: [
