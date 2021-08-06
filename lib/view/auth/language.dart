@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
 import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -43,6 +40,7 @@ class _LanguagePageState extends State<Language> {
       for(var i = 0; i < dataLanguage['data'].length; i++){
         langua.add(
           GestureDetector(
+            
             child: Center(
               child: Container(
                 margin: EdgeInsets.only(left:20),
@@ -64,6 +62,7 @@ class _LanguagePageState extends State<Language> {
                   ),
                 ): Container()
               ),
+              
             ),
             onTap: () {
               setState(() {
