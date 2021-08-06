@@ -78,7 +78,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             val.getCityByRegion();
              list = val.cateList['data'];
             // for(int i; i<= list = val.cateList['data'][2]['çategory']; );
-            // print('sadasasdasdasdasd $list');
+            print('sadasasdasdasdasd $list');
             return activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container();
             
             }

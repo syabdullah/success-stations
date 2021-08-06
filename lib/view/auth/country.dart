@@ -5,6 +5,9 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
+import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
+import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 
 class Ccountry extends StatefulWidget {
   _CountryPageState createState() => _CountryPageState();
@@ -60,37 +63,42 @@ class _CountryPageState extends State<Ccountry> {
     final space50 = SizedBox(height: getSize(50, context));
     final space100 = SizedBox(height: getSize(100, context));
     return Scaffold(
-      body:Column(
-        children: [
-          space50, 
-          mainLogo(),
-          SizedBox(height:40),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.05,
-            child: chooseLanguage()
-          ),
-          SizedBox(height:40),
-          GetBuilder<ContryController>(
-            init: ContryController(),
-            builder: (data){
-              return data.isLoading == true ? Container(
-               height: MediaQuery.of(context).size.height /4.30,
-              ): featureCountryList(data.countryListdata);
-            
-            },
-          ),
-          submitButton(
-            bgcolor: AppColors.appBarBackGroundColor,  
-            textColor: AppColors.appBarBackGroun,
-            buttonText: "next".tr,
-            fontSize: 18.toDouble()
-             // callback: signIn
-          ),
-          space100,
-          Container(
-            child: existingAccount()
-          ),
-        ],
+      body:SingleChildScrollView(
+        child: Column(
+          children: [
+            space50, 
+            mainLogo(),
+            SizedBox(height:40),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: chooseLanguage()
+            ),
+            SizedBox(height:40),
+            GetBuilder<ContryController>(
+              init: ContryController(),
+              builder: (data){
+                return data.isLoading == true ? Container(
+                 height: MediaQuery.of(context).size.height /4.30,
+                ): featureCountryList(data.countryListdata);
+              
+              },
+            ),
+            submitButton(
+              bgcolor: AppColors.appBarBackGroundColor,  
+              textColor: AppColors.appBarBackGroun,
+              buttonText: "next".tr,
+              fontSize: 18.toDouble(),
+              callback: (){
+                Get.off(StudentSignUp());
+              }
+               // callback: signIn
+            ),
+            space100,
+            Container(
+              child: existingAccount()
+            ),
+          ],
+        ),
       ),
     );
   }
