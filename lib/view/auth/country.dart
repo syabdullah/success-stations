@@ -8,6 +8,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
 import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
+import 'package:success_stations/view/auth/tab_bar.dart';
 
 class Ccountry extends StatefulWidget {
   _CountryPageState createState() => _CountryPageState();
@@ -89,7 +90,7 @@ class _CountryPageState extends State<Ccountry> {
               buttonText: "next".tr,
               fontSize: 18.toDouble(),
               callback: (){
-                Get.off(StudentSignUp());
+                Get.off(TabBarPage());
               }
                // callback: signIn
             ),
