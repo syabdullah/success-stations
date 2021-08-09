@@ -11,13 +11,20 @@ class CategoryController extends GetxController {
   @override
   void onInit(){
     isLoading = true;
+    getCategoryListing();
     super.onInit();
   }
 
-  getCityByRegion() async{
-    category().then((value) {
-      cateList = jsonDecode(value.body);
-      print("............$cateList");
+  getCategoryListing() async{
+    isLoading = true;
+    await category().then((res){
+      cateList= jsonDecode(res.body);
+      print("....!!!!!!! categoryListing............$cateList");
+      isLoading = false;
+      
     });
+    update();
+
+    
   }
 }

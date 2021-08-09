@@ -99,12 +99,12 @@ class _FriendListState extends State<FriendList> {
     return ListView.builder(
       itemCount: dataa.length,
       itemBuilder: (BuildContext,index) {
-        
+        print("......//'''''${dataa.length}.......----.${dataa[4]['user_requisted']['image']}");
         return 
         dataa[index]['status'] == "Accepted" ? 
          GestureDetector(
           onTap: (){
-             print("..............${dataa[index]['id']}");
+             
             Get.to(FriendProfile(),arguments:dataa[index]['id']);
           },
           child: Card(
@@ -115,7 +115,7 @@ class _FriendListState extends State<FriendList> {
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child: Image.network(dataa[index]['user_requisted']['city']['image']['url']),
+                    child: dataa[index]['user_requisted']['image'] != null ? Image.network(dataa[index]['user_requisted']['image']['url']) : Container()
                   ),
                 ),
                 Column(
@@ -133,7 +133,7 @@ class _FriendListState extends State<FriendList> {
                         Image.asset(AppImages.location,height: 15,),
                         SizedBox(width:5),
                         Container(
-                          child: Text(dataa[index]['user_requisted']['city']['city']),
+                          // child: Text(dataa[index]['user_requisted']['city']['city']),
                         ),
                       ],
                     ),
@@ -198,7 +198,6 @@ class _FriendListState extends State<FriendList> {
   }
 
   Widget friendGridView(data) {
-     print("..............0000000099$data");
     return GridView.count(
       crossAxisCount: 2,
       children: List.generate(data.length, (index) {
