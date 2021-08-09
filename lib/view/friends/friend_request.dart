@@ -200,7 +200,6 @@ class _FriendReqListState extends State<FriendReqList> {
   }
   List<Widget> sugesstionList(data) {
      List<Widget> req = [];
-     print(".//........////m,m,m,m,m,---$data");
      if(data != null)
      for(int i= 0; i< data.length; i++) {
         req.add(
