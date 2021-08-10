@@ -23,57 +23,7 @@ class _ResetPasswordState extends State<ResetPassword> {
    
   final formKey = new GlobalKey<FormState>();
    final resetPasss = Get.put(ResetPassWordController());
-  void _showModal() {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: AppColors.appBarBackGroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
-      ),
-      builder: (context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.35,
-          child: Container(
-            margin:EdgeInsets.only(top: 60, left: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[   
-                Text(
-                  AppString.changedPasww  ,style:  TextStyle(fontSize: 20, color: Colors.white)
-                ),
-                SizedBox(height:10),
-                Text(
-                  AppString.successResetPass ,style:  TextStyle(fontSize: 14, color: Colors.white)
-                ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top:20),
-                      // ignore: deprecated_member_use
-                      child: RaisedButton(
-                        color: Colors.white,
-                        child: Container(
-                          width: Get.width / 2,
-                          child: Center(child: Text(AppString.login, style: TextStyle(color: AppColors.appBarBackGroundColor )))
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                          // Get.to(SignIn());
-                        
-                        }
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        );
-      }
-    );
-  }
+
  
 void requiredPassword(){
    var forgetemailid = box.read('forgetEmail');
@@ -100,8 +50,15 @@ void requiredPassword(){
         child: Form(
           key: formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              space50, 
+            GestureDetector(
+                onTap: (){Get.back();},
+                child: Container(
+                  padding:  EdgeInsets.only(left:15.0,top:50),
+                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+              ),
+              space10, 
               Container(
                 margin: EdgeInsets.only(top: 60),
                 child: Center(
@@ -118,21 +75,24 @@ void requiredPassword(){
               newpassword(),
               space20,
               // ignore: deprecated_member_use
-              RaisedButton(
-                color: AppColors.appBarBackGroundColor,
-                child: Container(
-                  width: Get.width / 1.3,
-                  height: Get.height * 0.05,
-                  child: Center(
-                    child: Text(
-                      AppString.resetButton, style: TextStyle(color: AppColors.backArrow )
+              Center(
+                // ignore: deprecated_member_use
+                child: RaisedButton(
+                  color: AppColors.appBarBackGroundColor,
+                  child: Container(
+                    width: Get.width / 1.3,
+                    height: Get.height * 0.05,
+                    child: Center(
+                      child: Text(
+                        AppString.resetButton, style: TextStyle(color: AppColors.backArrow )
+                      )
                     )
-                  )
+                  ),
+                  onPressed: () {
+                    requiredPassword();
+                   
+                  }
                 ),
-                onPressed: () {
-                  requiredPassword();
-                 
-                }
               ),
             ],
           ),

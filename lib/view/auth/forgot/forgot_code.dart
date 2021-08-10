@@ -58,7 +58,11 @@ class _ForgotCodeState extends State<ForgotCode> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     final otpInputDecoration = InputDecoration(
-      disabledBorder: InputBorder.none,
+      // disabledBorder: InputBorder.none,
+      filled: true,
+       border: OutlineInputBorder(
+        borderSide: BorderSide(color:Colors.grey),
+        borderRadius: BorderRadius.circular(15)),
       contentPadding: EdgeInsets.symmetric(
         vertical: 20
       ),
@@ -87,6 +91,7 @@ class _ForgotCodeState extends State<ForgotCode> {
       child: Container(
         width: 60,
         child: TextFormField(
+          
           focusNode: focusNode,
           validator: (value) {
             // if(value!.isEmpty){
@@ -100,6 +105,7 @@ class _ForgotCodeState extends State<ForgotCode> {
           textAlign: TextAlign.center,
           decoration: otpInputDecoration,
           onChanged: onchange
+          
         ),
       ),
     );
@@ -134,7 +140,14 @@ class _ForgotCodeState extends State<ForgotCode> {
         child: Form(
         key: formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              GestureDetector(
+                onTap: (){Get.back();},
+                child: Container(
+                  padding:  EdgeInsets.only(left:15.0,top:50),
+                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+              ),
               space50, 
               Container(
                 margin: EdgeInsets.only(top: 60),
