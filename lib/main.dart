@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:success_stations/view/messages/chat.dart';
 import 'package:success_stations/view/messages/inbox.dart';
@@ -42,9 +43,9 @@ class SuccessApp extends StatelessWidget {
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
           //  home: SignIn(),
-        // initialRoute: auth == null ? '/langua' : '/tabs',
-        // onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        home: ChattingPage(),
+        initialRoute: auth == null ? '/langua' : '/tabs',
+        onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+        // home: ChattingPage(),
       ),
        designSize: const Size(360, 640),
     );
