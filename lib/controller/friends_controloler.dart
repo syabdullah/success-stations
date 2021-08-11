@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/friends.dart';
-import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 
 class FriendsController extends GetxController {
