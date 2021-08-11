@@ -2,29 +2,24 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/all_category_action.dart';
 
-class AllCategController extends GetxController {
+class CategController extends GetxController {
   bool isLoading = false; 
-  var cateAllListing;
+  var  dataListing ;
   List myAddsCategory = [];
 
   @override
   void onInit(){
     isLoading = true;
-    cateogryListing();
+    listing();
     super.onInit();
   }
 
-  cateogryListing() async{
+  listing() async{
     isLoading = true;
-    allMyAddscategory().then((value) {
-      cateAllListing = jsonDecode(value.body);
-      print("............$cateAllListing");
-      for( int i =0; i < cateAllListing.length; i++){
-        print(".....................!!!!!!!!!!!..>>$cateAllListing");
-        myAddsCategory.add(cateAllListing['data'][i]);
-        print("......33333.................$myAddsCategory");
-
-
+    await myCategory().then((value) {
+      dataListing= jsonDecode(value.body);
+      for( int i =0; i < dataListing['data'].length; i++){
+        myAddsCategory.add(dataListing['data'][i]);
       }
       isLoading = false;
     });

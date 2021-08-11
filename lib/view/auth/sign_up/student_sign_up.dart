@@ -30,6 +30,10 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController emailController =  TextEditingController();
   final TextEditingController dobController =  TextEditingController();
   final TextEditingController mobileController =  TextEditingController();
+  final TextEditingController semesterController =  TextEditingController();
+  final TextEditingController addressController =  TextEditingController();
+  final TextEditingController aboutController =  TextEditingController();
+  final TextEditingController degreeController =  TextEditingController();
 
   bool _isChecked=false;
   
@@ -55,7 +59,11 @@ class _SignPageState extends State<StudentSignUp> {
       "user_type": 2,
       "date_of_birth": dobController.text,
       "college_id": selectedCollege,
-      'university_id':selectedUniversity
+      'university_id':selectedUniversity,
+      'semester': semesterController.text,
+      'address': addressController.text,
+      'about': aboutController.text,
+      'degree': degreeController.text
     };
     signUpCont.createAccountData(json);
 
@@ -81,6 +89,14 @@ class _SignPageState extends State<StudentSignUp> {
               mobile(),
               space10,
               studentdob(),
+              // space10,
+              // semester(),
+              // space10,
+              // address(),
+              // space10,
+              // about(),
+              // space10,
+              // degree(),
               space10,
               GetBuilder<ContryController>(
                 init: ContryController(),
@@ -202,6 +218,126 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
+  Widget semester() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: 'Semester',
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {  },
+        textController: semesterController,
+        onSaved: (newValue) { 
+        }, 
+        validator: (value) { 
+          String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+          RegExp regExp = RegExp(pattern);
+          if (value.length == 0) {
+            return "semester Field Required";
+          } 
+          else if(!regExp.hasMatch(value)) {
+            return "semester must be in digits";
+          }
+          else
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+  Widget address() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: 'address',
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {  },
+        textController: addressController,
+        onSaved: (newValue) { 
+        }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "Address Field is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "adddress must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+  
+   Widget about() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: 'About',
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {  },
+        textController: aboutController,
+        onSaved: (newValue) { 
+        }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "About field is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "About must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+
+  Widget degree() {
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: 'Degree',
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {  },
+        textController: degreeController,
+        onSaved: (newValue) { 
+        }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "Degree field is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "Degree must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+
    Widget eMail() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
@@ -253,7 +389,7 @@ class _SignPageState extends State<StudentSignUp> {
             return 'Enter Mobile Number';
           }
           else if(!regExp.hasMatch(value)) {
-              return "Phone must be in digits";
+            return "Phone must be in digits";
           }
           else if(value.length !=12){
             return 'Mobile Number must be of 12 digits';
