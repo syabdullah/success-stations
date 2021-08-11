@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -15,7 +13,6 @@ class _InboxState extends State<Inbox> {
     return Scaffold(
       body: Stack(
         children: [
-          
           Container(
             height: Get.height,
             width: Get.width,
@@ -140,13 +137,19 @@ Widget recentChat(){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 30,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(60.0),
-            child: Image.asset(AppImages.profile)),
-        ),
+      GestureDetector(
+        onTap : (){
+          // Get.to(ChattingPage());
+
+        },
+        child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 30,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(60.0),
+              child: Image.asset(AppImages.profile)),
+          ),
+      ),
         SizedBox(height: 5,),
         Text("User Name",style: TextStyle(fontSize: 10,color: Colors.white),
         )

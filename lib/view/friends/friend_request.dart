@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -15,11 +16,14 @@ class FriendReqList extends StatefulWidget {
 class _FriendReqListState extends State<FriendReqList> {
    final friCont = Get.put(FriendsController());
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   GetStorage box = GetStorage();
+   var id;
    @override
   void initState() {
     super.initState();
     friCont.getFriendsList();
     friCont.getSuggestionsList();
+    id = box.read('user_id');
   }
 
   @override
@@ -39,7 +43,7 @@ class _FriendReqListState extends State<FriendReqList> {
            GetBuilder<FriendsController>(
           init: FriendsController(),
           builder: (val) {
-            return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0  || val.friendsData == null? Container(
+            return val.suggestionsData == null ? shimmer() : val.suggestionsData.length == 0  || val.suggestionsData == null? Container(
               child: Container(
                 child:
                Text("no suggestions " ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) )
@@ -66,12 +70,13 @@ class _FriendReqListState extends State<FriendReqList> {
      );
   }
   List<Widget> friendList(data) { 
+    print("....................//////.....$data");
     var count = 0;
      List<Widget> req = [];
      if(data != null)
      for(int i= 0; i< data.length; i++) {
         
-       if(data[i]['status'] != "Accepted" && data[i]['status'] != "Rejected" ) {
+       if(data[i]['status'] == null) {
          ++count;
         req.add(
          Column(
@@ -101,6 +106,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                          width: Get.width/4,
                           child: Text(data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
                         Container(
@@ -119,6 +125,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       ],
                     ),
                     Spacer(),
+                    data[i]['requister']['id'] != id ?
                     GestureDetector(
                       onTap: (){ 
                         friCont.appFriend(data[i]['id']);
@@ -144,7 +151,34 @@ class _FriendReqListState extends State<FriendReqList> {
                           ),
                         )
                       ),
+                    ): 
+                    GestureDetector(
+                      onTap: (){ 
+                        friCont.appFriend(data[i]['id']);
+                      },
+                      child: Container( 
+                         margin:EdgeInsets.only(right:10),
+                        alignment: Alignment.center,
+                        width: Get.width/3.0,
+                        height: 35.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child:
+                        Container(                        
+                          child: Text(
+                            "Cancel",
+                            style:TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ),
                     ),
+                    data[i]['requister']['id'] != id ?
                     GestureDetector(
                       onTap: (){friCont.rejFriend(data[i]['id']);},
                       child: Container( 
@@ -168,7 +202,7 @@ class _FriendReqListState extends State<FriendReqList> {
                           ),
                         )
                       ),
-                    )
+                    ):Container()
                   ],
                 ),
               ),
@@ -178,7 +212,6 @@ class _FriendReqListState extends State<FriendReqList> {
       );
       }
       if(count == 0 && i == data.length) {
-        // print()
         req.add(
           Column(
             children: [
@@ -200,7 +233,6 @@ class _FriendReqListState extends State<FriendReqList> {
   }
   List<Widget> sugesstionList(data) {
      List<Widget> req = [];
-     print(".//........////m,m,m,m,m,---$data");
      if(data != null)
      for(int i= 0; i< data.length; i++) {
         req.add(
@@ -232,6 +264,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                           width: Get.width/4,
                           child: Text(data[i]['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
                         Container(
@@ -253,9 +286,10 @@ class _FriendReqListState extends State<FriendReqList> {
                     GestureDetector(
                       onTap: (){ 
                         var json = {
-                          'requister_id' : 5,
+                          'requister_id' : id,
                           'user_requisted_id' : data[i]['id']
                         };
+                        print("......./////$json");
                         friCont.sendFriend(json);
                       },
                       child: Container( 

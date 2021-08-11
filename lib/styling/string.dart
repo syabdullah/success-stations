@@ -82,7 +82,7 @@ class AppString {
   static String remove = 'Remove';
   static String name = 'Name';
   static String address = 'Address';
-  static String smester = 'Smester';
+  static String smester = 'Semester';
   static String degree = 'Degree';
 
   // ads 

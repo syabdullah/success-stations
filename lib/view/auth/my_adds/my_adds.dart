@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -38,10 +39,11 @@ class _MyAddsState extends State<MyAdds> {
       body: Column(
         children: [
           topWidget(),
-          GetBuilder<MyAddsController>(
-            init: MyAddsController(),
+          GetBuilder<AllCategController>(
+            init: AllCategController(),
             builder: (val){
-              return val.isLoading == true ? Container(): addsCategoryWidget(val.addsCategoryArray);
+              print("..........AllCategory.....${val.myAddsCategory}");
+              return val.isLoading == true ? Container(): addsCategoryWidget(val.myAddsCategory);
 
             },
           ),
@@ -538,7 +540,6 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    // print("........heading of the list ...........  widget data ...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -572,8 +573,8 @@ void _adsfiltringheet() {
                           ],
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData[index]['category'].length !=null ? Text(
-                          listingCategoriesData[index]['category']['category_name'],
+                        child: listingCategoriesData !=null ? Text(
+                          listingCategoriesData[index]['category_name'],
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

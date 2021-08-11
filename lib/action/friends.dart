@@ -42,7 +42,7 @@ Future<http.Response> rejectFriends(id) async{
 Future<http.Response> sendFriendReq(data) async{
   await ApiHeaders().getData();
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}friendships");
+  var url = Uri.parse("${conf.baseUrl}send-friend-request");
   final result = await http.post(url,body:json.encode(data),headers: ApiHeaders().headersWithToken);  
   return result;
 }
