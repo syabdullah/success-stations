@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/controller/region_controller.dart';
@@ -9,6 +12,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
+
+
 import 'package:success_stations/view/auth/sign_in.dart';
  var finalIndex;
 class CompanySignUp extends StatefulWidget {
@@ -21,6 +26,8 @@ class CompanySignUp extends StatefulWidget {
   _CompanySignPageState createState() => _CompanySignPageState();
 }
 class _CompanySignPageState extends State<CompanySignUp> {
+
+  late List _myActivities;
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -41,6 +48,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
   var v = 1;
+   List _selected3 = [];
 
    List<GroupModel> _group = [
     GroupModel(
@@ -73,12 +81,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "cr_number":  crController.text ,
         'company_name':comNameController.text,
       };
-      print("......!!!!!!! jsong of the company$json ");
       signUpCont.companyAccountData(json);
     }
   }
   individualSignUp() {
-    print("...................");
+    // print("...................");
     final form = formKey.currentState;
     if(form!.validate()){
       form.save();
@@ -94,11 +101,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text
 
       };
-      print("......!!!!!!! jsong of the company$individualJson ");
+      // print("......!!!!!!! jsong of the company$individualJson ");
       signUpCont.individualAccountData(individualJson);
     }
  }
- 
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(20, context));
@@ -142,6 +148,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   return city(val.cityListData);
                 },
               ),
+              // space10,
+              // GetBuilder<ServicesController>(
+              //   init: ServicesController(),
+              //   builder: (val){
+              //     return services(val.servicesListdata);
+              //   },
+              // ),
               space10,
               radioalert(),
               v == 2 ? 
@@ -476,7 +489,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
-    Widget city(List citydata) {
+  Widget city(List citydata) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -497,7 +510,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
-              print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
+              // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
               return DropdownMenuItem(
                 value: citt,
                 child:Text(citt['city'])
@@ -514,6 +527,48 @@ class _CompanySignPageState extends State<CompanySignUp> {
           )
         )
       )
+    );
+  }
+
+
+  Widget services(servicesListdata){
+    print("Z......A........M......A...................N$servicesListdata");
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          MultiSelectFormField(
+                  autovalidate: false,
+                  title: Text('My workouts'),
+                  validator: (value) {
+                    if (value == null || value.length == 0) {
+                      return 'Please select one or more options';
+                    }
+                  },
+                  dataSource: servicesListdata.map((e) {
+                    print("PRINTEED VALUE OF THE EEEEEEEE........................>>>>>>$e");
+                     e['servics_name'].toList();
+                  }),
+
+                  textField: 'display',
+                  valueField: 'value',
+                  okButtonLabel: 'OK',
+                  cancelButtonLabel: 'CANCEL',
+                  // required: true,
+                  // hintText: 'Please choose one or more',
+                  // value: _myActivities,
+                  onSaved: (value) {
+                    if (value == null) return;
+                    setState(() {
+                      _myActivities = value;
+                    });
+                  },
+                ),
+              
+        ],
+      )
+
     );
   }
 
@@ -644,7 +699,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     activeColor: Colors.blue,
                     onChanged: (int?value ) {
                       setState(() {
-                        print(" radio button values................$value");
+                        // print(" radio button values................$value");
                         v = value!;
                       });
                     },

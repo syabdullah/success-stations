@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 String? token;
 class ApiHeaders {
 
-   getData() {
+  getData() {
     GetStorage box =  GetStorage(); 
     token = box.read('access_token');
   } 

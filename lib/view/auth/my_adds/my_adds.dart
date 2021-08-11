@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -14,9 +15,9 @@ class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
 }
 class _MyAddsState extends State<MyAdds> {
-     RangeValues _currentRangeValues = const RangeValues(1,100);
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3', 'Categoryt 4', 'Categoryt 5'];
+  RangeValues _currentRangeValues = const RangeValues(1,100);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final controller = Get.put(AddBasedController());
   var listtype = 'list';
   bool _value = false;
   var selectedIndex = 0;
@@ -39,17 +40,24 @@ class _MyAddsState extends State<MyAdds> {
       body: Column(
         children: [
           topWidget(),
-          GetBuilder<AllCategController>(
-            init: AllCategController(),
-            builder: (val){
-              print("..........AllCategory.....${val.myAddsCategory}");
-              return val.isLoading == true ? Container(): addsCategoryWidget(val.myAddsCategory);
+          GetBuilder<CategController>(
+            init: CategController(),
+            builder: (data){
+              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
 
             },
           ),
             
           Expanded(
-            child: listtype == 'list' ? myAddsList() : myAddGridView()
+            child: listtype == 'list' ?
+             GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val){
+                // print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval$val");
+                //  print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval${val.catBaslistData}");
+                return myAddsList(val.catBaslistData);
+              },
+            ) : myAddGridView()
           ),
         ],
       ),
@@ -336,10 +344,10 @@ void _adsfiltringheet() {
 }
   
 
-  Widget myAddsList() {
+  Widget myAddsList(allDataAdds) {
     return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext,index) {
+      itemCount: allDataAdds.length,
+      itemBuilder: (BuildContext context,index) {
         return Card(
           child: Container(
             height: 100,
@@ -362,44 +370,75 @@ void _adsfiltringheet() {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment:CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Title number 1',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight:FontWeight.bold
-                            ),
-                          ),
-                          SizedBox(height: 7),
-                          Row(
-                            children: [
-                              Image.asset(AppImages.location, height:15),
-                              Text("Jaddah",
+                      padding: const EdgeInsets.only(top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Text(
+                                allDataAdds[index]['title'],
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Colors.black,
+                                  fontWeight:FontWeight.bold
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 8),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(AppImages.location, height:15),
-                                Text(
-                                  "Al-Hajri",
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ),
-                              ],
                             ),
-                        ],
+                            Expanded(
+                              flex : 2,
+                              child:  Row(
+                                children: [
+                                  Icon(Icons.location_on, color:Colors.grey),
+                                  Container(
+                                    margin:EdgeInsets.only(left:29),
+                                    child: Text(
+                                      allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
+                                      style: TextStyle(
+                                        color: Colors.grey[300]
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex : 2,
+                              child:  Row(
+                                children: [
+                                Icon(Icons.person, color:Colors.grey),
+                                Container(
+                                  // margin:EdgeInsets.only(left:29),
+                                  child: Text(
+                                    allDataAdds[index]['title']!= null ? allDataAdds[index]['title']: '',
+                                    style: TextStyle(
+                                      color: Colors.grey[300]
+                                    ),
+                                  ),
+                                )
+                                ],
+                              ),
+                            ),
+                            // SizedBox(height: 8),
+                              // Expanded(
+                              //   flex:3,
+                              //   child: Container(
+                              //     margin: EdgeInsets.only(left:10),
+                              //     child: Row(
+                              //       children: [
+                              //         Icon(Icons.person, color:Colors.grey),
+                              //         Text(
+                              //           allDataAdds[index]['user']['name'],
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                          ],
+                        ),
                       ),
-                    ),
+                    // ),
                   ],
                 ),
                 SizedBox(height:20),
@@ -417,7 +456,7 @@ void _adsfiltringheet() {
                       children: [
                         Container(
                           padding: EdgeInsets.only(right:5),
-                          child: Image.asset(AppImages.blueHeart, height: 20)
+                          child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20): Image.asset(AppImages.redHeart, height:20)
                         ),
                         Image.asset(AppImages.call, height: 20),
                       ],
@@ -434,13 +473,11 @@ void _adsfiltringheet() {
 
   myAddGridView() {
     return Container(
-       width: Get.width / 1.10,
+      width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
         children: List.generate(100, (index) {
-          return
-          //  Expanded(
-            Container(
+          return Container(
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
               height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
@@ -510,12 +547,10 @@ void _adsfiltringheet() {
                       ],
                     ),
                   )
-                // }
-              // ),
-            );
-      // );
-         })
-         ),
+                );
+             }
+            )
+          ),
     );
        
   }
@@ -540,6 +575,7 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
+    print("my adds Page.......................,,,,,,,...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -549,31 +585,41 @@ void _adsfiltringheet() {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
+              if(index == 0){
+                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+
+              }
+              
               return Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
+                        print("rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
                           selectedIndex = index;
+                          controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          // Get.to(argumen)
+                          
+                        
                         });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                            border: Border.all(color: Colors.blue),
-                          color: selectedIndex == index ? selectedColor   : Colors.white,
+                          color: selectedIndex == index ? selectedColor : Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey                          ,
+                              color: Colors.grey,
                               offset: Offset(0.0, 1.0),
                               blurRadius: 6.0,
                             ),
                           ],
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData !=null ? Text(
+                        child: listingCategoriesData != null ? Text(
                           listingCategoriesData[index]['category_name'],
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,

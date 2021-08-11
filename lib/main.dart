@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
+import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'view/auth/forgot/forgot_password.dart';
 var auth;
