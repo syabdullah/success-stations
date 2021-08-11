@@ -5,6 +5,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 class AppDrawer extends StatefulWidget {
@@ -82,8 +83,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.message, 'MESSAGE', () {
                             Get.to(Inbox());
                           },15.0 ),
+                          CustomListTile(AppImages.location, 'Add Location', () {
+                            Get.to(MyLocations());
+                          },15.0 ),
                           CustomListTile(AppImages.membership, 'MEMBERSHIP', () {
-                            print("jjjhjjnj");
+                          
                             Get.to(MemberShip());
                           },13.2 ),
                           CustomListTile(AppImages.notification, 'NOTIFICATIONS', () => {
