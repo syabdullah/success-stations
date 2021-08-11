@@ -61,16 +61,16 @@ class _MapViewState extends State<MapView> {
     print(Get.height);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-    //  bottomNavigationBar: CustomBottomBar(),
-      // appBar: 
-      // PreferredSize( preferredSize: Size.fromHeight(70.0),
-      //    child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
-      //    drawer: Theme(
-      //   data: Theme.of(context).copyWith(
-      //     // canvasColor: AppColors.botomTiles
-      //   ),
-      //   child: AppDrawer(),
-      // ),
+     bottomNavigationBar: CustomBottomBar(),
+      appBar: 
+      PreferredSize( preferredSize: Size.fromHeight(70.0),
+         child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+         drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body: Stack(
         children: [
            listtype == 'map' ? googleMap() : lastLocations(),
@@ -110,7 +110,7 @@ Widget lastLocations(){
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 10, mainAxisSpacing: 20, crossAxisCount: 2,
         childAspectRatio: Get.width /
-        (Get.height >= 800 ? Get.height/ 1.55 :Get.height <= 800 ? Get.height/ 1.40 :0),
+        (Get.height >= 800 ? Get.height/ 1.50 :Get.height <= 800 ? Get.height/ 1.40 :0),
         ),
         itemCount: 6,
         itemBuilder: (BuildContext context, int index) {

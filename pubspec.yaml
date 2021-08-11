@@ -54,6 +54,7 @@ dependencies:
   multiselect_formfield: ^0.1.6
 
 
+  bottom_bar_with_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
