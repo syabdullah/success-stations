@@ -50,6 +50,7 @@ class FriendsController extends GetxController {
 
   appFriend(id) async {
     isLoading = true ;
+    print(".......aaaaaaaaaa........$id");
     await approveFriends(id).then((res) {
       print(".......aaaaaaaaaa........${jsonDecode(res.body)}");
       if(res.statusCode ==200 || res.statusCode < 401)
@@ -122,6 +123,7 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
+      print("././.....///////...$userAds");
       isLoading = false;
     });
     update();

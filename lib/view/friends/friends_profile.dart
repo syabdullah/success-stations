@@ -7,6 +7,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/utils/skalton.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
   _FriendProfileState createState() => _FriendProfileState();
@@ -292,7 +293,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                                 margin: EdgeInsets.only(bottom:20,top: 5),
-                              child: Text(data['semester'] != null ? data['semester'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['semester'] != null ? data['semester'].toString() : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
                         ),
@@ -393,14 +394,15 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                                     // setState(() {
                                       liked = !liked;
                                     // });
-                                   liked == true ?  friCont.profileAdsToFav(json) : friCont.profileAdsToFav(json);
+                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json) : friCont.profileAdsToFav(json);
                                   },
-                                child: liked ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
+                                child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
                                 ),
                                 SizedBox(width:5),
                                 GestureDetector(
                                   onTap: (){
-
+                                    launch.call("tel:12345678912");
+                                    print("/././././............");
                                   },
                                 child: Image.asset(AppImages.call,height: 25,)
                                 )

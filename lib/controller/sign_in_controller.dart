@@ -24,7 +24,7 @@ class LoginController extends GetxController {
          print("..././///////////${logindata['data']['token']}.................${res.body}");
         box.write('email',logindata['data']['email']);
         box.write('name',logindata['data']['nam']);
-        box.write('user_id',logindata['data']['id']);
+        box.write('user_id',logindata['data']['user_id']);
         resultInvalid(false);
         isLoading(false);
         Get.toNamed('/tabs');
