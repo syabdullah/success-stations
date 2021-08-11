@@ -8,6 +8,7 @@ import 'package:success_stations/action/ads_action.dart';
 class AdsController extends GetxController {
   bool isLoading = false; 
   var adsCreate;
+  
 
   @override
   void onInit(){
@@ -23,4 +24,6 @@ class AdsController extends GetxController {
     });
     update();
   }
+
+ 
 }

@@ -25,7 +25,7 @@ class LoginController extends GetxController {
         box.write('email',logindata['data']['email']);
         box.write('name',logindata['data']['nam']);
         box.write('user_id',logindata['data']['id']);
-
+        resultInvalid(false);
         isLoading(false);
         Get.toNamed('/tabs');
       } else if(logindata['success'] == false) {
@@ -40,12 +40,14 @@ class LoginController extends GetxController {
     isLoading(true);
     await socialLogin(data).then((res) {    
       logindata = jsonDecode(res.body);
-       print("...............${logindata['data']['token']}");
+       
       print(res.statusCode);
       if(res.statusCode == 200 || res.statusCode < 400) {
         box.write('access_token',logindata['data']['token']);
-        box.write('email',logindata['data']['email']);
-        box.write('user_id',logindata['data']['id']);
+        box.write('email',logindata['data']['user']['email']);
+        print("...............$logindata");
+        box.write('user_id',logindata['data']['user']['id']);
+        resultInvalid(false);
         isLoading(false);
       } else if(logindata['message'] == 'The given data was invalid.') {
         resultInvalid(true);

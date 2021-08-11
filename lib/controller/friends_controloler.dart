@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/friends.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 
@@ -14,6 +15,8 @@ class FriendsController extends GetxController {
   var rejReq;
   var suggestionsData;
   var friendProfileData;
+  var userAds,addAd,removeAds;
+  
   @override
   void onInit() { 
     isLoading = true;
@@ -37,7 +40,7 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await allFriends().then((res) {
       friendsData = jsonDecode(res.body);
-      // print("...............$friendsData");
+      print("...............$friendsData");
       isLoading = false;  
     }).catchError((e){
       return e;
@@ -48,7 +51,7 @@ class FriendsController extends GetxController {
   appFriend(id) async {
     isLoading = true ;
     await approveFriends(id).then((res) {
-      // print(".......aaaaaaaaaa........${jsonDecode(res.body)}");
+      print(".......aaaaaaaaaa........${jsonDecode(res.body)}");
       if(res.statusCode ==200 || res.statusCode < 401)
       getFriendsList();
       // friendsData = jsonDecode(res.body);
@@ -111,6 +114,41 @@ class FriendsController extends GetxController {
       isLoading = false;  
     }).catchError((e){
       return e;
+    });
+    update();
+  }
+
+   profileAds(id) async{
+    isLoading = true ;
+    await getUserAds(id).then((res) {
+      userAds = jsonDecode(res.body);
+      isLoading = false;
+    });
+    update();
+  }
+
+  profileAdsToFav(id) async{
+    isLoading = true ;
+    await addAdsFav(id).then((res) {
+      addAd = jsonDecode(res.body);
+      if(addAd['success'] == true) {
+        SnackBarWidget().showToast("", addAd['message']); 
+      }
+       print("/././././.-----$addAd");
+      isLoading = false;
+    });
+    update();
+  }
+  
+  profileAdsRemove(id) async{
+    isLoading = true ;
+    await removeAdsFav(id).then((res) {
+      removeAds = jsonDecode(res.body);
+      if(removeAds['success'] == true) {
+        SnackBarWidget().showToast("", removeAds['message']); 
+      }
+       print("/././././.-----$userAds");
+      isLoading = false;
     });
     update();
   }

@@ -15,6 +15,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
  late TabController _controller;
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
+  bool liked = false;
   @override
   void initState() {
     super.initState();
@@ -22,6 +23,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     var id = Get.arguments;
     print("../././....----------$id");
     friCont.friendDetails(id);
+    friCont.profileAds(id);
     // _controller = TabController(length: 2,vsync: this); 
   }
   @override
@@ -43,7 +45,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
               children: [        
                 profileDetail(val.friendProfileData['data']),
                 tabs(),
-                general(val.friendProfileData['data']),
+                general(val.friendProfileData['data'],val.userAds['data']),
               ],
             );
           }
@@ -182,8 +184,8 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
       ],
     );
   }
-  Widget general(data) {
-    print("......\\\\\\\ ${data['college']}");
+  Widget general(data,adsData) {
+    print("......\\\\\\\--------- $adsData");
     return Expanded(
       child: TabBarView(
         children: [
@@ -260,7 +262,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 15,top: 5),
-                              // child: Text(data['college']['region'],style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['college'] != null  ? data['college']['college'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               
@@ -269,7 +271,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                                 margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['degree'] != null ? data['degree'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
                         ),
@@ -282,7 +284,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 15,top:5),
-                              // child: Text(data['university']['name'],style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['university'] != null ? data['university']['name'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
                               margin: EdgeInsets.only(top:20),
@@ -290,7 +292,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                                 margin: EdgeInsets.only(bottom:20,top: 5),
-                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['semester'] != null ? data['semester'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
                         ),
@@ -316,23 +318,24 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
               )
             ],
           ),
-          ads()
+          ads(adsData)
         ],
       ),
     ); 
   }
 
-  Widget ads() {
+  Widget ads(adsData) {
     return Expanded(
       child: ListView.builder(
-            itemCount: 10,
+            itemCount: adsData != null ? adsData.length:0,
             itemBuilder: (BuildContext,index) {
-              return GestureDetector(
+              return adsData != null ? GestureDetector(
                 onTap: (){
                   
                 },
                 child: Container(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
                         width: 70,
@@ -343,9 +346,10 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                         )
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            child: Text("Maryam Cheema",style: TextStyle(fontWeight: FontWeight.bold),),
+                            child: Text(adsData[index]['text_ads'],style: TextStyle(fontWeight: FontWeight.bold),),
                           ),
                           Row(
                             children: [
@@ -383,9 +387,15 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                               children: [
                                 GestureDetector(
                                   onTap: (){
-
+                                    var json = {
+                                      'ads_id' : adsData[index]['id']
+                                    };
+                                    // setState(() {
+                                      liked = !liked;
+                                    // });
+                                   liked == true ?  friCont.profileAdsToFav(json) : friCont.profileAdsToFav(json);
                                   },
-                                child: Image.asset(AppImages.blueHeart,height: 25,)
+                                child: liked ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
                                 ),
                                 SizedBox(width:5),
                                 GestureDetector(
@@ -402,6 +412,8 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                     ],
                   ),
                 ),
+              ): Container(
+                child: Text("No Ads "),
               );
 
             },
