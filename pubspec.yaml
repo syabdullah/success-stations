@@ -50,6 +50,7 @@ dependencies:
   shimmer: ^2.0.0
   firebase_crashlytics: ^2.1.1
   firebase_core: ^1.4.0
+  bottom_bar_with_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
