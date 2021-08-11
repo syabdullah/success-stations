@@ -35,7 +35,7 @@ class _FriendListState extends State<FriendList> {
           builder: (val) {
             print("/././././././${val.friendsData}");
             return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0  || val.friendsData == null? Container(
-              child: Text("no suggestions "),
+              child: Text("No Friends! "),
             ) :  Expanded(
               child: listtype == 'list' ? friendList(val.friendsData['data']) : friendGridView(val.friendsData['data'])
             );
@@ -99,7 +99,7 @@ class _FriendListState extends State<FriendList> {
     return ListView.builder(
       itemCount: dataa.length,
       itemBuilder: (BuildContext,index) {
-        print("......//'''''${dataa.length}.......----.${dataa[4]['user_requisted']['image']}");
+        // print("......//'''''${dataa.length}.......----.${dataa[4]['user_requisted']['image']}");
         return 
         dataa[index]['status'] == "Accepted" ? 
          GestureDetector(

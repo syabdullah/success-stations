@@ -40,7 +40,14 @@ class _ForgotPageState extends State<ForgotPassword> {
         child: Form(
           key: formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              GestureDetector(
+                onTap: (){Get.back();},
+                child: Container(
+                  padding:  EdgeInsets.only(left:15.0,top:50),
+                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+              ),
               space50, 
               Container(
                 margin: EdgeInsets.only(top: 60),

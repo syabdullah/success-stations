@@ -11,6 +11,7 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:success_stations/view/messages/inbox.dart';
@@ -51,8 +52,8 @@ class SuccessApp extends StatelessWidget {
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
-          // home: MapView(),
-        initialRoute: auth == null ? '/langua': '/tabs',
+          //  home: SignIn(),
+        initialRoute: auth == null ? '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
       ),
