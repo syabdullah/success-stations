@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -9,7 +10,6 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/utils/third_step.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class AddPostingScreen extends StatefulWidget {
@@ -22,15 +22,69 @@ class AddPostingScreen extends StatefulWidget {
 class _AddPostingScreenState extends State<AddPostingScreen> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    final catogoryController = Get.put(CategoryController());
+    final adpostingController = Get.put(AdPostingController());
   int activeStep = 0;
   int upperBound = 3;  
   final _formKey = GlobalKey<FormState>();
   List list= [];
+  List type = [];
+  var selectedtype;
   var selectedCategory;
+  // var selectedSubCategory;
+  var subtypeId;
+  var selectedStatus;
+  var uiStatus;
   TextEditingController textEditingController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController mobileNoController = TextEditingController();
+  TextEditingController telePhoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  var json;
+  @override
+  void initState() {
+    super.initState();
+    catogoryController.getCategoryNames();
+  }
+   adpost(){
+    json = {
+    'category_id' : subtypeId.toString(),
+    'status': selectedStatus.toString(),
+    'description': descController.text,
+    'price': priceController.text,
+    'name': fullNameController.text,
+    'mobile_no': mobileNoController.text,
+    'tel_no': telePhoneController.text,
+    'title':titleController.text,
+    'created_by': '5',
+    'email': emailController.text
+  };
+ adpostingController.finalAdPosting(json);
+  }
   @override
   Widget build(BuildContext context) {
-    print(activeStep);
+     json = {
+    'category_id' : subtypeId,
+    'status': selectedStatus,
+    'description': descController.text,
+    'price': priceController.text,
+    'name': fullNameController.text,
+    'mobile_no': mobileNoController.text,
+    'tel_no': telePhoneController.text,
+    'title':titleController.text,
+    'created_by': '5',
+    'email': emailController.text
+  };
+    // print("{$titleController.text,$statusController.text,$descController.text,$priceController.text }");
+      print("stabkjbkjbjkbjkbjkbkjbkjb    $selectedCategory");
+      // print("asjkdaskjdbasjkdbaskjdbasjkdabsdjkasbdkjasbda $selectedSubCategory");
+      print("11sadsasdasdadd $subtypeId ");
+      print('statsu................$selectedStatus');
+      print(json);
+    // print(activeStep);
     return Scaffold(
       key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
@@ -75,13 +129,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            val.getCityByRegion();
-             list = val.cateList['data'];
-            // for(int i; i<= list = val.cateList['data'][2]['çategory']; );
-            print('sadasasdasdasdasd $list');
-            return activeStep == 0 ? istStep() : activeStep == 1 ? secondStep() : activeStep==2 ?  ThirdStep() : Container();
+            print(val.datacateg);
+            return 
+             activeStep == 0 ? istStep(val.datacateg) :
+             activeStep == 1 ? secondStep() : 
+             activeStep ==2 ?  thirdStep() : Container();
             
-            }
+          }
             ),
             activeStep == 0 ? Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -224,7 +278,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   //       return 'Introduction';
   //   }
 
-Widget istStep(){
+Widget istStep(List list){
   return  Form(
     key: _formKey,
     child: Column(
@@ -240,117 +294,158 @@ Widget istStep(){
                   border: Border.all(color: Colors.grey,width: 1),
                   borderRadius: BorderRadius.all(
                     Radius.circular(5.0) //                 <--- border radius here
+                   ),
+                ),
+                child:  ButtonTheme(
+                  alignedDropdown: true,
+                  child: Container(
+                    width: Get.width,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          selectedCategory != null ? selectedCategory : 'Category', 
+                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: list.map((coun) {
+                          return DropdownMenuItem(
+                            value: coun,
+                            child:Text(coun['category_name'])
+                          );
+                        }).toList(),
+                          onChanged: (val) {
+                          var adCategory;
+                          setState(() {
+                            adCategory = val as Map;
+                            selectedCategory = adCategory['category_name'];
+                            type = adCategory['sub_categories'];
+                          });
+                        },
+                      )
+                    ),
+                  )
+                )
+              ),    
+            SizedBox(height: 5.h,),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal:15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey,width: 1),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0) //                 <--- border radius here
                     ),
                 ),
                 child:  ButtonTheme(
-        alignedDropdown: true,
-        child: Container(
-          width: Get.width,
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              hint: Text(
-                 selectedCategory != null ? selectedCategory : 'country', 
-                style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                  alignedDropdown: true,
+                  child: Container(
+                    width: Get.width,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          selectedtype != null ? selectedtype : 'Type', 
+                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: type.map((coun) {
+                          return DropdownMenuItem(
+                            value: coun,
+                            child:Text(coun!['category_name'])
+                          );
+                        }).toList(),
+                          onChanged: (val) {
+                          var adsubCategory;
+                          setState(() {
+                            adsubCategory = val as Map;
+                            selectedtype = adsubCategory['category_name'];
+                            subtypeId =adsubCategory['id'];
+                            // print(selectedtype);
+                            
+                          });
+                        },
+                      )
+                    ),
+                  )
+                )
               ),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: list.map((coun) {
-                return DropdownMenuItem(
-                  value: coun,
-                  child:Text(coun['category'])
-                );
-              }).toList(),
-              onChanged: (val) {
-                var adCategory;
-                setState(() {
-                  adCategory = val as Map;
-                  selectedCategory = adCategory['category'];
-                  // hintTextCountry = mapCountry['name'];
-                  // selectedCountry = mapCountry['id'];
-                });
-              },
-            )
-          ),
-        )
-      )
-                ),
               
-            SizedBox(height: 5.h,),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal:15.0),
-              padding: const EdgeInsets.all(3.0),
-              decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey,width: 1),
-              borderRadius: BorderRadius.all(
-              Radius.circular(5.0) //                 <--- border radius here
-              ),  
-            ),
-            child: ListTile(
-              tileColor: Colors.grey[200],
-              title: Text("Type",
-                style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,)
-              ),
-              trailing: DropdownButton<String>(
-              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-              return DropdownMenuItem<String>(value: value,
-                child: new Text(value),
-                );
-              }).toList(),
-              onChanged: (_) {},
-              ),
+           SizedBox(height: 5.h,),
+           Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                controller: titleController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 13,
+                ),
+                decoration:InputDecoration( 
+                  hintText: "Titles",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
+              ) ,
             ),
            ),
            SizedBox(height: 5.h,),
-           Container(
-             margin: const EdgeInsets.symmetric(horizontal:15.0),
-             padding: const EdgeInsets.all(3.0),
-             decoration: BoxDecoration(
-               border: Border.all(color: Colors.grey,width: 1),
-               borderRadius: BorderRadius.all(
-               Radius.circular(5.0) //                 <--- border radius here
-              ),
-            ),
-            child: ListTile(
-              tileColor: Colors.grey[200],
-              title: Text("Status",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-              trailing: DropdownButton<String>(
-              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-              return DropdownMenuItem<String>(value: value,
-                child: new Text(value),
-                );
-              }).toList(),
-              onChanged: (_) {},
-              ),
-            ),
-           ),
-           SizedBox(height: 5.h,),
-           Container(
-             margin: const EdgeInsets.symmetric(horizontal:15.0),
-             padding: const EdgeInsets.all(3.0),
-             decoration: BoxDecoration(
-               border: Border.all(color: Colors.grey,width: 1),
-               borderRadius: BorderRadius.all(
-               Radius.circular(5.0) //                 <--- border radius here
-              ),
-            ),
-            child: ListTile(
-              tileColor: Colors.grey[200],
-              title: Text("Title",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color:AppColors.inputTextColor,),),
-              trailing: DropdownButton<String>(
-              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-              return DropdownMenuItem<String>(value: value,
-                child: new Text(value),
-                );
-                }).toList(),
-                onChanged: (_) {},
-              ),
-            ),
-          ),
+             Container(
+                margin: const EdgeInsets.symmetric(horizontal:15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey,width: 1),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0) //                 <--- border radius here
+                   ),
+                ),
+                child:  ButtonTheme(
+                  alignedDropdown: true,
+                  child: Container(
+                    width: Get.width,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          selectedStatus == null ? 'Status' : selectedStatus == '1' ? 'New': 'Old',
+                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: <String>['New','Old'].map((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child:Text(value)
+
+                           
+                          );
+                        }).toList(),
+                          onChanged: (value) {
+                          
+                          setState(() {
+                           
+                            selectedStatus = value;
+
+                            value == 'New' ? selectedStatus = '1' : selectedStatus = '0' ;
+                           
+                            
+                          });
+                        },
+                      )
+                    ),
+                  )
+                )
+              ),    
           SizedBox(height: 5.h,),
           Container(
             padding: EdgeInsets.symmetric(horizontal:15,),
             color: AppColors.inPutFieldColor,
             child: TextFormField(
+              controller: descController,
               textAlignVertical: TextAlignVertical.top,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -373,6 +468,7 @@ Widget istStep(){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                controller: priceController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -418,7 +514,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: textEditingController ,
+          textController: fullNameController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -440,7 +536,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: textEditingController ,
+          textController: mobileNoController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -462,7 +558,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: textEditingController ,
+          textController: telePhoneController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -484,7 +580,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: textEditingController ,
+          textController: emailController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -499,97 +595,95 @@ Widget secondStep(){
     );
   } 
   
-  // Widget thirdStep(){
-  //   return Column(
-  //     children: [
-  //       Padding(
-  //         padding: EdgeInsets.symmetric(horizontal: 15.h,vertical: 15.h),
-  //         child: Image.asset(AppImages.sampleImage),
-  //       ),
+  Widget thirdStep(){
+    return Column(
+      children: [
+        Image.asset(AppImages.sampleImage),
         
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal:15.0),
-  //         child: Card(
-  //           child: Column(
-  //             children: [
-  //               Padding(
-  //                  padding: const EdgeInsets.all(15),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Text("TITLE GOES HERE",style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-  //                     Text("SAR 112",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-  //                   ],
-  //                 ),
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 children: [
-  //                   Expanded(
-  //                     flex: 1,
-  //                     child: Column(
-  //                       children: [
-  //                         SizedBox(height: 20.h,),
-  //                         Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-  //                         SizedBox(height: 7.h),
-  //                         Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-  //                         SizedBox(height: 20.h,),
-  //                          Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-  //                         SizedBox(height: 7.h),
-  //                         Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-  //                         SizedBox(height: 10.h,),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                    Expanded(
-  //                      flex: 2,
-  //                      child: Padding(
-  //                        padding: const EdgeInsets.only(right:25),
-  //                        child: Column(
-  //                         children: [
-  //                           SizedBox(height: 20.h,),
-  //                           Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-  //                           SizedBox(height: 7.h),
-  //                           Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-  //                           SizedBox(height: 20.h,),
-  //                            Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-  //                           SizedBox(height: 7.h),
-  //                           Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-  //                           SizedBox(height: 10.h),
-                            
-  //                         ],
-  //                       ),
-  //                      ),
-  //                    ),
-  //                 ],
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 15),
-  //       child: Card(child:Padding(
-  //         padding: const EdgeInsets.all(15),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-  //             SizedBox(height:5.h),
-  //             Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
-  //             textAlign: TextAlign.justify,
-  //             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
-  //           ],
-  //         ),
-  //       ),
-  //       ),
-  //     ),
-  //     Row(children: [
-        
-  //     ],)
-  //     ],
-  //   );
-  // }
+        Card(
+          child: Column(
+            children: [
+              Padding(
+                 padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                    Text("SAR 112",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 15.h,),
+                        SizedBox(height: 15.h,),
+                         Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                        Text(selectedStatus == '0' ? uiStatus = 'Old':'new',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 10.h),
+                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      // SizedBox(height: 7.h),
+                      // Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      // SizedBox(height: 15.h,),
+                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      // SizedBox(height: 7.h),
+                      // Text("123453242342",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      // SizedBox(height: 15.h,),
+                      //  Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      // SizedBox(height: 7.h),
+                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      // SizedBox(height: 15.h,),
+                      
+                    ],
+                  ),
+                   Container(
+                     margin: EdgeInsets.only(right: 20),
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 15.h,),
+                        Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                        Text(selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        // SizedBox(height: 15.h,),
+                        //  Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        // SizedBox(height: 7.h),
+                        // Text(selectedStatus.toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        // SizedBox(height: 10.h),
+                        
+                      ],
+                      ),
+                   ),
+                ],
+              )
+            ],
+          ),
+        ),
+      Container(
+        width: Get.width,
+        child: Card(
+          child:Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+              SizedBox(height:5.h),
+              Text(descController.text,
+              textAlign: TextAlign.justify,
+              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
+            ],
+          ),
+         ),
+        ),
+      ),
+    ],
+   ); 
+  }
    Widget publishButton() {
     return Container(
        height: 40.h,
@@ -602,7 +696,12 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () { 
-          Get.toNamed('/tabs');
+          //  adpostingController.finalAdPosting(json);
+        //  
+        adpost();
+          print(json);
+          // s
+        // addpostingcon
          },
         child: Text('PUBLISH'),
       ),

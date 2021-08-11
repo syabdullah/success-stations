@@ -538,7 +538,7 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    print("........heading of the list ...........  widget data ...$listingCategoriesData");
+    // print("........heading of the list ...........  widget data ...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
