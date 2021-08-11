@@ -1,24 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/ad_views/ad_viewmain.dart';
-import 'package:success_stations/view/auth/forgot/forgot_code.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/google_map/mapview.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'view/auth/forgot/forgot_password.dart';
 var auth;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   await GetStorage.init();
   getData();
   runApp(
@@ -48,10 +39,10 @@ class SuccessApp extends StatelessWidget {
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
-          //  home: SignIn(),
-        initialRoute: auth == null ? '/langua' : '/tabs',
+          //  home: ForgotPassword(),
+        initialRoute: auth == null ?  '/langua' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
-        // home: ChattingPage(),
+        // home: NotificationPage(),
       ),
        designSize: const Size(360, 640),
     );

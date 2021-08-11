@@ -10,6 +10,7 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class AddPostingScreen extends StatefulWidget {
@@ -51,8 +52,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   }
    adpost(){
     json = {
-    'category_id' : subtypeId.toString(),
-    'status': selectedStatus.toString(),
+    'category_id' : subtypeId,
+    'status': selectedStatus,
     'description': descController.text,
     'price': priceController.text,
     'name': fullNameController.text,
@@ -66,18 +67,18 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   }
   @override
   Widget build(BuildContext context) {
-     json = {
-    'category_id' : subtypeId,
-    'status': selectedStatus,
-    'description': descController.text,
-    'price': priceController.text,
-    'name': fullNameController.text,
-    'mobile_no': mobileNoController.text,
-    'tel_no': telePhoneController.text,
-    'title':titleController.text,
-    'created_by': '5',
-    'email': emailController.text
-  };
+  //    json = {
+  //   'category_id' : subtypeId,
+  //   'status': selectedStatus,
+  //   'description': descController.text,
+  //   'price': priceController.text,
+  //   'name': fullNameController.text,
+  //   'mobile_no': mobileNoController.text,
+  //   'tel_no': telePhoneController.text,
+  //   'title':titleController.text,
+  //   'created_by': '5',
+  //   'email': emailController.text
+  // };
     // print("{$titleController.text,$statusController.text,$descController.text,$priceController.text }");
       print("stabkjbkjbjkbjkbjkbkjbkjb    $selectedCategory");
       // print("asjkdaskjdbasjkdbaskjdbasjkdabsdjkasbdkjasbda $selectedSubCategory");
@@ -320,6 +321,7 @@ Widget istStep(List list){
                             adCategory = val as Map;
                             selectedCategory = adCategory['category_name'];
                             type = adCategory['sub_categories'];
+                            selectedtype = 'Type';
                           });
                         },
                       )
@@ -375,6 +377,7 @@ Widget istStep(List list){
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+               
                 controller: titleController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -445,6 +448,8 @@ Widget istStep(List list){
             padding: EdgeInsets.symmetric(horizontal:15,),
             color: AppColors.inPutFieldColor,
             child: TextFormField(
+              maxLength: 300,
+              maxLines: 2,
               controller: descController,
               textAlignVertical: TextAlignVertical.top,
               validator: (value) {
@@ -468,6 +473,7 @@ Widget istStep(List list){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 controller: priceController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -528,6 +534,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          //  TextInputType.number,
           isObscure: false,
           hintText: AppString.mobileNo,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
@@ -623,7 +630,7 @@ Widget secondStep(){
                         SizedBox(height: 15.h,),
                          Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(selectedStatus == '0' ? uiStatus = 'Old':'new',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 10.h),
                       // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       // SizedBox(height: 7.h),
@@ -648,7 +655,7 @@ Widget secondStep(){
                         SizedBox(height: 15.h,),
                         Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         // SizedBox(height: 15.h,),
                         //  Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         // SizedBox(height: 7.h),
@@ -699,6 +706,7 @@ Widget secondStep(){
           //  adpostingController.finalAdPosting(json);
         //  
         adpost();
+        Get.off(MyAdds());
           print(json);
           // s
         // addpostingcon
