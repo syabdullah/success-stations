@@ -60,6 +60,7 @@ class SignUpController extends GetxController{
        if(res.statusCode == 200 ||res.statusCode < 400 ){
         companySignUp = jsonDecode(res.body);
         print("........////....${res.body}");
+        print(".......S--------I------G-----N------U-------P....${res.body}");
         isLoading = false;
         Get.to(SignIn());
         if(companySignUp['success'] == true){

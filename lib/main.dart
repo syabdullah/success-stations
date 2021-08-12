@@ -19,7 +19,6 @@ void main() async {
 GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
-  print("...........$auth");
 }
 
 class SuccessApp extends StatelessWidget {
@@ -38,8 +37,8 @@ class SuccessApp extends StatelessWidget {
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
-          //  home: MapView(),
-        initialRoute: auth == null ?  '/langua' : '/tabs',
+          //  home: ForgotPassword(),
+        initialRoute:   '/langua' ,
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
       ),

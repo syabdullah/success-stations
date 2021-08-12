@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_multiselect/flutter_multiselect.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -19,15 +21,39 @@ import 'package:success_stations/view/auth/sign_in.dart';
 class CompanySignUp extends StatefulWidget {
 
   final val;
- 
+  //  late String savedData;
+  
 
   CompanySignUp({this.val});
 
   _CompanySignPageState createState() => _CompanySignPageState();
 }
 class _CompanySignPageState extends State<CompanySignUp> {
+   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   late String savedData;
+   var tyming;
+   List selectedValues = [];
 
-  late List _myActivities;
+
+
+  var array = [
+    {
+      "display": "Australia",
+      "value": 1,
+    },
+    {
+      "display": "Canada",
+      "value": 2,
+    },
+    {
+      "display": "India",
+      "value": 3,
+    },
+    {
+      "display": "United States",
+      "value": 4,
+    }
+  ];
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -48,7 +74,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
   var v = 1;
-   List _selected3 = [];
 
    List<GroupModel> _group = [
     GroupModel(
@@ -60,6 +85,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       index:2 
     ),
   ];
+
   
 
   @override 
@@ -80,12 +106,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "user_type":  4,
         "cr_number":  crController.text ,
         'company_name':comNameController.text,
+        'service_ids[]': selectedValues
       };
       signUpCont.companyAccountData(json);
     }
   }
   individualSignUp() {
-    // print("...................");
     final form = formKey.currentState;
     if(form!.validate()){
       form.save();
@@ -98,10 +124,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "region_id": selectedRegion,
         "date_of_birth" : dobController.text,
         "user_type":  3,
-        'iqama_number': iqamaController.text
+        'iqama_number': iqamaController.text,
+        'service_ids[]': selectedValues
 
       };
-      // print("......!!!!!!! jsong of the company$individualJson ");
       signUpCont.individualAccountData(individualJson);
     }
  }
@@ -148,13 +174,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   return city(val.cityListData);
                 },
               ),
-              // space10,
-              // GetBuilder<ServicesController>(
-              //   init: ServicesController(),
-              //   builder: (val){
-              //     return services(val.servicesListdata);
-              //   },
-              // ),
+              space10,
+              GetBuilder<ServicesController>(
+                init: ServicesController(),
+                builder: (val){
+                  return services(val.servicesListdata);
+                },
+              ),
               space10,
               radioalert(),
               v == 2 ? 
@@ -503,44 +529,47 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
 
-  Widget services(servicesListdata){
- 
+  Widget services( allServices){
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          MultiSelectFormField(
-                  autovalidate: false,
-                  title: Text('My workouts'),
-                  validator: (value) {
-                    if (value == null || value.length == 0) {
-                      return 'Please select one or more options';
-                    }
-                  },
-                  dataSource: servicesListdata.map((e) {
-                     e['servics_name'].toList();
-                  }),
+      child: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          children: [
+            MultiSelectFormField(
+              autovalidate: false,
+              chipBackGroundColor: Colors.grey[200],
+              chipLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
+              checkBoxActiveColor: Colors.white,
+              checkBoxCheckColor: Colors.green,
+              dialogShapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0))),
+              title: Text(
+                "Services",
+                style: TextStyle(fontSize: 16),
+              ),
+              dataSource: allServices !=null ? allServices: '' ,
+              textField: 'servics_name',
+              valueField: 'id',
+              okButtonLabel: 'OK',
+              cancelButtonLabel: 'CANCEL',
+              hintWidget: Text('Please choose one or more'),
+              onSaved: (value) {
+                if (value == null) return;
+                setState(() {
+                 selectedValues = value;
+                });
+              },
+            ),
 
-                  textField: 'display',
-                  valueField: 'value',
-                  okButtonLabel: 'OK',
-                  cancelButtonLabel: 'CANCEL',
-                  // required: true,
-                  // hintText: 'Please choose one or more',
-                  // value: _myActivities,
-                  onSaved: (value) {
-                    if (value == null) return;
-                    setState(() {
-                      _myActivities = value;
-                    });
-                  },
-                ),
-              
-        ],
+          ]
+        ),
       )
-
     );
+     
   }
 
   Widget iqama() {
