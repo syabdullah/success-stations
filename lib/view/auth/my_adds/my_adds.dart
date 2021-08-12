@@ -48,14 +48,18 @@ class _MyAddsState extends State<MyAdds> {
             
           Expanded(
             child: listtype == 'list' ?
-             GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val){
-                // print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval$val");
-                //  print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval${val.catBaslistData}");
+              GetBuilder<AddBasedController>(
+                init: AddBasedController(),
+                builder: (val){
                 return myAddsList(val.cData['data']);
               },
-            ) : myAddGridView()
+            ) :GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val){
+                return myAddGridView(val.cData['data']);
+              },
+              )
+            //  myAddGridView()
           ),
         ],
       ),
@@ -341,7 +345,6 @@ void _adsfiltringheet() {
   
 }
   
-
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
       itemCount: allDataAdds.length,
@@ -474,13 +477,16 @@ void _adsfiltringheet() {
     );
   }
 var ind = 0 ;
-  myAddGridView() {
+  myAddGridView(dataListValue) {
+    print("datalist value...................data list value..... $dataListValue");
     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
-        children: List.generate(100, (index) {
-          return Container(
+        children: List.generate(
+          dataListValue.length, (index) {
+            print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
+           return Container(
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
               height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
@@ -501,52 +507,66 @@ var ind = 0 ;
                           ),
                         ),
                         Container(
-                          alignment: Alignment.topLeft,
+                          // alignment: Alignment.topLeft,
                           margin: EdgeInsets.only(left: 10),
-                          child: Text('Sheeza Tariq',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                          child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                         ),
-                        Container(
-                          width: Get.width/2.3,
-                          child: Row(
+                        dataListValue[index]['user']['address'] == null ? Container(): 
+                        Expanded(
+                          // flex : 2,
+                          child:  Row(
                             children: [
+                              
+                              Icon(Icons.location_on, color:Colors.grey),
                               Container(
-                                margin: EdgeInsets.only(top:6,left: 10),
-                                child: Image.asset(AppImages.location,height: 15)
-                              ),
-                              SizedBox(width:5),
-                              Container(
-                                margin: EdgeInsets.only(top:6),
-                                child: Text("location",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                              ),
-                              Spacer(flex: 2),
-                              Container(
-                                margin: EdgeInsets.only(right:6),
-                                child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
+                                child: Text(
+                                  dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
                               )
                             ],
                           ),
-                        ), 
-                        Container(
-                          width: Get.width/2.3,
-                          child: Row(
+                        ),
+                        Expanded(
+                          flex : 2,
+                          child:  Row(
                             children: [
+                              Icon(Icons.person, color:Colors.grey[400],),
                               Container(
-                                margin: EdgeInsets.only(top:6,left: 10),
-                                child: Image.asset(AppImages.location,height: 15)
-                              ),
-                              SizedBox(width:5),
-                              Container(
-                                margin: EdgeInsets.only(top:6),
-                                child: Text("location",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                              ),
-                              Spacer(flex: 2),
-                              Container(
-                                margin: EdgeInsets.only(right:6),
-                                child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
+                                // margin:EdgeInsets.only(left:29),
+                                child: Text(
+                                  dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
                               )
                             ],
                           ),
-                        ),              
+                        ),
+                        // Container(
+                        //   width: Get.width/2.3,
+                        //   child: Row(
+                        //     children: [
+                        //       Container(
+                        //         margin: EdgeInsets.only(top:6,left: 10),
+                        //         child: Icon(Icons.person, color:Colors.grey[400],)
+                        //       ),
+                        //       SizedBox(width:5),
+                        //       Container(
+                        //         margin: EdgeInsets.only(top:6),
+                        //         child: Text(dataListValue[index]['user']['name'] !=null ? dataListValue[index]['user']['name']:'',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
+                        //       ),
+                        //       // Spacer(flex: 2),
+                        //       // Container(
+                        //       //   margin: EdgeInsets.only(right:6),
+                        //       //   child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
+                        //       // )
+                        //     ],
+                        //   ),
+                        // ),              
                       ],
                     ),
                   )

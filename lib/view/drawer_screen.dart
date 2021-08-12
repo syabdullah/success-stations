@@ -6,6 +6,13 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/about_us.dart';
+import 'package:success_stations/view/auth/advertise.dart';
+import 'package:success_stations/view/auth/contact.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/notification.dart';
+import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
@@ -77,15 +84,15 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                           ),
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
-                            Get.toNamed('/tabs');
+                            Get.to(BottomTabs());
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
-                            Navigator.pushNamed(context,'/myAddsPage');
+                           Get.to(MyAdds());
                           } ,15.0),
-                          CustomListTile(AppImages.message, 'messages'.tr, () {
+                          CustomListTile(AppImages.message, 'messeges'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
@@ -96,10 +103,10 @@ class _AppDrawerState extends State<AppDrawer> {
                             Get.to(MemberShip());
                           },13.2 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
-                            Get.toNamed('/notification')
+                            Get.to(NotificationPage())
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                            Get.toNamed('/friReq');
+                           Get.to(FriendList());
                           } ,15.0), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
                           SizedBox(height: 10.h),
@@ -116,15 +123,15 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           SizedBox(height: 10.h),
                           CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
-                            Get.toNamed('/aboutUs');
+                           Get.to(AboutUs());
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
                           CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
-                            Navigator.pushNamed(context, '/advertisement')
+                           Get.to(AdvertisePage())
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                            Navigator.pushNamed(context, '/contact')
+                           Get.off(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
