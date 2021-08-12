@@ -31,11 +31,11 @@ class _MemberShipState extends State<MemberShip> {
         children: [
           Container(
             margin: EdgeInsets.only(top:20,bottom:20),
-            child: Text("Choose The Plan Thats's right for you.",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[600],fontSize: 16)),
+            child: Text("chooseplan".tr,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[600],fontSize: 16)),
           ),
           plansButton(),
           Spacer(),
-          registerButton("Register"),
+          registerButton('register'.tr),
         ],
       ),
     );    
@@ -69,8 +69,8 @@ class _MemberShipState extends State<MemberShip> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Free",style: TextStyle(fontWeight: FontWeight.bold,color: border == true ? Colors.grey[600] : Colors.white,fontSize: 18)),
-                        Text("Student",style: TextStyle(fontWeight: FontWeight.w600,color: border == true ? Colors.grey[600] : Colors.white,fontSize: 16)),
+                        Text("freeStd".tr,style: TextStyle(fontWeight: FontWeight.bold,color: border == true ? Colors.grey[600] : Colors.white,fontSize: 18)),
+                       
                         
                       ],
                     ),
@@ -121,8 +121,8 @@ class _MemberShipState extends State<MemberShip> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Pro",style: TextStyle(fontWeight: FontWeight.bold,color: border == false ? Colors.grey[600] : Colors.white,fontSize: 18)),
-                        Text("Service Provider",style: TextStyle(fontWeight: FontWeight.w600,color:border == false ? Colors.grey[600] : Colors.white,fontSize: 16))
+                        Text("proSrv".tr,textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,color: border == false ? Colors.grey[600] : Colors.white,fontSize: 18)),
+                        
                       ],
                     ),
                   ),

@@ -80,4 +80,6 @@ class AppImages {
 
   static String map= imagePath + "map.png";
   static String gridView = imagePath + 'grid.png';
+  static String delete = imagePath + 'delete.png';
+  static String edit = imagePath + 'edit.png';
 }

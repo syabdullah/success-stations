@@ -12,8 +12,6 @@ import 'package:success_stations/utils/google_signIn.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
-import 'forgot/forgot_code.dart';
-
 class SignIn extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
 }
@@ -35,7 +33,6 @@ class _SignPageState extends State<SignIn> {
   }
 
     signIn() {
-     print("........//////=======");
     final form = formKey.currentState;
     if (form!.validate()) {
       form.save();
@@ -43,10 +40,7 @@ class _SignPageState extends State<SignIn> {
         "email":fulNameController.text,
         "password":password.text
       };
-      print("........//////=======111111");
-      // dataStore.write('email', fulNameController.text);
-      // dataStore.write('password', password.text);
-       loginCont.loginUserdata(jsonData);
+      loginCont.loginUserdata(jsonData);
     }
   }
   @override
@@ -86,18 +80,18 @@ class _SignPageState extends State<SignIn> {
                           child: Container(
                             alignment: Alignment.bottomRight,
                             margin: EdgeInsets.only(bottom:10,right: 10,top: 10),
-                            child: Text(AppString.forgotPass,textAlign:TextAlign.end),
+                            child: Text('forgot_your_password'.tr,textAlign:TextAlign.end),
                           ),
                         ),
                         submitButton(
                           bgcolor: AppColors.appBarBackGroundColor,  
                           textColor: AppColors.appBarBackGroun,
-                          buttonText: AppString.signIn,
+                          buttonText: "sign_in".tr,
                           callback: signIn
                         ),
                         Container(
                           margin: EdgeInsets.only(top:10,bottom:10),
-                          child: Text("OR"),
+                          child: Text("or".tr),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +154,7 @@ class _SignPageState extends State<SignIn> {
         child: TextFormField(
           obscureText: passwordVisible,
           decoration: InputDecoration(
-            hintText:('Password') ,
+            hintText:('password'.tr) ,
             // labelStyle: TextStyle(color: AppColors.basicColor),
             fillColor: AppColors.inputColor,
               filled: true,

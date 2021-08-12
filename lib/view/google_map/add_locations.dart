@@ -34,14 +34,14 @@ class _AddLocationsState extends State<AddLocations> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Edit Your Location',style: TextStyle(color: Colors.white,fontSize: 20),),
+            child: Text('editlocation'.tr,style: TextStyle(color: Colors.white,fontSize: 20),),
           ),
           Padding( padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Icon(Icons.gps_fixed,color: Colors.white,),
               SizedBox(width: 10,),
-              Text('Get current Location',style: TextStyle(color: Colors.white,fontSize: 15),),
+              Text('getCurrent'.tr,style: TextStyle(color: Colors.white,fontSize: 15),),
             ],
           )),
           SizedBox(height: 5,),
@@ -50,7 +50,7 @@ class _AddLocationsState extends State<AddLocations> {
             width: Get.width * 0.9,
             child: CustomTextFiled(
               isObscure: false,
-              hintText: "Street",
+              hintText: "street".tr,
               hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
               hintColor: AppColors.inputTextColor,
               onChanged: (value) {  },
@@ -72,7 +72,7 @@ class _AddLocationsState extends State<AddLocations> {
             width: Get.width * 0.9,
             child: CustomTextFiled(
               isObscure: false,
-              hintText: "City",
+              hintText: "city".tr,
               hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
               hintColor: AppColors.inputTextColor,
               onChanged: (value) {  },
@@ -94,7 +94,7 @@ class _AddLocationsState extends State<AddLocations> {
             width: Get.width * 0.9,
             child: CustomTextFiled(
               isObscure: false,
-              hintText: "District",
+              hintText: "district".tr,
               hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
               hintColor: AppColors.inputTextColor,
               onChanged: (value) {  },

@@ -40,7 +40,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             BottomNavigationBarItem(
               
               // ignore: deprecated_member_use
-              title: Text('Offers', style: AppTextStyles.appTextStyle(
+              title: Text("offer".tr, style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 
                 ),
@@ -48,7 +48,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('Friends' ,style: AppTextStyles.appTextStyle(
+              title: Text("friends".tr ,style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 
                 ),
@@ -56,7 +56,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('Locations', style: AppTextStyles.appTextStyle(
+              title: Text('location'.tr, style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 
                 ),
@@ -64,7 +64,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('Ads',style: 
+              title: Text("ads".tr,style: 
                 AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   )

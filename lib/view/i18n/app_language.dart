@@ -20,6 +20,7 @@ class LocalizationServices extends Translations {
   /// have been translated.
 
   @override
+  // ignore: override_on_non_overriding_member
   TextDirection get textDirection => _textDirection;
   late TextDirection _textDirection;
 

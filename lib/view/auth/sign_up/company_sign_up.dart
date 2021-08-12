@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
-
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
@@ -78,11 +77,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
    List<GroupModel> _group = [
     GroupModel(
-      text: ' Individual',
+      text: "individual".tr,
       index:1 
     ),
     GroupModel(
-      text: 'Company',
+      text: "company".tr,
       index:2 
     ),
   ];
@@ -215,20 +214,20 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                   ),
                   Text(
-                    AppString.termServices, 
+                    "terms".tr, 
                     style: TextStyle(
                       fontFamily: 'Lato', fontSize: 14, fontWeight: FontWeight.w300
                     )
                   ),
                   Text(
-                    AppString.termCondition, style: TextStyle(
+                    "terms_condition".tr, style: TextStyle(
                     fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold)
                   ),
                 ],
               ),
               space20,
               submitButton(
-                buttonText: AppString.signUp, 
+                buttonText: 'sign_up_text'.tr, 
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun, 
                 callback: v == 1 ? individualSignUp : companyUser
@@ -241,11 +240,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(AppString.existAccount, 
+                    Text("have_account".tr, 
                       style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
                       ),
                     ),
-                    Text(AppString.signIn, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+                    Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),
@@ -263,7 +262,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.fullName,
+        hintText: "full_name".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -286,41 +285,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
-  //  Widget eMail() {
-  //   return  Container(
-  //     margin:EdgeInsets.only(left:20, right: 20),
-  //     width: Get.width * 0.9,
-  //     child: CustomTextFiled(
-  //       hintText:AppString.email,
-  //       hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-  //       hintColor: AppColors.inputTextColor,
-  //       onChanged: (value) {  },
-  //       onSaved: (String? newValue) {  }, 
-  //       onFieldSubmitted: (value) {  }, 
-  //       // isObscure: true,
-  //       textController: emailController,
-  //       validator: (val) {
-  //         String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  //         RegExp regExp = RegExp(pattern);
-  //         if ( val.length == 0 ){
-  //           return 'Enter an Email';
-  //         }
-  //         else if (!regExp.hasMatch(val)) {
-  //           return "Enter Valid Email Address";
-  //         }
-  //         return null;
-  //       }, 
-  //       errorText: '',
-  //     ),
-  //   );
-  // }
   Widget eMail() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.email,
+        hintText:"email".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -351,7 +322,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.mobile,
+        hintText: "mobile".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -384,7 +355,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.dob,
+        hintText: "date_of_birth".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -412,7 +383,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.companyName,
+        hintText: "company".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -450,7 +421,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint: Text(
-              hintTextCountry != null ? hintTextCountry : 'country', 
+              hintTextCountry != null ? hintTextCountry : 'country'.tr, 
               style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inPutFieldColor,
@@ -489,7 +460,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintRegionText !=null ?hintRegionText : "Region", 
+            hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
               style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inPutFieldColor,
@@ -530,7 +501,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint:Text(
-              hintcityText !=null ? hintcityText : "City", style: TextStyle(
+              hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
                 fontSize: 13, color: AppColors.inputTextColor
               )
             ),
@@ -607,7 +578,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.idIqama,
+        hintText: "enter_iqama_number".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -641,7 +612,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.response,
+        hintText: "Responsible".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -661,7 +632,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.mobNum,
+        hintText: "mobile_number".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -714,7 +685,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       children: [
         Container(
           padding: EdgeInsets.only(left:20),
-          child: Text(AppString.accountType)
+          child: Text("Account_type".tr)
         ),
         Expanded(
           child: Row(

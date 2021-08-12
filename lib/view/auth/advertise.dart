@@ -56,7 +56,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: AppString.send,
+                buttonText: "send".tr,
                 fontSize: 18.toDouble(),
                 callback: navigateToHomeScreen
               ),
@@ -72,7 +72,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.name,
+        hintText:"name".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
         onChanged: (value) {  },
@@ -101,7 +101,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
          isObscure: false,
-        hintText:AppString.phoneNumber,
+        hintText:"phone".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
         onChanged: (value) {  },
@@ -130,7 +130,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
             borderSide: const BorderSide(color: Colors.black),
             borderRadius: const BorderRadius.all(Radius.circular(4)),
           ),
-        hintText: "Write here", hintStyle: TextStyle(color:Colors.grey),
+        hintText: "writeHere".tr, hintStyle: TextStyle(color:Colors.grey),
         fillColor:AppColors.inputColor,
         filled: true,
       ),

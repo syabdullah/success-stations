@@ -105,6 +105,7 @@ class _AdsViewState extends State<AdsView> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 10,
+        // ignore: non_constant_identifier_names
         itemBuilder: (BuildContext,index) {
           return Column(
             children: [

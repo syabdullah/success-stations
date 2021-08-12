@@ -29,11 +29,11 @@ class ResetPassWordController extends GetxController {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[   
                       Text(
-                        AppString.changedPasww  ,style:  TextStyle(fontSize: 20, color: Colors.white)
+                        "changedPassword".tr  ,style:  TextStyle(fontSize: 20, color: Colors.white)
                       ),
                       SizedBox(height:10),
                       Text(
-                        AppString.successResetPass ,style:  TextStyle(fontSize: 14, color: Colors.white)
+                        "login_Can".tr,style:  TextStyle(fontSize: 14, color: Colors.white)
                       ),
                       SizedBox(height: 30),
                       Row(
@@ -46,7 +46,7 @@ class ResetPassWordController extends GetxController {
                               color: Colors.white,
                               child: Container(
                                 width: Get.width / 2,
-                                child: Center(child: Text(AppString.login, style: TextStyle(color: AppColors.appBarBackGroundColor )))
+                                child: Center(child: Text("login".tr, style: TextStyle(color: AppColors.appBarBackGroundColor )))
                               ),
                               onPressed: () {
                                  Get.to(SignIn());
