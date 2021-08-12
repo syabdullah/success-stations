@@ -40,7 +40,6 @@ class _LanguagePageState extends State<Language> {
       for(var i = 0; i < dataLanguage['data'].length; i++){
         langua.add(
           GestureDetector(
-            
             child: Center(
               child: Container(
                 margin: EdgeInsets.only(left:20),

@@ -67,25 +67,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   }
   @override
   Widget build(BuildContext context) {
-  //    json = {
-  //   'category_id' : subtypeId,
-  //   'status': selectedStatus,
-  //   'description': descController.text,
-  //   'price': priceController.text,
-  //   'name': fullNameController.text,
-  //   'mobile_no': mobileNoController.text,
-  //   'tel_no': telePhoneController.text,
-  //   'title':titleController.text,
-  //   'created_by': '5',
-  //   'email': emailController.text
-  // };
-    // print("{$titleController.text,$statusController.text,$descController.text,$priceController.text }");
-      print("stabkjbkjbjkbjkbjkbkjbkjb    $selectedCategory");
-      // print("asjkdaskjdbasjkdbaskjdbasjkdabsdjkasbdkjasbda $selectedSubCategory");
-      print("11sadsasdasdadd $subtypeId ");
-      print('statsu................$selectedStatus');
-      print(json);
-    // print(activeStep);
     return Scaffold(
       key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
@@ -191,7 +172,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             });
           }
          },
-        child: Text('Next'),
+        child: Text('next'.tr),
       ),
     );
   }
@@ -215,7 +196,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             });
           } 
         },
-        child: Text('PREVIOUS'),
+        child: Text('previous'.tr),
       ),
     );
   }
@@ -231,7 +212,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
           ) 
          ):
-        Text(AppString.istStep,textAlign: TextAlign.center, 
+        Text("announce_new".tr,textAlign: TextAlign.center, 
           style: AppTextStyles.appTextStyle(
             fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey
             )
@@ -240,14 +221,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
         Text(AppString.secStep,textAlign: TextAlign.center,
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
         ):
-        Text(AppString.secStep,textAlign: TextAlign.center, 
+        Text("contact_information".tr,textAlign: TextAlign.center, 
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
         ),
         activeStep == 2 ?
         Text(AppString.thrStep,textAlign: TextAlign.center,
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
         ):
-        Text(AppString.thrStep,textAlign: TextAlign.center, 
+        Text("review_publish".tr,textAlign: TextAlign.center, 
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
         ),
       ],
@@ -304,7 +285,7 @@ Widget istStep(List list){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedCategory != null ? selectedCategory : 'Category', 
+                          selectedCategory != null ? selectedCategory : "categories".tr, 
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
@@ -346,7 +327,7 @@ Widget istStep(List list){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedtype != null ? selectedtype : 'Type', 
+                          selectedtype != null ? selectedtype : 'type'.tr, 
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
@@ -389,7 +370,7 @@ Widget istStep(List list){
                   color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
-                  hintText: "Titles",
+                  hintText: "title".tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                     borderSide: BorderSide(color: Colors.grey),
@@ -414,7 +395,7 @@ Widget istStep(List list){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedStatus == null ? 'Status' : selectedStatus == '1' ? 'New': 'Old',
+                          selectedStatus == null ? 'status'.tr : selectedStatus == '1' ? 'New': 'Old',
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
@@ -461,7 +442,7 @@ Widget istStep(List list){
               style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
               decoration:InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
-                hintText: "Description",
+                hintText: "description".tr,
                 border: OutlineInputBorder( 
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(color: Colors.grey),
@@ -485,7 +466,7 @@ Widget istStep(List list){
                   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
                 ),
                 decoration:InputDecoration( 
-                  hintText: "Price",
+                  hintText: "price".tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(color: Colors.grey),
@@ -513,7 +494,7 @@ Widget secondStep(){
         width: Get.width * 0.9,
         child: CustomTextFiled(
           isObscure: false,
-          hintText: AppString.fullName,
+          hintText: "full_name".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
           onChanged: (value) {  },
@@ -536,7 +517,7 @@ Widget secondStep(){
         child: CustomTextFiled(
           //  TextInputType.number,
           isObscure: false,
-          hintText: AppString.mobileNo,
+          hintText: "mobile_no".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
           onChanged: (value) {  },
@@ -558,7 +539,7 @@ Widget secondStep(){
         width: Get.width * 0.9,
         child: CustomTextFiled(
           isObscure: false,
-          hintText: AppString.telephoneNo,
+          hintText: "Telephone_no".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight:FontWeight.bold),
           hintColor: AppColors.inputTextColor,
           onChanged: (value) {  },
@@ -580,7 +561,7 @@ Widget secondStep(){
         width: Get.width * 0.9,
         child: CustomTextFiled(
           isObscure: false,
-          hintText: AppString.email,
+          hintText: "email".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
           onChanged: (value) {  },
@@ -628,7 +609,7 @@ Widget secondStep(){
                     children: [
                       SizedBox(height: 15.h,),
                         SizedBox(height: 15.h,),
-                         Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 10.h),
@@ -653,7 +634,7 @@ Widget secondStep(){
                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 15.h,),
-                        Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         // SizedBox(height: 15.h,),
@@ -678,7 +659,7 @@ Widget secondStep(){
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+              Text("${"details".tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
               SizedBox(height:5.h),
               Text(descController.text,
               textAlign: TextAlign.justify,
@@ -703,15 +684,10 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () { 
-          //  adpostingController.finalAdPosting(json);
-        //  
         adpost();
         Get.off(MyAdds());
-          print(json);
-          // s
-        // addpostingcon
-         },
-        child: Text('PUBLISH'),
+        },
+        child: Text("publish".tr),
       ),
     );
   }
@@ -728,7 +704,7 @@ Widget secondStep(){
         fontWeight: FontWeight.bold)),
         onPressed: () {
         },
-        child: Text('SAVE AS DRAFT',textAlign: TextAlign.left,),
+        child: Text("save_as_draft".tr,textAlign: TextAlign.left,),
       ),
     );
   }

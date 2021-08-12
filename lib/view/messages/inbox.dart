@@ -26,13 +26,13 @@ class _InboxState extends State<Inbox> {
                   backgroundColor: AppColors.appBarBackGroundColor,
                     centerTitle: true,
                      title:
-                      Text("INBOX",
+                      Text("inbox".tr,
                       style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
                       )
                     ),
                  Padding(
                    padding: const EdgeInsets.only(top:0.0,left:20),
-                   child: Text("Recently Contacted",
+                   child: Text("recentelyContact".tr,
                      style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.normal, color:Colors.white,),
                     ),
                  ),

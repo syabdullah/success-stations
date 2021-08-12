@@ -19,7 +19,6 @@ class UniversityController extends GetxController {
     isLoading = true ;
     await university().then((res) {
       universityData = jsonDecode(res.body);
-      print("university data of the object..>!!!! $universityData");
       dataUni = universityData['data'];
       isLoading = false;
     });

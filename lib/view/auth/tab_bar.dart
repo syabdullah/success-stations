@@ -8,6 +8,7 @@ class TabBarPage extends StatefulWidget {
   _TabBarState createState() => _TabBarState();
 }
 class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
+  // ignore: unused_field
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var tabIndex = 0;
 

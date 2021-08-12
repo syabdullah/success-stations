@@ -22,9 +22,7 @@ class CityController extends GetxController {
         for( int ci =0; ci < cityData['data'].length; ci++){
           cityListData.add(cityData['data'][ci]);
         }
-
       }
-      
       isLoading = false;
     });
     update();

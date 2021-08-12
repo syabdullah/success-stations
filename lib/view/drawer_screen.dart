@@ -51,7 +51,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
-                      child: Text("User Name",
+                      child: Text("user_name".tr,
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),
@@ -65,65 +65,65 @@ class _AppDrawerState extends State<AppDrawer> {
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
                             child: Text(
-                              "Main Menu ",
+                              "mainMenu".tr,
                               style: AppTextStyles.appTextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey.shade800
                               ),
                             ),
                           ),
-                          CustomListTile(AppImages.aboutus, 'Home', ()  {
+                          CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.toNamed('/tabs');
                           },15.0 ),
-                          CustomListTile(AppImages.userProfile, 'PROFILE', ()  {
+                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             Get.toNamed('/friendProfile');
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'MY ADS', ()  {
+                          CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
                           } ,15.0),
-                          CustomListTile(AppImages.message, 'MESSAGE', () {
+                          CustomListTile(AppImages.message, 'messages'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),
-                          CustomListTile(AppImages.location, 'Add Location', () {
+                          CustomListTile(AppImages.location, 'addlocation'.tr, () {
                             Get.to(MyLocations());
                           },15.0 ),
-                          CustomListTile(AppImages.membership, 'MEMBERSHIP', () {
+                          CustomListTile(AppImages.membership, 'membership'.tr, () {
                           
                             Get.to(MemberShip());
                           },13.2 ),
-                          CustomListTile(AppImages.notification, 'NOTIFICATIONS', () => {
+                          CustomListTile(AppImages.notification, 'notification'.tr, () => {
                             Get.toNamed('/notification')
                           },15.0 ),
-                          CustomListTile(AppImages.freq, 'FRIEND REQUESTS', ()  {
+                          CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                             Get.toNamed('/friReq');
                           } ,15.0), 
-                          CustomListTile(AppImages.fav, 'FAVOURITES', () => {},15.0 ), 
+                          CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
                           SizedBox(height: 10.h),
                           Divider(),
                           SizedBox(height: 10.h),
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
                             child: Text(
-                              AppString.overview,
+                              "overviewAndDefications".tr,
                                 style: AppTextStyles.appTextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                                 ),
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'ABOUT US', ()  {
+                          CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
                             Get.toNamed('/aboutUs');
                           },15.0 ),
-                          CustomListTile(AppImages.privacy, 'PRIVACY', () => {},15.0 ),
+                          CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
                           CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
                             Navigator.pushNamed(context, '/advertisement')
                           },15.0 ),
-                          CustomListTile(AppImages.ugr, 'USAGE AGREEMENT', () => {},12.0 ),
-                          CustomListTile(AppImages.contactus, 'CONTACT US', () => {
+                          CustomListTile(AppImages.ugr, 'user_agreemen'.tr, () => {},12.0 ),
+                          CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
                             Navigator.pushNamed(context, '/contact')
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
-                          CustomListTile(AppImages.logout, 'LOGOUT', ()  {
+                          CustomListTile(AppImages.logout, 'logout'.tr, ()  {
                             // box.remove("access_token");
                             Get.toNamed('/login');
                           },15.0 ),

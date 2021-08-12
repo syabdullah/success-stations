@@ -41,7 +41,7 @@ class _MyLocationsState extends State<MyLocations> {
                         children: [
                           Icon(Icons.add),
                           SizedBox(width:10),
-                          Text("Add New Location")
+                          Text("addNewLocation".tr)
                         ],
                       ),
                     ),
@@ -63,6 +63,7 @@ class _MyLocationsState extends State<MyLocations> {
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         return Card(
+          
           child: Container(
             height: 100,
             child: Row(
@@ -99,7 +100,7 @@ class _MyLocationsState extends State<MyLocations> {
                           Row(
                             children: [
                               // Image.asset(AppImages.location, height:15),
-                              Text("Street 6k, ichra colony shabzar \n market, Gulberg \n Lahore Pakistan",textAlign: TextAlign.left,
+                              Text("Street 6k, ichra  \n market, Gulberg \n Lahore Pakistan",textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[400],
@@ -127,15 +128,15 @@ class _MyLocationsState extends State<MyLocations> {
                 ),
                 SizedBox(height:20),
                 Container(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: EdgeInsets.only(right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         padding: EdgeInsets.only(right:5),
-                        child: Image.asset(AppImages.blueHeart, height: 20)
+                        child: Image.asset(AppImages.delete, height: 30)
                       ),
-                      Image.asset(AppImages.call, height: 20),
+                      Image.asset(AppImages.edit, height: 30),
                     ],
                   ),
                 ),
