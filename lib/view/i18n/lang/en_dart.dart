@@ -130,6 +130,7 @@ const Map<String, String> en = {
   "register":"Register",
   "mainMenu":"Main Menu",
   "overviewAndDefications":"OVERVIEW AND DEFINATIONS",
+  "writeHere":"Write Here",
   "condition": "Condition",
   "offer": "Offer",
   "friends": "Friends",

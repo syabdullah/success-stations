@@ -28,6 +28,7 @@ const Map<String, String> ar = {
   "send": "إرسال",
   "or": "أو",
   "recentelyContact": "مؤخرا",
+  "writeHere":"اكتب هنا",
   "recent": "الأخيرة",
   "oldernoti":"أقدم إشعار",
   "chooseplan":"اختر الخطة التي تناسبك",
