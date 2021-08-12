@@ -61,16 +61,16 @@ class _MapViewState extends State<MapView> {
     print(Get.height);
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-     bottomNavigationBar: CustomBottomBar(),
-      appBar: 
-      PreferredSize( preferredSize: Size.fromHeight(70.0),
-         child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
-         drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
+    //  bottomNavigationBar: CustomBottomBar(),
+    //   appBar: 
+    //   PreferredSize( preferredSize: Size.fromHeight(70.0),
+    //      child:appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch)),
+    //      drawer: Theme(
+    //     data: Theme.of(context).copyWith(
+    //       // canvasColor: AppColors.botomTiles
+    //     ),
+    //     child: AppDrawer(),
+    //   ),
       body: Stack(
         children: [
            listtype == 'map' ? googleMap() : lastLocations(),

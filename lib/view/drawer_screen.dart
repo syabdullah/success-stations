@@ -122,7 +122,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
                             Navigator.pushNamed(context, '/advertisement')
                           },15.0 ),
-                          CustomListTile(AppImages.ugr, 'user_agreemen'.tr, () => {},12.0 ),
+                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
                             Navigator.pushNamed(context, '/contact')
                           },15.0 ),
