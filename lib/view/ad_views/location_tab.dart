@@ -65,7 +65,7 @@ class _LocationTabState extends State<LocationTab> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppString.filters ,style:  TextStyle(fontSize: 20, color: Colors.black)
+                        'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
                       ),
                       Container(
                         // margin:EdgeInsets.only(right:30),
@@ -91,7 +91,7 @@ class _LocationTabState extends State<LocationTab> {
                             Image.asset(AppImages.nearby,height: 15,color:Colors.blue),
                             SizedBox(width: 5,),
                             Text(
-                              "Nearby ",style:  TextStyle(fontSize: 15, color: Colors.blue)
+                              "Nearby".tr,style:  TextStyle(fontSize: 15, color: Colors.blue)
                             ),
                           ],
                         ),
@@ -102,7 +102,7 @@ class _LocationTabState extends State<LocationTab> {
                   TextField(  
                     decoration: InputDecoration(  
                       border: OutlineInputBorder(),  
-                      labelText: 'City',  
+                      labelText: 'city'.tr,  
                        prefixIcon: Icon(Icons.search),
                       // hintText: 'Enter Your Name',  
                     ),  
@@ -169,7 +169,7 @@ class _LocationTabState extends State<LocationTab> {
                           color: Colors.grey[100],
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text(AppString.resetButton, style: TextStyle(color: AppColors.inputTextColor )))
+                            child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
@@ -227,7 +227,7 @@ class _LocationTabState extends State<LocationTab> {
          SizedBox(width: 5),
          InkWell(
             onTap: (){_showModal();},
-           child: Text(AppString.filter,
+           child: Text('filter'.tr,
              style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.normal, color:AppColors.darkgrey
             ) 

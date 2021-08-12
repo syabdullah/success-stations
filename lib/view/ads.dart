@@ -34,15 +34,15 @@ class _AdsViewState extends State<AdsView> {
       padding: EdgeInsets.symmetric(horizontal:20),
       children: [
          carosalImage(),
-         text(AppString.cato,AppString.all),
+         text("advertisingCategories".tr,"all".tr),
          GetBuilder<CategController>(
             init: CategController(),
             builder: (data){
               return data.dataListing != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.dataListing['data']) : Container();
             }),
-         text(AppString.featured,AppString.all),  
+         text("FeaturedAds".tr,"all".tr),  
          featuredAdsList(),
-         text(AppString.specialOffer,AppString.all),
+         text('specialofer'.tr,"all".tr),
          GetBuilder<CategController>(
             init: CategController(),
             builder: (data){
