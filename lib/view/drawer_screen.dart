@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
@@ -16,7 +17,10 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  final logoutCont = Get.put(LoginController());
   GetStorage box = GetStorage();
+  // var name  = '';
+  // name  = box.read('name');
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -51,7 +55,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
-                      child: Text("user_name".tr,
+                      child: Text(
+                        box.read('name'),
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),
@@ -75,7 +80,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Get.toNamed('/tabs');
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
-                            Get.toNamed('/friendProfile');
+                            // Get.toNamed('/friendProfile');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                             Navigator.pushNamed(context,'/myAddsPage');
@@ -124,8 +129,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
-                            // box.remove("access_token");
-                            Get.toNamed('/login');
+                            logoutCont.userLogout();                            
                           },15.0 ),
                         ],
                       ),
