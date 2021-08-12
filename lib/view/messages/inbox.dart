@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 class Inbox extends StatefulWidget {
   _InboxState createState() => _InboxState();
@@ -21,7 +22,9 @@ class _InboxState extends State<Inbox> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                  AppBar(
-                   leading:Image.asset(AppImages.arrowBack),
+                   leading:GestureDetector(
+                     onTap: (){Get.off(BottomTabs());},
+                     child: Image.asset(AppImages.arrowBack)),
                   elevation: 0,
                   backgroundColor: AppColors.appBarBackGroundColor,
                     centerTitle: true,

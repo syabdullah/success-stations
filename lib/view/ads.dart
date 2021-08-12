@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
@@ -34,11 +35,20 @@ class _AdsViewState extends State<AdsView> {
       children: [
          carosalImage(),
          text(AppString.cato,AppString.all),
-         advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,),
+         GetBuilder<CategController>(
+            init: CategController(),
+            builder: (data){
+              return data.dataListing != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.dataListing['data']) : Container();
+            }),
          text(AppString.featured,AppString.all),  
          featuredAdsList(),
          text(AppString.specialOffer,AppString.all),
-         advertisingList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,),
+         GetBuilder<CategController>(
+            init: CategController(),
+            builder: (data){
+              return data.dataListing != null ?  advertisingList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.dataListing['data']): Container();
+            })
+         
       ],
     );
   }
@@ -98,14 +108,14 @@ class _AdsViewState extends State<AdsView> {
     );
   }
 
-  advertisingList(conHeight,imageW,imageH) {
+  advertisingList(conHeight,imageW,imageH,data) {
+    print("-----------------$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        // ignore: non_constant_identifier_names
+        itemCount: data.length,
         itemBuilder: (BuildContext,index) {
           return Column(
             children: [
@@ -124,7 +134,7 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text("Category1",style: TextStyle(color: AppColors.grey)),
+                child: Text(data[index]['category_name'],style: TextStyle(color: AppColors.grey)),
               )
             ],
           );

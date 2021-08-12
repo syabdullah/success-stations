@@ -20,6 +20,7 @@ const Map<String, String> ar = {
   "user_name_placeholder": "اسم المستخدم",
   "user_name": "اسم االمستخدم",
   "password_placeholder": "كلمه السر",
+  "password" : "كلمه السر",
   "sign_in": "تسجيل الدخول",
   "forgot_your_password": "نسيت رقمك السري؟",
   "forgot_login_detail": "نسيت تفاصيل تسجيل الدخول الخاصة بك؟",

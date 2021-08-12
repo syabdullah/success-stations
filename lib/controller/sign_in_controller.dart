@@ -23,8 +23,8 @@ class LoginController extends GetxController {
          box.write('access_token',logindata['data']['token']);
          print("..././///////////${logindata['data']['token']}.................${res.body}");
         box.write('email',logindata['data']['email']);
-        box.write('name',logindata['data']['nam']);
-        box.write('user_id',logindata['data']['id']);
+        box.write('name',logindata['data']['name']);
+        box.write('user_id',logindata['data']['user_id']);
         resultInvalid(false);
         isLoading(false);
         Get.toNamed('/tabs');
@@ -45,6 +45,7 @@ class LoginController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400) {
         box.write('access_token',logindata['data']['token']);
         box.write('email',logindata['data']['user']['email']);
+        box.write('name',logindata['data']['user']['name']);
         print("...............$logindata");
         box.write('user_id',logindata['data']['user']['id']);
         resultInvalid(false);
@@ -56,4 +57,28 @@ class LoginController extends GetxController {
     });
     update();
   }
+  
+  userLogout() async {
+    isLoading(true);
+    await logout().then((res) {    
+      logindata = jsonDecode(res.body);
+      //  Get.offAllNamed('/login');
+      print(res.statusCode);
+      if(res.statusCode == 200 || res.statusCode < 400) {
+        box.remove("access_token");
+        box.remove("name");
+        box.remove("user_id");
+        box.remove("email");
+        Get.offAllNamed('/login');
+        print("...............$logindata");
+        resultInvalid(false);
+        isLoading(false);
+      } else if(logindata['message'] == 'The given data was invalid.') {
+        resultInvalid(true);
+        isLoading(false);
+      }
+    });
+    update();
+  }
+
 }

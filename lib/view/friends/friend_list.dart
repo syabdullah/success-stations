@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -15,15 +16,18 @@ class FriendList extends StatefulWidget {
 }
 class _FriendListState extends State<FriendList> {
   final friCont = Get.put(FriendsController());
+  GetStorage box = GetStorage();
   var listtype = 'list';
   var grid = AppImages.gridOf;
   Color listIconColor = AppColors.appBarBackGroundColor;
+  var id ;
 
   @override
   void initState() {
     super.initState();
     friCont.getFriendsList();
     friCont.getSuggestionsList();
+    id = box.read('user_id');
   }
   @override
   Widget build(BuildContext context) {
@@ -105,12 +109,20 @@ class _FriendListState extends State<FriendList> {
          GestureDetector(
           onTap: (){
              
-            Get.to(FriendProfile(),arguments:dataa[index]['id']);
+            Get.to(FriendProfile(),arguments:dataa[index]['requister_id']);
           },
           child: Card(
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                id == dataa[index]['requister_id'] ? 
+                Container(
+                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    child: dataa[index]['requister']['image'] != null ? Image.network(dataa[index]['requister']['image']['url']) : Container()
+                  ),
+                ):
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
@@ -122,7 +134,8 @@ class _FriendListState extends State<FriendList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text(dataa[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: id == dataa[index]['requister_id'] ?  Text(dataa[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
+                      Text(dataa[index]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
                     ),
                     Container(
                       child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
@@ -130,7 +143,7 @@ class _FriendListState extends State<FriendList> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(AppImages.location,height: 15,),
+                        // Image.asset(AppImages.location,height: 15,),
                         SizedBox(width:5),
                         Container(
                           // child: Text(dataa[index]['user_requisted']['city']['city']),
