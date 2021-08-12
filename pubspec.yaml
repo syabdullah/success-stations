@@ -53,10 +53,8 @@ dependencies:
   # multi_select_flutter: ^4.0.0
   multiselect_formfield: ^0.1.6
   flutter_multiselect:
+  google_maps_place_picker:
 
-
-
-  bottom_bar_with_sheet: ^2.0.0
 
 dev_dependencies:
   flutter_test:
