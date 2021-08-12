@@ -63,10 +63,9 @@ class _ForgotPageState extends State<ForgotPassword> {
               eMail(),
               space20,
               submitButton(
-                
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: AppString.next,
+                buttonText: "next".tr,
                 fontSize: 18.toDouble(),
                 callback: requiredEmail
               ),
@@ -84,13 +83,13 @@ class _ForgotPageState extends State<ForgotPassword> {
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.forgotPassText, style: TextStyle(fontSize: 23,color: AppColors.forgotPassText))
+          child: Text("forgot_password".tr, style: TextStyle(fontSize: 23,color: AppColors.forgotPassText))
         ),
         space20, 
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.recieveEmailID, style: TextStyle(fontSize: 13, color: AppColors.forgotPassText),)
+          child: Text("forget_Desc".tr, style: TextStyle(fontSize: 13, color: AppColors.forgotPassText),)
         ),
       ],
     );
@@ -101,7 +100,7 @@ class _ForgotPageState extends State<ForgotPassword> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.emailAddress,
+        hintText:"email".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
         onChanged: (value) {  },

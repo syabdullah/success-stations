@@ -26,7 +26,7 @@ class _LanguagePageState extends State<Language> {
   final getLang = Get.put(LanguageController());
   GetStorage box = GetStorage();
   bool pressAttention = false;
-  var index;
+  var index = 1;
 
   @override
   void initState() {
@@ -40,7 +40,6 @@ class _LanguagePageState extends State<Language> {
       for(var i = 0; i < dataLanguage['data'].length; i++){
         langua.add(
           GestureDetector(
-            
             child: Center(
               child: Container(
                 margin: EdgeInsets.only(left:20),
@@ -50,14 +49,14 @@ class _LanguagePageState extends State<Language> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     width: 2,
-                    color: index== i ? AppColors.appBarBackGroundColor: AppColors.grey
+                    color: index == i ? AppColors.appBarBackGroundColor: AppColors.grey
                   ),
                 ),
                 child: dataLanguage['data'][i]['name'] != null ?
                 Center(
                   child: Text(
                   allWordsCapitilize(dataLanguage['data'][i]['name'],),  style: TextStyle(
-                      fontSize: 18, color: index== i ? AppColors.appBarBackGroundColor:  Colors.grey
+                      fontSize: 18, color: index == i ? AppColors.appBarBackGroundColor:  Colors.grey
                     ),
                   ),
                 ): Container()

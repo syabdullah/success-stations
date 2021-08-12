@@ -1,6 +1,3 @@
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,7 +6,6 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/forgot/reset_password.dart';
 
@@ -165,7 +161,7 @@ class _ForgotCodeState extends State<ForgotCode> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: AppString.next,
+                buttonText: "next".tr,
                 fontSize: 18.toDouble(),
                 callback: requiredCode
               ),
@@ -183,13 +179,13 @@ class _ForgotCodeState extends State<ForgotCode> {
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.digitsCode, style: TextStyle(fontSize: 23,color: AppColors.inputTextColor))
+          child: Text("enter_otp".tr, style: TextStyle(fontSize: 23,color: AppColors.inputTextColor))
         ),
         space20, 
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.codeMail,textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor),)
+          child: Text("otp_desc".tr,textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor),)
         ),
       ],
     );

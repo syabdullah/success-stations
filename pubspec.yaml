@@ -54,6 +54,8 @@ dependencies:
   google_maps_place_picker: ^2.0.0-nullsafety.3
   # multi_select_flutter: ^4.0.0
   multiselect_formfield: ^0.1.6
+  flutter_multiselect:
+
 
 
   bottom_bar_with_sheet: ^2.0.0

@@ -10,10 +10,11 @@ class NotificationPage extends StatefulWidget {
   _NotificationPageState createState() => _NotificationPageState();
 }
 class _NotificationPageState extends State<NotificationPage> {
+  // ignore: unused_field
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final Map<String, dynamic> offerNotification =  {
-  "Recent": [
+  "recent".tr: [
     { 
       "image": "assets/images/coppsule.png",
       "searchText": "John Doe",
@@ -28,7 +29,7 @@ class _NotificationPageState extends State<NotificationPage> {
     },
     
   ],
-  "Older Notifications": [
+  "oldernoti".tr: [
     {
       "image": "assets/images/coppsule.png",
       "searchText": "Sheeza Tariq",
@@ -61,7 +62,7 @@ List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3'
     return  Scaffold( 
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
       child: Container(
-      child: stringAppbar('',Icons.arrow_back_ios_new_sharp, 'NOTIFICATIONS',AppImages.appBarSearch)),
+      child: stringAppbar('',Icons.arrow_back_ios_new_sharp, 'notifications'.tr,AppImages.appBarSearch)),
     ),
 
       body: SingleChildScrollView(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
-import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -20,7 +18,6 @@ class _MyAddsState extends State<MyAdds> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
-  bool _value = false;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
@@ -81,7 +78,7 @@ class _MyAddsState extends State<MyAdds> {
                       Image.asset(AppImages.filter,height: 15),
                       SizedBox(width:5),
                       Text( 
-                        "Filter",style: TextStyle(color: Colors.grey[700]),
+                        "filter".tr,style: TextStyle(color: Colors.grey[700]),
                       )
                     ],
                   ),

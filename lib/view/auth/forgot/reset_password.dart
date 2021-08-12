@@ -84,7 +84,7 @@ void requiredPassword(){
                     height: Get.height * 0.05,
                     child: Center(
                       child: Text(
-                        AppString.resetButton, style: TextStyle(color: AppColors.backArrow )
+                        "reset".tr, style: TextStyle(color: AppColors.backArrow )
                       )
                     )
                   ),
@@ -108,13 +108,13 @@ void requiredPassword(){
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.resetPassword, style: TextStyle(fontSize: 23,color: AppColors.inputTextColor))
+          child: Text("reset_password".tr, style: TextStyle(fontSize: 23,color: AppColors.inputTextColor))
         ),
         space20, 
         Container(
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(left:30),
-          child: Text(AppString.resetSetPass, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor),)
+          child: Text("set_new_pass".tr, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor),)
         ),
       ],
     );
@@ -125,7 +125,7 @@ void requiredPassword(){
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.newPass,
+        hintText:"new_password".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.textInput,
         onChanged: (value) {  },
@@ -149,7 +149,7 @@ void requiredPassword(){
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:AppString.confirmPass,
+        hintText: "confirm_password".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.textInput,
         onChanged: (value) {  },
