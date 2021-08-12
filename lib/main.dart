@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 var auth;
 
 void main() async {
