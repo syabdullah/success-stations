@@ -12,10 +12,10 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
-class MyAdds extends StatefulWidget {
-  _MyAddsState createState() => _MyAddsState();
+class AllAdds extends StatefulWidget {
+  _AllAddsState createState() => _AllAddsState();
 }
-class _MyAddsState extends State<MyAdds> {
+class _AllAddsState extends State<AllAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
@@ -29,15 +29,6 @@ class _MyAddsState extends State<MyAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
-       ),
-       drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
       body: Column(
         children: [
           topWidget(),
@@ -47,18 +38,15 @@ class _MyAddsState extends State<MyAdds> {
               return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
 
             },
-          ),
-            
+          ),            
           Expanded(
-            child: listtype == 'list' ?
+            child: 
              GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-                // print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval$val");
-                //  print("valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval${val.catBaslistData}");
-                return myAddsList(val.cData['data']);
+                return listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView();
               },
-            ) : myAddGridView()
+            )
           ),
         ],
       ),
@@ -346,6 +334,7 @@ void _adsfiltringheet() {
   
 
   Widget myAddsList(allDataAdds) {
+    print("........-------======---------......$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
@@ -476,7 +465,7 @@ void _adsfiltringheet() {
         },
     );
   }
-var ind = 0 ;
+
   myAddGridView() {
     return Container(
       width: Get.width / 1.10,
@@ -579,9 +568,9 @@ var ind = 0 ;
   
   void navigateToGoogleLogin() {
   }
-
+var ind = 0 ;
   Widget addsCategoryWidget(listingCategoriesData){
-    print("my adds Page.......................,,,,,,,...$listingCategoriesData");
+   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -591,11 +580,11 @@ var ind = 0 ;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              if(ind == 0){
-                controller.addedByIdAddes(listingCategoriesData[0]['id']);
-
-              }
               
+              if(ind == 0){
+                 print("my adds Page.......................,,,,,,,...-------------------$index");
+                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+              }
               return Row(
                 children: [
                   Container(
@@ -604,12 +593,9 @@ var ind = 0 ;
                       onTap: () {
                         print("rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
-                          ind = ++ind;
+                          ind = ++ind ;
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                          // Get.to(argumen)
-                          
-                        
                         });
                       },
                       child: Container(

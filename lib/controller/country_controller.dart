@@ -19,7 +19,6 @@ class ContryController extends GetxController {
     await countries().then((res) {
       countryData = jsonDecode(res.body);
       for(int c =0; c < countryData['data'].length; c++){
-        print(".. country loop .........!!!!!!!!!!!!!!!!!!${countryData['data']}");
         countryListdata.add(countryData['data'][c]);
       }
       isLoading = false;

@@ -17,11 +17,12 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
   bool liked = false;
+  var id ;
   @override
   void initState() {
     super.initState();
     
-    var id = Get.arguments;
+     id = Get.arguments;
     print("../././....----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
@@ -39,7 +40,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         body: GetBuilder<FriendsController>(
           init: FriendsController(),
           builder:(val) { 
-            return val.friendProfileData == null ? SingleChildScrollView( 
+            return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
               child:Container(
                 margin: EdgeInsets.only(top: 20),
               child: viewCardLoading(context))) :  Column(
@@ -140,7 +141,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                 color: AppColors.appBarBackGroundColor,
                 borderRadius: BorderRadius.circular(50)
               ),
-              child: Center(child: Text("Add Friend",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
+              child: Center(child: Text("Friends",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
             ),
           ),
         ),
@@ -186,7 +187,6 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     );
   }
   Widget general(data,adsData) {
-    print("......\\\\\\\--------- $adsData");
     return Expanded(
       child: TabBarView(
         children: [
@@ -217,7 +217,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ),
                             Container(
                                 margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                              child: Text(data['mobile'],style: TextStyle(fontWeight: FontWeight.w600)),
+                              child: Text(data['mobile'] != null ? data['mobile'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
                         ),
@@ -312,7 +312,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text("this is about textttxttxtx xttxtxtxt txtxttx txttxtxtx jdvjdfv hbcdjv  dcdsvdsbd")
+                      child: Text(data['about'] != null ? data['about'] : '' )
                     )
                   ],
                 ),
@@ -350,6 +350,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
+                            width: Get.width/3,
                             child: Text(adsData[index]['text_ads'],style: TextStyle(fontWeight: FontWeight.bold),),
                           ),
                           Row(
@@ -394,7 +395,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                                     // setState(() {
                                       liked = !liked;
                                     // });
-                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json) : friCont.profileAdsToFav(json);
+                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json,id);
                                   },
                                 child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
                                 ),
@@ -402,7 +403,6 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                                 GestureDetector(
                                   onTap: (){
                                     launch.call("tel:12345678912");
-                                    print("/././././............");
                                   },
                                 child: Image.asset(AppImages.call,height: 25,)
                                 )
