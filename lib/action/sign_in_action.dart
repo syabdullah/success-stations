@@ -9,3 +9,10 @@ Future<http.Response> simplelogin(dataa) async{
   final result = await http.post(url,headers: ApiHeaders().headers,body: json.encode(dataa));  
   return result;
 }
+Future<http.Response> logout() async{
+  await ApiHeaders().getData();
+  final Config conf = Config();
+  var url = Uri.parse("${conf.baseUrl}logout");
+  final result = await http.post(url,headers: ApiHeaders().headersWithToken);  
+  return result;
+}

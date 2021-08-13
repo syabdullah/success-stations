@@ -24,6 +24,7 @@ class _FriendReqListState extends State<FriendReqList> {
     friCont.getFriendsList();
     friCont.getSuggestionsList();
     id = box.read('user_id');
+    print("...............$id");
   }
 
   @override
@@ -69,17 +70,17 @@ class _FriendReqListState extends State<FriendReqList> {
        ),
      );
   }
-  List<Widget> friendList(data) { 
-    print("....................//////.....$data");
+  List<Widget> friendList(data) {     
     var count = 0;
      List<Widget> req = [];
      if(data != null)
      for(int i= 0; i< data.length; i++) {
         
        if(data[i]['status'] == null) {
+         print("....................//////.....${data[i]['requister']['id']}");
          ++count;
         req.add(
-         Column(
+          Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
             count == 1  ?  Container(
@@ -154,7 +155,7 @@ class _FriendReqListState extends State<FriendReqList> {
                     ): 
                     GestureDetector(
                       onTap: (){ 
-                        friCont.appFriend(data[i]['id']);
+                        friCont.deleteFriend(data[i]['id']);
                       },
                       child: Container( 
                          margin:EdgeInsets.only(right:10),
@@ -247,7 +248,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                // Get.toNamed('/friendProfile');
+                // Get.toNamed('/friendProfile' ,arguments: data[i]['id'] );
               },
               child: Card(
                 child: Row(
@@ -286,8 +287,8 @@ class _FriendReqListState extends State<FriendReqList> {
                     GestureDetector(
                       onTap: (){ 
                         var json = {
-                          'requister_id' : id,
-                          'user_requisted_id' : data[i]['id']
+                          // 'requister_id' : id,
+                          'friend_send_request_to' : data[i]['id']
                         };
                         print("......./////$json");
                         friCont.sendFriend(json);
@@ -316,7 +317,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){friCont.rejFriend(data[i]['id']);},
+                      onTap: (){friCont.deleteFriend(data[i]['id']);},
                       child: Container( 
                         alignment: Alignment.center,
                         width: Get.width/4.2,

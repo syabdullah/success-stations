@@ -50,6 +50,7 @@ class FriendsController extends GetxController {
 
   appFriend(id) async {
     isLoading = true ;
+    print(".......aaaaaaaaaa........$id");
     await approveFriends(id).then((res) {
       print(".......aaaaaaaaaa........${jsonDecode(res.body)}");
       if(res.statusCode ==200 || res.statusCode < 401)
@@ -108,9 +109,9 @@ class FriendsController extends GetxController {
   friendDetails(id) async {
     isLoading = true ;
     await friendsProfile(id).then((res) {
-      print("/././././.-----$id");
+      // print("/././././.-----$id");
       friendProfileData = jsonDecode(res.body);
-      print("/././././.-----$friendProfileData");
+      // print("/././././.-----$friendProfileData");
       isLoading = false;  
     }).catchError((e){
       return e;
@@ -119,20 +120,26 @@ class FriendsController extends GetxController {
   }
 
    profileAds(id) async{
+      print("././.....///////...$id");
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
+     ;
       isLoading = false;
     });
     update();
   }
 
-  profileAdsToFav(id) async{
+  profileAdsToFav(id,userId) async{
+    print("/././././.-----$id");
     isLoading = true ;
     await addAdsFav(id).then((res) {
       addAd = jsonDecode(res.body);
+      
       if(addAd['success'] == true) {
+        profileAds(userId);
         SnackBarWidget().showToast("", addAd['message']); 
+        
       }
        print("/././././.-----$addAd");
       isLoading = false;
@@ -140,11 +147,12 @@ class FriendsController extends GetxController {
     update();
   }
   
-  profileAdsRemove(id) async{
+  profileAdsRemove(id,userId) async{
     isLoading = true ;
     await removeAdsFav(id).then((res) {
       removeAds = jsonDecode(res.body);
       if(removeAds['success'] == true) {
+        profileAds(userId);
         SnackBarWidget().showToast("", removeAds['message']); 
       }
        print("/././././.-----$userAds");

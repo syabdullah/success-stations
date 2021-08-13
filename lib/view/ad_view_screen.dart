@@ -35,7 +35,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
              SizedBox(height: 10.h,),
              listTileRow(),
               SizedBox(height: 14.h,),
-              Text(AppString.adpostedat,
+              Text('ad_posted_at'.tr,
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
@@ -113,7 +113,7 @@ Widget listTileRow(){
      ],
     ),
     trailing: 
-      Text("${AppString.seeProfile} >",style:
+      Text("${"see_profile".tr} >",style:
       AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
       ),
     ),
@@ -198,7 +198,7 @@ Widget commentButton() {
     )
   ),
     onPressed:  () { },
-      child: Text('ADD COMMENT'),
+      child: Text('add_a_comment'.tr),
       ),
     );
   }
@@ -238,7 +238,7 @@ Widget commentInput(){
     style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
     decoration:InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 80.0),
-      hintText: "Write comment here.",
+      hintText: "write_comment_here".tr,
       border: OutlineInputBorder( 
         borderRadius: BorderRadius.circular(10.0),
         borderSide: BorderSide(color: AppColors.inputTextColor),

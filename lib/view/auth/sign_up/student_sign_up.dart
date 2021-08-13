@@ -60,10 +60,10 @@ class _SignPageState extends State<StudentSignUp> {
       "date_of_birth": dobController.text,
       "college_id": selectedCollege,
       'university_id':selectedUniversity,
-      'semester': semesterController.text,
-      'address': addressController.text,
-      'about': aboutController.text,
-      'degree': degreeController.text
+      // 'semester': semesterController.text,
+      // 'address': addressController.text,
+      // 'about': aboutController.text,
+      // 'degree': degreeController.text
     };
     signUpCont.createAccountData(json);
 

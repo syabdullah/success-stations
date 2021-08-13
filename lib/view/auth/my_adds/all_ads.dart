@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
+import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -10,14 +12,15 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
-class MyAdds extends StatefulWidget {
-  _MyAddsState createState() => _MyAddsState();
+class AllAdds extends StatefulWidget {
+  _AllAddsState createState() => _AllAddsState();
 }
-class _MyAddsState extends State<MyAdds> {
+class _AllAddsState extends State<AllAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
+  bool _value = false;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
@@ -26,15 +29,6 @@ class _MyAddsState extends State<MyAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
-       ),
-       drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
       body: Column(
         children: [
           topWidget(),
@@ -44,26 +38,15 @@ class _MyAddsState extends State<MyAdds> {
               return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
 
             },
-          ),
-            
+          ),            
           Expanded(
-            child: listtype == 'list' ?
-              GetBuilder<AddBasedController>(
-                init: AddBasedController(),
-                builder: (val){
-                return myAddsList(val.cData['data']);
-              },
-            ) :GetBuilder<AddBasedController>(
+            child: 
+             GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-<<<<<<< HEAD
-                return myAddsList(val.catBaslistData);
-=======
-                return myAddGridView(val.cData['data']);
->>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
+                return listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView();
               },
-              )
-            //  myAddGridView()
+            )
           ),
         ],
       ),
@@ -86,7 +69,7 @@ class _MyAddsState extends State<MyAdds> {
                       Image.asset(AppImages.filter,height: 15),
                       SizedBox(width:5),
                       Text( 
-                        "filter".tr,style: TextStyle(color: Colors.grey[700]),
+                        "Filter",style: TextStyle(color: Colors.grey[700]),
                       )
                     ],
                   ),
@@ -165,7 +148,7 @@ void _adsfiltringheet() {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
+                        AppString.filters ,style:  TextStyle(fontSize: 20, color: Colors.black)
                       ),
                       Container(
                         // margin:EdgeInsets.only(right:30),
@@ -176,7 +159,7 @@ void _adsfiltringheet() {
                     ],
                   ),
                   SizedBox(height:10),
-                  Text("type".tr,style:TextStyle(fontSize: 15)),
+                  Text("Type",style:TextStyle(fontSize: 15)),
                    SizedBox(height:10),
                   Row(
                     children: [
@@ -223,7 +206,7 @@ void _adsfiltringheet() {
                   ],
                 ),
                   SizedBox(height: 15,),
-                  Text("condition".tr,
+                  Text("Condition",
                     style:TextStyle(fontSize: 15)
                   ),
                   SizedBox(height:10),
@@ -277,7 +260,7 @@ void _adsfiltringheet() {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    "price".tr,style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                    "Price ",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
                     ),
                     SizedBox(height: 10,),
                     Text(
@@ -310,7 +293,7 @@ void _adsfiltringheet() {
                           color: Colors.grey[100],
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
+                            child: Center(child: Text(AppString.resetButton, style: TextStyle(color: AppColors.inputTextColor )))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
@@ -326,7 +309,7 @@ void _adsfiltringheet() {
                           color: Colors.blue,
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
+                            child: Center(child: Text("Apply", style: TextStyle(color:Colors.white)))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
@@ -351,6 +334,7 @@ void _adsfiltringheet() {
   
 
   Widget myAddsList(allDataAdds) {
+    print("........-------======---------......$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
@@ -481,17 +465,14 @@ void _adsfiltringheet() {
         },
     );
   }
-var ind = 0 ;
-  myAddGridView(dataListValue) {
-    print("datalist value...................data list value..... $dataListValue");
+
+  myAddGridView() {
     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
-        children: List.generate(
-          dataListValue.length, (index) {
-            print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
-           return Container(
+        children: List.generate(100, (index) {
+          return Container(
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
               height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
@@ -512,66 +493,52 @@ var ind = 0 ;
                           ),
                         ),
                         Container(
-                          // alignment: Alignment.topLeft,
+                          alignment: Alignment.topLeft,
                           margin: EdgeInsets.only(left: 10),
-                          child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                          child: Text('Sheeza Tariq',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                         ),
-                        dataListValue[index]['user']['address'] == null ? Container(): 
-                        Expanded(
-                          // flex : 2,
-                          child:  Row(
+                        Container(
+                          width: Get.width/2.3,
+                          child: Row(
                             children: [
-                              
-                              Icon(Icons.location_on, color:Colors.grey),
                               Container(
-                                child: Text(
-                                  dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ),
+                                margin: EdgeInsets.only(top:6,left: 10),
+                                child: Image.asset(AppImages.location,height: 15)
+                              ),
+                              SizedBox(width:5),
+                              Container(
+                                margin: EdgeInsets.only(top:6),
+                                child: Text("location",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
+                              ),
+                              Spacer(flex: 2),
+                              Container(
+                                margin: EdgeInsets.only(right:6),
+                                child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
                               )
                             ],
                           ),
-                        ),
-                        Expanded(
-                          flex : 2,
-                          child:  Row(
+                        ), 
+                        Container(
+                          width: Get.width/2.3,
+                          child: Row(
                             children: [
-                              Icon(Icons.person, color:Colors.grey[400],),
                               Container(
-                                // margin:EdgeInsets.only(left:29),
-                                child: Text(
-                                  dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ),
+                                margin: EdgeInsets.only(top:6,left: 10),
+                                child: Image.asset(AppImages.location,height: 15)
+                              ),
+                              SizedBox(width:5),
+                              Container(
+                                margin: EdgeInsets.only(top:6),
+                                child: Text("location",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
+                              ),
+                              Spacer(flex: 2),
+                              Container(
+                                margin: EdgeInsets.only(right:6),
+                                child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
                               )
                             ],
                           ),
-                        ),
-                        // Container(
-                        //   width: Get.width/2.3,
-                        //   child: Row(
-                        //     children: [
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6,left: 10),
-                        //         child: Icon(Icons.person, color:Colors.grey[400],)
-                        //       ),
-                        //       SizedBox(width:5),
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6),
-                        //         child: Text(dataListValue[index]['user']['name'] !=null ? dataListValue[index]['user']['name']:'',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //       ),
-                        //       // Spacer(flex: 2),
-                        //       // Container(
-                        //       //   margin: EdgeInsets.only(right:6),
-                        //       //   child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
-                        //       // )
-                        //     ],
-                        //   ),
-                        // ),              
+                        ),              
                       ],
                     ),
                   )
@@ -601,9 +568,9 @@ var ind = 0 ;
   
   void navigateToGoogleLogin() {
   }
-
+var ind = 0 ;
   Widget addsCategoryWidget(listingCategoriesData){
-    print("my adds Page.......................,,,,,,,...$listingCategoriesData");
+   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -613,11 +580,11 @@ var ind = 0 ;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              if(ind == 0){
-                controller.addedByIdAddes(listingCategoriesData[0]['id']);
-
-              }
               
+              if(ind == 0){
+                 print("my adds Page.......................,,,,,,,...-------------------$index");
+                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+              }
               return Row(
                 children: [
                   Container(
@@ -626,12 +593,9 @@ var ind = 0 ;
                       onTap: () {
                         print("rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
-                          ind = ++ind;
+                          ind = ++ind ;
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                          // Get.to(argumen)
-                          
-                        
                         });
                       },
                       child: Container(

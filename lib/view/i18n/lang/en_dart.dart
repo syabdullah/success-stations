@@ -92,6 +92,12 @@ const Map<String, String> en = {
   "my_ads": "My Ads",
   "messeges": "Messages",
   "notifications": "Notifications",
+  "advertisingCategories":"Advertising Categories",
+  'FeaturedAds':'Featured Ads',
+  'specialofer':'special Offer',
+  'Nearby':'Nearby',
+  'condition':'ondition',
+  'apply': 'Apply',
   "favourite": "Favourite",
   "membership": "Membership",
   "notification": "Notification",
@@ -131,7 +137,10 @@ const Map<String, String> en = {
   "mainMenu":"Main Menu",
   "overviewAndDefications":"OVERVIEW AND DEFINATIONS",
   "writeHere":"Write Here",
+<<<<<<< HEAD
   "condition": "Condition",
+=======
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
   "offer": "Offer",
   "friends": "Friends",
   "services": "Services",

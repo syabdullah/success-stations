@@ -58,7 +58,6 @@ class AppImages {
   static String filter =  imagePath + 'filter icon@3x.png';
   static String location =  imagePath + 'location-pin-13@3x.png';
   static String blueHeart =  imagePath + 'Group -57@3x.png';
-  // static String redHeart =  imagePath + 'Group -55@3x.png';
   static String call =  imagePath + 'Group -54@3x.png';
   static String profileBg =  imagePath + 'bg.png';
   static String mainLogo =  imagePath + 'logo.png';

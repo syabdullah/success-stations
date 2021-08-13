@@ -3,15 +3,12 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/ads.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
-import 'package:success_stations/view/member_ship/member_ship.dart';
 
 class BottomTabs extends StatefulWidget {
  @override
@@ -23,10 +20,11 @@ class _BottomTabsState extends State<BottomTabs> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
+    AdsView(),
     OfferList(),
     FriendList(),
     MapView(),
-    AdsView()
+    AllAdds()  
   ];
 
   void onTabTapped(int index) {
@@ -52,6 +50,14 @@ class _BottomTabsState extends State<BottomTabs> {
         currentIndex: _currentIndex,
           onTap: onTabTapped,
         items: [
+          BottomNavigationBarItem(
+            title: Text('Home', style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+              ) 
+            ),
+            icon: Icon(Icons.home,color: AppColors.grey)
+            //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+            ),
           BottomNavigationBarItem(
             title: Text('Offers', style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor

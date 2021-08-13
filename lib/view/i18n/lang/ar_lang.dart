@@ -20,6 +20,7 @@ const Map<String, String> ar = {
   "user_name_placeholder": "اسم المستخدم",
   "user_name": "اسم االمستخدم",
   "password_placeholder": "كلمه السر",
+  "password" : "كلمه السر",
   "sign_in": "تسجيل الدخول",
   "forgot_your_password": "نسيت رقمك السري؟",
   "forgot_login_detail": "نسيت تفاصيل تسجيل الدخول الخاصة بك؟",
@@ -28,6 +29,13 @@ const Map<String, String> ar = {
   "send": "إرسال",
   "or": "أو",
   "recentelyContact": "مؤخرا",
+<<<<<<< HEAD
+=======
+  "advertisingCategories" : "فئات الدعاية",
+  'FeaturedAds':'إعلانات مميزة',
+  'specialofer':'عرض خاص',
+  'Nearby':'مجاور',
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
   "writeHere":"اكتب هنا",
   "recent": "الأخيرة",
   "oldernoti":"أقدم إشعار",
@@ -139,6 +147,7 @@ const Map<String, String> ar = {
   "friends": "اصحاب",
   "services": "خدمات",
   "google_maps": "خرائط جوجل", 
+  'apply':'تطبيق',
   "telephone_numbers": "أرقام الهاتف",
   "information": "معلومة",
   "service_provider": "مقدم الخدمة",

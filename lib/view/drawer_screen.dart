@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/about_us.dart';
+import 'package:success_stations/view/auth/advertise.dart';
+import 'package:success_stations/view/auth/contact.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+import 'package:success_stations/view/auth/notification.dart';
+import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
@@ -16,7 +24,10 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  final logoutCont = Get.put(LoginController());
   GetStorage box = GetStorage();
+  // var name  = '';
+  // name  = box.read('name');
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -51,7 +62,12 @@ class _AppDrawerState extends State<AppDrawer> {
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
+<<<<<<< HEAD
                       child: Text("user_name".tr,
+=======
+                      child: Text(
+                        box.read('name'),
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),
@@ -72,6 +88,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                           ),
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
+<<<<<<< HEAD
                             Get.toNamed('/tabs');
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
@@ -81,6 +98,17 @@ class _AppDrawerState extends State<AppDrawer> {
                             Navigator.pushNamed(context,'/myAddsPage');
                           } ,15.0),
                           CustomListTile(AppImages.message, 'messages'.tr, () {
+=======
+                            Get.to(BottomTabs());
+                          },15.0 ),
+                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
+                            // Get.toNamed('/friendProfile');
+                          },15.0 ),
+                          CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
+                           Get.to(MyAdds());
+                          } ,15.0),
+                          CustomListTile(AppImages.message, 'messeges'.tr, () {
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
                             Get.to(Inbox());
                           },15.0 ),
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
@@ -91,10 +119,17 @@ class _AppDrawerState extends State<AppDrawer> {
                             Get.to(MemberShip());
                           },13.2 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
+<<<<<<< HEAD
                             Get.toNamed('/notification')
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                             Get.toNamed('/friReq');
+=======
+                            Get.to(NotificationPage())
+                          },15.0 ),
+                          CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
+                           Get.to(FriendList());
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
                           } ,15.0), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
                           SizedBox(height: 10.h),
@@ -111,21 +146,41 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           SizedBox(height: 10.h),
                           CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
+<<<<<<< HEAD
                             Get.toNamed('/aboutUs');
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
-                          CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
-                            Navigator.pushNamed(context, '/advertisement')
+=======
+                           Get.to(AboutUs());
                           },15.0 ),
+                          CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
+<<<<<<< HEAD
+                          CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
+=======
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
+                          CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
+>>>>>>> c3999705f267743717203785e6f892ab7e462dd6
+                           Get.to(AdvertisePage())
+                          },15.0 ),
+<<<<<<< HEAD
                           CustomListTile(AppImages.ugr, 'user_agreemen'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
                             Navigator.pushNamed(context, '/contact')
+=======
+                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
+                          CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
+                           Get.off(Contact())
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
+<<<<<<< HEAD
                             // box.remove("access_token");
                             Get.toNamed('/login');
+=======
+                            logoutCont.userLogout();                            
+>>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
                           },15.0 ),
                         ],
                       ),
