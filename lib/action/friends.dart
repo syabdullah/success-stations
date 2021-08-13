@@ -17,6 +17,7 @@ Future<http.Response> suggestions() async{
 
 Future<http.Response> allFriends() async{
   await ApiHeaders().getData();
+  print(ApiHeaders().headersWithToken);
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}friendships");
   final result = await http.get(url,headers: ApiHeaders().headersWithToken);  

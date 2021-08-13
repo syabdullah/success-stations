@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
 
 class MyLocations extends StatefulWidget {
@@ -19,7 +16,7 @@ class _MyLocationsState extends State<MyLocations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomBar(),
+      // bottomNavigationBar: CustomBottomBar(),
       key: _scaffoldKey,
     appBar: AppBar(backgroundColor:Colors.blue,title: Text('MY LOCATION'),centerTitle: true,),
       
@@ -39,9 +36,15 @@ class _MyLocationsState extends State<MyLocations> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.add),
+                          Container(
+                            margin:EdgeInsets.only(left:20, top: 30),
+                            child: Image.asset(AppImages.plusImage, height:24)
+                          ),
                           SizedBox(width:10),
-                          Text("addNewLocation".tr)
+                          Container(
+                            margin:EdgeInsets.only(left:20, top: 30),
+                            child: Text("addNewLocation".tr)
+                          )
                         ],
                       ),
                     ),

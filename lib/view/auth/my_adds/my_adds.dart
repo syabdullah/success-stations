@@ -44,22 +44,41 @@ class _MyAddsState extends State<MyAdds> {
               return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
 
             },
-          ),
-            
+          ),           
           Expanded(
-            child: listtype == 'list' ?
+            child: 
+            // GetBuilder<AddBasedController>(
+            //   init: AddBasedController(),
+            //   builder: (val){
+            //     return  val.cData !=null ? 
+            //     listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']): ListView(
+            //       children:[
+            //         Container()
+            //       ]
+            //     );
+            //   }
+            // )
+            listtype == 'list' ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                return myAddsList(val.cData['data']);
+
+                return val.cData != null ?  myAddsList(val.cData['data']) : ListView(
+                  children: [
+                    Container(),
+                  ],
+                );
               },
             ) :GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-                return myAddGridView(val.cData['data']);
+                return val.cData != null ?  myAddGridView(val.cData['data']): ListView(
+                  children: [
+                    Container(),
+                  ],
+                );
               },
               )
-            //  myAddGridView()
           ),
         ],
       ),
@@ -161,7 +180,7 @@ void _adsfiltringheet() {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppString.filters ,style:  TextStyle(fontSize: 20, color: Colors.black)
+                        'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
                       ),
                       Container(
                         // margin:EdgeInsets.only(right:30),
@@ -172,7 +191,7 @@ void _adsfiltringheet() {
                     ],
                   ),
                   SizedBox(height:10),
-                  Text("Type",style:TextStyle(fontSize: 15)),
+                  Text("type".tr,style:TextStyle(fontSize: 15)),
                    SizedBox(height:10),
                   Row(
                     children: [
@@ -219,7 +238,7 @@ void _adsfiltringheet() {
                   ],
                 ),
                   SizedBox(height: 15,),
-                  Text("Condition",
+                  Text("condition".tr,
                     style:TextStyle(fontSize: 15)
                   ),
                   SizedBox(height:10),
@@ -273,7 +292,7 @@ void _adsfiltringheet() {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    "Price ",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                    "price".tr,style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
                     ),
                     SizedBox(height: 10,),
                     Text(
@@ -306,7 +325,7 @@ void _adsfiltringheet() {
                           color: Colors.grey[100],
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text(AppString.resetButton, style: TextStyle(color: AppColors.inputTextColor )))
+                            child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
@@ -322,7 +341,7 @@ void _adsfiltringheet() {
                           color: Colors.blue,
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text("Apply", style: TextStyle(color:Colors.white)))
+                            child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');
@@ -345,7 +364,6 @@ void _adsfiltringheet() {
   
 }
   
-
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
       itemCount: allDataAdds.length,
@@ -389,25 +407,25 @@ void _adsfiltringheet() {
                                   ),
                                 ),
                               ),
+                              // Expanded(
+                              //   flex : 2,
+                              //   child:  Row(
+                              //     children: [
+                              //       Icon(Icons.location_on, color:Colors.grey),
+                              //       Container(
+                              //         margin:EdgeInsets.only(left:29),
+                              //         child: Text(
+                              //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                               Expanded(
-                                flex : 2,
-                                child:  Row(
-                                  children: [
-                                    Icon(Icons.location_on, color:Colors.grey),
-                                    Container(
-                                      margin:EdgeInsets.only(left:29),
-                                      child: Text(
-                                        allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                                        style: TextStyle(
-                                          color: Colors.grey[300]
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex : 2,
+                                // flex : 2,
                                 child:  Row(
                                   children: [
                                   Icon(Icons.person, color:Colors.grey),

@@ -13,9 +13,11 @@ import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
+import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
+import 'package:success_stations/view/offers/my_offers.dart';
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -106,8 +108,11 @@ class _AppDrawerState extends State<AppDrawer> {
                             Get.to(NotificationPage())
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                           Get.to(FriendList());
-                          } ,15.0), 
+                           Get.to(FriendReqList());
+                          } ,15.0),
+                          CustomListTile(AppImages.offers, 'My Offer', () {
+                            Get.to(OffersDetail());
+                          },15.0 ), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
                           SizedBox(height: 10.h),
                           Divider(),
@@ -126,7 +131,7 @@ class _AppDrawerState extends State<AppDrawer> {
                            Get.to(AboutUs());
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
-                          CustomListTile(AppImages.adwithus, 'ADVERTIESE WITH US', () => {
+                          CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
                            Get.to(AdvertisePage())
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
@@ -169,7 +174,7 @@ class _AppDrawerState extends State<AppDrawer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(image.toString(),height: height,),
+                  Image.asset(image.toString(),height: height,color:Colors.grey[600]),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal:20),
                       child:Text(text,textAlign: TextAlign.start,
