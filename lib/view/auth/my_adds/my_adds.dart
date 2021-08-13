@@ -56,11 +56,7 @@ class _MyAddsState extends State<MyAdds> {
             ) :GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-<<<<<<< HEAD
-                return myAddsList(val.catBaslistData);
-=======
                 return myAddGridView(val.cData['data']);
->>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
               },
               )
             //  myAddGridView()

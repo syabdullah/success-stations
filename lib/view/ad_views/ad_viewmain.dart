@@ -22,10 +22,10 @@ class _AdViewTabState extends State<AdViewTab>
     
   
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'About'),
-    Tab(text: 'Offer'),
-    Tab(text: 'Location'),
-    Tab(text: 'Ads'),
+    Tab(text: 'about'.tr),
+    Tab(text: 'offer'.tr),
+    Tab(text: 'location'.tr),
+    Tab(text: 'ads'.tr),
   ];
   @override
   Widget build(BuildContext context) {

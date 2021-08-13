@@ -207,7 +207,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         activeStep == 0 ?
-        Text(AppString.istStep,textAlign: TextAlign.center,
+        Text("announce_new".tr,textAlign: TextAlign.center,
           style: AppTextStyles.appTextStyle(
             fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
           ) 
@@ -218,14 +218,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             )
           ),
         activeStep == 1 ?
-        Text(AppString.secStep,textAlign: TextAlign.center,
+        Text("contact_information".tr,textAlign: TextAlign.center,
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
         ):
         Text("contact_information".tr,textAlign: TextAlign.center, 
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
         ),
         activeStep == 2 ?
-        Text(AppString.thrStep,textAlign: TextAlign.center,
+        Text("review_publish".tr,textAlign: TextAlign.center,
           style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
         ):
         Text("review_publish".tr,textAlign: TextAlign.center, 

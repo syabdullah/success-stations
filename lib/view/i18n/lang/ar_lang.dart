@@ -29,13 +29,10 @@ const Map<String, String> ar = {
   "send": "إرسال",
   "or": "أو",
   "recentelyContact": "مؤخرا",
-<<<<<<< HEAD
-=======
   "advertisingCategories" : "فئات الدعاية",
   'FeaturedAds':'إعلانات مميزة',
   'specialofer':'عرض خاص',
   'Nearby':'مجاور',
->>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
   "writeHere":"اكتب هنا",
   "recent": "الأخيرة",
   "oldernoti":"أقدم إشعار",

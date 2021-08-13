@@ -137,10 +137,6 @@ const Map<String, String> en = {
   "mainMenu":"Main Menu",
   "overviewAndDefications":"OVERVIEW AND DEFINATIONS",
   "writeHere":"Write Here",
-<<<<<<< HEAD
-  "condition": "Condition",
-=======
->>>>>>> 6e3f23651941bafb80ca6a034f07be905c57a53c
   "offer": "Offer",
   "friends": "Friends",
   "services": "Services",
