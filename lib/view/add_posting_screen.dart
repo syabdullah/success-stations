@@ -67,6 +67,7 @@ var id ;
     'created_by': id,
     'email': emailController.text
   };
+  print("..................$json");
  adpostingController.finalAdPosting(json);
   }
   @override
@@ -348,7 +349,7 @@ Widget istStep(List list){
                             adsubCategory = val as Map;
                             selectedtype = adsubCategory['category_name'];
                             subtypeId =adsubCategory['id'];
-                            // print(selectedtype);
+                            print(subtypeId);
                             
                           });
                         },

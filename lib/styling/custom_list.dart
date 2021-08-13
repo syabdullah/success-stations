@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomListTile extends StatelessWidget {
-  const CustomListTile({
+class CustomListTiles extends StatelessWidget {
+  const CustomListTiles({
     
     required this.title,
     this.tralling,

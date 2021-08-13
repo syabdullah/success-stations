@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
 
 class MyLocations extends StatefulWidget {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/ad_post_action.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 
 class AdPostingController extends GetxController {
   var result = true;
@@ -19,7 +20,7 @@ class AdPostingController extends GetxController {
         adpost = jsonDecode(res.body);
         isLoading(false);
          Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
-      //  Get.to(ForgotCode());
+       Get.to(MyAdds());
         
       } if(res.statusCode >=  400){
           Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
