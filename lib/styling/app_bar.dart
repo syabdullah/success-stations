@@ -49,7 +49,7 @@ Widget sAppbar(context ,icon,image,) {
     );
   }
 
- Widget stringAppbar(context ,icon,string ,searchImage,) {
+  Widget stringAppbar(context ,icon,string ,searchImage,) {
     return AppBar(
       // automaticallyImplyLeading: false,
       centerTitle: true,
@@ -67,11 +67,26 @@ Widget sAppbar(context ,icon,image,) {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 10,),
-       child:  Image.asset(
+          child:  Image.asset(
            AppImages.appBarSearch,color: Colors.white,width: 25.w,
           ),
         )
       ],
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
+  Widget stringbar(context ,icon,string) {
+    return AppBar(
+      // automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading:
+        IconButton(
+          icon: Icon(icon,
+          color: AppColors.backArrow),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      title: Text(string), 
+      
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }

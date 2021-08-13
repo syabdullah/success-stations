@@ -44,22 +44,41 @@ class _MyAddsState extends State<MyAdds> {
               return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
 
             },
-          ),
-            
+          ),           
           Expanded(
-            child: listtype == 'list' ?
+            child: 
+            // GetBuilder<AddBasedController>(
+            //   init: AddBasedController(),
+            //   builder: (val){
+            //     return  val.cData !=null ? 
+            //     listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']): ListView(
+            //       children:[
+            //         Container()
+            //       ]
+            //     );
+            //   }
+            // )
+            listtype == 'list' ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                return myAddsList(val.cData['data']);
+
+                return val.cData != null ?  myAddsList(val.cData['data']) : ListView(
+                  children: [
+                    Container(),
+                  ],
+                );
               },
             ) :GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-                return myAddGridView(val.cData['data']);
+                return val.cData != null ?  myAddGridView(val.cData['data']): ListView(
+                  children: [
+                    Container(),
+                  ],
+                );
               },
               )
-            //  myAddGridView()
           ),
         ],
       ),
@@ -345,7 +364,6 @@ void _adsfiltringheet() {
   
 }
   
-
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
       itemCount: allDataAdds.length,
@@ -389,25 +407,25 @@ void _adsfiltringheet() {
                                   ),
                                 ),
                               ),
+                              // Expanded(
+                              //   flex : 2,
+                              //   child:  Row(
+                              //     children: [
+                              //       Icon(Icons.location_on, color:Colors.grey),
+                              //       Container(
+                              //         margin:EdgeInsets.only(left:29),
+                              //         child: Text(
+                              //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                               Expanded(
-                                flex : 2,
-                                child:  Row(
-                                  children: [
-                                    Icon(Icons.location_on, color:Colors.grey),
-                                    Container(
-                                      margin:EdgeInsets.only(left:29),
-                                      child: Text(
-                                        allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                                        style: TextStyle(
-                                          color: Colors.grey[300]
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex : 2,
+                                // flex : 2,
                                 child:  Row(
                                   children: [
                                   Icon(Icons.person, color:Colors.grey),
