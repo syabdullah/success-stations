@@ -192,7 +192,13 @@ const Map<String, String> en = {
   "old": "Old",
   "price": "Price",
   "please_enter_password": "Please enter password",
-  "please_enter_email": "Please enter email"
+  "please_enter_email": "Please enter email",
+  'lastads':'Last ads',
+  'lastoffers': 'Last Offers',
+  'lastlocation':'Last Locations',
+  'about':'About',
+  'distance':'Distance'
+
 };
 
 

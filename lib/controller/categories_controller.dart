@@ -14,7 +14,7 @@ class CategoryController extends GetxController {
     isLoading = true;
     datacateg = [];
     super.onInit();
-    // getCategoryNames();
+    getCategoryNames();
   }
 
   getCategoryNames() async {

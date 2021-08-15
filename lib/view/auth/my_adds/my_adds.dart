@@ -101,7 +101,7 @@ class _MyAddsState extends State<MyAdds> {
                       Image.asset(AppImages.filter,height: 15),
                       SizedBox(width:5),
                       Text( 
-                        "filter".tr,style: TextStyle(color: Colors.grey[700]),
+                        'filter'.tr,style: TextStyle(color: Colors.grey[700]),
                       )
                     ],
                   ),
@@ -180,7 +180,7 @@ void _adsfiltringheet() {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
+                        'filter'.tr,style:  TextStyle(fontSize: 20, color: Colors.black)
                       ),
                       Container(
                         // margin:EdgeInsets.only(right:30),

@@ -109,7 +109,7 @@ class _AdsViewState extends State<AdsView> {
   }
 
   advertisingList(conHeight,imageW,imageH,data) {
-    print("-----------------$data");
+    // print("-----------------$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
