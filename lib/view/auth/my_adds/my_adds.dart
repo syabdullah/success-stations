@@ -6,7 +6,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
