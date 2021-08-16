@@ -18,7 +18,7 @@ class FavoriteController extends GetxController {
     isLoading = true;
     await favorite().then((value) {
       print(",,,,,,,,,,,,,,,,,,,Value of the Printed.................$value");
-      fvr8DataList= jsonDecode(value.body);
+      fvr8DataList = jsonDecode(value.body);
       print("favorite List of the action in the data .......>$fvr8DataList");
       isLoading = false;
     });
