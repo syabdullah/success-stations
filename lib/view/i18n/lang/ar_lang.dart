@@ -195,5 +195,11 @@ const Map<String, String> ar = {
   "old": "قديم",
   "price": "سعر",
   "please_enter_password": "الرجاء إدخال كلمة المرور",
-  "please_enter_email": "الرجاء إدخال البريد الإلكتروني"
+  "please_enter_email": "الرجاء إدخال البريد الإلكتروني",
+  'lastads':'الإعلانات الأخيرة',
+  'lastoffers':'العروض الأخيرة',
+  'lastlocation':'اخر موقع',
+  'about':'حول',
+  'distance':'مسافه'
+
 };

@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
@@ -13,7 +12,6 @@ import 'package:success_stations/view/auth/contact.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/bottom_bar.dart';
-import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
@@ -28,11 +26,14 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
+  var image;
   GetStorage box = GetStorage();
+  
   // var name  = '';
   // name  = box.read('name');
   @override
   Widget build(BuildContext context) {
+    image = box.read('image');
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -53,9 +54,10 @@ class _AppDrawerState extends State<AppDrawer> {
                               radius: 60.0,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
-                                child:Image.network(
-                                  'https://picsum.photos/250?image=9',
-                                ),
+                                child: image != null ? 
+                                Image.network(
+                                  image,
+                                ):Image.asset(AppImages.person)
                               )
                             )
                           ),

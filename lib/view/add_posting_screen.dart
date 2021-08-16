@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
@@ -13,6 +14,7 @@ import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -47,12 +49,18 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   TextEditingController emailController = TextEditingController();
   var json;
   GetStorage box = GetStorage();
+  final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    
 var id ;
   @override
   void initState() {
     super.initState();
     id = box.read('user_id');
     catogoryController.getCategoryNames();
+  }
+  pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
   }
    adpost(){
     json = {
@@ -477,6 +485,29 @@ Widget istStep(List list){
                     borderSide: BorderSide(color: Colors.grey),
                 ),
               ) ,
+            ),
+           ),
+           SizedBox(height: 10.h,),
+           Container(
+            child:  DottedBorder(
+              dashPattern: [10,6],
+              borderType: BorderType.RRect,
+              radius: Radius.circular(12),
+              padding: EdgeInsets.all(6),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                child: Container(
+                  height: Get.height/4.7,
+                  width: Get.width/1.1,
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        pickImage();
+                      },
+                      child: Image.asset(AppImages.uploadImage,height: 90,)),
+                  ),
+                ),
+              ),
             ),
            ),
            SizedBox(height: 5.h,),
