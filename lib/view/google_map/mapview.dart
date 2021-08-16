@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -16,7 +17,7 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  
+  static final kInitialPosition = LatLng(-33.8567844, 151.213108);
   var listtype = 'map'; 
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
@@ -73,7 +74,7 @@ class _MapViewState extends State<MapView> {
     //   ),
       body: Stack(
         children: [
-           listtype == 'map' ? googleMap() : lastLocations(),
+           listtype == 'map' ? googleMap(kInitialPosition) : lastLocations(),
 
           Container(
             child: Row(
@@ -88,14 +89,25 @@ class _MapViewState extends State<MapView> {
   }
 } 
 
-Widget googleMap(){
+Widget googleMap(kInitialPosition){
+  
   return Container(
     height: Get.height,
-    child: GoogleMap(
-      initialCameraPosition: CameraPosition(
-        zoom: 15,
-        target: LatLng(51.507351,-0.127758),
-      ),
+    child: PlacePicker(
+      apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
+      initialPosition: kInitialPosition,
+          useCurrentLocation: true,
+          usePlaceDetailSearch: true,
+          onPlacePicked: (result) {
+            print(result.geometry!.location);
+            // selectedPlace = result;
+            // Navigator.of(context).pop();
+            // setState(() {});
+          },
+      // initialCameraPosition: CameraPosition(
+      //   zoom: 15,
+      //   target: LatLng(51.507351,-0.127758),
+      // ),
     ),
   );
 }
