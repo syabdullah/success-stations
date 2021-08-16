@@ -5,6 +5,7 @@ import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/auth/advertise.dart';
@@ -117,7 +118,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.offers, 'My Offer', () {
                             Get.to(OffersDetail());
                           },15.0 ), 
-                          CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
+                          CustomListTile(AppImages.fav, 'favourite'.tr, () => {
+                            Get.toNamed('/favourities')
+                          },15.0 ), 
                           SizedBox(height: 10.h),
                           Divider(),
                           SizedBox(height: 10.h),
