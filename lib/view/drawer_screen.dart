@@ -26,11 +26,14 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
+  var image;
   GetStorage box = GetStorage();
+  
   // var name  = '';
   // name  = box.read('name');
   @override
   Widget build(BuildContext context) {
+    image = box.read('image');
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -51,9 +54,10 @@ class _AppDrawerState extends State<AppDrawer> {
                               radius: 60.0,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(60.0),
-                                child:Image.network(
-                                  'https://picsum.photos/250?image=9',
-                                ),
+                                child: image != null ? 
+                                Image.network(
+                                  image,
+                                ):Image.asset(AppImages.person)
                               )
                             )
                           ),
