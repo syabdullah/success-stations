@@ -137,7 +137,7 @@ class _LocationTabState extends State<LocationTab> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Distance ",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                    'distance.tr',style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
                     ),
                     Text(
                     "10 miles",style:  TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.normal)
@@ -185,7 +185,7 @@ class _LocationTabState extends State<LocationTab> {
                           color: Colors.blue,
                           child: Container(
                             width: Get.width / 4,
-                            child: Center(child: Text("Apply", style: TextStyle(color:Colors.white)))
+                            child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/login');

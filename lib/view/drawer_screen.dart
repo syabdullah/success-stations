@@ -6,6 +6,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/contact.dart';
@@ -90,6 +91,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
+                            Get.to(UserProfile());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                            Get.to(MyAdds());
