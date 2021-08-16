@@ -83,4 +83,6 @@ class AppImages {
   static String gridView = imagePath + 'grid.png';
   static String delete = imagePath + 'delete.png';
   static String edit = imagePath + 'edit.png';
+  //addoffers
+  static String addOfferImage  = imagePath +'Group 2108@3x.png';
 }

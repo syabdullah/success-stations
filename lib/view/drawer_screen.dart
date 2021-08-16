@@ -17,6 +17,7 @@ import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
+import 'package:success_stations/view/offers/my_offers.dart';
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -112,7 +113,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
-                          } ,15.0), 
+                          } ,15.0),
+                          CustomListTile(AppImages.offers, 'My Offer', () {
+                            Get.to(OffersDetail());
+                          },15.0 ), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {},15.0 ), 
                           SizedBox(height: 10.h),
                           Divider(),
@@ -174,7 +178,7 @@ class _AppDrawerState extends State<AppDrawer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(image.toString(),height: height,),
+                  Image.asset(image.toString(),height: height,color:Colors.grey[600]),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal:20),
                       child:Text(text,textAlign: TextAlign.start,
