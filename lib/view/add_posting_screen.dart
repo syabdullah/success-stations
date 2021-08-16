@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -45,9 +46,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   var json;
+  GetStorage box = GetStorage();
+var id ;
   @override
   void initState() {
     super.initState();
+    id = box.read('user_id');
     catogoryController.getCategoryNames();
   }
    adpost(){
@@ -60,9 +64,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     'mobile_no': mobileNoController.text,
     'tel_no': telePhoneController.text,
     'title':titleController.text,
-    'created_by': '5',
+    'created_by': id,
     'email': emailController.text
   };
+  print("..................$json");
  adpostingController.finalAdPosting(json);
   }
   @override
@@ -344,7 +349,7 @@ Widget istStep(List list){
                             adsubCategory = val as Map;
                             selectedtype = adsubCategory['category_name'];
                             subtypeId =adsubCategory['id'];
-                            // print(selectedtype);
+                            print(subtypeId);
                             
                           });
                         },
@@ -685,7 +690,7 @@ Widget secondStep(){
         fontWeight: FontWeight.bold)),
         onPressed: () { 
         adpost();
-        Get.off(MyAdds());
+        // Get.off(MyAdds());
         },
         child: Text("publish".tr),
       ),

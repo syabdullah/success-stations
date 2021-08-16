@@ -5,6 +5,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:readmore/readmore.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class NotificationPage extends StatefulWidget {
   _NotificationPageState createState() => _NotificationPageState();
@@ -60,10 +61,15 @@ List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3'
   @override
   Widget build(BuildContext context) {
     return  Scaffold( 
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-      child: Container(
-      child: stringAppbar('',Icons.arrow_back_ios_new_sharp, 'notifications'.tr,AppImages.appBarSearch)),
-    ),
+      key: _scaffoldKey,
+      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
 
       body: SingleChildScrollView(
         child: Column(
