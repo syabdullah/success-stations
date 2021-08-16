@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/images.dart';
 
 class OfferList extends StatefulWidget {
