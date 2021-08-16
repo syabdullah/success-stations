@@ -17,7 +17,7 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomBar(),
+      // bottomNavigationBar: CustomBottomBar(),
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
        child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ABOUT US',AppImages.appBarSearch),
       ),

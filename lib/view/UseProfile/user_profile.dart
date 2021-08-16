@@ -273,76 +273,76 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               ],
             ),
           ),
-          // Card(
-          //   elevation: 2,
-          //   child: Column(
-          //     children: [
-          //       Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           Column(
-          //             mainAxisAlignment: MainAxisAlignment.start,
-          //             children: [
-          //               Container(
-          //                 margin: EdgeInsets.only(top:20,left: 10),
-          //                 child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-          //               ),
-          //               Container(
-          //                 margin: EdgeInsets.only(left: 15,top: 5),
-          //                 child: Text("data['college']" != null  ? "data['college']['college']" :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
-          //               ), 
-          //               Container(
+          Card(
+            elevation: 2,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top:20,left: 10),
+                          child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 15,top: 5),
+                          child: Text(userData['college'] != null  ? userData['college']['name'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
+                        ), 
+                        Container(
                           
-          //                 margin: EdgeInsets.only(top:25),
-          //                 child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-          //               ),
-          //               Container(
-          //                   margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-          //                 child: Text("data['degree'] "!= null ? "data['degree'] ": '',style: TextStyle(fontWeight: FontWeight.w600)),
-          //               ),               
-          //             ],
-          //           ),
-                    // Column(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     Container(
-                    //       margin: EdgeInsets.only(top:25),
-                    //       child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                    //     ),
-                    //     Container(
-                    //       margin: EdgeInsets.only(right: 15,top:5),
-                    //       child: Text("data['university'] "!= null ? "data['university']['name']" : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                    //     ), 
-                    //     Container(
-                    //       margin: EdgeInsets.only(top:20),
-                    //       child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                    //     ),
-                    //     Container(
-                    //         margin: EdgeInsets.only(bottom:20,top: 5),
-                    //       child: Text("data['semester']" != null ? "data['semester'].toString() ": '',style: TextStyle(fontWeight: FontWeight.w600)),
-                    //     ),               
-                    //   ],
-                    // ),
-          //         ],
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Card(
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Container(
-          //         margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-          //         child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
-          //       ),
-          //       Container(
-          //         margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-          //         child: Text("data['about']" != null ? "data['about'] ": '' )
-          //       )
-          //     ],
-          //   ),
-          // )
+                          margin: EdgeInsets.only(top:25),
+                          child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                          child: Text("data['degree'] "!= null ? "data['degree'] ": '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        ),               
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top:25),
+                          child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 15,top:5),
+                          child: Text(userData['university']!= null ? userData['university']['name'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        ), 
+                        Container(
+                          margin: EdgeInsets.only(top:20),
+                          child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(bottom:20,top: 5),
+                          child: Text("data['semester']" != null ? "data['semester'].toString() ": '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        ),               
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                  child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                  child: Text("data['about']" != null ? "data['about'] ": '' )
+                )
+              ],
+            ),
+          )
         ],
       ),
     ); 

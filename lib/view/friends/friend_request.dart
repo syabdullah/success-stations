@@ -70,14 +70,15 @@ class _FriendReqListState extends State<FriendReqList> {
        ),
      );
   }
-  List<Widget> friendList(data) {     
+  List<Widget> friendList(data) { 
+      
     var count = 0;
      List<Widget> req = [];
      if(data != null)
      for(int i= 0; i< data.length; i++) {
-        
-       if(data[i]['status'] == null) {
-         print("....................//////.....${data[i]['requister']['id']}");
+        // print("....................//////.....${data[i]['requister']['id']}");   
+       if(data[i]['requister'] != null && data[i]['status'] == null) {
+         print("....................//////.....${data[i]['requister']}");
          ++count;
         req.add(
           Column(
@@ -96,33 +97,32 @@ class _FriendReqListState extends State<FriendReqList> {
               child: Card(
                 child: Row(
                   children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        // child: Image.network(data[i]['user_requisted']['image']['url']),
-                      ),
-                    ),
+                    id == data[i]['requister_id'] ? 
+                Container(
+                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    child: data[i]['requister']['image'] != null ? Image.network(data[i]['requister']['image']['url']) : Container()
+                  ),
+                ):
+                Container(
+                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    child: data[i]['user_requisted']['image'] != null ? Image.network(data[i]['user_requisted']['image']['url']) : Container()
+                  ),
+                ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: Get.width/4,
-                          child: Text(data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),),
+                          child: id == data[i]['requister_id'] ?  Text(data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
+                      Text(data[i]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
                         ),
                         Container(
                           child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Image.asset(AppImages.location,height: 15,),
-                        //     SizedBox(width:5),
-                        //     Container(
-                        //       // child: Text(data[i]['user_requisted']['city']['city']),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                     Spacer(),
