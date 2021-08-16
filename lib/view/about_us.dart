@@ -28,9 +28,7 @@ class _AboutUsState extends State<AboutUs> {
      body: GetBuilder<AboutController>( 
           init: AboutController(),
           builder:(val) {
-            print("123${val.aboutData['data']}");
-            
-            return val.aboutData['data'] != null ? about(val.aboutData['data']) : CircularProgressIndicator();
+            return val.aboutData != null  ? about(val.aboutData['data']) : Center(child: CircularProgressIndicator());
     
           }   
      )
@@ -39,26 +37,28 @@ class _AboutUsState extends State<AboutUs> {
 }
 Widget about(data){
   return
-  ListView.builder(
-  itemCount:  data.length ,
-  // ignore: non_constant_identifier_names
-  itemBuilder: (BuildContext,index) {
-    return  Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top:50),
-          child: Image.asset(AppImages.logo,height: 150.h,),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-          child:Html(data: data[index]['page_text']),
-      //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
-      //     style: AppTextStyles.appTextStyle(
-      //     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-      //  ),),
-      ),   
-      ],
-    );
-    }
-   );
+  Container(
+    child: ListView.builder(
+    itemCount:  data.length!= null ? data.length : Container(),
+    // ignore: non_constant_identifier_names
+    itemBuilder: (BuildContext,index) {
+      return  Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top:50),
+            child: Image.asset(AppImages.logo,height: 150.h,),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+            child:Html(data: data[index]['page_text']),
+        //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
+        //     style: AppTextStyles.appTextStyle(
+        //     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+        //  ),),
+        ),   
+        ],
+      );
+      }
+     ),
+  );
   }

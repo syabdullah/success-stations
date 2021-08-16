@@ -42,7 +42,7 @@ class _AdsViewState extends State<AdsView> {
             init: BannerController(),
             builder: (data){
               print(data.bannerData);
-              return  carosalImage();
+              return    data.bannerData != null ?carosalImage(data.bannerData['data']) : CircularProgressIndicator();
             }),
          text("advertisingCategories".tr,"all".tr),
         //  GetBuilder<CategController>(
@@ -64,7 +64,7 @@ class _AdsViewState extends State<AdsView> {
     );
   }
 
-  Widget carosalImage() {
+  Widget carosalImage(bannerData) {
     return Column(
       children: [
         CarouselSlider(
