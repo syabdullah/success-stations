@@ -476,10 +476,10 @@ void _adsfiltringheet() {
                           ) 
                       ),
                       Row(
-                        children: [
+                        children: [ 
                           Container(
                             padding: EdgeInsets.only(right:5),
-                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20): Image.asset(AppImages.redHeart, height:20)
+                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart): Image.asset(AppImages.redHeart)
                           ),
                           Image.asset(AppImages.call, height: 20),
                         ],
@@ -494,108 +494,79 @@ void _adsfiltringheet() {
         },
     );
   }
-var ind = 0 ;
+  var ind = 0 ;
   myAddGridView(dataListValue) {
-    print("datalist value...................data list value..... $dataListValue");
     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
           dataListValue.length, (index) {
-            print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
-           return Container(
+            return Container(
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
               height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
-                  child:  Card(
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+              child:  Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                      child: Container(
+                        width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                        height: Get.height /8.0,
+                        child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          child: Container(
-                            width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                            height: Get.height /8.0,
-                            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
-                          ),
-                        ),
-                        Container(
-                          // alignment: Alignment.topLeft,
-                          margin: EdgeInsets.only(left: 10),
-                          child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
-                        ),
-                        dataListValue[index]['user']['address'] == null ? Container(): 
-                        Expanded(
-                          // flex : 2,
-                          child:  Row(
-                            children: [
-                              
-                              Icon(Icons.location_on, color:Colors.grey),
-                              Container(
-                                child: Text(
-                                  dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex : 2,
-                          child:  Row(
-                            children: [
-                              Icon(Icons.person, color:Colors.grey[400],),
-                              Container(
-                                // margin:EdgeInsets.only(left:29),
-                                child: Text(
-                                  dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        // Container(
-                        //   width: Get.width/2.3,
-                        //   child: Row(
-                        //     children: [
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6,left: 10),
-                        //         child: Icon(Icons.person, color:Colors.grey[400],)
-                        //       ),
-                        //       SizedBox(width:5),
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6),
-                        //         child: Text(dataListValue[index]['user']['name'] !=null ? dataListValue[index]['user']['name']:'',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //       ),
-                        //       // Spacer(flex: 2),
-                        //       // Container(
-                        //       //   margin: EdgeInsets.only(right:6),
-                        //       //   child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
-                        //       // )
-                        //     ],
-                        //   ),
-                        // ),              
-                      ],
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                     ),
-                  )
-                );
-             }
-            )
-          ),
+                    dataListValue[index]['user']['address'] == null ? Container(): 
+                    Expanded(
+                      child:  Row(
+                        children: [
+                          Icon(Icons.location_on, color:Colors.grey),
+                          Container(
+                            child: Text(
+                              dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                              style: TextStyle(
+                                color: Colors.grey[300]
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex : 2,
+                      child:  Row(
+                        children: [
+                          Icon(Icons.person, color:Colors.grey[400],),
+                          Container(
+                            child: Text(
+                              dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                              style: TextStyle(
+                                color: Colors.grey[300]
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            );
+          }
+        )
+      ),
     );
-       
   }
-
 
   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor}) {
     return AppButton(
@@ -611,12 +582,10 @@ var ind = 0 ;
       width: width, 
     );
   }
-  
   void navigateToGoogleLogin() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    print("my adds Page.......................,,,,,,,...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -628,29 +597,23 @@ var ind = 0 ;
             itemBuilder: (context, index) {
               if(ind == 0){
                 controller.addedByIdAddes(listingCategoriesData[0]['id']);
-
               }
-              
               return Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        print("rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                          // Get.to(argumen)
-                          
-                        
                         });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                           border: Border.all(color: Colors.blue),
+                          border: Border.all(color: Colors.blue),
                           color: selectedIndex == index ? selectedColor : Colors.white,
                           boxShadow: [
                             BoxShadow(

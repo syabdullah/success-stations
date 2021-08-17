@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -14,14 +15,26 @@ class FavouritePage extends StatefulWidget {
   _FavouritePageState createState() => _FavouritePageState();
 }
 class _FavouritePageState extends State<FavouritePage> {
-  RangeValues _currentRangeValues = const RangeValues(1,100);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+ final friCont = Get.put(FriendsController());
+ 
+ 
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
+  var id, imageUploaded;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+
+  @override
+  void initState() {
+    super.initState();
+    
+     id = Get.arguments;
+    print("../././....--id pf the favortttt--------$id");
+    // _controller = TabController(length: 2,vsync: this); 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,24 +47,21 @@ class _FavouritePageState extends State<FavouritePage> {
         ),
         child: AppDrawer(),
       ),
-      body: Column(
-        children: [
-          topWidget(),           
-          Expanded(
-            child: 
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            topWidget(),           
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
-              builder: (val){
-                return val.fvr8DataList !=null ? 
-                listtype == 'list' ? myAddsList(val.fvr8DataList['data']) : myAddGridView(val.fvr8DataList['data']): ListView(
-                  children:[
-                    Container()
-                  ]
-                );
-              }
-            )
+              builder: (val) {
+                return 
+                val.fvr8DataList !=null ? Column(
+                  children: listtype == 'list' ? myAddsList(val.fvr8DataList): myAddGridView(val.fvr8DataList) ,
+                ): ListView(children: [],);
+              },
             ) 
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -96,59 +106,63 @@ class _FavouritePageState extends State<FavouritePage> {
   }
   
   
-  Widget myAddsList(listFavourite) {
+   List<Widget> myAddsList(listFavourite) {
+    List<Widget> favrties = [];
     print("favroutie list api ..... $listFavourite");
-    //  print("favroutie list api ..... ${listFavourite[i]['user_name']}");
-    return ListView.builder(
-      itemCount: listFavourite.length,
-      itemBuilder: (BuildContext context,i) {
-        print("prinrted value of thee favr9kkkk ..... ${listFavourite.length}");
-        return GestureDetector(
-          onTap: () {
-            Get.to(AdViewScreen());
-          },
-          child: Card(
-            child: Container(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Center(
-                        child: Container(
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              child: Image.asset(
-                                AppImages.profileBg
+    if(listFavourite['data'].length !=null  || listFavourite['data'] !=null){
+      for(int c = 0 ; c < listFavourite['data'].length; c++ ){
+        print("user nameeee.........${listFavourite['data']}");
+        if(listFavourite['data'][c]['listing'] !=null){
+          for(int ima = 0; ima < listFavourite['data'][c]['listing']['image'].length; ima++){
+            imageUploaded = listFavourite['data'][c]['listing']['image'][ima]['url'];
+            print("uploaded image.......${listFavourite['data'][c]['listing']['image'][ima]['url']}");
+          }
+        
+          favrties.add(
+            Card(
+              child: Container(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Center(
+                          child: Container(
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.all(10.0),
+                              child: GestureDetector(
+                                child: Image.asset(
+                                  AppImages.profileBg
+                                ),
                               ),
-                            ),
-                          )
+                            )
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                          child: Column(
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child:  Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              listFavourite['data'][c]['user_name']!=null ?
                               Container(
                                 child: Text(
-                                  listFavourite[i]['user_name']['name'],
+                                  listFavourite['data'][c]['user_name']['name'],
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
                                   ),
                                 ),
-                              ),
+                              ): Container(),
+                              listFavourite['data'][c]['user_name']!=null ?
                               Expanded(
                                 child:  Row(
                                   children: [
                                   Icon(Icons.location_on, color:Colors.grey),
                                   Container(
                                     child: Text(
-                                      listFavourite[i]['user_name']['address'],
+                                      listFavourite['data'][c]['user_name']['address'],
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -156,56 +170,73 @@ class _FavouritePageState extends State<FavouritePage> {
                                   )
                                   ],
                                 ),
-                              ),
+                              ): Container()
                             ],
                           ),
                         ),
-                    ],
-                  ),
-                  SizedBox(height:20),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: 
-                        CircleAvatar(
-                          backgroundColor: Colors.grey[200],
-                          child: Icon(Icons.person)
-                          ) 
-                      ),
-                      Row(
-                        children: [
-                          listFavourite[i]['listing'] !=null ? 
-                          Container(
-                            padding: EdgeInsets.only(right:5),
-                            child:  listFavourite[i]['listing']['is_favorite'] == true ? Image.asset(AppImages.redHeart, height: 20): null 
-                          ): Container(),
-                          Container(
-                            child: Image.asset(AppImages.call, height: 20),
+                      ],
+                    ),
+                    SizedBox(height:20),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, right: 10),
+                          child: ClipOval(
+                            child:  Image.network(
+                              imageUploaded,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                                  
+                            )
                           ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
+                        ),
+                        Row(
+                          children: [
+                            listFavourite['data'][c]['listing'] !=null ? 
+                            GestureDetector(
+                              onTap: (){
+                                var json = {
+                                  'ads_id' : listFavourite['data'][c]['id']
+                                };
+                                print("jsn darar on tao ,,,,,,,,$json");
+                                // friCont.profileAdsRemove(json);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(right:5),
+                                child:  listFavourite['data'][c]['listing']['is_favorite'] == true ? Image.asset(AppImages.redHeart, height: 20): null 
+                              ),
+                            ): Container(),
+                            Container(
+                              child: Image.asset(AppImages.call, height: 20),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ),
-        );
-        },
-    );
+            )
+          );
+        }
+      }
+    }
+    return favrties;
   }
-var ind = 0 ;
-  myAddGridView(listFavourite) {
+  var ind = 0 ;
+  List<Widget> myAddGridView(listFavourite) {
+    List<Widget> faviii = [];
     print("datalist value...................data list value..... $listFavourite");
-    return Container(
-      child: GridView.count(
+    faviii.add(
+      Container(
+        height:  Get.height < 420 ? Get.height /3.6 : Get.height /1.0,
+        child: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
-          listFavourite.length, 
+          listFavourite['data'].length, 
           (index) {
             return Container(
-              width: Get.width < 420 ? Get.width /3.6 : Get.width /9.0,
               margin: EdgeInsets.only(left:15),
               child:  Card(
                 elevation: 1,
@@ -218,15 +249,15 @@ var ind = 0 ;
                         ClipRRect(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                           child: Container(
-                            // width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                            // height: Get.height /8.0,
-                            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                            width: Get.width/1.0,
+                            height: Get.height/5.2,
+                            child: Image.asset(AppImages.profileBg)
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
                           child: Text( 
-                            listFavourite[index]['user_name']['name'],
+                            listFavourite['data'][index]['user_name']['name'],
                           )
                         ), 
                         Expanded(
@@ -236,7 +267,7 @@ var ind = 0 ;
                               Icon(Icons.location_on, color:Colors.grey),
                               Container(
                                 child: Text(
-                                 listFavourite[index]['user_name']['address'],
+                                 listFavourite['data'][index]['user_name']['address'],
                                   style: TextStyle(
                                     color: Colors.grey[300]
                                   ),
@@ -244,48 +275,7 @@ var ind = 0 ;
                               )
                             ],
                           ),
-                        ),
-
-                        // SizedBox(height:20)
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         // margin:EdgeInsets.only(left:29),
-                        //         child: Text(
-                                  
-                        //           // dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        // Container(
-                        //   width: Get.width/2.3,
-                        //   child: Row(
-                        //     children: [
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6,left: 10),
-                        //         child: Icon(Icons.person, color:Colors.grey[400],)
-                        //       ),
-                        //       SizedBox(width:5),
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6),
-                        //         child: Text(dataListValue[index]['user']['name'] !=null ? dataListValue[index]['user']['name']:'',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //       ),
-                        //       // Spacer(flex: 2),
-                        //       // Container(
-                        //       //   margin: EdgeInsets.only(right:6),
-                        //       //   child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
-                        //       // )
-                        //     ],
-                        //   ),
-                        // ),              
+                        ),                   
                       ],
                     ),
                   ),
@@ -294,8 +284,8 @@ var ind = 0 ;
              }
             )
           ),
-    );
-       
+    ));
+       return faviii;
   }
 
 

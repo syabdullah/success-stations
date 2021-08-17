@@ -6,7 +6,6 @@ import 'package:success_stations/utils/config.dart';
 Future<http.Response> createAccount(data) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}register");
-  print("......... student sign..........$url");
   final result = await http.post(
     url,body: jsonEncode(data),headers: ApiHeaders().headers);
     return result;
