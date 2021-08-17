@@ -23,11 +23,7 @@ class CategoryController extends GetxController {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
       print(",,,,,,,,,,,,,,, ${subCat['data'].length}");
-      if(subCat['data'] !=null || subCat['data'].length !=null  ){
-        for(int c =0; c <subCat['data'].length; c++ ){
-        datacateg.add(subCat['data'][c]);
-      }
-    }
+      datacateg = subCat['data'];
      isLoading = false;
     });
     

@@ -12,6 +12,7 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -51,7 +52,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
     // Pick an image
-    
+   late XFile pickedFile;
+   String? image,fileName;
 var id ;
   @override
   void initState() {
@@ -61,6 +63,20 @@ var id ;
   }
   pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  }
+  Future getImage() async {
+    await ApiHeaders().getData();
+    final XFile? pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        image = pickedFile.path;
+        fileName = pickedFile.path.split('/').last;
+
+      } else {
+        print('No image selected.');
+      }
+    });
+     
   }
    adpost(){
     json = {
@@ -274,6 +290,7 @@ var id ;
   //   }
 
 Widget istStep(List list){
+  print("......,,,,,..-----$list");
   return  Form(
     key: _formKey,
     child: Column(
@@ -306,7 +323,7 @@ Widget istStep(List list){
                         items: list.map((coun) {
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun['category_name'])
+                            child:Text(coun!['category_name'])
                           );
                         }).toList(),
                           onChanged: (val) {

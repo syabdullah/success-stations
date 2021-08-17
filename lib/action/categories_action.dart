@@ -14,7 +14,7 @@ Future<http.Response> category() async {
 Future <http.Response> subCategory() async {
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}categories");
+  var url = Uri.parse("${config.baseUrl}listings-with-type");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
