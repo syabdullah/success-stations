@@ -14,7 +14,15 @@ Future<http.Response> category() async {
 Future <http.Response> subCategory() async {
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}listings-with-type");
+  var url = Uri.parse("${config.baseUrl}ads-categories?change_language=ar");
+  http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
+  return response;
+}
+
+Future <http.Response> categoryTypes() async {
+  await ApiHeaders().getData();
+  final Config config = Config();
+  var url = Uri.parse("${config.baseUrl}ads-categories-with-type");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

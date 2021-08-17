@@ -67,8 +67,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
-                      child: Text(
-                        box.read('name'),
+                      child: Text('',
+                        // box.read('name'),
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),
