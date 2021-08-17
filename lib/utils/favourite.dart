@@ -57,7 +57,12 @@ class _FavouritePageState extends State<FavouritePage> {
                 return 
                 val.fvr8DataList !=null ? Column(
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList): myAddGridView(val.fvr8DataList) ,
-                ): ListView(children: [],);
+                ): ListView(
+                  children: [
+                    Container()
+
+                  ],
+                );
               },
             ) 
           ],
@@ -93,7 +98,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   });
                 },
                 icon: Container(
-                  padding:  EdgeInsets.only(top:10),
+                  padding: EdgeInsets.only(top:10),
                   child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
                 )
               ),
@@ -105,19 +110,15 @@ class _FavouritePageState extends State<FavouritePage> {
     );
   }
   
-  
-   List<Widget> myAddsList(listFavourite) {
+  List<Widget> myAddsList(listFavourite) {
     List<Widget> favrties = [];
     print("favroutie list api ..... $listFavourite");
     if(listFavourite['data'].length !=null  || listFavourite['data'] !=null){
       for(int c = 0 ; c < listFavourite['data'].length; c++ ){
-        print("user nameeee.........${listFavourite['data']}");
         if(listFavourite['data'][c]['listing'] !=null){
           for(int ima = 0; ima < listFavourite['data'][c]['listing']['image'].length; ima++){
             imageUploaded = listFavourite['data'][c]['listing']['image'][ima]['url'];
-            print("uploaded image.......${listFavourite['data'][c]['listing']['image'][ima]['url']}");
           }
-        
           favrties.add(
             Card(
               child: Container(
@@ -182,7 +183,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, right: 10),
                           child: ClipOval(
-                            child:  Image.network(
+                            child: Image.network(
                               imageUploaded,
                               width: 50,
                               height: 50,
@@ -191,6 +192,7 @@ class _FavouritePageState extends State<FavouritePage> {
                             )
                           ),
                         ),
+                        SizedBox(height:10),
                         Row(
                           children: [
                             listFavourite['data'][c]['listing'] !=null ? 
@@ -200,14 +202,13 @@ class _FavouritePageState extends State<FavouritePage> {
                                   'ads_id' : listFavourite['data'][c]['id']
                                 };
                                 print("jsn darar on tao ,,,,,,,,$json");
-                                // friCont.profileAdsRemove(json);
                               },
                               child: Container(
-                                padding: EdgeInsets.only(right:5),
-                                child:  listFavourite['data'][c]['listing']['is_favorite'] == true ? Image.asset(AppImages.redHeart, height: 20): null 
+                                child:  listFavourite['data'][c]['listing']['is_favorite'] == true ? Image.asset(AppImages.redHeart,height:30): null 
                               ),
                             ): Container(),
                             Container(
+                              padding: EdgeInsets.only(right:15),
                               child: Image.asset(AppImages.call, height: 20),
                             ),
                           ],
@@ -227,7 +228,6 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   List<Widget> myAddGridView(listFavourite) {
     List<Widget> faviii = [];
-    print("datalist value...................data list value..... $listFavourite");
     faviii.add(
       Container(
         height:  Get.height < 420 ? Get.height /3.6 : Get.height /1.0,
@@ -279,14 +279,14 @@ class _FavouritePageState extends State<FavouritePage> {
                       ],
                     ),
                   ),
-                 
                 );
-             }
+              }
             )
           ),
-    ));
-       return faviii;
-  }
+        )
+      );
+      return faviii;
+    }
 
 
   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor}) {

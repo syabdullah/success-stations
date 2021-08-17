@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 
@@ -56,6 +57,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   
 };
   var listtype = 'list';
+  var mediaList ;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
@@ -89,22 +91,33 @@ class _MyOffersDetailState extends State<OffersDetail> {
              
               ],
             ),
-            Column(
-              children: sellingPlan(),
+            GetBuilder<OfferController>(
+              init: OfferController(),
+              builder:(val){
+                return val.isLoading == true ? Container() : Column(
+                  children: allOffersWidget(val.offerDataList),
+                );
+              },
             )
+            
           ],
         ),
       ),
     );
   }
 
-  List<Widget> sellingPlan() {
-      List<Widget> items = [];
-      for ( int i = 0; i < offerNotification.length; i++ ) {
-       
-      var key = offerNotification.keys.elementAt(i);
-      for ( int j =0 ; j < offerNotification[key].length; j++ ) {
-        print("printed values......${offerNotification[key][j]['newText']}");
+  List<Widget> allOffersWidget(dataListOffer) {
+    List<Widget> items = [];
+    if(dataListOffer['data'] !=null ){
+      for ( int i = 0; i < dataListOffer['data'].length; i++ ) {
+        if( dataListOffer['data'][i]['user']['media'].length !=null){
+          for(int med =0; med < dataListOffer['data'][i]['user']['media'].length; med++){
+            // print("mdia lengyth.....${dataListOffer['data'][i]['media']}");
+            mediaList = dataListOffer['data'][i]['user']['media'][med]['url'];
+          }
+          
+        
+        
         items.add( 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,24 +136,28 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
+                                  children: [ 
                                     Text(
-                                      offerNotification[key][j]['searchText'], 
+                                      dataListOffer['data'][i]['text_ads']['en'] !=null ? 
+                                      dataListOffer['data'][i]['text_ads']['en'].toString():'', 
                                       style: TextStyle(
                                         fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
                                       )
                                     ),
-                                    Text(
-                                      offerNotification[key][j]['newText'], 
+                                    Text (
+                                      dataListOffer['data'][i]['status'] == 1 ? "NEW": 
+                                      dataListOffer['data'][i]['status'] == 0 ? "OLD":
+                                      dataListOffer['data'][i]['status'] == null ? '':'',
                                       style: TextStyle(
-                                        fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color: offerNotification[key][j]['newText'] == 'New'? AppColors.appBarBackGroundColor: AppColors.snackBarColor,
+                                        fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color:dataListOffer['data'][i]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
                                       )
-                                    ),
+                                    )
                                   ],
                                 ),
                                 SizedBox(height:5),
                                 Container(
-                                  child:Text(offerNotification[key][j]['text'],
+                                  child:Text(dataListOffer['data'][i]['description'] != null ?
+                                   dataListOffer['data'][i]['description']['en'] : "",
                                   style:TextStyle(color:AppColors.inputTextColor, fontSize: 13) )
                                 ),
                                 SizedBox(height:5),
@@ -151,7 +168,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               ],
                             ),
                             leading:
-                            Image.asset(offerNotification[key][j]['image'], height: 100)
+                            Image.network(mediaList !=null ? mediaList :"")
                           ),
                           SizedBox(height:10)
                         ],
@@ -165,7 +182,11 @@ class _MyOffersDetailState extends State<OffersDetail> {
         );
       }
     }
-    return items; 
+
+    }
+
+   
+    return items;
   }
   myAddGridView() {
     return Container(
