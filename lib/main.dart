@@ -5,8 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:success_stations/view/offers/add_offers.dart';
+import 'package:success_stations/view/offers/my_offers.dart';
 var auth;
 
 void main() async {
@@ -41,8 +44,10 @@ class SuccessApp extends StatelessWidget {
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
+          //  home: AddOffersPage(),
         initialRoute: auth == null ?  '/langua' : '/tabs' ,
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+        // home: NotificationPage(),
       ),
        designSize: const Size(360, 640),
     );
