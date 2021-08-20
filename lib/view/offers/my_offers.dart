@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:readmore/readmore.dart';
+
 
 class OffersDetail extends StatefulWidget {
   _MyOffersDetailState createState() => _MyOffersDetailState();
@@ -156,15 +159,29 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 ),
                                 SizedBox(height:5),
                                 Container(
-                                  child:Text(dataListOffer['data'][i]['description'] != null ?
-                                   dataListOffer['data'][i]['description']['en'] : "",
-                                  style:TextStyle(color:AppColors.inputTextColor, fontSize: 13) )
+                                  child: ReadMoreText(
+                                    dataListOffer['data'][i]['description'] != null ?
+                                    dataListOffer['data'][i]['description']['en'] : "",
+                                   style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
+                                    
+                                    trimLines: 2,
+                                    colorClickableText: AppColors.appBarBackGroundColor,
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: 'Show more',
+                                    trimExpandedText: 'Show less',
+                                    // moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                  ),
+                                  // child:Text(
+                                  //   dataListOffer['data'][i]['description'] != null ?
+                                  //   dataListOffer['data'][i]['description']['en'] : "",
+                                  //  style:TextStyle(color:AppColors.inputTextColor, fontSize: 13)
+                                  // )
                                 ),
                                 SizedBox(height:5),
-                                Container(
-                                  child: Text( "anyUrlYouCanPlacehere", 
-                                  style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13) )
-                                )
+                                // Container(
+                                //   child: Text( "anyUrlYouCanPlacehere", 
+                                //   style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13) )
+                                // )
                               ],
                             ),
                             leading:
