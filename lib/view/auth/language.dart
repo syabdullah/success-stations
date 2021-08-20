@@ -67,6 +67,7 @@ class _LanguagePageState extends State<Language> {
               setState(() {
                 index = i;
                 box.write('lang_id',dataLanguage['data'][i]['id']);
+                box.write('lang_code', dataLanguage['data'][i]['short_code']);
                 LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
                 
               });

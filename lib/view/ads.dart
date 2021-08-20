@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
+import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -42,13 +44,18 @@ class _AdsViewState extends State<AdsView> {
                   Center(heightFactor: 2, child: CircularProgressIndicator());
             }),
          text("advertisingCategories".tr,"all".tr),
-         GetBuilder<CategController>(
-            init: CategController(),
+         GetBuilder<CategoryController>(
+            init: CategoryController(),
             builder: (data){
-              return data.dataListing != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.dataListing['data']) : Container();
+              return data.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.datacateg) : Container();
+            }
+          ),
+         text("FeaturedAds".tr,"all".tr), 
+         GetBuilder<MyAddsController>(
+            init: MyAddsController(),
+            builder: (data){ 
+              return featuredAdsList(data.addsCategoryArray);
             }),
-         text("FeaturedAds".tr,"all".tr),  
-         featuredAdsList(),
          text('specialofer'.tr,"all".tr),
          GetBuilder<CategController>(
             init: CategController(),
@@ -77,33 +84,33 @@ class _AdsViewState extends State<AdsView> {
               child: Stack(
                 children: <Widget>[
                   Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(200, 0, 0, 0),
-                            Color.fromARGB(0, 0, 0, 0)
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20.0),
-                      child: Text(
-                        'No. ${imgList.indexOf(item)} image',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: 0.0,
+                  //   left: 0.0,
+                  //   right: 0.0,
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       gradient: LinearGradient(
+                  //         colors: [
+                  //           Color.fromARGB(200, 0, 0, 0),
+                  //           Color.fromARGB(0, 0, 0, 0)
+                  //         ],
+                  //         begin: Alignment.bottomCenter,
+                  //         end: Alignment.topCenter,
+                  //       ),
+                  //     ),
+                  //     padding: EdgeInsets.symmetric(
+                  //         vertical: 10.0, horizontal: 20.0),
+                  //     child: Text(
+                  //       'No. ${imgList.indexOf(item)} image',
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 20.0,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
             ),
@@ -160,7 +167,7 @@ class _AdsViewState extends State<AdsView> {
   }
 
   advertisingList(conHeight,imageW,imageH,data) {
-    // print("-----------------$data");
+    print("-----------------$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
@@ -185,7 +192,7 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['category_name'],style: TextStyle(color: AppColors.grey)),
+                child: Text(data[index]['category']['en'],style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
@@ -194,14 +201,15 @@ class _AdsViewState extends State<AdsView> {
     );
   }
 
-  featuredAdsList() {
+  featuredAdsList(data) {
+    // print("..................>$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: data.length,
         itemBuilder: (BuildContext,index) {
           return 
           Card(
@@ -217,7 +225,8 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                     height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                    child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    child: Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,)
+                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
                 Container(

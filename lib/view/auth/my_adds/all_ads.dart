@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
@@ -19,12 +20,24 @@ class _AllAddsState extends State<AllAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
+  final catCont =  Get.put(CategoryController());
   var listtype = 'list';
   bool _value = false;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+  GetStorage box = GetStorage();
+  var lang ;
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.addedAllAds();
+    catCont.getCategoryTypes();
+    lang = box.read('lang_code');
+    print("LLLLLLLAAAAA------$lang");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +45,10 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
-          GetBuilder<CategController>(
-            init: CategController(),
+          GetBuilder<CategoryController>(
+            init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
+              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.subCatt['data']);
 
             },
           ),            
@@ -44,7 +57,7 @@ class _AllAddsState extends State<AllAdds> {
              GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-                return listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
+                return val.isLoading == true ? Container(): listtype == 'list' ? myAddsList(val.allAdsData['data']) : myAddGridView(val.allAdsData['data']);
               },
             )
           ),
@@ -340,7 +353,7 @@ void _adsfiltringheet() {
       itemBuilder: (BuildContext context,index) {
         return GestureDetector(
           onTap: () {
-            Get.to(AdViewScreen());
+            Get.to(AdViewScreen(),arguments:allDataAdds[index]['id']);
           },
           child: Card(
             child: Container(
@@ -370,7 +383,7 @@ void _adsfiltringheet() {
                             children: [
                               Container(
                                 child: Text(
-                                  allDataAdds[index]['title'],
+                                  allDataAdds[index]['title'][lang].toString(),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -402,7 +415,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title']!= null ? allDataAdds[index]['title']: '',
+                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title']['en']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -499,7 +512,7 @@ void _adsfiltringheet() {
                         Container(
                           // alignment: Alignment.topLeft,
                           margin: EdgeInsets.only(left: 10),
-                          child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                          child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                         ),
                         dataListValue[index]['user']['address'] == null ? Container(): 
                         Expanded(
@@ -587,7 +600,7 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-   
+    print("my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -599,8 +612,8 @@ void _adsfiltringheet() {
             itemBuilder: (context, index) {
               
               if(ind == 0){
-                 print("my adds Page.......................,,,,,,,...-------------------$index");
-                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+                
+                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
               }
               return Row(
                 children: [
@@ -612,7 +625,7 @@ void _adsfiltringheet() {
                         setState(() {
                           ind = ++ind ;
                           selectedIndex = index;
-                          controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          // controller.addedByIdAddes(listingCategoriesData[index]['id']);
                         });
                       },
                       child: Container(
@@ -630,7 +643,7 @@ void _adsfiltringheet() {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ? Text(
-                          listingCategoriesData[index]['category_name'],
+                          listingCategoriesData[index]['category']['en'],
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

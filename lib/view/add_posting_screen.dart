@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,9 +14,11 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:dio/dio.dart' as dio;
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -51,16 +55,43 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
     // Pick an image
-    
+    XFile? pickedFile;
+  late String image;
+  var fileName;
 var id ;
+var lang;
   @override
   void initState() {
     super.initState();
     id = box.read('user_id');
+    lang = box.read('lang_code');
     catogoryController.getCategoryNames();
+    catogoryController.getCategoryTypes();
   }
-  pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  Future getImage() async {
+    await ApiHeaders().getData();
+   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+    
+    setState(() {
+      if (pickedFile != null) {
+        image = pickedFile!.path;
+       
+        fileName = pickedFile!.path.split('/').last;
+         
+       
+      
+      } else {
+        print('No image selected.');
+      }
+    });
+      try {
+          dio.FormData formData = dio.FormData.fromMap({          
+            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          });
+          Get.find<AdPostingController>().uploadAdImage(formData); 
+        } catch (e) {
+
+        }
   }
    adpost(){
     json = {
@@ -126,7 +157,7 @@ var id ;
           builder:(val) {
             print(val.datacateg);
             return 
-             activeStep == 0 ? istStep(val.datacateg) :
+             activeStep == 0 ? istStep(val.datacateg,val.datacategTypes) :
              activeStep == 1 ? secondStep() : 
              activeStep ==2 ?  thirdStep() : Container();
             
@@ -273,7 +304,8 @@ var id ;
   //       return 'Introduction';
   //   }
 
-Widget istStep(List list){
+Widget istStep(List list,List types){
+  // print("......,,,,,..-----$types");
   return  Form(
     key: _formKey,
     child: Column(
@@ -303,18 +335,21 @@ Widget istStep(List list){
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
-                        items: list.map((coun) {
+                        items: types.map((coun) {
+                          
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun['category_name'])
+                            child:Text(coun!['category'][lang])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adCategory;
                           setState(() {
                             adCategory = val as Map;
-                            selectedCategory = adCategory['category_name'];
-                            type = adCategory['sub_categories'];
+                            // print("CCCCCAAAAAAA-----${adCategory['category_listing_types']}");
+                            selectedCategory = adCategory['category'][lang];
+                            type = adCategory['category_listing_types'];
+                             
                             selectedtype = 'Type';
                           });
                         },
@@ -346,16 +381,17 @@ Widget istStep(List list){
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: type.map((coun) {
+                          // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['category_name'])
+                            child:Text(coun!['type'][lang])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['category_name'];
+                            selectedtype = adsubCategory['type'][lang];
                             subtypeId =adsubCategory['id'];
                             print(subtypeId);
                             
@@ -502,9 +538,9 @@ Widget istStep(List list){
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        pickImage();
+                        getImage();
                       },
-                      child: Image.asset(AppImages.uploadImage,height: 90,)),
+                      child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
                   ),
                 ),
               ),
@@ -622,7 +658,7 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        Image.asset(AppImages.sampleImage),
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
         
         Card(
           child: Column(
