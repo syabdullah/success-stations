@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/auth/advertise.dart';
@@ -42,6 +43,7 @@ const String adViewTab = "/adViewTab";
 const String notification = '/notification';
 const String friReq = '/friReq';
 const String addOffers = '/addedOffer';
+const String favPage = '/favourities';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -75,8 +77,10 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => Language());
         case country:
         return MaterialPageRoute(builder: (_) => Ccountry());
-        case becomeMember : 
+        case becomeMember: 
         return MaterialPageRoute(builder: (_) => BecomeMember());
+        case favPage:
+        return MaterialPageRoute(builder: (_) => FavouritePage());
         case forgot:
         return MaterialPageRoute(builder: (_) => ForgotPassword());
         case aboutUs:

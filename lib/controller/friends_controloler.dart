@@ -148,6 +148,7 @@ class FriendsController extends GetxController {
   }
   
   profileAdsRemove(id,userId) async{
+    print(".........remove...$userId.......App.........$id");
     isLoading = true ;
     await removeAdsFav(id).then((res) {
       removeAds = jsonDecode(res.body);

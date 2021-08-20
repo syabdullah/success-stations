@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 
 class AddLocations extends StatefulWidget {
@@ -20,7 +19,7 @@ class _AddLocationsState extends State<AddLocations> {
   Widget build(BuildContext context) {
     return Scaffold(
     bottomSheet: Container(
-      height:Get.height/2.2,
+      height:Get.height/1.8,
       width: Get.width,
       decoration: BoxDecoration(
         color: Colors.blue,

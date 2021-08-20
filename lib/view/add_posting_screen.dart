@@ -339,7 +339,7 @@ Widget istStep(List list,List types){
                           
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['category']['en'])
+                            child:Text(coun!['category'][lang])
                           );
                         }).toList(),
                           onChanged: (val) {
@@ -347,7 +347,7 @@ Widget istStep(List list,List types){
                           setState(() {
                             adCategory = val as Map;
                             // print("CCCCCAAAAAAA-----${adCategory['category_listing_types']}");
-                            selectedCategory = adCategory['category']['en'];
+                            selectedCategory = adCategory['category'][lang];
                             type = adCategory['category_listing_types'];
                              
                             selectedtype = 'Type';
@@ -384,14 +384,14 @@ Widget istStep(List list,List types){
                           // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['type']['en'])
+                            child:Text(coun!['type'][lang])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type']['en'];
+                            selectedtype = adsubCategory['type'][lang];
                             subtypeId =adsubCategory['id'];
                             print(subtypeId);
                             

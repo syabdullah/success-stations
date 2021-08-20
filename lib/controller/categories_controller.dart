@@ -25,6 +25,7 @@ class CategoryController extends GetxController {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
       datacateg = subCat['data'];
+      print(datacateg);
      isLoading = false;
     });
     

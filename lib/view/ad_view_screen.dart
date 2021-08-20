@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/custom_list.dart';
@@ -20,8 +22,29 @@ class AdViewScreen extends StatefulWidget {
 class _AdViewScreenState extends State<AdViewScreen> {
   TextEditingController textEditingController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final adpostingController = Get.put(AdPostingController());
+  GetStorage box = GetStorage();
+  var id,adId;
+  String? comment;
+   @override
+  void initState() {
+    super.initState();
+    id = box.read('user_id');
+    adId = Get.arguments;
+    // adpostingController.commentPost();
+  }
+  postComment() {
+    var json = {
+      'listing_id':adId,
+      'comment': comment,
+      'user_name_id':id
+    };
+    print(json);
+    adpostingController.commentPost(json);
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
        key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
@@ -83,7 +106,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
        ),
     );
   }
-}
+
 
 
 Widget listTileRow(){
@@ -203,7 +226,9 @@ Widget commentButton() {
       )
     )
   ),
-    onPressed:  () { },
+    onPressed:  () {
+      postComment();
+     },
       child: Text('add_a_comment'.tr),
       ),
     );
@@ -241,6 +266,11 @@ Widget commentInput(){
       }
       return null;
     },
+    onChanged: (val) {
+      setState((){
+        comment = val;
+      });
+    },
     style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
     decoration:InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 80.0),
@@ -251,4 +281,6 @@ Widget commentInput(){
       ),
     ) ,
   );
+}
+
 }

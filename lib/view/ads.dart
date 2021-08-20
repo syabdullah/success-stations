@@ -7,19 +7,13 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 
 
-  final List<String> imgList = [
-  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-];
+   List<String> imgList = [];
 
 class AdsView extends StatefulWidget {
   _AdsViewState createState() => _AdsViewState();
@@ -28,20 +22,34 @@ class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
+  final banner = Get.put(BannerController());
   
   @override
   Widget build(BuildContext context) {
+    
     print("........${Get.width}");
     return ListView(
       padding: EdgeInsets.symmetric(horizontal:20),
       children: [
-         carosalImage(),
+          GetBuilder<BannerController>(
+            init: BannerController(),
+            builder: (data){
+              print(data.bannerData);
+              imgList = [];
+              if(data.bannerData != null)
+              for(int i=0; i < data.bannerData['data'].length; i++) {
+                imgList.add(data.bannerData['data'][i]['image']['url']);
+              }
+              return data.bannerData != null ?carosalImage(imgList) : 
+                  Center(heightFactor: 2, child: CircularProgressIndicator());
+            }),
          text("advertisingCategories".tr,"all".tr),
          GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
               return data.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.datacateg) : Container();
-            }),
+            }
+          ),
          text("FeaturedAds".tr,"all".tr), 
          GetBuilder<MyAddsController>(
             init: MyAddsController(),
@@ -53,17 +61,61 @@ class _AdsViewState extends State<AdsView> {
             init: CategController(),
             builder: (data){
               return data.dataListing != null ?  advertisingList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.dataListing['data']): Container();
-            })
+            }),
+           
          
       ],
     );
   }
-
-  Widget carosalImage() {
+  // Widget myList(){
+  //   return ListView.builder(itemBuilder: itemBuilder)
+  // }
+  Widget carosalImage(data) { 
+    print(imgList);
     return Column(
       children: [
         CarouselSlider(
-          items: imageSliders,
+          items: data
+          .map<Widget>((item) => Container(
+          child: Container(
+            margin: EdgeInsets.all(5.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+                children: <Widget>[
+                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                  // Positioned(
+                  //   bottom: 0.0,
+                  //   left: 0.0,
+                  //   right: 0.0,
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       gradient: LinearGradient(
+                  //         colors: [
+                  //           Color.fromARGB(200, 0, 0, 0),
+                  //           Color.fromARGB(0, 0, 0, 0)
+                  //         ],
+                  //         begin: Alignment.bottomCenter,
+                  //         end: Alignment.topCenter,
+                  //       ),
+                  //     ),
+                  //     padding: EdgeInsets.symmetric(
+                  //         vertical: 10.0, horizontal: 20.0),
+                  //     child: Text(
+                  //       'No. ${imgList.indexOf(item)} image',
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 20.0,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              )
+            ),
+          ),
+        )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             viewportFraction: 0.9*1.1,
@@ -115,7 +167,7 @@ class _AdsViewState extends State<AdsView> {
   }
 
   advertisingList(conHeight,imageW,imageH,data) {
-    // print("-----------------$data");
+    print("-----------------$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
@@ -150,7 +202,7 @@ class _AdsViewState extends State<AdsView> {
   }
 
   featuredAdsList(data) {
-    print("..................>$data");
+    // print("..................>$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
@@ -225,47 +277,4 @@ class _AdsViewState extends State<AdsView> {
       ),
     );
   }
-
 }
-
-final List<Widget> imageSliders = imgList
-    .map((item) => Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-          ),
-        ))
-    .toList();

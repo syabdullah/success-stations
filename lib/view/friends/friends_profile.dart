@@ -40,7 +40,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         body: GetBuilder<FriendsController>(
           init: FriendsController(),
           builder:(val) { 
-            print(val.friendProfileData['data']);
+            // print(val.friendProfileData['data']);
             return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
               child:Container(
                 margin: EdgeInsets.only(top: 20),
