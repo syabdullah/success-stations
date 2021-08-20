@@ -8,11 +8,9 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -124,7 +122,7 @@ var id ;
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            print(val.datacateg);
+            print("...................JJ ${val.datacateg}");
             return 
              activeStep == 0 ? istStep(val.datacateg) :
              activeStep == 1 ? secondStep() : 
@@ -306,15 +304,15 @@ Widget istStep(List list){
                         items: list.map((coun) {
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun['category_name'])
+                            child:Text(coun['category']['en'])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adCategory;
                           setState(() {
                             adCategory = val as Map;
-                            selectedCategory = adCategory['category_name'];
-                            type = adCategory['sub_categories'];
+                            selectedCategory = adCategory['category']['en'];
+                            type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
                           });
                         },
@@ -348,7 +346,7 @@ Widget istStep(List list){
                         items: type.map((coun) {
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['category_name'])
+                            child:Text(coun!['type']['en'])
                           );
                         }).toList(),
                           onChanged: (val) {

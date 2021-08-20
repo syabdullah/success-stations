@@ -329,7 +329,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     return Expanded(
       child: ListView.builder(
             itemCount: adsData != null ? adsData.length:0,
-            itemBuilder: (BuildContext,index) {
+            itemBuilder: (BuildContext context,index) {
               return adsData != null ? GestureDetector(
                 onTap: (){
                   

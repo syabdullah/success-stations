@@ -3,11 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
-import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/bottom_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class MapView extends StatefulWidget {
   const MapView({ Key? key }) : super(key: key);
@@ -60,7 +57,6 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     print(Get.height);
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
     //  bottomNavigationBar: CustomBottomBar(),
     //   appBar: 

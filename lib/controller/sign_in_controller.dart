@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/sign_in_action.dart';
 import 'package:success_stations/action/social_register.dart';
-import 'package:success_stations/utils/routes.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();

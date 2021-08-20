@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class FavouritePage extends StatefulWidget {

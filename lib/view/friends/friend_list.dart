@@ -6,8 +6,6 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/responsive.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 
@@ -102,7 +100,7 @@ class _FriendListState extends State<FriendList> {
    
     return ListView.builder(
       itemCount: dataa.length,
-      itemBuilder: (BuildContext,index) {
+      itemBuilder: (BuildContext context,index) {
         // print("......//'''''${dataa.length}.......----.${dataa[4]['user_requisted']['image']}");
         return 
         dataa[index]['status'] == "Accepted" ? 

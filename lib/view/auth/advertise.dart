@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/aboutController.dart';
+import 'package:success_stations/controller/adwithus_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -14,11 +17,31 @@ class AdvertisePage extends StatefulWidget {
   AdvertiseStatePage createState() => AdvertiseStatePage();
 }
 class AdvertiseStatePage extends State<AdvertisePage> {
-    FocusNode textSecondFocusNode = new FocusNode();
-
-  TextEditingController emailController = TextEditingController();
   
+    FocusNode textSecondFocusNode = new FocusNode();
+   final adwithme = Get.put(AdWithUsController());
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController writeController = TextEditingController();
   final formKey = new GlobalKey<FormState>();
+  var json;
+  mydata(){
+     final form = formKey.currentState;
+    if(form!.validate()){
+      form.save();
+    json = {
+      'name':nameController.text,
+      'phone':phoneController.text,
+      'description':writeController.text
+
+    };
+    adwithme.sendingAdsWithUs(json);
+    print('${nameController.text}',);
+  }
+  }
+  
+  
+ 
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
@@ -35,6 +58,13 @@ class AdvertiseStatePage extends State<AdvertisePage> {
           key: formKey,
           child: Column(
             children: [
+              GetBuilder<AboutController>( 
+          init: AboutController(),
+          builder:(val) {
+            return val.aboutData != null  ? text(val.aboutData['data']) : Center(child: CircularProgressIndicator());
+    
+          }   
+     ),
               space50, 
               // Container(
               //   margin: EdgeInsets.only(top: 60),
@@ -44,22 +74,34 @@ class AdvertiseStatePage extends State<AdvertisePage> {
               //     ),
               //   ),
               // ),
-              space10,
-              text(),
-              space50,
+              // space10,
+              // text(),
+              // space50,
               name(),
               space20,
               phoneNumber(),
               space20,
               textArea(),
               space20,
-              submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
-                buttonText: "send".tr,
-                fontSize: 18.toDouble(),
-                callback: navigateToHomeScreen
+              Container(
+                height: 50,
+                width: 300,
+                child: RaisedButton(
+                  onPressed: (){
+                    mydata();
+                  },
+                  color: AppColors.appBarBackGroundColor,
+                  textColor: Colors.white,
+                  child: Text('send'.tr),
+                ),
               ),
+              // submitButton(
+              //   bgcolor: AppColors.appBarBackGroundColor,  
+              //   textColor: AppColors.appBarBackGroun,
+              //   buttonText: "send".tr,
+              //   fontSize: 18.toDouble(),
+              //   callback: mydata()
+              // ),
             ],
           ),
         ),
@@ -78,22 +120,37 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {}, 
         onFieldSubmitted: (value) { },
-        textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        textController: nameController,
+        validator: (value) => value.isEmpty ? 'Enter The Name':null,
         errorText: '',
       ),
     );
   }
-  Widget text() {
-    return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      // width: Get.width * 0.9,
-      child: Column(
-        children: [
-          Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-
-      ],)
-    );
+  Widget text(data) {
+    return
+  Container(
+    height:Get.height/2.5,
+    child: ListView.builder(
+    itemCount:  data.length!= null ? data.length : Container(),
+    // ignore: non_constant_identifier_names
+    itemBuilder: (BuildContext,index) {
+      
+      return 
+      index == 1 ?
+       Padding(
+         padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+         
+         child:Html(data: data[index]['page_text']),
+        //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
+        //     style: AppTextStyles.appTextStyle(
+        //     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+        //  ),),
+        )
+        :Container();
+      }
+     ),
+  );
+ 
   }
   Widget phoneNumber() {
     return Container(
@@ -107,8 +164,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {}, 
         onFieldSubmitted: (value) { },
-        textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        textController: phoneController,
+        validator: (value) => value.isEmpty ? 'Enter The Phone':null,
         errorText: '',
       ),
     );
@@ -121,11 +178,12 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     width:Get.width/1.0,
     margin: EdgeInsets.all(12),
     height: maxLines * 24.0,
-    child: TextField(
+    child: TextFormField(
       maxLines: maxLines,
+      controller: writeController ,
+        validator: (value) => value!.isEmpty ? 'Enter some text':null,
       decoration: InputDecoration(
         focusColor: Colors.grey,
-        
          border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.black),
             borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -134,26 +192,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         fillColor:AppColors.inputColor,
         filled: true,
       ),
+      
     ),
   );
+ }
 }
-  //  }
-   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
-    return AppButton(
-      buttonText: buttonText, 
-      callback: callback,
-      bgcolor: bgcolor,
-      textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
-      fontSize: fontSize,    
-      // borderColor: borderColor,
-      image: image,
-      width: width,  
-    );
-  }
-  void navigateToHomeScreen() {
-    PageUtils.pushPage(ForgotCode());
-  } 
-}
- 

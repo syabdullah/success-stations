@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/contact_us_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -7,18 +8,31 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
-import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 
 class Contact extends StatefulWidget {
   ContactPageState createState() => ContactPageState();
 }
 class ContactPageState extends State<Contact> {
-  TextEditingController emailController = TextEditingController();
-      FocusNode textSecondFocusNode = new FocusNode();
-
-  
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController writeController = TextEditingController();
+  FocusNode textSecondFocusNode = new FocusNode();
   final formKey = new GlobalKey<FormState>();
+   final contactwithme = Get.put(ContactWithUsController());
+  var json;
+  void contactUsData(){
+      final form = formKey.currentState;
+    if(form!.validate()){
+      form.save();
+      json = {
+        'name' : nameController.text,
+        'phone': phoneController.text,
+        'description': writeController.text,
+      };
+      contactwithme.contactWithUs(json);
+       print('${nameController.text}',);
+  }
+  }
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
@@ -56,7 +70,7 @@ class ContactPageState extends State<Contact> {
                 textColor: AppColors.appBarBackGroun,
                 buttonText: AppString.send,
                 fontSize: 18.toDouble(),
-                callback: navigateToHomeScreen
+                callback: (){contactUsData();}
               ),
             ],
           ),
@@ -76,8 +90,8 @@ class ContactPageState extends State<Contact> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {}, 
         onFieldSubmitted: (value) { },
-        textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        textController: nameController,
+         validator: (value) => value!.isEmpty ? 'Enter some text':null,
         errorText: '',
       ),
     );
@@ -94,8 +108,8 @@ class ContactPageState extends State<Contact> {
         onChanged: (value) {  },
         onSaved: (String? newValue) {}, 
         onFieldSubmitted: (value) { },
-        textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Insert valid email':null,
+        textController: phoneController,
+        validator: (value) => value!.isEmpty ? 'Enter some text':null,
         errorText: '',
       ),
     );
@@ -108,11 +122,12 @@ class ContactPageState extends State<Contact> {
     width:Get.width/1.0,
     margin: EdgeInsets.all(12),
     height: maxLines * 24.0,
-    child: TextField(
+    child: TextFormField(
+      validator: (value) => value!.isEmpty ? 'Enter some text':null,
+      controller: writeController,
       maxLines: maxLines,
       decoration: InputDecoration(
         focusColor: Colors.grey,
-        
          border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.black),
             borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -139,8 +154,5 @@ class ContactPageState extends State<Contact> {
       width: width,  
     );
   }
-  void navigateToHomeScreen() {
-    PageUtils.pushPage(ForgotCode());
-  } 
 }
  

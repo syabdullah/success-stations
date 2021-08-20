@@ -124,7 +124,6 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-     ;
       isLoading = false;
     });
     update();

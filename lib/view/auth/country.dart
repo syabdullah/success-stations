@@ -5,9 +5,6 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
-import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
 class Ccountry extends StatefulWidget {

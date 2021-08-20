@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -16,7 +15,6 @@ class AddOffersPage extends StatefulWidget {
 }
 
 class AddOffersState extends State<AddOffersPage> {
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    final catogoryController = Get.put(CategoryController());
     final adpostingController = Get.put(AdPostingController());
   int activeStep = 0;
