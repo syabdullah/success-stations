@@ -36,7 +36,6 @@ class _AllAddsState extends State<AllAdds> {
     controller.addedAllAds();
     catCont.getCategoryTypes();
     lang = box.read('lang_code');
-    print("LLLLLLLAAAAA------$lang");
   }
   @override
   Widget build(BuildContext context) {
@@ -347,10 +346,11 @@ void _adsfiltringheet() {
   
 
   Widget myAddsList(allDataAdds) {
-    print("........-------======---------......$allDataAdds");
+  
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
+          print("........-------======---------......${allDataAdds[index]['image'].length}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(),arguments:allDataAdds[index]['id']);
@@ -369,8 +369,12 @@ void _adsfiltringheet() {
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
-                              child: Image.asset(
-                                AppImages.profileBg
+                              child: 
+                              allDataAdds[index]['image'].length != 0 ? 
+                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fitHeight,) :
+                               Image.asset(
+                                AppImages.profileBg,
+                                width: Get.width/4
                               ),
                             ),
                           )

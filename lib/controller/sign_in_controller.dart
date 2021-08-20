@@ -22,12 +22,13 @@ class LoginController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400 ) {
          box.write('access_token',logindata['data']['token']);
          print("..././///////////${logindata['data']['token']}.................${res.body}");
-        box.write('email',logindata['data']['email']);
-        box.write('name',logindata['data']['name']);
+        box.write('email',logindata['data']['user']['email']);
+        box.write('name',logindata['data']['user']['name']);
+        box.write('user_image',logindata['data']['user']['image']);
         box.write('user_id',logindata['data']['user_id']);
         resultInvalid(false);
         isLoading(false);
-        Get.toNamed('/tabs');
+        Get.offAndToNamed('/tabs');
       } else if(logindata['success'] == false) {
         resultInvalid(true);
         isLoading(false);

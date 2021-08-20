@@ -21,6 +21,7 @@ class _MapViewState extends State<MapView> {
   var listtype = 'map'; 
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
+  
    Widget topWidget() {
     return Padding(
       padding: const EdgeInsets.all(8.0),

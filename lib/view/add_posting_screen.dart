@@ -74,12 +74,8 @@ var lang;
     
     setState(() {
       if (pickedFile != null) {
-        image = pickedFile!.path;
-       
-        fileName = pickedFile!.path.split('/').last;
-         
-       
-      
+        image = pickedFile!.path;      
+        fileName = pickedFile!.path.split('/').last;  
       } else {
         print('No image selected.');
       }

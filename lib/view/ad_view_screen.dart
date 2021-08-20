@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/custom_list.dart';
@@ -23,15 +26,23 @@ class _AdViewScreenState extends State<AdViewScreen> {
   TextEditingController textEditingController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final adpostingController = Get.put(AdPostingController());
+  final adDetailCont = Get.put(MyAddsController());
+  final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
   var id,adId;
-  String? comment;
+  var lang;
+  String? comment,myName;
+  var user_image;
    @override
   void initState() {
     super.initState();
     id = box.read('user_id');
+    lang = box.read('lang_code');
+    myName = box.read('name');
+    user_image = box.read('user_image');
     adId = Get.arguments;
-    // adpostingController.commentPost();
+    adDetailCont.adsDetail(adId);
+
   }
   postComment() {
     var json = {
@@ -57,12 +68,16 @@ class _AdViewScreenState extends State<AdViewScreen> {
        body: SingleChildScrollView(
          child: Padding(
            padding: const EdgeInsets.symmetric(horizontal: 5),
-           child: Column(
+           child: 
+           GetBuilder<MyAddsController>(
+          init: MyAddsController(),
+          builder: (val) {
+          return val.adsD == null ? Container(): Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-             ThirdStep(),
+             titleStep(val.adsD['data']),
              SizedBox(height: 10.h,),
-             listTileRow(),
+             listTileRow(val.adsD),
               SizedBox(height: 14.h,),
               Text('ad_posted_at'.tr,
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
@@ -72,25 +87,12 @@ class _AdViewScreenState extends State<AdViewScreen> {
               SizedBox(height: 10.h,),
               commentButton(),
               SizedBox(height: 5.h,),
-              Text("3 People Commented on this ad.",
+              Text("${val.adsD['data']['listing_comments'].length} People Commented on this ad.",
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
               SizedBox(height: 3.h,),
-              CustomListTiles(
-                title:listTileRow2(),
-                
-              ),
-              SizedBox(height: 3.h,),
-              CustomListTiles(
-                title:listTileRow2(),
-                
-              ),
-              SizedBox(height: 3.h,),
-              CustomListTiles(
-                title:listTileRow2(),
-               
-              ),
+              listTileRow2(val.adsD['data']['listing_comments']),
               SizedBox(height: 8.h,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,6 +103,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
               ),
               SizedBox(height: 8.h,),
             ],
+           );
+          }
            ),
          )
        ),
@@ -108,8 +112,96 @@ class _AdViewScreenState extends State<AdViewScreen> {
   }
 
 
-
-Widget listTileRow(){
+Widget titleStep(data) {
+  var htmldata =
+        """ <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+          ${data['description'][lang]}
+    """;
+  return 
+  Column(
+      children: [
+        data['image'].length != 0 ? 
+        Image.network(data['image'][0]['url']):
+        Image.asset(AppImages.sampleImage),
+        
+        Card(
+          child: Column(
+            children: [
+              Padding(
+                 padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(data['title'][lang],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                    Text(data['contact_name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 15.h,),
+                      Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(data['city']['city'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
+                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(data['phone'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
+                       Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
+                      
+                    ],
+                  ),
+                   Container(
+                     margin: EdgeInsets.only(right: 20),
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 15.h,),
+                        Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                        Text(data['type'] != null ?data['type']['type'][lang]:'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 15.h,),
+                         Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                        Text(data['status'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 10.h),
+                        
+                      ],
+                      ),
+                   ),
+                ],
+              )
+            ],
+          ),
+        ),
+      Card(
+        child:Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+            SizedBox(height:5.h),
+            Html(data: htmldata)
+            // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
+            // textAlign: TextAlign.justify,
+            // style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
+          ],
+        ),
+       ),
+      ),
+    ],
+   );
+}
+Widget listTileRow(data){
   return ListTile(
     title: Row(
       children: [
@@ -118,7 +210,9 @@ Widget listTileRow(){
         radius: 30.0,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
-          child:Image.asset(
+          child: user_image != null ? 
+          Image.network(user_image) :
+          Image.asset(
             AppImages.profile,
           ),
         )
@@ -128,7 +222,7 @@ Widget listTileRow(){
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("User Name",style:
+            Text(myName.toString(),style:
               AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
               ),
             ),
@@ -149,61 +243,78 @@ Widget listTileRow(){
   );
 }
 
-Widget listTileRow2(){
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+Widget listTileRow2(data) {
+  return Container(
+    height: Get.height/3.5,
+    child: ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context,index) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-            backgroundColor: Colors.white54,
-            radius: 30.0,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50.0),
-              child:Image.asset(
-                AppImages.profile,
-              ),
-            )
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left:8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text("User Name",style:
-                  AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
-                  ),
+                CircleAvatar(
+                backgroundColor: Colors.white54,
+                radius: 30.0,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: data[index]['media'] != null ? 
+                  Image.network(
+                    data[index]['media']['url']
+                  ):Image.asset(AppImages.profile)
+                )
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left:8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(data[index]['user_name']['name'],style:
+                      AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+                      ),
+                    ),
+                      Text(data[index]['comment'][lang],style:
+                      AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
-                  Text("comment will be seen here.",style:
-                  AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
-                  ),
-                ),
+              )
               ],
             ),
-          )
+            mytraling(data[index])
           ],
         ),
-        mytraling()
-      ],
+      );
+      }
     ),
   );
 }
-Widget mytraling(){
+Widget mytraling(idU){
   return Column(
     children: [
-      Row(
-        children: [
-          Image.asset(AppImages.flag),
-          SizedBox(width: 4.w,),
-          Text(AppString.report,
-            style:AppTextStyles.appTextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey,
-           )
-         )       
-        ],
+      GestureDetector(
+        onTap: () {
+          var json = {
+            'user_reported' : idU['user_name']['id']
+          };
+          friCont.userReport(json,null);
+        },
+        child: Row(
+          children: [
+            Image.asset(AppImages.flag),
+            SizedBox(width: 4.w,),
+            Text(AppString.report,
+              style:AppTextStyles.appTextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey,
+             )
+           )       
+          ],
+        ),
       ),
-      Text( "09-07-2020 12:00",
+      Text(idU['created_at'],
         style:AppTextStyles.appTextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: Colors.grey,
         )
       ),
@@ -245,7 +356,16 @@ Widget commentButton() {
         textStyle: TextStyle(
         fontSize: 12.h,
         fontWeight: FontWeight.bold)),
-        onPressed: () {}, 
+        onPressed: () {
+          if(text == AppString.fav) {
+          var json = {
+            'ads_id' : adId
+          };
+          friCont.profileAdsToFav(json,null);
+          } else {
+            Get.toNamed('/contact');
+          }
+        }, 
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

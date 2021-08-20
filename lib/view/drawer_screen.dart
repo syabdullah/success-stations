@@ -34,7 +34,7 @@ class _AppDrawerState extends State<AppDrawer> {
   // name  = box.read('name');
   @override
   Widget build(BuildContext context) {
-    image = box.read('image');
+    image = box.read('user_image');
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
