@@ -103,7 +103,7 @@ var lang;
     'email': emailController.text
   };
   print("..................$json");
- adpostingController.finalAdPosting(json);
+  adpostingController.finalAdPosting(json);
   }
   @override
   Widget build(BuildContext context) {

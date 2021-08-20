@@ -8,6 +8,7 @@ import 'package:success_stations/action/report_user_action.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 
 class FriendsController extends GetxController {
+  // final repetedCon = Get.put(FriendsController());
   List countryListdata = [];
   bool isLoading = false; 
   var friendsData;
@@ -125,7 +126,7 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-     ;
+     
       isLoading = false;
     });
     update();
@@ -148,16 +149,19 @@ class FriendsController extends GetxController {
     update();
   }
   
-  profileAdsRemove(id,userId) async{
-    print(".........remove...$userId.......App.........$id");
+  profileAdsRemove(id) async{
+    print(".........remove..........App.........$id");
     isLoading = true ;
     await removeAdsFav(id).then((res) {
       removeAds = jsonDecode(res.body);
+      print("remove adds ..........remove adds......$removeAds");
       if(removeAds['success'] == true) {
-        profileAds(userId);
+        print(".....!!!!!!!!!!!!!!!!!!!!!!if Condition");
+        // profileAds(userId);
         SnackBarWidget().showToast("", removeAds['message']); 
       }
-       print("/././././.-----$userAds");
+      // Get.off(repetedCon);
+      //  print("/././././.-----$userAds");
       isLoading = false;
     });
     update();
