@@ -78,6 +78,7 @@ class _AppDrawerState extends State<AppDrawer> {
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
+
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -214,7 +215,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                           Get.off(Contact())
+                           Get.to(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),

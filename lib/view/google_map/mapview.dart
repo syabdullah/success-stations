@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 
@@ -15,6 +16,13 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   static final kInitialPosition = LatLng(-33.8567844, 151.213108);
+     final banner = Get.put(BannerController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    banner.bannerController();
+    super.initState();
+  }
   var listtype = 'map'; 
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 

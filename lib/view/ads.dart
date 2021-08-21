@@ -184,7 +184,7 @@ class _AdsViewState extends State<AdsView> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: data.length,
-        itemBuilder: (BuildContext,index) {
+        itemBuilder: (BuildContext context,index) {
           return Column(
             children: [
               Card(

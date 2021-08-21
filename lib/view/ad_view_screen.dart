@@ -150,7 +150,7 @@ Widget titleStep(data) {
                       SizedBox(height: 15.h,),
                        Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),
-                      Text(data['phone'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      Text(data['phone'] != null ?data['phone']:'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                       SizedBox(height: 15.h,),
                        Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),

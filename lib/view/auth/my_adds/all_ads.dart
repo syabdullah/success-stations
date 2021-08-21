@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -29,10 +30,13 @@ class _AllAddsState extends State<AllAdds> {
   Color listIconColor = Colors.grey;
   GetStorage box = GetStorage();
   var lang ;
+     final banner = Get.put(BannerController());
+
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
+     banner.bannerController();
     controller.addedAllAds();
     catCont.getCategoryTypes();
     lang = box.read('lang_code');

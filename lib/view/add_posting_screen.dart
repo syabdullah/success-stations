@@ -537,7 +537,7 @@ Widget istStep(List list,List types){
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        getImage();
+                        // getImage();
                       },
                       child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
                   ),

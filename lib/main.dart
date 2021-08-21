@@ -43,6 +43,8 @@ class SuccessApp extends StatelessWidget {
         theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
           //  home: AddOffersPage(),
         initialRoute: auth == null ?  '/langua' : '/tabs' ,
+        // initialRoute:  '/langua' ,
+
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
       ),
