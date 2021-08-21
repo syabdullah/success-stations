@@ -36,21 +36,18 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   removeFvr8z(){
-    var reJson = {
+    setState(() {
+      var reJson = {
       'ads_id': listingIdRemoved
 
     };
     remoControllerFinal.removedAddsUnFvr8(reJson);
+    fContr.favoriteList();
+    });
+    
+    
 
   }
-  // var removeJson = {
-  //                   'ads_id': listFavourite[c]['listing_id'],
-  //                 };
-  //                 print("Remove data.....listed..........$removeJson");
-  //                 friCont.profileAdsRemove(removeJson);
-  //                 // fContr.favoriteList();
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +69,12 @@ class _FavouritePageState extends State<FavouritePage> {
               builder: (val) {
                 return val.fvr8DataList !=null ? Column(
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
-                ): ListView(
-                  children: [
-                    Container(child: Text("No Favourite Availble"),)
-                  ],
-                );
+                ): 
+                Container(
+                  margin:EdgeInsets.only(top:100),
+                  alignment: Alignment.topCenter,
+                  child: Center(child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)),
+               );
               },
             ) 
           ],
@@ -126,18 +124,12 @@ class _FavouritePageState extends State<FavouritePage> {
   
   List<Widget> myAddsList(listFavourite) {
     List<Widget> favrties = [];
-    // if(listFavourite == null){
-      // Container(child: Text("NO Favourite List Yet"),);
-    // }
     if(listFavourite.length !=null || listFavourite!=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
-        listingIdRemoved = listFavourite[c]['listing_id'];
-        print("listFavourite............ listing ID...........${listFavourite[c]['listing_id']}");
+        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['id'] !=null){
+          listingIdRemoved = listFavourite[c]['listing']['id'];
 
-        if(listFavourite[c]['listing'] !=null){
-          for(int ima = 0; ima < listFavourite[c]['listing']['image'].length; ima++){
-            imageUploaded = listFavourite[c]['listing']['image'][ima]['url'];
-          }
+         print("listFavourite............ listing ID...........$listingIdRemoved");
           favrties.add(
             Card(
               child: Container(
@@ -181,12 +173,12 @@ class _FavouritePageState extends State<FavouritePage> {
                                   children: [
                                   Icon(Icons.location_on, color:Colors.grey),
                                   Container(
-                                    child: Text(
+                                    child:listFavourite[c]['user_name']['address'] !=null ?  Text(
                                       listFavourite[c]['user_name']['address'],
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
-                                    ),
+                                    ): Container()
                                   )
                                   ],
                                 ),
@@ -202,8 +194,8 @@ class _FavouritePageState extends State<FavouritePage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, right: 10),
                           child: ClipOval(
-                            child: imageUploaded !=null ?Image.network(
-                              imageUploaded,
+                            child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
+                              listFavourite[c]['user_name']['image'],
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
@@ -220,16 +212,6 @@ class _FavouritePageState extends State<FavouritePage> {
                                 GestureDetector(
                                   onTap: (){
                                     removeFvr8z();
-                                    // setState(() {
-                                    //   print("Red hearttttttttt clickeeed");
-                                    //   var removeJson = {
-                                    //     'ads_id': listFavourite[c]['listing_id'],
-                                    //   };
-                                    //   print("Remove data.....listed..........$removeJson");
-                                    //   friCont.profileAdsRemove(removeJson);
-                                    //   // fContr.favoriteList();
-
-                                    // });
                                   },
                                   child: Image.asset(AppImages.redHeart,height:30)
                                 ): null,
@@ -283,22 +265,22 @@ class _FavouritePageState extends State<FavouritePage> {
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
-                          child: Text( 
+                          child: listFavourite[index]['user_name']['name']  !=null ? Text( 
                             listFavourite[index]['user_name']['name'],
-                          )
-                        ), 
+                          ): Container()
+                        ),
                         Expanded(
                           flex: 2,
                           child:  Row(
                             children: [
                               Icon(Icons.location_on, color:Colors.grey),
                               Container(
-                                child: Text(
+                                child: listFavourite[index]['user_name']['address'] !=null ? Text(
                                  listFavourite[index]['user_name']['address'],
                                   style: TextStyle(
                                     color: Colors.grey[300]
                                   ),
-                                ),
+                                ):Container()
                               )
                             ],
                           ),

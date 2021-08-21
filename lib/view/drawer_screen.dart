@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,6 +43,15 @@ class _AppDrawerState extends State<AppDrawer> {
   late String imageP;
   var fileName;
   
+   final banner = Get.put(BannerController());
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    banner.bannerController();
+    super.dispose();
+
+  }
   // var name  = '';
   // name  = box.read('name');
    @override
@@ -49,6 +59,7 @@ class _AppDrawerState extends State<AppDrawer> {
     super.initState();
     image = box.read('user_image');
     imageP = box.read('user_image_local').toString();
+    banner.bannerController();
     print("........................YYYYYYYYYYYY$imageP");
   }
    Future getImage() async { 
@@ -81,6 +92,7 @@ class _AppDrawerState extends State<AppDrawer> {
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
+
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -189,7 +201,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
-                          CustomListTile(AppImages.offers, 'My Offer', () {
+                          CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
                           },15.0 ), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
@@ -217,7 +229,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                           Get.off(Contact())
+                           Get.to(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),

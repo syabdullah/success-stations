@@ -25,9 +25,10 @@ class LoginController extends GetxController {
         box.write('name',logindata['data']['user']['name']);
         box.write('user_image',logindata['data']['user']['image']);
         box.write('user_id',logindata['data']['user_id']);
+         box.write('country_id',logindata['data']['user']['country_id']);
         box.write('city_id',logindata['data']['user']['city_id']);
         box.write('region_id',logindata['data']['user']['region_id']);
-        box.write('country_id',logindata['data']['user']['country_id']);
+       
         // print('.........................................................${Box.read(city_id);}');
         resultInvalid(false);
         isLoading(false);
