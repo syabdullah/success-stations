@@ -158,6 +158,7 @@ Widget googleMap(){
   return Container(
     height: Get.height,
     child: PlacePicker(
+      
       apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
       initialPosition: LatLng(51.507351,-0.127758),
           useCurrentLocation: true,
@@ -181,7 +182,7 @@ Widget googleMap(){
                     SizedBox(height: 15,),
                     Container(
                       padding: EdgeInsets.only(left: 10,right: 10),
-                      child: Text(selectedPlace!.geometry!.viewport.toString()),
+                      child: Text(selectedPlace!.formattedAddress.toString()),
                     ),
                     SizedBox(height:15),
                       Row(
@@ -259,14 +260,14 @@ Widget saveButton(data) {
         fontWeight: FontWeight.bold)),
         onPressed: () { 
           var jsonLoc = {
-            "location":data.geometry!.location,
+            "location":data.geometry!.location.toString(),
             "long":lng,
             "lat":lat,
             "formated_address":data!.formattedAddress,
             "place":data.placeId,
             "street_address":strAdr,
             "postal_code":postCode,
-            "view_port":data.geometry!.viewport,
+            "view_port":data.geometry!.viewport.toString(),
             "country_id":1,
             "city_id":1,
             "region_id":1,

@@ -28,7 +28,7 @@ class LoginController extends GetxController {
         box.write('user_id',logindata['data']['user_id']);
         resultInvalid(false);
         isLoading(false);
-        Get.offAndToNamed('/tabs');
+        Get.offAllNamed('/tabs');
       } else if(logindata['success'] == false) {
         resultInvalid(true);
         isLoading(false);

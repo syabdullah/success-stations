@@ -25,8 +25,7 @@ class _AdsViewState extends State<AdsView> {
   final banner = Get.put(BannerController());
   
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) { 
     print("........${Get.width}");
     return ListView(
       padding: EdgeInsets.symmetric(horizontal:20),
@@ -47,6 +46,7 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
+             
               return data.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.datacateg) : Container();
             }
           ),
@@ -54,7 +54,8 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<MyAddsController>(
             init: MyAddsController(),
             builder: (data){ 
-              return featuredAdsList(data.addsCategoryArray);
+               print("....................................${data.addsCategoryArray.length}");
+              return data.addsCategoryArray.length != 0 ?  featuredAdsList(data.addsCategoryArray) : Container();
             }),
          text('specialofer'.tr,"all".tr),
          GetBuilder<CategController>(
@@ -225,8 +226,8 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                     height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                    child: Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,)
-                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): 
+                     Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                   ),
                 ),
                 Container(
