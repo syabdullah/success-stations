@@ -224,44 +224,39 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Text("name".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         Container(
-                          margin: EdgeInsets.only(top:20,left: 10),
-                          child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
+                          margin: EdgeInsets.only(top: 5),
                           child: Text(userData["name"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                         ), 
                         Container(
-                          
                           margin: EdgeInsets.only(top:25),
-                          child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),               
+                        Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),               
                       ],
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           margin: EdgeInsets.only(top:25),
-                          child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          child: Text('email'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.only(right: 15,top:5),
-                        //   child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
-                        // ), 
+                        Container(
+                          margin: EdgeInsets.only(top:5),
+                          child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
+                        ), 
                         Container(
                           margin: EdgeInsets.only(top:20),
-                          child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
                         userData["address"] != null ?
                         Container(
@@ -280,52 +275,55 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                   
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top:20,left: 10),
-                          child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          margin: EdgeInsets.only(top:25,),
+                          child: Text('university'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData['college']['name'] != null  ?
                         Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
-                          child: Text( userData['college']['name'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
+                          margin: EdgeInsets.only(top:5),
+                          child: Text(userData['university']!= null ? userData['university']['name'] : '',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
+                        ), 
+                        Container(
+                          margin: EdgeInsets.only(top:23,),
+                          child: Text("semester".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        userData["semester"] != null ?
+                        Container(
+                            margin: EdgeInsets.only(bottom:20,top: 5),
+                          child: Text(userData["semester"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                        ):Container()
+                      ],
+                    ),
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top:25,),
+                          child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        ),
+                        userData['college']['college'] != null  ?
+                        Container(
+                          margin: EdgeInsets.only(top: 5,),
+                          child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
                         ):Container(),
                         Container(
                           
-                          margin: EdgeInsets.only(top:25),
-                          child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          margin: EdgeInsets.only(top:20),
+                          child: Text("degree".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
                          userData["degree"] != null ?
                         Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ): Container()            
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top:25),
-                          child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 15,top:5),
-                          child: Text(userData['university']!= null ? userData['university']['name'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
-                        Container(
-                          margin: EdgeInsets.only(top:20),
-                          child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                        ),
-                        userData["degree"] != null ?
-                        Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ):Container()
+                          child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 11.5,)),
+                        ): Container()            
                       ],
                     ),
                   ],
@@ -334,19 +332,22 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             ),
           ),
           Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                  child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
-                ),
-                userData["degree"] != null ?
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                  child: Text(userData["degree"]  )
-                ): Container()
-              ],
+            child: Container(
+              padding: EdgeInsets.only(left:30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                    child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
+                  ),
+                  userData["degree"] != null ?
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                    child: Text(userData["degree"]  )
+                  ): Container()
+                ],
+              ),
             ),
           )
         ],

@@ -89,7 +89,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                 SizedBox(height: 30),
                 Container(
                   margin:EdgeInsets.only(left:10, top: 30),
-                  child: Text("Add New Offer")
+                  child: Text("addnewoffer".tr)
                 ),
              
               ],

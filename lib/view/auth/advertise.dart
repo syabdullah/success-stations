@@ -105,9 +105,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
                 child: RaisedButton(
                   onPressed: (){
                     mydata();
-                    
                     clearTextInput();
-                                        //  Get.back();
                   },
                   color: AppColors.appBarBackGroundColor,
                   textColor: Colors.white,
@@ -246,7 +244,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
-            hintText: "write".tr,
+            hintText: "writeHere".tr,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.grey),

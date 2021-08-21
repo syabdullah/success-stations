@@ -79,7 +79,7 @@ class ContactPageState extends State<Contact> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: AppString.send,
+                buttonText: "send".tr,
                 fontSize: 18.toDouble(),
                 callback: (){
                   contactUsData();
@@ -168,7 +168,7 @@ Widget name() {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
-            hintText: "Write here".tr,
+            hintText: "writeHere".tr,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.grey),

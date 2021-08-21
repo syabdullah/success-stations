@@ -41,7 +41,7 @@ final banner = Get.put(BannerController());
           builder: (val) {
             print("/././././././${val.friendsData}");
             return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0  || val.friendsData == null? Container(
-              child: Text("No Friends! "),
+              child: Text("nofriends".tr),
             ) :  Expanded(
               child: listtype == 'list' ? friendList(val.friendsData['data']) : friendGridView(val.friendsData['data'])
             );
@@ -63,7 +63,7 @@ final banner = Get.put(BannerController());
               children: [
                 Image.asset(AppImages.filter,height: 15),
                 SizedBox(width:5),
-                Text("Filter",style: TextStyle(color: Colors.grey[700]),)
+                Text("filter".tr,style: TextStyle(color: Colors.grey[700]),)
               ],
             ),
           )

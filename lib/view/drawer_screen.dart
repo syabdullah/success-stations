@@ -130,7 +130,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
-                          CustomListTile(AppImages.offers, 'My Offer', () {
+                          CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
                           },15.0 ), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
