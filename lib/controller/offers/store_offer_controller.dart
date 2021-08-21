@@ -7,6 +7,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
 import 'package:dio/src/response.dart' as response;
+import 'package:success_stations/view/offers/my_offers.dart';
 
 class StorePostAddesController extends GetxController {
  bool isLoading = false; 
@@ -15,26 +16,22 @@ class StorePostAddesController extends GetxController {
   @override
   void onInit(){
     isLoading = true;
-    // favoriteList();
     super.onInit();
   }
 
   storefOffersAAll(data) async {
     isLoading = true;
     await storeAddOffer(data).then((response){
-      
       if(response.statusCode == 200 || response.statusCode < 400){
-
-      storedOfferotp = jsonDecode(response.body);
-      print("....stored calling.........$storedOfferotp");
-      print(response.statusCode);
-      isLoading = false;
-      Get.snackbar(storedOfferotp['message'],'',backgroundColor: AppColors.appBarBackGroundColor);
+        storedOfferotp = jsonDecode(response.body);
+        print("....storedJson printed calling.........$storedOfferotp");
+        isLoading = false;
+        Get.snackbar(storedOfferotp['message'],'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.to(OffersDetail());
       }
-      if(response.statusCode >=  400){
-        Get.snackbar("ad no [ossted",'',backgroundColor: AppColors.appBarBackGroundColor);
+      if(response.statusCode >= 400){
+        Get.snackbar("Error Foud",'',backgroundColor: AppColors.appBarBackGroundColor);
       }
-    
     });
     update();
   }
