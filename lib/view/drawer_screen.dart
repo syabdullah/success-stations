@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/banner_controller.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
@@ -19,6 +23,8 @@ import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:success_stations/view/offers/my_offers.dart';
+import 'package:dio/dio.dart' as dio;
+
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -30,25 +36,44 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
-   final banner = Get.put(BannerController());
-  @override
-  void initState() {
-    // TODO: implement initState
-    banner.bannerController();
-    super.initState();
-  }
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    banner.bannerController();
-    super.dispose();
-
-  }
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    XFile? pickedFile;
+  late String imageP;
+  var fileName;
+  
   // var name  = '';
   // name  = box.read('name');
+   @override
+  void initState() {
+    super.initState();
+    image = box.read('user_image');
+  }
+   Future getImage() async { 
+    await ApiHeaders().getData();
+   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+   
+    setState(() {
+      if (pickedFile != null) {
+        imageP = pickedFile!.path;      
+        fileName = pickedFile!.path.split('/').last;  
+      } else {
+        print('No image selected.');
+      }
+    });
+      try {
+          dio.FormData formData = dio.FormData.fromMap({          
+            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          });
+   print("........................YYYYYYYYYYYY");
+          Get.find<AdPostingController>().uploadAdImage(formData); 
+        } catch (e) {
+
+        }
+  }
   @override
   Widget build(BuildContext context) {
-    image = box.read('image');
+    
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -61,30 +86,62 @@ class _AppDrawerState extends State<AppDrawer> {
                       color: Colors.blue,
                       width: Get.width,
                       height: Get.height/4,
-                      child: Stack(
-                        children: [
-                          FractionalTranslation(
-                            translation: const Offset(0.2, 0.8),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white54,
-                              radius: 60.0,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60.0),
-                                child: image != null ? 
-                                Image.network(
-                                  image,
-                                ):Image.asset(AppImages.person)
-                              )
-                            )
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          print("object");
+                        },
+                        child: Stack(
+                          children: [
+                              
+                            GestureDetector(
+                               onTap:() { 
+                                getImage();
+                              },
+                              child: FractionalTranslation(
+                                translation: Get.height > 400 ? const Offset(0.2, 1.3): const Offset(0.2, 0.8),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[200],
+                                  radius: 60.0,
+                                  child:   fileName != null ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                    child: Image.file(File(imageP),fit: BoxFit.fitWidth,)): Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height:30),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(60.0),
+                                        child: image != null ? 
+                                        Image.network(
+                                          image,
+                                        ):
+                                        Image.asset(AppImages.person),
+                                      ),
+                                      
+                                    ],
+                                  )
+                                )
+                              ),
+                            ),
+                           
+                          ],
+                        ),
                       ),
+                    ),
+                     Container(  
+                       margin: EdgeInsets.only(top:25,right: 55),        
+                       child: IconButton(
+                       onPressed: () {
+                         getImage();
+                       },
+                       icon:Icon(Icons.camera_alt,size: 40)
+                       )
+                      // ),
                     ),
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
-                      child: Text('',
-                        // box.read('name'),
+                      child: Text(
+                        box.read('name'),
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),

@@ -176,7 +176,7 @@ final banner = Get.put(BannerController());
         return 
          GestureDetector(
           onTap: (){
-            Get.toNamed('/friendProfile',arguments:data[index]['requister_id']);
+            Get.to(FriendProfile(),arguments: id != data[index]['requister_id'] ?  data[index]['requister_id'] : data[index]['user_requisted']['id']);
           },
           child: Card(
             child: Column(

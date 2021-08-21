@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
 
@@ -12,7 +13,12 @@ class MyLocations extends StatefulWidget {
 
 class _MyLocationsState extends State<MyLocations> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+    final locationCon = Get.put(LocationController());
+  @override
+  void initState() {
+    super.initState();
+    locationCon.getMyLocationToDB();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +55,13 @@ class _MyLocationsState extends State<MyLocations> {
                       ),
                     ),
                   ),
-
-                Expanded(
-                  child: myAddsList()),
+                  GetBuilder<LocationController>(
+                    init: LocationController(),
+                    builder:(val) { 
+                      return val.locData != null ?  Expanded(
+                        child: myAddsList(val.locData['data'])): Container();
+                    }
+                  )
               ],
             )),
         ],
@@ -59,16 +69,16 @@ class _MyLocationsState extends State<MyLocations> {
     );
   }
   
-   Widget myAddsList() {
+   Widget myAddsList(data) {
+     print("........................$data");
     return ListView.builder(
       padding: EdgeInsets.all(5),
-      itemCount: 10,
+      itemCount: data.length,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         return Card(
-          
           child: Container(
-            height: 100,
+            height: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,23 +103,25 @@ class _MyLocationsState extends State<MyLocations> {
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Title number 1',
+                            data[index]['user_name']['name'],
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight:FontWeight.bold
                             ),
                           ),
                           SizedBox(height: 7),
-                          Row(
-                            children: [
-                              // Image.asset(AppImages.location, height:15),
-                              Text("Street 6k, ichra  \n market, Gulberg \n Lahore Pakistan",textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey[400],
+                          Container(
+                            width: Get.width/3.0,
+                            child: 
+                                // Image.asset(AppImages.location, height:15),
+                                Text(data[index]['formated_address'] != null ? data[index]['formated_address']:'',textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey[400],
+                                  ),
                                 ),
-                              ),
-                            ],
+                            //   ],
+                            // ),
                           ),
                           // SizedBox(height: 8),
                           //   Row(
