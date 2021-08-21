@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:success_stations/main.dart';
 import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
@@ -93,7 +92,7 @@ class SuccessStationRoutes {
         case friReq:
         return MaterialPageRoute(builder: (_) => FriendReqList());
       default:
-        return MaterialPageRoute(builder: (_) => BottomTabs());
+        return MaterialPageRoute(builder: (_) => Language());
     }
   }
 }

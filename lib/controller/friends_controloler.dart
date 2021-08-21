@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/friends.dart';
-import 'package:success_stations/action/report_user_action.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 
 class FriendsController extends GetxController {
@@ -17,7 +16,7 @@ class FriendsController extends GetxController {
   var rejReq;
   var suggestionsData;
   var friendProfileData;
-  var userAds,addAd,removeAds,rep;
+  var userAds,addAd,removeAds;
   
   @override
   void onInit() { 
@@ -135,9 +134,9 @@ class FriendsController extends GetxController {
     print("/././././.-----$id");
     isLoading = true ;
     await addAdsFav(id).then((res) {
-      addAd = jsonDecode(res.body);     
+      addAd = jsonDecode(res.body);
+      
       if(addAd['success'] == true) {
-        if(userId != null)
         profileAds(userId);
         SnackBarWidget().showToast("", addAd['message']); 
         
@@ -169,21 +168,31 @@ class FriendsController extends GetxController {
     update();
   }  
 
-   userReport(data,userId) async{
-   
-    isLoading = true ;
-    await reportUser(data).then((res) {
-      rep = jsonDecode(res.body);   
-       print("/././././.-----$rep");  
-      if(rep['success'] == true) {
-        SnackBarWidget().showToast("", rep['message']);         
-      }else {
-        SnackBarWidget().showToast("", rep['errors']);  
-        isLoading = false;
-      }
-      
-    });
-    update();
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -51,11 +51,10 @@ class _FriendReqListState extends State<FriendReqList> {
               ),
             ) :  Column(
               children: [
-                val.friendsData != null ? 
                 Column(
                   children:
                     friendList(val.friendsData['data']),
-                ):Container(),
+                ),
                 SizedBox(
                   height: 20,
                 ),

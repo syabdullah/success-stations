@@ -14,7 +14,6 @@ class OfferController extends GetxController {
   }
 
   offerList() async{
-    print("controller call of the Favorite list");
     isLoading = true;
     await allOffers().then((value) {
       offerDataList = jsonDecode(value.body);

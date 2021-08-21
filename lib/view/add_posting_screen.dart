@@ -72,24 +72,22 @@ var lang;
   }
   Future getImage() async {
     await ApiHeaders().getData();
-   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
-    
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        image = pickedFile!.path;      
-        fileName = pickedFile!.path.split('/').last;  
+        image = pickedFile!.path;
+        fileName = pickedFile!.path.split('/').last;
       } else {
         print('No image selected.');
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-          Get.find<AdPostingController>().uploadAdImage(formData); 
-        } catch (e) {
-
-        }
+    try {
+      dio.FormData formData = dio.FormData.fromMap({          
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData); 
+      } catch (e) {
+    }
   }
    adpost(){
     json = {
