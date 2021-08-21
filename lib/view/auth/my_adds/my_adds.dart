@@ -59,17 +59,7 @@ class _MyAddsState extends State<MyAdds> {
           ),           
           Expanded(
             child: 
-            // GetBuilder<AddBasedController>(
-            //   init: AddBasedController(),
-            //   builder: (val){
-            //     return  val.cData !=null ? 
-            //     listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']): ListView(
-            //       children:[
-            //         Container()
-            //       ]
-            //     );
-            //   }
-            // )
+            
             listtype == 'list' ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),

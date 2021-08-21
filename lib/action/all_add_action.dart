@@ -14,7 +14,7 @@ Future<http.Response> addsDetailbyId(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}ads/$id?change_language=ar");
-  print(".......URl of the category.........$url");
+  print(".......URl of the category.........${ApiHeaders().headersWithToken}");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
