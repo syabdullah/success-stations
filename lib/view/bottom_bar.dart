@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -17,6 +19,19 @@ class BottomTabs extends StatefulWidget {
   }
 }
 class _BottomTabsState extends State<BottomTabs> {
+  final banner = Get.put(BannerController());
+  void initState() {
+    // TODO: implement initState
+    banner.bannerController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    banner.bannerController();
+    super.dispose();
+
+  }
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
