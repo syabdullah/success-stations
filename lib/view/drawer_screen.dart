@@ -94,7 +94,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
-                            Get.to(UserProfile());
+                            Get.offAll(UserProfile());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                            Get.to(MyAdds());

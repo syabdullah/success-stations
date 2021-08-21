@@ -9,7 +9,6 @@ class BecomeMember extends StatefulWidget {
   _BecomeMemberState createState() => _BecomeMemberState();
 }
 class _BecomeMemberState extends State<BecomeMember> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Color buttonSelected = Colors.greenAccent;
   @override
   Widget build(BuildContext context) {

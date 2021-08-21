@@ -15,7 +15,7 @@ class ApiHeaders {
   };
 
   var headersWithToken = {
-    // "Content-Type": "application/json;charset=UTF-8",
+     "Content-Type": "application/json;charset=UTF-8",
     "accept": "application/json",  
     'authorization' : 'Bearer $token'
   };

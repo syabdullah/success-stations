@@ -10,7 +10,6 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,12 +57,15 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     XFile? pickedFile;
   late String image;
   var fileName;
-var id ;
+var id,cid,rid,crid ;
 var lang;
   @override
   void initState() {
     super.initState();
     id = box.read('user_id');
+    cid = box.read('city_id');
+    rid = box.read('region_id');
+    crid = box.read('country_id');
     lang = box.read('lang_code');
     catogoryController.getCategoryNames();
     catogoryController.getCategoryTypes();
@@ -93,12 +95,15 @@ var lang;
     'status': selectedStatus,
     'description': descController.text,
     'price': priceController.text,
-    'name': fullNameController.text,
+    'contact_name': fullNameController.text,
     'mobile_no': mobileNoController.text,
     'tel_no': telePhoneController.text,
     'title':titleController.text,
     'created_by': id,
-    'email': emailController.text
+    'email': emailController.text,
+    'country_id': crid,
+    'city_id':cid,
+    'region_id': rid,
   };
   print("..................$json");
   adpostingController.finalAdPosting(json);
@@ -149,7 +154,7 @@ var lang;
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            print(val.datacateg);
+            print("...................JJ ${val.datacateg}");
             return 
              activeStep == 0 ? istStep(val.datacateg,val.datacategTypes) :
              activeStep == 1 ? secondStep() : 
@@ -333,17 +338,15 @@ Widget istStep(List list,List types){
                           
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['category'][lang])
+                            child:Text(coun['category']['en'])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adCategory;
                           setState(() {
                             adCategory = val as Map;
-                            // print("CCCCCAAAAAAA-----${adCategory['category_listing_types']}");
-                            selectedCategory = adCategory['category'][lang];
+                            selectedCategory = adCategory['category']['en'];
                             type = adCategory['category_listing_types'];
-                             
                             selectedtype = 'Type';
                           });
                         },
@@ -378,7 +381,7 @@ Widget istStep(List list,List types){
                           // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['type'][lang])
+                            child:Text(coun!['type']['en'])
                           );
                         }).toList(),
                           onChanged: (val) {
@@ -532,7 +535,7 @@ Widget istStep(List list,List types){
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        getImage();
+                        // getImage();
                       },
                       child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
                   ),
@@ -652,7 +655,7 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
+        // Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
         
         Card(
           child: Column(
@@ -769,6 +772,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () {
+         adpost();
         },
         child: Text("save_as_draft".tr,textAlign: TextAlign.left,),
       ),

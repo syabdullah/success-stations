@@ -160,7 +160,7 @@ class _MemberShipState extends State<MemberShip> {
       return Expanded(
         child: ListView.builder(
           itemCount: 10,
-          itemBuilder: (BuildContext,index) {
+          itemBuilder: (BuildContext context,index) {
             return Container(
               width: Get.width/2.5,
               alignment: Alignment.center,

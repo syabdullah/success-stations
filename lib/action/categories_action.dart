@@ -6,7 +6,7 @@ Future<http.Response> category() async {
   print("categoried aaiiiddiididid........");
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}listing-categories");
+  var url = Uri.parse("${config.baseUrl}ads-categories?change_language=ar");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
