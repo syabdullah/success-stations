@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/styling/images.dart';
 
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
 }
 class _OfferListState extends State<OfferList> {
-   final banner = Get.put(BannerController());
-  void initState() {
-    // TODO: implement initState
-    banner.bannerController();
-    super.initState();
-  }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final Map<String, dynamic> offerGrid= 

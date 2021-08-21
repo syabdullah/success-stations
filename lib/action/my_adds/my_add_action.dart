@@ -7,7 +7,6 @@ Future<http.Response> addsFvrtMyAdds() async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}my-ads");
-  print("urlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurlurl$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

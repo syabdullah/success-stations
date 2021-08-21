@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -14,19 +13,16 @@ class FriendList extends StatefulWidget {
   _FriendListState createState() => _FriendListState();
 }
 class _FriendListState extends State<FriendList> {
-  
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
   var listtype = 'list';
   var grid = AppImages.gridOf;
   Color listIconColor = AppColors.appBarBackGroundColor;
   var id ;
-final banner = Get.put(BannerController());
 
   @override
   void initState() {
     super.initState();
-    banner.bannerController();
     friCont.getFriendsList();
     friCont.getSuggestionsList();
     id = box.read('user_id');

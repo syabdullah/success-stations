@@ -217,7 +217,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                           Get.to(Contact())
+                           Get.off(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),

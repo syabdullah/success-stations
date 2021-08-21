@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/contact_us_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -17,19 +16,9 @@ class ContactPageState extends State<Contact> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController writeController = TextEditingController();
-    clearTextInput(){
-   nameController.clear();
-   phoneController.clear();
-   writeController.clear();
- 
-  }
-   FocusNode ? pin2node;
-  FocusNode ? pin3node;
-  FocusNode ? pin4node;
   FocusNode textSecondFocusNode = new FocusNode();
   final formKey = new GlobalKey<FormState>();
    final contactwithme = Get.put(ContactWithUsController());
-   final banner = Get.put(BannerController());
   var json;
   void contactUsData(){
       final form = formKey.currentState;
@@ -50,11 +39,11 @@ class ContactPageState extends State<Contact> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: Container(
-        //  padding:EdgeInsets.only(top:8)R,
-         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'CONTACT US',AppImages.appBarSearch)),
-      ),
+      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
+      child: Container(
+      //  padding:EdgeInsets.only(top:8),
+      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'CONTACT US',AppImages.appBarSearch)),
+    ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -81,12 +70,7 @@ class ContactPageState extends State<Contact> {
                 textColor: AppColors.appBarBackGroun,
                 buttonText: AppString.send,
                 fontSize: 18.toDouble(),
-                callback: (){
-                  contactUsData();
-                  clearTextInput();
-                  // if(contactwithme.responses < 400 ){
-                }
-                  // }
+                callback: (){contactUsData();}
               ),
             ],
           ),
@@ -94,90 +78,67 @@ class ContactPageState extends State<Contact> {
       ),
     );
   }
-Widget name() {
+  Widget name() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child:  TextFormField(
-      
-                  focusNode:pin2node,
-                  controller: nameController,
-                  validator: (value) {
-                  if (value == null || value.isEmpty) {
-                      return 'Please enter name';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(
-                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                  ),
-                  decoration:InputDecoration( 
-                    hintText: "name".tr,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ) ,
-              ),
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText:AppString.name,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
+        hintColor: AppColors.textInput,
+        onChanged: (value) {  },
+        onSaved: (String? newValue) {}, 
+        onFieldSubmitted: (value) { },
+        textController: nameController,
+         validator: (value) => value!.isEmpty ? 'Enter some text':null,
+        errorText: '',
+      ),
     );
   }
-
- Widget phoneNumber() {
+  Widget phoneNumber() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child:  TextFormField(
-      
-                  focusNode:pin3node,
-                  controller: phoneController,
-                  validator: (value) {
-                  if (value == null || value.isEmpty) {
-                      return 'Please enter Phone Number';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(
-                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                  ),
-                  decoration:InputDecoration( 
-                    hintText: "phone".tr,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ) ,
-              ),
-    );
-  }
-
-  Widget textArea() {
-    return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child:  TextFormField(
-          maxLines: 3,
-          focusNode:pin4node,
-          controller: writeController,
-          validator: (value) {
-          if (value == null || value.isEmpty) {
-              return 'please write somethingr';
-            }
-            return null;
-          },
-          style: TextStyle(
-            color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-          ),
-          decoration:InputDecoration( 
-            hintText: "Write here".tr,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.grey),
-          ),
-        ) ,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText:AppString.phoneNumber,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
+        hintColor: AppColors.textInput,
+        onChanged: (value) {  },
+        onSaved: (String? newValue) {}, 
+        onFieldSubmitted: (value) { },
+        textController: phoneController,
+        validator: (value) => value!.isEmpty ? 'Enter some text':null,
+        errorText: '',
       ),
     );
   }
 
+  Widget textArea() {
+  final maxLines = 5;
+
+  return Container(
+    width:Get.width/1.0,
+    margin: EdgeInsets.all(12),
+    height: maxLines * 24.0,
+    child: TextFormField(
+      validator: (value) => value!.isEmpty ? 'Enter some text':null,
+      controller: writeController,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        focusColor: Colors.grey,
+         border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+          ),
+        hintText: "Write here", hintStyle: TextStyle(color:Colors.grey),
+        fillColor:AppColors.inputColor,
+        filled: true,
+      ),
+    ),
+  );
+}
   //  }
    Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
     return AppButton(

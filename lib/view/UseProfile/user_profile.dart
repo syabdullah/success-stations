@@ -100,12 +100,12 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
-              // Center(
-              //   widthFactor: 3,
-              //   child: Container(
-              //     child: Text("JUNAID",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
-              //   ),
-              // )
+              Center(
+                widthFactor: 3,
+                child: Container(
+                  child: Text("JUNAID",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
+                ),
+              )
             ],
           ),
         ),
@@ -233,19 +233,19 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20,left: 10),
                           child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
-                          child: Text(userData["name"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 15,top: 5),
+                        //   child: Text(userData["name"]!= null ? userData["name"]:'',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),               
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                        //   child: Text(userData["mobile"] != null ? userData["mobile"] : '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                     Column(
@@ -263,11 +263,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20),
                           child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData["address"] != null ?
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ): Container()     
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,top: 5),
+                        //   child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                   ],
@@ -289,21 +288,19 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20,left: 10),
                           child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData['college']['name'] != null  ?
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
-                          child: Text( userData['college']['name'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
-                        ):Container(),
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 15,top: 5),
+                        //   child: Text(userData['college'] != null  ? userData['college']['name'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                         userData["degree"] != null ?
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ): Container()            
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                        //   child: Text("data['degree'] "!= null ? "data['degree'] ": '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                     Column(
@@ -321,11 +318,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20),
                           child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData["degree"] != null ?
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ):Container()
+                          child: Text("data['semester']" != null ? "data['semester'].toString() ": '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        ),               
                       ],
                     ),
                   ],
@@ -341,11 +337,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
                   child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
                 ),
-                userData["degree"] != null ?
                 Container(
                   margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                  child: Text(userData["degree"]  )
-                ): Container()
+                  child: Text("data['about']" !=null ? "data['about'] ": '' )
+                )
               ],
             ),
           )

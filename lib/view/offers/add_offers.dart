@@ -94,7 +94,7 @@ class AddOffersState extends State<AddOffersPage> {
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      appBar: AppBar(backgroundColor:AppColors.appBarBackGroundColor,title: Text('ADD OFFER'),centerTitle: true,),
+      appBar: AppBar(backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
       body: ListView(
         children: [
           space20,
