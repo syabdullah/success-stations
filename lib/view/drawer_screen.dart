@@ -48,6 +48,8 @@ class _AppDrawerState extends State<AppDrawer> {
   void initState() {
     super.initState();
     image = box.read('user_image');
+    imageP = box.read('user_image_local').toString();
+    print("........................YYYYYYYYYYYY$imageP");
   }
    Future getImage() async { 
     await ApiHeaders().getData();
@@ -56,6 +58,7 @@ class _AppDrawerState extends State<AppDrawer> {
     setState(() {
       if (pickedFile != null) {
         imageP = pickedFile!.path;      
+        box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
         print('No image selected.');
@@ -65,7 +68,7 @@ class _AppDrawerState extends State<AppDrawer> {
           dio.FormData formData = dio.FormData.fromMap({          
             "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           });
-   print("........................YYYYYYYYYYYY");
+   
           Get.find<AdPostingController>().uploadAdImage(formData); 
         } catch (e) {
 
@@ -78,7 +81,6 @@ class _AppDrawerState extends State<AppDrawer> {
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
-
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -102,9 +104,9 @@ class _AppDrawerState extends State<AppDrawer> {
                                 child: CircleAvatar(
                                   backgroundColor: Colors.grey[200],
                                   radius: 60.0,
-                                  child:   fileName != null ? ClipRRect(
+                                  child:   imageP != null ? ClipRRect(
                                     borderRadius: BorderRadius.circular(60.0),
-                                    child: Image.file(File(imageP),fit: BoxFit.fitWidth,)): Column(
+                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.5,)): Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(height:30),
