@@ -11,6 +11,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/page_util.dart';
+import 'package:success_stations/view/ads.dart';
 import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 
 class AdvertisePage extends StatefulWidget {
@@ -23,6 +24,12 @@ class AdvertiseStatePage extends State<AdvertisePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController writeController = TextEditingController();
+  clearTextInput(){
+   nameController.clear();
+   phoneController.clear();
+   writeController.clear();
+ 
+  }
   final formKey = new GlobalKey<FormState>();
   var json;
   mydata(){
@@ -89,6 +96,10 @@ class AdvertiseStatePage extends State<AdvertisePage> {
                 child: RaisedButton(
                   onPressed: (){
                     mydata();
+                    if(adwithme.responses < 400){
+                    clearTextInput();
+                    }
+                    //  Get.back();
                   },
                   color: AppColors.appBarBackGroundColor,
                   textColor: Colors.white,

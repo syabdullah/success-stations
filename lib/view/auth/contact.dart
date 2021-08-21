@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/contact_us_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -16,9 +17,16 @@ class ContactPageState extends State<Contact> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController writeController = TextEditingController();
+    clearTextInput(){
+   nameController.clear();
+   phoneController.clear();
+   writeController.clear();
+ 
+  }
   FocusNode textSecondFocusNode = new FocusNode();
   final formKey = new GlobalKey<FormState>();
    final contactwithme = Get.put(ContactWithUsController());
+   final banner = Get.put(BannerController());
   var json;
   void contactUsData(){
       final form = formKey.currentState;
@@ -39,11 +47,11 @@ class ContactPageState extends State<Contact> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-      child: Container(
-      //  padding:EdgeInsets.only(top:8),
-      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'CONTACT US',AppImages.appBarSearch)),
-    ),
+      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),    
+       child: Container(
+        //  padding:EdgeInsets.only(top:8)R,
+         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ADVERTISE WITH US',AppImages.appBarSearch)),
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -70,7 +78,11 @@ class ContactPageState extends State<Contact> {
                 textColor: AppColors.appBarBackGroun,
                 buttonText: AppString.send,
                 fontSize: 18.toDouble(),
-                callback: (){contactUsData();}
+                callback: (){
+                  contactUsData();
+                  if(contactwithme.responses < 400 ){
+                  clearTextInput();}
+                  }
               ),
             ],
           ),
