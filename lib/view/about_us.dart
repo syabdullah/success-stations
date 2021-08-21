@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/bottom_bar.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_html/flutter_html.dart';
 class AboutUs extends StatefulWidget {
@@ -42,7 +39,10 @@ Widget about(data){
     itemCount:  data.length!= null ? data.length : Container(),
     // ignore: non_constant_identifier_names
     itemBuilder: (BuildContext,index) {
-      return  Column(
+      
+      return 
+      index == 0 ?
+       Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top:50),
@@ -50,6 +50,7 @@ Widget about(data){
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+            
             child:Html(data: data[index]['page_text']),
         //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
         //     style: AppTextStyles.appTextStyle(
@@ -57,7 +58,7 @@ Widget about(data){
         //  ),),
         ),   
         ],
-      );
+      ):Container();
       }
      ),
   );

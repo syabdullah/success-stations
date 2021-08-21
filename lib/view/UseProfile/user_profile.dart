@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/utils/skalton.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 class UserProfile extends StatefulWidget {
   _UserProfileState createState() => _UserProfileState();
 }
 class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClientMixin<UserProfile> {
   final dataUser = Get.put(UserProfileController());
+  final banner = Get.put(BannerController());
   bool liked = false;
   var id ;
   @override
@@ -39,13 +36,15 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
         body: GetBuilder<UserProfileController>( 
           init: UserProfileController(),
           builder:(val) {
-            // print(val.getUserProfile());
-            return Column(
+            
+            print(val.userData);
+            return 
+            val.userData!= null ? Column(
               children: [
                profileDetail(val.userData['data']),
                general(val.userData['data'])
               ],
-            );
+            ):CircularProgressIndicator();
             
           }
             ),
@@ -95,14 +94,16 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             children: [
               IconButton(
                 onPressed:() {
-                  Get.back();
+                  
+                  Get.offAll(BottomTabs());
+                  banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
               Center(
                 widthFactor: 3,
                 child: Container(
-                  child: Text("",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
+                  child: Text("JUNAID",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
                 ),
               )
             ],
@@ -128,11 +129,11 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             ),
             Container(
               margin: EdgeInsets.only(top:10),
-              child: Text(userData["name"],style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
+              child: Text(userData["name"].toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
             ),
              Container(
                margin: EdgeInsets.only(top:6),
-              child: Text(userData['mobile'],style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
+              child: Text(userData['mobile'].toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
             ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
@@ -232,19 +233,19 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20,left: 10),
                           child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
-                          child: Text(userData["name"],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 15,top: 5),
+                        //   child: Text(userData["name"]!= null ? userData["name"]:'',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text(userData["mobile"] != null ? userData["mobile"] : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),               
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                        //   child: Text(userData["mobile"] != null ? userData["mobile"] : '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                     Column(
@@ -254,18 +255,18 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 15,top:5),
-                          child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        // Container(
+                        //   margin: EdgeInsets.only(right: 15,top:5),
+                        //   child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           margin: EdgeInsets.only(top:20),
                           child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),               
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,top: 5),
+                        //   child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                   ],
@@ -287,19 +288,19 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:20,left: 10),
                           child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 5),
-                          child: Text(userData['college'] != null  ? userData['college']['name'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 15,top: 5),
+                        //   child: Text(userData['college'] != null  ? userData['college']['name'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                          child: Text("data['degree'] "!= null ? "data['degree'] ": '',style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),               
+                        // Container(
+                        //     margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                        //   child: Text("data['degree'] "!= null ? "data['degree'] ": '',style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),               
                       ],
                     ),
                     Column(
@@ -338,7 +339,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                  child: Text("data['about']" != null ? "data['about'] ": '' )
+                  child: Text("data['about']" !=null ? "data['about'] ": '' )
                 )
               ],
             ),

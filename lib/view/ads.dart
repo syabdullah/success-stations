@@ -21,9 +21,13 @@ class AdsView extends StatefulWidget {
 class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-
-  final banner = Get.put(BannerController());
   
+  final banner = Get.put(BannerController());
+   @override
+  void initState() {
+    super.initState();
+    banner.bannerController();
+  }
   @override
   Widget build(BuildContext context) { 
     print("........${Get.width}");
@@ -73,7 +77,7 @@ class _AdsViewState extends State<AdsView> {
   // }
   Widget carosalImage(data) { 
     print(imgList);
-    return Column(
+    return data.length != 0 ? Column(
       children: [
         CarouselSlider(
           items: data
@@ -148,7 +152,12 @@ class _AdsViewState extends State<AdsView> {
           }).toList(),
         ),
       ],
-    );     
+    ):
+    Container(
+      height: Get.height/4.5,
+      margin: EdgeInsets.all(20),
+      child: Text("No Banners Here!"),
+    );  
   }
 
   Widget text(text1,text2) {
@@ -227,7 +236,7 @@ class _AdsViewState extends State<AdsView> {
                     width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                     height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
                     child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): 
-                     Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                     Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
                 Container(

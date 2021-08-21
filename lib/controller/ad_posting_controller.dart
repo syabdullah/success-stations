@@ -23,7 +23,9 @@ class AdPostingController extends GetxController {
       print(data);
       print(res.statusCode);
       if(res.statusCode == 200 || res.statusCode < 400){
-        adpost = jsonDecode(res.body);
+        adpost = jsonDecode(res.body); 
+        Get.off(MyAdds());
+        Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
         isLoading(false);      
       } if(res.statusCode >=  400){
           Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
@@ -33,6 +35,7 @@ class AdPostingController extends GetxController {
    }
 
     uploadAdImage(data) async {
+      print("______))))))))))");
       await ApiHeaders().getData();
       final Config conf = Config();
       print(ApiHeaders().headersWithToken);
@@ -40,10 +43,10 @@ class AdPostingController extends GetxController {
       Dio dio = Dio();
         response.Response result =
         await dio.post(url, data: data,options:Options(headers: ApiHeaders().headersWithToken));
-       
+       print("object...........${result.data}");
     // await updateProfile(data).then((res) {
       adUpload = result.data;
-       print("object...........${result.data}");
+       
       // if(result.data['success'] == true){
       //   //  isLoading = true;
       // } 

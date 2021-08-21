@@ -20,7 +20,7 @@ class UserProfileController extends GetxController {
       userData = jsonDecode(res.body);
     
       isLoading = false;
-      print(userData);
+      print("////////////////////////////////    $userData");
     });
     update();
   }

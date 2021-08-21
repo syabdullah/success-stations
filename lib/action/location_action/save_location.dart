@@ -11,3 +11,11 @@ Future<http.Response> saveLocation(data) async{
     url,body: jsonEncode(data),headers: ApiHeaders().headersWithToken);
     return result;
 }
+
+Future<http.Response> getMyLocation() async{
+  final Config conf = Config();
+  var url = Uri.parse("${conf.baseUrl}locations");
+  final result = await http.get(
+    url,headers: ApiHeaders().headersWithToken);
+    return result;
+}

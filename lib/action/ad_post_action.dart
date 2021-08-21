@@ -6,7 +6,7 @@ import 'package:success_stations/utils/config.dart';
 
 Future<http.Response> adPosting(dataa) async{
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}all-ads");
+  var url = Uri.parse("${conf.baseUrl}ads");
   final result = await http.post(url,headers: ApiHeaders().headersWithToken,body: json.encode(dataa));  
   
   return result;

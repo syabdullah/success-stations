@@ -25,7 +25,6 @@ class AddOffersPage extends StatefulWidget {
 }
 
 class AddOffersState extends State<AddOffersPage> {
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    final catogoryController = Get.put(CategoryController());
     final adpostingController = Get.put(AdPostingController());
     final addpostedControllerPut = Get.put(StorePostAddesController());
