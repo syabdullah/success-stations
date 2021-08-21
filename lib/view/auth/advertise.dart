@@ -24,11 +24,20 @@ class AdvertiseStatePage extends State<AdvertisePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController writeController = TextEditingController();
+   FocusNode ? pin2node;
+  FocusNode ? pin3node;
+  FocusNode ? pin4node;
   clearTextInput(){
    nameController.clear();
    phoneController.clear();
    writeController.clear();
  
+  }
+   void dispose() {
+    pin2node!.dispose();
+    pin3node!.dispose();
+    pin4node!.dispose();
+    super.dispose();
   }
   final formKey = new GlobalKey<FormState>();
   var json;
@@ -96,10 +105,9 @@ class AdvertiseStatePage extends State<AdvertisePage> {
                 child: RaisedButton(
                   onPressed: (){
                     mydata();
-                    if(adwithme.responses < 400){
+                    
                     clearTextInput();
-                    }
-                    //  Get.back();
+                                        //  Get.back();
                   },
                   color: AppColors.appBarBackGroundColor,
                   textColor: Colors.white,
@@ -119,24 +127,50 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       ),
     );
   }
-  Widget name() {
+  Widget name (){
     return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText:"name".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
-        hintColor: AppColors.textInput,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {}, 
-        onFieldSubmitted: (value) { },
-        textController: nameController,
-        validator: (value) => value.isEmpty ? 'Enter The Name':null,
-        errorText: '',
-      ),
+      child: TextFormField(
+                focusNode:pin2node,
+                controller: nameController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText: "name".tr,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
+              ) ,
+            ),
     );
   }
+  // Widget name() {
+  //   return Container(
+  //     margin:EdgeInsets.only(left:20, right: 20),
+  //     width: Get.width * 0.9,
+  //     child: CustomTextFiled(
+  //       isObscure: false,
+  //       hintText:"name".tr,
+  //       hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
+  //       hintColor: AppColors.textInput,
+  //       onChanged: (value) {  },
+  //       onSaved: (String? newValue) {}, 
+  //       onFieldSubmitted: (value) { },
+  //       textController: nameController,
+  //       validator: (value) => value.isEmpty ? 'Enter The Name':null,
+  //       errorText: '',
+  //     ),
+  //   );
+  // }
   Widget text(data) {
     return
   Container(
@@ -167,18 +201,27 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-         isObscure: false,
-        hintText:"phone".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
-        hintColor: AppColors.textInput,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {}, 
-        onFieldSubmitted: (value) { },
-        textController: phoneController,
-        validator: (value) => value.isEmpty ? 'Enter The Phone':null,
-        errorText: '',
-      ),
+      child:  TextFormField(
+      
+                  focusNode:pin3node,
+                  controller: phoneController,
+                  validator: (value) {
+                  if (value == null || value.isEmpty) {
+                      return 'Please enter Phone Number';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(
+                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                  ),
+                  decoration:InputDecoration( 
+                    hintText: "phone".tr,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ) ,
+              ),
     );
   }
 
@@ -188,23 +231,28 @@ class AdvertiseStatePage extends State<AdvertisePage> {
   return Container(
     width:Get.width/1.0,
     margin: EdgeInsets.all(12),
-    height: maxLines * 24.0,
-    child: TextFormField(
-      maxLines: maxLines,
-      controller: writeController ,
-        validator: (value) => value!.isEmpty ? 'Enter some text':null,
-      decoration: InputDecoration(
-        focusColor: Colors.grey,
-         border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
+
+    child:  TextFormField(
+        maxLines: 3,
+          focusNode:pin4node,
+          controller: writeController,
+          validator: (value) {
+          if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+          style: TextStyle(
+            color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
-        hintText: "writeHere".tr, hintStyle: TextStyle(color:Colors.grey),
-        fillColor:AppColors.inputColor,
-        filled: true,
+          decoration:InputDecoration( 
+            hintText: "write".tr,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.grey),
+          ),
+        ) ,
       ),
-      
-    ),
   );
  }
 }

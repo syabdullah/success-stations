@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/contact_us_action.dart';
+import 'package:success_stations/view/auth/contact.dart';
 
 class ContactWithUsController extends GetxController {
 var isLoading = false;
@@ -19,6 +20,7 @@ var responses;
       if(response.statusCode < 400){
         Get.snackbar("","Requrest Successfully Sent",backgroundColor: Colors.blue);
         // Get.off(AdsView());
+        Get.off(Contact());
       }
       if(response.statusCode > 400){
         Get.snackbar("","Phone Number must be greater then 12 and less then 14",backgroundColor: Colors.blue);

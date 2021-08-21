@@ -23,6 +23,9 @@ class ContactPageState extends State<Contact> {
    writeController.clear();
  
   }
+   FocusNode ? pin2node;
+  FocusNode ? pin3node;
+  FocusNode ? pin4node;
   FocusNode textSecondFocusNode = new FocusNode();
   final formKey = new GlobalKey<FormState>();
    final contactwithme = Get.put(ContactWithUsController());
@@ -50,7 +53,7 @@ class ContactPageState extends State<Contact> {
       appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),    
        child: Container(
         //  padding:EdgeInsets.only(top:8)R,
-         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ADVERTISE WITH US',AppImages.appBarSearch)),
+         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'CONTACT US',AppImages.appBarSearch)),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -80,9 +83,10 @@ class ContactPageState extends State<Contact> {
                 fontSize: 18.toDouble(),
                 callback: (){
                   contactUsData();
-                  if(contactwithme.responses < 400 ){
-                  clearTextInput();}
-                  }
+                  clearTextInput();
+                  // if(contactwithme.responses < 400 ){
+                }
+                  // }
               ),
             ],
           ),
@@ -90,67 +94,90 @@ class ContactPageState extends State<Contact> {
       ),
     );
   }
-  Widget name() {
+Widget name() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText:AppString.name,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
-        hintColor: AppColors.textInput,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {}, 
-        onFieldSubmitted: (value) { },
-        textController: nameController,
-         validator: (value) => value!.isEmpty ? 'Enter some text':null,
-        errorText: '',
-      ),
+      child:  TextFormField(
+      
+                  focusNode:pin2node,
+                  controller: nameController,
+                  validator: (value) {
+                  if (value == null || value.isEmpty) {
+                      return 'Please enter name';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(
+                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                  ),
+                  decoration:InputDecoration( 
+                    hintText: "name".tr,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ) ,
+              ),
     );
   }
-  Widget phoneNumber() {
+
+ Widget phoneNumber() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText:AppString.phoneNumber,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
-        hintColor: AppColors.textInput,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {}, 
-        onFieldSubmitted: (value) { },
-        textController: phoneController,
-        validator: (value) => value!.isEmpty ? 'Enter some text':null,
-        errorText: '',
-      ),
+      child:  TextFormField(
+      
+                  focusNode:pin3node,
+                  controller: phoneController,
+                  validator: (value) {
+                  if (value == null || value.isEmpty) {
+                      return 'Please enter Phone Number';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(
+                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                  ),
+                  decoration:InputDecoration( 
+                    hintText: "phone".tr,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ) ,
+              ),
     );
   }
 
   Widget textArea() {
-  final maxLines = 5;
-
-  return Container(
-    width:Get.width/1.0,
-    margin: EdgeInsets.all(12),
-    height: maxLines * 24.0,
-    child: TextFormField(
-      validator: (value) => value!.isEmpty ? 'Enter some text':null,
-      controller: writeController,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        focusColor: Colors.grey,
-         border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
+    return Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child:  TextFormField(
+          maxLines: 3,
+          focusNode:pin4node,
+          controller: writeController,
+          validator: (value) {
+          if (value == null || value.isEmpty) {
+              return 'please write somethingr';
+            }
+            return null;
+          },
+          style: TextStyle(
+            color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
-        hintText: "Write here", hintStyle: TextStyle(color:Colors.grey),
-        fillColor:AppColors.inputColor,
-        filled: true,
+          decoration:InputDecoration( 
+            hintText: "Write here".tr,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.grey),
+          ),
+        ) ,
       ),
-    ),
-  );
-}
+    );
+  }
+
   //  }
    Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
     return AppButton(

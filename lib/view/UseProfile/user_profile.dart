@@ -255,10 +255,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:25),
                           child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 15,top:5),
-                          child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        // Container(
+                        //   margin: EdgeInsets.only(right: 15,top:5),
+                        //   child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ), 
                         Container(
                           margin: EdgeInsets.only(top:20),
                           child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),

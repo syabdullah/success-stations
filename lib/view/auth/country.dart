@@ -28,7 +28,6 @@ class _CountryPageState extends State<Ccountry> {
             onTap: (){
               setState(() {
                 selectedIndex = index;
-                
               });
             },
             child: Column(
@@ -38,14 +37,18 @@ class _CountryPageState extends State<Ccountry> {
                   height: Get.height /6.25,
                   width: Get.width/3.4,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
                     border: Border.all( color: selectedIndex == index ? AppColors.appBarBackGroundColor: AppColors.grey),
+                    shape: BoxShape.circle,
+                    image:  countryListData[index]['flag'] != null ?DecorationImage(
+                      fit: BoxFit.fill,
+                      image:  NetworkImage(countryListData[index]['flag']['url'])
+                    ): null,
                   ),
                 ),
                 Container(
-                  child: Text(
+                  child: countryListData[index]['name'] !=null ? Text(
                     countryListData[index]['name']
-                  )
+                  ): Container()
                 )
               ],
             ),
@@ -53,7 +56,6 @@ class _CountryPageState extends State<Ccountry> {
         }
       ),
     );
-
   }
 
   @override

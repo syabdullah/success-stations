@@ -121,7 +121,6 @@ class FriendsController extends GetxController {
   }
 
    profileAds(id) async{
-      print("././.....///////...$id");
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
@@ -148,15 +147,18 @@ class FriendsController extends GetxController {
     update();
   }
   
-  profileAdsRemove(id) async{
-    print(".........remove..........App.........$id");
+  profileAdsRemove(id, userId) async{
+    print(".........remove.......profileAdsRemove....profileAdsRemove....profileAdsRemove......App.........$id");
     isLoading = true ;
     await removeAdsFav(id).then((res) {
+
+    print("!!!!!!!!!!!!!!!!!!!!!!>>>>>>>>>>!!!!!!!!!!!!!!!!$id .............>>>>${res.body}");
       removeAds = jsonDecode(res.body);
       print("remove adds ..........remove adds......$removeAds");
       if(removeAds['success'] == true) {
         print(".....!!!!!!!!!!!!!!!!!!!!!!if Condition");
-        // profileAds(userId);
+        if(userId !=null)
+        profileAds(userId);
         SnackBarWidget().showToast("", removeAds['message']); 
       }
       // Get.off(repetedCon);
@@ -164,7 +166,7 @@ class FriendsController extends GetxController {
       isLoading = false;
     });
     update();
-  }
+  }  
 
 
 
