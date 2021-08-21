@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 class UserProfile extends StatefulWidget {
   _UserProfileState createState() => _UserProfileState();
 }
 class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClientMixin<UserProfile> {
   final dataUser = Get.put(UserProfileController());
+  final banner = Get.put(BannerController());
   bool liked = false;
   var id ;
   @override
@@ -91,7 +94,9 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             children: [
               IconButton(
                 onPressed:() {
-                  Get.back();
+                  
+                  Get.offAll(BottomTabs());
+                  banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.white)
               ),

@@ -16,6 +16,7 @@ class UserProfileController extends GetxController {
   getUserProfile() async{
     isLoading = true ;
     await userProfileAction().then((res) {
+      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData = jsonDecode(res.body);
     
       isLoading = false;

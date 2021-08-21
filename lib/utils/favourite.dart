@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
@@ -15,24 +17,29 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  final friCont = Get.put(FriendsController());
+   final fContr = Get.put (FavoriteController());
  
  
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
-  var id, imageUploaded;
+  var id, imageUploaded, fvrtListId;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
 
-  @override
+ @override
   void initState() {
     super.initState();
     
      id = Get.arguments;
-    print("../././....--id pf the favortttt--------$id");
+    print("../././..favort and removed...................S......H.....RE..E....Z....AA adds ..----------$id");
+    friCont.friendDetails(id);
+    friCont.profileAds(id);
     // _controller = TabController(length: 2,vsync: this); 
   }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,13 +59,11 @@ class _FavouritePageState extends State<FavouritePage> {
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
               builder: (val) {
-                return 
-                val.fvr8DataList !=null ? Column(
-                  children: listtype == 'list' ? myAddsList(val.fvr8DataList): myAddGridView(val.fvr8DataList) ,
+                return val.fvr8DataList !=null ? Column(
+                  children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
                 ): ListView(
                   children: [
                     Container()
-
                   ],
                 );
               },
@@ -109,13 +114,16 @@ class _FavouritePageState extends State<FavouritePage> {
   }
   
   List<Widget> myAddsList(listFavourite) {
+     print("...............0000000000000000000000000000000000............>>$listFavourite");
     List<Widget> favrties = [];
     print("favroutie list api ..... $listFavourite");
-    if(listFavourite['data'].length !=null  || listFavourite['data'] !=null){
-      for(int c = 0 ; c < listFavourite['data'].length; c++ ){
-        if(listFavourite['data'][c]['listing'] !=null){
-          for(int ima = 0; ima < listFavourite['data'][c]['listing']['image'].length; ima++){
-            imageUploaded = listFavourite['data'][c]['listing']['image'][ima]['url'];
+    if(listFavourite.length !=null  || listFavourite!=null){
+      for(int c = 0 ; c < listFavourite.length; c++ ){
+        fvrtListId = listFavourite[c]['id'];
+        print("...............frvbekekkekekeek listt o............>>$fvrtListId");
+        if(listFavourite[c]['listing'] !=null){
+          for(int ima = 0; ima < listFavourite[c]['listing']['image'].length; ima++){
+            imageUploaded = listFavourite[c]['listing']['image'][ima]['url'];
           }
           favrties.add(
             Card(
@@ -144,24 +152,24 @@ class _FavouritePageState extends State<FavouritePage> {
                           child:  Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              listFavourite['data'][c]['user_name']!=null ?
+                              listFavourite[c]['user_name']!=null ?
                               Container(
                                 child: Text(
-                                  listFavourite['data'][c]['user_name']['name'],
+                                  listFavourite[c]['user_name']['name'],
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
                                   ),
                                 ),
                               ): Container(),
-                              listFavourite['data'][c]['user_name']!=null ?
+                              listFavourite[c]['user_name']!=null ?
                               Expanded(
                                 child:  Row(
                                   children: [
                                   Icon(Icons.location_on, color:Colors.grey),
                                   Container(
                                     child: Text(
-                                      listFavourite['data'][c]['user_name']['address'],
+                                      listFavourite[c]['user_name']['address'],
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -193,17 +201,25 @@ class _FavouritePageState extends State<FavouritePage> {
                         SizedBox(height:10),
                         Row(
                           children: [
-                            listFavourite['data'][c]['listing'] !=null ? 
-                            GestureDetector(
-                              onTap: (){
-                                var json = {
-                                  'ads_id' : listFavourite['data'][c]['id']
-                                };
-                                print("jsn darar on tao ,,,,,,,,$json");
-                              },
-                              child: Container(
-                                child:  listFavourite['data'][c]['listing']['is_favorite'] == true ? Image.asset(AppImages.redHeart,height:30): null 
-                              ),
+                            listFavourite[c]['listing'] !=null ? 
+                              Container(
+                                child: listFavourite[c]['listing']['is_favorite'] == true ?
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      print("Red hearttttttttt clickeeed");
+                                      var removeJson = {
+                                        'ads_id':listFavourite[c]['id'],
+                                      };
+                                      print("data romeddddd formmmmmmm removed friedns from json..........${listFavourite[c]['id']}");
+                                      print("Remove data.....listed..........$removeJson");
+                                      friCont.profileAdsRemove(removeJson);
+                                      fContr.favoriteList();
+
+                                    });
+                                  },
+                                  child: Image.asset(AppImages.redHeart,height:30)
+                                ): null,
                             ): Container(),
                             Container(
                               padding: EdgeInsets.only(right:15),
@@ -232,7 +248,7 @@ class _FavouritePageState extends State<FavouritePage> {
         child: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
-          listFavourite['data'].length, 
+          listFavourite.length, 
           (index) {
             return Container(
               margin: EdgeInsets.only(left:15),
@@ -255,7 +271,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         Container(
                           margin: EdgeInsets.only(left: 10),
                           child: Text( 
-                            listFavourite['data'][index]['user_name']['name'],
+                            listFavourite[index]['user_name']['name'],
                           )
                         ), 
                         Expanded(
@@ -265,7 +281,7 @@ class _FavouritePageState extends State<FavouritePage> {
                               Icon(Icons.location_on, color:Colors.grey),
                               Container(
                                 child: Text(
-                                 listFavourite['data'][index]['user_name']['address'],
+                                 listFavourite[index]['user_name']['address'],
                                   style: TextStyle(
                                     color: Colors.grey[300]
                                   ),

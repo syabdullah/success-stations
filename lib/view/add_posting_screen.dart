@@ -72,29 +72,22 @@ var lang;
   }
   Future getImage() async {
     await ApiHeaders().getData();
-   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
-    
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         image = pickedFile!.path;
-       
         fileName = pickedFile!.path.split('/').last;
-         
-       
-      
       } else {
         print('No image selected.');
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-          Get.find<AdPostingController>().uploadAdImage(formData,);
-          print("..................."); 
-        } catch (e) {
-
-        }
+    try {
+      dio.FormData formData = dio.FormData.fromMap({          
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData); 
+      } catch (e) {
+    }
   }
    adpost(){
     json = {
@@ -108,12 +101,12 @@ var lang;
     'title':titleController.text,
     'created_by': id,
     'email': emailController.text,
-    'country_id': cid,
-    'city_id':crid,
+    'country_id': crid,
+    'city_id':cid,
     'region_id': rid,
   };
   print("..................$json");
- adpostingController.finalAdPosting(json);
+  adpostingController.finalAdPosting(json);
   }
   @override
   Widget build(BuildContext context) {
@@ -779,7 +772,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () {
-          adpost();
+         adpost();
         },
         child: Text("save_as_draft".tr,textAlign: TextAlign.left,),
       ),
