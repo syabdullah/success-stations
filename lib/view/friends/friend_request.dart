@@ -44,17 +44,18 @@ class _FriendReqListState extends State<FriendReqList> {
            GetBuilder<FriendsController>(
           init: FriendsController(),
           builder: (val) {
-            return val.suggestionsData == null ? shimmer() : val.suggestionsData.length == 0  || val.suggestionsData == null? Container(
+            return val.suggestionsData == null ? Container() : val.suggestionsData.length == 0  || val.suggestionsData == null? Container(
               child: Container(
                 child:
                Text("no suggestions " ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) )
               ),
             ) :  Column(
               children: [
+                val.friendsData != null ? 
                 Column(
                   children:
                     friendList(val.friendsData['data']),
-                ),
+                ):Container(),
                 SizedBox(
                   height: 20,
                 ),

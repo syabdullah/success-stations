@@ -27,7 +27,7 @@ class SignUpController extends GetxController{
 
         signup = jsonDecode(res.body);
         isLoading = false;
-        Get.to(SignIn());
+        Get.offAndToNamed('/login');
         if(signup['success'] == true){
           SnackBarWidget().showToast("",signup['message'] );  
         }
@@ -43,7 +43,7 @@ class SignUpController extends GetxController{
        if(res.statusCode == 200 || res.statusCode < 400){
         indiviualSignup = jsonDecode(res.body);
         isLoading = false;
-        Get.to(SignIn());
+        Get.offAndToNamed('/login');
         if(indiviualSignup['success'] == true){
           SnackBarWidget().showToast("", indiviualSignup['message']);  
         }
