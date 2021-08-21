@@ -70,9 +70,11 @@ class _FavouritePageState extends State<FavouritePage> {
                 return val.fvr8DataList !=null ? Column(
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
                 ): 
-                    Container();
-                  
-                
+                Container(
+                  margin:EdgeInsets.only(top:100),
+                  alignment: Alignment.topCenter,
+                  child: Center(child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)),
+               );
               },
             ) 
           ],
