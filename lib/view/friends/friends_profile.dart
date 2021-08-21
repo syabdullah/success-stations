@@ -396,7 +396,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                                     // setState(() {
                                       liked = !liked;
                                     // });
-                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json);
+                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json, id);
                                   },
                                 child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
                                 ),

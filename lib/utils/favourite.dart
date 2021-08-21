@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/removed_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -17,8 +18,9 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  final friCont = Get.put(FriendsController());
+  final remoControllerFinal = Get.put(RemoveController());
    final fContr = Get.put (FavoriteController());
- 
+  var listingIdRemoved;
  
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
@@ -30,14 +32,23 @@ class _FavouritePageState extends State<FavouritePage> {
 
  @override
   void initState() {
-    super.initState();
-    
-     id = Get.arguments;
-    print("../././..favort and removed...................S......H.....RE..E....Z....AA adds ..----------$id");
-    friCont.friendDetails(id);
-    friCont.profileAds(id);
-    // _controller = TabController(length: 2,vsync: this); 
+    super.initState(); 
   }
+
+  removeFvr8z(){
+    var reJson = {
+      'ads_id': listingIdRemoved
+
+    };
+    remoControllerFinal.removedAddsUnFvr8(reJson);
+
+  }
+  // var removeJson = {
+  //                   'ads_id': listFavourite[c]['listing_id'],
+  //                 };
+  //                 print("Remove data.....listed..........$removeJson");
+  //                 friCont.profileAdsRemove(removeJson);
+  //                 // fContr.favoriteList();
 
   
   @override
@@ -63,7 +74,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
                 ): ListView(
                   children: [
-                    Container()
+                    Container(child: Text("No Favourite Availble"),)
                   ],
                 );
               },
@@ -114,13 +125,15 @@ class _FavouritePageState extends State<FavouritePage> {
   }
   
   List<Widget> myAddsList(listFavourite) {
-     print("...............0000000000000000000000000000000000............>>$listFavourite");
     List<Widget> favrties = [];
-    print("favroutie list api ..... $listFavourite");
-    if(listFavourite.length !=null  || listFavourite!=null){
+    // if(listFavourite == null){
+      // Container(child: Text("NO Favourite List Yet"),);
+    // }
+    if(listFavourite.length !=null || listFavourite!=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
-        fvrtListId = listFavourite[c]['id'];
-        print("...............frvbekekkekekeek listt o............>>$fvrtListId");
+        listingIdRemoved = listFavourite[c]['listing_id'];
+        print("listFavourite............ listing ID...........${listFavourite[c]['listing_id']}");
+
         if(listFavourite[c]['listing'] !=null){
           for(int ima = 0; ima < listFavourite[c]['listing']['image'].length; ima++){
             imageUploaded = listFavourite[c]['listing']['image'][ima]['url'];
@@ -189,14 +202,14 @@ class _FavouritePageState extends State<FavouritePage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, right: 10),
                           child: ClipOval(
-                            child: Image.network(
+                            child: imageUploaded !=null ?Image.network(
                               imageUploaded,
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
                                   
-                            )
-                          ),
+                            ):CircleAvatar(backgroundColor:Colors.grey[100])
+                          )
                         ),
                         SizedBox(height:10),
                         Row(
@@ -206,17 +219,17 @@ class _FavouritePageState extends State<FavouritePage> {
                                 child: listFavourite[c]['listing']['is_favorite'] == true ?
                                 GestureDetector(
                                   onTap: (){
-                                    setState(() {
-                                      print("Red hearttttttttt clickeeed");
-                                      var removeJson = {
-                                        'ads_id':listFavourite[c]['id'],
-                                      };
-                                      print("data romeddddd formmmmmmm removed friedns from json..........${listFavourite[c]['id']}");
-                                      print("Remove data.....listed..........$removeJson");
-                                      friCont.profileAdsRemove(removeJson);
-                                      fContr.favoriteList();
+                                    removeFvr8z();
+                                    // setState(() {
+                                    //   print("Red hearttttttttt clickeeed");
+                                    //   var removeJson = {
+                                    //     'ads_id': listFavourite[c]['listing_id'],
+                                    //   };
+                                    //   print("Remove data.....listed..........$removeJson");
+                                    //   friCont.profileAdsRemove(removeJson);
+                                    //   // fContr.favoriteList();
 
-                                    });
+                                    // });
                                   },
                                   child: Image.asset(AppImages.redHeart,height:30)
                                 ): null,
