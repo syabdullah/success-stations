@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,20 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
-  
+   final banner = Get.put(BannerController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    banner.bannerController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    banner.bannerController();
+    super.dispose();
+
+  }
   // var name  = '';
   // name  = box.read('name');
   @override
@@ -39,6 +53,7 @@ class _AppDrawerState extends State<AppDrawer> {
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
+
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -143,7 +158,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                           Get.off(Contact())
+                           Get.to(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
