@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
+import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -16,13 +18,24 @@ class _MyAddsState extends State<MyAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
+  final controllerCat = Get.put(CategoryController());
   var listtype = 'list';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+  var lang;
+  GetStorage box = GetStorage();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controllerCat.getCategoryNames();
+    lang = box.read('lang_code');
+  }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       key: _scaffoldKey,
       appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
@@ -37,10 +50,10 @@ class _MyAddsState extends State<MyAdds> {
       body: Column(
         children: [
           topWidget(),
-          GetBuilder<CategController>(
-            init: CategController(),
+          GetBuilder<CategoryController>(
+            init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.myAddsCategory);
+              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.datacateg);
 
             },
           ),           
@@ -61,7 +74,6 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-
                 return val.cData != null ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(),
@@ -586,6 +598,7 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
+    print(listingCategoriesData);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -625,7 +638,7 @@ void _adsfiltringheet() {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ? Text(
-                          listingCategoriesData[index]['category_name'],
+                          listingCategoriesData[index]['category'][lang],
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

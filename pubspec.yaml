@@ -57,6 +57,7 @@ dependencies:
   google_maps_place_picker: ^2.0.0-nullsafety.3
   dotted_border: ^2.0.0+1
   image_picker: ^0.8.3+2
+  dio: ^4.0.0
   flutter_html: ^2.1.1
 
 dev_dependencies:

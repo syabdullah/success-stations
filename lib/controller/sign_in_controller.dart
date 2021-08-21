@@ -24,6 +24,10 @@ class LoginController extends GetxController {
         box.write('email',logindata['data']['email']);
         box.write('name',logindata['data']['name']);
         box.write('user_id',logindata['data']['user_id']);
+        box.write('region_id',logindata['data']['user']['region_id']);
+        box.write('city_id',logindata['data']['user']['city_id']);
+        box.write('country_id',logindata['data']['user']['country_id']);
+        
         resultInvalid(false);
         isLoading(false);
         Get.toNamed('/tabs');

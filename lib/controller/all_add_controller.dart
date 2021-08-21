@@ -18,13 +18,9 @@ class MyAddsController extends GetxController {
 
   myAddsCategory() async{
     isLoading = true;
-    await addsCateg().then((res){
+    await addsAll().then((res){
       addsListCategory= jsonDecode(res.body);
-      // print("....!!!!!!! categoryListing............$addsListCategory");
-      for(int c =0; c < addsListCategory['data'].length; c++){
-        // print(".. country loop .........!!!!!!!!!!!!!!!!!!${addsListCategory['data']}");
-        addsCategoryArray.add(addsListCategory['data'][c]);
-      }
+      addsCategoryArray = addsListCategory['data'];
       isLoading = false;
     });
     update();

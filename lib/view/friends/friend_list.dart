@@ -106,8 +106,7 @@ class _FriendListState extends State<FriendList> {
         dataa[index]['status'] == "Accepted" ? 
          GestureDetector(
           onTap: (){
-             
-            Get.to(FriendProfile(),arguments:dataa[index]['requister_id']);
+            Get.to(FriendProfile(),arguments: id != dataa[index]['requister_id'] ?  dataa[index]['requister_id'] : dataa[index]['user_requisted']['id']);
           },
           child: Card(
             child: Row(

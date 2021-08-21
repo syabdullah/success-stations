@@ -18,9 +18,10 @@ class CategController extends GetxController {
     isLoading = true;
     await myCategory().then((value) {
       dataListing= jsonDecode(value.body);
-      for( int i =0; i < dataListing['data'].length; i++){
-        myAddsCategory.add(dataListing['data'][i]);
-      }
+      myAddsCategory = dataListing['data'];
+      // for( int i =0; i < dataListing['data'].length; i++){
+      //   myAddsCategory.add(dataListing['data'][i]);
+      // }
       isLoading = false;
     });
     update();

@@ -8,7 +8,9 @@ class CategoryController extends GetxController {
   bool isLoading = false; 
   var cateList;
   var subCat ;
+  var subCatt;
   List datacateg = [];
+  List datacategTypes = [];
   @override
   void onInit(){
     isLoading = true;
@@ -22,12 +24,20 @@ class CategoryController extends GetxController {
     await  subCategory().then((value) {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
-      print(",,,,,,,,,,,,,,, ${subCat['data'].length}");
-      if(subCat['data'] !=null || subCat['data'].length !=null  ){
-        for(int c =0; c <subCat['data'].length; c++ ){
-        datacateg.add(subCat['data'][c]);
-      }
-    }
+      datacateg = subCat['data'];
+      print(datacateg);
+     isLoading = false;
+    });
+    
+  update();
+  }
+  getCategoryTypes() async {
+    datacateg = [];
+    await  categoryTypes().then((value) {
+      isLoading = true ;
+      subCatt =  jsonDecode(value.body);
+      print(",,,,,,,,,,,,,,, ${subCatt['data']}");
+      datacategTypes = subCatt['data'];
      isLoading = false;
     });
     
