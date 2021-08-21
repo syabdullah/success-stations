@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
-import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -30,16 +29,14 @@ class _AllAddsState extends State<AllAdds> {
   Color listIconColor = Colors.grey;
   GetStorage box = GetStorage();
   var lang ;
-     final banner = Get.put(BannerController());
-
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     banner.bannerController();
     controller.addedAllAds();
     catCont.getCategoryTypes();
     lang = box.read('lang_code');
+    print("LLLLLLLAAAAA------$lang");
   }
   @override
   Widget build(BuildContext context) {
@@ -350,11 +347,10 @@ void _adsfiltringheet() {
   
 
   Widget myAddsList(allDataAdds) {
-  
+    print("........-------======---------......$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
-          print("........-------======---------......${allDataAdds[index]['image'].length}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(),arguments:allDataAdds[index]['id']);
@@ -373,12 +369,8 @@ void _adsfiltringheet() {
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
-                              child: 
-                              allDataAdds[index]['image'].length != 0 ? 
-                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fitHeight,) :
-                               Image.asset(
-                                AppImages.profileBg,
-                                width: Get.width/4
+                              child: Image.asset(
+                                AppImages.profileBg
                               ),
                             ),
                           )
@@ -522,40 +514,41 @@ void _adsfiltringheet() {
                           margin: EdgeInsets.only(left: 10),
                           child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                         ),
-                        // dataListValue[index]['user']['address'] == null ? Container(): 
-                        // Expanded(
-                        //   // flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         // margin:EdgeInsets.only(left:29),
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        dataListValue[index]['user']['address'] == null ? Container(): 
+                        Expanded(
+                          // flex : 2,
+                          child:  Row(
+                            children: [
+                              
+                              Icon(Icons.location_on, color:Colors.grey),
+                              Container(
+                                child: Text(
+                                  dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex : 2,
+                          child:  Row(
+                            children: [
+                              Icon(Icons.person, color:Colors.grey[400],),
+                              Container(
+                                // margin:EdgeInsets.only(left:29),
+                                child: Text(
+                                  dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         // Container(
                         //   width: Get.width/2.3,
                         //   child: Row(

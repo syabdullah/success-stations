@@ -76,9 +76,7 @@ class _MyAddsState extends State<MyAdds> {
                 builder: (val){
                 return val.cData != null ?  myAddsList(val.cData['data']) : ListView(
                   children: [
-                    Container(
-
-                    ),
+                    Container(),
                   ],
                 );
               },
@@ -373,17 +371,17 @@ void _adsfiltringheet() {
     }
   );
   }
- ); 
+ );
+  
 }
-
+  
   Widget myAddsList(allDataAdds) {
-    print("...................>>$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
         return GestureDetector(
           onTap: () {
-            // Get.to(AdViewScreen());
+            Get.to(AdViewScreen());
           },
           child: Card(
             child: Container(
@@ -413,7 +411,7 @@ void _adsfiltringheet() {
                             children: [
                               Container(
                                 child: Text(
-                                  allDataAdds[index]['title'][lang],
+                                  allDataAdds[index]['title'],
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -445,7 +443,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title'][lang]: '',
+                                      allDataAdds[index]['title']!= null ? allDataAdds[index]['title']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -493,9 +491,9 @@ void _adsfiltringheet() {
                         children: [ 
                           Container(
                             padding: EdgeInsets.only(right:5),
-                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart)
+                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart): Image.asset(AppImages.redHeart)
                           ),
-                          Image.asset(AppImages.call, height: 25),
+                          Image.asset(AppImages.call, height: 20),
                         ],
                       )
                     ],
@@ -538,40 +536,40 @@ void _adsfiltringheet() {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
-                      child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                      child: Text( dataListValue[index]['title'] !=null ? dataListValue[index]['title']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
                     ),
-                    // dataListValue[index]['user']['address'] == null ? Container(): 
-                    // Expanded(
-                    //   child:  Row(
-                    //     children: [
-                    //       Icon(Icons.location_on, color:Colors.grey),
-                    //       Container(
-                    //         child: Text(
-                    //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                    //           style: TextStyle(
-                    //             color: Colors.grey[300]
-                    //           ),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                    // Expanded(
-                    //   flex : 2,
-                    //   child:  Row(
-                    //     children: [
-                    //       Icon(Icons.person, color:Colors.grey[400],),
-                    //       Container(
-                    //         child: Text(
-                    //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                    //           style: TextStyle(
-                    //             color: Colors.grey[300]
-                    //           ),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
+                    dataListValue[index]['user']['address'] == null ? Container(): 
+                    Expanded(
+                      child:  Row(
+                        children: [
+                          Icon(Icons.location_on, color:Colors.grey),
+                          Container(
+                            child: Text(
+                              dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                              style: TextStyle(
+                                color: Colors.grey[300]
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex : 2,
+                      child:  Row(
+                        children: [
+                          Icon(Icons.person, color:Colors.grey[400],),
+                          Container(
+                            child: Text(
+                              dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                              style: TextStyle(
+                                color: Colors.grey[300]
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -600,7 +598,7 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    print("CCCCCCCCC______${listingCategoriesData.length}");
+    print(listingCategoriesData);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -639,8 +637,8 @@ void _adsfiltringheet() {
                           ],
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData != null ?  Text(
-                          listingCategoriesData[index]['category'] != null ? listingCategoriesData[index]['category'][lang]:'',
+                        child: listingCategoriesData != null ? Text(
+                          listingCategoriesData[index]['category'][lang],
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

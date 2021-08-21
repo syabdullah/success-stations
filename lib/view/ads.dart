@@ -21,15 +21,12 @@ class AdsView extends StatefulWidget {
 class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-  
+
   final banner = Get.put(BannerController());
-   @override
-  void initState() {
-    super.initState();
-    banner.bannerController();
-  }
+  
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
+    
     print("........${Get.width}");
     return ListView(
       padding: EdgeInsets.symmetric(horizontal:20),
@@ -50,7 +47,6 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
-             
               return data.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,data.datacateg) : Container();
             }
           ),
@@ -58,8 +54,7 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<MyAddsController>(
             init: MyAddsController(),
             builder: (data){ 
-               print("....................................${data.addsCategoryArray.length}");
-              return data.addsCategoryArray.length != 0 ?  featuredAdsList(data.addsCategoryArray) : Container();
+              return featuredAdsList(data.addsCategoryArray);
             }),
          text('specialofer'.tr,"all".tr),
          GetBuilder<CategController>(
@@ -77,7 +72,7 @@ class _AdsViewState extends State<AdsView> {
   // }
   Widget carosalImage(data) { 
     print(imgList);
-    return data.length != 0 ? Column(
+    return Column(
       children: [
         CarouselSlider(
           items: data
@@ -152,12 +147,7 @@ class _AdsViewState extends State<AdsView> {
           }).toList(),
         ),
       ],
-    ):
-    Container(
-      height: Get.height/4.5,
-      margin: EdgeInsets.all(20),
-      child: Text("No Banners Here!"),
-    );  
+    );     
   }
 
   Widget text(text1,text2) {
@@ -235,8 +225,8 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                     height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                    child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): 
-                     Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    child: Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,)
+                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
                 Container(
