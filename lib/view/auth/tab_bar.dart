@@ -60,7 +60,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                       ),
                       Tab(
                         child: Text(
-                          'Company', style: TextStyle(color: Colors.grey)
+                          'company', style: TextStyle(color: Colors.grey)
                         )
                       ),
                     ]

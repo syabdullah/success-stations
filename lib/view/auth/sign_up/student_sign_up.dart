@@ -224,7 +224,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: 'Semester',
+        hintText: 'semester'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -254,7 +254,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: 'address',
+        hintText: 'address'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -284,7 +284,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: 'About',
+        hintText: 'about'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -314,7 +314,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: 'Degree',
+        hintText: 'degree'.tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
@@ -408,7 +408,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText: AppString.dob,
+        hintText: "yymmdd".tr,
         hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },

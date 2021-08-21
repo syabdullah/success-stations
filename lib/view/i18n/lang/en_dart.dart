@@ -57,6 +57,8 @@ const Map<String, String> en = {
   "university": "University",
   "welcome": "Welcome!",
   "degree":"Degree",
+  "yymmdd":"YYYY-MM-DD",
+  "more":"Please choose one or more",
    "myoffer":"My Offer",
   "sign_up_desc": "Please provide following details for your new account",
   "sign_up_btn_text": "Sign Up",
