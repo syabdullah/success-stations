@@ -20,10 +20,10 @@ var responses;
       if(response.statusCode < 400){
         Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.blue);
         // Get.off(AdsView());
-        Get.off(Contact());
+        Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Phone Number must be equal to 13 digits",backgroundColor: Colors.blue);
+
       }
       
   }

@@ -18,6 +18,7 @@ import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:success_stations/view/i18n/lang/en_dart.dart';
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -390,7 +391,7 @@ Widget istStep(List list,List types){
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type'][lang];
+                            selectedtype = adsubCategory['type']['en'];
                             subtypeId =adsubCategory['id'];
                             print(subtypeId);
                             

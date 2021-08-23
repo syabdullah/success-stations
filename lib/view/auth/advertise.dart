@@ -225,12 +225,9 @@ class AdvertiseStatePage extends State<AdvertisePage> {
   }
 
   Widget textArea() {
-  final maxLines = 5;
-
   return Container(
     width:Get.width/1.0,
-    margin: EdgeInsets.all(12),
-
+    margin:EdgeInsets.only(left:20, right: 20),
     child:  TextFormField(
         maxLines: 3,
           focusNode:pin4node,
