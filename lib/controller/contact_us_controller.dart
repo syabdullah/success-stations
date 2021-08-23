@@ -18,12 +18,12 @@ var responses;
       responses= response.statusCode;
       print(response.statusCode);
       if(response.statusCode < 400){
-        Get.snackbar("","Requrest Successfully Sent",backgroundColor: Colors.blue);
+        Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.blue);
         // Get.off(AdsView());
         Get.off(Contact());
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Phone Number must be greater then 12 and less then 14",backgroundColor: Colors.blue);
+        Get.snackbar("","Phone Number must be equal to 13 digits",backgroundColor: Colors.blue);
       }
       
   }
