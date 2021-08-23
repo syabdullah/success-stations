@@ -27,53 +27,26 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     print(Get.width);
     print(Get.height);
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        body: GetBuilder<UserProfileController>( 
-          init: UserProfileController(),
-          builder:(val) {
-            print(val.userData);
-            return 
-            val.userData!= null ? Column(
-              children: [
-               profileDetail(val.userData['data']),
-               general(val.userData['data'])
-              ],
-            ):Center(child: CircularProgressIndicator());
-            
-          }
-            ),
-        // body: Column(
-        //   children: [
-        //     profileDetail(),
-        //     general()
-
-        //   ],
-        // ),
-        // GetBuilder<FriendsController>(
-        //   init: FriendsController(),
-        //   builder:(val) { 
-        //     return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
-              // child:
-              // Container(
-              //   margin: EdgeInsets.only(top: 20),
-              // child: viewCardLoading(context))) 
-              
-            //   :  Column(
-            //   children: [        
-            //     profileDetail(val.friendProfileData['data']),
-            //     tabs(),
-            //     general(val.friendProfileData['data'],val.userAds['data']),
-            //   ],
-            // );
-          // }
-        // ),
-      // ),
-    ));}
+    return Scaffold(
+      body: GetBuilder<UserProfileController>( 
+        init: UserProfileController(),
+        builder:(val) {
+          print(val.userData);
+          return 
+          val.userData!= null ? Column(
+            children: [
+             profileDetail(val.userData['data']),
+             general(val.userData['data'])
+            ],
+          ):Center(child: CircularProgressIndicator());
+          
+        }
+          ),
+    );}
   // } 
 
   Widget profileDetail(userData) { 
@@ -84,8 +57,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-            child: Container()
-            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
         Container(
@@ -95,7 +67,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               IconButton(
                 onPressed:() {
                   
-                  Get.offAll(BottomTabs());
+                  Get.to(BottomTabs());
                   banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.black)
@@ -128,94 +100,21 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                 )
               ),
             ),
+            userData["name"] != null ?
             Container(
               margin: EdgeInsets.only(top:10),
               child: Text(userData["name"].toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
-            ),
+            ):Container(),
              Container(
                margin: EdgeInsets.only(top:6),
               child: Text(userData['mobile'].toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Container(
-            //       margin: EdgeInsets.only(top:6),
-            //       child: Image.asset(AppImages.location,height: 15)
-            //     ),
-            //     SizedBox(width:5),
-            //     Container(
-            //       margin: EdgeInsets.only(top:6),
-            //       child: Text("Codility Solutions",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ],
     );
   }
 
-  // Widget tabs() {
-  //   return  Wrap(
-  //     children: [
-  //       FractionalTranslation(
-  //         translation:  const Offset(0.5, -0.5),
-  //         child: 
-  //         Container(
-  //           // margin: EdgeInsets.only(left: 250),
-  //           child: Container(
-  //             height: Get.height/9*0.5,
-  //             width:Get.width/3.2,
-  //             decoration: BoxDecoration(
-  //               color: AppColors.appBarBackGroundColor,
-  //               borderRadius: BorderRadius.circular(50)
-  //             ),
-  //             child: Center(child: Text("Friends",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
-  //           ),
-  //         ),
-  //       ),
-  //       FractionalTranslation(
-  //         translation:  const Offset(0.7, -0.5),
-  //         child: 
-  //         GestureDetector(
-  //           // margin: EdgeInsets.only(left: 250),
-  //           child: Container(
-  //             height: Get.height/9*0.5,
-  //             width:Get.width/3.2,
-  //             decoration: BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.circular(50),
-  //                border: Border.all(
-  //                   color: AppColors.appBarBackGroundColor,
-  //                   width: 2,
-  //                 )
-
-  //             ),
-  //             child: Center(child: Text("Message",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold))),
-  //           ),
-  //         ),
-  //       ),
-  //       SizedBox(
-  //         height: 30,
-  //         child: 
-  //            TabBar(
-  //              indicatorColor: AppColors.appBarBackGroundColor,
-  //              indicatorWeight: 5.0,
-  //             tabs: [
-  //               Tab(
-  //                 child: Text("General",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
-  //               ),
-  //               Tab(
-  //                 child:Text("Ads",style:TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
-  //               ),
-  //             ],
-  //           ),
-          
-  //       ),
-  //     ],
-  //   );
-  // }
   Widget general(userData) {
     return Expanded(
       child: ListView(
@@ -232,14 +131,17 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text("name".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                       userData["name"] != null ?
                         Container(
                           margin: EdgeInsets.only(top: 5),
-                          child: Text(userData["name"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                          child: 
+                          Text(userData["name"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                        ): Container(),
+                         userData["mobile"] != null ?
                         Container(
                           margin: EdgeInsets.only(top:25),
                           child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                        ),
+                        ):Container(),
                         Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),               
                       ],
                     ),
@@ -251,10 +153,11 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:25),
                           child: Text('email'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
+                         userData["email"] != null ?
                         Container(
                           margin: EdgeInsets.only(top:5),
                           child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
-                        ), 
+                        ):Container(), 
                         Container(
                           margin: EdgeInsets.only(top:20),
                           child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
@@ -263,7 +166,9 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
                           child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ): Container()     
+                        ): Container(
+                          height: 45,
+                        )     
                       ],
                     ),
                   ],
@@ -278,7 +183,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                   
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -299,7 +203,9 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
                           child: Text(userData["semester"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                        ):Container()
+                        ):Container(
+                          height: 20,
+                        )
                       ],
                     ),
                      Column(
@@ -324,7 +230,9 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
                           child: Text(userData["degree"],style: TextStyle(fontWeight: FontWeight.w600,fontSize: 11.5,)),
-                        ): Container()            
+                        ): Container(
+                          height: 20,
+                        )            
                       ],
                     ),
                   ],
@@ -334,7 +242,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           ),
           Card(
             child: Container(
-              padding: EdgeInsets.only(left:30),
+              padding: EdgeInsets.only(left:25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -355,103 +263,4 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
       ),
     ); 
   }
-
-//   Widget ads(adsData) {
-//     return Expanded(
-//       child: ListView.builder(
-//             itemCount: adsData != null ? adsData.length:0,
-//             itemBuilder: (BuildContext,index) {
-//               return adsData != null ? GestureDetector(
-//                 onTap: (){
-                  
-//                 },
-//                 child: Container(
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.start,
-//                     children: [
-//                       Container(
-//                         width: 70,
-//                         margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-//                         child: ClipRRect(
-//                           borderRadius: BorderRadius.circular(10),
-//                           child: Image.asset(AppImages.profileBg,height: 80,fit: BoxFit.fitHeight,)
-//                         )
-//                       ),
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Container(
-//                             width: Get.width/3,
-//                             child: Text(adsData[index]['text_ads'],style: TextStyle(fontWeight: FontWeight.bold),),
-//                           ),
-//                           Row(
-//                             children: [
-//                               Image.asset(AppImages.location,height: 15,),
-//                               SizedBox(width:5),
-//                               Container(
-//                                 child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-//                               ),
-//                             ],
-//                           ),
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               // Image.asset(AppImages.location,height: 15,),
-//                               Icon(Icons.person,color: Colors.grey),
-//                               SizedBox(width:5),
-//                               Container(
-//                                 child: Text("codility solutions"),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                       Align(
-//                         widthFactor: Get.width < 400 ? 2.2: 3.0,
-//                         alignment: Alignment.topRight,
-//                         child: Column(
-//                           children: [
-//                             ClipRRect(
-//                               borderRadius: BorderRadius.circular(50),
-//                               child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,height:50)
-//                             ),
-//                             SizedBox(height: 5,),
-//                             Row(
-//                               children: [
-//                                 GestureDetector(
-//                                   onTap: (){
-//                                     var json = {
-//                                       'ads_id' : adsData[index]['id']
-//                                     };
-//                                     // setState(() {
-//                                       liked = !liked;
-//                                     // });
-//                                    adsData[index]['is_favorite'] == false ?  .profileAdsToFavfriCont(json,id) : friCont.profileAdsRemove(json,id);
-//                                   },
-//                                 child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
-//                                 ),
-//                                 SizedBox(width:5),
-//                                 GestureDetector(
-//                                   onTap: (){
-//                                     launch.call("tel:12345678912");
-//                                   },
-//                                 child: Image.asset(AppImages.call,height: 25,)
-//                                 )
-//                               ],
-//                             )
-//                           ],
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//               ): Container(
-//                 child: Text("No Ads "),
-//               );
-
-//             },
-//           ) , 
-    
-//     );
-//   }
 }

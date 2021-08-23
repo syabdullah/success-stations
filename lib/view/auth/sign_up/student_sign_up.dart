@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
@@ -12,6 +13,9 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
+
+  DateTime  ? dateTime;
+   var dateFormate = DateFormat("dd-MM-yyyy").format(DateTime.parse(dateTime.toString()));
 
 
 class StudentSignUp extends StatefulWidget {
@@ -43,6 +47,7 @@ class _SignPageState extends State<StudentSignUp> {
   @override 
   void initState() {
     countryPut.getCountries();
+    
     super.initState();
   }
   void createUser() {
@@ -57,7 +62,7 @@ class _SignPageState extends State<StudentSignUp> {
       "city_id": selectedCity,
       "region_id": selectedRegion,
       "user_type": 2,
-      "date_of_birth": dobController.text,
+      "date_of_birth": dateFormate,
       "college_id": selectedCollege,
       'university_id':selectedUniversity,
       // 'semester': semesterController.text,
@@ -88,8 +93,6 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               mobile(),
               space10,
-              studentdob(),
-              space10,
               semester(),
               space10,
               address(),
@@ -98,6 +101,7 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               degree(),
               space10,
+              studentdob(),
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
@@ -403,33 +407,66 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget studentdob() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: "yymmdd".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {},  
-        textController: dobController,
-        onSaved: (String? newValue) {  
-        }, 
-        validator: (value) {
-        String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-        RegExp regExp = RegExp(pattern);
-          if (value.length == 0) {
-            return 'Please enter your birthday';
-            } else if (!regExp.hasMatch(value)) {
-            return 'Please enter a valid birthday format is yyyy-mm-dd';
-            }
-            return null;
-          },
+    // return  Container(
+    //   margin:EdgeInsets.only(left:20, right: 20),
+    //   width: Get.width * 0.9,
+    //   child: CustomTextFiled(
+    //     isObscure: false,
+    //     hintText: "yymmdd".tr,
+    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+    //     hintColor: AppColors.inputTextColor,
+    //     onChanged: (value) {  },
+    //     onFieldSubmitted: (value) {},  
+    //     textController: dobController,
+    //     onSaved: (String? newValue) {  
+    //     }, 
+    //     validator: (value) {
+    //     String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
+    //     RegExp regExp = RegExp(pattern);
+    //       if (value.length == 0) {
+    //         return 'Please enter your birthday';
+    //         } else if (!regExp.hasMatch(value)) {
+    //         return 'Please enter a valid birthday format is yyyy-mm-dd';
+    //         }
+    //         return null;
+    //       },
            
-        errorText: '',
-      ),
-    );
+    //     errorText: '',
+    //   ),
+    // );
+    return Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadiusDirectional.circular(20)
+  ),
+  child:   Padding(
+    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: WrapCrossAlignment.s,
+      children: <Widget>[
+        Text( dateTime == null ? 'pick the date' : dateFormate),
+        // ignore: deprecated_member_use
+        GestureDetector(
+          child: Icon(Icons.calendar_today),
+          onTap: () {
+            
+            showDatePicker(
+              context: context,
+              initialDate:  DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2222)
+            ).then((date) {
+              setState(() {
+                dateTime = date;
+                
+              });
+            });
+          },
+        )
+      ],
+    ),
+  ),
+);
   }
 
   Widget country(List data) {

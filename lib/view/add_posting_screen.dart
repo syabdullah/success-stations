@@ -14,7 +14,6 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
