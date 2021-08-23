@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class AllAdds extends StatefulWidget {
   _AllAddsState createState() => _AllAddsState();
@@ -51,7 +47,7 @@ class _AllAddsState extends State<AllAdds> {
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.subCatt['data']);
+              return data.isLoading == true ? CircularProgressIndicator(): data.subCatt != null ? addsCategoryWidget(data.subCatt['data']): Container();
 
             },
           ),            
@@ -369,17 +365,18 @@ void _adsfiltringheet() {
                     children: [
                       Center(
                         child: Container(
+                          height: Get.height/4,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               child: 
                               allDataAdds[index]['image'].length != 0 ? 
-                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fitHeight,) :
-                               Image.asset(
-                                AppImages.profileBg,
-                                width: Get.width/4
-                              ),
+                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                              //  Image.asset(
+                              //   AppImages.profileBg,
+                              //   width: Get.width/4
+                              // ),
                             ),
                           )
                         ),
@@ -423,7 +420,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title']['en']: '',
+                                      allDataAdds[index]['contact_name']!= null ? allDataAdds[index]['contact_name']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -514,7 +511,9 @@ void _adsfiltringheet() {
                           child: Container(
                             width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                             height: Get.height /8.0,
-                            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                           child: dataListValue[index]['image'].length != 0 ? 
+                              Image.network(dataListValue[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
@@ -539,23 +538,23 @@ void _adsfiltringheet() {
                         //     ],
                         //   ),
                         // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         // margin:EdgeInsets.only(left:29),
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Expanded(
+                          flex : 2,
+                          child:  Row(
+                            children: [
+                              Icon(Icons.person, color:Colors.grey[400],),
+                              Container(
+                                // margin:EdgeInsets.only(left:29),
+                                child: Text(
+                                  dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         // Container(
                         //   width: Get.width/2.3,
                         //   child: Row(

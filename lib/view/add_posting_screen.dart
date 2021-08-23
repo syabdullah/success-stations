@@ -90,25 +90,51 @@ var lang;
         } catch (e) {
 
         }
+      print(".......UPload image");
   }
-   adpost(){
-    json = {
-    'category_id' : subtypeId,
-    'status': selectedStatus,
-    'description': descController.text,
-    'price': priceController.text,
-    'contact_name': fullNameController.text,
-    'mobile_no': mobileNoController.text,
-    'tel_no': telePhoneController.text,
-    'title':titleController.text,
-    'created_by': id,
-    'email': emailController.text,
-    'country_id': crid,
-    'city_id':cid,
-    'region_id': rid,
-  };
-  print("..................$json");
-  adpostingController.finalAdPosting(json);
+   adpost() async{
+    
+     if(pickedFile != null) {
+       
+        try {
+          dio.FormData formData = dio.FormData.fromMap({            
+             'category_id' : subtypeId,
+              'status': selectedStatus,
+              'description': descController.text,
+              'price': priceController.text,
+              'contact_name': fullNameController.text,
+            //   'mobile_no': mobileNoController.text,
+            //   'tel_no': telePhoneController.text,
+              'title':titleController.text,
+              'created_by': id.toString(),
+              'email': emailController.text,
+              'country_id': crid.toString(),
+              'city_id':cid.toString(),
+              'region_id': rid.toString(),
+              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          }); 
+          Get.find<AdPostingController>().finalAdPosting(formData); 
+        } catch (e) {
+            print("...............$e");
+        }
+      }
+  //   json = {
+  //   'category_id' : subtypeId,
+  //   'status': selectedStatus,
+  //   'description': descController.text,
+  //   'price': priceController.text,
+  //   'contact_name': fullNameController.text,
+  //   // 'mobile_no': mobileNoController.text,
+  //   // 'tel_no': telePhoneController.text,
+  //   'title':titleController.text,
+  //   'created_by': id.toString(),
+  //   'email': emailController.text,
+  //   'country_id': crid.toString(),
+  //   'city_id':cid.toString(),
+  //   'region_id': rid.toString(),
+  // };
+  // print("..................$json");
+  // adpostingController.finalAdPosting(json);
   }
   @override
   Widget build(BuildContext context) {
@@ -348,6 +374,7 @@ Widget istStep(List list,List types){
                           setState(() {
                             adCategory = val as Map;
                             selectedCategory = adCategory['category']['en'];
+                            subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
                           });
@@ -391,8 +418,8 @@ Widget istStep(List list,List types){
                           setState(() {
                             adsubCategory = val as Map;
                             selectedtype = adsubCategory['type'][lang];
-                            subtypeId =adsubCategory['id'];
-                            print(subtypeId);
+                            // subtypeId =adsubCategory['id'];
+                            // print(subtypeId);
                             
                           });
                         },
@@ -427,7 +454,7 @@ Widget istStep(List list,List types){
             ),
            ),
            SizedBox(height: 5.h,),
-             Container(
+            Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
                 padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
@@ -524,7 +551,7 @@ Widget istStep(List list,List types){
            ),
            SizedBox(height: 10.h,),
            Container(
-            child:  DottedBorder(
+            child: DottedBorder(
               dashPattern: [10,6],
               borderType: BorderType.RRect,
               radius: Radius.circular(12),
@@ -537,7 +564,7 @@ Widget istStep(List list,List types){
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        // getImage();
+                        getImage();
                       },
                       child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
                   ),
@@ -668,7 +695,7 @@ Widget secondStep(){
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text("SAR 112",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    Text(priceController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                   ],
                 ),
               ),
@@ -755,6 +782,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () { 
+          print("..........");
         adpost();
         // Get.off(MyAdds());
         },

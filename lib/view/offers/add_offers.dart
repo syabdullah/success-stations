@@ -38,7 +38,7 @@ class AddOffersState extends State<AddOffersPage> {
   var selectedCategory, hintLinkingId;
   // var selectedSubCategory;
   var subtypeId;
-  var selectedStatus;
+  var statusSelected;
   var uiStatus,  hintTextCate, hintLinking, idCategory;
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
@@ -49,6 +49,7 @@ class AddOffersState extends State<AddOffersPage> {
   TextEditingController mobileNoController = TextEditingController();
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController textAddsController = TextEditingController();
+   TextEditingController statusController = TextEditingController();
   var createdJson;
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
@@ -75,18 +76,23 @@ class AddOffersState extends State<AddOffersPage> {
     } catch (e) {}
   }
 
-  adOffersCreate(){
-    createdJson = {
-    // 'image': fileName,
-    'category_id': idCategory,
-    'description': descriptionController.text,
-    'text_ads': titleController.text,
-    'url': urlContr.text,
-    'listing_id': hintLinkingId,
-    // 'status': 0
-  };
-  print("..................$createdJson");
-  addpostedControllerPut.storefOffersAAll(createdJson);
+  adOffersCreate() async {
+    if(pickedFile !=null) {
+      try{
+        dio.FormData formData = dio.FormData.fromMap({
+          'image': await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),
+          'category_id': idCategory,
+          'description': descriptionController.text,
+          'text_ads': titleController.text,
+          'url': urlContr.text,
+          'listing_id': hintLinkingId,
+          'status': statusSelected
+        });
+        Get.find<StorePostAddesController>().storefOffersAAll(formData); 
+      }catch(e){
+        print("...............$e");
+      }
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -116,10 +122,10 @@ class AddOffersState extends State<AddOffersPage> {
             builder: (val){
               return 
               linkAdded(val.myMyAdd);
-
             },
           ),
-          // linkAdded(),
+          space15,
+          status(),
           space15,
           roundedRectBorderWidget,
           space10,
@@ -159,6 +165,54 @@ class AddOffersState extends State<AddOffersPage> {
         ),
       ),
     );    
+  }
+
+  Widget status(){
+   return  Container(
+                margin: const EdgeInsets.symmetric(horizontal:15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey,width: 1),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0) //                 <--- border radius here
+                   ),
+                ),
+                child:  ButtonTheme(
+                  alignedDropdown: true,
+                  child: Container(
+                    width: Get.width,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          statusSelected == null ? 'status'.tr : statusSelected == '1' ? 'New': 'Old',
+                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: <String>['New','Old'].map((String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child:Text(value)
+
+                           
+                          );
+                        }).toList(),
+                          onChanged: (value) {
+                          
+                          setState(() {
+                           
+                            statusSelected = value;
+
+                            value == 'New' ? statusSelected = '1' : statusSelected = '0' ;
+                           
+                            
+                          });
+                        },
+                      )
+                    ),
+                  )
+                )
+              );
   }
 
   Widget url() {

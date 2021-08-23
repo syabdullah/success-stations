@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -29,10 +30,12 @@ class _FavouritePageState extends State<FavouritePage> {
   var id, imageUploaded, fvrtListId;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+  GetStorage box = GetStorage();
 
  @override
   void initState() {
     super.initState(); 
+    id = box.read('user_id');
   }
 
   removeFvr8z(){
@@ -330,7 +333,7 @@ class _FavouritePageState extends State<FavouritePage> {
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
               if(ind == 0){
-                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+                controller.addedByIdAddes(listingCategoriesData[0]['id'],id);
 
               }
               
@@ -344,7 +347,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
-                          controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          controller.addedByIdAddes(listingCategoriesData[index]['id'],id);
                         });
                       },
                       child: Container(

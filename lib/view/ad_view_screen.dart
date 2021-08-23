@@ -13,6 +13,7 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/third_step.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class AdViewScreen extends StatefulWidget {
@@ -122,7 +123,11 @@ Widget titleStep(data) {
       children: [
         data['image'].length != 0 ? 
         Image.network(data['image'][0]['url']):
-        Image.asset(AppImages.sampleImage),
+        Container(
+          height: Get.height/4,
+          child: Center(child: Text("No Image !")),
+        ),
+        // Image.asset(AppImages.sampleImage),
         
         Card(
           child: Column(
@@ -211,10 +216,10 @@ Widget listTileRow(data){
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
           child: user_image != null ? 
-          Image.network(user_image) :
-          Image.asset(
-            AppImages.profile,
-          ),
+          Image.network(user_image) : Container(color: Colors.grey[200],)
+          // Image.asset(
+          //   AppImages.profile,
+          // ),
         )
       ),
       Padding(
@@ -236,10 +241,15 @@ Widget listTileRow(data){
      ],
     ),
     trailing: 
-      Text("${"see_profile".tr} >",style:
-      AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
-      ),
+      GestureDetector(
+        onTap: () {
+          Get.to(UserProfile());
+        },
+        child: Text("${"see_profile".tr} >",style:
+        AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
+        ),
     ),
+      ),
   );
 }
 

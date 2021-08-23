@@ -25,6 +25,7 @@ class _MyAddsState extends State<MyAdds> {
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
   var lang;
+  var userId;
   GetStorage box = GetStorage();
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _MyAddsState extends State<MyAdds> {
     super.initState();
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
+    userId = box.read('user_id');
   }
   @override
   Widget build(BuildContext context) {
@@ -373,7 +375,7 @@ void _adsfiltringheet() {
       itemBuilder: (BuildContext context,index) {
         return GestureDetector(
           onTap: () {
-            // Get.to(AdViewScreen());
+            Get.to(AdViewScreen(),arguments: allDataAdds[index]['id']);
           },
           child: Card(
             child: Container(
@@ -389,9 +391,15 @@ void _adsfiltringheet() {
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
-                              child: Image.asset(
-                                AppImages.profileBg
-                              ),
+                              child:  allDataAdds[index]['media'].length != 0 ?
+                              Image.network(allDataAdds[index]['media']['url']) :
+                              Container(
+                                width: Get.width/4,
+                                child: Text("No Image!"),
+                              )
+                              // Image.asset(
+                              //   AppImages.profileBg
+                              // ),
                             ),
                           )
                         ),
@@ -435,7 +443,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title'][lang]: '',
+                                      allDataAdds[index]['contact_name']!= null ? allDataAdds[index]['contact_name']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -523,12 +531,52 @@ void _adsfiltringheet() {
                       child: Container(
                         width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                         height: Get.height /8.0,
-                        child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                        child: dataListValue[index]['media'].length != 0 ?
+                              Image.network(dataListValue[index]['media']['url']) :
+                              Container(
+                                width: Get.width/4,
+                                child: Center(child: Text("No Image!")),
+                              )
+                        // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
                       child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                    ),
+                    // dataListValue[index]['user']['address'] == null ? Container(): 
+                    // Expanded(
+                    //   child:  Row(
+                    //     children: [
+                    //       Icon(Icons.location_on, color:Colors.grey),
+                    //       Container(
+                    //         child: Text(
+                    //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                    //           style: TextStyle(
+                    //             color: Colors.grey[300]
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    Expanded(
+                      flex : 2,
+                      child:  Row(
+                        children: [
+                          SizedBox(width: 5),
+                          Icon(Icons.person, color:Colors.grey[400],),
+                          Container(
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text(
+                              dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
+                              style: TextStyle(
+                                color: Colors.grey[300]
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     // dataListValue[index]['user']['address'] == null ? Container(): 
                     // Expanded(
@@ -601,7 +649,7 @@ void _adsfiltringheet() {
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
               if(ind == 0){
-                controller.addedByIdAddes(listingCategoriesData[0]['id']);
+                controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
               }
               return Row(
                 children: [
@@ -612,7 +660,7 @@ void _adsfiltringheet() {
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
-                          controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
                       },
                       child: Container(

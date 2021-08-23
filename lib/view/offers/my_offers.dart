@@ -24,6 +24,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   var listtype = 'list';
   var mediaList ;
   var selectedIndex = 0;
+  var favourImage;
   var imageUploaded;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
@@ -78,21 +79,22 @@ class _MyOffersDetailState extends State<OffersDetail> {
     List<Widget> favrties = [];
     if( listFavou!=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
-          favrties.add(
+        for( int k = 0; k < listFavou[c]['media'].length; k++){
+          favourImage = listFavou[c]['media'][k]['url'];
+            favrties.add(
             Card(
               child: Container(
                 child: ListTile(
                   leading: Container(
                     height: Get.height/2,
                     width: Get.width/4,
-                     child: listFavou[c]['user']!= null &&  listFavou[c]['user']['image']!= null? 
-                     Image.network( listFavou[c]['user']['image'],
+                     child: listFavou[c]['media']!= null &&  listFavou[c]['media'][k]['url']!= null? 
+                     Image.network( listFavou[c]['media'][k]['url'],
                     ):Container()
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Container(
                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -140,6 +142,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
               ),
             )
           );
+
+        }
+       
         
         }
       }
