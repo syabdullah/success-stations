@@ -33,7 +33,7 @@ class AddBasedController extends GetxController {
 
   addedAllAds() async{
     isLoading = true ;
-    await addsAll().then((res) {
+    await adsAll().then((res) {
       allAdsData = jsonDecode(res.body);
       print("/////////////////// json response .........................>>>>$allAdsData");
       isLoading = false;

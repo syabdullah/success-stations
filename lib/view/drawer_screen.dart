@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
@@ -18,6 +24,8 @@ import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:success_stations/view/offers/my_offers.dart';
+import 'package:dio/dio.dart' as dio;
+
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
 
@@ -29,16 +37,61 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    XFile? pickedFile;
+  late String imageP;
+  var fileName;
   
+   final banner = Get.put(BannerController());
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    banner.bannerController();
+    super.dispose();
+
+  }
   // var name  = '';
   // name  = box.read('name');
+   @override
+  void initState() {
+    super.initState();
+    image = box.read('user_image');
+    imageP = box.read('user_image_local').toString();
+    banner.bannerController();
+    print("........................YYYYYYYYYYYY$imageP");
+  }
+  Future getImage() async { 
+    await ApiHeaders().getData();
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+   
+    setState(() {
+      if (pickedFile != null) {
+        imageP = pickedFile!.path;      
+        box.write("user_image_local", imageP);
+        fileName = pickedFile!.path.split('/').last;  
+      } else {
+        print('No image selected.');
+      }
+    });
+    try {
+      dio.FormData formData = dio.FormData.fromMap({          
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData); 
+    } 
+    catch (e) { }
+  }
+
   @override
   Widget build(BuildContext context) {
-    image = box.read('image');
+    
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
+
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -46,30 +99,62 @@ class _AppDrawerState extends State<AppDrawer> {
                       color: Colors.blue,
                       width: Get.width,
                       height: Get.height/4,
-                      child: Stack(
-                        children: [
-                          FractionalTranslation(
-                            translation: const Offset(0.2, 0.8),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white54,
-                              radius: 60.0,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60.0),
-                                child: image != null ? 
-                                Image.network(
-                                  image,
-                                ):Image.asset(AppImages.person)
-                              )
-                            )
-                          ),
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          print("object");
+                        },
+                        child: Stack(
+                          children: [
+                              
+                            GestureDetector(
+                               onTap:() { 
+                                getImage();
+                              },
+                              child: FractionalTranslation(
+                                translation: Get.height > 400 ? const Offset(0.2, 1.3): const Offset(0.2, 0.8),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[200],
+                                  radius: 60.0,
+                                  child: imageP != null ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.5,)): Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height:30),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(60.0),
+                                        child: image != null ? 
+                                        Image.network(
+                                          image,
+                                        ):
+                                        Image.asset(AppImages.person),
+                                      ),
+                                      
+                                    ],
+                                  )
+                                )
+                              ),
+                            ),
+                           
+                          ],
+                        ),
                       ),
+                    ),
+                     Container(  
+                       margin: EdgeInsets.only(top:25,right: 55),        
+                       child: IconButton(
+                       onPressed: () {
+                         getImage();
+                       },
+                       icon:Icon(Icons.camera_alt,size: 40)
+                       )
+                      // ),
                     ),
                     // SizedBox(height:30),
                     Padding(
                       padding: const EdgeInsets.only(left:130.0),
-                      child: Text('',
-                        // box.read('name'),
+                      child: Text(
+                        box.read('name'),
                         style:AppTextStyles.appTextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
                         ),
@@ -115,7 +200,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
-                          CustomListTile(AppImages.offers, 'My Offer', () {
+                          CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
                           },15.0 ), 
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
@@ -143,7 +228,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
-                           Get.off(Contact())
+                           Get.to(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),

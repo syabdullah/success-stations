@@ -548,7 +548,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               dialogShapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12.0))),
               title: Text(
-                "Services",
+                "services".tr,
                 style: TextStyle(fontSize: 16),
               ),
               dataSource: allServices !=null ? allServices: '' ,
@@ -556,7 +556,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               valueField: 'id',
               okButtonLabel: 'OK',
               cancelButtonLabel: 'CANCEL',
-              hintWidget: Text('Please choose one or more'),
+              hintWidget: Text('more'.tr),
               onSaved: (value) {
                 if (value == null) return;
                 setState(() {

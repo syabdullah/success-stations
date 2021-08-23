@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -13,16 +14,19 @@ class FriendList extends StatefulWidget {
   _FriendListState createState() => _FriendListState();
 }
 class _FriendListState extends State<FriendList> {
+  
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
   var listtype = 'list';
   var grid = AppImages.gridOf;
   Color listIconColor = AppColors.appBarBackGroundColor;
   var id ;
+final banner = Get.put(BannerController());
 
   @override
   void initState() {
     super.initState();
+    banner.bannerController();
     friCont.getFriendsList();
     friCont.getSuggestionsList();
     id = box.read('user_id');
@@ -37,7 +41,7 @@ class _FriendListState extends State<FriendList> {
           builder: (val) {
             print("/././././././${val.friendsData}");
             return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0  || val.friendsData == null? Container(
-              child: Text("No Friends! "),
+              child: Text("nofriends".tr),
             ) :  Expanded(
               child: listtype == 'list' ? friendList(val.friendsData['data']) : friendGridView(val.friendsData['data'])
             );
@@ -59,7 +63,7 @@ class _FriendListState extends State<FriendList> {
               children: [
                 Image.asset(AppImages.filter,height: 15),
                 SizedBox(width:5),
-                Text("Filter",style: TextStyle(color: Colors.grey[700]),)
+                Text("filter".tr,style: TextStyle(color: Colors.grey[700]),)
               ],
             ),
           )
@@ -172,7 +176,7 @@ class _FriendListState extends State<FriendList> {
         return 
          GestureDetector(
           onTap: (){
-            Get.toNamed('/friendProfile',arguments:data[index]['requister_id']);
+            Get.to(FriendProfile(),arguments: id != data[index]['requister_id'] ?  data[index]['requister_id'] : data[index]['user_requisted']['id']);
           },
           child: Card(
             child: Column(
