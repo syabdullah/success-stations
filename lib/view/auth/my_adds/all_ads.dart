@@ -51,7 +51,7 @@ class _AllAddsState extends State<AllAdds> {
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.subCatt['data']);
+              return data.isLoading == true ? CircularProgressIndicator(): data.subCatt != null ? addsCategoryWidget(data.subCatt['data']): Container();
 
             },
           ),            
@@ -369,17 +369,18 @@ void _adsfiltringheet() {
                     children: [
                       Center(
                         child: Container(
+                          height: Get.height/4,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               child: 
                               allDataAdds[index]['image'].length != 0 ? 
-                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fitHeight,) :
-                               Image.asset(
-                                AppImages.profileBg,
-                                width: Get.width/4
-                              ),
+                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                              //  Image.asset(
+                              //   AppImages.profileBg,
+                              //   width: Get.width/4
+                              // ),
                             ),
                           )
                         ),
@@ -423,7 +424,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title']['en']: '',
+                                      allDataAdds[index]['contact_name']!= null ? allDataAdds[index]['contact_name']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -514,7 +515,9 @@ void _adsfiltringheet() {
                           child: Container(
                             width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                             height: Get.height /8.0,
-                            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                           child: dataListValue[index]['image'].length != 0 ? 
+                              Image.network(dataListValue[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
@@ -539,23 +542,23 @@ void _adsfiltringheet() {
                         //     ],
                         //   ),
                         // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         // margin:EdgeInsets.only(left:29),
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Expanded(
+                          flex : 2,
+                          child:  Row(
+                            children: [
+                              Icon(Icons.person, color:Colors.grey[400],),
+                              Container(
+                                // margin:EdgeInsets.only(left:29),
+                                child: Text(
+                                  dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         // Container(
                         //   width: Get.width/2.3,
                         //   child: Row(
