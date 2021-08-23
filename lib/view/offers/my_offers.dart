@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:readmore/readmore.dart';
+import 'package:success_stations/styling/text_style.dart';
 
 
 class OffersDetail extends StatefulWidget {
@@ -31,9 +33,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
   Color listIconColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold( 
-      key: _scaffoldKey,
-      appBar: AppBar(backgroundColor:AppColors.appBarBackGroundColor,title: Text('MY OFFER'),centerTitle: true,),
+    return Scaffold( 
+        appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: stringbar(context, "MY OFFERS" )),
 
       body: SingleChildScrollView(
         child: Column(

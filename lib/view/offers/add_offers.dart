@@ -112,8 +112,8 @@ class AddOffersState extends State<AddOffersPage> {
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
+      // key: _scaffoldKey,
+      appBar: AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
       body: SingleChildScrollView(
         child:Form(
           key: formKey,
@@ -203,7 +203,7 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButton(
                 hint: Text(
                   statusSelected == null ? 'status'.tr : statusSelected == '1' ? 'New': 'Old',
-                  style: TextStyle(fontSize: 13, color: Colors.grey[700])
+                  style: TextStyle(fontSize: 13, color: Colors.grey[800])
                 ),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
@@ -211,7 +211,7 @@ class AddOffersState extends State<AddOffersPage> {
                   return DropdownMenuItem(
                     value: value,
                     child:Text(
-                      value, style: TextStyle(color: Colors.grey[300]),
+                      value, style: TextStyle(color: Colors.grey[800]),
                     )
                   );
                 }).toList(),

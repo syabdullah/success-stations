@@ -47,9 +47,9 @@ class AdPostingController extends GetxController {
     // await updateProfile(data).then((res) {
        print("object----------------------$result");
       adpost = result.data;
-     
       if(result.data['success'] == true){
          isLoading(true);
+         Get.off(MyAdds());
          Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
       } 
     update();

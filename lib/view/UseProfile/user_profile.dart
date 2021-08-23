@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
@@ -13,11 +14,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   final dataUser = Get.put(UserProfileController());
   final banner = Get.put(BannerController());
   bool liked = false;
+   GetStorage box = GetStorage();
+  var userimage;
   var id ;
   @override
   void initState() {
     super.initState();
-    
+    userimage = box.read('user_image');
     //  id = Get.arguments;
     // print("../././....----------$id");
     // friCont.friendDetails(id);
@@ -53,11 +56,14 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     return Stack(
       children: [         
         Container(
+          // color: Colors.grey,
           height: Get.height/2.5,
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-            child: Container()
+            child: Container(
+              color: Colors.grey,
+            ),
             // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
@@ -67,7 +73,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             children: [
               IconButton(
                 onPressed:() {
-                  
                   Get.to(BottomTabs());
                   banner.bannerController();
                 },
@@ -89,13 +94,15 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               child: Container(
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
-                  backgroundColor: Colors.white54,
+                  backgroundColor: Colors.grey[100],
                   radius: 40.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60.0),
                     child:
+                    userData['image'] == null ? 
+                    Image.asset(AppImages.person):
                     Image.network(
-                      'https://picsum.photos/250?image=9',
+                      userData['image']['url'],fit: BoxFit.fill,height: Get.height/5,
                     ),
                   )
                 )
@@ -217,7 +224,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:25,),
                           child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData['college']['college'] != null  ?
+                        userData['college'] != null  ?
                         Container(
                           margin: EdgeInsets.only(top: 5,),
                           child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),

@@ -75,13 +75,13 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-  Widget stringbar(context ,icon,string) {
+  Widget stringbar(context, string) {
     return AppBar(
       // automaticallyImplyLeading: false,
       centerTitle: true,
       leading:
         IconButton(
-          icon: Icon(icon,
+          icon: Icon(Icons.arrow_back_ios_new_sharp,
           color: AppColors.backArrow),
           onPressed: () => Navigator.of(context).pop(),
         ),
