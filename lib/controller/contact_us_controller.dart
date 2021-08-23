@@ -10,6 +10,7 @@ class ContactWithUsController extends GetxController {
 var isLoading = false;
 var ad;
 var responses;
+var phoneEr;
   contactWithUs(data) async {
     isLoading = true;
     await contactAction(data).then((response){
@@ -23,7 +24,10 @@ var responses;
         Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
       }
       if(response.statusCode > 400){
-
+        phoneEr = ad['errors']['phone'].toString();
+        phoneEr = phoneEr.split("[")[1].split("]")[0];
+        print("................adasd $phoneEr");
+        Get.snackbar("","${ad['message']} $phoneEr",backgroundColor: Colors.blue);
       }
       
   }

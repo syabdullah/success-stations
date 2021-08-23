@@ -14,11 +14,9 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:success_stations/view/i18n/lang/en_dart.dart';
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -91,25 +89,51 @@ var lang;
         } catch (e) {
 
         }
+      print(".......UPload image");
   }
-   adpost(){
-    json = {
-    'category_id' : subtypeId,
-    'status': selectedStatus,
-    'description': descController.text,
-    'price': priceController.text,
-    'contact_name': fullNameController.text,
-    'mobile_no': mobileNoController.text,
-    'tel_no': telePhoneController.text,
-    'title':titleController.text,
-    'created_by': id,
-    'email': emailController.text,
-    'country_id': crid,
-    'city_id':cid,
-    'region_id': rid,
-  };
-  print("..................$json");
-  adpostingController.finalAdPosting(json);
+   adpost() async{
+    
+     if(pickedFile != null) {
+       
+        try {
+          dio.FormData formData = dio.FormData.fromMap({            
+             'category_id' : subtypeId,
+              'status': selectedStatus,
+              'description': descController.text,
+              'price': priceController.text,
+              'contact_name': fullNameController.text,
+              'mobile_no': mobileNoController.text,
+              'tel_no': telePhoneController.text,
+              'title':titleController.text,
+              'created_by': id.toString(),
+              'email': emailController.text,
+              'country_id': crid.toString(),
+              'city_id':cid.toString(),
+              'region_id': rid.toString(),
+              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          }); 
+          Get.find<AdPostingController>().finalAdPosting(formData); 
+        } catch (e) {
+            print("...............$e");
+        }
+      }
+  //   json = {
+  //   'category_id' : subtypeId,
+  //   'status': selectedStatus,
+  //   'description': descController.text,
+  //   'price': priceController.text,
+  //   'contact_name': fullNameController.text,
+  //   // 'mobile_no': mobileNoController.text,
+  //   // 'tel_no': telePhoneController.text,
+  //   'title':titleController.text,
+  //   'created_by': id.toString(),
+  //   'email': emailController.text,
+  //   'country_id': crid.toString(),
+  //   'city_id':cid.toString(),
+  //   'region_id': rid.toString(),
+  // };
+  // print("..................$json");
+  // adpostingController.finalAdPosting(json);
   }
   @override
   Widget build(BuildContext context) {
@@ -349,6 +373,7 @@ Widget istStep(List list,List types){
                           setState(() {
                             adCategory = val as Map;
                             selectedCategory = adCategory['category']['en'];
+                            subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
                           });
@@ -391,9 +416,9 @@ Widget istStep(List list,List types){
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type']['en'];
-                            subtypeId =adsubCategory['id'];
-                            print(subtypeId);
+                            selectedtype = adsubCategory['type'][lang];
+                            // subtypeId =adsubCategory['id'];
+                            // print(subtypeId);
                             
                           });
                         },
@@ -525,7 +550,7 @@ Widget istStep(List list,List types){
            ),
            SizedBox(height: 10.h,),
            Container(
-            child:  DottedBorder(
+            child: DottedBorder(
               dashPattern: [10,6],
               borderType: BorderType.RRect,
               radius: Radius.circular(12),
@@ -538,7 +563,7 @@ Widget istStep(List list,List types){
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        // getImage();
+                        getImage();
                       },
                       child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
                   ),
@@ -658,7 +683,7 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        // Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
         
         Card(
           child: Column(
@@ -669,7 +694,7 @@ Widget secondStep(){
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text("SAR 112",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    Text(priceController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                   ],
                 ),
               ),
@@ -681,22 +706,20 @@ Widget secondStep(){
                     children: [
                       SizedBox(height: 15.h,),
                         SizedBox(height: 15.h,),
-                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                         Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 10.h),
-                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("123453242342",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      //  Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
+                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
+                      SizedBox(height: 15.h,),
+                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
+                       Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
                       
                     ],
                   ),
@@ -709,11 +732,16 @@ Widget secondStep(){
                         Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        // SizedBox(height: 15.h,),
-                        //  Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        // SizedBox(height: 7.h),
-                        // Text(selectedStatus.toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        // SizedBox(height: 10.h),
+                        
+                        SizedBox(height: 15.h,),
+                       Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h),
+                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                         Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 10.h),
                         
                       ],
                       ),
@@ -756,6 +784,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () { 
+          print("..........");
         adpost();
         // Get.off(MyAdds());
         },
