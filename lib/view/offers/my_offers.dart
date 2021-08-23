@@ -79,77 +79,68 @@ class _MyOffersDetailState extends State<OffersDetail> {
     List<Widget> favrties = [];
     if( listFavou!=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
-        for( int k = 0; k < listFavou[c]['media'].length; k++){
-          favourImage = listFavou[c]['media'][k]['url'];
-            favrties.add(
-            Card(
-              child: Container(
-                child: ListTile(
-                  leading: Container(
-                    height: Get.height/2,
-                    width: Get.width/4,
-                     child: listFavou[c]['media']!= null &&  listFavou[c]['media'][k]['url']!= null? 
-                     Image.network( listFavou[c]['media'][k]['url'],
-                    ):Container()
-                  ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            
-                            Text(
-                              listFavou[c]['text_ads']['en'] !=null ? 
-                              allWordsCapitilize(listFavou[c]['text_ads']['en'].toString()) :'', 
-                              style: TextStyle(
-                                fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
-                              )
-                            ),
-                            Text (
-                              listFavou[c]['status'] == 1 ? "NEW": 
-                              listFavou[c]['status'] == 0 ? "OLD":
-                              listFavou[c]['status'] == null ? '':'',
-                              style: TextStyle(
-                                fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color:listFavou[c]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
-                              )
-                            )
-                          ],
-                        // ),
-                      ),
-                      SizedBox(height:5),
-                      Container(
-                        child: ReadMoreText(
-                          listFavou[c]['description'] != null ?
-                          allWordsCapitilize(listFavou[c]['description']['en']) : "",
-                          style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
-                          trimLines: 2,
-                          colorClickableText: AppColors.appBarBackGroundColor,
-                          trimMode: TrimMode.Line,
-                          trimCollapsedText: 'Show more',
-                          trimExpandedText: 'Show less',
+        favrties.add(
+          Card(
+            child: Container(
+              child: ListTile(
+                leading: Container(
+                  height: Get.height/2,
+                  width: Get.width/4,
+                  child: listFavou[c]['image_ads'] != null && listFavou[c]['image_ads']['url']!= null? 
+                    Image.network( listFavou[c]['image_ads']['url'],
+                  ):Container()
+                ),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        
+                        Text(
+                          listFavou[c]['text_ads']['en'] !=null ? 
+                          allWordsCapitilize(listFavou[c]['text_ads']['en'].toString()) :'', 
+                          style: TextStyle(
+                            fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
+                          )
                         ),
+                        Text (
+                          listFavou[c]['status'] == 1 ? "NEW": 
+                          listFavou[c]['status'] == 0 ? "OLD":
+                          listFavou[c]['status'] == null ? '':'',
+                          style: TextStyle(
+                            fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color:listFavou[c]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
+                          )
+                        )
+                      ],
+                    ),
+                    SizedBox(height:5),
+                    Container(
+                      child: ReadMoreText(
+                        listFavou[c]['description'] != null ?
+                        allWordsCapitilize(listFavou[c]['description']['en']) : "",
+                        style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
+                        trimLines: 2,
+                        colorClickableText: AppColors.appBarBackGroundColor,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Show more',
+                        trimExpandedText: 'Show less',
                       ),
-                      SizedBox(height:5),
-                      Container(
-                        child:  listFavou[c]['url'] != null ? Text(allWordsCapitilize(listFavou[c]['url']) ,
-                          style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
-                        ): Container()
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height:5),
+                    Container(
+                      child:  listFavou[c]['url'] != null ? Text(allWordsCapitilize(listFavou[c]['url']) ,
+                        style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
+                      ): Container()
+                    ),
+                  ],
                 ),
               ),
-            )
+            ),
+          )
           );
-
-        }
-       
-        
         }
       }
-    
       return favrties;
-    
+    }
   }
-}

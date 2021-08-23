@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,46 +9,52 @@ import 'package:success_stations/utils/snack_bar.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 class SignUpController extends GetxController{
-  bool isLoading = false;
+  bool isLoadingg = false;
   var signup, indiviualSignup, companySignUp;
   var result = false;
+  var resultInvalid = false.obs;
+   RxBool isLoading = false.obs;
   GetStorage box = GetStorage();
 
-  @override
-  void onInit(){
-    isLoading = true;
-    super.onInit();
-  }
-
   createAccountData(data) async{
-    isLoading = true;
+    isLoading(true);
     await createAccount(data).then((res){
-      print("........////....${res.body}");
-       if(res.statusCode == 200 || res.statusCode < 400){
-
-        signup = jsonDecode(res.body);
-        isLoading = false;
+      signup = jsonDecode(res.body);
+      print("jknldkjhwkdujhwekujdhuweoudh.....$signup");
+      if(res.statusCode == 200 || res.statusCode < 400){
+        print("......... 2000000");
+        resultInvalid(false);
+        isLoading(false);
         Get.offAndToNamed('/login');
-        if(signup['success'] == true){
-          SnackBarWidget().showToast("",signup['message'] );  
-        }
-        
+        SnackBarWidget().showToast("",signup['message'] );
+      }
+      else if(res.statusCode > 400){
+         print("......... 400");
+        resultInvalid(true);
+        isLoading(false);
       }
     });
-     update();
+    update();
 
   }
+
   individualAccountData(data) async{
-    isLoading = true;
+     isLoading(true);
     await individualUser(data).then((res){
+      indiviualSignup = jsonDecode(res.body);
        if(res.statusCode == 200 || res.statusCode < 400){
-        indiviualSignup = jsonDecode(res.body);
-        isLoading = false;
+         resultInvalid(false);
+        isLoading(false);
         Get.offAndToNamed('/login');
-        if(indiviualSignup['success'] == true){
+        // if(indiviualSignup['success'] == true){
           SnackBarWidget().showToast("", indiviualSignup['message']);  
-        }
         
+        
+      }
+      else if(res.statusCode > 400){
+         print("......... 400");
+        resultInvalid(true);
+        isLoading(false);
       }
     });
     update();
@@ -55,18 +62,32 @@ class SignUpController extends GetxController{
 
   companyAccountData(data) async{
      print("........////....;;;;;;;;;;;;");
-    isLoading = true;
+   isLoading(true);
     await companyUser(data).then((res){
+      companySignUp = jsonDecode(res.body);
        if(res.statusCode == 200 ||res.statusCode < 400 ){
-        companySignUp = jsonDecode(res.body);
-        print("........////....${res.body}");
-        print(".......S--------I------G-----N------U-------P....${res.body}");
-        isLoading = false;
-        Get.to(SignIn());
-        if(companySignUp['success'] == true){
-          SnackBarWidget().showToast("", companySignUp['message']);  
-        }
+         resultInvalid(false);
+        isLoading(false);
+        Get.offAndToNamed('/login');
+        // if(indiviualSignup['success'] == true){
+          SnackBarWidget().showToast("", indiviualSignup['message']);  
+        
+        
       }
+      else if(res.statusCode > 400){
+         print("......... 400");
+        resultInvalid(true);
+        isLoading(false);
+      }
+        
+        // print("........////....${res.body}");
+        // print(".......S--------I------G-----N------U-------P....${res.body}");
+        // isLoadingg = false;
+        // Get.to(SignIn());
+        // if(companySignUp['success'] == true){
+        //   SnackBarWidget().showToast("", companySignUp['message']);  
+        // }
+      // }
     });
     update();
   }

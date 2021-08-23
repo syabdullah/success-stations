@@ -20,7 +20,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
  var finalIndex;
 
   DateTime  ? dateTime;
-   var dateFormate = DateFormat("dd-MM-yyyy").format(DateTime.parse(dateTime.toString()));
+   var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 
  
 class CompanySignUp extends StatefulWidget {
@@ -74,7 +74,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
 
-  bool _isChecked = true;
+  bool _isChecked = false;
+
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
   var v = 1;
@@ -134,7 +135,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       };
       signUpCont.individualAccountData(individualJson);
     }
- }
+  }
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(20, context));
@@ -149,6 +150,27 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
               space10,
               eMail(),
+              GetBuilder<SignUpController>(
+                init: SignUpController(),
+                builder: (val){
+                  return  signUpCont.resultInvalid.isTrue ?
+                  Container(
+                    margin:EdgeInsets.only(left:10),
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                        margin:EdgeInsets.only(left:10),
+                      alignment: Alignment.topLeft,
+                      child: v==1?  Text(  signUpCont.indiviualSignup['errors']['email'][0],
+                      style: TextStyle(color: Colors.red),
+                      ): Text( signUpCont.companySignUp['errors']['email'][0],
+                      style: TextStyle(color: Colors.red),
+                      )
+                       
+                    )
+                  ):Container();
+
+                 }),
+              
               space10,
               mobile(),
               space10 ,
@@ -209,7 +231,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Checkbox(
+                  Checkbox(
                     activeColor: Colors.blue,
                     value: _isChecked,
                     onChanged: (value) {
@@ -235,7 +257,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 buttonText: 'sign_up_text'.tr, 
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun, 
-                callback: v == 1 ? individualSignUp : companyUser
+                callback:  _isChecked == true ?  v == 1 ? individualSignUp : companyUser: null 
               ),
               space20,
               GestureDetector(
@@ -355,66 +377,65 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
   Widget companyDob() {
-    return
-    // return  Container(
-    //   margin:EdgeInsets.only(left:20, right: 20),
-    //   width: Get.width * 0.9,
-    //   child: CustomTextFiled(
-    //     isObscure: false,
-    //     hintText: "date_of_birth".tr,
-    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-    //     hintColor: AppColors.inputTextColor,
-    //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
-    //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
-    //     validator: (value) {
-    //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-    //       RegExp regExp = RegExp(pattern);
-    //       if (value.length == 0) {
-    //         return 'Enter your DOB';
-    //         } else if (!regExp.hasMatch(value)) {
-    //         return 'Enter a valid birthday format is yyyy-mm-dd';
-    //         }
-    //         return null;
-    //       }, 
-    //     errorText: '',
-    //   ),
-    // );
-Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadiusDirectional.circular(20)
-  ),
-  child:   Padding(
-    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: WrapCrossAlignment.s,
-      children: <Widget>[
-        Text( dateTime == null ? 'pick the date' : dateFormate),
-        // ignore: deprecated_member_use
-        GestureDetector(
-          child: Icon(Icons.calendar_today),
-          onTap: () {
-            print("hehe");
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2222)
-            ).then((date) {
-              setState(() {
-                dateTime = date;
+    return Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: "date_of_birth".tr,
+        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {},  
+        textController: dobController,
+        onSaved: (String? newValue) {  
+        }, 
+        validator: (value) {
+          String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
+          RegExp regExp = RegExp(pattern);
+          if (value.length == 0) {
+            return 'Enter your DOB';
+            } else if (!regExp.hasMatch(value)) {
+            return 'Enter a valid birthday format is yyyy-mm-dd';
+            }
+            return null;
+          }, 
+        errorText: '',
+      ),
+    );
+// return Container(
+//   decoration: BoxDecoration(
+//     borderRadius: BorderRadiusDirectional.circular(20)
+//   ),
+//   child:   Padding(
+//     padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       // crossAxisAlignment: WrapCrossAlignment.s,
+//       children: <Widget>[
+//         Text( dateTime == null ? 'Date of Birth' : dateFormate,style: TextStyle(color: Colors.grey[500])),
+//         // ignore: deprecated_member_use
+//         GestureDetector(
+//           child: Icon(Icons.calendar_today),
+//           onTap: () {
+//             print("hehe");
+//             showDatePicker(
+//               context: context,
+//               initialDate:  DateTime.now(),
+//               firstDate: DateTime(2000),
+//               lastDate: DateTime(2222)
+//             ).then((date) {
+//               setState(() {
+//                 dateTime = date;
                 
-              });
-            });
-          },
-        )
-      ],
-    ),
-  ),
-);
+//               });
+//             });
+//           },
+//         )
+//       ],
+//     ),
+//   ),
+// );
   }
   Widget comName() {
     return  Container(
@@ -727,10 +748,12 @@ Container(
           child: Text("Account_type".tr)
         ),
         Expanded(
+          flex: 2,
           child: Row(
             children: _group.map((t) => 
             Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Radio(
                     value: t.index,
@@ -738,7 +761,6 @@ Container(
                     activeColor: Colors.blue,
                     onChanged: (int?value ) {
                       setState(() {
-                        // print(" radio button values................$value");
                         v = value!;
                       });
                     },

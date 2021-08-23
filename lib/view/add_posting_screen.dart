@@ -17,6 +17,8 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
+// import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -40,6 +42,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   var subtypeId;
   var selectedStatus;
   var uiStatus;
+  final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -112,6 +115,7 @@ var lang;
               'region_id': rid.toString(),
               "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           }); 
+          print("add posting screen ...........>$formData");
           Get.find<AdPostingController>().finalAdPosting(formData); 
         } catch (e) {
             print("...............$e");
