@@ -74,7 +74,7 @@ class _MyAddsState extends State<MyAdds> {
                 return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(
-                      child: Center(child: Text(val.cData['errors'])),
+                      child: Center(child: Text("No ads")),
                     ),
                   ],
                 );
