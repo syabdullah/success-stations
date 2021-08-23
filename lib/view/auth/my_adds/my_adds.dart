@@ -578,6 +578,38 @@ void _adsfiltringheet() {
                         ],
                       ),
                     ),
+                    // dataListValue[index]['user']['address'] == null ? Container(): 
+                    // Expanded(
+                    //   child:  Row(
+                    //     children: [
+                    //       Icon(Icons.location_on, color:Colors.grey),
+                    //       Container(
+                    //         child: Text(
+                    //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                    //           style: TextStyle(
+                    //             color: Colors.grey[300]
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   flex : 2,
+                    //   child:  Row(
+                    //     children: [
+                    //       Icon(Icons.person, color:Colors.grey[400],),
+                    //       Container(
+                    //         child: Text(
+                    //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                    //           style: TextStyle(
+                    //             color: Colors.grey[300]
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
               )
