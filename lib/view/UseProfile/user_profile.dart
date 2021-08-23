@@ -61,10 +61,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-            child: Container(
-              color: Colors.grey,
-            ),
-            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
         Container(
@@ -73,6 +70,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             children: [
               IconButton(
                 onPressed:() {
+                  
                   Get.to(BottomTabs());
                   banner.bannerController();
                 },
@@ -99,7 +97,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60.0),
                     child:
-                    userData['image'] == null ? 
+                    userData['image'] == null ?
                     Image.asset(AppImages.person):
                     Image.network(
                       userData['image']['url'],fit: BoxFit.fill,height: Get.height/5,
@@ -164,16 +162,75 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                          userData["email"] != null ?
                         Container(
                           margin: EdgeInsets.only(top:5),
-                          child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
+                          child: GestureDetector(
+                            onTap: (){
+                             
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                    // elevation: 16,
+                                    child: Container(
+                                      height: Get.height/7,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(left:20,top:10),
+                                            child:Text("email".tr)
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top:5,left: 20),
+                                            child: Text(userData["email"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                            });},
+                            child: Text(
+                              userData["email"].length > 10 ? userData["email"].substring(0, 10)+'...' : userData["email"],
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          ),
                         ):Container(), 
                         Container(
                           margin: EdgeInsets.only(top:20),
-                          child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          child: GestureDetector(child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),)),
                         ),
                         userData["address"] != null ?
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                          child: GestureDetector(
+                            onTap: (){
+
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    child: Container(
+                                      height: Get.height/7,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(left:20,top:10),
+                                            child:Text("Address".tr)
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top:5,left: 20),
+                                            child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                            });},
+                            
+                            child: Text(
+                              userData["address"].length > 10 ? userData["address"].substring(0, 10)+'...' : userData["address"],
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          ),
                         ): Container(
                           height: 45,
                         )     
@@ -271,4 +328,5 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
       ),
     ); 
   }
+   
 }

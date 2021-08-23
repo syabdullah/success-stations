@@ -83,8 +83,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
              SizedBox(height: 10.h,),
              listTileRow(val.adsD),
               SizedBox(height: 14.h,),
-              Text('ad_posted_at'.tr,
-                style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Text('ad_posted_at'.tr,
+                  style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+                  ),
                 ),
               ),
               commentInput(),
@@ -141,64 +144,72 @@ Widget titleStep(data) {
         
         Card(
           child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                 padding: const EdgeInsets.all(15),
+              Container(
+                margin: EdgeInsets.only(left:30,top:20,right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(data['price'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    Text(data['price'].toString(),style: TextStyle(fontSize: 15),),
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 15.h,),
-                      Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
-                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
-                       Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(data['category'] != null ? data['category']['category'][lang] : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
-                    ],
-                  ),
-                   Container(
-                     margin: EdgeInsets.only(right: 20),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15.h,),
-                        Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 30,),
+                        Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 15.h,),
-                         Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                         Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(data['status'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10.h),
-                        
+                        Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 15.h,),
+                         Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                        // Text(data['category'] != null ? data['category']['category'][lang] : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 15.h,),
                       ],
-                      ),
-                   ),
-                ],
+                    ),
+                     Container(
+                      //  margin: EdgeInsets.only(right: 20),
+                       child: Container(
+                         margin: EdgeInsets.only(left:60,bottom: 3),
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // SizedBox(heig,),
+                            Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                            Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h,),
+                             Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                            Text(data['status'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h),
+                            
+                          ],
+                          ),
+                       ),
+                     ),
+                  ],
+                ),
               )
             ],
           ),
         ),
       Card(
         child:Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.only(left:30,top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

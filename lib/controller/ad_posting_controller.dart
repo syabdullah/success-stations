@@ -49,8 +49,27 @@ class AdPostingController extends GetxController {
       adpost = result.data;
       if(result.data['success'] == true){
          isLoading(true);
-         Get.off(MyAdds());
-         Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
+         Get.snackbar("Ad successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
+      } 
+    update();
+  }
+    finalAdDrafting(data) async {
+      await ApiHeaders().getData();
+      final Config conf = Config();
+        print("object----------------------${ApiHeaders().headersWithToken}");
+      String url =conf.baseUrl + "ads";
+      Dio dio = Dio();
+        response.Response result =
+        await dio.post(url, data: data,options:Options(
+          followRedirects: false,
+          headers: ApiHeaders().headersWithToken));
+    // await updateProfile(data).then((res) {
+       print("object----------------------$result");
+      adpost = result.data;
+     
+      if(result.data['success'] == true){
+         isLoading(true);
+         Get.snackbar("Ad Drafted Successfully",'',backgroundColor: AppColors.appBarBackGroundColor);
       } 
     update();
   }
