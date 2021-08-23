@@ -60,7 +60,7 @@ class _AppDrawerState extends State<AppDrawer> {
     image = box.read('user_image');
     imageP = box.read('user_image_local').toString();
     banner.bannerController();
-    print("........................YYYYYYYYYYYY$imageP");
+    print(".............$image...........YYYYYYYYYYYY$imageP");
   }
    Future getImage() async { 
     await ApiHeaders().getData();
@@ -118,7 +118,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                   radius: 60.0,
                                   child:   imageP != null ? ClipRRect(
                                     borderRadius: BorderRadius.circular(60.0),
-                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.5,)): Column(
+                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,)): Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(height:30),
@@ -136,13 +136,18 @@ class _AppDrawerState extends State<AppDrawer> {
                                 )
                               ),
                             ),
-                           
+                            
                           ],
                         ),
                       ),
                     ),
-                     Container(  
-                       margin: EdgeInsets.only(top:25,right: 55),        
+                    
+                    // SizedBox(height:30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Container(  
+                       margin: EdgeInsets.only(top:25,left: 35),        
                        child: IconButton(
                        onPressed: () {
                          getImage();
@@ -151,15 +156,16 @@ class _AppDrawerState extends State<AppDrawer> {
                        )
                       // ),
                     ),
-                    // SizedBox(height:30),
-                    Padding(
-                      padding: const EdgeInsets.only(left:130.0),
-                      child: Text(
-                        box.read('name'),
-                        style:AppTextStyles.appTextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                        Padding(
+                          padding: const EdgeInsets.only(left:50.0),
+                          child: Text(
+                            box.read('name'),
+                            style:AppTextStyles.appTextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top:50.0),

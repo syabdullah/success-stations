@@ -82,20 +82,19 @@ var lang;
         print('No image selected.');
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-          Get.find<AdPostingController>().uploadAdImage(formData); 
-        } catch (e) {
-
-        }
-      print(".......UPload image");
+      // try {
+      //     dio.FormData formData = dio.FormData.fromMap({          
+      //       "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      //     });
+      //     Get.find<AdPostingController>().uploadAdImage(formData); 
+      //   } catch (e) {
+// 
+        // }
+     
   }
-   adpost() async{
-    
+   adpost() async{ 
      if(pickedFile != null) {
-       
+        print(".......UPload image$subtypeId");
         try {
           dio.FormData formData = dio.FormData.fromMap({            
              'category_id' : subtypeId,

@@ -34,6 +34,7 @@ class _MyAddsState extends State<MyAdds> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    controller.addedAllAds();
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
     userId = box.read('user_id');
@@ -65,28 +66,23 @@ class _MyAddsState extends State<MyAdds> {
           Expanded(
             child: 
             
-            listtype == 'list' ?
+            // listtype == 'list' ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                return val.cData != null ?  myAddsList(val.cData['data']) : ListView(
-                  children: [
-                    Container(
-
-                    ),
-                  ],
-                );
+                return val.isLoading == true ? Container(): listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
               },
-            ) :GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val){
-                return val.cData != null ?  myAddGridView(val.cData['data']): ListView(
-                  children: [
-                    Container(),
-                  ],
-                );
-              },
-              )
+            ) 
+            // :GetBuilder<AddBasedController>(
+            //   init: AddBasedController(),
+            //   builder: (val){
+            //     return val.cData != null ?  myAddGridView(val.cData['data']): ListView(
+            //       children: [
+            //         Container(),
+            //       ],
+            //     );
+            //   },
+            //   )
           ),
         ],
       ),
@@ -497,27 +493,27 @@ void _adsfiltringheet() {
                           init: FriendsController(),
                           builder: (val){
                             return
-                         Row(
-                          children: [ 
-                            GestureDetector(
-                              onTap: () {
-                                 var json = {
-                                          'ads_id' : allDataAdds[index]['id']
-                                        };
-                                        // setState(() {
-                                          liked = !liked;
-                                        // });
-                                       allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                                       controller.addedAllAds();
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(right:5),
-                                child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
-                              ),
-                            ),
-                            Image.asset(AppImages.call, height: 25),
-                          ],
-                        );
+                            Row(
+                              children: [ 
+                                GestureDetector(
+                                  onTap: () {
+                                    var json = {
+                                        'ads_id' : allDataAdds[index]['id']
+                                      };
+                                      // setState(() {
+                                        liked = !liked;
+                                      // });
+                                      allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                                      controller.addedAllAds();
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right:5),
+                                    child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                                  ),
+                                ),
+                                Image.asset(AppImages.call, height: 25),
+                              ],
+                            );
                           })
                       )
                     ],

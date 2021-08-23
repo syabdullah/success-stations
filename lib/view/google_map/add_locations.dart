@@ -291,11 +291,7 @@ Widget saveButton(data) {
        
         fontWeight: FontWeight.bold)),
         onPressed: () { 
-          //  adpostingController.finalAdPosting(json);
-        //  
-       
-          // s
-        // addpostingcon
+          Get.back();
          },
         child: Text('CANCEL',style: TextStyle( color: Colors.white,),),
       ),
