@@ -14,7 +14,6 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
@@ -82,14 +81,14 @@ var lang;
         print('No image selected.');
       }
     });
-      // try {
-      //     dio.FormData formData = dio.FormData.fromMap({          
-      //       "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-      //     });
-      //     Get.find<AdPostingController>().uploadAdImage(formData); 
-      //   } catch (e) {
-// 
-        // }
+      try {
+          dio.FormData formData = dio.FormData.fromMap({          
+            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          });
+          Get.find<AdPostingController>().uploadAdImage(formData); 
+        } catch (e) {
+
+        }
      
   }
    adpost() async{ 
@@ -611,45 +610,88 @@ Widget secondStep(){
         Container(
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
-        child: CustomTextFiled(
-          //  TextInputType.number,
-          isObscure: false,
-          hintText: "mobile_no".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText: "mobile_no".tr,
+                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+                  fillColor: AppColors.inputColor,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.outline
+                    ),
+                  ),
+              ) ,
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: mobileNoController ,
+          controller: mobileNoController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
             }
           },
-          errorText: 'Please Enter Full Name',  
+          // errorText: 'Please Enter Full Name',  
         ),
         ),
         SizedBox(height:10.h),
         Container(
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
-        child: CustomTextFiled(
-          isObscure: false,
-          hintText: "Telephone_no".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight:FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
+        child:TextFormField(
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText:  "Telephone_no".tr,
+                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+                  fillColor: AppColors.inputColor,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.outline
+                    ),
+                  ),
+              ) ,
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: telePhoneController ,
+          controller: mobileNoController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
             }
           },
-          errorText: 'Please Enter Full Name',  
+          // errorText: 'Please Enter Full Name',  
         ),
         ),
         SizedBox(height:10.h),
@@ -666,11 +708,7 @@ Widget secondStep(){
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
           textController: emailController ,
-          validator: (value) {  
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-          },
+          validator: (value) => value == '' ?  'Email Required' :  !value.contains('@') || !value.contains('.')  ? 'Enter valid Email':null,
           errorText: 'Please Enter Full Name',  
         ),
         ),

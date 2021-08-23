@@ -15,11 +15,11 @@ var responses;
        responses= response.statusCode;
       print(response.statusCode);
       if(response.statusCode < 400){
-        Get.snackbar("","Ad Successfully Sent",backgroundColor: Colors.blue);
+         Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
        
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Phone Number must be greater then 12 and less then 14",backgroundColor: Colors.blue);
+         Get.snackbar("","${ad['message']} ${ad['errors']['phone']}",backgroundColor: Colors.blue);
       }
   }
     );

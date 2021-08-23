@@ -40,7 +40,7 @@ class _AppDrawerState extends State<AppDrawer> {
     final ImagePicker _picker = ImagePicker();
     // Pick an image
     XFile? pickedFile;
-  late String imageP;
+  var imageP;
   var fileName;
   
    final banner = Get.put(BannerController());
@@ -60,7 +60,7 @@ class _AppDrawerState extends State<AppDrawer> {
     image = box.read('user_image');
     imageP = box.read('user_image_local').toString();
     banner.bannerController();
-    print(".............$image...........YYYYYYYYYYYY$imageP");
+    
   }
    Future getImage() async { 
     await ApiHeaders().getData();
@@ -87,12 +87,11 @@ class _AppDrawerState extends State<AppDrawer> {
   }
   @override
   Widget build(BuildContext context) {
-    
+    print(".............$image...........YYYYYYYYYYYY${Get.height}");
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
-
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -105,34 +104,35 @@ class _AppDrawerState extends State<AppDrawer> {
                           print("object");
                         },
                         child: Stack(
-                          children: [
-                              
+                          children: [                              
                             GestureDetector(
                                onTap:() { 
                                 getImage();
                               },
                               child: FractionalTranslation(
-                                translation: Get.height > 400 ? const Offset(0.2, 1.3): const Offset(0.2, 0.8),
+                                translation: Get.height > 700 ? const Offset(0.2, 1.3): const Offset(0.2, 0.9),
                                 child: CircleAvatar(
                                   backgroundColor: Colors.grey[200],
                                   radius: 60.0,
-                                  child:   imageP != null ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(60.0),
-                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,)): Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(height:30),
-                                      ClipRRect(
+                                  // child:   Column(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: [
+                                      // SizedBox(height:30)≥
+                                      child:ClipRRect(
                                         borderRadius: BorderRadius.circular(60.0),
-                                        child: image != null ? 
+                                        child: image == null ? 
+                                        Image.asset(AppImages.person,color: Colors.grey[400]) :                                       
+                                        fileName != null ?
+                                         Image.file(File(pickedFile!.path),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
                                         Image.network(
-                                          image,
-                                        ):
-                                        Image.asset(AppImages.person),
-                                      ),
+                                          image['url'],
+                                          fit: BoxFit.fill,
+                                          height: Get.height/6.5,width: Get.width/3.3,
+                                        ))
                                       
-                                    ],
-                                  )
+                                      
+                                  //   ],
+                                  // )
                                 )
                               ),
                             ),
@@ -147,17 +147,17 @@ class _AppDrawerState extends State<AppDrawer> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                          Container(  
-                       margin: EdgeInsets.only(top:25,left: 35),        
+                       margin: Get.height > 700 ? EdgeInsets.only(top:35,left: 35): EdgeInsets.only(top:25,left: 85),        
                        child: IconButton(
                        onPressed: () {
                          getImage();
                        },
-                       icon:Icon(Icons.camera_alt,size: 40)
+                       icon:Icon(Icons.camera_alt,size: 40,color: Colors.grey,)
                        )
                       // ),
                     ),
                         Padding(
-                          padding: const EdgeInsets.only(left:50.0),
+                          padding: Get.height > 700 ?  const EdgeInsets.only(left:10.0) :const EdgeInsets.only(left:50.0),
                           child: Text(
                             box.read('name'),
                             style:AppTextStyles.appTextStyle(
@@ -186,7 +186,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
-                            Get.offAll(UserProfile());
+                            Get.to(UserProfile());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                            Get.to(MyAdds());
@@ -240,6 +240,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
+                            box.remove('user_image_local');
                             logoutCont.userLogout();                            
                           },15.0 ),
                         ],

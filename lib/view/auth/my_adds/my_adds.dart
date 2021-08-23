@@ -66,23 +66,29 @@ class _MyAddsState extends State<MyAdds> {
           Expanded(
             child: 
             
-            // listtype == 'list' ?
+            listtype == 'list' ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                return val.isLoading == true ? Container(): listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
+                  print(val.cData);
+                return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
+                  children: [
+                    Container(
+                      child: Center(child: Text(val.cData['errors'])),
+                    ),
+                  ],
+                );
               },
-            ) 
-            // :GetBuilder<AddBasedController>(
-            //   init: AddBasedController(),
-            //   builder: (val){
-            //     return val.cData != null ?  myAddGridView(val.cData['data']): ListView(
-            //       children: [
-            //         Container(),
-            //       ],
-            //     );
-            //   },
-            //   )
+            ) :GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val){
+                return val.cData != null && val.cData['success'] == true ?  myAddGridView(val.cData['data']): ListView(
+                  children: [
+                    Container(),
+                  ],
+                );
+              },
+              )
           ),
         ],
       ),
@@ -368,10 +374,11 @@ void _adsfiltringheet() {
 }
 
   Widget myAddsList(allDataAdds) {
-    print("...................>>$allDataAdds");
+     print("...................>>$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
+       
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(),arguments: allDataAdds[index]['id']);
@@ -391,7 +398,7 @@ void _adsfiltringheet() {
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               child:  allDataAdds[index]['media'].length != 0 ?
-                              Image.network(allDataAdds[index]['media']['url']) :
+                              Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
                               Container(
                                 width: Get.width/4,
                                 child: Text("No Image!"),
@@ -538,99 +545,104 @@ void _adsfiltringheet() {
               width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
               margin: EdgeInsets.only(left:15),
               height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
-              child:  Card(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                      child: Container(
-                        width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                        height: Get.height /8.0,
-                        child: dataListValue[index]['media'].length != 0 ?
-                              Image.network(dataListValue[index]['media']['url']) :
-                              Container(
-                                width: Get.width/4,
-                                child: Center(child: Text("No Image!")),
-                              )
-                        // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+              child:  GestureDetector(
+                onTap: () {
+                  Get.to(AdViewScreen(),arguments: dataListValue[index]['id']);
+                },
+                child: Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                        child: Container(
+                          width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                          height: Get.height /8.0,
+                          child: dataListValue[index]['media'].length != 0 ?
+                                Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
+                                Container(
+                                  width: Get.width/4,
+                                  child: Center(child: Text("No Image!")),
+                                )
+                          // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
-                    ),
-                    // dataListValue[index]['user']['address'] == null ? Container(): 
-                    // Expanded(
-                    //   child:  Row(
-                    //     children: [
-                    //       Icon(Icons.location_on, color:Colors.grey),
-                    //       Container(
-                    //         child: Text(
-                    //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                    //           style: TextStyle(
-                    //             color: Colors.grey[300]
-                    //           ),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                    Expanded(
-                      flex : 2,
-                      child:  Row(
-                        children: [
-                          SizedBox(width: 5),
-                          Icon(Icons.person, color:Colors.grey[400],),
-                          Container(
-                            margin: EdgeInsets.only(left: 5),
-                            child: Text(
-                              dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
-                              style: TextStyle(
-                                color: Colors.grey[300]
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                      ),
+                      // dataListValue[index]['user']['address'] == null ? Container(): 
+                      // Expanded(
+                      //   child:  Row(
+                      //     children: [
+                      //       Icon(Icons.location_on, color:Colors.grey),
+                      //       Container(
+                      //         child: Text(
+                      //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                      //           style: TextStyle(
+                      //             color: Colors.grey[300]
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      Expanded(
+                        flex : 2,
+                        child:  Row(
+                          children: [
+                            SizedBox(width: 5),
+                            Icon(Icons.person, color:Colors.grey[400],),
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(
+                                dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
+                                style: TextStyle(
+                                  color: Colors.grey[300]
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    // dataListValue[index]['user']['address'] == null ? Container(): 
-                    // Expanded(
-                    //   child:  Row(
-                    //     children: [
-                    //       Icon(Icons.location_on, color:Colors.grey),
-                    //       Container(
-                    //         child: Text(
-                    //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                    //           style: TextStyle(
-                    //             color: Colors.grey[300]
-                    //           ),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                    // Expanded(
-                    //   flex : 2,
-                    //   child:  Row(
-                    //     children: [
-                    //       Icon(Icons.person, color:Colors.grey[400],),
-                    //       Container(
-                    //         child: Text(
-                    //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                    //           style: TextStyle(
-                    //             color: Colors.grey[300]
-                    //           ),
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
+                      // dataListValue[index]['user']['address'] == null ? Container(): 
+                      // Expanded(
+                      //   child:  Row(
+                      //     children: [
+                      //       Icon(Icons.location_on, color:Colors.grey),
+                      //       Container(
+                      //         child: Text(
+                      //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                      //           style: TextStyle(
+                      //             color: Colors.grey[300]
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // Expanded(
+                      //   flex : 2,
+                      //   child:  Row(
+                      //     children: [
+                      //       Icon(Icons.person, color:Colors.grey[400],),
+                      //       Container(
+                      //         child: Text(
+                      //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                      //           style: TextStyle(
+                      //             color: Colors.grey[300]
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ),
               )
             );

@@ -10,6 +10,7 @@ class ContactWithUsController extends GetxController {
 var isLoading = false;
 var ad;
 var responses;
+var phoneEr;
   contactWithUs(data) async {
     isLoading = true;
     await contactAction(data).then((response){
@@ -18,12 +19,15 @@ var responses;
       responses= response.statusCode;
       print(response.statusCode);
       if(response.statusCode < 400){
-        Get.snackbar("","Requrest Successfully Sent",backgroundColor: Colors.blue);
+        Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.blue);
         // Get.off(AdsView());
-        Get.off(Contact());
+        Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Phone Number must be greater then 12 and less then 14",backgroundColor: Colors.blue);
+        phoneEr = ad['errors']['phone'].toString();
+        phoneEr = phoneEr.split("[")[1].split("]")[0];
+        print("................adasd $phoneEr");
+        Get.snackbar("","${ad['message']} $phoneEr",backgroundColor: Colors.blue);
       }
       
   }
