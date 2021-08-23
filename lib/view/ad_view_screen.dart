@@ -83,8 +83,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
              SizedBox(height: 10.h,),
              listTileRow(val.adsD),
               SizedBox(height: 14.h,),
-              Text('ad_posted_at'.tr,
-                style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Text('ad_posted_at'.tr,
+                  style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+                  ),
                 ),
               ),
               commentInput(),
@@ -149,7 +152,7 @@ Widget titleStep(data) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(data['price'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    Text(data['price'].toString(),style: TextStyle(fontSize: 15),),
                   ],
                 ),
               ),

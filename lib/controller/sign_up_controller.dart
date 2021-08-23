@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,64 +9,66 @@ import 'package:success_stations/utils/snack_bar.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 class SignUpController extends GetxController{
-  bool isLoading = false;
+  bool isLoadingg = false;
   var signup, indiviualSignup, companySignUp;
   var result = false;
+  var resultInvalid = false.obs;
+   RxBool isLoading = false.obs;
   GetStorage box = GetStorage();
 
-  @override
-  void onInit(){
-    isLoading = true;
-    super.onInit();
-  }
-
   createAccountData(data) async{
-    isLoading = true;
+    isLoading(true);
     await createAccount(data).then((res){
-      print("........////....${res.body}");
-       if(res.statusCode == 200 || res.statusCode < 400){
-
-        signup = jsonDecode(res.body);
-        isLoading = false;
+      signup = jsonDecode(res.body);
+      if(res.statusCode == 200 || res.statusCode < 400){
+        resultInvalid(false);
+        isLoading(false);
         Get.offAndToNamed('/login');
-        if(signup['success'] == true){
-          SnackBarWidget().showToast("",signup['message'] );  
-        }
-        
+        SnackBarWidget().showToast("",signup['message'] );
+      }
+      else if(res.statusCode > 400){
+        resultInvalid(true);
+        isLoading(false);
       }
     });
-     update();
+    update();
 
   }
+
   individualAccountData(data) async{
-    isLoading = true;
+    isLoading(true);
     await individualUser(data).then((res){
-       if(res.statusCode == 200 || res.statusCode < 400){
-        indiviualSignup = jsonDecode(res.body);
-        isLoading = false;
+      indiviualSignup = jsonDecode(res.body);
+      if(res.statusCode == 200 || res.statusCode < 400){
+        resultInvalid(false);
+        isLoading(false);
         Get.offAndToNamed('/login');
-        if(indiviualSignup['success'] == true){
-          SnackBarWidget().showToast("", indiviualSignup['message']);  
-        }
-        
+        SnackBarWidget().showToast("", indiviualSignup['message']);  
+      }
+      else if(res.statusCode > 400){
+         print("......... 400");
+        resultInvalid(true);
+        isLoading(false);
       }
     });
     update();
   }
 
   companyAccountData(data) async{
-     print("........////....;;;;;;;;;;;;");
-    isLoading = true;
+    print("........////....;;;;;;;;;;;;");
+    isLoading(true);
     await companyUser(data).then((res){
-       if(res.statusCode == 200 ||res.statusCode < 400 ){
-        companySignUp = jsonDecode(res.body);
-        print("........////....${res.body}");
-        print(".......S--------I------G-----N------U-------P....${res.body}");
-        isLoading = false;
-        Get.to(SignIn());
-        if(companySignUp['success'] == true){
-          SnackBarWidget().showToast("", companySignUp['message']);  
-        }
+      companySignUp = jsonDecode(res.body);
+      if(res.statusCode == 200 ||res.statusCode < 400 ){
+        resultInvalid(false);
+        isLoading(false);
+        Get.offAndToNamed('/login');
+        SnackBarWidget().showToast("", companySignUp['message']);  
+      }
+      else if(res.statusCode > 400){
+        print("......... 400");
+        resultInvalid(true);
+        isLoading(false);
       }
     });
     update();

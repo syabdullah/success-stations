@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -59,13 +60,14 @@ class _AppDrawerState extends State<AppDrawer> {
   void initState() {
     super.initState();
     image = box.read('user_image');
+    print("............11-1-1-1--1-1-.$image");
     imageP = box.read('user_image_local').toString();
     banner.bannerController();
     
   }
-   Future getImage() async { 
+  Future getImage() async { 
     await ApiHeaders().getData();
-   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
    
     setState(() {
       if (pickedFile != null) {
@@ -82,13 +84,16 @@ class _AppDrawerState extends State<AppDrawer> {
           });
    
           Get.find<AdPostingController>().uploadAdImage(formData); 
+          Get.find<UserProfileController>().getUserProfile();
         } catch (e) {
 
         }
   }
+
   @override
   Widget build(BuildContext context) {
     print(".............$image...........YYYYYYYYYYYY${Get.height}");
+    image = box.read('user_image');
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -121,10 +126,11 @@ class _AppDrawerState extends State<AppDrawer> {
                                       // SizedBox(height:30)≥
                                       child:ClipRRect(
                                         borderRadius: BorderRadius.circular(60.0),
-                                        child: image == null ? 
-                                        Image.asset(AppImages.person,color: Colors.grey[400]) :                                       
-                                        fileName != null ?
+                                        child:                                       
+                                        pickedFile != null ?
                                          Image.file(File(pickedFile!.path),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
+                                         image == null ? 
+                                        Image.asset(AppImages.person,color: Colors.grey[400]) : 
                                         Image.network(
                                           image['url'],
                                           fit: BoxFit.fill,
