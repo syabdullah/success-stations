@@ -756,8 +756,8 @@ Widget secondStep(){
                       SizedBox(height: 15.h,),
                        Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),
-                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
+                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      // SizedBox(height: 15.h,),
                       
                     ],
                   ),
