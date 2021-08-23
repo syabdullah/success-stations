@@ -64,9 +64,9 @@ class _AppDrawerState extends State<AppDrawer> {
     banner.bannerController();
     
   }
-   Future getImage() async { 
+  Future getImage() async { 
     await ApiHeaders().getData();
-   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
    
     setState(() {
       if (pickedFile != null) {
@@ -88,6 +88,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
         }
   }
+
   @override
   Widget build(BuildContext context) {
     print(".............$image...........YYYYYYYYYYYY${Get.height}");

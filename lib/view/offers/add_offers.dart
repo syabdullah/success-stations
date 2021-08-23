@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AddOffersPage extends StatefulWidget {
    AddOffersState createState() => AddOffersState();
@@ -30,6 +31,7 @@ class AddOffersState extends State<AddOffersPage> {
     final addpostedControllerPut = Get.put(StorePostAddesController());
 
   int activeStep = 0;
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int upperBound = 3;  
   final _formKey = GlobalKey<FormState>();
   List list= [];
@@ -38,7 +40,8 @@ class AddOffersState extends State<AddOffersPage> {
   var selectedCategory, hintLinkingId;
   // var selectedSubCategory;
   var subtypeId;
-  var selectedStatus;
+  var statusSelected;
+  final formKey = GlobalKey<FormState>();
   var uiStatus,  hintTextCate, hintLinking, idCategory;
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
@@ -49,22 +52,28 @@ class AddOffersState extends State<AddOffersPage> {
   TextEditingController mobileNoController = TextEditingController();
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController textAddsController = TextEditingController();
+   TextEditingController statusController = TextEditingController();
+   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormFieldState> _specifyTextFieldKey = GlobalKey<FormFieldState>();
+
   var createdJson;
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
   XFile? pickedFile;
   late String image;
   var fileName;
+  // String _dropdownError;
+  
 
   Future getImage() async {
     await ApiHeaders().getData();
     pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        image = pickedFile!.path;
-        fileName = pickedFile!.path.split('/').last;
+        image = pickedFile!.path;      
+        fileName = pickedFile!.path.split('/').last;  
       } else {
-        print('No image selected.');
+         print('No image selected.');
       }
     });
     try {
@@ -73,20 +82,29 @@ class AddOffersState extends State<AddOffersPage> {
       });
       Get.find<StorePostAddesController>().uploadMyAdd(formData); 
     } catch (e) {}
+     print(".......UPload image");
   }
 
-  adOffersCreate(){
-    createdJson = {
-    // 'image': fileName,
-    'category_id': idCategory,
-    'description': descriptionController.text,
-    'text_ads': titleController.text,
-    'url': urlContr.text,
-    'listing_id': hintLinkingId,
-    // 'status': 0
-  };
-  print("..................$createdJson");
-  addpostedControllerPut.storefOffersAAll(createdJson);
+  adOffersCreate() async {
+    final form = formKey.currentState;
+    if(form!.validate()){
+      form.save();
+      if(pickedFile !=null) {
+        try{
+          dio.FormData formData = dio.FormData.fromMap({
+            'image': await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),
+            'category_id': idCategory,
+            'description': descriptionController.text,
+            'text_ads': titleController.text,
+            'url': urlContr.text,
+            'listing_id': hintLinkingId,
+            'status': statusSelected
+          });
+          print("....................; add_offers,.,,,,,,,,$formData");
+          Get.find<StorePostAddesController>().storefOffersAAll(formData); 
+        }catch(e){}
+      }
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -94,44 +112,50 @@ class AddOffersState extends State<AddOffersPage> {
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      appBar: AppBar(backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
-      body: ListView(
-        children: [
-          space20,
-          offerTitle(),
-          space15,
-          GetBuilder<OfferCategoryController>(
-            init: OfferCategoryController(),
-            builder: (val){
-              return addsOffers(val.offeredList);
-            },
-          ),
-          space15,
-          offerDesc(),
-          space15,
-          url(),
-          space15,
-          GetBuilder<MyAddsAdedController>(
-            init: MyAddsAdedController(),
-            builder: (val){
-              return 
-              linkAdded(val.myMyAdd);
-
-            },
-          ),
-          // linkAdded(),
-          space15,
-          roundedRectBorderWidget,
-          space10,
-          submitButton(
-            bgcolor: AppColors.appBarBackGroundColor,  
-            textColor: AppColors.appBarBackGroun,
-            buttonText: "PUBLISH",
-            callback: adOffersCreate,
-          ),
-          space20,
-        ],
-      ),
+      // key: _scaffoldKey,
+      appBar: AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
+      body: SingleChildScrollView(
+        child:Form(
+          key: formKey,
+           child: Column(
+            children: [
+              space20,
+              offerTitle(),
+              space15,
+              GetBuilder<OfferCategoryController>(
+                init: OfferCategoryController(),
+                builder: (val){
+                  return addsOffers(val.offeredList);
+                },
+              ),
+              space15,
+              offerDesc(),
+              space15,
+              url(),
+              space15,
+              GetBuilder<MyAddsAdedController>(
+                init: MyAddsAdedController(),
+                builder: (val){
+                  return 
+                  linkAdded(val.myMyAdd);
+                },
+              ),
+              space15,
+              status(),
+              space15,
+              roundedRectBorderWidget,
+              space10,
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,  
+                textColor: AppColors.appBarBackGroun,
+                buttonText: "PUBLISH",
+                callback: adOffersCreate,
+              ),
+              space20,
+            ]
+          )
+        )
+      )
     );
   }
   Widget offerTitle(){
@@ -142,7 +166,7 @@ class AddOffersState extends State<AddOffersPage> {
         controller: titleController,
         validator: (value) {
         if (value == null || value.isEmpty) {
-            return 'Please enter some text';
+            return 'Title field required';
           }
           return null;
         },
@@ -151,7 +175,7 @@ class AddOffersState extends State<AddOffersPage> {
         ),
         decoration:InputDecoration( 
           hintText: "Offer Title",
-          hintStyle: TextStyle(fontSize: 13, color:Colors.grey),
+          hintStyle: TextStyle(fontSize: 13, color:Colors.grey[700]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
             borderSide: BorderSide(color: Colors.grey),
@@ -161,16 +185,60 @@ class AddOffersState extends State<AddOffersPage> {
     );    
   }
 
+  Widget status(){
+    return  Container(
+      margin: const EdgeInsets.symmetric(horizontal:15.0),
+      padding: const EdgeInsets.all(3.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey,width: 1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(5.0)
+          ),
+      ),
+      child:  ButtonTheme(
+        alignedDropdown: true,
+        child: Container(
+          width: Get.width,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                hint: Text(
+                  statusSelected == null ? 'status'.tr : statusSelected == '1' ? 'New': 'Old',
+                  style: TextStyle(fontSize: 13, color: Colors.grey[800])
+                ),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(Icons.arrow_drop_down),
+                items: <String>['New','Old'].map((String value) {
+                  return DropdownMenuItem(
+                    value: value,
+                    child:Text(
+                      value, style: TextStyle(color: Colors.grey[800]),
+                    )
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    statusSelected = value;
+                    // _dropdownError = null;
+                    value == 'New' ? statusSelected = '1' : statusSelected = '0' ;
+                  });
+                },
+              )
+            ),
+        )
+      )
+    );
+  }
+  
+
   Widget url() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal:15),
       child: TextFormField(
         focusNode: FocusNode(),
-        // keyboardType: TextInputType.number,
         controller: urlContr,
         validator: (value) {
         if (value == null || value.isEmpty) {
-            return 'Please enter some text';
+            return 'URL field required';
           }
           return null;
         },
@@ -178,7 +246,7 @@ class AddOffersState extends State<AddOffersPage> {
         //   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
         // ),
         decoration:InputDecoration( 
-          hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+          hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: Colors.grey),
@@ -195,12 +263,14 @@ Widget offerDesc(){
         padding: EdgeInsets.symmetric(horizontal:15,),
         color: AppColors.inPutFieldColor,
         child: TextFormField(
+          // maxLength: 300,
+          maxLines: 4,
+          textAlignVertical: TextAlignVertical.top,
           focusNode: FocusNode(),   
           controller: descriptionController,
-          textAlignVertical: TextAlignVertical.top,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter some text';
+              return 'Description field required';
             }
             return null;
           },
@@ -208,7 +278,7 @@ Widget offerDesc(){
           decoration:InputDecoration(
             contentPadding: EdgeInsets.only( left:10,top: 10, bottom :100),
             hintText: "Offer Description",
-            hintStyle: TextStyle(fontSize: 14, color: Colors.grey,),
+            hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
             border: OutlineInputBorder( 
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.grey),
@@ -238,12 +308,11 @@ Widget offerDesc(){
             child: DropdownButton(
               hint: Text(
                 hintLinking != null ? hintLinking: 'Link To Listing Adds',
-                style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                style: TextStyle(fontSize: 13, color: Colors.grey[700])
               ),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: addedAddMine.map((adds) {
-                print(",,,,,,,,,,,addds of dropdown........$adds");
                 return DropdownMenuItem(
                   value: adds,
                   child:Text(
@@ -264,7 +333,7 @@ Widget offerDesc(){
         )
       )
     );
-}
+  }
 
   Widget addsOffers(List dataListedCateOffer){
     return  Container(
@@ -273,7 +342,7 @@ Widget offerDesc(){
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey,width: 1),
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0) //                 <--- border radius here
+          Radius.circular(5.0)
           ),
       ),
       child:  ButtonTheme(
@@ -284,7 +353,7 @@ Widget offerDesc(){
             child: DropdownButton(
               hint: Text(
                 hintTextCate != null ? hintTextCate: 'Offer Category',
-                style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                style: TextStyle(fontSize: 13, color: Colors.grey[700])
               ),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -310,10 +379,10 @@ Widget offerDesc(){
 }
  Widget get roundedRectBorderWidget {
   return Container(
-    padding: EdgeInsets.all(20), //padding of outer Container
+    padding: EdgeInsets.all(20),
     child: DottedBorder(
       color: AppColors.appBarBackGroundColor,
-      strokeWidth: 1, //thickness of dash/dots
+      strokeWidth: 1,
       dashPattern: [10,6], 
       child: Column(
         children: [
