@@ -60,7 +60,7 @@ class _AppDrawerState extends State<AppDrawer> {
     super.initState();
     image = box.read('user_image');
     print("............11-1-1-1--1-1-.$image");
-    imageP = box.read('user_image_local').toString();
+    imageP = box.read('user_image_local');
     banner.bannerController();
     
   }
@@ -70,7 +70,8 @@ class _AppDrawerState extends State<AppDrawer> {
    
     setState(() {
       if (pickedFile != null) {
-        imageP = pickedFile!.path;      
+        imageP = pickedFile!.path;    
+        print("..........=-=-=-=-=-=-=-=-=$imageP");  
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
@@ -90,8 +91,10 @@ class _AppDrawerState extends State<AppDrawer> {
   }
   @override
   Widget build(BuildContext context) {
-    print(".............$image...........YYYYYYYYYYYY${Get.height}");
+    imageP = box.read('user_image_local').toString();
+    print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
     image = box.read('user_image');
+    
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -125,9 +128,9 @@ class _AppDrawerState extends State<AppDrawer> {
                                       child:ClipRRect(
                                         borderRadius: BorderRadius.circular(60.0),
                                         child:                                       
-                                        pickedFile != null ?
-                                         Image.file(File(pickedFile!.path),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
-                                         image == null ? 
+                                        imageP.toString() != 'null' ?
+                                         Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
+                                         image.toString() == 'null' ? 
                                         Image.asset(AppImages.person,color: Colors.grey[400]) : 
                                         Image.network(
                                           image['url'],

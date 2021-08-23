@@ -62,7 +62,6 @@ class _AllAddsState extends State<AllAdds> {
             init: CategoryController(),
             builder: (data){
               return data.isLoading == true ? CircularProgressIndicator(): data.subCatt != null ? addsCategoryWidget(data.subCatt['data']): Container();
-
             },
           ),            
           Expanded(

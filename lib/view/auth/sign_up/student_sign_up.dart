@@ -456,6 +456,7 @@ class _SignPageState extends State<StudentSignUp> {
               firstDate: DateTime(2000),
               lastDate: DateTime(2222)
             ).then((date) {
+              print(date);
               setState(() {
                 dateTime = date;
                 
