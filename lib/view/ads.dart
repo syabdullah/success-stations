@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -12,6 +13,9 @@ import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/auth/my_adds/all_ads.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 
    List<String> imgList = [];
@@ -24,35 +28,32 @@ class _AdsViewState extends State<AdsView> {
   final CarouselController _controller = CarouselController();
   
   final banner = Get.put(BannerController());
+  GetStorage box = GetStorage();
+  var lang;
    @override
   void initState() {
     super.initState();
     banner.bannerController();
+    lang = box.read('lang_code');
   }
   @override
   Widget build(BuildContext context) { 
-    // print("........${Get.width}");
     return ListView(
       padding: EdgeInsets.symmetric(horizontal:20),
       children: [
           GetBuilder<BannerController>(
             init: BannerController(),
             builder: (data){
-              print(data.bannerData);
+              print("....................---${data.bannerData}");
               imgList = [];
-              if(data.bannerData['data'] != null){
-              for(int i=0; i < data.bannerData['data'].length; i++) {
-                imgList.add(data.bannerData['data'][i]['image']['url']);
-              }
-              }
-              return data.bannerData != null ?carosalImage(imgList) : 
-                  Center(heightFactor: 2, child: CircularProgressIndicator());
+              
+              return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? Center(heightFactor: 2, child: CircularProgressIndicator()):  carosalImage(data.bannerData['data']);
+                  
             }),
          text("advertisingCategories".tr,"all".tr),
          GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (dat){
-             print(dat.datacateg);
               return dat.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg) : Container();
             }
           ),
@@ -60,11 +61,11 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<MyAddsController>(
             init: MyAddsController(),
             builder: (data){ 
-              //  print("....................................${data.addsCategoryArray.length}");
-              return data.addsCategoryArray.length != 0 ?  featuredAdsList(data.addsCategoryArray) : Container();
+               print("....................................${data.addsCategoryArray.length}");
+              return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
             }),
-         text('specialofer'.tr,"all".tr),
-         GetBuilder<OfferController>(
+            text('specialofer'.tr,"all".tr),
+            GetBuilder<OfferController>(
             init: OfferController(),
             builder: (data){
               return data.offerDataList != null ?  offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
@@ -78,11 +79,17 @@ class _AdsViewState extends State<AdsView> {
   //   return ListView.builder(itemBuilder: itemBuilder)
   // }
   Widget carosalImage(data) { 
+    // if(banner != null){
+      for(int i=0; i < data.length; i++) {
+        imgList.add(data[i]['image']['url']);
+      }
+    // }
     print(imgList);
-    return data.length != 0 ? Column(
+    return imgList.length != 0 ? Column(
       children: [
         CarouselSlider(
-          items: data
+          
+          items: imgList
           .map<Widget>((item) => Container(
           child: Container(
             margin: EdgeInsets.all(5.0),
@@ -98,6 +105,8 @@ class _AdsViewState extends State<AdsView> {
         )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
+            enableInfiniteScroll: false,
+            reverse: false,
             viewportFraction: 0.9*1.1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
@@ -107,6 +116,8 @@ class _AdsViewState extends State<AdsView> {
             }
           ),
         ),
+        imgList.length == 0 ? 
+        Container(child: Text("No Image added yet!"),):
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: imgList.asMap().entries.map((entry) {
@@ -143,16 +154,22 @@ class _AdsViewState extends State<AdsView> {
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
           )
         ),
-        Container(
-          margin: EdgeInsets.only(right:10),
-          child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+        GestureDetector(
+          onTap: () {
+             print("-----------------111111111....,,,");
+            Get.to(BottomTabs(),arguments: 4);
+          },
+          child: Container(
+            margin: EdgeInsets.only(right:10),
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+          ),
         )
       ],
     );
   }
 
   advertisingList(conHeight,imageW,imageH,data) {
-    print("-----------------111111111....,,,${data.length}");
+   
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
@@ -173,13 +190,13 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : 
-                     Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container()
+                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
               ),
               Container(
-                child: Text(data[index]['text_ads']['en'] != null || data[index]['text_ads'] != null ? data[index]['text_ads']['en']:'',style: TextStyle(color: AppColors.grey)),
+                child: Text(data[index]['category']['en'] != null || data[index]['category'] != null ? data[index]['category']['en']:'',style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
@@ -209,8 +226,8 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : 
-                     Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container()
+                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
               ),
@@ -225,7 +242,7 @@ class _AdsViewState extends State<AdsView> {
   }
 
   featuredAdsList(data) {
-    // print("..................>$data");
+    print("................fffffffffffffff..>$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: Get.width < 420 ? Get.height/3.6: Get.height/4.2,
@@ -235,65 +252,72 @@ class _AdsViewState extends State<AdsView> {
         itemCount: data.length,
         itemBuilder: (BuildContext,index) {
           return 
-          Card(
-            elevation: 1,
-            shape:  RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                  child: Container(
-                    width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
-                    height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                    child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): 
-                     Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+          GestureDetector(
+            onTap: () {
+              Get.to(AdViewScreen(),arguments:data[index]['id']);
+            },
+            child: Card(
+              elevation: 1,
+              shape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                    child: Container(
+                      width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
+                      height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                      child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): Container(
+                        // child: Text("No Image"),
+                      )
+                      //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(top:6,left: 10),
-                  child: Text(AppString.titleHere,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
-                ),
-                Container(
-                  width: Get.width/2.3,
-                  child: Row(
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top:6,left: 10),
+                    child: Text(data[index]['title'][lang],style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
+                  ),
+                  Container(
+                    width: Get.width/2.3,
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top:6,left: 10),
+                          child: Image.asset(AppImages.location,height: 15)
+                        ),
+                        SizedBox(width:5),
+                        Container(
+                          margin: EdgeInsets.only(top:6),
+                          child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        ),
+                        Spacer(flex: 2),
+                        Container(
+                           margin: EdgeInsets.only(right:6),
+                          child: Text(data[index]['price'].toString(),textAlign: TextAlign.end,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        )
+                      ],
+                    ),
+                  ),  
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top:6,left: 10),
-                        child: Image.asset(AppImages.location,height: 15)
+                        margin: EdgeInsets.only(top:6,left: 5),
+                        child: Icon(Icons.person,color:AppColors.grey),
+                        // child: Image.asset(AppImages.location,height: 15)
                       ),
                       SizedBox(width:5),
                       Container(
                         margin: EdgeInsets.only(top:6),
-                        child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                        child: Text(data[index]['contact_name'],style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
                       ),
-                      Spacer(flex: 2),
-                      Container(
-                         margin: EdgeInsets.only(right:6),
-                        child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
-                      )
                     ],
-                  ),
-                ),  
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top:6,left: 5),
-                      child: Icon(Icons.person,color:AppColors.grey),
-                      // child: Image.asset(AppImages.location,height: 15)
-                    ),
-                    SizedBox(width:5),
-                    Container(
-                      margin: EdgeInsets.only(top:6),
-                      child: Text("Username",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
-                    ),
-                  ],
-                ),               
-              ],
+                  ),               
+                ],
+              ),
             ),
           );
         }

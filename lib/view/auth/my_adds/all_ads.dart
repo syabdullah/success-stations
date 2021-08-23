@@ -6,6 +6,7 @@ import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -22,15 +23,19 @@ class _AllAddsState extends State<AllAdds> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final catCont =  Get.put(CategoryController());
+   final friCont = Get.put(FriendsController());
   var listtype = 'list';
+  var userId;
   bool _value = false;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+  bool liked = false;
   GetStorage box = GetStorage();
   var lang ;
      final banner = Get.put(BannerController());
+     var v;
 
    @override
   void initState() {
@@ -40,18 +45,23 @@ class _AllAddsState extends State<AllAdds> {
     controller.addedAllAds();
     catCont.getCategoryTypes();
     lang = box.read('lang_code');
+    userId = box.read('user_id');
+    v = '';
+    v = Get.arguments;
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      // appBar: v == 'all' ?   PreferredSize( preferredSize: Size.fromHeight(70.0),
+      // child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)):null,
       body: Column(
         children: [
           topWidget(),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.subCatt['data']);
+              return data.isLoading == true ? CircularProgressIndicator(): data.subCatt != null ? addsCategoryWidget(data.subCatt['data']): Container();
 
             },
           ),            
@@ -369,17 +379,18 @@ void _adsfiltringheet() {
                     children: [
                       Center(
                         child: Container(
+                          height: Get.height/4,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               child: 
                               allDataAdds[index]['image'].length != 0 ? 
-                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fitHeight,) :
-                               Image.asset(
-                                AppImages.profileBg,
-                                width: Get.width/4
-                              ),
+                              Image.network(allDataAdds[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                              //  Image.asset(
+                              //   AppImages.profileBg,
+                              //   width: Get.width/4
+                              // ),
                             ),
                           )
                         ),
@@ -423,7 +434,7 @@ void _adsfiltringheet() {
                                   Container(
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
-                                      allDataAdds[index]['title'][lang]!= null ? allDataAdds[index]['title']['en']: '',
+                                      allDataAdds[index]['contact_name']!= null ? allDataAdds[index]['contact_name']: '',
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -467,15 +478,37 @@ void _adsfiltringheet() {
                           child: Icon(Icons.person)
                           ) 
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(right:5),
-                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20): Image.asset(AppImages.redHeart, height:20)
-                          ),
-                          Image.asset(AppImages.call, height: 20),
-                        ],
+                      Container(
+                        // width: Get.width/4,
+                        // height: Get.height/5.5,
+                        child: GetBuilder<FriendsController>(
+                          init: FriendsController(),
+                          builder: (val){
+                            return Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                 var json = {
+                                        'ads_id' : allDataAdds[index]['id']
+                                      };
+                                      // setState(() {
+                                        liked = !liked;
+                                      // });
+                                     allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                                     controller.addedAllAds();
+                                    },
+                              
+                              child: Container(
+                                padding: EdgeInsets.only(right:5),
+                                child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20): Image.asset(AppImages.redHeart, height:20)
+                              ),
+                            ),
+                            Image.asset(AppImages.call, height: 20),
+                          ],
+                        );
+                        },),
                       )
+                      
                     ],
                   ),
                 ],
@@ -514,7 +547,9 @@ void _adsfiltringheet() {
                           child: Container(
                             width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                             height: Get.height /8.0,
-                            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                           child: dataListValue[index]['image'].length != 0 ? 
+                              Image.network(dataListValue[index]['image'][0]['url'],width: Get.width/4,fit: BoxFit.fill,) : Container(width: Get.width/4)
+                            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
@@ -539,23 +574,23 @@ void _adsfiltringheet() {
                         //     ],
                         //   ),
                         // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         // margin:EdgeInsets.only(left:29),
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Expanded(
+                          flex : 2,
+                          child:  Row(
+                            children: [
+                              Icon(Icons.person, color:Colors.grey[400],),
+                              Container(
+                                // margin:EdgeInsets.only(left:29),
+                                child: Text(
+                                  dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
+                                  style: TextStyle(
+                                    color: Colors.grey[300]
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         // Container(
                         //   width: Get.width/2.3,
                         //   child: Row(

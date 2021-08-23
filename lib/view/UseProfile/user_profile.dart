@@ -36,7 +36,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
         body: GetBuilder<UserProfileController>( 
           init: UserProfileController(),
           builder:(val) {
-            
             print(val.userData);
             return 
             val.userData!= null ? Column(
@@ -44,7 +43,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                profileDetail(val.userData['data']),
                general(val.userData['data'])
               ],
-            ):CircularProgressIndicator();
+            ):Center(child: CircularProgressIndicator());
             
           }
             ),
@@ -85,7 +84,8 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+            child: Container()
+            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
         Container(
@@ -98,7 +98,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   Get.offAll(BottomTabs());
                   banner.bannerController();
                 },
-                icon: Icon(Icons.arrow_back,color: Colors.white)
+                icon: Icon(Icons.arrow_back,color: Colors.black)
               ),
               // Center(
               //   widthFactor: 3,
@@ -116,15 +116,16 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               child: Container(
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
-                              backgroundColor: Colors.white54,
-                              radius: 40.0,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(60.0),
-                                child:Image.network(
-                                  'https://picsum.photos/250?image=9',
-                                ),
-                              )
-                            )
+                  backgroundColor: Colors.white54,
+                  radius: 40.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(60.0),
+                    child:
+                    Image.network(
+                      'https://picsum.photos/250?image=9',
+                    ),
+                  )
+                )
               ),
             ),
             Container(
