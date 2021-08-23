@@ -750,9 +750,9 @@ Widget secondStep(){
                         SizedBox(height: 10.h),
                       // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
                       SizedBox(height: 15.h,),
-                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      // SizedBox(height: 7.h),
+                      // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                       SizedBox(height: 15.h,),
                        Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),
