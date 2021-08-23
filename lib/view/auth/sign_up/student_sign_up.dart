@@ -476,17 +476,6 @@ class _SignPageState extends State<StudentSignUp> {
 //           child: Icon(Icons.calendar_today),
 //           onTap: () {
             
-<<<<<<< HEAD
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2222)
-            ).then((date) {
-              print(date);
-              setState(() {
-                dateTime = date;
-=======
 //             showDatePicker(
 //               context: context,
 //               initialDate:  DateTime.now(),
@@ -495,7 +484,6 @@ class _SignPageState extends State<StudentSignUp> {
 //             ).then((date) {
 //               setState(() {
 //                 dateTime = date;
->>>>>>> 6ce603c35b510664bde4dc7c347339f150850a33
                 
 //               });
 //             });
