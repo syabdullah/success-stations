@@ -125,14 +125,14 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-     
+      print("/././././.-----$id");
       isLoading = false;
     });
     update();
   }
 
   profileAdsToFav(id,userId) async{
-    print("/././././.-----$id");
+   
     isLoading = true ;
     await addAdsFav(id).then((res) {
       addAd = jsonDecode(res.body);     

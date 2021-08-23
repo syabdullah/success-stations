@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
@@ -13,11 +14,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   final dataUser = Get.put(UserProfileController());
   final banner = Get.put(BannerController());
   bool liked = false;
+   GetStorage box = GetStorage();
+  var userimage;
   var id ;
   @override
   void initState() {
     super.initState();
-    
+    userimage = box.read('user_image');
     //  id = Get.arguments;
     // print("../././....----------$id");
     // friCont.friendDetails(id);
@@ -53,6 +56,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     return Stack(
       children: [         
         Container(
+          // color: Colors.grey,
           height: Get.height/2.5,
           width: Get.width,
           child: ClipRRect(
@@ -88,7 +92,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               child: Container(
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
-                  backgroundColor: Colors.white54,
+                  backgroundColor: Colors.grey[100],
                   radius: 40.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60.0),
@@ -186,7 +190,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   );
                             });},
                             child: Text(
-                              userData["email"].length > 10 ? userData["email"].substring(0, 20)+'...' : userData["email"],
+                              userData["email"].length > 10 ? userData["email"].substring(0, 10)+'...' : userData["email"],
                               style: TextStyle(fontWeight: FontWeight.w600)),
                           ),
                         ):Container(), 
@@ -224,7 +228,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                             });},
                             
                             child: Text(
-                              userData["address"].length > 10 ? userData["address"].substring(0, 20)+'...' : userData["address"],
+                              userData["address"].length > 10 ? userData["address"].substring(0, 10)+'...' : userData["address"],
                               style: TextStyle(fontWeight: FontWeight.w600)),
                           ),
                         ): Container(

@@ -40,7 +40,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         body: GetBuilder<FriendsController>(
           init: FriendsController(),
           builder:(val) { 
-            // print(val.friendProfileData['data']);
+            print("----------././././///-----${val.userAds}");
             return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
               child:Container(
                 margin: EdgeInsets.only(top: 20),
@@ -65,7 +65,10 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-            child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+            child: Container(
+              color: Colors.grey,
+            ),
+            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
         Container(
@@ -90,23 +93,32 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/6.5),
-                child: CircleAvatar(
-                  backgroundColor: Colors.red[100],
-                  child: Image.asset(AppImages.call,height: 25,)
+           Center(
+          child: Container(
+            margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey[100],
+              radius: 40.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child:
+                data['image'] == null ? 
+                Image.asset(AppImages.person):
+                Image.network(
+                  data['image']['url'] 
                 ),
-              ),
-            ),
+              )
+            )
+          ),
+        ),
             Container(
               margin: EdgeInsets.only(top:10),
               child: Text(data['name'],style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
             ),
-             Container(
-               margin: EdgeInsets.only(top:6),
-              child: Text("Mobile Developer",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
-            ),
+            //  Container(
+            //    margin: EdgeInsets.only(top:6),
+            //   child: Text("Mobile Developer",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
+            // ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: [
@@ -327,6 +339,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
   }
 
   Widget ads(adsData) {
+    print("mmmndvmdnvndfjnvbkdfjb----mmmmm-====$adsData");
     return Expanded(
       child: ListView.builder(
             itemCount: adsData != null ? adsData.length:0,

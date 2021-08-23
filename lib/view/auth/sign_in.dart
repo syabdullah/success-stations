@@ -25,11 +25,13 @@ class _SignPageState extends State<SignIn> {
   GetStorage dataStore = GetStorage();
   
   final loginCont = Get.put(LoginController());
-  
+  bool errorCheck = true;
   @override
   void initState() {
     super.initState();
     GoogleSignInC().singIn();
+    loginCont.resultInvalid(false);
+    errorCheck = true;
   }
 
     signIn() {
@@ -49,6 +51,13 @@ class _SignPageState extends State<SignIn> {
       body: GetBuilder<LoginController>( 
         init: LoginController(),
         builder: (val) {
+          // if(  loginCont.resultInvalid.isTrue ) {
+          //   if(errorCheck == )
+          //   errorCheck = true;
+          // }else{
+          //   print("..........------=======$errorCheck");
+          //   // errorCheck = false;
+          // }
           return Center(
             child: ListView(
               children: [
@@ -66,7 +75,7 @@ class _SignPageState extends State<SignIn> {
                         eMail(),
                         SizedBox(height:10),
                         passwordW(),
-                      loginCont.resultInvalid.isTrue ? Container(
+                      loginCont.resultInvalid.isTrue && errorCheck == true ? Container(
                         child: Container(
                           child: Text(loginCont.logindata['errors'],style: TextStyle(color: Colors.red),),
                         ),

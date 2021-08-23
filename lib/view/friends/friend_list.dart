@@ -119,16 +119,20 @@ final banner = Get.put(BannerController());
                 id == dataa[index]['requister_id'] ? 
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    child: dataa[index]['requister']['image'] != null ? Image.network(dataa[index]['requister']['image']['url']) : Container()
+                  child: Container(
+                    child: CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Colors.grey[100],
+                      child: dataa[index]['requister']['image'] != null ? Image.network(dataa[index]['requister']['image']['url']) :Image.asset(AppImages.person)
+                    ),
                   ),
                 ):
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
+                    radius: 30.0,
                     backgroundColor: Colors.grey[100],
-                    child: dataa[index]['user_requisted']['image'] != null ? Image.network(dataa[index]['user_requisted']['image']['url']) : Container()
+                    child: dataa[index]['user_requisted']['image'] != null ? Image.network(dataa[index]['user_requisted']['image']['url']) : Image.asset(AppImages.person)
                   ),
                 ),
                 Column(
@@ -138,9 +142,9 @@ final banner = Get.put(BannerController());
                       child: id == dataa[index]['requister_id'] ?  Text(dataa[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
                       Text(dataa[index]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
                     ),
-                    Container(
-                      child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                    ),
+                    // Container(
+                    //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -187,15 +191,17 @@ final banner = Get.put(BannerController());
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
+                    radius: 30.0,
                     backgroundColor: Colors.grey[100],
-                    child: data[index]['requister']['image'] != null ? Image.network(data[index]['requister']['image']['url']) : Container()
+                    child: data[index]['requister']['image'] != null ? Image.network(data[index]['requister']['image']['url']) : Image.asset(AppImages.person)
                   ),
                 ):
                 Container(
-                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                  // margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
+                    radius: 30.0,
                     backgroundColor: Colors.grey[100],
-                    child: data[index]['user_requisted']['image'] != null ? Image.network(data[index]['user_requisted']['image']['url']) : Container()
+                    child: data[index]['user_requisted']['image'] != null ? Image.network(data[index]['user_requisted']['image']['url']) : Image.asset(AppImages.person)
                   ),
                 ),
                 Column(
@@ -204,9 +210,9 @@ final banner = Get.put(BannerController());
                       child: id == data[index]['requister_id'] ?  Text(data[index]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
                       Text(data[index]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
                     ),
-                    Container(
-                      child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                    ),
+                    // Container(
+                    //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
+                    // ),
                   ],
                 ),
                 SizedBox(height:8),

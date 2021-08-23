@@ -16,6 +16,7 @@ import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/contact.dart';
+import 'package:success_stations/view/auth/my_adds/draft_ads_list.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/bottom_bar.dart';
@@ -40,7 +41,7 @@ class _AppDrawerState extends State<AppDrawer> {
     final ImagePicker _picker = ImagePicker();
     // Pick an image
     XFile? pickedFile;
-  late String imageP;
+  var imageP;
   var fileName;
   
    final banner = Get.put(BannerController());
@@ -60,7 +61,7 @@ class _AppDrawerState extends State<AppDrawer> {
     image = box.read('user_image');
     imageP = box.read('user_image_local').toString();
     banner.bannerController();
-    print("........................YYYYYYYYYYYY$imageP");
+    
   }
    Future getImage() async { 
     await ApiHeaders().getData();
@@ -87,12 +88,11 @@ class _AppDrawerState extends State<AppDrawer> {
   }
   @override
   Widget build(BuildContext context) {
-    
+    print(".............$image...........YYYYYYYYYYYY${Get.height}");
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
             child: Drawer(
-
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -105,61 +105,68 @@ class _AppDrawerState extends State<AppDrawer> {
                           print("object");
                         },
                         child: Stack(
-                          children: [
-                              
+                          children: [                              
                             GestureDetector(
                                onTap:() { 
                                 getImage();
                               },
                               child: FractionalTranslation(
-                                translation: Get.height > 400 ? const Offset(0.2, 1.3): const Offset(0.2, 0.8),
+                                translation: Get.height > 700 ? const Offset(0.2, 1.3): const Offset(0.2, 0.9),
                                 child: CircleAvatar(
                                   backgroundColor: Colors.grey[200],
                                   radius: 60.0,
-                                  child:   imageP != null ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(60.0),
-                                    child: Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.5,)): Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(height:30),
-                                      ClipRRect(
+                                  // child:   Column(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: [
+                                      // SizedBox(height:30)≥
+                                      child:ClipRRect(
                                         borderRadius: BorderRadius.circular(60.0),
-                                        child: image != null ? 
+                                        child: image == null ? 
+                                        Image.asset(AppImages.person,color: Colors.grey[400]) :                                       
+                                        fileName != null ?
+                                         Image.file(File(pickedFile!.path),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
                                         Image.network(
-                                          image,
-                                        ):
-                                        Image.asset(AppImages.person),
-                                      ),
+                                          image['url'],
+                                          fit: BoxFit.fill,
+                                          height: Get.height/6.5,width: Get.width/3.3,
+                                        ))
                                       
-                                    ],
-                                  )
+                                      
+                                  //   ],
+                                  // )
                                 )
                               ),
                             ),
-                           
+                            
                           ],
                         ),
                       ),
                     ),
-                     Container(  
-                       margin: EdgeInsets.only(top:25,right: 55),        
+                    
+                    // SizedBox(height:30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Container(  
+                       margin: Get.height > 700 ? EdgeInsets.only(top:35,left: 35): EdgeInsets.only(top:25,left: 85),        
                        child: IconButton(
                        onPressed: () {
                          getImage();
                        },
-                       icon:Icon(Icons.camera_alt,size: 40)
+                       icon:Icon(Icons.camera_alt,size: 40,color: Colors.grey,)
                        )
                       // ),
                     ),
-                    // SizedBox(height:30),
-                    Padding(
-                      padding: const EdgeInsets.only(left:130.0),
-                      child: Text(
-                        box.read('name'),
-                        style:AppTextStyles.appTextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                        Padding(
+                          padding: Get.height > 700 ?  const EdgeInsets.only(left:10.0) :const EdgeInsets.only(left:50.0),
+                          child: Text(
+                            box.read('name'),
+                            style:AppTextStyles.appTextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top:50.0),
@@ -177,6 +184,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.to(BottomTabs());
+                          },15.0 ),
+                          CustomListTile(AppImages.aboutus, 'Draft Ads'.tr, ()  {
+                            Get.to(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
@@ -234,6 +244,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           SizedBox(height: 10.h),
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
+                            box.remove('user_image_local');
                             logoutCont.userLogout();                            
                           },15.0 ),
                         ],
