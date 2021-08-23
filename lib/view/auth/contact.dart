@@ -127,26 +127,27 @@ Widget name() {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child:  TextFormField(
-      
-                  focusNode:pin3node,
-                  controller: phoneController,
-                  validator: (value) {
-                  if (value == null || value.isEmpty) {
-                      return 'Please enter Phone Number';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(
-                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                  ),
-                  decoration:InputDecoration( 
-                    hintText: "phone".tr,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ) ,
-              ),
+      keyboardType: TextInputType.number,
+      maxLength: 13,
+      focusNode:pin3node,
+      controller: phoneController,
+      validator: (value) {
+      if (value == null || value.isEmpty) {
+          return 'Please enter Phone Number';
+        }
+        return null;
+      },
+      style: TextStyle(
+        color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+      ),
+      decoration:InputDecoration( 
+        hintText: "phone".tr,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.grey),
+      ),
+    ) ,
+  ),
     );
   }
 
@@ -160,7 +161,7 @@ Widget name() {
           controller: writeController,
           validator: (value) {
           if (value == null || value.isEmpty) {
-              return 'please write somethingr';
+              return 'add description';
             }
             return null;
           },
@@ -168,7 +169,7 @@ Widget name() {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
-            hintText: "writeHere".tr,
+            hintText: "description".tr,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.grey),

@@ -16,7 +16,7 @@ class CategoryController extends GetxController {
     isLoading = true;
     datacateg = [];
     super.onInit();
-    // getCategoryNames();
+    getCategoryNames();
   }
 
   getCategoryNames() async {
@@ -24,8 +24,9 @@ class CategoryController extends GetxController {
     await  subCategory().then((value) {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
+      print("................................cccccccccc.......$subCat");
       datacateg = subCat['data'];
-      print(datacateg);
+      
      isLoading = false;
     });
     

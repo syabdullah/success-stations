@@ -14,10 +14,15 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
-
+import 'package:intl/intl.dart';
 
 import 'package:success_stations/view/auth/sign_in.dart';
  var finalIndex;
+
+  DateTime  ? dateTime;
+   var dateFormate = DateFormat("dd-MM-yyyy").format(DateTime.parse(dateTime.toString()));
+
+ 
 class CompanySignUp extends StatefulWidget {
 
   final val;
@@ -70,7 +75,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final formKey = GlobalKey<FormState>();
 
   bool _isChecked = true;
-
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
   var v = 1;
@@ -148,11 +152,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               mobile(),
               space10 ,
-              v != 2 ? SizedBox(
-                height: 
-                Get.height / 9.3,
-                child: companyDob()
-              ): 
+              // v != 2 ? SizedBox(
+              //   height: 
+              //   Get.height / 9.3,
+              //   child: companyDob()
+              // ): 
               space10,
               GetBuilder<ContryController>(
                 init: ContryController(),
@@ -175,6 +179,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 },
               ),
               space10,
+              companyDob(),
               GetBuilder<ServicesController>(
                 init: ServicesController(),
                 builder: (val){
@@ -350,32 +355,66 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
   Widget companyDob() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: "date_of_birth".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {},  
-        textController: dobController,
-        onSaved: (String? newValue) {  
-        }, 
-        validator: (value) {
-          String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-          RegExp regExp = RegExp(pattern);
-          if (value.length == 0) {
-            return 'Enter your DOB';
-            } else if (!regExp.hasMatch(value)) {
-            return 'Enter a valid birthday format is yyyy-mm-dd';
-            }
-            return null;
-          }, 
-        errorText: '',
-      ),
-    );
+    return
+    // return  Container(
+    //   margin:EdgeInsets.only(left:20, right: 20),
+    //   width: Get.width * 0.9,
+    //   child: CustomTextFiled(
+    //     isObscure: false,
+    //     hintText: "date_of_birth".tr,
+    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+    //     hintColor: AppColors.inputTextColor,
+    //     onChanged: (value) {  },
+    //     onFieldSubmitted: (value) {},  
+    //     textController: dobController,
+    //     onSaved: (String? newValue) {  
+    //     }, 
+    //     validator: (value) {
+    //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
+    //       RegExp regExp = RegExp(pattern);
+    //       if (value.length == 0) {
+    //         return 'Enter your DOB';
+    //         } else if (!regExp.hasMatch(value)) {
+    //         return 'Enter a valid birthday format is yyyy-mm-dd';
+    //         }
+    //         return null;
+    //       }, 
+    //     errorText: '',
+    //   ),
+    // );
+Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadiusDirectional.circular(20)
+  ),
+  child:   Padding(
+    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: WrapCrossAlignment.s,
+      children: <Widget>[
+        Text( dateTime == null ? 'pick the date' : dateFormate),
+        // ignore: deprecated_member_use
+        GestureDetector(
+          child: Icon(Icons.calendar_today),
+          onTap: () {
+            print("hehe");
+            showDatePicker(
+              context: context,
+              initialDate:  DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2222)
+            ).then((date) {
+              setState(() {
+                dateTime = date;
+                
+              });
+            });
+          },
+        )
+      ],
+    ),
+  ),
+);
   }
   Widget comName() {
     return  Container(
