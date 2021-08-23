@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
@@ -13,12 +12,6 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
-
-  DateTime  ? dateTime;
-   var dateFormate = DateFormat("yyyy-MM-dd").format(
-        DateTime.parse(dateTime.toString()
-     ));
-      // var str = JSON.encode(dt, toEncodable: myEncode);
 
 
 class StudentSignUp extends StatefulWidget {
@@ -50,7 +43,6 @@ class _SignPageState extends State<StudentSignUp> {
   @override 
   void initState() {
     countryPut.getCountries();
-    
     super.initState();
   }
   void createUser() {
@@ -65,15 +57,14 @@ class _SignPageState extends State<StudentSignUp> {
       "city_id": selectedCity,
       "region_id": selectedRegion,
       "user_type": 2,
-      "date_of_birth":dobController.text,
+      "date_of_birth": dobController.text,
       "college_id": selectedCollege,
       'university_id':selectedUniversity,
-      'semester': semesterController.text,
-      'address': addressController.text,
-      'about': aboutController.text,
-      'degree': degreeController.text
+      // 'semester': semesterController.text,
+      // 'address': addressController.text,
+      // 'about': aboutController.text,
+      // 'degree': degreeController.text
     };
-    print("hxsahkjkjhsxahgjxhsgaxdiuljhxbkjaxn ksamnckjsabc,mnxsbckhjd,bafiouqrefioewq$json");
     signUpCont.createAccountData(json);
 
   }
@@ -82,7 +73,6 @@ class _SignPageState extends State<StudentSignUp> {
   
   @override
   Widget build(BuildContext context) {
-    // print("signUpCont.signup['errors']['email']signUpCont.signup['errors']['email']signUpCont.signup['message']['email']${signUpCont.signup['message']}");
     final space20 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return  Scaffold(
@@ -94,27 +84,16 @@ class _SignPageState extends State<StudentSignUp> {
               space20,
               fullNameStudent(),
               space10,
-              SizedBox(height:10),
               eMail(),
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return  signUpCont.resultInvalid.isTrue ? Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text(signUpCont.signup['errors']['email'][0],
-                      style: TextStyle(color: Colors.red),)
-                    )
-                    ):Container();
-
-                 }),
-              
-              SizedBox(height:10),
+              signUpCont.result.isTrue ? Container(
+                child: Container(
+                  child: Text(signUpCont.signup['errors']['email'])
+                ,)
+              ,):Container().
               space10,
               mobile(),
+              space10,
+              studentdob(),
               space10,
               semester(),
               space10,
@@ -124,7 +103,6 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               degree(),
               space10,
-              studentdob(),
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
@@ -168,9 +146,7 @@ class _SignPageState extends State<StudentSignUp> {
                     value: _isChecked,
                     onChanged: (value) {
                       setState(() {
-                        print("hbsdbjhsdbjshgdSjhgd on changed......>>>>>>>$value");
                         _isChecked= value!;
-                        // _isChecked= true;
                       });
                     },
                   ),
@@ -191,8 +167,7 @@ class _SignPageState extends State<StudentSignUp> {
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
                 buttonText: "sign_up_text".tr,
-                callback: _isChecked == true ?  createUser : null
-                // callback:  createUser
+                callback: createUser
               ),
               space20,
               GestureDetector(
@@ -292,13 +267,13 @@ class _SignPageState extends State<StudentSignUp> {
         textController: addressController,
         onSaved: (newValue) { 
         }, 
-       validator: (value) { 
+        validator: (value) { 
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Address field is Required";
+            return "Address Field is Required";
           } else if (!regExp.hasMatch(value)) {
-            return "About must be a-z and A-Z";
+            return "adddress must be a-z and A-Z";
           }
           else
           return null;
@@ -460,51 +435,6 @@ class _SignPageState extends State<StudentSignUp> {
         errorText: '',
       ),
     );
-//     return Container(
-//   decoration: BoxDecoration(
-//     borderRadius: BorderRadiusDirectional.circular(20)
-//   ),
-//   child:   Padding(
-//     padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       // crossAxisAlignment: WrapCrossAlignment.s,
-//       children: <Widget>[
-//         Text( dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
-//         // ignore: deprecated_member_use
-//         GestureDetector(
-//           child: Icon(Icons.calendar_today),
-//           onTap: () {
-            
-<<<<<<< HEAD
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2222)
-            ).then((date) {
-              print(date);
-              setState(() {
-                dateTime = date;
-=======
-//             showDatePicker(
-//               context: context,
-//               initialDate:  DateTime.now(),
-//               firstDate: DateTime(2000),
-//               lastDate: DateTime(2222)
-//             ).then((date) {
-//               setState(() {
-//                 dateTime = date;
->>>>>>> 6ce603c35b510664bde4dc7c347339f150850a33
-                
-//               });
-//             });
-//           },
-//         )
-//       ],
-//     ),
-//   ),
-// );
   }
 
   Widget country(List data) {

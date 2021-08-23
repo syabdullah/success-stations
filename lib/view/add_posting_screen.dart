@@ -17,6 +17,8 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
+// import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -40,6 +42,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   var subtypeId;
   var selectedStatus;
   var uiStatus;
+  final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -111,28 +114,41 @@ var lang;
               'region_id': rid.toString(),
               "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           }); 
+          print("add posting screen ...........>$formData");
           Get.find<AdPostingController>().finalAdPosting(formData); 
         } catch (e) {
             print("...............$e");
         }
       }
-  //   json = {
-  //   'category_id' : subtypeId,
-  //   'status': selectedStatus,
-  //   'description': descController.text,
-  //   'price': priceController.text,
-  //   'contact_name': fullNameController.text,
-  //   // 'mobile_no': mobileNoController.text,
-  //   // 'tel_no': telePhoneController.text,
-  //   'title':titleController.text,
-  //   'created_by': id.toString(),
-  //   'email': emailController.text,
-  //   'country_id': crid.toString(),
-  //   'city_id':cid.toString(),
-  //   'region_id': rid.toString(),
-  // };
-  // print("..................$json");
-  // adpostingController.finalAdPosting(json);
+  
+  }
+   addraft() async{
+    
+     if(pickedFile != null) {
+       
+        try {
+          dio.FormData formData = dio.FormData.fromMap({            
+             'category_id' : subtypeId,
+              'status': selectedStatus,
+              'description': descController.text,
+              'price': priceController.text,
+              'contact_name': fullNameController.text,
+              'mobile_no': mobileNoController.text,
+              'tel_no': telePhoneController.text,
+              'title':titleController.text,
+              'created_by': id.toString(),
+              'email': emailController.text,
+              'country_id': crid.toString(),
+              'city_id':cid.toString(),
+              'region_id': rid.toString(),
+              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          }); 
+          Get.find<AdPostingController>().finalAdDrafting(formData); 
+        } catch (e) {
+            print("...............$e");
+        }
+      }
+  
   }
   @override
   Widget build(BuildContext context) {
@@ -452,7 +468,7 @@ Widget istStep(List list,List types){
             ),
            ),
            SizedBox(height: 5.h,),
-             Container(
+            Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
                 padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
@@ -842,7 +858,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () {
-         adpost();
+         addraft();
         },
         child: Text("save_as_draft".tr,textAlign: TextAlign.left,),
       ),

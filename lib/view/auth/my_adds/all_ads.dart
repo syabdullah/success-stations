@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -13,7 +11,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class AllAdds extends StatefulWidget {
   _AllAddsState createState() => _AllAddsState();

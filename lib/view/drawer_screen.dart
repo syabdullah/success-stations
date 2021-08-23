@@ -17,6 +17,7 @@ import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/contact.dart';
+import 'package:success_stations/view/auth/my_adds/draft_ads_list.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/bottom_bar.dart';
@@ -64,9 +65,9 @@ class _AppDrawerState extends State<AppDrawer> {
     banner.bannerController();
     
   }
-   Future getImage() async { 
+  Future getImage() async { 
     await ApiHeaders().getData();
-   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
    
     setState(() {
       if (pickedFile != null) {
@@ -89,6 +90,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
         }
   }
+
   @override
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
@@ -191,6 +193,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.to(BottomTabs());
+                          },15.0 ),
+                          CustomListTile(AppImages.aboutus, 'Draft Ads'.tr, ()  {
+                            Get.to(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
