@@ -90,9 +90,13 @@ class _MyLocationsState extends State<MyLocations> {
                           padding:
                           const EdgeInsets.all(10.0),
                           child: GestureDetector(
-                            child: Image.asset(
-                              AppImages.profileBg
-                            ),
+                            child: data[index]['user_name']['media'].length != 0 ?
+                            Image.network(data[index]['user_name']['media']['url']) :
+                            Container(width: Get.width/4,)
+
+                            //  Image.asset(
+                            //   AppImages.profileBg
+                            // ),
                           ),
                         )
                       ),

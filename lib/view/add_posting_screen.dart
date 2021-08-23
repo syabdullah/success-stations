@@ -103,8 +103,8 @@ var lang;
               'description': descController.text,
               'price': priceController.text,
               'contact_name': fullNameController.text,
-            //   'mobile_no': mobileNoController.text,
-            //   'tel_no': telePhoneController.text,
+              'mobile_no': mobileNoController.text,
+              'tel_no': telePhoneController.text,
               'title':titleController.text,
               'created_by': id.toString(),
               'email': emailController.text,
@@ -684,7 +684,7 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        // Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
         
         Card(
           child: Column(
@@ -707,22 +707,20 @@ Widget secondStep(){
                     children: [
                       SizedBox(height: 15.h,),
                         SizedBox(height: 15.h,),
-                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                         Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
-                        Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 10.h),
-                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("123453242342",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      //  Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
+                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
+                      SizedBox(height: 15.h,),
+                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
+                       Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h,),
                       
                     ],
                   ),
@@ -735,11 +733,16 @@ Widget secondStep(){
                         Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        // SizedBox(height: 15.h,),
-                        //  Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        // SizedBox(height: 7.h),
-                        // Text(selectedStatus.toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        // SizedBox(height: 10.h),
+                        
+                        SizedBox(height: 15.h,),
+                       Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      SizedBox(height: 7.h),
+                      Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      SizedBox(height: 15.h),
+                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        SizedBox(height: 7.h),
+                         Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                        SizedBox(height: 10.h),
                         
                       ],
                       ),

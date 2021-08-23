@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
+import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -19,11 +20,13 @@ class _MyAddsState extends State<MyAdds> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final controllerCat = Get.put(CategoryController());
+   final friCont = Get.put(FriendsController()); 
   var listtype = 'list';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+   bool liked = false;
   var lang;
   var userId;
   GetStorage box = GetStorage();
@@ -487,14 +490,35 @@ void _adsfiltringheet() {
                           child: Icon(Icons.person)
                           ) 
                       ),
-                      Row(
-                        children: [ 
-                          Container(
-                            padding: EdgeInsets.only(right:5),
-                            child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart)
-                          ),
-                          Image.asset(AppImages.call, height: 25),
-                        ],
+
+                      Container(
+                        child:
+                        GetBuilder<FriendsController>(
+                          init: FriendsController(),
+                          builder: (val){
+                            return
+                         Row(
+                          children: [ 
+                            GestureDetector(
+                              onTap: () {
+                                 var json = {
+                                          'ads_id' : allDataAdds[index]['id']
+                                        };
+                                        // setState(() {
+                                          liked = !liked;
+                                        // });
+                                       allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                                       controller.addedAllAds();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(right:5),
+                                child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                              ),
+                            ),
+                            Image.asset(AppImages.call, height: 25),
+                          ],
+                        );
+                          })
                       )
                     ],
                   ),

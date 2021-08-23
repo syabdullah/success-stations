@@ -121,9 +121,9 @@ class _FriendReqListState extends State<FriendReqList> {
                           child: id == data[i]['requister_id'] ?  Text(data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
                       Text(data[i]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
                         ),
-                        Container(
-                          child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
+                        // Container(
+                        //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),
                       ],
                     ),
                     Spacer(),
@@ -269,9 +269,9 @@ class _FriendReqListState extends State<FriendReqList> {
                            width: Get.width/4,
                           child: Text(data[i]['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
-                        Container(
-                          child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
+                        // Container(
+                        //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
+                        // ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
                         //   children: [

@@ -141,14 +141,14 @@ class _AddLocationsState extends State<AddLocations> {
               ],
             ),
           ),
-         Padding(
-           padding: const EdgeInsets.only(left:15.0,top:35),
-           child: GestureDetector(
-             child: Icon(Icons.arrow_back),
-             onTap: (){
-               Get.back();
-             },),
-         ),
+        //  Padding(
+        //    padding: const EdgeInsets.only(left:15.0,top:35),
+        //    child: GestureDetector(
+        //      child: Icon(Icons.arrow_back),
+        //      onTap: (){
+        //        Get.back();
+        //      },),
+        //  ),
         ],
         
       ),
