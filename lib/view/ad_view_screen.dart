@@ -73,7 +73,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
-          return val.adsD == null ? Container(): Column(
+              print("....................>>${val.adsD}");
+          return val.isLoading == true ? Center(child: CircularProgressIndicator()) :   val.adsD['data'] == null ? Container(
+            child: Center(child: Text("NO Detail Here !"),),
+          ): Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
              titleStep(val.adsD['data']),
@@ -88,7 +91,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               SizedBox(height: 10.h,),
               commentButton(),
               SizedBox(height: 5.h,),
-              Text("${val.adsD['data']['listing_comments'].length} People Commented on this ad.",
+              Text(val.adsD != null ? "${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
@@ -114,11 +117,18 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
 
 Widget titleStep(data) {
-  var htmldata =
+  print("ppppppppp-------${data['category']}");
+  var htmldata = '';
+  if(data != null ) {
+ htmldata =
         """ <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
           ${data['description'][lang]}
     """;
-  return 
+  }
+      return data == null ? 
+      Container(
+        child: Text("No Detail"),
+      ) :
   Column(
       children: [
         data['image'].length != 0 ? 
@@ -138,7 +148,7 @@ Widget titleStep(data) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(data['contact_name'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                    Text(data['price'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                   ],
                 ),
               ),
@@ -159,9 +169,8 @@ Widget titleStep(data) {
                       SizedBox(height: 15.h,),
                        Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),
-                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      Text(data['category'] != null ? data['category']['category'][lang] : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                       SizedBox(height: 15.h,),
-                      
                     ],
                   ),
                    Container(
@@ -207,7 +216,11 @@ Widget titleStep(data) {
    );
 }
 Widget listTileRow(data){
-  return ListTile(
+
+  return data == null ? 
+      Container(
+        child: Text("No Detail"),
+      ) :ListTile(
     title: Row(
       children: [
         CircleAvatar(
@@ -216,7 +229,7 @@ Widget listTileRow(data){
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
           child: user_image != null ? 
-          Image.network(user_image) : Container(color: Colors.grey[200],)
+          Image.network(user_image['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
           // Image.asset(
           //   AppImages.profile,
           // ),
@@ -274,7 +287,7 @@ Widget listTileRow2(data) {
                   child: data[index]['media'] != null ? 
                   Image.network(
                     data[index]['media']['url']
-                  ):Image.asset(AppImages.profile)
+                  ):Image.asset(AppImages.person)
                 )
               ),
               Padding(
