@@ -5,7 +5,7 @@ String? token;
 class ApiHeaders {
 
   getData() {
-    GetStorage box =  GetStorage(); 
+    GetStorage box = GetStorage(); 
     token = box.read('access_token');
   } 
 
@@ -17,6 +17,6 @@ class ApiHeaders {
   var headersWithToken = {
     "Content-Type": "application/json;charset=UTF-8",
     "accept": "application/json",  
-    'authorization' : 'Bearer $token'
+    'authorization' :'Bearer $token'
   };
 }

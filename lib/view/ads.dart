@@ -18,7 +18,7 @@ import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 
-   List<String> imgList = [];
+  List<String> imgList = [];
 
 class AdsView extends StatefulWidget {
   _AdsViewState createState() => _AdsViewState();

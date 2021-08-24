@@ -2,25 +2,15 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/offers/offer_list_action.dart';
 
-class OfferController extends GetxController {
+class MyOffersDrawerController extends GetxController {
   bool isLoading = false; 
-  var offerDataList, myofferListDrawer;
+  var myofferListDrawer;
 
-  @override
+   @override
   void onInit(){
     isLoading = true;
-    offerList();
+    drawerMyOffer();
     super.onInit();
-  }
-
-  offerList() async{
-    isLoading = true;
-    await allOffers().then((value) {
-      offerDataList = jsonDecode(value.body);
-      print("....!!!!!...!!!!...!!!!!.....1111..........$offerDataList");
-      isLoading = false;
-    });
-    update();
   }
 
   drawerMyOffer() async{
