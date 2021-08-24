@@ -394,66 +394,68 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
     );
   }
+  var finalDate;
   Widget companyDob() {
-    return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: "date_of_birth".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {},  
-        textController: dobController,
-        onSaved: (String? newValue) {  
-        }, 
-        validator: (value) {
-          String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-          RegExp regExp = RegExp(pattern);
-          if (value.length == 0) {
-            return 'Enter your DOB';
-            } else if (!regExp.hasMatch(value)) {
-            return 'Enter a valid birthday format is yyyy-mm-dd';
-            }
-            return null;
-          }, 
-        errorText: '',
-      ),
-    );
-// return Container(
-//   decoration: BoxDecoration(
-//     borderRadius: BorderRadiusDirectional.circular(20)
-//   ),
-//   child:   Padding(
-//     padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       // crossAxisAlignment: WrapCrossAlignment.s,
-//       children: <Widget>[
-//         Text( dateTime == null ? 'Date of Birth' : dateFormate,style: TextStyle(color: Colors.grey[500])),
-//         // ignore: deprecated_member_use
-//         GestureDetector(
-//           child: Icon(Icons.calendar_today),
-//           onTap: () {
-//             print("hehe");
-//             showDatePicker(
-//               context: context,
-//               initialDate:  DateTime.now(),
-//               firstDate: DateTime(2000),
-//               lastDate: DateTime(2222)
-//             ).then((date) {
-//               setState(() {
-//                 dateTime = date;
-                
-//               });
-//             });
-//           },
-//         )
-//       ],
-//     ),
-//   ),
-// );
+    // return Container(
+    //   margin:EdgeInsets.only(left:20, right: 20),
+    //   width: Get.width * 0.9,
+    //   child: CustomTextFiled(
+    //     isObscure: false,
+    //     hintText: "date_of_birth".tr,
+    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+    //     hintColor: AppColors.inputTextColor,
+    //     onChanged: (value) {  },
+    //     onFieldSubmitted: (value) {},  
+    //     textController: dobController,
+    //     onSaved: (String? newValue) {  
+    //     }, 
+    //     validator: (value) {
+    //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
+    //       RegExp regExp = RegExp(pattern);
+    //       if (value.length == 0) {
+    //         return 'Enter your DOB';
+    //         } else if (!regExp.hasMatch(value)) {
+    //         return 'Enter a valid birthday format is yyyy-mm-dd';
+    //         }
+    //         return null;
+    //       }, 
+    //     errorText: '',
+    //   ),
+    // );
+return Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadiusDirectional.circular(20)
+  ),
+  child:   Padding(
+    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: WrapCrossAlignment.s,
+      children: <Widget>[
+        Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
+        // ignore: deprecated_member_use
+        GestureDetector(
+          child: Icon(Icons.calendar_today),
+          onTap: () {
+            
+            showDatePicker(
+              context: context,
+              initialDate:  DateTime.now(),
+              firstDate: DateTime(1900),
+              lastDate: DateTime(2222)
+            ).then((date) {
+              setState(() {               
+                dateTime = date;
+                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                print("..................$finalDate");
+              });
+            });
+          },
+        )
+      ],
+    ),
+  ),
+);
   }
   Widget comName() {
     return  Container(

@@ -20,6 +20,7 @@ class SignUpController extends GetxController{
     isLoading(true);
     await createAccount(data).then((res){
       signup = jsonDecode(res.body);
+      print("................$signup");
       if(res.statusCode == 200 || res.statusCode < 400){
         resultInvalid(false);
         isLoading(false);
