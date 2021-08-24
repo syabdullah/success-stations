@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/controller/removed_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -19,9 +17,10 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  final friCont = Get.put(FriendsController());
-  final remoControllerFinal = Get.put(RemoveController());
+  final remoControllerFinal = Get.put(FriendsController());
    final fContr = Get.put (FavoriteController());
   var listingIdRemoved;
+    var imageAds;
  
   final controller = Get.put(AddBasedController());
   var listtype = 'list';
@@ -32,9 +31,18 @@ class _FavouritePageState extends State<FavouritePage> {
   Color listIconColor = Colors.grey;
   GetStorage box = GetStorage();
 
+  allWordsCapitilize (String str) {
+    return str.toLowerCase().split(' ').map((word) {
+      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+      return word[0].toUpperCase() + leftText;
+    }).join(' ');
+  }
+ 
  @override
   void initState() {
     super.initState(); 
+    fContr.favoriteList();
+
     id = box.read('user_id');
   }
 
@@ -44,8 +52,8 @@ class _FavouritePageState extends State<FavouritePage> {
       'ads_id': listingIdRemoved
 
     };
-    remoControllerFinal.removedAddsUnFvr8(reJson);
-    fContr.favoriteList();
+    remoControllerFinal.profileAdsRemove(reJson, null);
+    
     });
     
     
@@ -131,10 +139,11 @@ class _FavouritePageState extends State<FavouritePage> {
     List<Widget> favrties = [];
     if(listFavourite.length !=null || listFavourite!=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
-        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['id'] !=null){
+        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['image'] !=null){
           listingIdRemoved = listFavourite[c]['listing']['id'];
-
-         print("listFavourite............ listing ID...........$listingIdRemoved");
+          for(int array = 0; array < listFavourite[c]['listing']['image'].length; array++ ){
+            imageAds =listFavourite[c]['listing']['image'][array]['url'];
+          }
           favrties.add(
             Card(
               child: Container(
@@ -146,14 +155,12 @@ class _FavouritePageState extends State<FavouritePage> {
                       children: [
                         Center(
                           child: Container(
-                            child: Padding(
-                              padding:
-                              const EdgeInsets.all(10.0),
-                              child: GestureDetector(
-                                child: Image.asset(
-                                  AppImages.profileBg
-                                ),
-                              ),
+                            height: Get.height/2,
+                            width: Get.width/4,
+                            child: listFavourite[c]['listing']['image'] !=null ?  Image.network(
+                              imageAds
+                            ):FittedBox(fit:BoxFit.contain,
+                              child: Icon(Icons.person, color: Colors.grey[400])
                             )
                           ),
                         ),
@@ -164,8 +171,9 @@ class _FavouritePageState extends State<FavouritePage> {
                             children: [
                               listFavourite[c]['user_name']!=null ?
                               Container(
+                                margin:EdgeInsets.only(left:8),
                                 child: Text(
-                                  listFavourite[c]['user_name']['name'],
+                                 allWordsCapitilize( listFavourite[c]['user_name']['name'],),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -196,19 +204,19 @@ class _FavouritePageState extends State<FavouritePage> {
                     SizedBox(height:20),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, right: 10),
-                          child: ClipOval(
-                            child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
-                              listFavourite[c]['user_name']['image'],
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 10, right: 10),
+                        //   child: ClipOval(
+                        //     child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
+                        //       listFavourite[c]['user_name']['image'],
+                        //       width: 50,
+                        //       height: 50,
+                        //       fit: BoxFit.cover,
                                   
-                            ):CircleAvatar(backgroundColor:Colors.grey[100])
-                          )
-                        ),
-                        SizedBox(height:10),
+                        //     ):CircleAvatar(backgroundColor:Colors.grey[100])
+                        //   )
+                        // ),
+                        SizedBox(height:30),
                         Row(
                           children: [
                             listFavourite[c]['listing'] !=null ? 
@@ -237,10 +245,13 @@ class _FavouritePageState extends State<FavouritePage> {
         }
       }
     }
+    // }
     return favrties;
   }
   var ind = 0 ;
+  var gridImages;
   List<Widget> myAddGridView(listFavourite) {
+     print("sjgciahdsgiusydgisuhDBIHSAdiwuqyerw7uiyr37we6w9786re8w7yiturgewhjdbvsjabcndscvbs.......>>>$listFavourite");
     List<Widget> faviii = [];
     faviii.add(
       Container(
@@ -250,7 +261,13 @@ class _FavouritePageState extends State<FavouritePage> {
         children: List.generate(
           listFavourite.length, 
           (index) {
-            return Container(
+            if(listFavourite[index] !=null && listFavourite[index]['listing'] !=null ){
+              for(int c =0; c < listFavourite[index]['listing']['image'].length; c++){
+                gridImages= listFavourite[index]['listing']['image'][c]['url'];
+                print("sjgciahdsgiusydgisuhDBIHSAdiwuqyerw7uiyr37we6w9786re8w7yiturgewhjdbvsjabcndscvbs.......>>>$gridImages");
+              }
+            }
+            return listFavourite[index]['listing']  !=null ? Container(
               margin: EdgeInsets.only(left:15),
               child:  Card(
                 elevation: 1,
@@ -265,13 +282,16 @@ class _FavouritePageState extends State<FavouritePage> {
                           child: Container(
                             width: Get.width/1.0,
                             height: Get.height/5.2,
-                            child: Image.asset(AppImages.profileBg)
+                            child: listFavourite[index]['listing']['image'] !=null ? Image.network(gridImages):
+                            FittedBox(fit:BoxFit.contain,
+                              child: Icon(Icons.person, color: Colors.grey[400])
+                            ) 
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
                           child: listFavourite[index]['user_name']['name']  !=null ? Text( 
-                            listFavourite[index]['user_name']['name'],
+                           allWordsCapitilize(listFavourite[index]['user_name']['name'],) 
                           ): Container()
                         ),
                         Expanded(
@@ -281,7 +301,7 @@ class _FavouritePageState extends State<FavouritePage> {
                               Icon(Icons.location_on, color:Colors.grey),
                               Container(
                                 child: listFavourite[index]['user_name']['address'] !=null ? Text(
-                                 listFavourite[index]['user_name']['address'],
+                                 allWordsCapitilize(listFavourite[index]['user_name']['address']),
                                   style: TextStyle(
                                     color: Colors.grey[300]
                                   ),
@@ -293,7 +313,7 @@ class _FavouritePageState extends State<FavouritePage> {
                       ],
                     ),
                   ),
-                );
+                ):Container();
               }
             )
           ),

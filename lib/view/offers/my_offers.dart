@@ -8,6 +8,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/offers/add_offers.dart';
 
 
 class OffersDetail extends StatefulWidget {
@@ -16,13 +17,20 @@ class OffersDetail extends StatefulWidget {
 class _MyOffersDetailState extends State<OffersDetail> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final putData  = Get.put(MyOffersDrawerController());
+
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
       String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
     }).join(' ');
   }
-
+  @override
+  void initState() {
+    putData.drawerMyOffer();
+    
+    super.initState();
+  }
   
   var listtype = 'list';
   var mediaList ;
@@ -35,8 +43,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
+      // key: _scaffoldKey,
         appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringbar(context, "MY OFFERS" )),
+      child: stringbar( context, "MY OFFERS" )),
 
       body: SingleChildScrollView(
         child: Column(
@@ -46,7 +55,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/addedOffer');
+                    Get.off(AddOffersPage());
+                    // Get.toNamed('/addedOffer');
                   },
                   child: Container(
                     margin:EdgeInsets.only(left:20, top: 30),

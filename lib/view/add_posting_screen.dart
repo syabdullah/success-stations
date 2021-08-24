@@ -118,7 +118,7 @@ var lang;
               'region_id': rid.toString(),
               "image": Get.find<AdPostingController>().adUpload['name'],            
           }); 
-          print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
+          print("add posting screen .....................................>${ Get.find<AdPostingController>().adUpload['name']}");
           Get.find<AdPostingController>().finalAdPosting(formData); 
         } catch (e) {
             print("...............$e");
