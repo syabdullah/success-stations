@@ -701,7 +701,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          controller: mobileNoController ,
+          controller: telePhoneController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -737,7 +737,8 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
+        fileName != null ?
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):Container(),
         
         Card(
           child: Column(

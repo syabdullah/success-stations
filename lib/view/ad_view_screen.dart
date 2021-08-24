@@ -373,6 +373,8 @@ Widget commentButton() {
   ),
     onPressed:  () {
       postComment();
+      adDetailCont.adsDetail(adId);
+
      },
       child: Text('add_a_comment'.tr),
       ),

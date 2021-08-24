@@ -52,10 +52,10 @@ dependencies:
   # multi_select_flutter: ^4.0.0
   multiselect_formfield: 
   flutter_multiselect: 
-  flutter_form_builder: ^6.0.1
+  flutter_form_builder: ^6.0.1 
   google_maps_place_picker: ^2.0.0-nullsafety.3
   dotted_border: ^2.0.0+1
-  image_picker: ^0.8.3+2
+  image_picker: ^0.8.3+2 
   readmore: ^2.1.0
   dio: ^4.0.0
   flutter_html: ^2.1.1

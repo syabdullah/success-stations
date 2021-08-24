@@ -103,7 +103,7 @@ class AdPostingController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body);
         isLoading(false);
-         Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+        //  Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
        
         
       } if(res.statusCode >=  400){
