@@ -74,8 +74,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
           key: formKey,
           child: Column(
             children: [
-              GetBuilder<AboutController>( 
-          init: AboutController(),
+              GetBuilder<ContentManagmentController>( 
+          init: ContentManagmentController(),
           builder:(val) {
             return val.aboutData != null  ? text(val.aboutData['data']) : Center(child: CircularProgressIndicator());
     

@@ -15,6 +15,7 @@ import 'package:success_stations/utils/third_step.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdViewScreen extends StatefulWidget {
   const AdViewScreen({ Key? key }) : super(key: key);
@@ -95,8 +96,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
               SizedBox(height: 10.h,),
               commentButton(),
               SizedBox(height: 5.h,),
-              Text(val.adsD != null ? "${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
-                style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Text(val.adsD != null ? "${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
+                  style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+                  ),
                 ),
               ),
               SizedBox(height: 3.h,),
@@ -105,8 +109,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  previousButton(AppImages.heart,AppString.fav,Colors.grey,),
-                  previousButton(AppImages.contact,AppString.contact,Colors.blue,)
+                  previousButton(AppImages.heart,AppString.fav,Colors.grey,''),
+                  previousButton(AppImages.contact,AppString.contact,Colors.blue,val.adsD['data'])
                 ],
               ),
               SizedBox(height: 8.h,),
@@ -362,6 +366,7 @@ Widget mytraling(idU){
 
 Widget commentButton() {
     return Container(
+       padding: EdgeInsets.symmetric(horizontal: 10),
       height: 40.h,
       width: Get.width,
       child: ElevatedButton(
@@ -389,7 +394,7 @@ Widget commentButton() {
   }
 
   /// Returns the previous button.
-  Widget previousButton(image,text,Color color) {
+  Widget previousButton(image,text,Color color,data) {
     return Container(
       height: 40.h,
       width: 150.w,
@@ -400,13 +405,12 @@ Widget commentButton() {
         fontSize: 12.h,
         fontWeight: FontWeight.bold)),
         onPressed: () {
+          
           if(text == AppString.fav) {
-          var json = {
-            'ads_id' : adId
-          };
-          friCont.profileAdsToFav(json,null);
+          Get.toNamed('/favourities');
           } else {
-            Get.toNamed('/contact');
+           
+          launch("tel:${data['phone']}");
           }
         }, 
         child: Row(
