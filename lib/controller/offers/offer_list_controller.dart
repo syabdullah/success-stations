@@ -17,6 +17,7 @@ class OfferController extends GetxController {
     isLoading = true;
     await allOffers().then((value) {
       offerDataList = jsonDecode(value.body);
+      print("....!!!!!...!!!!...!!!!!.....1111..........$offerDataList");
       isLoading = false;
     });
     update();
