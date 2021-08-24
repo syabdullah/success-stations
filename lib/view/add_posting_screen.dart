@@ -55,11 +55,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   var json;
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
+  final con = Get.put(AdPostingController());
     // Pick an image
     XFile? pickedFile;
   late String image;
   var fileName;
 var id,cid,rid,crid ;
+var uploadedImage;
 var lang;
   @override
   void initState() {
@@ -71,11 +73,11 @@ var lang;
     lang = box.read('lang_code');
     catogoryController.getCategoryNames();
     catogoryController.getCategoryTypes();
+
   }
   Future getImage() async {
     await ApiHeaders().getData();
    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
-    
     setState(() {
       if (pickedFile != null) {
         image = pickedFile!.path;      
@@ -84,19 +86,21 @@ var lang;
         print('No image selected.');
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-          Get.find<AdPostingController>().uploadAdImage(formData); 
-        } catch (e) {
+    try {
+      dio.FormData formData = dio.FormData.fromMap({          
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData);      
+       uploadedImage  = Get.find<AdPostingController>().adUpload['name'];
 
-        }
+        print(".......UPload image$uploadedImage");
+
+    } catch (e) {
+    }
      
   }
    adpost() async{ 
      if(pickedFile != null) {
-        print(".......UPload image$subtypeId");
         try {
           dio.FormData formData = dio.FormData.fromMap({            
              'category_id' : subtypeId,
@@ -112,9 +116,9 @@ var lang;
               'country_id': crid.toString(),
               'city_id':cid.toString(),
               'region_id': rid.toString(),
-              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+              "image": Get.find<AdPostingController>().adUpload['name'],            
           }); 
-          print("add posting screen ...........>$formData");
+          print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
           Get.find<AdPostingController>().finalAdPosting(formData); 
         } catch (e) {
             print("...............$e");

@@ -73,6 +73,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
+            // comment = '';
               print("....................>>${val.adsD}");
           return val.isLoading == true ? Center(child: CircularProgressIndicator()) :   val.adsD['data'] == null ? Container(
             child: Center(child: Text("NO Detail Here !"),),
@@ -310,10 +311,13 @@ Widget listTileRow2(data) {
                       AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
                       ),
                     ),
-                      Text(data[index]['comment'][lang],style:
-                      AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
-                      ),
+                      Container(
+                        width: Get.width/2.5,
+                        child: Text(data[index]['comment'][lang],style:
+                        AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
+                        ),
                     ),
+                      ),
                   ],
                 ),
               )
@@ -372,8 +376,11 @@ Widget commentButton() {
     )
   ),
     onPressed:  () {
-      postComment();
+      postComment();      
       adDetailCont.adsDetail(adId);
+      setState(() {
+        comment = '';
+      });
 
      },
       child: Text('add_a_comment'.tr),
@@ -415,6 +422,7 @@ Widget commentButton() {
 
 Widget commentInput(){
   return  TextFormField(
+    maxLines: 4,
     textAlignVertical: TextAlignVertical.top,
     validator: (value) {
       if (value == null || value.isEmpty) {

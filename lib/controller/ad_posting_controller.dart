@@ -10,7 +10,7 @@ import 'package:success_stations/utils/config.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:dio/src/response.dart' as response;
 
-class AdPostingController extends GetxController {
+class  AdPostingController extends GetxController {
   var result = true;
   var adpost;
   var adUpload;
@@ -49,6 +49,7 @@ class AdPostingController extends GetxController {
       adpost = result.data;
       if(result.data['success'] == true){
          isLoading(true);
+         Get.off(MyAdds());
          Get.snackbar("Ad successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
       } 
     update();
