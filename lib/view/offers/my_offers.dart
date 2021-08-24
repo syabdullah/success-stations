@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
+import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -60,14 +61,14 @@ class _MyOffersDetailState extends State<OffersDetail> {
              
               ],
             ),
-            GetBuilder<OfferController>(
-              init: OfferController(),
+            GetBuilder<MyOffersDrawerController>(
+              init: MyOffersDrawerController(),
               builder:(val){
-                return  val.offerDataList !=null ?  Column(
-                  children: allOffersWidget(val.offerDataList['data'])
-                ): Container();
-                // ListView(children: [
-                //   Container()],);
+                print(" offrerrrr controllelr$val");
+                return  val.myofferListDrawer  !=null ? Column(
+                  children: allOffersWidget(val.myofferListDrawer['data'])
+                ):
+                  Container();
               },
             )
             
@@ -77,9 +78,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
     );
   }
 
-   List<Widget> allOffersWidget(listFavou) {
+  List<Widget> allOffersWidget(listFavou) {
     List<Widget> favrties = [];
-    if( listFavou!=null || listFavou.length !=null){
+    if( listFavou !=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
         favrties.add(
           Card(
@@ -98,7 +99,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        
                         Text(
                           listFavou[c]['text_ads']['en'] !=null ? 
                           allWordsCapitilize(listFavou[c]['text_ads']['en'].toString()) :'', 
@@ -106,7 +106,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
                           )
                         ),
-                        Text (
+                        Text(
                           listFavou[c]['status'] == 1 ? "NEW": 
                           listFavou[c]['status'] == 0 ? "OLD":
                           listFavou[c]['status'] == null ? '':'',
