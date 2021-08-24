@@ -19,7 +19,7 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  final friCont = Get.put(FriendsController());
-  final remoControllerFinal = Get.put(RemoveController());
+  final remoControllerFinal = Get.put(FriendsController());
    final fContr = Get.put (FavoriteController());
   var listingIdRemoved;
  
@@ -35,6 +35,8 @@ class _FavouritePageState extends State<FavouritePage> {
  @override
   void initState() {
     super.initState(); 
+    fContr.favoriteList();
+
     id = box.read('user_id');
   }
 
@@ -44,8 +46,8 @@ class _FavouritePageState extends State<FavouritePage> {
       'ads_id': listingIdRemoved
 
     };
-    remoControllerFinal.removedAddsUnFvr8(reJson);
-    fContr.favoriteList();
+    remoControllerFinal.profileAdsRemove(reJson, null);
+    
     });
     
     
@@ -146,15 +148,14 @@ class _FavouritePageState extends State<FavouritePage> {
                       children: [
                         Center(
                           child: Container(
-                            child: Padding(
-                              padding:
-                              const EdgeInsets.all(10.0),
-                              child: GestureDetector(
-                                child: Image.asset(
-                                  AppImages.profileBg
-                                ),
-                              ),
-                            )
+                            height: Get.height/2,
+                            width: Get.width/4,
+                            child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
+                              listFavourite[c]['user_name']['image']
+                                ):
+                                FittedBox(fit:BoxFit.contain,
+                                child: Icon(Icons.person, color: Colors.grey[400])
+                              )
                           ),
                         ),
                         Padding(
@@ -196,19 +197,19 @@ class _FavouritePageState extends State<FavouritePage> {
                     SizedBox(height:20),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, right: 10),
-                          child: ClipOval(
-                            child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
-                              listFavourite[c]['user_name']['image'],
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 10, right: 10),
+                        //   child: ClipOval(
+                        //     child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
+                        //       listFavourite[c]['user_name']['image'],
+                        //       width: 50,
+                        //       height: 50,
+                        //       fit: BoxFit.cover,
                                   
-                            ):CircleAvatar(backgroundColor:Colors.grey[100])
-                          )
-                        ),
-                        SizedBox(height:10),
+                        //     ):CircleAvatar(backgroundColor:Colors.grey[100])
+                        //   )
+                        // ),
+                        SizedBox(height:30),
                         Row(
                           children: [
                             listFavourite[c]['listing'] !=null ? 
@@ -250,7 +251,7 @@ class _FavouritePageState extends State<FavouritePage> {
         children: List.generate(
           listFavourite.length, 
           (index) {
-            return Container(
+            return listFavourite[index]['listing']  !=null ? Container(
               margin: EdgeInsets.only(left:15),
               child:  Card(
                 elevation: 1,
@@ -293,7 +294,7 @@ class _FavouritePageState extends State<FavouritePage> {
                       ],
                     ),
                   ),
-                );
+                ):Container();
               }
             )
           ),

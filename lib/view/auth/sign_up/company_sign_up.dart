@@ -151,44 +151,41 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
               space10,
               eMail(),
-              v == 1? 
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return signUpCont.resultInvalid.isTrue ? 
-                  Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text( signUpCont.indiviualSignup['errors']['email'][0],
-                      style: TextStyle(color: Colors.red),
-                      )
-                    )
-                  ):Container() ;
-
-                }
-              ): 
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return signUpCont.resultInvalid.isTrue ? 
-                  Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text( signUpCont.companySignUp['errors']['email'][0] ,
-                      style: TextStyle(color: Colors.red),
-                      )
-                    )
-                  ): Container();
-
-                }
-              ),
-              
+              // v == 1? 
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return signUpCont.resultInvalid.isTrue ? 
+              //     Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //         margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text( signUpCont.indiviualSignup['errors']['email'][0],
+              //         style: TextStyle(color: Colors.red),
+              //         )
+              //       )
+              //     ):Container() ;
+              //   }
+              // ): 
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return signUpCont.resultInvalid.isTrue ? 
+              //     Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //           margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text( signUpCont.companySignUp['errors']['email'][0] ,
+              //         style: TextStyle(color: Colors.red),
+              //         )
+              //       )
+              //     ): Container();
+              //   }
+              // ),
               space10,
               mobile(),
               space10 ,

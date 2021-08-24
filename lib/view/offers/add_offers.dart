@@ -100,7 +100,8 @@ class AddOffersState extends State<AddOffersPage> {
             'listing_id': hintLinkingId,
             'status': statusSelected
           });
-          print("....................; add_offers,.,,,,,,,,$formData");
+          // print("....................; add_offers,.,,,,,,,,$formData");
+            print("....................; add_offers JSONNNMNMNN,.,,,,,,,,$formData");
           Get.find<StorePostAddesController>().storefOffersAAll(formData); 
         }catch(e){}
       }
