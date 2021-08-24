@@ -76,8 +76,7 @@ class _FriendReqListState extends State<FriendReqList> {
     var count = 0;
      List<Widget> req = [];
      if(data != null)
-     for(int i= 0; i< data.length; i++) {
-        // print("....................//////.....${data[i]['requister']['id']}");   
+     for(int i= 0; i< data.length; i++) {  
        if(data[i]['requister'] != null && data[i]['status'] == null) {
          print("....................//////.....${data[i]['requister']}");
          ++count;
@@ -234,6 +233,7 @@ class _FriendReqListState extends State<FriendReqList> {
     return req;
   }
   List<Widget> sugesstionList(data) {
+    
      List<Widget> req = [];
      if(data != null)
      for(int i= 0; i< data.length; i++) {
