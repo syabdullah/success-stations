@@ -701,7 +701,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          controller: mobileNoController ,
+          controller: telePhoneController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';

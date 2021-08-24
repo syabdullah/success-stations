@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/about_us_action.dart';
 
-class AboutController extends GetxController {
+class ContentManagmentController extends GetxController {
    var isLoading = false;
    var aboutData; 
      @override

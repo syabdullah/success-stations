@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -66,10 +66,11 @@ class AdPostingController extends GetxController {
     // await updateProfile(data).then((res) {
        print("object----------------------$result");
       adpost = result.data;
-     
       if(result.data['success'] == true){
          isLoading(true);
+         Get.to(MyAdds());
          Get.snackbar("Ad Drafted Successfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+         
       } 
     update();
   }

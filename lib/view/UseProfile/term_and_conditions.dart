@@ -5,14 +5,14 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_html/flutter_html.dart';
-class AboutUs extends StatefulWidget {
-  const AboutUs({ Key? key }) : super(key: key);
+class TermConditions extends StatefulWidget {
+  const TermConditions({ Key? key }) : super(key: key);
 
   @override
-  _AboutUsState createState() => _AboutUsState();
+  _TermConditions createState() => _TermConditions();
 }
 
-class _AboutUsState extends State<AboutUs> {
+class _TermConditions extends State<TermConditions> {
 
 
   @override
@@ -20,7 +20,7 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       // bottomNavigationBar: CustomBottomBar(),
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ABOUT US',AppImages.appBarSearch),
+       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'Privacy',AppImages.appBarSearch),
       ),
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
@@ -41,7 +41,7 @@ Widget about(data){
     itemBuilder: (BuildContext,index) {
       
       return 
-      index == 0 ?
+      index == 3 ?
        Column(
         children: [
           Padding(
