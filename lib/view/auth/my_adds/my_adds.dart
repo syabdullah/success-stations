@@ -401,7 +401,7 @@ void _adsfiltringheet() {
                               Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
                               Container(
                                 width: Get.width/4,
-                                child: Text("No Image!"),
+                                 child: Icon(Icons.image,size: 50,),
                               )
                               // Image.asset(
                               //   AppImages.profileBg
@@ -566,7 +566,7 @@ void _adsfiltringheet() {
                                 Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
                                 Container(
                                   width: Get.width/4,
-                                  child: Center(child: Text("No Image!")),
+                                  child: Icon(Icons.image,size: 50,),
                                 )
                           // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                         ),

@@ -6,7 +6,7 @@ Future<http.Response> basedAddById(id,uId) async {
   print(">>????????????????/////////////////////////////////////////////////$id");
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}ads/category/$id/$uId");
+  var url = uId == null ? Uri.parse("${config.baseUrl}ads/category/$id") :  Uri.parse("${config.baseUrl}ads/category/$id/$uId");
   print("url of the beased api ................>>>>>$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;

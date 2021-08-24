@@ -144,7 +144,7 @@ class _OfferListState extends State<OfferList> {
                                         ? Image.network(
                                             listFavou[c]['image_ads']['url'],
                                             fit: BoxFit.fitHeight)
-                                        : Container(),
+                                        : Container(width: Get.width/2, child: Icon(Icons.image,size: 50,),),
                                   ))
                             ],
                           ),

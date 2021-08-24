@@ -73,11 +73,12 @@ class _AllAddsState extends State<AllAdds> {
               child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
             builder: (val) {
-              return val.isLoading == true
-                  ? Container()
+              return val.isLoading == true ||  val.cData == null  
+                  ? Container() :
+                   val.cData['data'] == null ? CircularProgressIndicator()
                   : listtype == 'list'
-                      ? myAddsList(val.allAdsData['data'])
-                      : myAddGridView(val.allAdsData['data']);
+                      ? myAddsList(val.cData['data'])
+                      : myAddGridView(val.cData['data']);
             },
           )),
         ],
@@ -417,7 +418,9 @@ class _AllAddsState extends State<AllAdds> {
                                           width: Get.width / 4,
                                           fit: BoxFit.fill,
                                         )
-                                      : Container(width: Get.width / 4)
+                                      : Container(width: Get.width / 4,
+                                      child: Icon(Icons.image,size: 50,),
+                                      )
                                   //  Image.asset(
                                   //   AppImages.profileBg,
                                   //   width: Get.width/4
@@ -590,7 +593,9 @@ class _AllAddsState extends State<AllAdds> {
                                     width: Get.width / 4,
                                     fit: BoxFit.fill,
                                   )
-                                : Container(width: Get.width / 4)
+                                : Container(width: Get.width / 4,
+                                 child: Icon(Icons.image,size: 50,),
+                                )
                             // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                             ),
                       ),
@@ -698,8 +703,8 @@ class _AllAddsState extends State<AllAdds> {
   void navigateToGoogleLogin() {}
 
   Widget addsCategoryWidget(listingCategoriesData) {
-    print(
-        "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
+    // print(
+        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -709,8 +714,10 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
+              print(
+        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
               if (ind == 0) {
-                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
+                controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
               }
               return Row(
                 children: [
@@ -718,12 +725,10 @@ class _AllAddsState extends State<AllAdds> {
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        print(
-                            "rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
-                          // controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
                       child: Container(

@@ -191,7 +191,9 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container()
+                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
+                       child: Icon(Icons.image,size: 50,),
+                    )
                     //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
@@ -227,7 +229,9 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container()
+                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
+                       child: Icon(Icons.image,size: 50,),
+                    )
                     //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
@@ -271,7 +275,7 @@ class _AdsViewState extends State<AdsView> {
                       width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
                       height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
                       child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): Container(
-                        // child: Text("No Image"),
+                        child: Icon(Icons.image,size: 50,),
                       )
                       //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                     ),

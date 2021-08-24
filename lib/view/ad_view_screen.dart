@@ -143,7 +143,7 @@ Widget titleStep(data) {
         Container(height: Get.height/4,child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,width: Get.width,)):
         Container(
           height: Get.height/4,
-          child: Center(child: Text("No Image !")),
+          child: Center(child: Icon(Icons.image,size: 50,),),
         ),
         // Image.asset(AppImages.sampleImage),
         
