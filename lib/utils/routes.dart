@@ -22,6 +22,7 @@ import 'package:success_stations/view/member_ship/become_member.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
+import 'package:success_stations/view/offers/my_offers.dart';
 
 const String login = '/login';
 const String home = '/home';
@@ -45,6 +46,7 @@ const String notification = '/notification';
 const String friReq = '/friReq';
 const String addOffers = '/addedOffer';
 const String favPage = '/favourities';
+const String detailOffferPage = '/offerPage';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -84,6 +86,8 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => FavouritePage());
         case forgot:
         return MaterialPageRoute(builder: (_) => ForgotPassword());
+        case detailOffferPage:
+        return MaterialPageRoute(builder: (_) => OffersDetail());
         case aboutUs:
         return MaterialPageRoute(builder: (_) => AboutUs());
         case adViewTab:
