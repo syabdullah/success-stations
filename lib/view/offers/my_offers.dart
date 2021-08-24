@@ -87,7 +87,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     width: Get.width/4,
                      child: listFavou[c]['user']!= null &&  listFavou[c]['user']['image']!= null? 
                      Image.network( listFavou[c]['user']['image'],
-                    ):Container()
+                    ):Container(
+                      color: Colors.red
+                    )
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

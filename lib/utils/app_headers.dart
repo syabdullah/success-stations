@@ -6,7 +6,7 @@ class ApiHeaders {
 
   getData() {
     GetStorage box =  GetStorage(); 
-    token = box.read('access_token');
+    token = '402|s6kfM3emIrL2OBsN1LMjzJbNPJh7CORSzPEnbaBS';//box.read('access_token');
   } 
 
    var headers = {
