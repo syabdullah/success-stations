@@ -97,6 +97,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   void initState() {
     super.initState();
   }
+   
   companyUser() {
     final form = formKey.currentState;
     if(form!.validate()){
@@ -150,26 +151,43 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
               space10,
               eMail(),
+              v == 1? 
               GetBuilder<SignUpController>(
                 init: SignUpController(),
                 builder: (val){
-                  return signUpCont.resultInvalid.isTrue ?
+                  return signUpCont.resultInvalid.isTrue ? 
                   Container(
                     margin:EdgeInsets.only(left:10),
                     alignment: Alignment.topLeft,
                     child: Container(
                         margin:EdgeInsets.only(left:10),
                       alignment: Alignment.topLeft,
-                      child: v==1?  Text( signUpCont.indiviualSignup['errors']['email'][0],
-                      style: TextStyle(color: Colors.red),
-                      ): Text( signUpCont.companySignUp['errors']['email'][0],
+                      child: Text( signUpCont.indiviualSignup['errors']['email'][0],
                       style: TextStyle(color: Colors.red),
                       )
-                       
                     )
-                  ):Container();
+                  ):Container() ;
 
-                 }),
+                }
+              ): 
+              GetBuilder<SignUpController>(
+                init: SignUpController(),
+                builder: (val){
+                  return signUpCont.resultInvalid.isTrue ? 
+                  Container(
+                    margin:EdgeInsets.only(left:10),
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                        margin:EdgeInsets.only(left:10),
+                      alignment: Alignment.topLeft,
+                      child: Text( signUpCont.companySignUp['errors']['email'][0] ,
+                      style: TextStyle(color: Colors.red),
+                      )
+                    )
+                  ): Container();
+
+                }
+              ),
               
               space10,
               mobile(),
@@ -257,7 +275,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 buttonText: 'sign_up_text'.tr, 
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun, 
-                callback:  _isChecked == true ?  v == 1 ? individualSignUp : companyUser: null 
+                callback:   _isChecked == true ?  v == 1 ? individualSignUp : companyUser: null 
               ),
               space20,
               GestureDetector(
