@@ -51,7 +51,7 @@ class StorePostAddesController extends GetxController {
         headers: ApiHeaders().headersWithToken));
         storedOfferCreated = result.data;
         myofferlistin.offerList();
-        Get.to(OffersDetail());
+        Get.off(OffersDetail());
         if(result.data['success'] == true){
        
         Get.snackbar(" Offfer Added successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
