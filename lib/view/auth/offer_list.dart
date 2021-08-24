@@ -185,6 +185,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/banner_controller.dart';
+import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/images.dart';
 
@@ -263,28 +264,47 @@ class _OfferListState extends State<OfferList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          headingUpsell(),
-          GetBuilder<OfferController>(
-            init: OfferController(),
-            builder: (val) {
-              return Expanded(
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: myAddGridView(val.offerDataList['data']),
-              ),
+        body: Column(children: [
+      // GetBuilder<OfferController>(
+      // init: OfferController(),
+      // builder: (val) {
+      //   return Expanded(
+      //     child: val.offerDataList != null
+      //         ? ListView(
+      //             scrollDirection: Axis.vertical,
+      //             children: myAddGridView(val.offerDataList['data']),
+      //           )
+      //         : Container(),
+      //   );
+      // })
+      GetBuilder<OfferCategoryController>(
+        init: OfferCategoryController(),
+        builder: (val) {
+          return headingUpsell(val.offeredList);
+        },
+      ),
+      //headingUpsell(),
+      GetBuilder<OfferController>(
+          init: OfferController(),
+          builder: (val) {
+            return Expanded(
+              child: val.offerDataList != null
+                  ? ListView(
+                      scrollDirection: Axis.vertical,
+                      children: myAddGridView(val.offerDataList['data']),
+                    )
+                  : Container(),
             );
           })
-        ]
-      )
+    ])
 
         //Expanded(child:myAddGridView(),)
 
-    );
+        );
   }
 
   List<Widget> myAddGridView(listFavou) {
+    print(".........listFavou.......!!!!!......!!!!.......${listFavou.length}");
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
@@ -297,46 +317,41 @@ class _OfferListState extends State<OfferList> {
                 return Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Card(
-                        elevation: 1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)
-                              ),
-                              child: Container(
-                                height: Get.height * 0.18,
-                                child: listFavou[c]['user'] != null && listFavou[c]['user']['image'] != null
-                                  ? Image.network(
-                                    listFavou[c]['user']['image'],
-                                    fit: BoxFit.fitHeight
-                                  )
-                                  : Container(),
-                                )
-                              )
-                          ],
-                        ),
-                      )
-                    ),
+                        margin: EdgeInsets.only(left: 10),
+                        child: Card(
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                  child: Container(
+                                    height: Get.height * 0.18,
+                                    child: listFavou[c]['image_ads'] != null &&
+                                            listFavou[c]['image_ads']['url'] !=
+                                                null
+                                        ? Image.network(
+                                            listFavou[c]['image_ads']['url'],
+                                            fit: BoxFit.fitHeight)
+                                        : Container(),
+                                  ))
+                            ],
+                          ),
+                        )),
                     Container(
-                      child: Text(
-                        listFavou[c]['text_ads']['en'] != null
-                          ? listFavou[c]['text_ads']['en'].toString()
-                          : '',
-                        style: TextStyle(
-                          fontSize: 13, color: Colors.black
-                        )
-                      )
-                    )
+                        child: Text(
+                            listFavou[c]['text_ads']['en'] != null
+                                ? listFavou[c]['text_ads']['en'].toString()
+                                : '',
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black)))
                   ],
                 );
               })),
@@ -346,7 +361,8 @@ class _OfferListState extends State<OfferList> {
     return favrties;
   }
 
-  Widget headingUpsell() {
+  Widget headingUpsell(List dataListedCateOffer) {
+    print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -354,7 +370,7 @@ class _OfferListState extends State<OfferList> {
           height: MediaQuery.of(context).size.height / 9.22,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: litems.length,
+            itemCount: dataListedCateOffer.length,
             itemBuilder: (context, index) {
               return Row(
                 children: [
@@ -383,11 +399,11 @@ class _OfferListState extends State<OfferList> {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          litems[index],
+                          dataListedCateOffer[index]['category_name']['en'],
                           style: TextStyle(
                             color: selectedIndex == index
-                                ? Colors.white
-                                : Colors.blue,
+                              ? Colors.white
+                              : Colors.blue,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),

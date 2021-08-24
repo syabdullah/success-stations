@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
@@ -13,11 +14,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   final dataUser = Get.put(UserProfileController());
   final banner = Get.put(BannerController());
   bool liked = false;
+   GetStorage box = GetStorage();
+  var userimage;
   var id ;
   @override
   void initState() {
     super.initState();
-    
+    userimage = box.read('user_image');
     //  id = Get.arguments;
     // print("../././....----------$id");
     // friCont.friendDetails(id);
@@ -53,6 +56,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     return Stack(
       children: [         
         Container(
+          // color: Colors.grey,
           height: Get.height/2.5,
           width: Get.width,
           child: ClipRRect(
@@ -88,13 +92,15 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               child: Container(
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
-                  backgroundColor: Colors.white54,
+                  backgroundColor: Colors.grey[100],
                   radius: 40.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60.0),
                     child:
+                    userData['image'] == null ?
+                    Image.asset(AppImages.person):
                     Image.network(
-                      'https://picsum.photos/250?image=9',
+                      userData['image']['url'],fit: BoxFit.fill,height: Get.height/5,
                     ),
                   )
                 )
@@ -156,16 +162,75 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                          userData["email"] != null ?
                         Container(
                           margin: EdgeInsets.only(top:5),
-                          child: Text(userData['email'],style: TextStyle(fontWeight: FontWeight.w600)),
+                          child: GestureDetector(
+                            onTap: (){
+                             
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                    // elevation: 16,
+                                    child: Container(
+                                      height: Get.height/7,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(left:20,top:10),
+                                            child:Text("email".tr)
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top:5,left: 20),
+                                            child: Text(userData["email"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                            });},
+                            child: Text(
+                              userData["email"].length > 10 ? userData["email"].substring(0, 10)+'...' : userData["email"],
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          ),
                         ):Container(), 
                         Container(
                           margin: EdgeInsets.only(top:20),
-                          child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          child: GestureDetector(child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),)),
                         ),
                         userData["address"] != null ?
                         Container(
                             margin: EdgeInsets.only(bottom:20,top: 5),
-                          child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                          child: GestureDetector(
+                            onTap: (){
+
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    child: Container(
+                                      height: Get.height/7,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(left:20,top:10),
+                                            child:Text("Address".tr)
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top:5,left: 20),
+                                            child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                            });},
+                            
+                            child: Text(
+                              userData["address"].length > 10 ? userData["address"].substring(0, 10)+'...' : userData["address"],
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          ),
                         ): Container(
                           height: 45,
                         )     
@@ -216,7 +281,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           margin: EdgeInsets.only(top:25,),
                           child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                         ),
-                        userData['college']['college'] != null  ?
+                        userData['college'] != null  ?
                         Container(
                           margin: EdgeInsets.only(top: 5,),
                           child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
@@ -263,4 +328,5 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
       ),
     ); 
   }
+   
 }

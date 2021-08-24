@@ -10,6 +10,7 @@ class AdsFilteringController extends GetxController {
   @override
   void onInit() {
     isLoading = true;
+    
     super.onInit();
   }
 

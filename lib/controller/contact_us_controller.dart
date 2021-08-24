@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/contact_us_action.dart';
-import 'package:success_stations/view/auth/contact.dart';
 
 class ContactWithUsController extends GetxController {
 var isLoading = false;
@@ -26,7 +25,6 @@ var phoneEr;
       if(response.statusCode > 400){
         phoneEr = ad['errors']['phone'].toString();
         phoneEr = phoneEr.split("[")[1].split("]")[0];
-        print("................adasd $phoneEr");
         Get.snackbar("","${ad['message']} $phoneEr",backgroundColor: Colors.blue);
       }
       

@@ -76,8 +76,10 @@ class _FavouritePageState extends State<FavouritePage> {
                 Container(
                   margin:EdgeInsets.only(top:100),
                   alignment: Alignment.topCenter,
-                  child: Center(child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)),
-               );
+                  child: Center(child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)
+                ) ,
+                  
+                );
               },
             ) 
           ],

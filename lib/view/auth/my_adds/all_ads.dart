@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ads_filtering_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -14,14 +12,13 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class AllAdds extends StatefulWidget {
   _AllAddsState createState() => _AllAddsState();
 }
 
 class _AllAddsState extends State<AllAdds> {
-  RangeValues _currentRangeValues = const RangeValues(1, 100);
+  RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final catCont = Get.put(CategoryController());

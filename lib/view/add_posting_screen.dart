@@ -17,6 +17,8 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
+// import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
@@ -40,6 +42,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   var subtypeId;
   var selectedStatus;
   var uiStatus;
+  final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -89,9 +92,37 @@ var lang;
         } catch (e) {
 
         }
-      print(".......UPload image");
+     
   }
-   adpost() async{
+   adpost() async{ 
+     if(pickedFile != null) {
+        print(".......UPload image$subtypeId");
+        try {
+          dio.FormData formData = dio.FormData.fromMap({            
+             'category_id' : subtypeId,
+              'status': selectedStatus,
+              'description': descController.text,
+              'price': priceController.text,
+              'contact_name': fullNameController.text,
+              'mobile_no': mobileNoController.text,
+              'tel_no': telePhoneController.text,
+              'title':titleController.text,
+              'created_by': id.toString(),
+              'email': emailController.text,
+              'country_id': crid.toString(),
+              'city_id':cid.toString(),
+              'region_id': rid.toString(),
+              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+          }); 
+          print("add posting screen ...........>$formData");
+          Get.find<AdPostingController>().finalAdPosting(formData); 
+        } catch (e) {
+            print("...............$e");
+        }
+      }
+  
+  }
+   addraft() async{
     
      if(pickedFile != null) {
        
@@ -112,28 +143,12 @@ var lang;
               'region_id': rid.toString(),
               "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           }); 
-          Get.find<AdPostingController>().finalAdPosting(formData); 
+          Get.find<AdPostingController>().finalAdDrafting(formData); 
         } catch (e) {
             print("...............$e");
         }
       }
-  //   json = {
-  //   'category_id' : subtypeId,
-  //   'status': selectedStatus,
-  //   'description': descController.text,
-  //   'price': priceController.text,
-  //   'contact_name': fullNameController.text,
-  //   // 'mobile_no': mobileNoController.text,
-  //   // 'tel_no': telePhoneController.text,
-  //   'title':titleController.text,
-  //   'created_by': id.toString(),
-  //   'email': emailController.text,
-  //   'country_id': crid.toString(),
-  //   'city_id':cid.toString(),
-  //   'region_id': rid.toString(),
-  // };
-  // print("..................$json");
-  // adpostingController.finalAdPosting(json);
+  
   }
   @override
   Widget build(BuildContext context) {
@@ -453,7 +468,7 @@ Widget istStep(List list,List types){
             ),
            ),
            SizedBox(height: 5.h,),
-             Container(
+            Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
                 padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
@@ -611,45 +626,88 @@ Widget secondStep(){
         Container(
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
-        child: CustomTextFiled(
-          //  TextInputType.number,
-          isObscure: false,
-          hintText: "mobile_no".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText: "mobile_no".tr,
+                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+                  fillColor: AppColors.inputColor,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.outline
+                    ),
+                  ),
+              ) ,
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: mobileNoController ,
+          controller: mobileNoController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
             }
           },
-          errorText: 'Please Enter Full Name',  
+          // errorText: 'Please Enter Full Name',  
         ),
         ),
         SizedBox(height:10.h),
         Container(
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
-        child: CustomTextFiled(
-          isObscure: false,
-          hintText: "Telephone_no".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight:FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
+        child:TextFormField(
+          keyboardType: TextInputType.number,
+          style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+                ),
+                decoration:InputDecoration( 
+                  hintText:  "Telephone_no".tr,
+                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+                  fillColor: AppColors.inputColor,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.outline
+                    ),
+                  ),
+              ) ,
           onChanged: (value) {  },
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          textController: telePhoneController ,
+          controller: mobileNoController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
             }
           },
-          errorText: 'Please Enter Full Name',  
+          // errorText: 'Please Enter Full Name',  
         ),
         ),
         SizedBox(height:10.h),
@@ -666,11 +724,7 @@ Widget secondStep(){
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
           textController: emailController ,
-          validator: (value) {  
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-          },
+          validator: (value) => value == '' ?  'Email Required' :  !value.contains('@') || !value.contains('.')  ? 'Enter valid Email':null,
           errorText: 'Please Enter Full Name',  
         ),
         ),
@@ -712,14 +766,14 @@ Widget secondStep(){
                         SizedBox(height: 10.h),
                       // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
                       SizedBox(height: 15.h,),
-                       Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                      // SizedBox(height: 7.h),
+                      // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                       SizedBox(height: 15.h,),
                        Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                       SizedBox(height: 7.h),
-                      Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
+                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                      // SizedBox(height: 15.h,),
                       
                     ],
                   ),
@@ -804,7 +858,7 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () {
-         adpost();
+         addraft();
         },
         child: Text("save_as_draft".tr,textAlign: TextAlign.left,),
       ),
