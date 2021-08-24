@@ -135,7 +135,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.only(left: 30),
+                        margin: EdgeInsets.only(left: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // mainAxisAlignment: MainAxisAlignment.center,
@@ -222,11 +222,11 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(left:20,top:10),
+                                              margin: EdgeInsets.only(top:10),
                                               child:Text("Address".tr)
                                             ),
                                             Container(
-                                              margin: EdgeInsets.only(top:5,left: 20),
+                                              margin: EdgeInsets.only(top:5),
                                               child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
                                             
                                           ],
@@ -236,7 +236,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               });},
                               
                               child: Text(
-                                userData["address"].length > 10 ? userData["address"].substring(0, 10)+'...' : userData["address"],
+                                userData["address"].length > 20 ? userData["address"].substring(0, 20)+'...' : userData["address"],
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             ),
                           ): Container(
@@ -253,7 +253,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           Card(
             elevation: 2,
             child: Container(
-              margin: EdgeInsets.only(left:30),
+              margin: EdgeInsets.only(left:20),
               child: Column(
                 children: [
                   Row(
@@ -289,35 +289,38 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                       ),
                        Expanded(
                          flex: 1,
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:25,),
-                              child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            userData['college'] != null  ?
-                            Container(
-                              margin: EdgeInsets.only(top: 5,),
-                              child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
-                            ):Container(),
-                            Container(
-                              
-                              margin: EdgeInsets.only(top:20),
-                              child: Text("degree".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                             userData["degree"] != null ?
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,top: 5),
-                              child: Text(
-                                 userData["degree"].length > 18 ? userData["degree"].substring(0, 18)+'...' : userData["degree"],
-                                style: TextStyle(fontWeight: FontWeight.w600,)),
-                            ): Container(
-                              height: 20,
-                            )            
-                          ],
-                                           ),
+                         child: Container(
+                           margin: EdgeInsets.only(right: 20),
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top:25,),
+                                child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                              ),
+                              userData['college'] != null  ?
+                              Container(
+                                margin: EdgeInsets.only(top: 5,),
+                                child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
+                              ):Container(),
+                              Container(
+                                
+                                margin: EdgeInsets.only(top:20),
+                                child: Text("degree".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                              ),
+                               userData["degree"] != null ?
+                              Container(
+                                  margin: EdgeInsets.only(bottom:20,top: 5),
+                                child: Text(
+                                   userData["degree"].length > 25 ? userData["degree"].substring(0, 25)+'...' : userData["degree"],
+                                  style: TextStyle(fontWeight: FontWeight.w600,)),
+                              ): Container(
+                                height: 20,
+                              )            
+                            ],
+                           ),
+                         ),
                        ),
                     ],
                   ),
@@ -327,7 +330,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           ),
           Card(
             child: Container(
-              padding: EdgeInsets.only(left:30),
+              padding: EdgeInsets.only(left:20),
               child: Expanded(
                 flex: 1,
                 child: Column(
@@ -337,10 +340,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                       margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
                       child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
                     ),
-                    userData["degree"] != null ?
+                    userData["about"] != null ?
                     Container(
                       margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text(userData["degree"]  )
+                      child: Text(userData["about"]  )
                     ): Container()
                   ],
                 ),
