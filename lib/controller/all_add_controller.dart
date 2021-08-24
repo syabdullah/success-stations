@@ -31,7 +31,7 @@ class MyAddsController extends GetxController {
     isLoading = true;
     await addsDetailbyId(id).then((res){
       adsD= jsonDecode(res.body);
-      print("........AAAAAAA------...$adsD");
+      print("........AAAAAAA-----1111111------...$adsD");
       // addsCategoryArray = addsListCategory['data'];
       isLoading = false;
     });

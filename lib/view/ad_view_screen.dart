@@ -136,7 +136,7 @@ Widget titleStep(data) {
   Column(
       children: [
         data['image'].length != 0 ? 
-        Image.network(data['image'][0]['url']):
+        Container(height: Get.height/4,child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,width: Get.width,)):
         Container(
           height: Get.height/4,
           child: Center(child: Text("No Image !")),
