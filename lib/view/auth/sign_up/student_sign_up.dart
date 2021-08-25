@@ -96,21 +96,21 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               SizedBox(height:10),
               eMail(),
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return  signUpCont.resultInvalid.isTrue ? Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text(signUpCont.signup['message'],
-                      style: TextStyle(color: Colors.red),)
-                    )
-                    ):Container();
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return  signUpCont.resultInvalid.isTrue ? Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //           margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text(signUpCont.signup['errors']['email'][0],
+              //         style: TextStyle(color: Colors.red),)
+              //       )
+              //       ):Container();
 
-                 }),
+              //    }),
               
               SizedBox(height:10),
               space10,
@@ -431,69 +431,42 @@ class _SignPageState extends State<StudentSignUp> {
       ),
     );
   }
-var finalDate;
+  var finalDate;
   Widget studentdob() {
-    // return  Container(
-    //   margin:EdgeInsets.only(left:20, right: 20),
-    //   width: Get.width * 0.9,
-    //   child: CustomTextFiled(
-    //     isObscure: false,
-    //     hintText: "yymmdd".tr,
-    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-    //     hintColor: AppColors.inputTextColor,
-    //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
-    //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
-    //     validator: (value) {
-    //     String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-    //     RegExp regExp = RegExp(pattern);
-    //       if (value.length == 0) {
-    //         return 'Please enter your birthday';
-    //         } else if (!regExp.hasMatch(value)) {
-    //         return 'Please enter a valid birthday format is yyyy-mm-dd';
-    //         }
-    //         return null;
-    //       },
-           
-    //     errorText: '',
-    //   ),
-    // );
     return Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadiusDirectional.circular(20)
-  ),
-  child:   Padding(
-    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: WrapCrossAlignment.s,
-      children: <Widget>[
-        Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
-        // ignore: deprecated_member_use
-        GestureDetector(
-          child: Icon(Icons.calendar_today),
-          onTap: () {
-            
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now()
-            ).then((date) {
-              setState(() {               
-                dateTime = date;
-                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                print("..................$finalDate");
-              });
-            });
-          },
-        )
-      ],
-    ),
-  ),
-);
+      decoration: BoxDecoration(
+        borderRadius: BorderRadiusDirectional.circular(20)
+      ),
+      child:   Padding(
+        padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: WrapCrossAlignment.s,
+          children: <Widget>[
+            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
+            // ignore: deprecated_member_use
+            GestureDetector(
+              child: Icon(Icons.calendar_today),
+              onTap: () {
+                
+                showDatePicker(
+                  context: context,
+                  initialDate:  DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now()
+                ).then((date) {
+                  setState(() {               
+                    dateTime = date;
+                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    print("..................$finalDate");
+                  });
+                });
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget country(List data) {
