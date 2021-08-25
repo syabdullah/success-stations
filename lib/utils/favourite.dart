@@ -82,9 +82,10 @@ class _FavouritePageState extends State<FavouritePage> {
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
                 ): 
                 Container(
-                  margin:EdgeInsets.only(top:100),
+                  margin: EdgeInsets.only(top:Get.height/3),
                   alignment: Alignment.topCenter,
-                  child: Center(child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)
+                  child: Center(
+                    child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)
                 ) ,
                   
                 );
@@ -251,7 +252,6 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
-     print("sjgciahdsgiusydgisuhDBIHSAdiwuqyerw7uiyr37we6w9786re8w7yiturgewhjdbvsjabcndscvbs.......>>>$listFavourite");
     List<Widget> faviii = [];
     faviii.add(
       Container(
@@ -264,7 +264,6 @@ class _FavouritePageState extends State<FavouritePage> {
             if(listFavourite[index] !=null && listFavourite[index]['listing'] !=null ){
               for(int c =0; c < listFavourite[index]['listing']['image'].length; c++){
                 gridImages= listFavourite[index]['listing']['image'][c]['url'];
-                print("sjgciahdsgiusydgisuhDBIHSAdiwuqyerw7uiyr37we6w9786re8w7yiturgewhjdbvsjabcndscvbs.......>>>$gridImages");
               }
             }
             return listFavourite[index]['listing']  !=null ? Container(
