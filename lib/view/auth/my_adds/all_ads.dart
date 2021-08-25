@@ -60,7 +60,6 @@ class _AllAddsState extends State<AllAdds> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     banner.bannerController();
@@ -88,37 +87,18 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
-          //  GetBuilder<RatingController>(
-          //                             // id: 'aVeryUniqueID', // here
-          //                             init: RatingController(),
-                                     
-          //                             builder: (value) 
-
-          //                             {
-          //                                print('am working');
-          //                               return ;
-          //                             }
-          //                             ),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-                  ? CircularProgressIndicator()
-                  : data.subCatt != null
-                      ? addsCategoryWidget(data.subCatt['data'])
-                      : Container();
+              return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
           ),
           Expanded(
-              child: GetBuilder<AddBasedController>(
+            child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
             builder: (val) {
-              return val.isLoading == true ||  val.cData == null  
-                  ? Container() :
-                   val.cData['data'] == null ? Container()
-                  : listtype == 'list'
-                      ? myAddsList(val.cData['data'])
-                      : myAddGridView(val.cData['data']);
+              return val.isLoading == true ||  val.cData == null  ? Container() :
+                val.cData['data'] == null ? Container() : listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
             },
           )),
         ],
