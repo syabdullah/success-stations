@@ -78,7 +78,7 @@ class _FriendReqListState extends State<FriendReqList> {
      if(data != null)
      for(int i= 0; i< data.length; i++) {  
        if(data[i]['requister'] != null && data[i]['status'] == null) {
-         print("....................//////.....${data[i]['requister']}");
+         print("....................//////.....${data[i]}");
          ++count;
         req.add(
           Column(
@@ -101,15 +101,17 @@ class _FriendReqListState extends State<FriendReqList> {
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
+                    radius: 30,
                     backgroundColor: Colors.grey[100],
-                    child: data[i]['requister']['image'] != null ? Image.network(data[i]['requister']['image']['url']) : Container()
+                    child: data[i]['requister']['image'] != null ? Image.network(data[i]['requister']['image']['url']) : 
+                        Image.asset(AppImages.person),
                   ),
                 ):
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],
-                    child: data[i]['user_requisted']['image'] != null ? Image.network(data[i]['user_requisted']['image']['url']) : Container()
+                    child: data[i]['user_requisted']['image'] != null ? Image.network(data[i]['user_requisted']['image']['url']) : Image.asset(AppImages.person),
                   ),
                 ),
                     Column(
@@ -181,7 +183,10 @@ class _FriendReqListState extends State<FriendReqList> {
                     ),
                     data[i]['requister']['id'] != id ?
                     GestureDetector(
-                      onTap: (){friCont.rejFriend(data[i]['id']);},
+                      onTap: (){
+                        print("------------${data[i]['id']}");
+                        friCont.rejFriend(data[i]['id']);
+                        },
                       child: Container( 
                         alignment: Alignment.center,
                         width: Get.width/4.2,
@@ -258,8 +263,10 @@ class _FriendReqListState extends State<FriendReqList> {
                     Container(
                       margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                       child: CircleAvatar(
+                        radius: 30,
                         backgroundColor: Colors.grey[100],
-                        // child: Image.network(data[i]['user_requisted']['city']['image']['url']),
+                        child: data[i]['media'].length != 0 ?  Image.network(data[i]['media'][0]['url'],fit: BoxFit.fill,) : 
+                        Image.asset(AppImages.person),
                       ),
                     ),
                     Column(
@@ -293,6 +300,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         };
                         print("......./////$json");
                         friCont.sendFriend(json);
+                        friCont.getSuggestionsList();
                       },
                       child: Container( 
                          margin:EdgeInsets.only(right:10),
