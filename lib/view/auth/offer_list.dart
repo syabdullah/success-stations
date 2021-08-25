@@ -112,7 +112,8 @@ class _OfferListState extends State<OfferList> {
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
-        favrties.add(Container(
+        favrties.add(
+          Container(
           width: Get.width / 1.10,
           height: Get.height / 0.3,
           child: GridView.count(
@@ -143,9 +144,16 @@ class _OfferListState extends State<OfferList> {
                                                 null
                                         ? Image.network(
                                             listFavou[c]['image_ads']['url'],
-                                            fit: BoxFit.fitHeight)
-                                        : Container(),
-                                  ))
+                                            fit: BoxFit.cover)
+                                        : Expanded(
+                                          child: FittedBox(
+                                            fit: BoxFit.contain,
+                                            child: Icon(Icons.person,color: Colors.grey[400],
+                                            ),
+                                          ),
+                                        ),
+                                        ),
+                                  )
                             ],
                           ),
                         )),
@@ -223,4 +231,5 @@ class _OfferListState extends State<OfferList> {
       ],
     );
   }
+
 }
