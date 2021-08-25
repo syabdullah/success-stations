@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -10,7 +10,7 @@ import 'package:success_stations/utils/config.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:dio/src/response.dart' as response;
 
-class AdPostingController extends GetxController {
+class  AdPostingController extends GetxController {
   var result = true;
   var adpost;
   var adUpload;
@@ -49,6 +49,7 @@ class AdPostingController extends GetxController {
       adpost = result.data;
       if(result.data['success'] == true){
          isLoading(true);
+         Get.off(MyAdds());
          Get.snackbar("Ad successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
       } 
     update();
@@ -66,10 +67,11 @@ class AdPostingController extends GetxController {
     // await updateProfile(data).then((res) {
        print("object----------------------$result");
       adpost = result.data;
-     
       if(result.data['success'] == true){
          isLoading(true);
+         Get.to(MyAdds());
          Get.snackbar("Ad Drafted Successfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+         
       } 
     update();
   }
@@ -103,7 +105,7 @@ class AdPostingController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body);
         isLoading(false);
-         Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+        //  Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
        
         
       } if(res.statusCode >=  400){

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
+import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/offers/add_offers.dart';
 
 
 class OffersDetail extends StatefulWidget {
@@ -15,13 +17,20 @@ class OffersDetail extends StatefulWidget {
 class _MyOffersDetailState extends State<OffersDetail> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final putData  = Get.put(MyOffersDrawerController());
+
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
       String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
     }).join(' ');
   }
-
+  @override
+  void initState() {
+    putData.drawerMyOffer();
+    
+    super.initState();
+  }
   
   var listtype = 'list';
   var mediaList ;
@@ -34,8 +43,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
+      // key: _scaffoldKey,
         appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringbar(context, "MY OFFERS" )),
+      child: stringbar( context, "MY OFFERS" )),
 
       body: SingleChildScrollView(
         child: Column(
@@ -45,7 +55,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed('/addedOffer');
+                    Get.off(AddOffersPage());
+                    // Get.toNamed('/addedOffer');
                   },
                   child: Container(
                     margin:EdgeInsets.only(left:20, top: 30),
@@ -60,14 +71,16 @@ class _MyOffersDetailState extends State<OffersDetail> {
              
               ],
             ),
-            GetBuilder<OfferController>(
-              init: OfferController(),
+            GetBuilder<MyOffersDrawerController>(
+              init: MyOffersDrawerController(),
               builder:(val){
-                return  val.offerDataList !=null ?  Column(
-                  children: allOffersWidget(val.offerDataList['data'])
-                ): Container();
-                // ListView(children: [
-                //   Container()],);
+                print(" offrerrrr controllelr${val.myofferListDrawer}");
+                return  val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
+                  children: allOffersWidget(val.myofferListDrawer['data'])
+                ):
+                  Container(
+                    child: Text("NO offers yet!"),
+                  );
               },
             )
             
@@ -77,9 +90,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
     );
   }
 
-   List<Widget> allOffersWidget(listFavou) {
+  List<Widget> allOffersWidget(listFavou) {
     List<Widget> favrties = [];
-    if( listFavou!=null || listFavou.length !=null){
+    if( listFavou !=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
         favrties.add(
           Card(
@@ -98,7 +111,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        
                         Text(
                           listFavou[c]['text_ads']['en'] !=null ? 
                           allWordsCapitilize(listFavou[c]['text_ads']['en'].toString()) :'', 
@@ -106,7 +118,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
                           )
                         ),
-                        Text (
+                        Text(
                           listFavou[c]['status'] == 1 ? "NEW": 
                           listFavou[c]['status'] == 0 ? "OLD":
                           listFavou[c]['status'] == null ? '':'',

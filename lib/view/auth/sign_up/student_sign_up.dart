@@ -480,7 +480,7 @@ var finalDate;
               context: context,
               initialDate:  DateTime.now(),
               firstDate: DateTime(1900),
-              lastDate: DateTime(2222)
+              lastDate: DateTime.now()
             ).then((date) {
               setState(() {               
                 dateTime = date;
