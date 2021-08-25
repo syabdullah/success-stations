@@ -83,7 +83,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder:(val){
-                return   val.isLoading == true ? CircularProgressIndicator(): val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
+                return  val.isLoading == true ? CircularProgressIndicator(): val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 ):
                 putData.resultInvalid.isTrue &&val.myofferListDrawer['success'] == false ? 
@@ -95,7 +95,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   )):Container();
               },
             )
-            
           ],
         ),
       ),

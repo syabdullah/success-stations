@@ -6,20 +6,29 @@ class FavoriteController extends GetxController {
   bool isLoading = false; 
   var  fvr8DataList ;
   List dataFvr8z =[];
-  @override
-  void onInit(){
-    isLoading = true;
-    favoriteList();
-    super.onInit();
-  }
+  var resultInvalid = false.obs;
+  // @override
+  // void onInit(){
+  //   isLoading = true;
+  //   favoriteList();
+  //   super.onInit();
+  // }
 
   favoriteList() async{
     print("controller call of the Favorite list");
     isLoading = true;
-    await favorite().then((value) {
-      fvr8DataList = jsonDecode(value.body);
+    await favorite().then((res) {
+      
       print(".....!!!!!!!!!!!!.......>>>$fvr8DataList");
-      isLoading = false;
+      if (res.statusCode == 200 || res.statusCode < 400) {
+        fvr8DataList = jsonDecode(res.body);
+        // resultInvalid(false);
+        isLoading = false;
+      }
+      // else if (fvr8DataList['success'] == false) {
+      //   resultInvalid(true);
+      //   isLoading = false;
+      // }
     });
     update();
   }
