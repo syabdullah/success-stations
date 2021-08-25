@@ -321,10 +321,13 @@ Widget listTileRow2(data) {
                         ),
                       ),
                     ),
-                      Text(data[index]['comment']['en'],style:
-                      AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
-                      ),
+                      Container(
+                        width: Get.width/2.5,
+                        child: Text(data[index]['comment']['en'],style:
+                        AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
+                        ),
                     ),
+                      ),
                       
                   ],
                 ),
@@ -387,9 +390,9 @@ Widget commentButton() {
     onPressed:  () {
       postComment();      
       adDetailCont.adsDetail(adId);
-      setState(() {
+      // setState(() {
         comment = '';
-      });
+      // });
 
      },
       child: Text('add_a_comment'.tr),

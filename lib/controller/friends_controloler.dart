@@ -101,7 +101,10 @@ class FriendsController extends GetxController {
   deleteFriend(id) async {
     isLoading = true ;
     await delFriendReq(id).then((res) {
-      friendsData = jsonDecode(res.body);
+      // friendsData = res.body;  
+      getFriendsList();
+      getSuggestionsList();
+       SnackBarWidget().showToast("", res.body );  
       isLoading = false;  
     }).catchError((e){
       return e;
