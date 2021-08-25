@@ -19,7 +19,6 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);
-      print("/////////////////// json response .........................>>>>$cData");
       isLoading = false;
     });
     update();
@@ -30,7 +29,6 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await adsAll().then((res) {
       allAdsData = jsonDecode(res.body);
-      print("/////////////////// json response .........................>>>>$allAdsData");
       isLoading = false;
     });
     update();

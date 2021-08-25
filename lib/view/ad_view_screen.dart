@@ -74,8 +74,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
-            // comment = '';
-              print("....................>>${val.adsD}");
           return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) :   val.adsD== null ? Container(
             child: Center(child: Text("NO Detail Here !"),),
           ): Column(
@@ -157,7 +155,7 @@ Widget titleStep(data) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(data['price'].toString(),style: TextStyle(fontSize: 15),),
+                   data['price'] !=null ?  Text('SAR ${data['price']}',style: TextStyle(fontSize: 15),): Container()
                   ],
                 ),
               ),

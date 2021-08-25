@@ -56,16 +56,24 @@ Widget sAppbar(context ,icon,image,) {
       // automaticallyImplyLeading: false,
       centerTitle: true,
       leading: 
-      // Padding(
-        // padding: const EdgeInsets.only(top:10.0),
-        IconButton(
-          icon: Icon(icon,
-          color: AppColors.backArrow),
-          onPressed: () => Navigator.of(context).pop(),
+        Container(
+          margin: EdgeInsets.only(top:5),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       //
       //  ),
-      title: Text(string), 
+      title: Container(
+        margin: EdgeInsets.only(top:10),
+        child: Center(
+          child: Text(
+            string
+          )
+        ),
+      ), 
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 10,),

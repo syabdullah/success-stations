@@ -34,7 +34,7 @@ class _MyAddsState extends State<MyAdds> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.addedAllAds();
+    // controller.addedAllAds();
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
     print("............$lang");
@@ -61,7 +61,6 @@ class _MyAddsState extends State<MyAdds> {
             init: CategoryController(),
             builder: (data){
               return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.datacateg);
-
             },
           ),           
           Expanded(
@@ -376,7 +375,6 @@ void _adsfiltringheet() {
 }
 
   Widget myAddsList(allDataAdds) {
-     print("...................>>$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
@@ -673,7 +671,6 @@ void _adsfiltringheet() {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    print("CCCCCCCCC______${listingCategoriesData.length}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -684,8 +681,10 @@ void _adsfiltringheet() {
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
               if(ind == 0){
+                print("...................PPPPPPPPP,.....");
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
               }
+              ind = ++ind;
               return Row(
                 children: [
                   Container(
@@ -693,7 +692,7 @@ void _adsfiltringheet() {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          ind = ++ind;
+                          // ind = ++ind;
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
