@@ -7,6 +7,7 @@ import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -26,32 +27,56 @@ class _AllAddsState extends State<AllAdds> {
   final controller = Get.put(AddBasedController());
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
+  final catCobtroller = Get.put(MyListingFilterController());
   final filterControlller = Get.put(AdsFilteringController());
   var listtype = 'list';
   var userId;
   var myrate;
   bool _value = false;
   var selectedIndex = 0;
+  var selectedIndexListing = 0;
+  var bClicked = false;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
   bool liked = false;
+  var statusSelected;
   GetStorage box = GetStorage();
   var lang;
   final banner = Get.put(BannerController());
   var v;
+  var status;
+  var category;
+  var start;
+  var end;
+  List<String> litems = [
+    "Yes",
+    "No",
+  ];
+  // List<String> litems = [
+  //   'Yes',
+  //   'No',
+  // ];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     banner.bannerController();
     controller.addedAllAds();
     catCont.getCategoryTypes();
+    catCobtroller.listingTypes();
     lang = box.read('lang_code');
     userId = box.read('user_id');
     v = '';
     v = Get.arguments;
+  }
+
+  int _selectedIndex = 0;
+
+  _onSelected(int index) {
+    setState(() => _selectedIndex = index);
   }
 
   @override
@@ -190,216 +215,193 @@ class _AllAddsState extends State<AllAdds> {
           return StatefulBuilder(builder:
               (BuildContext context, void Function(void Function()) setState) {
             return AnimatedPadding(
-              padding: MediaQuery.of(context).viewInsets,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.decelerate,
-              child: Container(
-                //  height:Get.height/1,
+                padding: MediaQuery.of(context).viewInsets,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.decelerate,
                 child: Container(
-                  margin: EdgeInsets.only(top: 20, left: 40, right: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(AppString.filters,
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.black)),
-                          Container(
-                              // margin:EdgeInsets.only(right:30),
-                              child: InkWell(
-                                  onTap: () => Get.back(),
-                                  child: Icon(Icons.close)))
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Text("Type", style: TextStyle(fontSize: 15)),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          FittedBox(
-                            child: Container(
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue[100],
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Center(
-                                child: Text("  Books  ",
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.blue)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          FittedBox(
-                            child: Container(
-                              height: 30,
-                              // width: Get.width/4.5,
-                              decoration: BoxDecoration(
-                                  // color: Colors.blue[100],
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Center(
-                                child: Text("  Engg Books  ",
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.blue)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text("Condition", style: TextStyle(fontSize: 15)),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          FittedBox(
-                            child: Container(
-                              height: 30,
-                              width: Get.width / 5,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue[100],
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Center(
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 5),
-                                  child: Text("New",
-                                      softWrap: true,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.blue)),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          FittedBox(
-                            child: Container(
-                              height: 30,
-                              width: Get.width / 6,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue[100],
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Center(
-                                child: Text("  Old  ",
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.blue)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("Price ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text("SAR 50 - SAR 200 ",
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal)),
-                      RangeSlider(
-                        values: _currentRangeValues,
-                        min: 1,
-                        max: 1000,
-                        // divisions: 5,
-                        labels: RangeLabels(
-                          _currentRangeValues.start.round().toString(),
-                          _currentRangeValues.end.round().toString(),
+                  //  height:Get.height/1,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20, left: 40, right: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(AppString.filters,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black)),
+                            Container(
+                                // margin:EdgeInsets.only(right:30),
+                                child: InkWell(
+                                    onTap: () => Get.back(),
+                                    child: Icon(Icons.close)))
+                          ],
                         ),
-                        onChanged: (values) {
-                          setState(() {
-                            print(
-                                "start : ${values.start}, end: ${values.end}");
-                            _currentRangeValues = values;
-                          });
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            // ignore: deprecated_member_use
-                            child: RaisedButton(
-                                color: Colors.grey[100],
-                                child: Container(
-                                    width: Get.width / 4,
-                                    child: Center(
-                                        child: Text(AppString.resetButton,
-                                            style: TextStyle(
-                                                color: AppColors
-                                                    .inputTextColor)))),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
-                                  // Get.to(SignIn());
-                                }),
+                        SizedBox(height: 10),
+                        Text("Type", style: TextStyle(fontSize: 15)),
+                        SizedBox(height: 10),
+                        GetBuilder<MyListingFilterController>(
+                          init: MyListingFilterController(),
+                          builder: (val) {
+                            return headingofTypes(val.myMyAdd);
+                            //dataListedCateOffer[val]['type']['en'],
+                          },
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Condition", style: TextStyle(fontSize: 15)),
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: new ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: litems.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _onSelected(index);
+                                      status = litems[index];
+                                      print(
+                                          "....!!!!>...!!!!!...????///////.......$status");
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: Get.width / 5,
+                                      decoration: BoxDecoration(
+                                          color: _selectedIndex != null &&
+                                                  _selectedIndex == index
+                                              ? Colors.blue
+                                              : Colors
+                                                  .white, //Colors.blue[100],
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                            width: 1,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5))),
+                                      child: Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Text(litems[index],
+                                              //softWrap: true,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: _selectedIndex == index
+                                                      ? Colors.white
+                                                      : Colors.blue)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Price ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("SAR 0 - SAR 1000 ",
+                            style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal)),
+                        RangeSlider(
+                          values: _currentRangeValues,
+                          min: 1,
+                          max: 1000,
+                          // divisions: 5,
+                          labels: RangeLabels(
+                            _currentRangeValues.start.round().toString(),
+                            _currentRangeValues.end.round().toString(),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            // ignore: deprecated_member_use
-                            child: RaisedButton(
-                                color: Colors.blue,
-                                child: Container(
-                                    width: Get.width / 4,
-                                    child: Center(
-                                        child: Text("Apply",
-                                            style: TextStyle(
-                                                color: Colors.white)))),
-                                onPressed: () {
-                                  applyFiltering();
-                                  // Navigator.pushNamed(context, '/login');
-                                  // Get.to(SignIn());
-                                }),
-                          ),
-                        ],
-                      )
-                    ],
+                          onChanged: (values) {
+                            setState(() {
+                              // print(
+                              //     "start : ${values.start}, end: ${values.end}");
+                              _currentRangeValues = values;
+                               start = _currentRangeValues.start.round().toString();
+                               end = _currentRangeValues.end.round().toString();
+                              print(".....!!!!!!!...!!!!!....$start");
+                              print(".....!!!!!!!...!!!!!....$end");
+                            });
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              // ignore: deprecated_member_use
+                              child: RaisedButton(
+                                  color: Colors.grey[100],
+                                  child: Container(
+                                      width: Get.width / 4,
+                                      child: Center(
+                                          child: Text(AppString.resetButton,
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .inputTextColor)))),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/login');
+                                    // Get.to(SignIn());
+                                  }),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              // ignore: deprecated_member_use
+                              child: RaisedButton(
+                                  color: Colors.blue,
+                                  child: Container(
+                                      width: Get.width / 4,
+                                      child: Center(
+                                          child: Text("Apply",
+                                              style: TextStyle(
+                                                  color: Colors.white)))),
+                                  onPressed: () {
+                                    applyFiltering();
+                                    print(
+                                        ".....category.......!!!!...!!!>....!!!>..$category");
+                                    print(
+                                        ".....status.......!!!!...!!!>....!!!>..$status");
+                                    print(
+                                        ".....start.......!!!!...!!!>....!!!>..$start");
+                                        print(
+                                        ".....end.......!!!!...!!!>....!!!>..$end");
+                                    // Navigator.pushNamed(context, '/login');
+                                    // Get.to(SignIn());
+                                  }),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            );
+                ));
           });
         });
   }
 
   applyFiltering() {
     var json = {
-      'rangeValue': _currentRangeValues,
+      //'rangeValue': _currentRangeValues,
+      'status': status,
+      'category': category,
+      'start':start,
+      'end':end,
     };
-    print(json);
+    print(".....output>..$json");
     filterControlller.createFilterAds(json);
   }
 
@@ -832,4 +834,144 @@ class _AllAddsState extends State<AllAdds> {
       ],
     );
   }
+
+  var ind1 = 0;
+  Widget headingofTypes(dataListedCateOffer) {
+    print(
+        "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height / 9.22,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: dataListedCateOffer.length,
+            itemBuilder: (context, val) {
+              if (ind1 == 0) {
+                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
+              }
+              return Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        // print(
+                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
+                        setState(() {
+                          ind1 = ++ind1;
+                          selectedIndexListing = val;
+                          category = dataListedCateOffer[val]['type']['en'];
+                          print(
+                              "....!!!1!!!!.category.!!!!!......!!!!1.....!!!!!...$category");
+                          //controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          // filterControlller
+                          //     .createFilterAds(dataListedCateOffer[val]['id']);
+                          print(
+                              "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
+                          //createFilterAds
+                          //AdsFilteringController
+                        });
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.blue),
+                            color: selectedIndexListing == val
+                                ? selectedColor
+                                : Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0),
+                                blurRadius: 6.0,
+                              ),
+                            ],
+                          ),
+                          padding: EdgeInsets.all(10.0),
+                          child: dataListedCateOffer != null
+                              ? Text(
+                                  dataListedCateOffer[val]['type']['en'],
+                                  style: TextStyle(
+                                    color: selectedIndexListing == val
+                                        ? Colors.white
+                                        : Colors.blue,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                )
+                              : Container()),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  // Widget headingofTypes(List dataListedCateOffer) {
+  //   print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Container(
+  //         height: MediaQuery.of(context).size.height / 9.22,
+  //         child: ListView.builder(
+  //           scrollDirection: Axis.horizontal,
+  //           itemCount: dataListedCateOffer.length,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               children: [
+  //                 Container(
+  //                   margin: EdgeInsets.only(left: 12.0),
+  //                   child: GestureDetector(
+  //                     onTap: () {
+  //                       setState(() {
+  //                         selectedIndexListing = index;
+  //                         print("....tspppp...!!!!!....!!!....$selectedIndexListing");
+  //                       });
+  //                     },
+  //                     child: Container(
+  //                       decoration: BoxDecoration(
+  //                         borderRadius: BorderRadius.circular(20.0),
+  //                         border: Border.all(color: Colors.blue),
+  //                         color: selectedIndexListing == index
+  //                             ? selectedColor
+  //                             : Colors.white,
+  //                         boxShadow: [
+  //                           BoxShadow(
+  //                             color: Colors.grey,
+  //                             offset: Offset(0.0, 1.0),
+  //                             blurRadius: 6.0,
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       padding: EdgeInsets.all(10.0),
+  //                       child: Text(
+  //                         dataListedCateOffer[index]['type']['en'],
+  //                         style: TextStyle(
+  //                           color: selectedIndexListing == index
+  //                               ? Colors.white
+  //                               : Colors.blue,
+  //                           fontSize: 12,
+  //                           fontStyle: FontStyle.normal,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
+
 }
