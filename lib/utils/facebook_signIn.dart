@@ -28,7 +28,7 @@ class FaceBookSignIn {
           // var accessToken = res.accessToken!.token.split(":");
           if(res.accessToken != null ) {
             dataStore.write("access_token",res.accessToken!.token);
-            Get.toNamed('/home');
+            // Get.toNamed('/home');
           }
           // Get profile data
           final profile = await fb.getUserProfile();
@@ -50,7 +50,7 @@ class FaceBookSignIn {
             'provider_id' : id
           };
           login.loginSocial(json);
-          Get.toNamed('/tabs');
+          // Get.toNamed('/tabs');
           break;
         case FacebookLoginStatus.cancel:
           // User cancel log in

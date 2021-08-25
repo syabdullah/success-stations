@@ -76,7 +76,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           builder: (val) {
             // comment = '';
               print("....................>>${val.adsD}");
-          return val.isLoading == true ? Center(child: CircularProgressIndicator()) :   val.adsD['data'] == null ? Container(
+          return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) :   val.adsD== null ? Container(
             child: Center(child: Text("NO Detail Here !"),),
           ): Column(
              crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +143,7 @@ Widget titleStep(data) {
         Container(height: Get.height/4,child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,width: Get.width,)):
         Container(
           height: Get.height/4,
-          child: Center(child: Text("No Image !")),
+          child: Center(child: Icon(Icons.image,size: 50,),),
         ),
         // Image.asset(AppImages.sampleImage),
         
@@ -256,8 +256,11 @@ Widget listTileRow(data){
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(myName.toString(),style:
-              AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+            Container(
+              width: Get.width/3.5,
+              child: Text(myName.toString(),style:
+                AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+                ),
               ),
             ),
             Text("Owner",style:
@@ -311,8 +314,11 @@ Widget listTileRow2(data) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data[index]['user_name']['name'],style:
-                      AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+                    Container(
+                      width: Get.width/3,
+                      child: Text(data[index]['user_name']['name'],style:
+                        AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+                        ),
                       ),
                     ),
                       Text(data[index]['comment']['en'],style:

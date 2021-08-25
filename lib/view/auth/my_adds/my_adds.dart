@@ -37,6 +37,7 @@ class _MyAddsState extends State<MyAdds> {
     controller.addedAllAds();
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
+    print("............$lang");
     userId = box.read('user_id');
   }
   @override
@@ -74,7 +75,8 @@ class _MyAddsState extends State<MyAdds> {
                 return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(
-                      child: Center(child: Text("No ads")),
+                      margin: EdgeInsets.symmetric(vertical: Get.height/4),
+                      child: Center(child: Text("No ads yet",style: TextStyle(fontWeight: FontWeight.bold),)),
                     ),
                   ],
                 );
@@ -401,7 +403,7 @@ void _adsfiltringheet() {
                               Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
                               Container(
                                 width: Get.width/4,
-                                child: Text("No Image!"),
+                                 child: Icon(Icons.image,size: 50,),
                               )
                               // Image.asset(
                               //   AppImages.profileBg
@@ -417,7 +419,8 @@ void _adsfiltringheet() {
                             children: [
                               Container(
                                 child: Text(
-                                  allDataAdds[index]['title'][lang],
+                                  allDataAdds[index]['title'][lang] != null ? 
+                                  allDataAdds[index]['title'][lang]:'',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -566,7 +569,7 @@ void _adsfiltringheet() {
                                 Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
                                 Container(
                                   width: Get.width/4,
-                                  child: Center(child: Text("No Image!")),
+                                  child: Icon(Icons.image,size: 50,),
                                 )
                           // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                         ),
@@ -710,7 +713,7 @@ void _adsfiltringheet() {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
-                          listingCategoriesData[index]['category'] != null ? listingCategoriesData[index]['category'][lang]:'',
+                          listingCategoriesData[index]['category'][lang] != null ? listingCategoriesData[index]['category'][lang]:'',
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

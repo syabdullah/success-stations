@@ -40,11 +40,13 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
         body: GetBuilder<FriendsController>(
           init: FriendsController(),
           builder:(val) { 
-            print("----------././././///-----${val.userAds}");
+            print("----------././././///-----${val.friendProfileData}");
             return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
               child:Container(
                 margin: EdgeInsets.only(top: 20),
-              child: viewCardLoading(context))) :  Column(
+              child: viewCardLoading(context))) : val.friendProfileData['success'] == false && val.friendProfileData['errors'] == 'No Profile Available' ? Container(
+                child: Center(child: Text(val.friendProfileData['errors'])),
+              ):  Column(
               children: [        
                 profileDetail(val.friendProfileData['data']),
                 tabs(),
@@ -58,6 +60,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
   } 
 
   Widget profileDetail(data) { 
+    print("..........DAATTAAA.....$data");
     return Stack(
       children: [         
         Container(

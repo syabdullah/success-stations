@@ -433,22 +433,62 @@ class _SignPageState extends State<StudentSignUp> {
   }
   var finalDate;
   Widget studentdob() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadiusDirectional.circular(20)
-      ),
-      child:   Padding(
-        padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+    // return  Container(
+    //   margin:EdgeInsets.only(left:20, right: 20),
+    //   width: Get.width * 0.9,
+    //   child: CustomTextFiled(
+    //     isObscure: false,
+    //     hintText: "yymmdd".tr,
+    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+    //     hintColor: AppColors.inputTextColor,
+    //     onChanged: (value) {  },
+    //     onFieldSubmitted: (value) {},  
+    //     textController: dobController,
+    //     onSaved: (String? newValue) {  
+    //     }, 
+    //     validator: (value) {
+    //     String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
+    //     RegExp regExp = RegExp(pattern);
+    //       if (value.length == 0) {
+    //         return 'Please enter your birthday';
+    //         } else if (!regExp.hasMatch(value)) {
+    //         return 'Please enter a valid birthday format is yyyy-mm-dd';
+    //         }
+    //         return null;
+    //       },
+           
+    //     errorText: '',
+    //   ),
+    // );
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20),
+          margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: AppColors.outline)
+          ),
+          child:   GestureDetector(
+          onTap: () {
+          showDatePicker(
+            context: context,
+            initialDate:  DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now()
+          ).then((date) {
+            setState(() {               
+              dateTime = date;
+              finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+              print("..................$finalDate");
+            });
+          });
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: WrapCrossAlignment.s,
           children: <Widget>[
             Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
-            // ignore: deprecated_member_use
             GestureDetector(
               child: Icon(Icons.calendar_today),
-              onTap: () {
-                
+              onTap: () {               
                 showDatePicker(
                   context: context,
                   initialDate:  DateTime.now(),

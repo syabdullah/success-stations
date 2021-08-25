@@ -9,7 +9,7 @@ Future<http.Response> draftAdsAction() async {
   id  = box.read('user_id');
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}category/1/$id");
+  var url = Uri.parse("${config.baseUrl}draft-ads");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

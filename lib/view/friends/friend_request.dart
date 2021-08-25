@@ -249,7 +249,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                // Get.toNamed('/friendProfile' ,arguments: data[i]['id'] );
+                Get.toNamed('/friendProfile' ,arguments: data[i]['id'] );
               },
               child: Card(
                 child: Row(
@@ -307,7 +307,6 @@ class _FriendReqListState extends State<FriendReqList> {
                         ),
                         child:
                         Container(
-                         
                           child: Text(
                             AppString.addFriend,
                             style:TextStyle(

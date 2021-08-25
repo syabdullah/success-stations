@@ -24,6 +24,7 @@ class LoginController extends GetxController {
         print(
             "..././///////////${logindata['data']['token']}.................${res.body}");
         box.write('email', logindata['data']['user']['email']);
+        box.write('address', logindata['data']['user']['address']);
         box.write('name', logindata['data']['user']['name']);
         box.write('user_image', logindata['data']['user']['image']);
         box.write('user_id', logindata['data']['user_id']);
@@ -53,10 +54,11 @@ class LoginController extends GetxController {
         box.write('access_token', logindata['data']['token']);
         box.write('email', logindata['data']['user']['email']);
         box.write('name', logindata['data']['user']['name']);
-        print("...............$logindata");
+        print("......TTTTTTTTTT____----------TTTTTT.........${logindata['data']}");
         box.write('user_id', logindata['data']['user']['id']);
         resultInvalid(false);
         isLoading(false);
+        Get.offAllNamed('/tabs');
       } else if (logindata['message'] == 'The given data was invalid.') {
         resultInvalid(true);
         isLoading(false);

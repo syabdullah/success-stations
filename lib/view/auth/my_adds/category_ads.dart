@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ads_filtering_controller.dart';
@@ -7,8 +6,6 @@ import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
-import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -16,89 +13,55 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 
-class AllAdds extends StatefulWidget {
-  _AllAddsState createState() => _AllAddsState();
+class CatAdds extends StatefulWidget {
+  _CatAddsState createState() => _CatAddsState();
 }
 
-class _AllAddsState extends State<AllAdds> {
-  final ratingcont = Get.put(RatingController());
+class _CatAddsState extends State<CatAdds> {
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
-  final catCobtroller = Get.put(MyListingFilterController());
   final filterControlller = Get.put(AdsFilteringController());
   var listtype = 'list';
   var userId;
-  var myrate;
   bool _value = false;
   var selectedIndex = 0;
-  var selectedIndexListing = 0;
-  var bClicked = false;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
   bool liked = false;
-  var statusSelected;
   GetStorage box = GetStorage();
   var lang;
   final banner = Get.put(BannerController());
+ 
   var v;
-  var status;
-  var category;
-  var start;
-  var end;
-  List<String> litems = [
-    "Yes",
-    "No",
-  ];
-  // List<String> litems = [
-  //   'Yes',
-  //   'No',
-  // ];
+  var id;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    banner.bannerController();
-    controller.addedAllAds();
     catCont.getCategoryTypes();
-    catCobtroller.listingTypes();
+    id = Get.arguments;
+    if(id != null)
+    controller.addedByIdAddes(id,null);
     lang = box.read('lang_code');
     userId = box.read('user_id');
     v = '';
     v = Get.arguments;
   }
 
-  int _selectedIndex = 0;
-
-  _onSelected(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // appBar: v == 'all' ?   PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)):null,
+      appBar:   PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)),
       body: Column(
         children: [
           topWidget(),
-          //  GetBuilder<RatingController>(
-          //                             // id: 'aVeryUniqueID', // here
-          //                             init: RatingController(),
-                                     
-          //                             builder: (value) 
-
-          //                             {
-          //                                print('am working');
-          //                               return ;
-          //                             }
-          //                             ),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -215,210 +178,225 @@ class _AllAddsState extends State<AllAdds> {
           return StatefulBuilder(builder:
               (BuildContext context, void Function(void Function()) setState) {
             return AnimatedPadding(
-                padding: MediaQuery.of(context).viewInsets,
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.decelerate,
+              padding: MediaQuery.of(context).viewInsets,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.decelerate,
+              child: Container(
+                //  height:Get.height/1,
                 child: Container(
-                  //  height:Get.height/1,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 20, left: 40, right: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(AppString.filters,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black)),
-                            Container(
-                                // margin:EdgeInsets.only(right:30),
-                                child: InkWell(
-                                    onTap: () => Get.back(),
-                                    child: Icon(Icons.close)))
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Text("Type", style: TextStyle(fontSize: 15)),
-                        SizedBox(height: 10),
-                        GetBuilder<MyListingFilterController>(
-                          init: MyListingFilterController(),
-                          builder: (val) {
-                            return headingofTypes(val.myMyAdd);
-                            //dataListedCateOffer[val]['type']['en'],
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Condition", style: TextStyle(fontSize: 15)),
-                        SizedBox(height: 10),
-                        Expanded(
-                          child: new ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: litems.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _onSelected(index);
-                                      status = litems[index];
-                                      print(
-                                          "....!!!!>...!!!!!...????///////.......$status");
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: Get.width / 5,
-                                      decoration: BoxDecoration(
-                                          color: _selectedIndex != null &&
-                                                  _selectedIndex == index
-                                              ? Colors.blue
-                                              : Colors
-                                                  .white, //Colors.blue[100],
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5))),
-                                      child: Center(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 5),
-                                          child: Text(litems[index],
-                                              //softWrap: true,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _selectedIndex == index
-                                                      ? Colors.white
-                                                      : Colors.blue)),
-                                        ),
-                                      ),
-                                    ),
+                  margin: EdgeInsets.only(top: 20, left: 40, right: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(AppString.filters,
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black)),
+                          Container(
+                              // margin:EdgeInsets.only(right:30),
+                              child: InkWell(
+                                  onTap: () => Get.back(),
+                                  child: Icon(Icons.close)))
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Text("Type", style: TextStyle(fontSize: 15)),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          FittedBox(
+                            child: Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Colors.blue[100],
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
                                   ),
-                                );
-                              }),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("Price ",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("SAR 0 - SAR 1000 ",
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal)),
-                        RangeSlider(
-                          values: _currentRangeValues,
-                          min: 1,
-                          max: 1000,
-                          // divisions: 5,
-                          labels: RangeLabels(
-                            _currentRangeValues.start.round().toString(),
-                            _currentRangeValues.end.round().toString(),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Center(
+                                child: Text("  Books  ",
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.blue)),
+                              ),
+                            ),
                           ),
-                          onChanged: (values) {
-                            setState(() {
-                              // print(
-                              //     "start : ${values.start}, end: ${values.end}");
-                              _currentRangeValues = values;
-                               start = _currentRangeValues.start.round().toString();
-                               end = _currentRangeValues.end.round().toString();
-                              print(".....!!!!!!!...!!!!!....$start");
-                              print(".....!!!!!!!...!!!!!....$end");
-                            });
-                          },
+                          SizedBox(width: 10),
+                          FittedBox(
+                            child: Container(
+                              height: 30,
+                              // width: Get.width/4.5,
+                              decoration: BoxDecoration(
+                                  // color: Colors.blue[100],
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Center(
+                                child: Text("  Engg Books  ",
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.blue)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text("Condition", style: TextStyle(fontSize: 15)),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          FittedBox(
+                            child: Container(
+                              height: 30,
+                              width: Get.width / 5,
+                              decoration: BoxDecoration(
+                                  color: Colors.blue[100],
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Center(
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text("New",
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.blue)),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          FittedBox(
+                            child: Container(
+                              height: 30,
+                              width: Get.width / 6,
+                              decoration: BoxDecoration(
+                                  color: Colors.blue[100],
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 1,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Center(
+                                child: Text("  Old  ",
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.blue)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Price ",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("SAR 50 - SAR 200 ",
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal)),
+                      RangeSlider(
+                        values: _currentRangeValues,
+                        min: 1,
+                        max: 1000,
+                        // divisions: 5,
+                        labels: RangeLabels(
+                          _currentRangeValues.start.round().toString(),
+                          _currentRangeValues.end.round().toString(),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              // ignore: deprecated_member_use
-                              child: RaisedButton(
-                                  color: Colors.grey[100],
-                                  child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                          child: Text(AppString.resetButton,
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .inputTextColor)))),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/login');
-                                    // Get.to(SignIn());
-                                  }),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              // ignore: deprecated_member_use
-                              child: RaisedButton(
-                                  color: Colors.blue,
-                                  child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                          child: Text("Apply",
-                                              style: TextStyle(
-                                                  color: Colors.white)))),
-                                  onPressed: () {
-                                    applyFiltering();
-                                    print(
-                                        ".....category.......!!!!...!!!>....!!!>..$category");
-                                    print(
-                                        ".....status.......!!!!...!!!>....!!!>..$status");
-                                    print(
-                                        ".....start.......!!!!...!!!>....!!!>..$start");
-                                        print(
-                                        ".....end.......!!!!...!!!>....!!!>..$end");
-                                    // Navigator.pushNamed(context, '/login');
-                                    // Get.to(SignIn());
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                        onChanged: (values) {
+                          setState(() {
+                            print(
+                                "start : ${values.start}, end: ${values.end}");
+                            _currentRangeValues = values;
+                          });
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 20),
+                            // ignore: deprecated_member_use
+                            child: RaisedButton(
+                                color: Colors.grey[100],
+                                child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                        child: Text(AppString.resetButton,
+                                            style: TextStyle(
+                                                color: AppColors
+                                                    .inputTextColor)))),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/login');
+                                  // Get.to(SignIn());
+                                }),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 20),
+                            // ignore: deprecated_member_use
+                            child: RaisedButton(
+                                color: Colors.blue,
+                                child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                        child: Text("Apply",
+                                            style: TextStyle(
+                                                color: Colors.white)))),
+                                onPressed: () {
+                                  applyFiltering();
+                                  // Navigator.pushNamed(context, '/login');
+                                  // Get.to(SignIn());
+                                }),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ));
+                ),
+              ),
+            );
           });
         });
   }
 
   applyFiltering() {
     var json = {
-      //'rangeValue': _currentRangeValues,
-      'status': status,
-      'category': category,
-      'start':start,
-      'end':end,
+      'rangeValue': _currentRangeValues,
     };
-    print(".....output>..$json");
+    print(json);
     filterControlller.createFilterAds(json);
   }
 
   Widget myAddsList(allDataAdds) {
-   
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        // print(
-        //     "........-------======---------......${allDataAdds[index]['image'].length}");
-
-       
-        // var ratingjson = {
-        //   'ads_id' : allDataAdds[index]['id'],
-        //   'rate': myrate
-        // };
-        // print("...........h....$myrate");
+        print(
+            "........-------======---------......${allDataAdds[index]['image'].length}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -482,54 +460,7 @@ class _AllAddsState extends State<AllAdds> {
                             //       )
                             //     ],
                             //   ),
-                                      // ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top:5),
-                                  child: RatingBar.builder(
-                                    initialRating: 4,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 13.5,
-                                    // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) { 
-                                          var ratingjson = {
-                                            'ads_id' : allDataAdds[index]['id'],
-                                            'rate': rating
-                                          };
-                                          box.write('ratingID',allDataAdds[index]['id']);
-                                          // print("////////////${box.write('ratingID','ads_id')}");
-                                          var hehe;
-                                          hehe= box.read('ratingID');
-                                          print("///adasdasdasdasdadasdasdasdasd $hehe");
-                                          ratingcont.ratings(ratingjson);
-                                          print(ratingjson);
-                                           GetBuilder<RatingController>(
-                                            
-                                      // id: 'aVeryUniqueID', // here
-                                      init: RatingController(),
-                                     
-                                      builder: (value) 
-
-                                      {
-                                         print('am working');
-                                        return value.getratings(allDataAdds[index]['id']);
-                                      }
-                                      );
-                                       
-                                    },
-                                  ),
-                                ),
-                                
-                              ],
-                            ),
+                            // ),
                             Expanded(
                               flex: 2,
                               child: Row(
@@ -547,7 +478,6 @@ class _AllAddsState extends State<AllAdds> {
                                 ],
                               ),
                             ),
-                            
                             // SizedBox(height: 8),
                             // Expanded(
                             //   flex:3,
@@ -566,7 +496,6 @@ class _AllAddsState extends State<AllAdds> {
                             //     ),
                             //   ),
                             // ),
-                            
                           ],
                         ),
                       ),
@@ -594,13 +523,24 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
+                                    // setState(() {
                                     liked = !liked;
-                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+                                    // });
+                                    allDataAdds[index]['is_favorite'] == false
+                                        ? friCont.profileAdsToFav(json, userId)
+                                        : friCont.profileAdsRemove(
+                                            json, userId);
+                                    controller.addedAllAds();
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
-                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20)
-                                        : Image.asset(AppImages.redHeart, height: 20)),
+                                      child: allDataAdds[index]
+                                                  ['is_favorite'] ==
+                                              false
+                                          ? Image.asset(AppImages.blueHeart,
+                                              height: 20)
+                                          : Image.asset(AppImages.redHeart,
+                                              height: 20)),
                                 ),
                                 Image.asset(AppImages.call, height: 20),
                               ],
@@ -766,8 +706,6 @@ class _AllAddsState extends State<AllAdds> {
   void navigateToGoogleLogin() {}
 
   Widget addsCategoryWidget(listingCategoriesData) {
-    // print(
-        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -777,10 +715,9 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              print(
-        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
-              if (ind == 0) {
-                controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
+              if(id != null && id == listingCategoriesData[index]['id'] && ind == 0){
+                selectedIndex = index;
+                ind = 0;
               }
               return Row(
                 children: [
@@ -791,6 +728,7 @@ class _AllAddsState extends State<AllAdds> {
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
+                          id = listingCategoriesData[index]['id'];
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
@@ -798,7 +736,7 @@ class _AllAddsState extends State<AllAdds> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             border: Border.all(color: Colors.blue),
-                            color: selectedIndex == index
+                            color: selectedIndex == index && id == listingCategoriesData[index]['id']
                                 ? selectedColor
                                 : Colors.white,
                             boxShadow: [
@@ -815,7 +753,7 @@ class _AllAddsState extends State<AllAdds> {
                                   listingCategoriesData[index]['category']
                                       ['en'],
                                   style: TextStyle(
-                                    color: selectedIndex == index
+                                    color: selectedIndex == index && id == listingCategoriesData[index]['id']
                                         ? Colors.white
                                         : Colors.blue,
                                     fontSize: 12,
@@ -834,144 +772,4 @@ class _AllAddsState extends State<AllAdds> {
       ],
     );
   }
-
-  var ind1 = 0;
-  Widget headingofTypes(dataListedCateOffer) {
-    print(
-        "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height / 9.22,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: dataListedCateOffer.length,
-            itemBuilder: (context, val) {
-              if (ind1 == 0) {
-                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
-              }
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 12.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // print(
-                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
-                        setState(() {
-                          ind1 = ++ind1;
-                          selectedIndexListing = val;
-                          category = dataListedCateOffer[val]['type']['en'];
-                          print(
-                              "....!!!1!!!!.category.!!!!!......!!!!1.....!!!!!...$category");
-                          //controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                          // filterControlller
-                          //     .createFilterAds(dataListedCateOffer[val]['id']);
-                          print(
-                              "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
-                          //createFilterAds
-                          //AdsFilteringController
-                        });
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(color: Colors.blue),
-                            color: selectedIndexListing == val
-                                ? selectedColor
-                                : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 1.0),
-                                blurRadius: 6.0,
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.all(10.0),
-                          child: dataListedCateOffer != null
-                              ? Text(
-                                  dataListedCateOffer[val]['type']['en'],
-                                  style: TextStyle(
-                                    color: selectedIndexListing == val
-                                        ? Colors.white
-                                        : Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                  ),
-                                )
-                              : Container()),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
-
-  // Widget headingofTypes(List dataListedCateOffer) {
-  //   print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Container(
-  //         height: MediaQuery.of(context).size.height / 9.22,
-  //         child: ListView.builder(
-  //           scrollDirection: Axis.horizontal,
-  //           itemCount: dataListedCateOffer.length,
-  //           itemBuilder: (context, index) {
-  //             return Row(
-  //               children: [
-  //                 Container(
-  //                   margin: EdgeInsets.only(left: 12.0),
-  //                   child: GestureDetector(
-  //                     onTap: () {
-  //                       setState(() {
-  //                         selectedIndexListing = index;
-  //                         print("....tspppp...!!!!!....!!!....$selectedIndexListing");
-  //                       });
-  //                     },
-  //                     child: Container(
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(20.0),
-  //                         border: Border.all(color: Colors.blue),
-  //                         color: selectedIndexListing == index
-  //                             ? selectedColor
-  //                             : Colors.white,
-  //                         boxShadow: [
-  //                           BoxShadow(
-  //                             color: Colors.grey,
-  //                             offset: Offset(0.0, 1.0),
-  //                             blurRadius: 6.0,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                       padding: EdgeInsets.all(10.0),
-  //                       child: Text(
-  //                         dataListedCateOffer[index]['type']['en'],
-  //                         style: TextStyle(
-  //                           color: selectedIndexListing == index
-  //                               ? Colors.white
-  //                               : Colors.blue,
-  //                           fontSize: 12,
-  //                           fontStyle: FontStyle.normal,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             );
-  //           },
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
-
 }
