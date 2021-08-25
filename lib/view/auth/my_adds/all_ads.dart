@@ -589,24 +589,13 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    // setState(() {
                                     liked = !liked;
-                                    // });
-                                    allDataAdds[index]['is_favorite'] == false
-                                        ? friCont.profileAdsToFav(json, userId)
-                                        : friCont.profileAdsRemove(
-                                            json, userId);
-                                    controller.addedAllAds();
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
-                                      child: allDataAdds[index]
-                                                  ['is_favorite'] ==
-                                              false
-                                          ? Image.asset(AppImages.blueHeart,
-                                              height: 20)
-                                          : Image.asset(AppImages.redHeart,
-                                              height: 20)),
+                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20)
+                                        : Image.asset(AppImages.redHeart, height: 20)),
                                 ),
                                 Image.asset(AppImages.call, height: 20),
                               ],
