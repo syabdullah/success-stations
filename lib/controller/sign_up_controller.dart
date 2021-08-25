@@ -22,7 +22,6 @@ class SignUpController extends GetxController{
       }
     });
     update();
-
   }
 
   individualAccountData(data) async{

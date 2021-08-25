@@ -720,7 +720,17 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {  }, 
         // isObscure: true,
         textController: crController,
-        validator: (value) {  }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return " CR is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "CR must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
         errorText: '',
       ),
     );
