@@ -13,11 +13,11 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 
-class AllAdds extends StatefulWidget {
-  _AllAddsState createState() => _AllAddsState();
+class CatAdds extends StatefulWidget {
+  _CatAddsState createState() => _CatAddsState();
 }
 
-class _AllAddsState extends State<AllAdds> {
+class _CatAddsState extends State<CatAdds> {
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
@@ -35,15 +35,18 @@ class _AllAddsState extends State<AllAdds> {
   GetStorage box = GetStorage();
   var lang;
   final banner = Get.put(BannerController());
+ 
   var v;
+  var id;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    banner.bannerController();
-    controller.addedAllAds();
     catCont.getCategoryTypes();
+    id = Get.arguments;
+    if(id != null)
+    controller.addedByIdAddes(id,null);
     lang = box.read('lang_code');
     userId = box.read('user_id');
     v = '';
@@ -54,8 +57,8 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // appBar: v == 'all' ?   PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)):null,
+      appBar:   PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)),
       body: Column(
         children: [
           topWidget(),
@@ -703,8 +706,6 @@ class _AllAddsState extends State<AllAdds> {
   void navigateToGoogleLogin() {}
 
   Widget addsCategoryWidget(listingCategoriesData) {
-    // print(
-        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -714,10 +715,9 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              print(
-        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
-              if (ind == 0) {
-                controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
+              if(id != null && id == listingCategoriesData[index]['id'] && ind == 0){
+                selectedIndex = index;
+                ind = 0;
               }
               return Row(
                 children: [
@@ -728,6 +728,7 @@ class _AllAddsState extends State<AllAdds> {
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
+                          id = listingCategoriesData[index]['id'];
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
@@ -735,7 +736,7 @@ class _AllAddsState extends State<AllAdds> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             border: Border.all(color: Colors.blue),
-                            color: selectedIndex == index
+                            color: selectedIndex == index && id == listingCategoriesData[index]['id']
                                 ? selectedColor
                                 : Colors.white,
                             boxShadow: [
@@ -752,7 +753,7 @@ class _AllAddsState extends State<AllAdds> {
                                   listingCategoriesData[index]['category']
                                       ['en'],
                                   style: TextStyle(
-                                    color: selectedIndex == index
+                                    color: selectedIndex == index && id == listingCategoriesData[index]['id']
                                         ? Colors.white
                                         : Colors.blue,
                                     fontSize: 12,

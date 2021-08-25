@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/view/offers/my_offers.dart';
 
  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,) {
     return AppBar(
@@ -83,7 +85,7 @@ Widget sAppbar(context ,icon,image,) {
         IconButton(
           icon: Icon(Icons.arrow_back_ios_new_sharp,
           color: AppColors.backArrow),
-          onPressed: () => Navigator.of(context).pop(),
+         onPressed: () => Get.back()
         ),
       title: Text(string), 
       

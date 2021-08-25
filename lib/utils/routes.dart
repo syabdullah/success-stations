@@ -16,6 +16,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:success_stations/view/member_ship/become_member.dart';
@@ -47,6 +48,7 @@ const String friReq = '/friReq';
 const String addOffers = '/addedOffer';
 const String favPage = '/favourities';
 const String detailOffferPage = '/offerPage';
+const String draweer = '/drawer';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     switch (settings.name) {
@@ -96,6 +98,8 @@ class SuccessStationRoutes {
         return MaterialPageRoute(builder: (_) => Inbox());
         case friReq:
         return MaterialPageRoute(builder: (_) => FriendReqList());
+        case draweer:
+        return MaterialPageRoute(builder: (_) => AppDrawer());
       default:
         return MaterialPageRoute(builder: (_) => BottomTabs());
     }

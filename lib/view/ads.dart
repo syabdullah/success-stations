@@ -15,6 +15,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
+import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 
@@ -26,15 +27,19 @@ class AdsView extends StatefulWidget {
 class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
+    final catCont = Get.put(CategoryController());
   
   final banner = Get.put(BannerController());
   GetStorage box = GetStorage();
   var lang;
+  var address;
    @override
   void initState() {
     super.initState();
+    catCont.getCategoryTypes();
     banner.bannerController();
     lang = box.read('lang_code');
+    address = box.read('address');
   }
   @override
   Widget build(BuildContext context) { 
@@ -54,7 +59,7 @@ class _AdsViewState extends State<AdsView> {
          GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (dat){
-              return dat.datacateg != null ?  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg) : Container();
+              return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg);
             }
           ),
          text("FeaturedAds".tr,"all".tr), 
@@ -158,7 +163,7 @@ class _AdsViewState extends State<AdsView> {
         GestureDetector(
           onTap: () {
              print("-----------------111111111....,,,");
-            Get.to(BottomTabs(),arguments: 4);
+            Get.to(CatAdds());
           },
           child: Container(
             margin: EdgeInsets.only(right:10),
@@ -181,20 +186,25 @@ class _AdsViewState extends State<AdsView> {
           
           return Column(
             children: [
-              Card(
-                elevation: 3,
-                shape:  RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: imageW,
-                    height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
-                       child: Icon(Icons.image,size: 50,),
-                    )
-                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+              GestureDetector(
+                onTap: () {
+                  Get.to(CatAdds(),arguments:data[index]['id']);
+                },
+                child: Card(
+                  elevation: 3,
+                  shape:  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      width: imageW,
+                      height: imageH,
+                      child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
+                         child: Icon(Icons.image,size: 50,),
+                      )
+                      //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                    ),
                   ),
                 ),
               ),
@@ -283,7 +293,7 @@ class _AdsViewState extends State<AdsView> {
                   Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(top:6,left: 10),
-                    child: Text(data[index]['title'][lang],style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
+                    child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     width: Get.width/2.3,
@@ -296,7 +306,7 @@ class _AdsViewState extends State<AdsView> {
                         SizedBox(width:5),
                         Container(
                           margin: EdgeInsets.only(top:6),
-                          child: Text("location",style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
+                          child: Text(address != null ? address : '',style: TextStyle(color: AppColors.grey,fontWeight: FontWeight.w400)),
                         ),
                         Spacer(flex: 2),
                         Container(

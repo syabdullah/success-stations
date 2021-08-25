@@ -100,10 +100,8 @@ var lang;
      
   }
    adpost() async{ 
-     if(pickedFile != null) {
-        try {
-          dio.FormData formData = dio.FormData.fromMap({            
-             'category_id' : subtypeId,
+     var json = {
+       'category_id' : subtypeId,
               'status': selectedStatus,
               'description': descController.text,
               'price': priceController.text,
@@ -116,14 +114,34 @@ var lang;
               'country_id': crid.toString(),
               'city_id':cid.toString(),
               'region_id': rid.toString(),
-              "image": Get.find<AdPostingController>().adUpload['name'],            
-          }); 
-          print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
-          Get.find<AdPostingController>().finalAdPosting(formData); 
-        } catch (e) {
-            print("...............$e");
-        }
-      }
+              'is_published':1,
+              "image": Get.find<AdPostingController>().adUpload['name'],
+     };
+     Get.find<AdPostingController>().finalAdPosting(json);
+    //  if(pickedFile != null) {
+    //     try {
+    //       dio.FormData formData = dio.FormData.fromMap({            
+    //          'category_id' : subtypeId,
+    //           'status': selectedStatus,
+    //           'description': descController.text,
+    //           'price': priceController.text,
+    //           'contact_name': fullNameController.text,
+    //           'mobile_no': mobileNoController.text,
+    //           'tel_no': telePhoneController.text,
+    //           'title':titleController.text,
+    //           'created_by': id.toString(),
+    //           'email': emailController.text,
+    //           'country_id': crid.toString(),
+    //           'city_id':cid.toString(),
+    //           'region_id': rid.toString(),
+    //           "image": Get.find<AdPostingController>().adUpload['name'],            
+    //       }); 
+    //       print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
+    //       Get.find<AdPostingController>().finalAdPosting(formData); 
+    //     } catch (e) {
+    //         print("...............$e");
+    //     }
+    //   }
   
   }
    addraft() async{
@@ -145,6 +163,7 @@ var lang;
               'country_id': crid.toString(),
               'city_id':cid.toString(),
               'region_id': rid.toString(),
+              'is_published':0,
               "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           }); 
           Get.find<AdPostingController>().finalAdDrafting(formData); 

@@ -171,10 +171,13 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                         Padding(
                           padding: Get.height > 700 ?  const EdgeInsets.only(left:10.0) :const EdgeInsets.only(left:50.0),
-                          child: Text(
-                            box.read('name'),
-                            style:AppTextStyles.appTextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                          child: Container(
+                            width: Get.width/3.5,
+                            child: Text(
+                              box.read('name'),
+                              style:AppTextStyles.appTextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                              ),
                             ),
                           ),
                         ),

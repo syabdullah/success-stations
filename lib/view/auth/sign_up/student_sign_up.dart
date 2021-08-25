@@ -460,40 +460,54 @@ var finalDate;
     //     errorText: '',
     //   ),
     // );
-    return Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadiusDirectional.circular(20)
-  ),
-  child:   Padding(
-    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: WrapCrossAlignment.s,
-      children: <Widget>[
-        Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
-        // ignore: deprecated_member_use
-        GestureDetector(
-          child: Icon(Icons.calendar_today),
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20),
+          margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: AppColors.outline)
+          ),
+          child:   GestureDetector(
           onTap: () {
-            
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now()
-            ).then((date) {
-              setState(() {               
-                dateTime = date;
-                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                print("..................$finalDate");
-              });
+          showDatePicker(
+            context: context,
+            initialDate:  DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now()
+          ).then((date) {
+            setState(() {               
+              dateTime = date;
+              finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+              print("..................$finalDate");
             });
-          },
-        )
-      ],
-    ),
-  ),
-);
+          });
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
+            GestureDetector(
+              child: Icon(Icons.calendar_today),
+              onTap: () {
+                
+                showDatePicker(
+                  context: context,
+                  initialDate:  DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now()
+                ).then((date) {
+                  setState(() {               
+                    dateTime = date;
+                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    print("..................$finalDate");
+                  });
+                });
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget country(List data) {

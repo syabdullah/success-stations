@@ -8,7 +8,7 @@ class AppString {
   static String city = 'City';
   static String university = 'University';
   static String college = 'College';
-  static String termServices = 'I agree to the ';
+  static String termServices = 'I agree to the  ';
 
 
 
@@ -44,7 +44,7 @@ class AppString {
 
   
   static String existAccount = 'Do you have and account?';
-  static String termCondition = ' Terms and Conditions';
+  static String termCondition = '  Terms and Conditions';
 
   // Sign In
   static String loginEmail = 'Phone Number,email or name';
