@@ -26,7 +26,7 @@ class _LanguagePageState extends State<Language> {
   final getLang = Get.put(LanguageController());
   GetStorage box = GetStorage();
   bool pressAttention = false;
-  var index = 1;
+  var index = 0;
 
   @override
   void initState() {

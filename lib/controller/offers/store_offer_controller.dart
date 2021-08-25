@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/offers/store_offer_action.dart';
+import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/app_headers.dart';
@@ -11,7 +12,8 @@ import 'package:dio/src/response.dart' as response;
 import 'package:success_stations/view/offers/my_offers.dart';
 
 class StorePostAddesController extends GetxController {
- final myofferlistin=  Get.put(OfferController());
+//  final myofferlistin=  Get.put(OfferController());
+  final myofferlistin=  Get.put(MyOffersDrawerController());
 //  bool isLoading = false; 
   var  storedOfferCreated , uploadImageOfAdd;
   RxBool isLoading = false.obs;
@@ -41,7 +43,7 @@ class StorePostAddesController extends GetxController {
   //   update();
   // }
   storefOffersAAll(data) async {
-    // isLoading(true);
+    isLoading(true);
     await ApiHeaders().getData();
     final Config conf = Config();
       print("store offer createdddd/....${ApiHeaders().headersWithToken}");
@@ -50,13 +52,13 @@ class StorePostAddesController extends GetxController {
         response.Response result = await dio.post(url, data: data,options:Options( followRedirects: false,
         headers: ApiHeaders().headersWithToken));
         storedOfferCreated = result.data;
-        myofferlistin.offerList();
+        myofferlistin.drawerMyOffer();
         Get.off(OffersDetail());
         if(result.data['success'] == true){
        
         Get.snackbar(" Offfer Added successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
         
-         isLoading(true);
+         isLoading(false);
     } 
     update();
   }
