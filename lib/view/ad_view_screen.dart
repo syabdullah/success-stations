@@ -157,7 +157,7 @@ Widget titleStep(data) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(data['price'].toString(),style: TextStyle(fontSize: 15),),
+                   data['price'] !=null ?  Text('SAR ${data['price']}',style: TextStyle(fontSize: 15),): Container()
                   ],
                 ),
               ),
