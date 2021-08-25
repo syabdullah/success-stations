@@ -32,6 +32,7 @@ class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
     final catCont = Get.put(CategoryController());
+     final addescontrollRefresh = Get.put(MyAddsController());
 
     allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -47,6 +48,7 @@ class _AdsViewState extends State<AdsView> {
    @override
   void initState() {
     super.initState();
+    addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
     banner.bannerController();
     lang = box.read('lang_code');

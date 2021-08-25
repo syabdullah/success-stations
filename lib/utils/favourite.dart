@@ -78,17 +78,11 @@ class _FavouritePageState extends State<FavouritePage> {
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
               builder: (val) {
-                return val.fvr8DataList !=null ? Column(
-                  children: listtype == 'list' ? myAddsList(val.fvr8DataList['data']): myAddGridView(val.fvr8DataList['data']) ,
-                ): 
-                Container(
-                  margin: EdgeInsets.only(top:Get.height/3),
-                  alignment: Alignment.topCenter,
-                  child: Center(
-                    child: Text("No Favourite Yet", style: TextStyle(fontSize: 28),)
-                ) ,
-                  
-                );
+                return val.isLoading == true ? CircularProgressIndicator():val.fvr8DataList !=null ?   Column(
+                  children: listtype == 'list' ? myAddsList(val.fvr8DataList['data'])
+                  : myAddGridView(val.fvr8DataList['data']) ,
+                ): Container(child:Text("ndcbjbbcv"));
+                
               },
             ) 
           ],
@@ -138,9 +132,9 @@ class _FavouritePageState extends State<FavouritePage> {
   
   List<Widget> myAddsList(listFavourite) {
     List<Widget> favrties = [];
-    if(listFavourite.length !=null || listFavourite!=null){
+    if(listFavourite.length !=null || listFavourite !=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
-        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['image'] !=null){
+        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['image'].length !=null){
           listingIdRemoved = listFavourite[c]['listing']['id'];
           for(int array = 0; array < listFavourite[c]['listing']['image'].length; array++ ){
             imageAds =listFavourite[c]['listing']['image'][array]['url'];
@@ -158,8 +152,9 @@ class _FavouritePageState extends State<FavouritePage> {
                           child: Container(
                             height: Get.height/2,
                             width: Get.width/4,
-                            child: listFavourite[c]['listing']['image'] !=null ?  Image.network(
-                              imageAds
+                            child: listFavourite[c]['listing']['image'] !=null && imageAds !=null ?   Image.network(
+                             imageAds
+                              
                             ):FittedBox(fit:BoxFit.contain,
                               child: Icon(Icons.person, color: Colors.grey[400])
                             )
