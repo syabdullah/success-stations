@@ -138,7 +138,8 @@ class _AppDrawerState extends State<AppDrawer> {
                                           image['url'],
                                           fit: BoxFit.fill,
                                           height: Get.height/6.5,width: Get.width/3.3,
-                                        ))
+                                        )
+                                        )
                                       
                                       
                                   //   ],

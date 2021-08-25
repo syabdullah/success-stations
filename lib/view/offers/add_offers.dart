@@ -19,7 +19,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AddOffersPage extends StatefulWidget {
    AddOffersState createState() => AddOffersState();
@@ -53,7 +52,6 @@ class AddOffersState extends State<AddOffersPage> {
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController textAddsController = TextEditingController();
    TextEditingController statusController = TextEditingController();
-   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   final GlobalKey<FormFieldState> _specifyTextFieldKey = GlobalKey<FormFieldState>();
 
   var createdJson;
@@ -224,6 +222,7 @@ class AddOffersState extends State<AddOffersPage> {
                 },
               )
             ),
+       
         )
       )
     );
