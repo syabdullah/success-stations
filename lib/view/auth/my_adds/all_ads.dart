@@ -90,36 +90,18 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
-          //  GetBuilder<RatingController>(
-          //                             // id: 'aVeryUniqueID', // here
-          //                             init: RatingController(),
-                                     
-          //                             builder: (value) 
-
-          //                             {
-          //                                print('am working');
-          //                               return ;
-          //                             }
-          //                             ),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-                  ? CircularProgressIndicator()
-                  : data.subCatt != null
-                      ? addsCategoryWidget(data.subCatt['data'])
-                      : Container();
+              return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
           ),
           Expanded(
-              child: GetBuilder<AddBasedController>(
+            child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
             builder: (val) {
-              return val.isLoading == true
-                  ? Container()
-                  : listtype == 'list'
-                      ? myAddsList(val.allAdsData['data'])
-                      : myAddGridView(val.allAdsData['data']);
+              return val.isLoading == true ||  val.cData == null  ? Container() :
+                val.cData['data'] == null ? Container() : listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
             },
           )),
         ],
@@ -463,7 +445,9 @@ class _AllAddsState extends State<AllAdds> {
                                           width: Get.width / 4,
                                           fit: BoxFit.fill,
                                         )
-                                      : Container(width: Get.width / 4)
+                                      : Container(width: Get.width / 4,
+                                      child: Icon(Icons.image,size: 50,),
+                                      )
                                   //  Image.asset(
                                   //   AppImages.profileBg,
                                   //   width: Get.width/4
@@ -674,7 +658,9 @@ class _AllAddsState extends State<AllAdds> {
                                     width: Get.width / 4,
                                     fit: BoxFit.fill,
                                   )
-                                : Container(width: Get.width / 4)
+                                : Container(width: Get.width / 4,
+                                 child: Icon(Icons.image,size: 50,),
+                                )
                             // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                             ),
                       ),
@@ -783,7 +769,7 @@ class _AllAddsState extends State<AllAdds> {
 
   Widget addsCategoryWidget(listingCategoriesData) {
     // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
+        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -793,8 +779,10 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
+              print(
+        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
               if (ind == 0) {
-                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
+                controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
               }
               return Row(
                 children: [
@@ -802,81 +790,10 @@ class _AllAddsState extends State<AllAdds> {
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        print(
-                            "rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;
-                          // controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                        });
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(color: Colors.blue),
-                            color: selectedIndex == index
-                                ? selectedColor
-                                : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 1.0),
-                                blurRadius: 6.0,
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.all(10.0),
-                          child: listingCategoriesData != null
-                              ? Text(
-                                  listingCategoriesData[index]['category']['en'],
-                                  style: TextStyle(
-                                    color: selectedIndex == index
-                                        ? Colors.white
-                                        : Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                  ),
-                                )
-                              : Container()),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
-  Widget addsCategoryWidget2(listingCategoriesData) {
-    // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height / 9.22,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: listingCategoriesData.length,
-            itemBuilder: (context, index) {
-              if (ind == 0) {
-                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
-              }
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 12.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        print(
-                            "rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
-                          filterID =  listingCategoriesData[index]['id'];
-                        setState(() {
-                          ind = ++ind;
-                          selectedIndex = index;
-                          // controller.addedByIdAddes(listingCategoriesData[index]['id']);
+                          controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
                       child: Container(

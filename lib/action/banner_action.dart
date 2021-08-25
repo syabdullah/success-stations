@@ -6,8 +6,9 @@ import 'package:success_stations/utils/config.dart';
 Future<http.Response> bannerAction() async {
    await ApiHeaders().getData();
   final Config config = Config();
+   print('/////////////////////${ ApiHeaders().headersWithToken}');
   var url = Uri.parse("${config.baseUrl}banners");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
-  print('/////////////////////$response');
+ 
   return response;
 }

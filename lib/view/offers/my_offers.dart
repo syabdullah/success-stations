@@ -83,16 +83,16 @@ class _MyOffersDetailState extends State<OffersDetail> {
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder:(val){
-                return  val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
+                return   val.isLoading == true ? CircularProgressIndicator(): val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 ):
+                putData.resultInvalid.isTrue &&val.myofferListDrawer['success'] == false ? 
                 Container(
-                  margin: EdgeInsets.only(top:Get.height/3),
+                  margin: EdgeInsets.only(top: Get.height/ 4),
                   child: Center(
-                    child: Text("No Offers Yet!", style:TextStyle(fontSize: 30)
-                  )
-                  ),
-                );
+                    child: Text(
+                    putData.myofferListDrawer['errors'], style:TextStyle(fontSize: 25)),
+                  )):Container();
               },
             )
             
@@ -117,7 +117,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   width: Get.width/4,
                   child: listFavou[c]['image_ads'] != null && listFavou[c]['image_ads']['url']!= null? 
                     Image.network( listFavou[c]['image_ads']['url'],
-                  ):Container()
+                  ):Container(
+                     child: Icon(Icons.image,size: 50,),
+                  )
                 ),
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,4 +173,22 @@ class _MyOffersDetailState extends State<OffersDetail> {
       }
       return favrties;
     }
+  }
+
+
+  List<Widget> dataempty(listFavou) {
+    List<Widget> favrties = [];
+    if( listFavou ==null || listFavou.length ==null){
+      for(int c = 0 ; c < listFavou.length; c++ ){
+        favrties.add(
+          Card(
+            child: Container(
+              child:Text("No Offers Yet!") 
+            )
+          )
+          );
+        }
+      }
+      return favrties;
+    
   }

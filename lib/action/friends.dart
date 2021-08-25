@@ -37,6 +37,7 @@ Future<http.Response> rejectFriends(id) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}reject-friend/$id");
   final result = await http.get(url,headers: ApiHeaders().headersWithToken);  
+   print("............,,,${result.body}");
   return result;
 }
 
@@ -48,13 +49,22 @@ Future<http.Response> sendFriendReq(data) async{
   return result;
 }
 
-Future<http.Response> delFriendReq(id) async{
+Future<http.Response> delFriendReq(data) async{
   await ApiHeaders().getData();
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}friendships/$id");
-  final result = await http.delete(url,headers: ApiHeaders().headersWithToken);  
+  var url = Uri.parse("${conf.baseUrl}friendships/$data");
+  final result = await http.post(url,headers: ApiHeaders().headersWithToken);  
+  // print("............,,,${result.body}");
   return result;
 }
+// Future<http.Response> delFriendReq(id) async{
+//   print("iiiiiiiiii,,,,,$id");
+//   await ApiHeaders().getData();
+//   final Config conf = Config();
+//   var url = Uri.parse("${conf.baseUrl}friendships/$id");
+//   final result = await http.post(url,headers: ApiHeaders().headersWithToken);  
+//   return result;
+// }
 
 Future<http.Response> friendsProfile(id) async{
   await ApiHeaders().getData();

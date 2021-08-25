@@ -32,6 +32,7 @@ class _LanguagePageState extends State<Language> {
   void initState() {
     getLang.getLanguas();
     super.initState();
+    box.write('lang_code','en');
   }
   
   List<Widget> getTextWidgets(dataLanguage){

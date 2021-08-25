@@ -99,7 +99,7 @@ const Map<String, String> en = {
   "semester":"Semester",
   "advertisingCategories":"Advertising Categories",
   'FeaturedAds':'Featured Ads',
-  'specialofer':'special Offer',
+  'specialofer':'Special Offers',
   'Nearby':'Nearby',
   'condition':'ondition',
   'apply': 'Apply',

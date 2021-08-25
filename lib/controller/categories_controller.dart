@@ -14,13 +14,13 @@ class CategoryController extends GetxController {
   @override
   void onInit(){
     isLoading = true;
-    datacateg = [];
+    // datacateg = [];
     super.onInit();
     getCategoryNames();
   }
 
   getCategoryNames() async {
-    datacateg = [];
+    // datacateg = [];
     await  subCategory().then((value) {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
@@ -33,7 +33,7 @@ class CategoryController extends GetxController {
   update();
   }
   getCategoryTypes() async {
-    datacateg = [];
+    // datacateg = [];
     await  categoryTypes().then((value) {
       isLoading = true ;
       subCatt =  jsonDecode(value.body);
