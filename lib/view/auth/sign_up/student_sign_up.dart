@@ -96,21 +96,21 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               SizedBox(height:10),
               eMail(),
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return  signUpCont.resultInvalid.isTrue ? Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text(signUpCont.signup['message'],
-                      style: TextStyle(color: Colors.red),)
-                    )
-                    ):Container();
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return  signUpCont.resultInvalid.isTrue ? Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //           margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text(signUpCont.signup['errors']['email'][0],
+              //         style: TextStyle(color: Colors.red),)
+              //       )
+              //       ):Container();
 
-                 }),
+              //    }),
               
               SizedBox(height:10),
               space10,
@@ -431,7 +431,7 @@ class _SignPageState extends State<StudentSignUp> {
       ),
     );
   }
-var finalDate;
+  var finalDate;
   Widget studentdob() {
     // return  Container(
     //   margin:EdgeInsets.only(left:20, right: 20),
@@ -488,8 +488,7 @@ var finalDate;
             Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
             GestureDetector(
               child: Icon(Icons.calendar_today),
-              onTap: () {
-                
+              onTap: () {               
                 showDatePicker(
                   context: context,
                   initialDate:  DateTime.now(),

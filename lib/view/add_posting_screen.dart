@@ -566,6 +566,7 @@ Widget istStep(List list,List types){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                maxLength: 5,
                 keyboardType: TextInputType.number,
                 controller: priceController,
                 validator: (value) {
@@ -767,64 +768,74 @@ Widget secondStep(){
           child: Column(
             children: [
               Padding(
-                 padding: const EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(priceController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                 padding: const EdgeInsets.only(top:10,left: 30,right: 30),
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(height: 15.h,),
-                        SizedBox(height: 15.h,),
-                         Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                        Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10.h),
-                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
-                      SizedBox(height: 15.h,),
-                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
-                       Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      
+                      Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                      Text("SAR ${priceController.text}",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                     ],
                   ),
-                   Container(
-                     margin: EdgeInsets.only(right: 20),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15.h,),
-                        Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                        Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        
-                        SizedBox(height: 15.h,),
-                       Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h),
-                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                         Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10.h),
-                        
-                      ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex:1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(height: 15.h,),
+                          SizedBox(height: 15.h,),
+                          Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          // SizedBox(height: 10.h),
+                          // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
+                          // SizedBox(height: 15.h,),
+                          // Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          // SizedBox(height: 7.h),
+                          // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 15.h,),
+                          Text("Category",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 15.h,),
+                          
+                        ],
                       ),
-                   ),
-                ],
+                    ),
+                     Container(
+                      //  margin: EdgeInsets.only(right: 20),
+                       child: Expanded(
+                         flex: 1,
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 25.h,),
+                            // Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            // SizedBox(height: 7.h),
+                            // Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            // SizedBox(height: 15.h,),
+                            Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                             SizedBox(height: 5.h),
+                           Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h),
+                             Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                             Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h),
+                            
+                          ],
+                          ),
+                       ),
+                     ),
+                  ],
+                ),
               )
             ],
           ),
@@ -833,7 +844,7 @@ Widget secondStep(){
         width: Get.width,
         child: Card(
           child:Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.only(top:15,left:30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

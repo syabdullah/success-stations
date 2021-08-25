@@ -75,6 +75,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final formKey = GlobalKey<FormState>();
 
   bool _isChecked = false;
+   bool errorCheck = true;
+  
 
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
@@ -96,6 +98,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   @override 
   void initState() {
     super.initState();
+      errorCheck = true;
   }
    
   companyUser() {
@@ -128,12 +131,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
-        "date_of_birth" : dobController.text,
+        "date_of_birth" : finalDate,
         "user_type":  3,
         'iqama_number': iqamaController.text,
-        'service_ids[]': selectedValues
+        // 'service_ids[]': selectedValues
 
       };
+      print("....>!!!!!!!!!!!!!!..//////..........$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -155,7 +159,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               // GetBuilder<SignUpController>(
               //   init: SignUpController(),
               //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue ? 
+              //     return signUpCont.resultInvalid.isTrue  &&  errorCheck == true? 
               //     Container(
               //       margin:EdgeInsets.only(left:10),
               //       alignment: Alignment.topLeft,
@@ -172,7 +176,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               // GetBuilder<SignUpController>(
               //   init: SignUpController(),
               //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue ? 
+              //     return signUpCont.resultInvalid.isTrue && errorCheck == true ? 
               //     Container(
               //       margin:EdgeInsets.only(left:10),
               //       alignment: Alignment.topLeft,
@@ -216,13 +220,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 },
               ),
               space10,
-              companyDob(),
+              v == 1 ?
+              companyDob()
+              : Container(),
+              v ==2 ? 
               GetBuilder<ServicesController>(
                 init: ServicesController(),
                 builder: (val){
                   return services(val.servicesListdata);
                 },
-              ),
+              ): Container(),
               space10,
               radioalert(),
               v == 2 ? 
@@ -753,7 +760,17 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {  }, 
         // isObscure: true,
         textController: crController,
-        validator: (value) {  }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return " CR is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "CR must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
         errorText: '',
       ),
     );

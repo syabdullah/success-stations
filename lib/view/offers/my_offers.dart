@@ -8,6 +8,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
 
 
@@ -18,6 +19,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final putData  = Get.put(MyOffersDrawerController());
+  bool errorCheck = true;
 
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -43,9 +45,16 @@ class _MyOffersDetailState extends State<OffersDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
-      // key: _scaffoldKey,
-        appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringbar( context, "MY OFFERS" )),
+      key: _scaffoldKey,
+      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
+       ),
+       drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
 
       body: SingleChildScrollView(
         child: Column(
@@ -56,14 +65,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
                 GestureDetector(
                   onTap: () {
                     Get.off(AddOffersPage());
-                    // Get.toNamed('/addedOffer');
                   },
                   child: Container(
                     margin:EdgeInsets.only(left:20, top: 30),
                     child: Image.asset(AppImages.plusImage, height:24)
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 Container(
                   margin:EdgeInsets.only(left:10, top: 30),
                   child: Text("addnewoffer".tr)
@@ -71,16 +79,20 @@ class _MyOffersDetailState extends State<OffersDetail> {
              
               ],
             ),
+            SizedBox(height:20),
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder:(val){
-                print(" offrerrrr controllelr${val.myofferListDrawer}");
                 return  val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 ):
-                  Container(
-                    child: Text("NO offers yet!"),
-                  );
+                Container(
+                  margin: EdgeInsets.only(top:Get.height/3),
+                  child: Center(
+                    child: Text("No Offers Yet!", style:TextStyle(fontSize: 30)
+                  )
+                  ),
+                );
               },
             )
             
@@ -90,6 +102,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
     );
   }
 
+
   List<Widget> allOffersWidget(listFavou) {
     List<Widget> favrties = [];
     if( listFavou !=null || listFavou.length !=null){
@@ -97,6 +110,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
+              // margin: EdgeInsets.only(top:40),
               child: ListTile(
                 leading: Container(
                   height: Get.height/2,

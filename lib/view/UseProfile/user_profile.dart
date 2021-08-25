@@ -266,7 +266,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:25,),
+                              margin: EdgeInsets.only(top:14,),
                               child: Text('university'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
@@ -290,7 +290,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                        Expanded(
                          flex: 1,
                          child: Container(
-                           margin: EdgeInsets.only(right: 20),
                            child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -313,8 +312,8 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               Container(
                                   margin: EdgeInsets.only(bottom:20,top: 5),
                                 child: Text(
-                                   userData["degree"].length > 25 ? userData["degree"].substring(0, 25)+'...' : userData["degree"],
-                                  style: TextStyle(fontWeight: FontWeight.w600,)),
+                                  userData["degree"].length > 30 ? userData["degree"].substring(0, 30)+'...' : userData["degree"],
+                                    style: TextStyle(fontWeight: FontWeight.w600,)),
                               ): Container(
                                 height: 20,
                               )            
@@ -343,7 +342,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                     userData["about"] != null ?
                     Container(
                       margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text(userData["about"]  )
+                      child: Text(userData["about"],style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)  )
                     ): Container()
                   ],
                 ),

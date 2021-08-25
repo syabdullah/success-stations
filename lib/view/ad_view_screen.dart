@@ -321,13 +321,11 @@ Widget listTileRow2(data) {
                         ),
                       ),
                     ),
-                      Container(
-                        width: Get.width/2.5,
-                        child: Text(data[index]['comment'][lang],style:
-                        AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
-                        ),
-                    ),
+                      Text(data[index]['comment']['en'],style:
+                      AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
                       ),
+                    ),
+                      
                   ],
                 ),
               )
