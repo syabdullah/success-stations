@@ -18,21 +18,13 @@ class AdsFilteringController extends GetxController {
   createFilterAds(data) async {
     isLoading = true;
     await createAdsFilteringAction(data).then((res) {
-      print("......!!!!.....res.....$res");
-      print("///////,.,.,.,.,.,><><><><><.....${res.statusCode}");
-     // adsFilterCreate = jsonDecode(res.body);
-      // print(
-      //     "......check controller...!!!!!...!!!>...........!!!!!!!!...$adsFilterCreate");
-      //isLoading = false;
-       print(res);
-      print(res.statusCode);
-      if(res.statusCode == 200){
-        adsFilterCreate = jsonDecode(res.body);
+       adsFilterCreate = jsonDecode(res.body);
+       print(adsFilterCreate);
+        print(res.statusCode);
+      if(res.statusCode < 200){
         isLoading=false;
-      // Get.to(ForgotCode());
-        
-      } if(res.statusCode > 200){
-          Get.snackbar("Error",'',backgroundColor: AppColors.appBarBackGroundColor);
+      } if(res.statusCode > 400){
+          Get.snackbar(adsFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
       }
     });
     update();
