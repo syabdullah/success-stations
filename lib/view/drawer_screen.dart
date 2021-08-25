@@ -75,7 +75,7 @@ class _AppDrawerState extends State<AppDrawer> {
     setState(() {
       if (pickedFile != null) {
         imageP = pickedFile!.path;    
-        print("..........=-=-=-=-=-=-=-=-=$imageP");  
+        
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
@@ -86,7 +86,7 @@ class _AppDrawerState extends State<AppDrawer> {
           dio.FormData formData = dio.FormData.fromMap({          
             "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           });
-   
+   print("..........=-=-=-=-=-=-=-=-=$imageP");  
           Get.find<AdPostingController>().uploadAdImage(formData); 
           Get.find<UserProfileController>().getUserProfile();
         } catch (e) {
@@ -97,7 +97,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
-    print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
+    // print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
     image = box.read('user_image');
     
     return ClipRRect(

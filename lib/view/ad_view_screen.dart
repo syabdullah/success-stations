@@ -74,6 +74,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
+            // comment = '';
               print("....................>>${val.adsD}");
           return val.isLoading == true ? Center(child: CircularProgressIndicator()) :   val.adsD['data'] == null ? Container(
             child: Center(child: Text("NO Detail Here !"),),
@@ -139,7 +140,7 @@ Widget titleStep(data) {
   Column(
       children: [
         data['image'].length != 0 ? 
-        Image.network(data['image'][0]['url']):
+        Container(height: Get.height/4,child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,width: Get.width,)):
         Container(
           height: Get.height/4,
           child: Center(child: Text("No Image !")),
@@ -318,6 +319,7 @@ Widget listTileRow2(data) {
                       AppTextStyles.appTextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey,
                       ),
                     ),
+                      
                   ],
                 ),
               )
@@ -377,7 +379,12 @@ Widget commentButton() {
     )
   ),
     onPressed:  () {
-      postComment();
+      postComment();      
+      adDetailCont.adsDetail(adId);
+      setState(() {
+        comment = '';
+      });
+
      },
       child: Text('add_a_comment'.tr),
       ),
@@ -416,31 +423,29 @@ Widget commentButton() {
   }
 
 Widget commentInput(){
-  return  Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
-    child: TextFormField(
-      textAlignVertical: TextAlignVertical.top,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
-      },
-      onChanged: (val) {
-        setState((){
-          comment = val;
-        });
-      },
-      style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
-      decoration:InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 80.0),
-        hintText: "write_comment_here".tr,
-        border: OutlineInputBorder( 
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(color: AppColors.inputTextColor),
-        ),
-      ) ,
-    ),
+  return  TextFormField(
+    maxLines: 4,
+    textAlignVertical: TextAlignVertical.top,
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter some text';
+      }
+      return null;
+    },
+    onChanged: (val) {
+      setState((){
+        comment = val;
+      });
+    },
+    style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
+    decoration:InputDecoration(
+      contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 80.0),
+      hintText: "write_comment_here".tr,
+      border: OutlineInputBorder( 
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(color: AppColors.inputTextColor),
+      ),
+    ) ,
   );
 }
 

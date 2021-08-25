@@ -64,11 +64,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder:(val){
-                print(" offrerrrr controllelr$val");
-                return  val.myofferListDrawer  !=null ? Column(
+                print(" offrerrrr controllelr${val.myofferListDrawer}");
+                return  val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 ):
-                  Container();
+                  Container(
+                    child: Text("NO offers yet!"),
+                  );
               },
             )
             
