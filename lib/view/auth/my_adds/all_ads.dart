@@ -43,7 +43,6 @@ class _AllAddsState extends State<AllAdds> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     banner.bannerController();
     controller.addedAllAds();
