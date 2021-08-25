@@ -23,7 +23,7 @@ class MyListingFilterController extends GetxController {
     await listingTypesAdds().then((value) {
       //addsGet= jsonDecode(value.body);listingData
       listingData = jsonDecode(value.body);
-      print("json decode response of offer.......>$listingData");
+      // print("json decode response of offer.......>$listingData");
       for (int c = 0; c < listingData['data'].length; c++) {
         myMyAdd.add(listingData['data'][c]);
         print(".......yai!!!!!!.!!!!!!!!.......${listingData['data'][c]['type']}");

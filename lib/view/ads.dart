@@ -32,6 +32,7 @@ class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
     final catCont = Get.put(CategoryController());
+     final addescontrollRefresh = Get.put(MyAddsController());
 
     allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -48,6 +49,7 @@ class _AdsViewState extends State<AdsView> {
   void initState() {
     super.initState();
     catCont.getCategoryNames();
+    addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
     banner.bannerController();
     lang = box.read('lang_code');
@@ -351,10 +353,9 @@ class _AdsViewState extends State<AdsView> {
                               ): Container()
                             ),
                             Container(
-                              // width: Get.width/4.4,
                               margin: EdgeInsets.only(top:6,left:15),
                               child: data[index]['price'] !=null ? Text(
-                               'SAR:${data[index]['price']}'
+                               'SAR: ${data[index]['price']}'
                               ): Container()
                             )
                           ],

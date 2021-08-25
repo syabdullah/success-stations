@@ -63,6 +63,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 var id,cid,rid,crid ;
 var uploadedImage;
 var lang;
+var editData;
   @override
   void initState() {
     super.initState();
@@ -71,6 +72,10 @@ var lang;
     rid = box.read('region_id');
     crid = box.read('country_id');
     lang = box.read('lang_code');
+    editData = Get.arguments;
+    if(editData != null ) {
+      print(".....EEEEE-----$editData");
+    }
     // catogoryController.getCategoryNames();
     // catogoryController.getCategoryTypes();
 

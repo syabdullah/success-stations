@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 import 'package:success_stations/controller/ads_filtering_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -49,9 +50,10 @@ class _AllAddsState extends State<AllAdds> {
   var category;
   var start;
   var end;
+  var filterID;
   List<String> litems = [
-    "Yes",
-    "No",
+    "New",
+    "Old",
   ];
   // List<String> litems = [
   //   'Yes',
@@ -60,7 +62,6 @@ class _AllAddsState extends State<AllAdds> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     banner.bannerController();
@@ -72,6 +73,7 @@ class _AllAddsState extends State<AllAdds> {
     v = '';
     v = Get.arguments;
   }
+
 
   int _selectedIndex = 0;
 
@@ -88,37 +90,18 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
-          //  GetBuilder<RatingController>(
-          //                             // id: 'aVeryUniqueID', // here
-          //                             init: RatingController(),
-                                     
-          //                             builder: (value) 
-
-          //                             {
-          //                                print('am working');
-          //                               return ;
-          //                             }
-          //                             ),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-                  ? CircularProgressIndicator()
-                  : data.subCatt != null
-                      ? addsCategoryWidget(data.subCatt['data'])
-                      : Container();
+              return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
           ),
           Expanded(
-              child: GetBuilder<AddBasedController>(
+            child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
             builder: (val) {
-              return val.isLoading == true ||  val.cData == null  
-                  ? Container() :
-                   val.cData['data'] == null ? Container()
-                  : listtype == 'list'
-                      ? myAddsList(val.cData['data'])
-                      : myAddGridView(val.cData['data']);
+              return val.isLoading == true ||  val.cData == null  ? Container() :
+                val.cData['data'] == null ? Container() : listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
             },
           )),
         ],
@@ -138,7 +121,7 @@ class _AllAddsState extends State<AllAdds> {
               },
               child: Container(
                 margin: EdgeInsets.only(left: 10),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                 color: Colors.grey[200],
                 child: Row(
                   children: [
@@ -214,64 +197,83 @@ class _AllAddsState extends State<AllAdds> {
         builder: (context) {
           return StatefulBuilder(builder:
               (BuildContext context, void Function(void Function()) setState) {
-            return AnimatedPadding(
-                padding: MediaQuery.of(context).viewInsets,
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.decelerate,
-                child: Container(
-                  //  height:Get.height/1,
+            return SafeArea(
+              child: AnimatedPadding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.decelerate,
                   child: Container(
-                    margin: EdgeInsets.only(top: 20, left: 40, right: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(AppString.filters,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black)),
-                            Container(
-                                // margin:EdgeInsets.only(right:30),
-                                child: InkWell(
-                                    onTap: () => Get.back(),
-                                    child: Icon(Icons.close)))
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Text("Type", style: TextStyle(fontSize: 15)),
-                        SizedBox(height: 10),
-                        GetBuilder<MyListingFilterController>(
-                          init: MyListingFilterController(),
-                          builder: (val) {
-                            return headingofTypes(val.myMyAdd);
-                            //dataListedCateOffer[val]['type']['en'],
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text("Condition", style: TextStyle(fontSize: 15)),
-                        SizedBox(height: 10),
-                        Expanded(
-                          child: new ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: litems.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: GestureDetector(
+                    //  height:Get.height/1,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 0, left: 40, right: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(AppString.filters,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black)),
+                              Container(
+                                  // margin:EdgeInsets.only(right:30),
+                                  child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(Icons.close)))
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Text("Type", style: TextStyle(fontSize: 15)),
+                          SizedBox(height: 10),
+                          GetBuilder<MyListingFilterController>(
+                            init: MyListingFilterController(),
+                            builder: (val) {
+                              return headingofTypes(val.myMyAdd);
+                              //dataListedCateOffer[val]['type']['en'],
+                            },
+                          ),
+          //                  GetBuilder<CategoryController>(
+          //   init: CategoryController(),
+          //   builder: (data) {
+          //     return data.isLoading == true
+          //         ? CircularProgressIndicator()
+          //         : data.subCatt != null
+          //             ? addsCategoryWidget2(data.subCatt['data'])
+          //             : Container();
+          //   },
+          // ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text("Condition", style: TextStyle(fontSize: 15)),
+                          // SizedBox(height: 10),
+                          Container(
+                            height: 40,
+                            child: new ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: litems.length,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  return 
+                                  GestureDetector(
                                     onTap: () {
-                                      _onSelected(index);
+                                      setState((){
+                                         _onSelected(index);
                                       status = litems[index];
                                       print(
                                           "....!!!!>...!!!!!...????///////.......$status");
+                                      });
+                                     
                                     },
-                                    child: Container(
-                                      height: 30,
+                                    child:
+                                    
+                                     Container(
+                                      margin: EdgeInsets.only(left:20),
+                                      //color: Colors.red,
+                                      //  height: Get.height/20,
                                       width: Get.width / 5,
                                       decoration: BoxDecoration(
+                                        
                                           color: _selectedIndex != null &&
                                                   _selectedIndex == index
                                               ? Colors.blue
@@ -297,98 +299,98 @@ class _AllAddsState extends State<AllAdds> {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("Price ",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text("SAR 0 - SAR 1000 ",
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal)),
-                        RangeSlider(
-                          values: _currentRangeValues,
-                          min: 1,
-                          max: 1000,
-                          // divisions: 5,
-                          labels: RangeLabels(
-                            _currentRangeValues.start.round().toString(),
-                            _currentRangeValues.end.round().toString(),
+                                  );
+                            }),
                           ),
-                          onChanged: (values) {
-                            setState(() {
-                              // print(
-                              //     "start : ${values.start}, end: ${values.end}");
-                              _currentRangeValues = values;
-                               start = _currentRangeValues.start.round().toString();
-                               end = _currentRangeValues.end.round().toString();
-                              print(".....!!!!!!!...!!!!!....$start");
-                              print(".....!!!!!!!...!!!!!....$end");
-                            });
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              // ignore: deprecated_member_use
-                              child: RaisedButton(
-                                  color: Colors.grey[100],
-                                  child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                          child: Text(AppString.resetButton,
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .inputTextColor)))),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/login');
-                                    // Get.to(SignIn());
-                                  }),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          Text("Price ",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("SAR 0 - SAR 1000 ",
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal)),
+                          RangeSlider(
+                            values: _currentRangeValues,
+                            min: 1,
+                            max: 1000,
+                            // divisions: 5,
+                            labels: RangeLabels(
+                              _currentRangeValues.start.round().toString(),
+                              _currentRangeValues.end.round().toString(),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              // ignore: deprecated_member_use
-                              child: RaisedButton(
-                                  color: Colors.blue,
-                                  child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                          child: Text("Apply",
-                                              style: TextStyle(
-                                                  color: Colors.white)))),
-                                  onPressed: () {
-                                    applyFiltering();
-                                    print(
-                                        ".....category.......!!!!...!!!>....!!!>..$category");
-                                    print(
-                                        ".....status.......!!!!...!!!>....!!!>..$status");
-                                    print(
-                                        ".....start.......!!!!...!!!>....!!!>..$start");
-                                        print(
-                                        ".....end.......!!!!...!!!>....!!!>..$end");
-                                    // Navigator.pushNamed(context, '/login');
-                                    // Get.to(SignIn());
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
+                            onChanged: (values) {
+                              setState(() {
+                                // print(
+                                //     "start : ${values.start}, end: ${values.end}");
+                                _currentRangeValues = values;
+                                 start = _currentRangeValues.start.round().toString();
+                                 end = _currentRangeValues.end.round().toString();
+                                print(".....!!!!!!!...!!!!!....$start");
+                                print(".....!!!!!!!...!!!!!....$end");
+                              });
+                            },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                    color: Colors.grey[100],
+                                    child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                            child: Text(AppString.resetButton,
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .inputTextColor)))),
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/login');
+                                      // Get.to(SignIn());
+                                    }),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                    color: Colors.blue,
+                                    child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                            child: Text("Apply",
+                                                style: TextStyle(
+                                                    color: Colors.white)))),
+                                    onPressed: filterID  == null && status == null ?  null :() {
+                                      applyFiltering();
+                                      print(
+                                          ".....category.......!!!!...!!!>....!!!>..$category");
+                                      print(
+                                          ".....status.......!!!!...!!!>....!!!>..$status");
+                                      print(
+                                          ".....start.......!!!!...!!!>....!!!>..$start");
+                                          print(
+                                          ".....end.......!!!!...!!!>....!!!>..$end");
+                                      // Navigator.pushNamed(context, '/login');
+                                      // Get.to(SignIn());
+                                    }),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ));
+                  )),
+            );
           });
         });
   }
@@ -396,8 +398,8 @@ class _AllAddsState extends State<AllAdds> {
   applyFiltering() {
     var json = {
       //'rangeValue': _currentRangeValues,
-      'status': status,
-      'category': category,
+      'type': filterID,
+      'condition': status,
       'start':start,
       'end':end,
     };
@@ -812,8 +814,7 @@ class _AllAddsState extends State<AllAdds> {
                           padding: EdgeInsets.all(10.0),
                           child: listingCategoriesData != null
                               ? Text(
-                                  listingCategoriesData[index]['category']
-                                      ['en'],
+                                  listingCategoriesData[index]['category']['en'],
                                   style: TextStyle(
                                     color: selectedIndex == index
                                         ? Colors.white
@@ -858,7 +859,7 @@ class _AllAddsState extends State<AllAdds> {
                         // print(
                         //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
                         setState(() {
-                          ind1 = ++ind1;
+                          // ind1 = ++ind1;
                           selectedIndexListing = val;
                           category = dataListedCateOffer[val]['type']['en'];
                           print(
@@ -868,6 +869,7 @@ class _AllAddsState extends State<AllAdds> {
                           //     .createFilterAds(dataListedCateOffer[val]['id']);
                           print(
                               "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
+                          filterID =dataListedCateOffer[val]['id'];
                           //createFilterAds
                           //AdsFilteringController
                         });
