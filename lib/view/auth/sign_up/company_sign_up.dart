@@ -75,6 +75,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final formKey = GlobalKey<FormState>();
 
   bool _isChecked = false;
+   bool errorCheck = true;
+  
 
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
@@ -96,6 +98,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   @override 
   void initState() {
     super.initState();
+      errorCheck = true;
   }
    
   companyUser() {
@@ -128,12 +131,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
-        "date_of_birth" : dobController.text,
+        "date_of_birth" : finalDate,
         "user_type":  3,
         'iqama_number': iqamaController.text,
-        'service_ids[]': selectedValues
+        // 'service_ids[]': selectedValues
 
       };
+      print("....>!!!!!!!!!!!!!!..//////..........$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -151,44 +155,41 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
               space10,
               eMail(),
-              v == 1? 
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return signUpCont.resultInvalid.isTrue ? 
-                  Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text( signUpCont.indiviualSignup['errors']['email'][0],
-                      style: TextStyle(color: Colors.red),
-                      )
-                    )
-                  ):Container() ;
-
-                }
-              ): 
-              GetBuilder<SignUpController>(
-                init: SignUpController(),
-                builder: (val){
-                  return signUpCont.resultInvalid.isTrue ? 
-                  Container(
-                    margin:EdgeInsets.only(left:10),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        margin:EdgeInsets.only(left:10),
-                      alignment: Alignment.topLeft,
-                      child: Text( signUpCont.companySignUp['errors']['email'][0] ,
-                      style: TextStyle(color: Colors.red),
-                      )
-                    )
-                  ): Container();
-
-                }
-              ),
-              
+              // v == 1? 
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return signUpCont.resultInvalid.isTrue  &&  errorCheck == true? 
+              //     Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //         margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text( signUpCont.indiviualSignup['errors']['email'][0],
+              //         style: TextStyle(color: Colors.red),
+              //         )
+              //       )
+              //     ):Container() ;
+              //   }
+              // ): 
+              // GetBuilder<SignUpController>(
+              //   init: SignUpController(),
+              //   builder: (val){
+              //     return signUpCont.resultInvalid.isTrue && errorCheck == true ? 
+              //     Container(
+              //       margin:EdgeInsets.only(left:10),
+              //       alignment: Alignment.topLeft,
+              //       child: Container(
+              //           margin:EdgeInsets.only(left:10),
+              //         alignment: Alignment.topLeft,
+              //         child: Text( signUpCont.companySignUp['errors']['email'][0] ,
+              //         style: TextStyle(color: Colors.red),
+              //         )
+              //       )
+              //     ): Container();
+              //   }
+              // ),
               space10,
               mobile(),
               space10 ,
@@ -219,13 +220,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 },
               ),
               space10,
-              companyDob(),
+              v == 1 ?
+              companyDob()
+              : Container(),
+              v ==2 ? 
               GetBuilder<ServicesController>(
                 init: ServicesController(),
                 builder: (val){
                   return services(val.servicesListdata);
                 },
-              ),
+              ): Container(),
               space10,
               radioalert(),
               v == 2 ? 
@@ -396,66 +400,40 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
   var finalDate;
   Widget companyDob() {
-    // return Container(
-    //   margin:EdgeInsets.only(left:20, right: 20),
-    //   width: Get.width * 0.9,
-    //   child: CustomTextFiled(
-    //     isObscure: false,
-    //     hintText: "date_of_birth".tr,
-    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-    //     hintColor: AppColors.inputTextColor,
-    //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
-    //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
-    //     validator: (value) {
-    //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-    //       RegExp regExp = RegExp(pattern);
-    //       if (value.length == 0) {
-    //         return 'Enter your DOB';
-    //         } else if (!regExp.hasMatch(value)) {
-    //         return 'Enter a valid birthday format is yyyy-mm-dd';
-    //         }
-    //         return null;
-    //       }, 
-    //     errorText: '',
-    //   ),
-    // );
-return Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadiusDirectional.circular(20)
-  ),
-  child:   Padding(
-    padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: WrapCrossAlignment.s,
-      children: <Widget>[
-        Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
-        // ignore: deprecated_member_use
-        GestureDetector(
-          child: Icon(Icons.calendar_today),
-          onTap: () {
-            
-            showDatePicker(
-              context: context,
-              initialDate:  DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime(2222)
-            ).then((date) {
-              setState(() {               
-                dateTime = date;
-                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                print("..................$finalDate");
-              });
-            });
-          },
-        )
-      ],
-    ),
-  ),
-);
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadiusDirectional.circular(20)
+      ),
+      child:   Padding(
+        padding: const EdgeInsets.symmetric(vertical:8.0,horizontal: 35),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: WrapCrossAlignment.s,
+          children: <Widget>[
+            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
+            // ignore: deprecated_member_use
+            GestureDetector(
+              child: Icon(Icons.calendar_today),
+              onTap: () {
+                
+                showDatePicker(
+                  context: context,
+                  initialDate:  DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now()
+                ).then((date) {
+                  setState(() {               
+                    dateTime = date;
+                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    print("..................$finalDate");
+                  });
+                });
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
   Widget comName() {
     return  Container(
@@ -742,7 +720,17 @@ return Container(
         onFieldSubmitted: (value) {  }, 
         // isObscure: true,
         textController: crController,
-        validator: (value) {  }, 
+        validator: (value) { 
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return " CR is Required";
+          } else if (!regExp.hasMatch(value)) {
+            return "CR must be a-z and A-Z";
+          }
+          else
+          return null;
+        },
         errorText: '',
       ),
     );

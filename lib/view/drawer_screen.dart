@@ -13,6 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/favourite.dart';
+import 'package:success_stations/view/UseProfile/privacy.dart';
+import 'package:success_stations/view/UseProfile/term_and_conditions.dart';
+import 'package:success_stations/view/UseProfile/user_agreement.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/auth/advertise.dart';
@@ -72,7 +75,7 @@ class _AppDrawerState extends State<AppDrawer> {
     setState(() {
       if (pickedFile != null) {
         imageP = pickedFile!.path;    
-        print("..........=-=-=-=-=-=-=-=-=$imageP");  
+        
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
@@ -83,7 +86,7 @@ class _AppDrawerState extends State<AppDrawer> {
           dio.FormData formData = dio.FormData.fromMap({          
             "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
           });
-   
+   print("..........=-=-=-=-=-=-=-=-=$imageP");  
           Get.find<AdPostingController>().uploadAdImage(formData); 
           Get.find<UserProfileController>().getUserProfile();
         } catch (e) {
@@ -94,7 +97,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
-    print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
+    // print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
     image = box.read('user_image');
     
     return ClipRRect(
@@ -243,11 +246,18 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
                            Get.to(AboutUs());
                           },15.0 ),
-                          CustomListTile(AppImages.privacy, 'privacy'.tr, () => {},15.0 ),
+                          CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
+                            Get.to(Privacy())
+                          },15.0 ),
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
                            Get.to(AdvertisePage())
                           },15.0 ),
-                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {},12.0 ),
+                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
+                            Get.to(UserAgreement())
+                          },12.0 ),
+                           CustomListTile(AppImages.ugr, 'Term and Conditions'.tr, () => {
+                             Get.to(TermConditions())
+                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
                            Get.to(Contact())
                           },15.0 ),

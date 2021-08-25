@@ -8,6 +8,13 @@ Future<http.Response> allOffers() async {
   var url = Uri.parse("${conf.baseUrl}offers");
 
   final result = await http.get(url, headers: ApiHeaders().headersWithToken);
-  print("....!!!!!...!!!!...!!!!!.....1111..........$result");
+  return result;
+}
+
+Future<http.Response> myOffers() async {
+  await ApiHeaders().getData();
+  final Config conf = Config();
+  var url = Uri.parse("${conf.baseUrl}my-offers");
+  final result =await http.get(url,headers: ApiHeaders().headersWithToken);  
   return result;
 }

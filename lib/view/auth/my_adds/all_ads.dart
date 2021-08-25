@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ads_filtering_controller.dart';
@@ -7,6 +8,7 @@ import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -19,6 +21,7 @@ class AllAdds extends StatefulWidget {
 }
 
 class _AllAddsState extends State<AllAdds> {
+  final ratingcont = Get.put(RatingController());
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
@@ -28,6 +31,7 @@ class _AllAddsState extends State<AllAdds> {
   final filterControlller = Get.put(AdsFilteringController());
   var listtype = 'list';
   var userId;
+  var myrate;
   bool _value = false;
   var selectedIndex = 0;
   var selectedIndexListing = 0;
@@ -84,6 +88,17 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
+          //  GetBuilder<RatingController>(
+          //                             // id: 'aVeryUniqueID', // here
+          //                             init: RatingController(),
+                                     
+          //                             builder: (value) 
+
+          //                             {
+          //                                print('am working');
+          //                               return ;
+          //                             }
+          //                             ),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -390,11 +405,19 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   Widget myAddsList(allDataAdds) {
+   
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        print(
-            "........-------======---------......${allDataAdds[index]['image'].length}");
+        // print(
+        //     "........-------======---------......${allDataAdds[index]['image'].length}");
+
+       
+        // var ratingjson = {
+        //   'ads_id' : allDataAdds[index]['id'],
+        //   'rate': myrate
+        // };
+        // print("...........h....$myrate");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -456,7 +479,54 @@ class _AllAddsState extends State<AllAdds> {
                             //       )
                             //     ],
                             //   ),
-                            // ),
+                                      // ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top:5),
+                                  child: RatingBar.builder(
+                                    initialRating: 4,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 13.5,
+                                    // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) { 
+                                          var ratingjson = {
+                                            'ads_id' : allDataAdds[index]['id'],
+                                            'rate': rating
+                                          };
+                                          box.write('ratingID',allDataAdds[index]['id']);
+                                          // print("////////////${box.write('ratingID','ads_id')}");
+                                          var hehe;
+                                          hehe= box.read('ratingID');
+                                          print("///adasdasdasdasdadasdasdasdasd $hehe");
+                                          ratingcont.ratings(ratingjson);
+                                          print(ratingjson);
+                                           GetBuilder<RatingController>(
+                                            
+                                      // id: 'aVeryUniqueID', // here
+                                      init: RatingController(),
+                                     
+                                      builder: (value) 
+
+                                      {
+                                         print('am working');
+                                        return value.getratings(allDataAdds[index]['id']);
+                                      }
+                                      );
+                                       
+                                    },
+                                  ),
+                                ),
+                                
+                              ],
+                            ),
                             Expanded(
                               flex: 2,
                               child: Row(
@@ -474,6 +544,7 @@ class _AllAddsState extends State<AllAdds> {
                                 ],
                               ),
                             ),
+                            
                             // SizedBox(height: 8),
                             // Expanded(
                             //   flex:3,
@@ -492,6 +563,7 @@ class _AllAddsState extends State<AllAdds> {
                             //     ),
                             //   ),
                             // ),
+                            
                           ],
                         ),
                       ),
@@ -519,24 +591,13 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    // setState(() {
                                     liked = !liked;
-                                    // });
-                                    allDataAdds[index]['is_favorite'] == false
-                                        ? friCont.profileAdsToFav(json, userId)
-                                        : friCont.profileAdsRemove(
-                                            json, userId);
-                                    controller.addedAllAds();
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
-                                      child: allDataAdds[index]
-                                                  ['is_favorite'] ==
-                                              false
-                                          ? Image.asset(AppImages.blueHeart,
-                                              height: 20)
-                                          : Image.asset(AppImages.redHeart,
-                                              height: 20)),
+                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart, height: 20)
+                                        : Image.asset(AppImages.redHeart, height: 20)),
                                 ),
                                 Image.asset(AppImages.call, height: 20),
                               ],

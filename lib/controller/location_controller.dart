@@ -18,8 +18,8 @@ class LocationController extends GetxController {
     isLoading = true;
     await saveLocation(data).then((value) {
        
-       if(value.statusCode == 200 || value.statusCode < 400){
-         res = jsonDecode(value.body);
+      if(value.statusCode == 200 || value.statusCode < 400){
+        res = jsonDecode(value.body);
          getMyLocationToDB();
         isLoading = false;
          Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
@@ -29,7 +29,7 @@ class LocationController extends GetxController {
     });
     update();
   }
-   getMyLocationToDB() async{
+  getMyLocationToDB() async{
     print("controller call of the Favorite list");
     isLoading = true;
     await getMyLocation().then((value) {

@@ -59,30 +59,33 @@ class AddOffersState extends State<AddOffersPage> {
   final ImagePicker _picker = ImagePicker();
   XFile? pickedFile;
   late String image;
-  var fileName;
+  var fileName, addedOfferImage;
   // String _dropdownError;
   
-
-  Future getImage() async {
+   Future getImage() async {
     await ApiHeaders().getData();
-    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
+   pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
         image = pickedFile!.path;      
         fileName = pickedFile!.path.split('/').last;  
       } else {
-         print('No image selected.');
+        print('No image selected.');
       }
     });
     try {
       dio.FormData formData = dio.FormData.fromMap({          
         "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
       });
-      Get.find<StorePostAddesController>().uploadMyAdd(formData); 
-    } catch (e) {}
-     print(".......UPload image");
-  }
+      Get.find<StorePostAddesController>().uploadMyAdd(formData);      
+       addedOfferImage  = Get.find<StorePostAddesController>().uploadImageOfAdd['name'];
 
+        print(".......UPload image$addedOfferImage");
+
+    } catch (e) {
+    }
+     
+  }
   adOffersCreate() async {
     final form = formKey.currentState;
     if(form!.validate()){
@@ -90,15 +93,15 @@ class AddOffersState extends State<AddOffersPage> {
       if(pickedFile !=null) {
         try{
           dio.FormData formData = dio.FormData.fromMap({
-            'image': await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),
             'category_id': idCategory,
             'description': descriptionController.text,
             'text_ads': titleController.text,
             'url': urlContr.text,
             'listing_id': hintLinkingId,
-            'status': statusSelected
+            'status': statusSelected,
+            'image':Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
-          print("....................; add_offers,.,,,,,,,,$formData");
+           print("add posting screen .....................................>${ Get.find<StorePostAddesController>().uploadImageOfAdd['name']}");
           Get.find<StorePostAddesController>().storefOffersAAll(formData); 
         }catch(e){}
       }

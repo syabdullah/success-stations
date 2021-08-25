@@ -55,11 +55,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   var json;
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
+  final con = Get.put(AdPostingController());
     // Pick an image
     XFile? pickedFile;
   late String image;
   var fileName;
 var id,cid,rid,crid ;
+var uploadedImage;
 var lang;
   @override
   void initState() {
@@ -71,11 +73,11 @@ var lang;
     lang = box.read('lang_code');
     catogoryController.getCategoryNames();
     catogoryController.getCategoryTypes();
+
   }
   Future getImage() async {
     await ApiHeaders().getData();
    pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
-    
     setState(() {
       if (pickedFile != null) {
         image = pickedFile!.path;      
@@ -84,19 +86,21 @@ var lang;
         print('No image selected.');
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-          Get.find<AdPostingController>().uploadAdImage(formData); 
-        } catch (e) {
+    try {
+      dio.FormData formData = dio.FormData.fromMap({          
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData);      
+       uploadedImage  = Get.find<AdPostingController>().adUpload['name'];
 
-        }
+        print(".......UPload image$uploadedImage");
+
+    } catch (e) {
+    }
      
   }
    adpost() async{ 
      if(pickedFile != null) {
-        print(".......UPload image$subtypeId");
         try {
           dio.FormData formData = dio.FormData.fromMap({            
              'category_id' : subtypeId,
@@ -112,9 +116,9 @@ var lang;
               'country_id': crid.toString(),
               'city_id':cid.toString(),
               'region_id': rid.toString(),
-              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+              "image": Get.find<AdPostingController>().adUpload['name'],            
           }); 
-          print("add posting screen ...........>$formData");
+          print("add posting screen .....................................>${ Get.find<AdPostingController>().adUpload['name']}");
           Get.find<AdPostingController>().finalAdPosting(formData); 
         } catch (e) {
             print("...............$e");
@@ -543,6 +547,7 @@ Widget istStep(List list,List types){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                maxLength: 5,
                 keyboardType: TextInputType.number,
                 controller: priceController,
                 validator: (value) {
@@ -701,7 +706,7 @@ Widget secondStep(){
           onSaved: (String? newValue) {  }, 
           onFieldSubmitted: (value) {  }, 
           // isObscure: true,
-          controller: mobileNoController ,
+          controller: telePhoneController ,
           validator: (value) {  
             if (value == null || value.isEmpty) {
               return 'Please enter some text';
@@ -737,70 +742,81 @@ Widget secondStep(){
   Widget thirdStep(){
     return Column(
       children: [
-        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,),
+        fileName != null ?
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):Container(),
         
         Card(
           child: Column(
             children: [
               Padding(
-                 padding: const EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
-                    Text(priceController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                 padding: const EdgeInsets.only(top:10,left: 30,right: 30),
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(height: 15.h,),
-                        SizedBox(height: 15.h,),
-                         Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                        Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10.h),
-                      // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
-                      SizedBox(height: 15.h,),
-                      //  Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      // SizedBox(height: 7.h),
-                      // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h,),
-                       Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      // Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      // SizedBox(height: 15.h,),
-                      
+                      Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                      Text("SAR ${priceController.text}",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                     ],
                   ),
-                   Container(
-                     margin: EdgeInsets.only(right: 20),
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15.h,),
-                        Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                        Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        
-                        SizedBox(height: 15.h,),
-                       Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7.h),
-                      Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15.h),
-                         Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7.h),
-                         Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10.h),
-                        
-                      ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left:30),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex:1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(height: 15.h,),
+                          SizedBox(height: 15.h,),
+                          Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          // SizedBox(height: 10.h),
+                          // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
+                          // SizedBox(height: 15.h,),
+                          // Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          // SizedBox(height: 7.h),
+                          // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 15.h,),
+                          Text("Category",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 15.h,),
+                          
+                        ],
                       ),
-                   ),
-                ],
+                    ),
+                     Container(
+                      //  margin: EdgeInsets.only(right: 20),
+                       child: Expanded(
+                         flex: 1,
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 25.h,),
+                            // Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            // SizedBox(height: 7.h),
+                            // Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            // SizedBox(height: 15.h,),
+                            Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                             SizedBox(height: 5.h),
+                           Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h),
+                             Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            SizedBox(height: 7.h),
+                             Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            SizedBox(height: 15.h),
+                            
+                          ],
+                          ),
+                       ),
+                     ),
+                  ],
+                ),
               )
             ],
           ),
@@ -809,7 +825,7 @@ Widget secondStep(){
         width: Get.width,
         child: Card(
           child:Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.only(top:15,left:30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

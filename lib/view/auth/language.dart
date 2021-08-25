@@ -26,7 +26,7 @@ class _LanguagePageState extends State<Language> {
   final getLang = Get.put(LanguageController());
   GetStorage box = GetStorage();
   bool pressAttention = false;
-  var index = 1;
+  var index = 0;
 
   @override
   void initState() {
@@ -83,39 +83,43 @@ class _LanguagePageState extends State<Language> {
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      body:Column(
-        children: [
-          space50, 
-          mainLogo(),
-          space50,
-          Container(
-            height: MediaQuery.of(context).size.height * 0.05,
-            child: chooseLanguage()
+      body:SingleChildScrollView(
+        // children: [
+         child:  Column(
+            children: [
+              space50, 
+              mainLogo(),
+              space50,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                child: chooseLanguage()
+              ),
+              GetBuilder<LanguageController>(
+                init: LanguageController(),
+                builder:(data){
+                  return  data.isLoading == true ? Container(
+                    height: Get.height * 0.25,
+                  ):  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: getTextWidgets(data.languageList)
+                  );
+                }
+              ),
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,  
+                textColor: AppColors.appBarBackGroun,
+                buttonText: "next".tr,
+                fontSize: 18.toDouble(),
+                callback: navigateToHomeScreen
+              ),
+              SizedBox(height: Get.height * 0.13),
+              Container(
+                alignment: Alignment.bottomRight,
+                child: existingAccount()
+              ),
+            ],
           ),
-          GetBuilder<LanguageController>(
-            init: LanguageController(),
-            builder:(data){
-              return  data.isLoading == true ? Container(
-                height: Get.height * 0.25,
-              ):  Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: getTextWidgets(data.languageList)
-              );
-            }
-          ),
-          submitButton(
-            bgcolor: AppColors.appBarBackGroundColor,  
-            textColor: AppColors.appBarBackGroun,
-            buttonText: "next".tr,
-            fontSize: 18.toDouble(),
-            callback: navigateToHomeScreen
-          ),
-          SizedBox(height: Get.height * 0.13),
-          Container(
-            alignment: Alignment.bottomRight,
-            child: existingAccount()
-          ),
-        ],
+        // ],
       ),
     );
   }
