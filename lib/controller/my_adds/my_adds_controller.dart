@@ -20,7 +20,7 @@ class MyAddsAdedController extends GetxController {
     isLoading = true;
     await addsFvrtMyAdds().then((value) {
        addsGet= jsonDecode(value.body);
-      print("json decode response of offer.......>$addsGet");
+      // print("json decode response of offer.......>$addsGet");
       for(int c =0; c < addsGet['data'].length; c++){
         myMyAdd.add(addsGet['data'][c]);
       }
