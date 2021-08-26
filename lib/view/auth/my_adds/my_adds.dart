@@ -71,7 +71,7 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                  print(val.cData);
+                  print("mejmej me j mje ${val.cData}");
                 return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(

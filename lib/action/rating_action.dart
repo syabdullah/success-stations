@@ -14,9 +14,7 @@ Future<http.Response> adRating(dataa) async{
   
 }
 
-var id=box.read('ratingID');
 Future<http.Response> getRating(id) async {
-  print("..........rating idddddd.....$id");
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}rating/$id");

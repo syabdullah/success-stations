@@ -90,6 +90,7 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
+          
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -513,23 +514,10 @@ class _AllAddsState extends State<AllAdds> {
                                           print("///adasdasdasdasdadasdasdasdasd $hehe");
                                           ratingcont.ratings(ratingjson);
                                           print(ratingjson);
-                                           GetBuilder<RatingController>(
-                                            
-                                      // id: 'aVeryUniqueID', // here
-                                      init: RatingController(),
-                                     
-                                      builder: (value) 
-
-                                      {
-                                         print('am working');
-                                        return value.getratings(allDataAdds[index]['id']);
-                                      }
-                                      );
-                                       
                                     },
                                   ),
                                 ),
-                                
+                              
                               ],
                             ),
                             Expanded(
@@ -598,6 +586,7 @@ class _AllAddsState extends State<AllAdds> {
                                     };
                                     liked = !liked;
                                     allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+                                    Get.to(AllAdds());
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),

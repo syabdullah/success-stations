@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
+import 'package:success_stations/action/all_adds_category_action.dart';
 import 'package:success_stations/action/friends.dart';
 import 'package:success_stations/action/report_user_action.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
@@ -188,6 +189,16 @@ class FriendsController extends GetxController {
         isLoading = false;
       }
       
+    });
+    update();
+  }
+  var cData;
+    addedByIdAddes(id,userId) async{
+    isLoading = true ;
+    await basedAddById(id,userId).then((res) {
+      cData = jsonDecode(res.body);
+      print("//////////jjjjjjjjjjjjjjjj///////// json response .........................>>>>$cData");
+      isLoading = false;
     });
     update();
   }
