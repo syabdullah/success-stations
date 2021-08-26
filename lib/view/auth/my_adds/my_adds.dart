@@ -512,7 +512,7 @@ void _adsfiltringheet() {
                                         liked = !liked;
                                       // });
                                       allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                                      controller.addedAllAds();
+                                      controller.addedByIdAddes(catID, userId);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right:5),
@@ -669,7 +669,7 @@ void _adsfiltringheet() {
   }
   void navigateToGoogleLogin() {
   }
-
+var catID;
   Widget addsCategoryWidget(listingCategoriesData){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -682,6 +682,7 @@ void _adsfiltringheet() {
             itemBuilder: (context, index) {
               if(ind == 0){
                 print("...................PPPPPPPPP,.....");
+                catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
               }
               ind = ++ind;
@@ -693,6 +694,7 @@ void _adsfiltringheet() {
                       onTap: () {
                         setState(() {
                           // ind = ++ind;
+                          catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
