@@ -417,15 +417,8 @@ var catID;
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        // print(
-        //     "........-------======---------......${allDataAdds[index]['image'].length}");
-
-       
-        // var ratingjson = {
-        //   'ads_id' : allDataAdds[index]['id'],
-        //   'rate': myrate
-        // };
-        // print("...........h....$myrate");
+        print(
+            "........-------=ratingggggggggg=====---------......${allDataAdds[index]['rating']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -473,35 +466,33 @@ var catID;
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            // Expanded(
-                            //   flex : 2,
-                            //   child:  Row(
-                            //     children: [
-                            //       Icon(Icons.location_on, color:Colors.grey),
-                            //       Container(
-                            //         margin:EdgeInsets.only(left:29),
-                            //         child: Text(
-                            //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       )
-                            //     ],
-                            //   ),
-                                      // ),
                             Row(
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-                                  child: RatingBar.builder(
-                                    initialRating: 4,
+                                  child:  allDataAdds[index]['rating'] > 0 ? 
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating: allDataAdds[index]['rating'].toDouble(),
                                     minRating: 1,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     itemCount: 5,
-                                    itemSize: 13.5,
-                                    // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                                    itemSize: 22.5,
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {         
+                                    },
+                                  ): 
+                                  RatingBar.builder(
+                                    initialRating: allDataAdds[index]['rating'].toDouble(),
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 22.5,
                                     itemBuilder: (context, _) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
@@ -515,25 +506,8 @@ var catID;
                                       ratingcont.getratings(allDataAdds[index]['id']);
                                                 
                                     },
-                                  ),
+                                  )
                                 ),
-                                GetBuilder<RatingController>(
-                                  init:RatingController(),
-
-                                  builder: (val){
-                                    if(val.getRate !=null ){
-                                      valueData = double.parse(val.getRate['data'].toString());
-                                    }
-                                    return Row(
-                                      children: [
-                                        Container(child:  val.getRate !=null  && val.getRate['success'] == true ?Text(valueData.toStringAsFixed(1)):Container()
-                                        ,)
-
-                                    ],);
-
-                                  })
-                              
-                              
                               ],
                             ),
                             Expanded(
