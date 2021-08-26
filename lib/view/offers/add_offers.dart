@@ -10,15 +10,15 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/store_offer_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:dio/src/response.dart' as response;
+
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dio/dio.dart' as dio;
+// import 'package:validators/validators.dart';
 
 class AddOffersPage extends StatefulWidget {
    AddOffersState createState() => AddOffersState();
@@ -32,12 +32,10 @@ class AddOffersState extends State<AddOffersPage> {
   int activeStep = 0;
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int upperBound = 3;  
-  final _formKey = GlobalKey<FormState>();
   List list= [];
   List type = [];
   var selectedtype;
   var selectedCategory, hintLinkingId;
-  // var selectedSubCategory;
   var subtypeId;
   var statusSelected;
   final formKey = GlobalKey<FormState>();
@@ -52,7 +50,6 @@ class AddOffersState extends State<AddOffersPage> {
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController textAddsController = TextEditingController();
    TextEditingController statusController = TextEditingController();
-  final GlobalKey<FormFieldState> _specifyTextFieldKey = GlobalKey<FormFieldState>();
 
   var createdJson;
   GetStorage box = GetStorage();
@@ -60,7 +57,6 @@ class AddOffersState extends State<AddOffersPage> {
   XFile? pickedFile;
   late String image;
   var fileName, addedOfferImage;
-  // String _dropdownError;
   
    Future getImage() async {
     await ApiHeaders().getData();
@@ -113,7 +109,6 @@ class AddOffersState extends State<AddOffersPage> {
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      // key: _scaffoldKey,
       appBar: AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
       body: SingleChildScrollView(
         child:Form(
@@ -219,7 +214,6 @@ class AddOffersState extends State<AddOffersPage> {
                 onChanged: (value) {
                   setState(() {
                     statusSelected = value;
-                    // _dropdownError = null;
                     value == 'New' ? statusSelected = '1' : statusSelected = '0' ;
                   });
                 },
@@ -236,17 +230,21 @@ class AddOffersState extends State<AddOffersPage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal:15),
       child: TextFormField(
-        focusNode: FocusNode(),
+        // focusNode: FocusNode(),
         controller: urlContr,
-        validator: (value) {
-        if (value == null || value.isEmpty) {
-            return 'URL field required';
+        validator: (val) {
+          String pattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)'
+
+;
+          RegExp regExp = RegExp(pattern);
+          if ( val == null || val.isEmpty ){
+            return 'URL field is Required';
+          }
+          else if (!regExp.hasMatch(val)) {
+            return "Enter Valid URL";
           }
           return null;
         },
-        // style: TextStyle(
-        //   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-        // ),
         decoration:InputDecoration( 
           hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
           border: OutlineInputBorder(
@@ -265,7 +263,6 @@ Widget offerDesc(){
         padding: EdgeInsets.symmetric(horizontal:15,),
         color: AppColors.inPutFieldColor,
         child: TextFormField(
-          // maxLength: 300,
           maxLines: 4,
           textAlignVertical: TextAlignVertical.top,
           focusNode: FocusNode(),   
@@ -276,7 +273,6 @@ Widget offerDesc(){
             }
             return null;
           },
-          // style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
           decoration:InputDecoration(
             contentPadding: EdgeInsets.only( left:10,top: 10, bottom :100),
             hintText: "Offer Description",
@@ -299,8 +295,8 @@ Widget offerDesc(){
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey,width: 1),
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0) //                 <--- border radius here
-          ),
+          Radius.circular(5.0)
+        ),
       ),
       child:  ButtonTheme(
         alignedDropdown: true,

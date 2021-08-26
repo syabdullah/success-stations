@@ -74,14 +74,21 @@ class _FavouritePageState extends State<FavouritePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            topWidget(),           
+            topWidget(), 
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
               builder: (val) {
-                return val.isLoading == true ? CircularProgressIndicator():val.fvr8DataList !=null ?   Column(
+                return val.isLoading == true ? CircularProgressIndicator():val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data'])
                   : myAddGridView(val.fvr8DataList['data']) ,
-                ): Container(child:Text("ndcbjbbcv"));
+                ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
+                Container(
+                  margin: EdgeInsets.only(top: Get.height/ 4),
+                  child: Center(
+                    child: Text(
+                    fContr.fvr8DataList['errors'], style:TextStyle(fontSize: 25)),
+                  )
+                ):Container();        
                 
               },
             ) 

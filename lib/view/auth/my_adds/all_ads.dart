@@ -33,6 +33,7 @@ class _AllAddsState extends State<AllAdds> {
   var listtype = 'list';
   var userId;
   var myrate;
+  late double valueData;
   bool _value = false;
   var selectedIndex = 0;
   var selectedIndexListing = 0;
@@ -410,21 +411,14 @@ class _AllAddsState extends State<AllAdds> {
     print(".....output>..$json");
     filterControlller.createFilterAds(json);
   }
-
+var catID;
   Widget myAddsList(allDataAdds) {
    
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        // print(
-        //     "........-------======---------......${allDataAdds[index]['image'].length}");
-
-       
-        // var ratingjson = {
-        //   'ads_id' : allDataAdds[index]['id'],
-        //   'rate': myrate
-        // };
-        // print("...........h....$myrate");
+        print(
+            "........-------=ratingggggggggg=====---------......${allDataAdds[index]['rating']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -472,66 +466,48 @@ class _AllAddsState extends State<AllAdds> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            // Expanded(
-                            //   flex : 2,
-                            //   child:  Row(
-                            //     children: [
-                            //       Icon(Icons.location_on, color:Colors.grey),
-                            //       Container(
-                            //         margin:EdgeInsets.only(left:29),
-                            //         child: Text(
-                            //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       )
-                            //     ],
-                            //   ),
-                                      // ),
                             Row(
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-                                  child: RatingBar.builder(
-                                    initialRating: 4,
+                                  child:  allDataAdds[index]['rating'] > 0 ? 
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating: allDataAdds[index]['rating'].toDouble(),
                                     minRating: 1,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     itemCount: 5,
-                                    itemSize: 13.5,
-                                    // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                                    itemSize: 22.5,
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {         
+                                    },
+                                  ): 
+                                  RatingBar.builder(
+                                    initialRating: allDataAdds[index]['rating'].toDouble(),
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 22.5,
                                     itemBuilder: (context, _) => Icon(
                                       Icons.star,
                                       color: Colors.amber,
                                     ),
                                     onRatingUpdate: (rating) { 
-                                          var ratingjson = {
-                                            'ads_id' : allDataAdds[index]['id'],
-                                            'rate': rating
-                                          };
-                                          box.write('ratingID',allDataAdds[index]['id']);
-                                          // print("////////////${box.write('ratingID','ads_id')}");
-                                          var hehe;
-                                          hehe= box.read('ratingID');
-                                          print("///adasdasdasdasdadasdasdasdasd $hehe");
-                                          ratingcont.ratings(ratingjson);
-                                          print(ratingjson);
-                                           GetBuilder<RatingController>(// id: 'aVeryUniqueID', // here
-                                             init: RatingController(),
-                                     
-                                              builder: (value) 
-
-                                              {
-                                                print('am working');
-                                                return value.getratings(allDataAdds[index]['id']);
-                                              }
-                                            );
+                                      var ratingjson = {
+                                        'ads_id' : allDataAdds[index]['id'],
+                                        'rate': rating
+                                      };
+                                      ratingcont.ratings(ratingjson );
+                                      ratingcont.getratings(allDataAdds[index]['id']);
                                                 
                                     },
-                                  ),
+                                  )
                                 ),
-                              
                               ],
                             ),
                             Expanded(
@@ -588,10 +564,7 @@ class _AllAddsState extends State<AllAdds> {
                       Container(
                         // width: Get.width/4,
                         // height: Get.height/5.5,
-                        child: GetBuilder<FriendsController>(
-                          init: FriendsController(),
-                          builder: (val) {
-                            return Row(
+                        child:  Row(
                               children: [
                                 GestureDetector(
                                   onTap: () {
@@ -599,8 +572,10 @@ class _AllAddsState extends State<AllAdds> {
                                       'ads_id': allDataAdds[index]['id']
                                     };
                                     liked = !liked;
-                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+                                     print("..................-----------$catID.........${allDataAdds[index]['is_favorite'] }");
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); 
                                    
+                                    controller.addedByIdAddes(catID,null);
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
@@ -609,9 +584,7 @@ class _AllAddsState extends State<AllAdds> {
                                 ),
                                 Image.asset(AppImages.call, height: 20),
                               ],
-                            );
-                          },
-                        ),
+                            )
                       )
                     ],
                   ),
@@ -782,10 +755,15 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-             
+              
               if (ind == 0) {
+                 catID =  listingCategoriesData[index]['id'];
+                 print(
+        "my adds Page.......................,,,,,,,...-------------------$catID");
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
+               
               }
+              ++ind;
               return Row(
                 children: [
                   Container(
@@ -793,8 +771,8 @@ class _AllAddsState extends State<AllAdds> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          ind = ++ind;
                           selectedIndex = index;
+                          catID = listingCategoriesData[index]['id'];
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
@@ -840,8 +818,6 @@ class _AllAddsState extends State<AllAdds> {
 
   var ind1 = 0;
   Widget headingofTypes(dataListedCateOffer) {
-    // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
