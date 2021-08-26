@@ -59,6 +59,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     // Pick an image
     XFile? pickedFile;
   late String image;
+  var editImage;
   var fileName;
 var id,cid,rid,crid ;
 var uploadedImage;
@@ -75,6 +76,10 @@ var editData;
     editData = Get.arguments;
     if(editData != null ) {
       print(".....EEEEE-----$editData");
+      titleController = TextEditingController(text: editData['title'][lang]);
+      selectedStatus =  editData['status'];
+      descController =  TextEditingController(text: editData['description'][lang]);
+      editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;
     }
     // catogoryController.getCategoryNames();
     // catogoryController.getCategoryTypes();
