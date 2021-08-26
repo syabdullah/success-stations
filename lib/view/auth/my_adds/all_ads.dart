@@ -33,6 +33,7 @@ class _AllAddsState extends State<AllAdds> {
   var listtype = 'list';
   var userId;
   var myrate;
+  late double valueData;
   bool _value = false;
   var selectedIndex = 0;
   var selectedIndexListing = 0;
@@ -506,31 +507,32 @@ var catID;
                                       color: Colors.amber,
                                     ),
                                     onRatingUpdate: (rating) { 
-                                          var ratingjson = {
-                                            'ads_id' : allDataAdds[index]['id'],
-                                            'rate': rating
-                                          };
-                                          box.write('ratingID',allDataAdds[index]['id']);
-                                          // print("////////////${box.write('ratingID','ads_id')}");
-                                          var hehe;
-                                          hehe= box.read('ratingID');
-                                          print("///adasdasdasdasdadasdasdasdasd $hehe");
-                                          ratingcont.ratings(ratingjson);
-                                          print(ratingjson);
-                                           GetBuilder<RatingController>(// id: 'aVeryUniqueID', // here
-                                             init: RatingController(),
-                                     
-                                              builder: (value) 
-
-                                              {
-                                                print('am working');
-                                                return value.getratings(allDataAdds[index]['id']);
-                                              }
-                                            );
+                                      var ratingjson = {
+                                        'ads_id' : allDataAdds[index]['id'],
+                                        'rate': rating
+                                      };
+                                      ratingcont.ratings(ratingjson );
+                                      ratingcont.getratings(allDataAdds[index]['id']);
                                                 
                                     },
                                   ),
                                 ),
+                                GetBuilder<RatingController>(
+                                  init:RatingController(),
+
+                                  builder: (val){
+                                    if(val.getRate !=null ){
+                                      valueData = double.parse(val.getRate['data'].toString());
+                                    }
+                                    return Row(
+                                      children: [
+                                        Container(child:  val.getRate !=null  && val.getRate['success'] == true ?Text(valueData.toStringAsFixed(1)):Container()
+                                        ,)
+
+                                    ],);
+
+                                  })
+                              
                               
                               ],
                             ),
