@@ -19,6 +19,7 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);
+       print("/////////junaid////////// json response .........................>>>>$cData");
       isLoading = false;
     });
     update();

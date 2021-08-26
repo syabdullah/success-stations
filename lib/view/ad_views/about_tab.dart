@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 
@@ -12,6 +13,17 @@ class AboutTab extends StatefulWidget {
 }
 
 class _AboutTabState extends State<AboutTab> {
+    final userProfile = Get.put(UserProfileController());
+   var id;
+@override
+  void initState() {
+    id = Get.arguments;
+    print(id);
+    userProfile.getUseradProfile(id);
+    super.initState();
+  }    
+  
+  
   int offer = 0;
   @override
   Widget build(BuildContext context) {

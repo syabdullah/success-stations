@@ -90,6 +90,7 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
+          
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -516,6 +517,8 @@ var catID;
                                           print("///adasdasdasdasdadasdasdasdasd $hehe");
                                           ratingcont.ratings(ratingjson);
                                           print(ratingjson);
+<<<<<<< HEAD
+=======
                                            GetBuilder<RatingController>(// id: 'aVeryUniqueID', // here
                                              init: RatingController(),
                                      
@@ -527,10 +530,11 @@ var catID;
                                               }
                                             );
                                                 
+>>>>>>> 26669884ffaf0d082f14812d1b4102f636209f04
                                     },
                                   ),
                                 ),
-                                
+                              
                               ],
                             ),
                             Expanded(
@@ -595,10 +599,15 @@ var catID;
                                       'ads_id': allDataAdds[index]['id']
                                     };
                                     liked = !liked;
+<<<<<<< HEAD
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+                                   
+=======
                                      print("..................-----------$catID.........${allDataAdds[index]['is_favorite'] }");
                                     allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); 
                                    
                                     controller.addedByIdAddes(catID,null);
+>>>>>>> 3a317d87d63b4a2aea6a876b8ffee8ff8e2b6054
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
@@ -778,7 +787,11 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
+<<<<<<< HEAD
+             
+=======
               
+>>>>>>> 3a317d87d63b4a2aea6a876b8ffee8ff8e2b6054
               if (ind == 0) {
                  catID =  listingCategoriesData[index]['id'];
                  print(

@@ -27,4 +27,17 @@ class UserProfileController extends GetxController {
     });
     update();
   }
+getUseradProfile(id) async{
+    isLoading = true ;
+    await userProfiletabAction(id).then((res) {
+      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
+      userData = jsonDecode(res.body);
+      box.write('user_image',userData['data']['image']);
+    
+      isLoading = false;
+      print("////////////////////////////////    $userData");
+    });
+    update();
+  }
+
 }
