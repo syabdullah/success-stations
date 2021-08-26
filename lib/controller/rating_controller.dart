@@ -23,11 +23,11 @@ class RatingController extends GetxController {
       print(res.statusCode);
       if(res.statusCode < 400){
         isLoading(false);
-       Get.snackbar("Rating added Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+       Get.snackbar("Rated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
       }
         
        if(res.statusCode >  400){
-          Get.snackbar("something wrong",'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar(" You Already Rated this Ad ",'',backgroundColor: AppColors.appBarBackGroundColor);
       }
      });
      update();

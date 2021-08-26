@@ -59,10 +59,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     // Pick an image
     XFile? pickedFile;
   late String image;
+  var editImage;
   var fileName;
 var id,cid,rid,crid ;
 var uploadedImage;
 var lang;
+var editData;
   @override
   void initState() {
     super.initState();
@@ -71,8 +73,16 @@ var lang;
     rid = box.read('region_id');
     crid = box.read('country_id');
     lang = box.read('lang_code');
-    catogoryController.getCategoryNames();
-    catogoryController.getCategoryTypes();
+    editData = Get.arguments;
+    if(editData != null ) {
+      print(".....EEEEE-----$editData");
+      titleController = TextEditingController(text: editData['title'][lang]);
+      selectedStatus =  editData['status'];
+      descController =  TextEditingController(text: editData['description'][lang]);
+      editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;
+    }
+    // catogoryController.getCategoryNames();
+    // catogoryController.getCategoryTypes();
 
   }
   Future getImage() async {
@@ -83,7 +93,7 @@ var lang;
         image = pickedFile!.path;      
         fileName = pickedFile!.path.split('/').last;  
       } else {
-        print('No image selected.');
+        // print('No image selected.');
       }
     });
     try {
@@ -93,7 +103,7 @@ var lang;
       Get.find<AdPostingController>().uploadAdImage(formData);      
        uploadedImage  = Get.find<AdPostingController>().adUpload['name'];
 
-        print(".......UPload image$uploadedImage");
+        // print(".......UPload image$uploadedImage");
 
     } catch (e) {
     }
@@ -145,9 +155,8 @@ var lang;
   
   }
    addraft() async{
-    
+ 
      if(pickedFile != null) {
-       
         try {
           dio.FormData formData = dio.FormData.fromMap({            
              'category_id' : subtypeId,
@@ -219,7 +228,7 @@ var lang;
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            print("...................JJ ${val.datacateg}");
+            // print("...................JJ ${val.datacateg}");
             return 
              activeStep == 0 ? istStep(val.datacateg,val.datacategTypes) :
              activeStep == 1 ? secondStep() : 
@@ -475,7 +484,7 @@ Widget istStep(List list,List types){
                 validator: (value) {
                 if (value == null || value.isEmpty) {
                     return 'Please enter some text';
-                  }
+                }
                   return null;
                 },
                 style: TextStyle(
@@ -762,14 +771,13 @@ Widget secondStep(){
     return Column(
       children: [
         fileName != null ?
-        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):Container(),
-        
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):Container(),     
         Card(
           child: Column(
             children: [
               Padding(
                  padding: const EdgeInsets.only(top:10,left: 30,right: 30),
-                child: Expanded(
+                child: Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -780,12 +788,11 @@ Widget secondStep(){
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left:30),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(
-                      flex:1,
+                    Container(
+                      // flex:1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -811,8 +818,8 @@ Widget secondStep(){
                     ),
                      Container(
                       //  margin: EdgeInsets.only(right: 20),
-                       child: Expanded(
-                         flex: 1,
+                       child: Container(
+                        //  flex: 1,
                          child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

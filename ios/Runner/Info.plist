@@ -45,8 +45,18 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Example: You should fill this in</string>
 	<key>NSCameraUsageDescription</key>
 	<string>this app needs to access camera permision</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Example: You should fill this in</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open and in the background.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -55,6 +65,8 @@
 	<string>This app needs access to location when open.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>this app needs to access mirco phone</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Example: You should fill this in</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>this app needs to access photo library</string>
 	<key>NSRemindersUsageDescription</key>
@@ -63,6 +75,11 @@
 	<string>Example: You should fill this in</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Example: You should fill this in</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -48,6 +48,7 @@ class _AdsViewState extends State<AdsView> {
    @override
   void initState() {
     super.initState();
+    catCont.getCategoryNames();
     addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
     banner.bannerController();
@@ -288,8 +289,6 @@ class _AdsViewState extends State<AdsView> {
   }
    var tttt;
   featuredAdsList(data) {
-   
-    print("................fffffffffffffff..>$data");
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: Get.width < 420 ? Get.height/3.6: Get.height/4.0,

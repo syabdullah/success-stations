@@ -68,8 +68,8 @@ class _CatAddsState extends State<CatAdds> {
               return data.isLoading == true
                   ? CircularProgressIndicator()
                   : data.subCatt != null
-                      ? addsCategoryWidget(data.subCatt['data'])
-                      : Container();
+                  ? addsCategoryWidget(data.subCatt['data'])
+                  : Container();
             },
           ),
           Expanded(

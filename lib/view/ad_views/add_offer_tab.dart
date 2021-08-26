@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/styling/images.dart';
 
 class AdOffers extends StatefulWidget {
@@ -12,19 +13,30 @@ class AdOffers extends StatefulWidget {
 class _AdOffersState extends State<AdOffers> {
   @override
   Widget build(BuildContext context) {
-    return gridView();
+    return 
+    GetBuilder<UserOfferController>( // specify type as Controller
+  init: UserOfferController(), // intialize with the Controller
+  builder: (value){ 
+    print(value.offerDattaTypeCategory);
+    
+    return 
+    value.offerDattaTypeCategory != null ?
+    gridView(value.offerDattaTypeCategory['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+  }
+    );
+    
   }
 }
 
 
-Widget gridView(){
+Widget gridView(offeredList){
   int offer = 1;
   return  GridView.builder(
         primary: false,
         padding: const EdgeInsets.all(20),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 1, mainAxisSpacing: 1, crossAxisCount: 2),
-        itemCount: 6,
+        itemCount: offeredList.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
     // margin: EdgeInsets.symmetric(vertical:15),
@@ -36,17 +48,21 @@ Widget gridView(){
               shape:  RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ClipRRect(
+              
+              child:offeredList[index]['image_ads'] != null ?  ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                    width: Get.width/2.5,
                   height: Get.height/5.5,
-                  child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                  child: Image.network(offeredList[index]['image_ads'])
                 ),
+              ):Container(
+                height: 120,
+                color: Colors.red,
               ),
             ),
             Container(
-              child: Text("Offer ${offer++}",style: TextStyle(color: Colors.grey),
+              child: Text(offeredList[index]['text_ads']['en'],style: TextStyle(color: Colors.grey),
             )
             )
             ],

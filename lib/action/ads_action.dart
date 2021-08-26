@@ -16,7 +16,7 @@ Future<http.Response> createAdsAction(data) async{
 Future<http.Response> getUserAds(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}friend-profile-ads/$id");
+  var url = Uri.parse("${config.baseUrl}user-ads/$id");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
