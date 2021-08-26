@@ -59,8 +59,12 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
     );
   } 
 
+var image;
   Widget profileDetail(data) { 
     print("..........DAATTAAA.....$data");
+  if(data['image'] != null) {
+    image = data['image'][0]['url'];
+  }
     return Stack(
       children: [         
         Container(
@@ -217,9 +221,10 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:20,left: 10),
+                              margin: EdgeInsets.only(top:20,left: 20),
                               child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
@@ -228,7 +233,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                             ), 
                             Container(
                               
-                              margin: EdgeInsets.only(top:25),
+                              margin: EdgeInsets.only(top:20,left: 20),
                               child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
@@ -238,10 +243,10 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                           ],
                         ),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:25),
+                              margin: EdgeInsets.only(top:25,),
                               child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
@@ -287,7 +292,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                               child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
-                                margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
+                                margin: EdgeInsets.only(bottom:20,left: 20,top: 5),
                               child: Text(data['degree'] != null ? data['degree'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
@@ -296,19 +301,19 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:25),
+                              margin: EdgeInsets.only(top:25,right: 20,),
                               child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 15,top:5),
+                              margin: EdgeInsets.only(right: 20,top:5),
                               child: Text(data['university'] != null ? data['university']['name'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ), 
                             Container(
-                              margin: EdgeInsets.only(top:20),
+                              margin: EdgeInsets.only(top:20,right: 20,),
                               child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                             ),
                             Container(
-                                margin: EdgeInsets.only(bottom:20,top: 5),
+                                margin: EdgeInsets.only(bottom:20,top: 5,right: 20,),
                               child: Text(data['semester'] != null ? data['semester'].toString() : '',style: TextStyle(fontWeight: FontWeight.w600)),
                             ),               
                           ],
@@ -342,102 +347,100 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
   }
 
   Widget ads(adsData) {
-    print("mmmndvmdnvndfjnvbkdfjb----mmmmm-====$adsData");
-    return Expanded(
-      child: ListView.builder(
-            itemCount: adsData != null ? adsData.length:0,
-            itemBuilder: (BuildContext context,index) {
-              return adsData != null ? GestureDetector(
-                onTap: (){
-                  
-                },
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 70,
-                        margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(AppImages.profileBg,height: 80,fit: BoxFit.fitHeight,)
-                        )
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: Get.width/3,
-                            child: Text(adsData[index]['text_ads'],style: TextStyle(fontWeight: FontWeight.bold),),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset(AppImages.location,height: 15,),
-                              SizedBox(width:5),
-                              Container(
-                                child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // Image.asset(AppImages.location,height: 15,),
-                              Icon(Icons.person,color: Colors.grey),
-                              SizedBox(width:5),
-                              Container(
-                                child: Text("codility solutions"),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Align(
-                        widthFactor: Get.width < 400 ? 2.2: 3.0,
-                        alignment: Alignment.topRight,
-                        child: Column(
+    return ListView.builder(
+          itemCount: adsData != null ? adsData.length:0,
+          itemBuilder: (BuildContext context,index) {
+            return adsData != null ? GestureDetector(
+              onTap: (){
+                
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 70,
+                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: adsData[index]['image'].length != 0 ? Image.network(adsData[index]['image'][0]['url'],height: 80,fit: BoxFit.fitHeight) : Container(
+                          height: Get.height/8,
+                          child: Icon(Icons.image,size: 50,))
+                      )
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: Get.width/3,
+                          child: Text(adsData[index]['title']['en'],style: TextStyle(fontWeight: FontWeight.bold),),
+                        ),
+                        Row(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,height:50)
+                            Image.asset(AppImages.person,height: 15,),
+                            SizedBox(width:5),
+                            Container(
+                              child: Text(adsData[index]['contact_name'],style: TextStyle(fontWeight: FontWeight.w600)),
                             ),
-                            SizedBox(height: 5,),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    var json = {
-                                      'ads_id' : adsData[index]['id']
-                                    };
-                                    // setState(() {
-                                      liked = !liked;
-                                    // });
-                                   adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json, id);
-                                  },
-                                child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
-                                ),
-                                SizedBox(width:5),
-                                GestureDetector(
-                                  onTap: (){
-                                    launch.call("tel:12345678912");
-                                  },
-                                child: Image.asset(AppImages.call,height: 25,)
-                                )
-                              ],
-                            )
                           ],
                         ),
-                      )
-                    ],
-                  ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(AppImages.location,height: 15,),
+                            // Icon(Icons.person,color: Colors.grey),
+                            SizedBox(width:5),
+                            Container(
+                              child: adsData[index]['address'] != null ? Text(adsData[index]['address']):Text(""),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Align(
+                      widthFactor: Get.width < 400 ? 2.2: 3.0,
+                      alignment: Alignment.topRight,
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: image != null ? Image.network(image) : Image.asset(AppImages.person,fit: BoxFit.fill,height:30)
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  var json = {
+                                    'ads_id' : adsData[index]['id']
+                                  };
+                                  // setState(() {
+                                    liked = !liked;
+                                  // });
+                                 adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json, id);
+                                },
+                              child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
+                              ),
+                              SizedBox(width:5),
+                              GestureDetector(
+                                onTap: (){
+                                  launch.call("tel:12345678912");
+                                },
+                              child: Image.asset(AppImages.call,height: 25,)
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-              ): Container(
-                child: Text("No Ads "),
-              );
+              ),
+            ): Container(
+              child: Text("No Ads "),
+            );
 
-            },
-          ) , 
-    
-    );
+          },
+        );
   }
 }

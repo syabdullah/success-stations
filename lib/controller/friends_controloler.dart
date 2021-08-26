@@ -129,7 +129,7 @@ class FriendsController extends GetxController {
     isLoading = true ;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-      print("/././././.-----$id");
+      print("/././././.-----$userAds");
       isLoading = false;
     });
     update();
@@ -163,7 +163,9 @@ class FriendsController extends GetxController {
       if(removeAds['success'] == true) {
         print(".....!!!!!!!!!!!!!!!!!!!!!!if Condition");
         if(userId !=null)
-        profileAds(userId);
+        profileAds(userId); 
+        // else
+
         repetedCon.favoriteList();
         SnackBarWidget().showToast("", removeAds['message']); 
          

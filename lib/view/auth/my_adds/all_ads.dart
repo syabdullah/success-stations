@@ -406,7 +406,7 @@ class _AllAddsState extends State<AllAdds> {
     print(".....output>..$json");
     filterControlller.createFilterAds(json);
   }
-
+var catID;
   Widget myAddsList(allDataAdds) {
    
     return ListView.builder(
@@ -586,10 +586,7 @@ class _AllAddsState extends State<AllAdds> {
                       Container(
                         // width: Get.width/4,
                         // height: Get.height/5.5,
-                        child: GetBuilder<FriendsController>(
-                          init: FriendsController(),
-                          builder: (val) {
-                            return Row(
+                        child:  Row(
                               children: [
                                 GestureDetector(
                                   onTap: () {
@@ -597,7 +594,10 @@ class _AllAddsState extends State<AllAdds> {
                                       'ads_id': allDataAdds[index]['id']
                                     };
                                     liked = !liked;
-                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+                                     print("..................-----------$catID.........${allDataAdds[index]['is_favorite'] }");
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); 
+                                   
+                                    controller.addedByIdAddes(catID,null);
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
@@ -606,9 +606,7 @@ class _AllAddsState extends State<AllAdds> {
                                 ),
                                 Image.asset(AppImages.call, height: 20),
                               ],
-                            );
-                          },
-                        ),
+                            )
                       )
                     ],
                   ),
@@ -779,11 +777,15 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              print(
-        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
+              
               if (ind == 0) {
+                 catID =  listingCategoriesData[index]['id'];
+                 print(
+        "my adds Page.......................,,,,,,,...-------------------$catID");
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
+               
               }
+              ++ind;
               return Row(
                 children: [
                   Container(
@@ -791,8 +793,8 @@ class _AllAddsState extends State<AllAdds> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          ind = ++ind;
                           selectedIndex = index;
+                          catID = listingCategoriesData[index]['id'];
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
