@@ -32,16 +32,19 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
-          //    GetBuilder<UserProfileController>( // specify type as Controller
-          // init: UserProfileController(), // intialize with the Controller
-          // builder: (value) { 
-           
-          //    return 
-          //    value.userData != null ?
-          //   //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
-          //    } // value is an instance of Controller.
-          // ),
-            detail(),
+             GetBuilder<UserProfileController>( // specify type as Controller
+          init: UserProfileController(), // intialize with the Controller
+          builder: (value) { 
+          
+             return 
+             
+             value.userData2 != null ?
+             
+             detail(value.userData2['data']):Center(child: CircularProgressIndicator());
+            //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+             } // value is an instance of Controller.
+          ),
+            // detail(),
              Text("${'lastads'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
               ),
@@ -61,13 +64,15 @@ class _AboutTabState extends State<AboutTab> {
   }
 }
 
-Widget detail(){
+Widget detail(userData2){
   return Column(
     children: [
-      Container(
-        margin: EdgeInsets.only(right: 10,top: 10),
-        child: Card(
-          child:Container(
+      Card(
+        child: Container(
+          padding: EdgeInsets.only(left:20),
+          width: Get.width,
+          margin: EdgeInsets.only(right: 10,top: 10,),
+          child: Container(
             margin: EdgeInsets.all(7),
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,11 +81,12 @@ Widget detail(){
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
               ),
               SizedBox(height:5),
-              Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
+              userData2['about'] != null ?
+              Text(userData2['about'],
               textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
+              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),) : Container()
             ],
-        ),
+          ),
           ),
         ),
       ),
@@ -94,13 +100,15 @@ Widget detail(){
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 15),
-                  Text("${'name'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                  Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("Ted library",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['name'] != null ?
+                  Text(userData2['name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),): Container(),
                   SizedBox(height: 15),
                     Text("${'mobile'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("+96-6xx-0061395",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['mobile'] != null ?
+                  Text(userData2['mobile'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 15),
                 ],
               ),
@@ -111,11 +119,13 @@ Widget detail(){
                   SizedBox(height: 15),
                   Text("${'email'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("admin@tedlibrary.net",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['email'] != null ?
+                  Text(userData2['email'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 15),
                   Text("${'address'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("Jeddah,KSA",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['address'] != null ?
+                  Text(userData2['address'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 10),
                   
                 ],
