@@ -11,14 +11,13 @@ class UserOfferController extends GetxController {
   @override
   void onInit(){
     isLoading = true;
-    userOfferList();
     super.onInit();
   }
 
-  userOfferList() async{
+  userOfferList(id) async{
     print("controller call of the Favorite list");
     isLoading = true;
-    await userOffers().then((value) {
+    await userOffers(id).then((value) {
       print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
       offerDattaTypeCategory = jsonDecode(value.body);
       print("hehehhehehhehehehheheheheh $offerDattaTypeCategory");

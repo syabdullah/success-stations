@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
 
 class AdOffers extends StatefulWidget {
@@ -11,6 +12,17 @@ class AdOffers extends StatefulWidget {
 }
 
 class _AdOffersState extends State<AdOffers> {
+   final userProfile = Get.put(UserProfileController());
+   final userOffers = Get.put(UserOfferController());
+   var id;
+@override
+  void initState() {
+    id = Get.arguments;
+    print(id);
+    userProfile.getUseradProfile(id);
+    userOffers.userOfferList(id);
+    super.initState();
+  }    
   @override
   Widget build(BuildContext context) {
     return 
@@ -30,11 +42,12 @@ class _AdOffersState extends State<AdOffers> {
 
 
 Widget gridView(offeredList){
-  int offer = 1;
   return  GridView.builder(
         primary: false,
         padding: const EdgeInsets.all(20),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: Get.width /
+        (Get.height >= 800 ? Get.height/ 1.50 :Get.height <= 800 ? Get.height/ 1.80 :0),
             crossAxisSpacing: 1, mainAxisSpacing: 1, crossAxisCount: 2),
         itemCount: offeredList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -49,17 +62,13 @@ Widget gridView(offeredList){
                 borderRadius: BorderRadius.circular(15.0),
               ),
               
-              child:offeredList[index]['image_ads'] != null ?  ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                   width: Get.width/2.5,
-                  height: Get.height/5.5,
-                  child: Image.network(offeredList[index]['image_ads'])
+              child:offeredList[index]['image_ads'] != null ?  Container(
+                
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(offeredList[index]['image_ads']['url'],height: Get.height/5,width: Get.width,fit: BoxFit.cover,),
                 ),
-              ):Container(
-                height: 120,
-                color: Colors.red,
-              ),
+              ):FittedBox(child: Icon(Icons.image,size: Get.height/5,))
             ),
             Container(
               child: Text(offeredList[index]['text_ads']['en'],style: TextStyle(color: Colors.grey),

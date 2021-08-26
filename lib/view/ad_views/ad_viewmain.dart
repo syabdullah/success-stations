@@ -53,6 +53,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
             height: Get.height,
             child: Column(
               children: [
+                
                 SizedBox(height: 50.h),
                 TabBar(
                 labelColor: AppColors.appBarBackGroundColor,
@@ -86,7 +87,11 @@ Widget topImage(){
             margin: EdgeInsets.only(top:45,left: 12),
             child: Row(
               children: [
-                 Image.asset(AppImages.arrowBack),
+                 GestureDetector(
+                   onTap: (){
+                     Get.back();
+                   },
+                   child: Image.asset(AppImages.arrowBack)),
                  Center(
                    widthFactor:4,
                    child: Text("TED LIBRARY",

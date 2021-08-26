@@ -5,10 +5,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:success_stations/controller/all_users_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
-
+final ratingcont = Get.put(RatingController());
 class MapView extends StatefulWidget {
   const MapView({ Key? key }) : super(key: key);
 
@@ -18,6 +19,7 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   static final kInitialPosition = LatLng(-33.8567844, 151.213108);
+  
      final banner = Get.put(BannerController());
   @override
   void initState() {
@@ -141,51 +143,73 @@ Widget allUsers(userData){
               shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                  child: Container(
-                    width: Get.width/2.2,
-                      height: Get.height/5,
-                    child:userData[index]['image'] != null ? Image.network(userData[index]['image']['url']): Icon(Icons.image)
-                  ),
-                ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                // RatingBar.builder(
-                //   initialRating: 3,
-                //   minRating: 1,
-                //   direction: Axis.horizontal,
-                //   allowHalfRating: true,
-                //   itemCount: 5,
-                //   itemSize: 13.5,
-                //   // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                //   itemBuilder: (context, _) => Icon(
-                //     Icons.star,
-                //     color: Colors.amber,
-                //   ),
-                //   onRatingUpdate: (rating) {
-                //     print(rating);
-                //   },
-                // ),
-                // SizedBox(width: 2,),
-                // Text("(657)",
-                //   style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                //  ),
-               ]
-              ),
-                    Center(
-                      child: Text(userData[index]['name'].toString(),
-                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                      ),
+                  ClipRRect(
+                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                    child: Container(
+                      width: Get.width/2.2,
+                        height: Get.height/5.2,
+                      child:userData[index]['image'] != null ? Image.network(userData[index]['image']['url']): Icon(Icons.image)
                     ),
-             
-                
+                  ),
+                   Container(
+                     margin: EdgeInsets.only(left:20),
+                     child: Text(userData[index]['name'].toString(),
+                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                        ),
+                   ),
+               Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 children: [
+                   Row(
+                    //
+                     children: [
+                       Container(
+                        //  margin: EdgeInsets.only(left:20),
+                         child: RatingBar.builder(
+                           ignoreGestures: true,
+                           initialRating: userData[index]['rating'].toDouble(),
+                           minRating: 1,
+                           direction: Axis.horizontal,
+                           allowHalfRating: true,
+                           itemCount: 5,
+                           itemSize: 13.5,
+                           // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                           
+                           itemBuilder: (context, _) => Icon(
+                             Icons.star,
+                             color: Colors.amber,
+                           ),
+                           
+                           onRatingUpdate:  (rating) { 
+                            //  var ratingjson = {
+                            //    'ads_id' : userData[index]['id'],
+                            //    'rate': rating
+                            //  };
+                            //  ratingcont.ratings(ratingjson );
+                            //  ratingcont.getratings(userData[index]['id']);
+                                       
+                           },
+                         ),
+                       ),
+                       Container(
+                         margin: EdgeInsets.only(left:5),
+                         child: Text("(${userData[index]['rating_count'].toString()})",style: TextStyle(fontSize: 13),)),
+                      
+                     ],
+                   ),
+                    Image.asset(AppImages.heart)
+                 ],
+               ),
+                     
+               
+                  
          ],
        ),
+            ),
      ),
           );
           }
