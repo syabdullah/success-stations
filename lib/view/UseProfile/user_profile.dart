@@ -330,22 +330,19 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           Card(
             child: Container(
               padding: EdgeInsets.only(left:20),
-              child: Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
-                    ),
-                    userData["about"] != null ?
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text(userData["about"],style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)  )
-                    ): Container()
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                    child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
+                  ),
+                  userData["about"] != null ?
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
+                    child: Text(userData["about"],style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)  )
+                  ): Container()
+                ],
               ),
             ),
           )

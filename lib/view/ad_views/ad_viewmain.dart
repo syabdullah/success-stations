@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -17,9 +18,16 @@ class AdViewTab extends StatefulWidget {
   _AdViewTabState createState() => _AdViewTabState();
 }
 
-class _AdViewTabState extends State<AdViewTab>
-    with SingleTickerProviderStateMixin {
-    
+class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMixin {
+  final userProfile = Get.put(UserProfileController());
+   var id;
+@override
+  void initState() {
+    id = Get.arguments;
+    print(id);
+    userProfile.getUseradProfile(id);
+    super.initState();
+  }    
   
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'about'.tr),

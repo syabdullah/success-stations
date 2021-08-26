@@ -74,8 +74,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
-            // comment = '';
-              print("....................>>${val.adsD}");
           return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) :   val.adsD== null ? Container(
             child: Center(child: Text("NO Detail Here !"),),
           ): Column(

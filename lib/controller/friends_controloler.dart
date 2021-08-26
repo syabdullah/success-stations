@@ -1,16 +1,20 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
 import 'package:success_stations/action/friends.dart';
 import 'package:success_stations/action/report_user_action.dart';
+import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/utils/snack_bar.dart';
+import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 
 class FriendsController extends GetxController {
   final repetedCon = Get.put(FavoriteController());
+  final allads = Get.put(AddBasedController());
   List countryListdata = [];
   bool isLoading = false; 
   var friendsData;
@@ -25,6 +29,7 @@ class FriendsController extends GetxController {
   void onInit() { 
     isLoading = true;
     super.onInit();
+     
   }
 
   getSuggestionsList() async {
@@ -145,9 +150,8 @@ class FriendsController extends GetxController {
         if(userId != null)
         profileAds(userId);
         SnackBarWidget().showToast("", addAd['message']); 
-        
       }
-       print("/././././.-----$addAd");
+       print("/././././jjjjjjjj.-----$addAd");
       isLoading = false;
     });
     update();
@@ -166,11 +170,10 @@ class FriendsController extends GetxController {
         if(userId !=null)
         profileAds(userId);
         repetedCon.favoriteList();
-        SnackBarWidget().showToast("", removeAds['message']); 
+        SnackBarWidget().showToast("", removeAds['message']);
+       
          
       }
-      // Get.off(repetedCon);
-      //  print("/././././.-----$userAds");
       isLoading = false;
     });
     update();

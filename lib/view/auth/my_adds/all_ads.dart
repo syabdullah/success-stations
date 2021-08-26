@@ -586,7 +586,7 @@ class _AllAddsState extends State<AllAdds> {
                                     };
                                     liked = !liked;
                                     allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
-                                    Get.to(AllAdds());
+                                   
                                   },
                                   child: Container(
                                       padding: EdgeInsets.only(right: 5),
@@ -768,8 +768,7 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              print(
-        "my adds Page.......................,,,,,,,...-------------------${listingCategoriesData[index]['category']}");
+             
               if (ind == 0) {
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
               }
@@ -827,8 +826,6 @@ class _AllAddsState extends State<AllAdds> {
 
   var ind1 = 0;
   Widget headingofTypes(dataListedCateOffer) {
-    // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
