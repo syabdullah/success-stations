@@ -32,6 +32,15 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
+          //    GetBuilder<UserProfileController>( // specify type as Controller
+          // init: UserProfileController(), // intialize with the Controller
+          // builder: (value) { 
+           
+          //    return 
+          //    value.userData != null ?
+          //   //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+          //    } // value is an instance of Controller.
+          // ),
             detail(),
              Text("${'lastads'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
