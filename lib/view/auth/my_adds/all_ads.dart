@@ -838,8 +838,6 @@ class _AllAddsState extends State<AllAdds> {
 
   var ind1 = 0;
   Widget headingofTypes(dataListedCateOffer) {
-    // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
