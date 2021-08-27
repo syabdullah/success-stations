@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/last_ads_controller.dart';
+import 'package:success_stations/controller/last_location_controller.dart';
+import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -14,12 +17,18 @@ class AboutTab extends StatefulWidget {
 
 class _AboutTabState extends State<AboutTab> {
     final userProfile = Get.put(UserProfileController());
+    final lastads = Get.put(LastAdsController());
+      final userOffers = Get.put(UserOfferController());
+      final lastLoc = Get.put(LastLocationController());
    var id;
 @override
   void initState() {
     id = Get.arguments;
     print(id);
     userProfile.getUseradProfile(id);
+    lastads.userOfferList(id);
+    userOffers.userOfferList(id);
+    lastLoc.userlocationList(id);
     super.initState();
   }    
   
@@ -32,19 +41,64 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
-            detail(),
+<<<<<<< HEAD
+            
+=======
+>>>>>>> 14df397102acae4b87347413edff514b88304887
+             GetBuilder<UserProfileController>( // specify type as Controller
+          init: UserProfileController(), // intialize with the Controller
+          builder: (value) { 
+          
+             return 
+             
+             value.userData2 != null ?
+             
+             detail(value.userData2['data']):Center(child: CircularProgressIndicator());
+            //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+             } // value is an instance of Controller.
+          ),
+            // detail(),
              Text("${'lastads'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
               ),
-            lastAds(),
+            GetBuilder<LastAdsController>(
+              init: LastAdsController(),
+              builder: (value){
+                return 
+                value.lastuserads != null ?
+                lastAds(value.lastuserads['data']): Center(child: CircularProgressIndicator());
+              }),
              Text("${'lastoffers'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
               ),
-            lastAds2(),
+               GetBuilder<UserOfferController>( // specify type as Controller
+                init: UserOfferController(), // intialize with the Controller
+                builder: (value){ 
+                  print(value.offerDattaTypeCategory);
+                  
+                  return 
+                  value.offerDattaTypeCategory != null ?
+                  lastAds2(value.offerDattaTypeCategory['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+                }
+                  ),
+           
              Text("${'laslocation'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.inputTextColor),
               ),
-              lastLocations(),
+              GetBuilder<LastLocationController>( // specify type as Controller
+                init: LastLocationController(), // intialize with the Controller
+                builder: (value){ 
+                  print(value.lastLocation);
+                  return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                  value.lastLocation !=null &&   value.lastLocation['success']== true ?
+                   lastLocations(value.lastLocation['data'])
+                   :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+                   Container(
+                     child:Text(lastLoc.lastLocation['errors'])):Container();
+                  
+                }
+                  ),
+              
          ],
          ),
       ),
@@ -52,13 +106,15 @@ class _AboutTabState extends State<AboutTab> {
   }
 }
 
-Widget detail(){
+Widget detail(userData2){
   return Column(
     children: [
-      Container(
-        margin: EdgeInsets.only(right: 10,top: 10),
-        child: Card(
-          child:Container(
+      Card(
+        child: Container(
+          padding: EdgeInsets.only(left:20),
+          width: Get.width,
+          margin: EdgeInsets.only(right: 10,top: 10,),
+          child: Container(
             margin: EdgeInsets.all(7),
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,11 +123,12 @@ Widget detail(){
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
               ),
               SizedBox(height:5),
-              Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
+              userData2['about'] != null ?
+              Text(userData2['about'],
               textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
+              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),) : Container()
             ],
-        ),
+          ),
           ),
         ),
       ),
@@ -85,13 +142,15 @@ Widget detail(){
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 15),
-                  Text("${'name'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                  Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("Ted library",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['name'] != null ?
+                  Text(userData2['name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),): Container(),
                   SizedBox(height: 15),
                     Text("${'mobile'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("+96-6xx-0061395",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['mobile'] != null ?
+                  Text(userData2['mobile'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 15),
                 ],
               ),
@@ -102,11 +161,13 @@ Widget detail(){
                   SizedBox(height: 15),
                   Text("${'email'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("admin@tedlibrary.net",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['email'] != null ?
+                  Text(userData2['email'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 15),
                   Text("${'address'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  Text("Jeddah,KSA",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                  userData2['address'] != null ?
+                  Text(userData2['address'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
                   SizedBox(height: 10),
                   
                 ],
@@ -118,13 +179,13 @@ Widget detail(){
     ],
   );
 }
-Widget lastAds2(){
+Widget lastAds2(offerDattaTypeCategory){
   return Container(
     margin: EdgeInsets.symmetric(vertical:15),
     height: Get.height/4.5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 10,
+      itemCount: offerDattaTypeCategory.length,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         return Column(
@@ -134,34 +195,45 @@ Widget lastAds2(){
               shape:  RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  width: Get.width/3,
-                  height: Get.height/5.6,
-                  child: Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                
+              child:offerDattaTypeCategory[index]['image_ads'] != null ?  Container(
+                
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(offerDattaTypeCategory[index]['image_ads']['url'],fit: BoxFit.cover,height: Get.height/6,width: Get.width/2,),
                 ),
-              ),
+              ):Container(
+                width: Get.width/2,
+                child: Icon(Icons.image,size: Get.height/6,))
             ),
+            offerDattaTypeCategory[index]['text_ads']['en'] != null ?
             Container(
-              child: Text("Category1",style: TextStyle(color: Colors.grey),
+              child: Text(offerDattaTypeCategory[index]['text_ads']['en'],style: TextStyle(color: Colors.grey),
             )
-            )
+            ): Container()
             ],
         );
       }
     ),
   );
 }
-Widget lastAds(){
+ var imageGived;
+Widget lastAds(lastuserad){
   return Container(
     margin: EdgeInsets.symmetric(vertical:15),
     height: Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 10,
+      itemCount: lastuserad.length,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
+        if(lastuserad !=null && lastuserad[index]['image'] !=null){
+          for(int c = 0; c<lastuserad[index]['image'].length;  c++){
+           imageGived = lastuserad[index]['image'][c]['url'];
+        }
+
+        }
+        
         return Card(
           elevation: 3,
           shape: RoundedRectangleBorder(
@@ -170,20 +242,24 @@ Widget lastAds(){
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              lastuserad[index]["image"] != null ?
               ClipRRect(
                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
                 child: Container(
                   width: Get.width/2.3,
                   height: Get.height/7.5,
-                  child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
+                  child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
                 ),
-              ),
+              ): Container(
+                width: Get.width/2,
+                child: Icon(Icons.image,size: Get.height/6,)),
+              lastuserad[index]['title'] != null ?
              Container(
               margin: EdgeInsets.only(left:10,top: 2),
-              child: Text("Title",
+              child: Text(lastuserad[index]['title']['en'].toString(),
                 style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
               ),
-             ),
+             ):Container(),
             SizedBox(height: 5,),
             Container(
               margin: EdgeInsets.only(left:9,),
@@ -194,15 +270,16 @@ Widget lastAds(){
                   Row(children: [
                     Image.asset(AppImages.location,height: 17,),
                     SizedBox(width: 3,),
-                    Text("Locatoin",
+                    lastuserad[index]['city'] != null ?
+                    Text(lastuserad[index]['city']['city'],
                       style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                     ),
+                     ): Container()
                    ]
                 ),
-                
-                Text("SAR 99",
+             lastuserad[index]['price']!= null ?
+                Text(lastuserad[index]['price'],
                   style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                ),
+                ): Container()
               ],
             ),
             ),
@@ -215,9 +292,10 @@ Widget lastAds(){
                   Row(children: [
                     Image.asset(AppImages.userProfile,height: 16,),
                     SizedBox(width: 4,),
-                    Text("username",
+                   lastuserad[index]['contact_name'] != null ?
+                    Text(lastuserad[index]['contact_name'],
                     style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                    ),
+                    ): Container()
                   ]
                 ),
               ],
@@ -230,91 +308,110 @@ Widget lastAds(){
    ),
  );
 }
-Widget lastLocations(){
+Widget lastLocations(lastLocation){
+ 
   return Container(
+     
     // margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/4,
+    height: Get.height/7,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 10,
+      itemCount:lastLocation.length,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
-        return Card(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+        
+        return 
+        
+         Container(
+         width: 250,
+          height: 100,
+          child: Card(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Row(
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.only(left:12.0,top:20),
+                       child: Image.asset(AppImages.location,color: Colors.blue,),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.only(top:20.0,left: 15),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Row(
+                             children: [
+                               lastLocation[index]['location'] != null ?
+                               Text(lastLocation[index]['location'],overflow: TextOverflow.clip,maxLines: 6,
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                             ): Container(),
+                             ],
+                           ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //  children: [
+                            //    lastLocation[index]['formated_address'] != null ?
+                            //    Text(lastLocation[index]['formated_address'],
+                            //       style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                            //                             )
+                            //                             : Container(),
+                            //  ],
+                          // ),
+                          SizedBox(height: 3,),
+                          Row(
+                            children: [
+                              Text("city: ",  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10)),
+                              lastLocation[index] != null && lastLocation[index]['city'] !=null?
+                              Text(lastLocation[index]['city']['city'],
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
+                              ): Container(),
+                              SizedBox(width: 5,),
+                             
+                            ],
+                          ),
+                          SizedBox(height: 3,),
+                          Row(
+                            children: [
+                              Text("Country: " ,  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10)),
+                              lastLocation[index]['country'] != null ?
+                              Text(lastLocation[index]["country"]['name'],
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
+                              ): Container(),
+                            ],
+                          ),
+                          
+             ],
+                 ),
+                        
+                       ),
+                     
+                   ],
+                 )
+               ],
+             ),
+             
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+                 
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: [
+                 
+            //       SizedBox(width: 2,),
+            //       lastLocation[index]['location'] != null ?
+            //       Text(lastLocation[index]['location'],
+            //         style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 14),
+            //        ): Container(),
+            //        Spacer(flex:2),
+                
+            //      ]
+            //     ),
+            //     
+               
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-               borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                child: Container(
-                  width: Get.width/2.3,
-                  height: Get.height/7.5,
-                  child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
-                ),
-              ),
-            Container(
-              margin: EdgeInsets.only(left:9,),
-              width: Get.width/2.5,
-              child: Container(
-                 width: Get.width/2.5,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                  RatingBar.builder(
-                      initialRating: 3,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 13.5,
-                      // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
-                    ),
-                  SizedBox(width: 2,),
-                  Text("(657)",
-                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                   ),
-                   Spacer(flex:2),
-                   PopupMenuButton<int>(
-                  icon: Icon(Icons.more_vert),
-                  onSelected: (int item) => handleClick(item),
-                  itemBuilder: (context) => [
-                    PopupMenuItem<int>(value: 0, child: Text('Logout')),
-                    PopupMenuItem<int>(value: 1, child: Text('Settings')),
-                  ],
-                ),
-                 ]
-                ),
-              ),
-            ),
-            Container(
-               margin: EdgeInsets.only(left:10),
-              width: Get.width/3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    Text("Zealot Ulotpia",
-                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                    ),
-                  ]
-                ),
-                Image.asset(AppImages.heart)
-              ],
-            ),
-           ),
-         ],
-       ),
-     );
+               );
     }
    ),
  );
