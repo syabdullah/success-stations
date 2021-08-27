@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:success_stations/action/ads_filtering_action.dart';
 import 'package:success_stations/action/all_add_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
+import 'package:success_stations/styling/colors.dart';
 
 class AddBasedController extends GetxController {
   bool isLoading = false; 
   var cData;
   var allAdsData;
   List catBaslistData = [];
+  var adsFilterCreate;
 
   @override
   void onInit(){
@@ -19,7 +22,6 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);
-       print("/////////junaid////////// json response .........................>>>>$cData");
       isLoading = false;
     });
     update();
@@ -30,8 +32,23 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await adsAll().then((res) {
       allAdsData = jsonDecode(res.body);
-      print("?//////////////////???????????");
       isLoading = false;
+    });
+    update();
+  }
+
+  createFilterAds(data) async {
+    isLoading = true;
+    await createAdsFilteringAction(data).then((res) {
+      adsFilterCreate = jsonDecode(res.body);
+      cData = adsFilterCreate;
+      print(adsFilterCreate);
+      print(res.statusCode);
+      if(res.statusCode < 200){
+        isLoading=false;
+      } if(res.statusCode > 400){
+          Get.snackbar(adsFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+      }
     });
     update();
   }

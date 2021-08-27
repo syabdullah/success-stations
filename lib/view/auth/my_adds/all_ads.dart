@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
-import 'package:success_stations/controller/ads_filtering_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -16,6 +15,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+bool check = true;
 
 class AllAdds extends StatefulWidget {
   _AllAddsState createState() => _AllAddsState();
@@ -29,7 +29,7 @@ class _AllAddsState extends State<AllAdds> {
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
   final catCobtroller = Get.put(MyListingFilterController());
-  final filterControlller = Get.put(AdsFilteringController());
+  final filterControlller = Get.put(AddBasedController());
   var listtype = 'list';
   var userId;
   var myrate;
@@ -56,14 +56,10 @@ class _AllAddsState extends State<AllAdds> {
     "New",
     "Old",
   ];
-  // List<String> litems = [
-  //   'Yes',
-  //   'No',
-  // ];
-
   @override
   void initState() {
     super.initState();
+    check = true;
 
     banner.bannerController();
     controller.addedAllAds();
@@ -97,7 +93,7 @@ class _AllAddsState extends State<AllAdds> {
             builder: (data) {
               return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
-          ),
+          ), 
           Expanded(
             child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
@@ -105,7 +101,7 @@ class _AllAddsState extends State<AllAdds> {
               return val.isLoading == true ||  val.cData == null  ? Container() :
                 val.cData['data'] == null ? Container() : listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
             },
-          )),
+          ))
         ],
       ),
     );
@@ -194,7 +190,6 @@ class _AllAddsState extends State<AllAdds> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.white,
-      // isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
@@ -268,13 +263,13 @@ class _AllAddsState extends State<AllAdds> {
                                         setState((){
                                           _onSelected(index);
                                           status = litems[index];
-                                          print("....!!!!>...!!!!!...????///////.......$status");
                                         });
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(left:20),
                                         width: Get.width / 5,
                                         decoration: BoxDecoration(
+                                          // ignore: unnecessary_null_comparison
                                           color: _selectedIndex != null && _selectedIndex == index
                                             ? Colors.blue
                                             : Colors.white, //Colors.blue[100],
@@ -375,6 +370,8 @@ class _AllAddsState extends State<AllAdds> {
                                                       color: Colors.white)))),
                                       onPressed: filterID  == null && status == null ?  null :() {
                                         applyFiltering();
+                                        // Get.off(AllAdds());
+                                        Navigator.pop(context);
                                         print(
                                             ".....category.......!!!!...!!!>....!!!>..$category");
                                         print(
@@ -417,8 +414,6 @@ var catID;
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        print(
-            "........-------=ratingggggggggg=====---------......${allDataAdds[index]['rating']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -619,46 +614,37 @@ var catID;
   }
 
   var ind = 0;
-  myAddGridView(dataListValue) {
-    print(
-        "datalist value...................data list value..... $dataListValue");
-    return Container(
+  myAddGridView(dataListValue) {;
+     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
           crossAxisCount: 2,
           children: List.generate(dataListValue.length, (index) {
             print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
             return Container(
-                width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
-                margin: EdgeInsets.only(left: 15),
-                height: Get.height < 420 ? Get.height / 3.6 : Get.height / 8.0,
-                child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
+              margin: EdgeInsets.only(left: 15),
+              height: Get.height < 420 ? Get.height / 3.6 : Get.height / 8.0,
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                         child: Container(
-                            width: Get.width < 420
-                                ? Get.width / 1.4
-                                : Get.width / 2.3,
+                          width: Get.width < 420 ? Get.width / 1.4   : Get.width / 2.3,
                             height: Get.height / 8.0,
                             child: dataListValue[index]['image'].length != 0
-                                ? Image.network(
-                                    dataListValue[index]['image'][0]['url'],
-                                    width: Get.width / 4,
-                                    fit: BoxFit.fill,
-                                  )
-                                : Container(width: Get.width / 4,
-                                 child: Icon(Icons.image,size: 50,),
-                                )
-                            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                              ? Image.network(  dataListValue[index]['image'][0]['url'],
+                                width: Get.width / 4,  fit: BoxFit.fill,
+                              ): Container(
+                                width: Get.width / 4,
+                                child: Icon(Icons.image,size: 50,),
+                              )
                             ),
                       ),
                       Container(
@@ -764,9 +750,7 @@ var catID;
 
   void navigateToGoogleLogin() {}
 
-  Widget addsCategoryWidget(listingCategoriesData) {
-    // print(
-        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
+  Widget addsCategoryWidget(listingCategoriesData) {;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -776,11 +760,8 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              
               if (ind == 0) {
-                 catID =  listingCategoriesData[index]['id'];
-                 print(
-        "my adds Page.......................,,,,,,,...-------------------$catID");
+                catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
                
               }
@@ -848,6 +829,7 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, val) {
+              print("context Api......... val of the field .....>$val");
               if (ind1 == 0) {
                 // controller.addedByIdAddes(listingCategoriesData[0]['id']);
               }
@@ -857,19 +839,13 @@ var catID;
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        // print(
-                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
                         setState(() {
                           // ind1 = ++ind1;
                           selectedIndexListing = val;
                           category = dataListedCateOffer[val]['type']['en'];
-                          print(
-                              "....!!!1!!!!.category.!!!!!......!!!!1.....!!!!!...$category");
                           //controller.addedByIdAddes(listingCategoriesData[index]['id']);
                           // filterControlller
                           //     .createFilterAds(dataListedCateOffer[val]['id']);
-                          print(
-                              "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
                           filterID =dataListedCateOffer[val]['id'];
                           //createFilterAds
                           //AdsFilteringController
