@@ -284,43 +284,44 @@ class _AdListTabState extends State<AdListTab> {
   //   }
   // }
 
-  Widget filter() {
-    return InkWell(
-      onTap: () {
-        // _showModal();
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.grey[300],
-        ),
-        width: Get.width / 5,
-        margin: EdgeInsets.only(left: 10),
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            InkWell(
-                onTap: () {
-                  //_showModal();
-                },
-                child: Image.asset(
-                  AppImages.filter,
-                  height: 15,
-                )),
-            SizedBox(width: 5),
-            InkWell(
-              onTap: () {
-                //_showModal();
-              },
-              child: Text('filter'.tr,
-                  style: AppTextStyles.appTextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: AppColors.darkgrey)),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget filter() {
+  //   return InkWell(
+  //     onTap: () {
+  //       // _showModal();
+  //     },
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.all(Radius.circular(10)),
+  //         color: Colors.grey[300],
+  //       ),
+  //       width: Get.width / 5,
+  //       margin: EdgeInsets.only(left: 10),
+  //       padding: const EdgeInsets.all(8.0),
+  //       child: Row(
+  //         children: [
+  //           InkWell(
+  //               onTap: () {
+  //                 //_showModal();
+  //               },
+  //               child: Image.asset(
+  //                 AppImages.filter,
+  //                 height: 15,
+  //               )),
+  //           SizedBox(width: 5),
+  //           InkWell(
+  //             onTap: () {
+  //               //_showModal();
+  //             },
+  //             child: Text('filter'.tr,
+  //                 style: AppTextStyles.appTextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.normal,
+  //                     color: AppColors.darkgrey)),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
 }
