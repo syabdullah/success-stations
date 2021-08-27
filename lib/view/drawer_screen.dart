@@ -171,7 +171,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       // ),
                     ),
                         Padding(
-                          padding: Get.height > 700 ?  const EdgeInsets.only(left:10.0) :const EdgeInsets.only(left:50.0),
+                          padding: Get.height > 700 ?  const EdgeInsets.only(left:50.0) :const EdgeInsets.only(left:50.0),
                           child: Container(
                             width: Get.width/3.5,
                             child: Text(

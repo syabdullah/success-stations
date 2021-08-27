@@ -116,14 +116,16 @@ final banner = Get.put(BannerController());
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                id == dataa[index]['requister_id'] ? 
+                id != dataa[index]['requister_id'] ? 
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: Container(
                     child: CircleAvatar(
                       radius: 30.0,
                       backgroundColor: Colors.grey[100],
-                      child: dataa[index]['requister']['image'] != null ? Image.network(dataa[index]['requister']['image']['url']) :Image.asset(AppImages.person)
+                      child: dataa[index]['requister']['image'] != null ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Image.network(dataa[index]['requister']['image']['url'],height: 80,fit: BoxFit.fill,)) :Image.asset(AppImages.person)
                     ),
                   ),
                 ):
@@ -132,7 +134,9 @@ final banner = Get.put(BannerController());
                   child: CircleAvatar(
                     radius: 30.0,
                     backgroundColor: Colors.grey[100],
-                    child: dataa[index]['user_requisted']['image'] != null ? Image.network(dataa[index]['user_requisted']['image']['url']) : Image.asset(AppImages.person)
+                    child: dataa[index]['user_requisted']['image'] != null ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                      child: Image.network(dataa[index]['user_requisted']['image']['url'],height: 80,fit: BoxFit.fill,)) : Image.asset(AppImages.person)
                   ),
                 ),
                 Column(

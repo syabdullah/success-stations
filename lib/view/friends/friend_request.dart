@@ -78,7 +78,7 @@ class _FriendReqListState extends State<FriendReqList> {
      if(data != null)
      for(int i= 0; i< data.length; i++) {  
        if(data[i]['requister'] != null && data[i]['status'] == null) {
-         print("....................//////.....${data[i]}");
+         print("....................//////.------....${data[i]['requisted']}");
          ++count;
         req.add(
           Column(
@@ -103,15 +103,20 @@ class _FriendReqListState extends State<FriendReqList> {
                   child: CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.grey[100],
-                    child: data[i]['requister']['image'] != null ? Image.network(data[i]['requister']['image']['url']) : 
+                    child: data[i]['user_requisted']['image'] != null ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0)
+                    ,child: Image.network(data[i]['user_requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60,)) : 
                         Image.asset(AppImages.person),
                   ),
                 ):
                 Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
+                    radius: 30,
                     backgroundColor: Colors.grey[100],
-                    child: data[i]['user_requisted']['image'] != null ? Image.network(data[i]['user_requisted']['image']['url']) : Image.asset(AppImages.person),
+                    child: data[i]['requisted'] != null && data[i]['requisted']['image'] != null ?  ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Image.network(data[i]['requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60,)) : Image.asset(AppImages.person),
                   ),
                 ),
                     Column(
@@ -265,7 +270,8 @@ class _FriendReqListState extends State<FriendReqList> {
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.grey[100],
-                        child: data[i]['media'].length != 0 ?  Image.network(data[i]['media'][0]['url'],fit: BoxFit.fill,) : 
+                        child: data[i]['media'].length != 0 ?   ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),child: Image.network(data[i]['media'][0]['url'],fit: BoxFit.fill,height: 60,width: 60,)) : 
                         Image.asset(AppImages.person),
                       ),
                     ),
