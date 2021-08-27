@@ -149,7 +149,7 @@ class FriendsController extends GetxController {
       if(addAd['success'] == true) {
         if(userId != null)
         profileAds(userId);
-        SnackBarWidget().showToast("", addAd['message']); 
+        //SnackBarWidget().showToast("", addAd['message']); 
       }
        print("/././././jjjjjjjj.-----$addAd");
       isLoading = false;
