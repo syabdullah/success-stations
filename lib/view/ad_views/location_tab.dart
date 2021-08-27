@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:success_stations/controller/last_location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -15,22 +17,38 @@ class LocationTab extends StatefulWidget {
 class _LocationTabState extends State<LocationTab> {
    TextEditingController textEditingController = TextEditingController();
     RangeValues _currentRangeValues = const RangeValues(1,100);
-     
+       final lastLoc = Get.put(LastLocationController());
+        var id;
 
-      @override
-  void initState() {
+    void initState() {
+    id = Get.arguments;
+    print(id);
+    lastLoc.userlocationList(id);
     super.initState();
-  }
+  }   
   @override
   Widget build(BuildContext context) {
-    
+   
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           filter(),
-          locationList(),
+           GetBuilder<LastLocationController>( // specify type as Controller
+                init: LastLocationController(), // intialize with the Controller
+                builder: (value){ 
+                  print(value.lastLocation);
+                  return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                  value.lastLocation !=null &&   value.lastLocation['success']== true ?
+                   locationList(value.lastLocation['data'])
+                   :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+                   Container(
+                     child:Text(lastLoc.lastLocation['errors'])):Container();
+                  
+                }
+                  ),
+         
         ],
       )
       ),
@@ -240,7 +258,8 @@ class _LocationTabState extends State<LocationTab> {
 
 }
 
-Widget locationList() {
+Widget locationList(lastLocation) {
+    // double c_width = MediaQuery.of(context).size.width*0.8;
     return Container(
       height: Get.height,
       child: ListView.builder(
@@ -263,9 +282,7 @@ Widget locationList() {
                             child: GestureDetector(
                               child: ClipRRect(
                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                child: Image.asset(
-                                  AppImages.profileBg
-                                ),
+                                child:Image.asset(AppImages.location,color: Colors.blue,),
                               ),
                             ),
                           )
@@ -278,41 +295,33 @@ Widget locationList() {
                           children: [
                             Row(
                               children: [
-                                RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 15,
-                                  itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
-                                ),
-                                Text(
-                                  '(567)',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight:FontWeight.normal
-                                  ),
-                                ),
+                              
+                                 lastLocation[index]['location'] != null ?
+                               Text(lastLocation[index]['location'],overflow: TextOverflow.clip,maxLines: 6,
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                             ): Container(),
                               ],
                             ),
-                            SizedBox(height: 7),
-                            Row(
+                            SizedBox(height: 3),
+                             lastLocation[index]['formated_address'] != null ?
+                               Container(
+                                 width: Get.width/2,
+                                 child: Text(lastLocation[index]['formated_address'],textAlign: TextAlign.left,
+                                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
+                                                          ),
+                               )
+                              : Container()
+                            ,Row(
                               children: [
-                                Text("Zealot Utopia",
-                                  style: TextStyle(
-                                    color: Colors.grey[900],
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
+                               lastLocation[index] != null && lastLocation[index]['city'] !=null?
+                              Text(lastLocation[index]['city']['city'],
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 8),
+                              ): Container(),
+                              SizedBox(width: 3,),
+                               lastLocation[index]['country'] != null ?
+                              Text(lastLocation[index]["country"]['name'],
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
+                              ): Container(),
                               ],
                             ),
                             SizedBox(height: 8),
@@ -323,14 +332,8 @@ Widget locationList() {
                     ],
                   ),
                   SizedBox(height:20),
-                  PopupMenuButton<int>(
-                    icon: Icon(Icons.more_vert),
-                    onSelected: (int item) => handleClick(item),
-                    itemBuilder: (context) => [
-                      PopupMenuItem<int>(value: 0, child: Text('Logout')),
-                      PopupMenuItem<int>(value: 1, child: Text('Settings')),
-                    ],
-                  ),
+                 
+                  
                   // Column(
                   //   children: [
                   //     Padding(
