@@ -273,16 +273,16 @@ class _AdListTabState extends State<AdListTab> {
     );
   }
 
-  _makingPhoneCall() async {
-    var url = 'tel:$contactNmbr';
-   contactNmbr == null? url='':url = 'tel:$contactNmbr';
+  // _makingPhoneCall() async {
+  //   var url = 'tel:$contactNmbr';
+  //  contactNmbr == null? url='':url = 'tel:$contactNmbr';
     
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 
   Widget filter() {
     return InkWell(
