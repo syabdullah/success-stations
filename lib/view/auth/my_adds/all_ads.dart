@@ -470,22 +470,7 @@ var catID;
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-                                  child:  allDataAdds[index]['rating'] > 0 ? 
-                                  RatingBar.builder(
-                                    ignoreGestures: true,
-                                    initialRating: allDataAdds[index]['rating'].toDouble(),
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 22.5,
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {         
-                                    },
-                                  ): 
+                                  child:  allDataAdds[index]['is_rated'] == false ?  
                                   RatingBar.builder(
                                     initialRating: allDataAdds[index]['rating'].toDouble(),
                                     minRating: 1,
@@ -498,16 +483,52 @@ var catID;
                                       color: Colors.amber,
                                     ),
                                     onRatingUpdate: (rating) { 
+                                      
+
+                                      print('rating on tap ........$rating');
                                       var ratingjson = {
                                         'ads_id' : allDataAdds[index]['id'],
                                         'rate': rating
                                       };
+                                      print('.....................Rating data on Tap .........$ratingjson');
                                       ratingcont.ratings(ratingjson );
-                                      ratingcont.getratings(allDataAdds[index]['id']);
+                                      // ratingcont.getratings(allDataAdds[index]['id']);
                                                 
                                     },
-                                  )
-                                ),
+                                  ):  RatingBar.builder(
+                                    initialRating: allDataAdds[index]['rating'].toDouble(),
+                                    ignoreGestures: true,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 22.5,
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) { 
+                                      // ratingcont.getratings(allDataAdds[index]['id']);
+                                                
+                                    },
+                                  ) 
+                                  // RatingBar.builder(
+                                  //   // ignoreGestures: true,
+                                  //   initialRating: allDataAdds[index]['rating'].toDouble(),
+                                  //   minRating: 1,
+                                  //   direction: Axis.horizontal,
+                                  //   allowHalfRating: true,
+                                  //   itemCount: 5,
+                                  //   itemSize: 22.5,
+                                  //   itemBuilder: (context, _) => Icon(
+                                  //     Icons.star,
+                                  //     color: Colors.amber,
+                                  //   ),
+                                  //   onRatingUpdate: (rating) {         
+                                  //   },
+                                  // )
+                                 
+                                )
                               ],
                             ),
                             Expanded(
