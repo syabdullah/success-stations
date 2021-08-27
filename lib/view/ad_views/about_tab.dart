@@ -41,10 +41,6 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
-<<<<<<< HEAD
-            
-=======
->>>>>>> 14df397102acae4b87347413edff514b88304887
              GetBuilder<UserProfileController>( // specify type as Controller
           init: UserProfileController(), // intialize with the Controller
           builder: (value) { 
