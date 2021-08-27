@@ -78,7 +78,7 @@ class _FavouritePageState extends State<FavouritePage> {
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
               builder: (val) {
-                return val.isLoading == true ? CircularProgressIndicator():val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
+                return val.isLoading == true  ? CircularProgressIndicator(): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
                   children: listtype == 'list' ? myAddsList(val.fvr8DataList['data'])
                   : myAddGridView(val.fvr8DataList['data']) ,
                 ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?

@@ -8,16 +8,16 @@ class FavoriteController extends GetxController {
   List dataFvr8z =[];
   var resultInvalid = false.obs;
   favoriteList() async{
-    isLoading = true;
+   isLoading = true;
     await favorite().then((res) {
       fvr8DataList = jsonDecode(res.body);
-      if (res.statusCode == 200 || res.statusCode < 400) {
+      if (res.statusCode == 200 ||res.statusCode <400) {
         resultInvalid(false);
         isLoading = false;
       }
       else if (fvr8DataList['success'] == false) {
         resultInvalid(true);
-        isLoading = false;
+       isLoading = false;
       }
     });
     update();
