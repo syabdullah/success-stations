@@ -85,4 +85,5 @@ class AppImages {
   static String edit = imagePath + 'edit.png';
   //addoffers
   static String addOfferImage  = imagePath +'Group 2108@3x.png';
+   static String locationimg  = imagePath +'location.png';
 }
