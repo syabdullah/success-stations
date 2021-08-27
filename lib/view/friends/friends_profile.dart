@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
@@ -16,6 +17,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
  late TabController _controller;
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
+  final chatCont = Get.put(ChatController());
   bool liked = false;
   var id ;
   @override
@@ -175,6 +177,11 @@ var image;
           child: 
           GestureDetector(
             // margin: EdgeInsets.only(left: 250),
+            onTap: (){
+              print("././......$id");
+              chatCont.createConversation(id);
+              // Get.find<ChatController>().createConversation(id);
+            },
             child: Container(
               height: Get.height/9*0.5,
               width:Get.width/3.2,
