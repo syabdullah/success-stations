@@ -45,8 +45,18 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
           headerSliverBuilder:
             (BuildContext context, bool innerBoxIsScrolled){
               return [
-                SliverToBoxAdapter(child:topImage()
-              )
+                SliverToBoxAdapter(
+                  child: GetBuilder<UserProfileController>( // specify type as Controller
+                      init: UserProfileController(), // intialize with the Controller
+                      builder: (value) { 
+                        return 
+                        value.userData2 != null ?
+                        topImage(value.userData2['data'])
+                      : LinearProgressIndicator();
+                    } 
+                  ),
+                ),
+                
             ];
           },
           body: Container(
@@ -71,7 +81,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
 }
 
 
-Widget topImage(){
+Widget topImage(userData2){
   return Stack(
     children: [
       Container(
@@ -83,39 +93,43 @@ Widget topImage(){
       ),
       Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(top:45,left: 12),
-            child: Row(
-              children: [
+          AppBar(
+            leading: 
                  GestureDetector(
                    onTap: (){
                      Get.back();
                    },
                    child: Image.asset(AppImages.arrowBack)),
+             backgroundColor: Colors.transparent,
+             centerTitle: true,
+              title:  userData2['name'] != null ?
                  Center(
-                   widthFactor:4,
-                   child: Text("TED LIBRARY",
+                 
+                   child: Text(userData2['name'],
                    style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
                   ),
-                 ),
-              ],
-            ),
+                 ):Container()
+              
           ),
-          Text("Edwardian House Library,Screening \n mainstreaming loerm films ",textAlign: TextAlign.center,
-            style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
-          ),
+          // userData2['about'] != null ?
+          // Text(userData2['about'].toString(),textAlign: TextAlign.center,
+          //   style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
+          // ):Container()
         ],
       ),
       Center(
         child: FractionalTranslation(
-          translation: const Offset(0.0, 1.7),
+          translation: const Offset(0.0, 1.6),
           child: CircleAvatar(
-            backgroundColor: Colors.white54,
+            backgroundColor: Colors.transparent,
             radius: 45.0,
-            child: ClipRRect(
-            borderRadius: BorderRadius.circular(60.0,),
-            child:Image.asset(AppImages.ted),
-            )
+            child: 
+            userData2['image'] != null ?
+            ClipRRect(
+            borderRadius: BorderRadius.circular(150.0,),
+            
+            child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
+            ) : Icon(Icons.image,size: 70,)
           )
         ),
       ),

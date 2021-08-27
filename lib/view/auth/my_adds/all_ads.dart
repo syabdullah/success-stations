@@ -470,7 +470,7 @@ var catID;
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-                                  child:  allDataAdds[index]['rating'] > 0 ? 
+                                  child:  allDataAdds[index]['is_rated'] == true ?
                                   RatingBar.builder(
                                     ignoreGestures: true,
                                     initialRating: allDataAdds[index]['rating'].toDouble(),
