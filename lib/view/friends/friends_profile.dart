@@ -44,7 +44,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
             return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
               child:Container(
                 margin: EdgeInsets.only(top: 20),
-              child: viewCardLoading(context))) : val.friendProfileData['success'] == false && val.friendProfileData['errors'] == 'No Profile Available' ? Container(
+              child: Center(child: CircularProgressIndicator()))) : val.friendProfileData['success'] == false && val.friendProfileData['errors'] == 'No Profile Available' ? Container(
                 child: Center(child: Text(val.friendProfileData['errors'])),
               ):  Column(
               children: [        
@@ -61,9 +61,11 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
 
 var image;
   Widget profileDetail(data) { 
-    print("..........DAATTAAA.....$data");
+    print("..........---------${data['media']}DAATTAAA.....${data['image']}");
   if(data['image'] != null) {
-    image = data['image'][0]['url'];
+    image = data['image']['url'];
+  }else{
+    image = null;
   }
     return Stack(
       children: [         
@@ -89,7 +91,7 @@ var image;
                 icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
               Center(
-                widthFactor: 3,
+                widthFactor: 2.7,
                 child: Container(
                   child: Text("PROFILE",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
                 ),
@@ -112,7 +114,10 @@ var image;
                 data['image'] == null ? 
                 Image.asset(AppImages.person):
                 Image.network(
-                  data['image']['url'] 
+                  data['image']['url'] ,
+                  fit: BoxFit.fill,
+                  height: 80,
+
                 ),
               )
             )
@@ -208,6 +213,7 @@ var image;
   }
   Widget general(data,adsData) {
     return Expanded(
+      flex: 1,
       child: TabBarView(
         children: [
           ListView(
@@ -363,8 +369,8 @@ var image;
                       margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: adsData[index]['image'].length != 0 ? Image.network(adsData[index]['image'][0]['url'],height: 80,fit: BoxFit.fitHeight) : Container(
-                          height: Get.height/8,
+                        child: adsData[index]['image'].length != 0 ? Image.network(adsData[index]['image'][0]['url'],height: 40,fit: BoxFit.fitHeight) : Container(
+                          height: Get.height/7,
                           child: Icon(Icons.image,size: 50,))
                       )
                     ),
@@ -375,6 +381,7 @@ var image;
                           width: Get.width/3,
                           child: Text(adsData[index]['title']['en'],style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
+                        SizedBox(height: 5,),
                         Row(
                           children: [
                             Image.asset(AppImages.person,height: 15,),
@@ -384,6 +391,7 @@ var image;
                             ),
                           ],
                         ),
+                        SizedBox(height: 5,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -391,7 +399,7 @@ var image;
                             // Icon(Icons.person,color: Colors.grey),
                             SizedBox(width:5),
                             Container(
-                              child: adsData[index]['address'] != null ? Text(adsData[index]['address']):Text(""),
+                              child: adsData[index]['country'] != null ? Text(adsData[index]['country']['name']):Text(""),
                             ),
                           ],
                         ),
@@ -402,9 +410,13 @@ var image;
                       alignment: Alignment.topRight,
                       child: Column(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: image != null ? Image.network(image) : Image.asset(AppImages.person,fit: BoxFit.fill,height:30)
+                          CircleAvatar(
+                            backgroundColor: Colors.grey[100],
+                            radius: 30,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: image != null ? Image.network(image,height: 60,fit: BoxFit.fill,) : Image.asset(AppImages.person,fit: BoxFit.fill,height:30)
+                            ),
                           ),
                           SizedBox(height: 5,),
                           Row(

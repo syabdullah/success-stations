@@ -291,8 +291,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/3.2: Get.height/4.2,
-      // width: Get.width/2,
+      height: Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

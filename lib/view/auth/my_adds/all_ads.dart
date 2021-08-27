@@ -90,6 +90,7 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
+          
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -530,7 +531,7 @@ var catID;
                                     },
                                   ),
                                 ),
-                                
+                              
                               ],
                             ),
                             Expanded(
@@ -595,6 +596,8 @@ var catID;
                                       'ads_id': allDataAdds[index]['id']
                                     };
                                     liked = !liked;
+                                    allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); controller.addedAllAds();
+
                                      print("..................-----------$catID.........${allDataAdds[index]['is_favorite'] }");
                                     allDataAdds[index]['is_favorite'] == false ? friCont.profileAdsToFav(json, userId)  : friCont.profileAdsRemove(json, userId); 
                                    
@@ -778,11 +781,8 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              
               if (ind == 0) {
-                 catID =  listingCategoriesData[index]['id'];
-                 print(
-        "my adds Page.......................,,,,,,,...-------------------$catID");
+                catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
                
               }
