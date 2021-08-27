@@ -91,7 +91,7 @@ class _MyLocationsState extends State<MyLocations> {
                           const EdgeInsets.all(10.0),
                           child: GestureDetector(
                             child: data[index]['user_name']['media'].length != 0 ?
-                            Image.network(data[index]['user_name']['media']['url']) :
+                            Image.network(data[index]['user_name']['media'][0]['url'],height: 60,) :
                             Container(width: Get.width/4,)
 
                             //  Image.asset(

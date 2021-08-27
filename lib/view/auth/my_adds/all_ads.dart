@@ -470,11 +470,7 @@ var catID;
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-<<<<<<< HEAD
-                                  child:  allDataAdds[index]['is_rated'] == true ?
-=======
                                   child:  allDataAdds[index]['is_rated'] == false ?  
->>>>>>> 14df397102acae4b87347413edff514b88304887
                                   RatingBar.builder(
                                     initialRating: allDataAdds[index]['rating'].toDouble(),
                                     minRating: 1,
@@ -782,9 +778,7 @@ var catID;
             itemBuilder: (context, index) {
               
               if (ind == 0) {
-                 catID =  listingCategoriesData[index]['id'];
-                 print(
-        "my adds Page.......................,,,,,,,...-------------------$catID");
+                catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
                
               }

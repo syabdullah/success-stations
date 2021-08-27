@@ -93,26 +93,16 @@ Widget topImage(userData2){
       ),
       Column(
         children: [
-<<<<<<< HEAD
           AppBar(
             leading: 
-=======
-          Container(
-            margin: EdgeInsets.only(top:45,left: 12),
-            child: Row(
-              children: [
->>>>>>> 14df397102acae4b87347413edff514b88304887
                  GestureDetector(
                    onTap: (){
                      Get.back();
                    },
                    child: Image.asset(AppImages.arrowBack)),
-<<<<<<< HEAD
              backgroundColor: Colors.transparent,
              centerTitle: true,
               title:  userData2['name'] != null ?
-=======
->>>>>>> 14df397102acae4b87347413edff514b88304887
                  Center(
                  
                    child: Text(userData2['name'],
