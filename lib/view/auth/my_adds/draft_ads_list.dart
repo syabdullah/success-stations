@@ -48,10 +48,9 @@ Widget draftedlist(allDataAdds){
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-
         return GestureDetector(
           onTap: () {
-            Get.to(AddPostingScreen(), arguments: allDataAdds[index]);
+            // Get.to(AddPostingScreen(), arguments: allDataAdds[index]);
           },
           child: Card(
             child: Container(
@@ -68,11 +67,14 @@ Widget draftedlist(allDataAdds){
                               padding: const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                   child: allDataAdds[index]['image'].length != 0
-                                      ? Image.network(
-                                          allDataAdds[index]['image'][0]['url'],
-                                          width: Get.width / 4,
-                                          fit: BoxFit.fill,
-                                        )
+                                      ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                            allDataAdds[index]['image'][0]['url'],
+                                            width: Get.width / 4,
+                                            fit: BoxFit.fill,
+                                          ),
+                                      )
                                       : Container(width: Get.width / 4,
                                       child: Icon(Icons.image,size: 50,),
                                       )
@@ -121,6 +123,7 @@ Widget draftedlist(allDataAdds){
                                 children: [
                                   Icon(Icons.person, color: Colors.grey),
                                   Container(
+                                    width: Get.width/4,
                                     // margin:EdgeInsets.only(left:29),
                                     child: Text(
                                       allDataAdds[index]['contact_name'] != null
@@ -158,7 +161,18 @@ Widget draftedlist(allDataAdds){
                       // ),
                     ],
                   ),
-                  
+                  GestureDetector(
+                    onTap: () {
+                      getData.getDraftedAdsOublished(allDataAdds[index]['id']);
+                    },
+                    child: Container(
+                      color : AppColors.appBarBackGroundColor,
+                      height: 30,
+                      width: Get.width/4,
+                      // margin: EdgeInsets.only(right: ),
+                      child: Center(child: Text("Publish",style: TextStyle(color: Colors.white),)),
+                    ),
+                  )
                 ],
               ),
             ),

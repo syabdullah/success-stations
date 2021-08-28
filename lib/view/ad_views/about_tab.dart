@@ -55,7 +55,9 @@ class _AboutTabState extends State<AboutTab> {
              } // value is an instance of Controller.
           ),
             // detail(),
-             
+             Text("${'lastads'.tr}:",
+                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
+              ),
             GetBuilder<LastAdsController>(
               init: LastAdsController(),
               builder: (value){

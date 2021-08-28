@@ -65,6 +65,7 @@ var id,cid,rid,crid ;
 var uploadedImage;
 var lang;
 var editData;
+var imageName;
   @override
   void initState() {
     super.initState();
@@ -74,13 +75,22 @@ var editData;
     crid = box.read('country_id');
     lang = box.read('lang_code');
     editData = Get.arguments;
-    if(editData != null ) {
-      print(".....EEEEE-----$editData");
-      titleController = TextEditingController(text: editData['title'][lang]);
-      selectedStatus =  editData['status'];
-      descController =  TextEditingController(text: editData['description'][lang]);
-      editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;
-    }
+    // if(editData != null ) {
+    //   print(".....EEEEE-----$editData");
+    //   titleController = TextEditingController(text: editData['title'][lang]);
+    //   selectedStatus =  editData['status'];
+    //   descController =  TextEditingController(text: editData['description'][lang]);
+    //   editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;     
+    //   imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
+    //    print(".....EEEEE-----$imageName");
+    //   priceController = TextEditingController(text: editData['price']);
+    //   fullNameController = TextEditingController(text: editData['contact_name']);
+    //   selectedCategory = editData['category']['category'][lang];
+    //   // selectedtype = editData['type']['type'][lang];
+    //   emailController = TextEditingController(text: editData['email']);
+    //   telePhoneController = TextEditingController(text: editData['telephone']);
+    //   mobileNoController = TextEditingController(text: editData['phone']);
+    // }
     // catogoryController.getCategoryNames();
     // catogoryController.getCategoryTypes();
 
@@ -116,8 +126,8 @@ var editData;
               'description': descController.text,
               'price': priceController.text,
               'contact_name': fullNameController.text,
-              'mobile_no': mobileNoController.text,
-              'tel_no': telePhoneController.text,
+              'phone': mobileNoController.text,
+              'telephone': telePhoneController.text,
               'title':titleController.text,
               'created_by': id.toString(),
               'email': emailController.text,
@@ -125,7 +135,7 @@ var editData;
               'city_id':cid.toString(),
               'region_id': rid.toString(),
               'is_published':1,
-              "image": Get.find<AdPostingController>().adUpload['name'],
+              "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
      Get.find<AdPostingController>().finalAdPosting(json);
     //  if(pickedFile != null) {
@@ -155,7 +165,8 @@ var editData;
   
   }
    addraft() async{
- 
+     print(",.,.,.,.RRRR${fullNameController.text}");
+     print(",.,.,.,.RRRR----${mobileNoController.text}");
      if(pickedFile != null) {
         try {
           dio.FormData formData = dio.FormData.fromMap({            
@@ -164,8 +175,8 @@ var editData;
               'description': descController.text,
               'price': priceController.text,
               'contact_name': fullNameController.text,
-              'mobile_no': mobileNoController.text,
-              'tel_no': telePhoneController.text,
+              'phone': mobileNoController.text,
+              'telephone': telePhoneController.text,
               'title':titleController.text,
               'created_by': id.toString(),
               'email': emailController.text,
@@ -173,7 +184,7 @@ var editData;
               'city_id':cid.toString(),
               'region_id': rid.toString(),
               'is_published':0,
-              "image":  await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+              "image":  Get.find<AdPostingController>().adUpload['name'],           
           }); 
           Get.find<AdPostingController>().finalAdDrafting(formData); 
         } catch (e) {
@@ -479,7 +490,7 @@ Widget istStep(List list,List types){
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
-               
+                maxLength:30,
                 controller: titleController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -613,7 +624,7 @@ Widget istStep(List list,List types){
                       onTap: () {
                         getImage();
                       },
-                      child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,): Image.asset(AppImages.uploadImage,height: 90,)),
+                      child: fileName != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,):  editImage != null ? Image.network(editImage,fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,) : Image.asset(AppImages.uploadImage,height: 90,)),
                   ),
                 ),
               ),
@@ -768,10 +779,11 @@ Widget secondStep(){
   } 
   
   Widget thirdStep(){
+    print("IN THIRD STEP FILE NAME ---- $editImage");
     return Column(
       children: [
         fileName != null ?
-        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):Container(),     
+        Image.file(File(image),fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,): editImage != null ? Image.network(editImage,fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,) : Container(),     
         Card(
           child: Column(
             children: [

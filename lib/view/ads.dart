@@ -1,5 +1,5 @@
 
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 
@@ -8,18 +8,13 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/my_adds/category_ads.dart';
-import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/home_offer.dart';
 
 
@@ -291,18 +286,12 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      height: Get.width < 420 ? Get.height/3.5: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (BuildContext,index) {
-          
-          // if(data[index]['price'] !=null){
-          //  tttt = data[index]['price'].toString();
-          // // }
-          // double num = tttt;
-          // print(num.toStringAsFixed(2)) ;
           return 
           GestureDetector(
             onTap: () {
@@ -329,7 +318,7 @@ class _AdsViewState extends State<AdsView> {
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top:6,left: 10),
+                    margin: EdgeInsets.only(top:2,left: 5),
                     child: Text(data[index]['title'][lang] != null ?allWordsCapitilize(data[index]['title'][lang]):'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
                   ),
                   Container(
@@ -337,22 +326,22 @@ class _AdsViewState extends State<AdsView> {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top:6,left: 10),
+                          margin: EdgeInsets.only(top:6,left: 5),
                           child: Image.asset(AppImages.location,height: 15, color:Colors.grey[600],)
                         ),
-                        SizedBox(width:5),
+                        SizedBox(width:2),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:6, left: Get.height*0.01),
+                              margin: EdgeInsets.only(top:6, left: 5),
                               child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
                               ): Container()
                             ),
                             Container(
-                              margin: EdgeInsets.only(top:6,left:15),
+                              margin: EdgeInsets.only(top:6,left: 5),
                               child: data[index]['price'] !=null ? Text(
-                               'SAR: ${data[index]['price']}'
+                               'SAR:${data[index]['price']}'
                               ): Container()
                             )
                           ],
@@ -361,20 +350,20 @@ class _AdsViewState extends State<AdsView> {
                       ],
                     ),
                   ), 
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Container(
+                  //       margin: EdgeInsets.only(top:6,left: Get.height*0.04),
+                  //       child: data[index]['country']!=null ? Text(data[index]['country']['name'] ): Container()
+                  //     ),
+                  //   ],
+                  // ) ,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top:6,left: Get.height*0.04),
-                        child: data[index]['country']!=null ? Text(data[index]['country']['name'] ): Container()
-                      ),
-                    ],
-                  ) ,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 5),
+                        // margin: EdgeInsets.only(left: 5),
                         child: Icon(Icons.person,color:Colors.grey[600]),
                       ),
                       SizedBox(width:5),

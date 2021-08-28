@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>958707106290-j3eglmtt8pb8s72vuc7kn66amfhp5jnk.apps.googleusercontent.com</string>
+	<string>148001945963-b2ungtu6drp5nknovbuam1nineeom32n.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.958707106290-j3eglmtt8pb8s72vuc7kn66amfhp5jnk</string>
+	<string>com.googleusercontent.apps.148001945963-b2ungtu6drp5nknovbuam1nineeom32n</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA6qMvOO0nseOm_IfhwTZnBucdLlCiUv2I</string>
+	<string>AIzaSyCPLXiudqcih9E93EAmcB2Bs5MF-oxcO2g</string>
 	<key>GCM_SENDER_ID</key>
-	<string>958707106290</string>
+	<string>148001945963</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.codility.success-stations</string>
+	<string>com.success-stations.success-station</string>
 	<key>PROJECT_ID</key>
-	<string>success-station</string>
+	<string>success-station-f3124</string>
 	<key>STORAGE_BUCKET</key>
-	<string>success-station.appspot.com</string>
+	<string>success-station-f3124.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:958707106290:ios:7911d0c0150d0fe714eb6b</string>
+	<string>1:148001945963:ios:25ac49205d39fc7316f42e</string>
 </dict>
 </plist>

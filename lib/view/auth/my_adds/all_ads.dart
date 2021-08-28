@@ -778,9 +778,7 @@ var catID;
             itemBuilder: (context, index) {
               
               if (ind == 0) {
-                 catID =  listingCategoriesData[index]['id'];
-                 print(
-        "my adds Page.......................,,,,,,,...-------------------$catID");
+                catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
                
               }

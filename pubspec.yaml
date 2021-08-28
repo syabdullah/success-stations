@@ -62,7 +62,9 @@ dependencies:
   flutter_html: ^2.1.1
   user_profile_avatar: ^0.1.0
   fluttertoast: ^8.0.8
-  timeago: ^3.1.0
+  custom_info_window: ^1.0.1
+  clippy_flutter: ^2.0.0-nullsafety.1
+  
   
 
 dev_dependencies:
