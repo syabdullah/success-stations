@@ -12,88 +12,112 @@ import 'package:url_launcher/url_launcher.dart';
 class FriendProfile extends StatefulWidget {
   _FriendProfileState createState() => _FriendProfileState();
 }
-class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveClientMixin<FriendProfile> {
- late TabController _controller;
+
+class _FriendProfileState extends State<FriendProfile>
+    with SingleTickerProviderStateMixin {
+  late DefaultTabController _controller;
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
   bool liked = false;
-  var id ;
+  var city;
+  var id;
   @override
   void initState() {
     super.initState();
-    
-     id = Get.arguments;
+
+    id = Get.arguments;
     print("../././....----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
-    // _controller = TabController(length: 2,vsync: this); 
+    _controller = DefaultTabController(length: 2, child: this.tabs());
+    // _controller = TabController(length: 2,vsync: this);
   }
+
   @override
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     print(Get.width);
-    
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         body: GetBuilder<FriendsController>(
-          init: FriendsController(),
-          builder:(val) { 
-            print("----------././././///-----${val.friendProfileData}");
-            return val.friendProfileData == null || val.userAds == null ? SingleChildScrollView( 
-              child:Container(
-                margin: EdgeInsets.only(top: 20),
-              child: Center(child: CircularProgressIndicator()))) : val.friendProfileData['success'] == false && val.friendProfileData['errors'] == 'No Profile Available' ? Container(
-                child: Center(child: Text(val.friendProfileData['errors'])),
-              ):  Column(
-              children: [        
-                profileDetail(val.friendProfileData['data']),
-                tabs(),
-                general(val.friendProfileData['data'],val.userAds['data']),
-              ],
-            );
-          }
-        ),
+            init: FriendsController(),
+            builder: (val) {
+              print("----------././././///-----${val.friendProfileData}");
+              return val.friendProfileData == null || val.userAds == null
+                  ? SingleChildScrollView(
+                      child: Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Center(child: CircularProgressIndicator())))
+                  : val.friendProfileData['success'] == false &&
+                          val.friendProfileData['errors'] ==
+                              'No Profile Available'
+                      ? Container(
+                          child: Center(
+                              child: Text(val.friendProfileData['errors'])),
+                        )
+                      : Column(
+                          children: [
+                            profileDetail(val.friendProfileData['data']),
+                            tabs(),
+                            general(val.friendProfileData['data'],
+                                val.userAds['data']),
+                          ],
+                        );
+            }),
       ),
     );
-  } 
-
-var image;
-  Widget profileDetail(data) { 
-    print("..........---------${data['media']}DAATTAAA.....${data['image']}");
-  if(data['image'] != null) {
-    image = data['image']['url'];
-  }else{
-    image = null;
   }
+
+  var image;
+  Widget profileDetail(data) {
+    //print("....Countries.......${data['country']}");
+    var country = data['country'];
+    print("..........---------${data['media']}DAATTAAA.....${data['image']}");
+    if (data['image'] != null) {
+      image = data['image']['url'];
+    } else {
+      image = null;
+    }
     return Stack(
-      children: [         
+      children: [
         Container(
-          height: Get.height/2.5,
+          height: Get.height / 2.5,
           width: Get.width,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30)),
             child: Container(
-              color: Colors.grey,
-            ),
+                // color: Colors.grey,
+                child: Image.asset(
+              AppImages.topImage,
+              fit: BoxFit.fill,
+            )),
             // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top:30),
+          margin: EdgeInsets.only(top: 30),
           child: Row(
             children: [
               IconButton(
-                onPressed:() {
-                  Get.back();
-                },
-                icon: Icon(Icons.arrow_back,color: Colors.white)
-              ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.arrow_back, color: Colors.white)),
               Center(
                 widthFactor: 2.7,
                 child: Container(
-                  child: Text("PROFILE",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
+                  child: Text(
+                    "PROFILE",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
             ],
@@ -102,49 +126,82 @@ var image;
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-           Center(
-          child: Container(
-            margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey[100],
-              radius: 40.0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child:
-                data['image'] == null ? 
-                Image.asset(AppImages.person):
-                Image.network(
-                  data['image']['url'] ,
-                  fit: BoxFit.fill,
-                  height: 80,
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(
+                    left: 10.0, right: 10.0, top: Get.height / 8.5),
+                child: data['image'] != null
+                    ? CircleAvatar(
+                        backgroundImage: NetworkImage(data['image']['url']),
+                        radius: 50.0,
+                      )
+                    : CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        radius: 50.0,
+                        child: Icon(
+                          Icons.person,
+                          size: 70,
+                          color: Colors.black,
+                        )),
 
-                ),
-              )
-            )
-          ),
-        ),
-            Container(
-              margin: EdgeInsets.only(top:10),
-              child: Text(data['name'],style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold)),
+                // CircleAvatar(
+                //   backgroundColor: Colors.grey[100],
+                //   radius: 50.0,
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(50.0),
+                //     child:
+                //     data['image'] == null ?
+                //     Image.asset(AppImages.person):
+                //     Image.network(
+                //       data['image']['url'] ,
+                //       fit: BoxFit.fill,
+                //       height: 80,
+
+                //     ),
+                //   )
+                // )
+              ),
             ),
-            //  Container(
-            //    margin: EdgeInsets.only(top:6),
-            //   child: Text("Mobile Developer",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Container(
-            //       margin: EdgeInsets.only(top:6),
-            //       child: Image.asset(AppImages.location,height: 15)
-            //     ),
-            //     SizedBox(width:5),
-            //     Container(
-            //       margin: EdgeInsets.only(top:6),
-            //       child: Text("Codility Solutions",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),
-            //     ),
-            //   ],
-            // ),
+            Container(
+                margin: EdgeInsets.only(top: 10),
+                child: data['name'] != null
+                    ? Text(data['name'],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold))
+                    : Text(
+                        " ",
+                      )),
+            Container(
+              margin: EdgeInsets.only(top: 0),
+              child: data['degree'] != null
+                  ? Text(data['degree'],
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400))
+                  : Text(""),
+            ),
+            country['name'] != null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(top: 6),
+                          child: Image.asset(AppImages.location, height: 15)),
+                      SizedBox(width: 5),
+                      Container(
+                        margin: EdgeInsets.only(top: 6),
+                        child: Text(country['name'],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400)),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ],
@@ -152,69 +209,121 @@ var image;
   }
 
   Widget tabs() {
-    return  Wrap(
+    return Wrap(
       children: [
         FractionalTranslation(
-          translation:  const Offset(0.5, -0.5),
-          child: 
-          Container(
+          translation: const Offset(0.5, -0.5),
+          child: Container(
             // margin: EdgeInsets.only(left: 250),
             child: Container(
-              height: Get.height/9*0.5,
-              width:Get.width/3.2,
+              height: Get.height / 9 * 0.5,
+              width: Get.width / 3.2,
               decoration: BoxDecoration(
-                color: AppColors.appBarBackGroundColor,
-                borderRadius: BorderRadius.circular(50)
-              ),
-              child: Center(child: Text("Friends",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
+                  color: AppColors.appBarBackGroundColor,
+                  borderRadius: BorderRadius.circular(50)),
+              child: Center(
+                  child: Text("Friends",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold))),
             ),
           ),
         ),
         FractionalTranslation(
-          translation:  const Offset(0.7, -0.5),
-          child: 
-          GestureDetector(
+          translation: const Offset(0.7, -0.5),
+          child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             child: Container(
-              height: Get.height/9*0.5,
-              width:Get.width/3.2,
+              height: Get.height / 9 * 0.5,
+              width: Get.width / 3.2,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                 border: Border.all(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
                     color: AppColors.appBarBackGroundColor,
                     width: 2,
-                  )
-
-              ),
-              child: Center(child: Text("Message",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold))),
+                  )),
+              child: Center(
+                  child: Text("Message",
+                      style: TextStyle(
+                          color: AppColors.appBarBackGroundColor,
+                          fontWeight: FontWeight.bold))),
             ),
           ),
         ),
         SizedBox(
           height: 30,
-          child: 
-             TabBar(
-               indicatorColor: AppColors.appBarBackGroundColor,
-               indicatorWeight: 5.0,
-              tabs: [
-                Tab(
-                  child: Text("General",style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
-                ),
-                Tab(
-                  child:Text("Ads",style:TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-          
+          child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                      bottom: BorderSide(color: Colors.grey, width: 0.8))),
+              child: TabBar(
+                  unselectedLabelColor: Colors.grey,
+                  unselectedLabelStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color.fromRGBO(142, 142, 142, 1)),
+                  labelColor: Colors.blue,
+                  labelPadding: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  labelStyle: TextStyle(
+                    fontFamily: "Roboto",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  //controller: tabController,
+                  indicatorColor: Colors.blue,
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                  ),
+                  tabs: [
+                    Text(
+                      'General',
+                    ),
+                    Text(
+                      'Ads',
+                    ),
+                  ])),
+          // TabBar(
+          //   labelColor: AppColors.appBarBackGroundColor,
+          //     unselectedLabelColor: Colors.red,
+          //   indicatorWeight: 5.0,
+
+          //   tabs: [
+          //     Tab(
+          //       child: Text("General",
+          //           style: TextStyle(
+          //               color: AppColors.appBarBackGroundColor,
+          //               fontWeight: FontWeight.bold)),
+          //     ),
+          //     Tab(
+          //       child: Text("Ads",
+          //           style: TextStyle(
+          //               color: AppColors.appBarBackGroundColor,
+          //               fontWeight: FontWeight.bold)),
+          //     ),
+          //   ],
+          // ),
         ),
       ],
     );
   }
-  Widget general(data,adsData) {
+
+  Widget general(data, adsData) {
+    var country = data['country'];
+    city = data['city'];
+    city = city['city'];
+
+    print("........college.......$city");
     return Expanded(
       flex: 1,
       child: TabBarView(
+        // controller: _controller,
+        //  controller: Colors.red,
+        //    indicatorColor: Colors.grey,
+        //   labelColor: Colors.black,
+        //   unselectedLabelColor: Colors.grey,
+
         children: [
           ListView(
             children: [
@@ -223,51 +332,188 @@ var image;
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:20,left: 20),
-                              child: Text(AppString.name,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "name".tr,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                ),
+                                data['name'] != null
+                                    ? Container(
+                                        margin: EdgeInsets.only(top: 5),
+                                        child: Text(data['name'].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600)),
+                                      )
+                                    : Container(),
+                                data['mobile'] != null
+                                    ? Container(
+                                        margin: EdgeInsets.only(top: 25),
+                                        child: Text(
+                                          "mobile".tr,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                      )
+                                    : Container(),
+                                Text(data['mobile'].toString(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                              ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15,top: 5),
-                              child: Text(data['name'],style: TextStyle(fontWeight: FontWeight.w600)),
-                            ), 
-                            Container(
-                              
-                              margin: EdgeInsets.only(top:20,left: 20),
-                              child: Text(AppString.mobile,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,left: 15,top: 5),
-                              child: Text(data['mobile'] != null ? data['mobile'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),               
-                          ],
+                          ),
                         ),
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:25,),
-                              child: Text(AppString.email,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 15,top:5),
-                              child: Text(data['email'],style: TextStyle(fontWeight: FontWeight.w600)),
-                            ), 
-                            Container(
-                              margin: EdgeInsets.only(top:20),
-                              child: Text(AppString.address,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,top: 5),
-                              child: Text("343658795432",style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),               
-                          ],
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 25),
+                                child: Text(
+                                  'email'.tr,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                              data['email'] != null
+                                  ? Container(
+                                      margin: EdgeInsets.only(top: 5),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return Dialog(
+                                                  // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                                  // elevation: 16,
+                                                  child: Container(
+                                                    height: Get.height / 7,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 20,
+                                                                    top: 10),
+                                                            child: Text(
+                                                                "email".tr)),
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 5,
+                                                                    left: 20),
+                                                            child: Text(
+                                                              data["email"]
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Text(
+                                            data["email"].length > 20
+                                                ? data["email"]
+                                                        .substring(0, 20) +
+                                                    '...'
+                                                : data["email"],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                    )
+                                  : Container(),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: GestureDetector(
+                                    child: Text(
+                                  "address".tr,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                )),
+                              ),
+                              data["address"] != null
+                                  ? Container(
+                                      margin:
+                                          EdgeInsets.only(bottom: 20, top: 5),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return Dialog(
+                                                  child: Container(
+                                                    height: Get.height / 7,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 10),
+                                                            child: Text(
+                                                                "Address".tr)),
+                                                        Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 5),
+                                                            child: Text(
+                                                              data["address"]
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Text(
+                                            data["address"].length > 20
+                                                ? data["address"]
+                                                        .substring(0, 20) +
+                                                    '...'
+                                                : data["address"],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 45,
+                                    )
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -276,183 +522,347 @@ var image;
               ),
               Card(
                 elevation: 2,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:20,left: 10),
-                              child: Text(AppString.college,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                child: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: 25,
+                                    ),
+                                    child: Text(
+                                      "college".tr,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
+                                  data['college'] != null
+                                      ? Container(
+                                          margin: EdgeInsets.only(
+                                            top: 5,
+                                          ),
+                                          child: Text(
+                                              data['college']['college']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600)),
+                                        )
+                                      : Container(),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 20),
+                                    child: Text(
+                                      "degree".tr,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
+                                  data["degree"] != null
+                                      ? Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: 20, top: 5),
+                                          child: Text(
+                                              data["degree"].length > 20
+                                                  ? data["degree"]
+                                                          .substring(0, 20) +
+                                                      '...'
+                                                  : data["degree"],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                        )
+                                      : Container(
+                                          height: 20,
+                                        )
+                                ],
+                              ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15,top: 5),
-                              child: Text(data['college'] != null  ? data['college']['college'] :'' ,style: TextStyle(fontWeight: FontWeight.w600)),
-                            ), 
-                            Container(
-                              
-                              margin: EdgeInsets.only(top:25),
-                              child: Text(AppString.degree,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    top: 14,
+                                  ),
+                                  child: Text(
+                                    'university'.tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 5),
+                                  child: Text(
+                                      data['university'] != null
+                                          ? data['university']['name']
+                                          : '',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    top: 23,
+                                  ),
+                                  child: Text(
+                                    "semester".tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey),
+                                  ),
+                                ),
+                                data["semester"] != null
+                                    ? Container(
+                                        margin:
+                                            EdgeInsets.only(bottom: 20, top: 5),
+                                        child: Text(data["semester"].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600)),
+                                      )
+                                    : Container(
+                                        height: 20,
+                                      )
+                              ],
                             ),
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,left: 20,top: 5),
-                              child: Text(data['degree'] != null ? data['degree'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),               
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:25,right: 20,),
-                              child: Text(AppString.university,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 20,top:5),
-                              child: Text(data['university'] != null ? data['university']['name'] : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                            ), 
-                            Container(
-                              margin: EdgeInsets.only(top:20,right: 20,),
-                              child: Text(AppString.smester,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,top: 5,right: 20,),
-                              child: Text(data['semester'] != null ? data['semester'].toString() : '',style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),               
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text("About",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                      child: Text(data['about'] != null ? data['about'] : '' )
-                    )
-                  ],
+                child: Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Text("about".tr,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey))),
+                      data["about"] != null
+                          ? Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Text(data["about"],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black)))
+                          : Container()
+                    ],
+                  ),
                 ),
               )
+              //
             ],
           ),
-          ads(adsData)
+          ads(adsData),
         ],
       ),
-    ); 
+    );
   }
 
   Widget ads(adsData) {
+    print("hhjgdhjagdhj...hjsdhjasgdhj......$adsData");
     return ListView.builder(
-          itemCount: adsData != null ? adsData.length:0,
-          itemBuilder: (BuildContext context,index) {
-            return adsData != null ? GestureDetector(
-              onTap: (){
-                
-              },
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 70,
-                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: adsData[index]['image'].length != 0 ? Image.network(adsData[index]['image'][0]['url'],height: 40,fit: BoxFit.fitHeight) : Container(
-                          height: Get.height/7,
-                          child: Icon(Icons.image,size: 50,))
-                      )
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: Get.width/3,
-                          child: Text(adsData[index]['title']['en'],style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        SizedBox(height: 5,),
-                        Row(
-                          children: [
-                            Image.asset(AppImages.person,height: 15,),
-                            SizedBox(width:5),
-                            Container(
-                              child: Text(adsData[index]['contact_name'],style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(AppImages.location,height: 15,),
-                            // Icon(Icons.person,color: Colors.grey),
-                            SizedBox(width:5),
-                            Container(
-                              child: adsData[index]['country'] != null ? Text(adsData[index]['country']['name']):Text(""),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Align(
-                      widthFactor: Get.width < 400 ? 2.2: 3.0,
-                      alignment: Alignment.topRight,
-                      child: Column(
+      itemCount: adsData != null ? adsData.length : 0,
+      itemBuilder: (BuildContext context, index) {
+        return adsData != null
+            ? GestureDetector(
+                onTap: () {},
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: 80,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 6.0, horizontal: 10.0),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: adsData[index]['image'].length != 0
+                                  ? Image.network(
+                                      adsData[index]['image'][0]['url'],
+                                      height: 70,
+                                      fit: BoxFit.fill)
+                                  : Container(
+                                      height: Get.height / 7,
+                                      child: Icon(
+                                        Icons.image,
+                                        size: 50,
+                                      )))),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.grey[100],
-                            radius: 30,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: image != null ? Image.network(image,height: 60,fit: BoxFit.fill,) : Image.asset(AppImages.person,fit: BoxFit.fill,height:30)
+                          Container(
+                            width: Get.width / 3,
+                            child: Text(
+                              adsData[index]['title']['en'],
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          // Row(
+                          //   children: [
+                          //     Image.asset(
+                          //       AppImages.person,
+                          //       height: 15,
+                          //     ),
+                          //     SizedBox(width: 5),
+                          //     Container(
+                          //       child: Text(adsData[index]['contact_name'],
+                          //           style:
+                          //               TextStyle(fontWeight: FontWeight.w600)),
+                          //     ),
+                          //   ],
+                          // ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                AppImages.location,
+                                height: 15,
+                              ),
+                              // Icon(Icons.person,color: Colors.grey),
+                              SizedBox(width: 5),
+                              Container(
+                                child: Row(
+                                  children: [city != null
+                                        ? Text(city)
+                                        : Text(""),
+                                        Text(","),
+                                    adsData[index]['country'] != null
+                                        ? Text(
+                                            adsData[index]['country']['name'])
+                                        : Text(""),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Row(
                             children: [
-                              GestureDetector(
-                                onTap: (){
-                                  var json = {
-                                    'ads_id' : adsData[index]['id']
-                                  };
-                                  // setState(() {
-                                    liked = !liked;
-                                  // });
-                                 adsData[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,id) : friCont.profileAdsRemove(json, id);
-                                },
-                              child: adsData[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart,height: 25,) :  Image.asset(AppImages.blueHeart,height: 25,) 
+                              Image.asset(
+                                AppImages.person,
+                                height: 15,
                               ),
-                              SizedBox(width:5),
-                              GestureDetector(
-                                onTap: (){
-                                  launch.call("tel:12345678912");
-                                },
-                              child: Image.asset(AppImages.call,height: 25,)
-                              )
+                              SizedBox(width: 5),
+                              Container(
+                                child: Text(adsData[index]['contact_name'],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ): Container(
-              child: Text("No Ads "),
-            );
+                      Align(
+                        widthFactor: Get.width < 400 ? 2.2 : 3.0,
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          children: [
+                            image != null
+                                ? CircleAvatar(
+                                    backgroundImage: NetworkImage(image),
+                                    radius: 25.0,
+                                  )
+                                : CircleAvatar(
+                                    backgroundColor: Colors.grey,
+                                    radius: 50.0,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 70,
+                                      color: Colors.black,
+                                    )),
 
-          },
-        );
+                            // CircleAvatar(
+                            //   backgroundColor: Colors.grey[100],
+                            //   radius: 30,
+                            //   child: ClipRRect(
+                            //       borderRadius: BorderRadius.circular(50),
+                            //       child: image != nulljhj
+                            //           ? Image.network(
+                            //               image,
+                            //               height: 60,
+                            //               fit: BoxFit.fill,
+                            //             )
+                            //           : Image.asset(AppImages.person,
+                            //               fit: BoxFit.fill, height: 30)),
+                            // ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      var json = {
+                                        'ads_id': adsData[index]['id']
+                                      };
+                                      // setState(() {
+                                      liked = !liked;
+                                      // });
+                                      adsData[index]['is_favorite'] == false
+                                          ? friCont.profileAdsToFav(json, id)
+                                          : friCont.profileAdsRemove(json, id);
+                                    },
+                                    child: adsData[index]['is_favorite'] == true
+                                        ? Image.asset(
+                                            AppImages.redHeart,
+                                            height: 20,
+                                          )
+                                        : Image.asset(
+                                            AppImages.blueHeart,
+                                            height: 20,
+                                          )),
+                                SizedBox(width: 5),
+                                GestureDetector(
+                                    onTap: () {
+                                      launch.call("tel:12345678912");
+                                    },
+                                    child: Image.asset(
+                                      AppImages.call,
+                                      height: 20,
+                                    ))
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            : Container(
+                child: Text("No Ads "),
+              );
+      },
+    );
   }
 }
