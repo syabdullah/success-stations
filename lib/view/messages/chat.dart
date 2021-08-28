@@ -90,23 +90,17 @@ ScrollController controller = new ScrollController();
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20,),
-                // AppBar(
-                //   leading:Container(
-                //     child: GestureDetector(
-                //       // behavior: HitTestBehavior.translucent,
-                //       onTap: () {
-                //         Get.off(Inbox());
-                //       },
-                //       child: Image.asset(AppImages.arrowBack)),
-                //   ),
-                //   elevation: 0,
-                //   backgroundColor: AppColors.appBarBackGroundColor,
-                //   centerTitle: true,
-                //   title:Text(userData[1] ,
-                //     style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                //   )
-                // ),  
               ],
+            )
+          ),
+          FractionalTranslation(
+            translation: Get.height > 700 ? const Offset(2.5, 1.3): const Offset(0.2, 0.9),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              radius: 50,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child: Icon(Icons.person)),
             )
           ),
           Container(
@@ -187,6 +181,7 @@ ScrollController controller = new ScrollController();
     print(".......................>$data");
     // controller.jumpTo(controller.position.maxScrollExtent);
     return Container(
+      
      height: Get.height/1.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),

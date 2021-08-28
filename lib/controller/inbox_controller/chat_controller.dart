@@ -26,7 +26,7 @@ class ChatController extends GetxController {
       print("//.//././.------$adsCreate");
       if(res.statusCode == 200 || res.statusCode < 400) {
         getChatConvo(adsCreate['data']['id']);
-        Get.to(ChattingPage());
+        
       }
       isLoading = false;
     });

@@ -5,6 +5,7 @@ import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/text_field.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddLocations extends StatefulWidget {
   const AddLocations({ Key? key }) : super(key: key);
@@ -17,140 +18,46 @@ class _AddLocationsState extends State<AddLocations> {
   final locCont = Get.put(LocationController());
 
   TextEditingController fullNameController = TextEditingController();
+  final mapCon = Get.put(LocationController());
   String? add = '';
+  var id;
+    @override
+  void initState() {
+    super.initState();
+    id = Get.arguments;
+    
+  }
+  
+
+// void setPermissions() async{
+//    Map<PermissionGroup, PermissionStatus> permissions = 
+//    await PermissionHandler().requestPermissions([PermissionGroup.location]);
+// }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    // bottomSheet: Container(
-    //   height:Get.height/4.5,
-    //   width: Get.width,
-    //   decoration: BoxDecoration(
-    //     color: Colors.blue,
-    //     borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
-    //   ),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Center(
-    //        child: Text("_________",style: TextStyle(color: Colors.white),)
-    //       ),
-    //       Container(
-    //         child: Text(
-    //           add.toString()
-    //         ),
-    //       ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Text('editlocation'.tr,style: TextStyle(color: Colors.white,fontSize: 20),),
-          // ),
-          // Padding( padding: const EdgeInsets.all(8.0),
-          // child: Row(
-          //   children: [
-          //     Icon(Icons.gps_fixed,color: Colors.white,),
-          //     SizedBox(width: 10,),
-          //     Text('getCurrent'.tr,style: TextStyle(color: Colors.white,fontSize: 15),),
-          //   ],
-          // )),
-          // SizedBox(height: 5,),
-          //  Container(
-          //   margin:EdgeInsets.symmetric(horizontal: 20),
-          //   width: Get.width * 0.9,
-          //   child: CustomTextFiled(
-          //     isObscure: false,
-          //     hintText: "street".tr,
-          //     hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          //     hintColor: AppColors.inputTextColor,
-          //     onChanged: (value) {  },
-          //     onSaved: (String? newValue) { 
-
-          //      }, 
-          //     onFieldSubmitted: (value) {  }, 
-          //     // isObscure: true,
-          //     textController: fullNameController ,
-          //     validator: (value) {  
-          //       if (value == null || value.isEmpty) {
-          //         return 'Please enter some text';
-          //       }
-          //     },
-          //     errorText: 'Please Enter Full Name',  
-          //   ),
-          // ),
-          // SizedBox(height: 5,),
-          // Container(
-          //   margin:EdgeInsets.symmetric(horizontal: 20),
-          //   width: Get.width * 0.9,
-          //   child: CustomTextFiled(
-          //     isObscure: false,
-          //     hintText: "city".tr,
-          //     hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          //     hintColor: AppColors.inputTextColor,
-          //     onChanged: (value) {  },
-          //     onSaved: (String? newValue) {  }, 
-          //     onFieldSubmitted: (value) {  }, 
-          //     // isObscure: true,
-          //     textController: fullNameController ,
-          //     validator: (value) {  
-          //       if (value == null || value.isEmpty) {
-          //         return 'Please enter some text';
-          //       }
-          //     },
-          //     errorText: 'Please Enter Full Name',  
-          //   ),
-          // ),
-          // SizedBox(height: 5,),
-          // Container(
-          //   margin:EdgeInsets.symmetric(horizontal: 20),
-          //   width: Get.width * 0.9,
-          //   child: CustomTextFiled(
-          //     isObscure: false,
-          //     hintText: "district".tr,
-          //     hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          //     hintColor: AppColors.inputTextColor,
-          //     onChanged: (value) {  },
-          //     onSaved: (String? newValue) {  }, 
-          //     onFieldSubmitted: (value) {  }, 
-          //     // isObscure: true,
-          //     textController: fullNameController ,
-          //     validator: (value) {  
-          //       if (value == null || value.isEmpty) {
-          //         return 'Please enter some text';
-          //       }
-          //     },
-          //     errorText: 'Please Enter Full Name',  
-          //   ),
-          // ),
-      //     SizedBox(height: 10,),
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         cancelButton(),
-      //         saveButton()
-      //       ],
-      //     ),
-      //      SizedBox(height: 10,),
-      //   ],
-      // ),
-      //   ),
-      body:Stack(
-        children: [
-          Container(
-            height: Get.height,
-            child: Column(
-              children: [
-                Expanded(child: googleMap()),
-              ],
+      body:SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              height: Get.height,
+              child: Column(
+                children: [
+                  Expanded(child: googleMap()),
+                ],
+              ),
             ),
-          ),
-        //  Padding(
-        //    padding: const EdgeInsets.only(left:15.0,top:35),
-        //    child: GestureDetector(
-        //      child: Icon(Icons.arrow_back),
-        //      onTap: (){
-        //        Get.back();
-        //      },),
-        //  ),
-        ],
-        
+          //  Padding(
+          //    padding: const EdgeInsets.only(left:15.0,top:35),
+          //    child: GestureDetector(
+          //      child: Icon(Icons.arrow_back),
+          //      onTap: (){
+          //        Get.back();
+          //      },),
+          //  ),
+          ],
+          
+        ),
       ),
     );
   }
@@ -181,16 +88,17 @@ Widget googleMap(){
                     SizedBox(height: 15,),
                     Container(
                       padding: EdgeInsets.only(left: 10,right: 10),
-                      child: Text(selectedPlace!.formattedAddress.toString()),
+                      child: selectedPlace != null ? Text(selectedPlace.formattedAddress.toString()): Text('')
                     ),
                     SizedBox(height:15),
+                    selectedPlace != null ?
                       Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         cancelButton(),
                         saveButton(selectedPlace)
                       ],
-                    ),
+                    ): Container()
                   ],
                 ),
               );
@@ -208,13 +116,13 @@ Widget googleMap(){
   // );
 }
 Widget saveButton(data) {
-  var lnglat = data!.geometry!.location;
+  // if(data != null) 
+  var lnglat =  data!.geometry!.location;
   var splitLngLat = lnglat.toString().split(',');
   var lng = splitLngLat[0].replaceAll('(','');
   var lat = splitLngLat[1].replaceAll(')','');
- 
+   print("............$lng----------111${data.adrAddress}");
   var s = data!.adrAddress.replaceAll('</span>','');
-
   var street = s.toString().replaceAll('<span class=','');
   final f = street.toString().replaceAll('>','');
    var strAdr;
@@ -223,29 +131,48 @@ Widget saveButton(data) {
    var postCode;
    var countryName;
    var sp = f.split(',');
-    print("............$lng----------111$sp");
    for(int i=0; i< sp.length; i++) {
-    //  print("....PPPPPP......${sp[i]}");
      if(sp[i].contains('street-address')){
        strAdr = sp[i].replaceAll('"street-address"', '');
-      //  print("....PPPPPP.....----.$strAdr");
-     }else
+     }
      if(sp[i].contains('locality')){
        city = sp[i].replaceAll('"locality"', '');
-      //  print("....PPPPPP.....ccccc----.$city");
-     }else
-     if(sp[i].contains('region')){
-       region = sp[i].replaceAll('"region"', '');
-      //  print("....PPPPPP..-----${sp[i]}...crrrrrr----.$region");
-     }else
-     if(sp[i].contains('postal-code')){
+       print("..........LLLooooooo..----------111$city");
+      var spl = city.split('"');
+      city = spl[0];
+     }
+     
+     if(sp[i].contains('postal-code') && city != null){
        postCode = sp[i].replaceAll('"postal-code"', '');
-       print("....PPPPPP.....cpppppp----.$postCode");
-     }else
+       var pc;
+       if(postCode.contains('"locality"')){
+         pc = postCode.replaceAll('"locality"', '');
+          if(pc.contains(city)){
+            postCode = pc.replaceAll(city,'');
+          }
+       }
+     }
+     if(sp[i].contains('region')){
+       var re;
+       region = sp[i].replaceAll('"region"', '');
+      //  if(postCode)
+       if(region.contains('"postal-code"')) {
+         re = region.replaceAll('"postal-code"',',');
+         re = re.split(',');
+          // if(re.contains(postCode)) {
+          //   region = re.replaceAll(postCode,'');
+          //   print("............----------111$region");
+          // }
+          region = re[0];
+          postCode = re[1];
+          print("............$postCode-------eeeee---111$region");
+       }
+       
+     }
      if(sp[i].contains('country-name')){
        countryName = sp[i].replaceAll('"country-name"', '');
-      //  print("....PPPPPP.....cpppppp0000----.$countryName");
      }
+   
    }
   //  var streetAdr = 
     return Container(
@@ -267,17 +194,21 @@ Widget saveButton(data) {
             "formated_address":data!.formattedAddress,
             "place":data.placeId,
             "street_address":strAdr,
+            "locality":city,
+            "country_name" : countryName,
+            "region" : region,
             "postal_code":postCode,
             "view_port":data.geometry!.viewport.toString(),
             "country_id":1,
             "city_id":1,
             "region_id":1,
           };
-          locCont.saveLocationToDB(jsonLoc);
+           id != null ? locCont.editLocationToDB(id,jsonLoc) :  locCont.saveLocationToDB(jsonLoc);
          },
-        child: Text('SAVE',style: TextStyle( color: Colors.blue,),),
+        child: Text( id != null ? 'Update' : 'SAVE',style: TextStyle( color: Colors.blue,),),
       ),
     );
+  
   }
   Widget cancelButton() {
     return Container(
@@ -298,4 +229,5 @@ Widget saveButton(data) {
       ),
     );
   }
-  }
+}
+  

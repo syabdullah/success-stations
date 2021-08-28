@@ -19,6 +19,7 @@ class _InboxState extends State<Inbox> {
     // _controller = TabController(length: 2,vsync: this); 
   }
  Widget messageList(data) {
+   print("..................$data");
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
@@ -28,7 +29,7 @@ class _InboxState extends State<Inbox> {
       height: Get.height/1.2,
       child: ListView.builder(
         physics: AlwaysScrollableScrollPhysics(),
-      itemCount: data[0]['participants'].length,
+      itemCount: data.length != 0 ? data[0]['participants'].length : 0,
       itemBuilder: (context, index) {
       return ListTile(
           title: Padding(
@@ -126,7 +127,7 @@ Widget recentChat(data){
         init: ChatController(),
         builder: (val) {
 
-       return  Stack(
+        return  Stack(
           children: [
             Container(
               height: Get.height,
@@ -176,13 +177,6 @@ Widget recentChat(data){
           ],
         );
         }
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.appBarBackGroundColor,
-        onPressed: () {
-
-        },
-        child: Icon(Icons.add),
       ),
     );
   }

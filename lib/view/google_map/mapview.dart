@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/controller/all_users_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -12,6 +13,7 @@ import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 
 import 'package:clippy_flutter/triangle.dart';
+import 'package:success_stations/view/ad_views/location_tab.dart';
 
 class CustomInfoWindowExample extends StatefulWidget {
   @override
@@ -27,14 +29,17 @@ final mapCon = Get.put(LocationController());
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
+      //  Marker _markers = [];
+         List<Marker> _markers = [];
+
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
+  GetStorage box = GetStorage();
     @override
   void initState() {
     super.initState();
-    mapCon.getMyLocationToDB();
-   
-   
+    var id = box.read('user_id');
+    mapCon.getAllLocationToDB();
   }
 
   @override
@@ -43,7 +48,7 @@ final mapCon = Get.put(LocationController());
     super.dispose();
   }
  void setMarkers(LatLng point, data) {
-   print("///.............-------$point.............>$data");
+  
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
     //  setState(() {
@@ -51,77 +56,88 @@ final mapCon = Get.put(LocationController());
         Marker(markerId: MarkerId(markersId),
         position: point,
         onTap: () {
-          _customInfoWindowController.addInfoWindow!(
-            
+          print("///.............-------.............>${data['user_name']['name']}");
+          double rat = double.parse(data['user_name']['rating'].toString());
+           
+          _customInfoWindowController.addInfoWindow!(            
             Column(
               children: [
                 Expanded(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.white,
-                    elevation: 5,
-                    child: Container(
-                      // padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
-                            child: Image.asset(AppImages.bgImage,width: Get.width/4,fit: BoxFit.fill,height: Get.height/6)),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: RatingBar.builder(
-                                      initialRating: 3,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 13.5,
-                                      // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      },
-                                    ),
-                                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(AdViewTab(),arguments: data['user_name']['id']);
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.white,
+                      elevation: 5,
+                      child: Container(
+                        // padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
+                              child: data['user_name']['image'] != null ? Image.network(data['user_name']['image']['url']) : Container(
+                                width: Get.width/4,
+                                child: Image.asset(AppImages.location,width: 50,fit: BoxFit.fill,height: 50))),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 10,left:10),
-                                      child: Text("(657)",
-                                        style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: RatingBar.builder(
+                                        initialRating: rat ,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 13.5,
+                                        // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                                        itemBuilder: (context, _) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
                                       ),
                                     ),
-                                ],
-                              ),
-                             
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Text(
-                                  data['user_name']['name'],
-                                  style:
-                                      Theme.of(context).textTheme.headline6!.copyWith(
-                                            color: Colors.grey,
-                                          ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10,left:10),
+                                        child: Text(data['user_name']['rating_count'].toString(),
+                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                        ),
+                                      ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Container(
-                            child: Image.asset(AppImages.redHeart,height: 30,),
-                          )
-                        ],
+                               
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    data['user_name']['name'],
+                                    style:
+                                        Theme.of(context).textTheme.headline6!.copyWith(
+                                              color: Colors.grey,
+                                            ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Container(
+                              margin: EdgeInsets.only(right: 15),
+                              child: data['user_name']['is_user_favourite'] == true ? Image.asset(AppImages.redHeart,height: 30,):
+                              Image.asset(AppImages.blueHeart,height: 30,)
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -143,7 +159,7 @@ final mapCon = Get.put(LocationController());
       );
     //  });
  }
-  Set<Marker> _markers = {};
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,13 +167,13 @@ final mapCon = Get.put(LocationController());
       body:  GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
-          if(val.locData != null)
-           for(int i=0; i < val.locData['data']['data'].length; i++) {
-        print("///.............-------${ val.locData['data']['data'][i]}");
-            if(val.locData['data']['data'][i]['location'] != null){
-            setMarkers(LatLng(val.locData['data']['data'][i]['long'],val.locData['data']['data'][i]['long']),val.locData['data']['data'][i]);
-            _latLng =LatLng(val.locData['data']['data'][i]['long'],val.locData['data']['data'][i]['long']);
-            }
+        
+          if(val.allLoc != null)
+           for(int i=0; i < val.allLoc['data']['data'].length; i++) {
+            if(val.allLoc['data']['data'][i]['location'] != null){
+              setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
+              _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
+              }
           }
           return Stack(
             children: [
@@ -174,7 +190,7 @@ final mapCon = Get.put(LocationController());
                     onMapCreated: (GoogleMapController controller) async {
                       _customInfoWindowController.googleMapController = controller;
                     },
-                    markers: _markers,
+                    markers: _markers.toSet(),
                     initialCameraPosition: CameraPosition(
                       target: _latLng,
                       zoom: _zoom,
@@ -255,6 +271,7 @@ final mapCon = Get.put(LocationController());
     );
   }
   Widget allUsers(userData){
+    print(":';';';';';';';'%%%%%%------$userData");
   return GridView.builder(
       padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
       primary: false,

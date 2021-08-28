@@ -8,6 +8,8 @@ class LocationController extends GetxController {
   bool isLoading = false;
   var res;
   var locData;
+  var allLoc;
+  var editLoc;
    @override
   void onInit(){
     isLoading = true;
@@ -22,7 +24,7 @@ class LocationController extends GetxController {
       if(value.statusCode == 200 || value.statusCode < 400){
         res = jsonDecode(value.body);
         print("..................>$res");
-         getMyLocationToDB();
+        //  getMyLocationToDB();
          Get.to(MyLocations());
         isLoading = false;
          Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
@@ -32,13 +34,54 @@ class LocationController extends GetxController {
     });
     update();
   }
-  getMyLocationToDB() async{
+
+editLocationToDB(id,data) async{
+    isLoading = true;
+    await editLocation(id,data).then((value) {
+      print("..................scdsbhjdsvjvhf-------->${value.body}");
+      if(value.statusCode == 200 || value.statusCode < 400){
+        editLoc = jsonDecode(value.body);
+        print("..................scdsbhjdsvjvhf-------->$editLoc");
+        //  getMyLocationToDB();
+         Get.to(MyLocations());
+        isLoading = false;
+         Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+      }
+    });
+    update();
+  }
+
+deleteLocationToDB(id,userId) async {
+    isLoading = true;
+    await deleteLocation(id).then((value) {
+      if(value.statusCode == 200 || value.statusCode < 400){
+        var del = jsonDecode(value.body);
+         print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$del");
+        isLoading = false;
+        getMyLocationToDB(userId);
+         Get.snackbar("Location deleted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+      }
+    });
+    update();
+  }
+
+  getMyLocationToDB(id) async{
     print("controller call of the Favorite list");
     isLoading = true;
-    await getMyLocation().then((value) {
+    await getMyLocation(id).then((value) {
       print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
       locData = jsonDecode(value.body);
       print("json decode response of offer.......>$res");
+      isLoading = false;
+    });
+    update();
+  }
+  getAllLocationToDB() async{
+    print("controller call of the Favorite list");
+    isLoading = true;
+    await getAllLocation().then((value) {
+      allLoc = jsonDecode(value.body);
+      print("json decode response of offer.......>$allLoc");
       isLoading = false;
     });
     update();
