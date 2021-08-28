@@ -108,7 +108,7 @@ class _MyLocationsState extends State<MyLocations> {
                             child: data[index]['user_name']['media'].length != 0 ?
                             Image.network(data[index]['user_name']['media'][0]['url'],height: 60,) :
                             Container(
-                              child: Image.asset(AppImages.location),
+                              child: Image.asset(AppImages.locationimg),
                               width: Get.width/6)
 
                             //  Image.asset(
@@ -123,13 +123,14 @@ class _MyLocationsState extends State<MyLocations> {
                       child: Column(
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            data[index]['user_name']['name'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight:FontWeight.bold
-                            ),
-                          ),
+                          // Text(
+                          //   "Location",
+                          //   // data[index]['user_name']['name'],
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontWeight:FontWeight.bold
+                          //   ),
+                          // ),
                           SizedBox(height: 7),
                           Container(
                             width: Get.width/3.0,

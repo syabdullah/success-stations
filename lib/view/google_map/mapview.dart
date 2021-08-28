@@ -81,8 +81,9 @@ final mapCon = Get.put(LocationController());
                             ClipRRect(
                               borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
                               child: data['user_name']['image'] != null ? Image.network(data['user_name']['image']['url']) : Container(
-                                width: Get.width/4,
-                                child: Image.asset(AppImages.location,width: 50,fit: BoxFit.fill,height: 50))),
+                                margin: EdgeInsets.all(20 ),
+                                // width: Get.width/4,
+                                child: Image.asset(AppImages.locationimg,fit: BoxFit.fill,height: 30))),
                             SizedBox(
                               width: 8.0,
                             ),
@@ -91,14 +92,14 @@ final mapCon = Get.put(LocationController());
                                 Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(top: 10,left: 15),
                                       child: RatingBar.builder(
                                         initialRating: rat ,
                                         minRating: 1,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
                                         itemCount: 5,
-                                        itemSize: 13.5,
+                                        itemSize: 19.5,
                                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
                                         itemBuilder: (context, _) => Icon(
                                           Icons.star,
@@ -111,8 +112,8 @@ final mapCon = Get.put(LocationController());
                                     ),
                                       Container(
                                         margin: EdgeInsets.only(top: 10,left:10),
-                                        child: Text(data['user_name']['rating_count'].toString(),
-                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                        child: Text("(${data['user_name']['rating_count'].toString()})",
+                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,),
                                         ),
                                       ),
                                   ],
@@ -167,7 +168,6 @@ final mapCon = Get.put(LocationController());
       body:  GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
-        
           if(val.allLoc != null)
            for(int i=0; i < val.allLoc['data']['data'].length; i++) {
             if(val.allLoc['data']['data'][i]['location'] != null){
