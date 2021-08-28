@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
 
 class MyLocations extends StatefulWidget {
@@ -14,18 +17,28 @@ class MyLocations extends StatefulWidget {
 class _MyLocationsState extends State<MyLocations> {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final locationCon = Get.put(LocationController());
+    GetStorage box = GetStorage();
+    var id;
   @override
   void initState() {
     super.initState();
-    locationCon.getMyLocationToDB();
+     id = box.read('user_id');
+    locationCon.getMyLocationToDB(id);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: CustomBottomBar(),
       key: _scaffoldKey,
-    appBar: AppBar(backgroundColor:Colors.blue,title: Text('MY LOCATION'),centerTitle: true,),
-      
+      appBar: AppBar(
+      backgroundColor:Colors.blue,title: Text('MY LOCATION'),centerTitle: true,
+      leading: IconButton(onPressed: () => _scaffoldKey.currentState!.openDrawer(), icon: Icon(Icons.arrow_back_ios)),
+    ),  
+    
+    drawer: Theme(
+        data: Theme.of(context).copyWith(
+        ),
+        child: AppDrawer(),
+      ),
       body: Stack(
         children: [
           Container(
@@ -58,8 +71,10 @@ class _MyLocationsState extends State<MyLocations> {
                   GetBuilder<LocationController>(
                     init: LocationController(),
                     builder:(val) { 
-                      return val.locData != null ?  Expanded(
-                        child: myAddsList(val.locData['data'])): Container();
+                      return val.locData != null &&  val.locData['data'].length != 0  ?  Expanded(
+                        child: myAddsList(val.locData['data'])): Container(
+                          child: Center(child: Text("No Location added yet!",style: TextStyle(fontWeight: FontWeight.bold),)),
+                        );
                     }
                   )
               ],
@@ -70,15 +85,15 @@ class _MyLocationsState extends State<MyLocations> {
   }
   
    Widget myAddsList(data) {
-     print("........................$data");
+     print("......................-----..$data");
     return ListView.builder(
       padding: EdgeInsets.all(5),
-      itemCount: data.length,
+      itemCount: data != null ?  data.length:0,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         return Card(
           child: Container(
-            height: 130,
+            // height: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,7 +107,9 @@ class _MyLocationsState extends State<MyLocations> {
                           child: GestureDetector(
                             child: data[index]['user_name']['media'].length != 0 ?
                             Image.network(data[index]['user_name']['media'][0]['url'],height: 60,) :
-                            Container(width: Get.width/4,)
+                            Container(
+                              child: Image.asset(AppImages.location),
+                              width: Get.width/6)
 
                             //  Image.asset(
                             //   AppImages.profileBg
@@ -118,7 +135,12 @@ class _MyLocationsState extends State<MyLocations> {
                             width: Get.width/3.0,
                             child: 
                                 // Image.asset(AppImages.location, height:15),
-                                Text(data[index]['formated_address'] != null ? data[index]['formated_address']:'',textAlign: TextAlign.left,
+                                ReadMoreText(data[index]['formated_address'] != null ? data[index]['formated_address']:'',
+                                trimLines: 2,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.grey[400],
@@ -151,11 +173,21 @@ class _MyLocationsState extends State<MyLocations> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(right:5),
-                        child: Image.asset(AppImages.delete, height: 30)
+                      GestureDetector(
+                        onTap: () {
+                          locationCon.deleteLocationToDB(data[index]['id'],id);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(right:5),
+                          child: Image.asset(AppImages.delete, height: 30)
+                        ),
                       ),
-                      Image.asset(AppImages.edit, height: 30),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(AddLocations(),arguments:data[index]['id']);
+                        },
+                        child: Container(
+                          child: Image.asset(AppImages.edit, height: 30))),
                     ],
                   ),
                 ),

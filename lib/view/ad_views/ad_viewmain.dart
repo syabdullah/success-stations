@@ -56,14 +56,12 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                     } 
                   ),
                 ),
-                
             ];
           },
           body: Container(
             height: Get.height,
             child: Column(
               children: [
-                
                 SizedBox(height: 50.h),
                 TabBar(
                 labelColor: AppColors.appBarBackGroundColor,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
+import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -20,16 +22,18 @@ class BottomTabs extends StatefulWidget {
 }
 class _BottomTabsState extends State<BottomTabs> {
   final banner = Get.put(BannerController());
+  final mapCon = Get.put(LocationController());
+  GetStorage box = GetStorage();
   void initState() {
     // TODO: implement initState
     banner.bannerController();
+    var id = box.read('user_id');
+     mapCon.getAllLocationToDB();
     super.initState();
   }
   @override
   void dispose() {
-    // TODO: implement dispose
-    banner.bannerController();
-    
+  
     super.dispose();
 
   }

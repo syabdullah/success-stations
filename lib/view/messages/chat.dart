@@ -1,100 +1,126 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/messages/inbox.dart';
 
 class ChattingPage extends StatefulWidget {
   _ChattingState createState() => _ChattingState();
 }
 class _ChattingState extends State<ChattingPage> {
-
+var uId;
+ScrollController controller = new ScrollController();
   List<ChatMessage> me = [
-    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
-    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    // ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
+    // ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
+    // ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
+    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    //  ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    //  ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
   ];
+  final chatCont = Get.put(ChatController());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController msg = TextEditingController();
+  var id;
+  var userData;
+  GetStorage box = GetStorage();
+   @override
+  void initState() {
+    super.initState();
+     userData = Get.arguments;
+     print(".............,kfdslkfkdls,,,,$userData");
+     id = userData[0];
+     controller.animateTo(
+            0.0,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 300),
+          );
+
+     uId = box.read('user_id');
+     print(id);
+    //  chatCont.getChatConvo(id);
+    // _controller = TabController(length: 2,vsync: this); 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:  Size.fromHeight(50.0),
+        key: _scaffoldKey,
+        child:  AppBar(
+          leading:Container(
+            margin: EdgeInsets.only(top:20),
+            child: GestureDetector(
+              // behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Get.off(Inbox());
+              },
+              child: Image.asset(AppImages.arrowBack)),
+          ),
+          elevation: 0,
+          backgroundColor: AppColors.appBarBackGroundColor,
+          centerTitle: true,
+          title:Container(
+            margin: EdgeInsets.only(top:20),
+            child: Text(userData[1] ,
+              style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+            ),
+          )
+        ),
+      ),
       body: Stack(
         children: [
-          
           Container(
-            height: Get.height,
+            height: Get.height/3.5,
             width: Get.width,
             color: AppColors.appBarBackGroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppBar(
-                  leading:Image.asset(AppImages.arrowBack),
-                  elevation: 0,
-                  backgroundColor: AppColors.appBarBackGroundColor,
-                  centerTitle: true,
-                  title:Text( "INBOX",
-                    style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                  )
-                ),  
+                SizedBox(height: 20,),
               ],
             )
           ),
-          messageList(),
-          
-        ],
-      ),
-    );
-  }
-  Widget messageList() {
-    return Stack(
-      
-      children: [
-        
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
-            color: Colors.white,
+          FractionalTranslation(
+            translation: Get.height > 700 ? const Offset(2.5, 1.3): const Offset(0.2, 0.9),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              radius: 50,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child: Icon(Icons.person)),
+            )
           ),
-          margin: EdgeInsets.only(top:Get.height/5.0),
-          height: Get.height/0.5,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ListView.builder(
-                    itemCount: me.length,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(top: 10,bottom: 10),
-                    // physics: AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (context, index){
-                      return Container(
-                        padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                        child: Align(
-                          alignment: (me[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10.0),
-                                bottomRight: Radius.circular(10.0),
-                                bottomLeft: Radius.circular(10.0)
-                              ),
-                              color: (me[index].messageType  == "receiver"?Colors.grey.shade200:Colors.blue[200]),
-                            ),
-                            padding: EdgeInsets.all(16),
-                            child: Text(me[index].messageContent, style: TextStyle(fontSize: 15),),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Align(
+          Container(
+            child: GetBuilder<ChatController>(
+              init: ChatController(),
+              builder: (val) {
+                return val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+                  //  margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+                  //     color: Colors.white,
+                  //   ),
+                );
+              },
+            ),
+          ),         
+          Align(
             alignment: Alignment.bottomLeft,
             child: Container(
+              
               padding: EdgeInsets.only(left: 10,bottom: 10,top: 10),
               height: 60,
               width: double.infinity,
@@ -117,7 +143,10 @@ class _ChattingState extends State<ChattingPage> {
                   SizedBox(width: 15,),
                   Expanded(
                     child: TextField(
+                      controller: msg,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white10,
                         hintText: "Write message...",
                         hintStyle: TextStyle(color: Colors.black54),
                         border: InputBorder.none
@@ -126,7 +155,15 @@ class _ChattingState extends State<ChattingPage> {
                   ),
                   SizedBox(width: 15,),
                   FloatingActionButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      setState(() {
+                        me.add(
+                        ChatMessage(messageContent: msg.text,messageType: "sender")
+                      );
+                      msg.clear();
+                      });
+                      
+                    },
                     child: Icon(Icons.send,color: Colors.white,size: 18,),
                     backgroundColor: Colors.blue,
                     elevation: 0,
@@ -136,50 +173,50 @@ class _ChattingState extends State<ChattingPage> {
               ),
             ),
           ),
-                // Spacer(),
-                // Row(
-                //   children: [
-                //     Container(
-                //       width: Get.width/ 1.2,
-                //       padding: EdgeInsets.only(left:20),
-                //       decoration: BoxDecoration(  borderRadius: BorderRadius.circular(10),),
-
-                //       // child: Row(
-                //       //   children: [
-                //          child:  TextFormField(
-                           
-                //             cursorColor: Colors.lightGreen,
-                //             keyboardType: TextInputType.phone,
-                //             decoration: InputDecoration(
-
-                             
-                              
-                //               suffixIcon:Padding(
-                //                 padding: const EdgeInsets.all(13.0),
-                //                 child: Image.asset(AppImages.fav, height: 10,),
-                //               ),
-                //               hintText: 'Type your message here',
-                //               focusedBorder: OutlineInputBorder(
-                //                 borderSide: BorderSide(
-                //                   color: Colors.lightGreen
-                //                 )
-                //               ),
-                //               border: OutlineInputBorder(
-                //                 borderSide: BorderSide()
-                //               ),
-                //             )
-                //           ),
-                //           //  Icon(Icons.send)
-                //       //   ],
-                //       // ),
-                //     ),
-                   
-                //   ],
-                // )
-              ],
-            ),
+        ],
+      ),
+    );
+  }
+  Widget messageList(data) {
+    print(".......................>$data");
+    // controller.jumpTo(controller.position.maxScrollExtent);
+    return Container(
+      
+     height: Get.height/1.5,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+        color: Colors.white,
+      ),
+      margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
+      // height: Get.height,
+        child: ListView.builder(
+          reverse: true,
+           controller: controller,
+          itemCount: data['data'].length,
+          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 10,bottom: 10),
+         physics: AlwaysScrollableScrollPhysics(),
+          itemBuilder: (context, index){
+            return Container(
+              padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
+              child: Align(
+                alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0)
+                    ),
+                    color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
+                ),
+              ),
+            );
+          },
         ),
-      ],
     );
   }
 }
