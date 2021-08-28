@@ -119,7 +119,7 @@ class FriendsController extends GetxController {
     await friendsProfile(id).then((res) {
       // print("/././././.-----$id");
       friendProfileData = jsonDecode(res.body);
-      // print("/././././.-----$friendProfileData");
+       print("/././././.-----$friendProfileData");
       isLoading = false;
     }).catchError((e) {
       return e;
