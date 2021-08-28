@@ -97,7 +97,7 @@ class AddOffersState extends State<AddOffersPage> {
             'status': statusSelected,
             'image':Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
-           print("add posting screen .....................................>${ Get.find<StorePostAddesController>().uploadImageOfAdd['name']}");
+          //  print("add posting screen .....................................>${ Get.find<StorePostAddesController>().uploadImageOfAdd['name']}");
           Get.find<StorePostAddesController>().storefOffersAAll(formData); 
         }catch(e){}
       }

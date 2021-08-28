@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/utils/skalton.dart';
+import 'package:success_stations/view/messages/chat.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
@@ -16,6 +18,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
  late TabController _controller;
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
+  final chatCont = Get.put(ChatController());
   bool liked = false;
   var id ;
   @override
@@ -49,7 +52,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
               ):  Column(
               children: [        
                 profileDetail(val.friendProfileData['data']),
-                tabs(),
+                tabs(val.friendProfileData['data']['name']),
                 general(val.friendProfileData['data'],val.userAds['data']),
               ],
             );
@@ -151,7 +154,7 @@ var image;
     );
   }
 
-  Widget tabs() {
+  Widget tabs(name) {
     return  Wrap(
       children: [
         FractionalTranslation(
@@ -175,6 +178,12 @@ var image;
           child: 
           GestureDetector(
             // margin: EdgeInsets.only(left: 250),
+            onTap: (){
+              print("././......$id");
+              chatCont.createConversation(id);
+              Get.to(ChattingPage(),arguments: [id,name]);
+              // Get.find<ChatController>().createConversation(id);
+            },
             child: Container(
               height: Get.height/9*0.5,
               width:Get.width/3.2,

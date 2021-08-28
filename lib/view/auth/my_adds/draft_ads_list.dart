@@ -67,11 +67,14 @@ Widget draftedlist(allDataAdds){
                               padding: const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                   child: allDataAdds[index]['image'].length != 0
-                                      ? Image.network(
-                                          allDataAdds[index]['image'][0]['url'],
-                                          width: Get.width / 4,
-                                          fit: BoxFit.fill,
-                                        )
+                                      ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                            allDataAdds[index]['image'][0]['url'],
+                                            width: Get.width / 4,
+                                            fit: BoxFit.fill,
+                                          ),
+                                      )
                                       : Container(width: Get.width / 4,
                                       child: Icon(Icons.image,size: 50,),
                                       )
@@ -165,8 +168,8 @@ Widget draftedlist(allDataAdds){
                     child: Container(
                       color : AppColors.appBarBackGroundColor,
                       height: 30,
-                      width: Get.width/4.2,
-                      margin: EdgeInsets.only(right: 15),
+                      width: Get.width/4,
+                      // margin: EdgeInsets.only(right: ),
                       child: Center(child: Text("Publish",style: TextStyle(color: Colors.white),)),
                     ),
                   )

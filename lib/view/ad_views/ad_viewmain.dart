@@ -56,14 +56,12 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                     } 
                   ),
                 ),
-                
             ];
           },
           body: Container(
             height: Get.height,
             child: Column(
               children: [
-                
                 SizedBox(height: 50.h),
                 TabBar(
                 labelColor: AppColors.appBarBackGroundColor,
@@ -120,7 +118,8 @@ Widget topImage(userData2){
       Center(
         child: FractionalTranslation(
           translation: const Offset(0.0, 1.6),
-          child: userData2['image'] != null?CircleAvatar(
+          child: userData2['image'] != null?
+          CircleAvatar(
             backgroundImage: NetworkImage(userData2['image']['url']),
             //backgroundColor: Colors.transparent,
             radius: 45.0,
@@ -145,6 +144,7 @@ Widget topImage(userData2){
             // child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
             // ) : Icon(Icons.image,size: 70,)
           ),
+     
       ),)
     
     ],

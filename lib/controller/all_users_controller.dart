@@ -18,7 +18,7 @@ class AllUsersController extends GetxController {
   getUserProfile() async{
     isLoading = true ;
     await usersAction().then((res) {
-      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
+      // print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData = jsonDecode(res.body);
       // box.write('user_image',userData['data']['image']);
     

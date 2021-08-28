@@ -693,7 +693,7 @@ var catID;
                         margin: EdgeInsets.only(left: 10),
                         child: Text(
                             dataListValue[index]['title'][lang] != null
-                                ? dataListValue[index]['title']['en']
+                                ? dataListValue[index]['title'][lang]
                                 : '',
                             style: TextStyle(
                                 color: Colors.grey,

@@ -31,7 +31,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   final adDetailCont = Get.put(MyAddsController());
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
-  var id,adId;
+  var id,adId,notificationID;
   var lang;
   String? comment,myName;
   var user_image;
@@ -43,6 +43,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     myName = box.read('name');
     user_image = box.read('user_image');
     adId = Get.arguments;
+    notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
 
   }

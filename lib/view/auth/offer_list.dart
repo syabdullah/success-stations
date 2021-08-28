@@ -509,7 +509,7 @@ class _OfferListState extends State<OfferList> {
                 return Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.all(15),
+                        margin: EdgeInsets.all(10),
                         child: Card(
                           elevation: 1,
                           shape: RoundedRectangleBorder(

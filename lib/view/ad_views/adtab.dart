@@ -105,22 +105,25 @@ class _AdListTabState extends State<AdListTab> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: GestureDetector(
                                       child:
-                                          allDataAdds[index]['image'].length !=  0
-                                          ? ClipRRect(
-                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                                            child: Image.network(
-                                              allDataAdds[index]['image'][0]['url'],
-                                              width: Get.width / 5,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                          : Container(
-                                            width: Get.width / 5,
-                                            child: Icon(
-                                              Icons.image,
-                                              size: 50,
-                                            ),
-                                          ),
+                                          allDataAdds[index]['image'].length !=
+                                                  0
+                                              ? ClipRRect(
+                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                child: Image.network(
+                                                    allDataAdds[index]['image'][0]
+                                                        ['url'],
+                                                    width: Get.width / 5,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                              )
+                                              : Container(
+                                                  width: Get.width / 5,
+                                                  child: Icon(
+                                                    Icons.image,
+                                                    size: 50,
+                                                  ),
+                                                ),
+                                      
                                       //  Image.asset(
                                       //   AppImages.profileBg,
                                       //   width: Get.width/4
@@ -278,6 +281,7 @@ class _AdListTabState extends State<AdListTab> {
                     ],
                   ),
                 ),
+             
               ),
             ),
           );
