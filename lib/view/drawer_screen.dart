@@ -47,7 +47,7 @@ class _AppDrawerState extends State<AppDrawer> {
     XFile? pickedFile;
   var imageP;
   var fileName;
-  
+  var userType;
    final banner = Get.put(BannerController());
 
   @override
@@ -62,6 +62,8 @@ class _AppDrawerState extends State<AppDrawer> {
    @override
   void initState() {
     super.initState();
+    userType = box.read('user_type');
+    print(".............user type......................$userType");
     image = box.read('user_image');
     print("............11-1-1-1--1-1-.$image");
     imageP = box.read('user_image_local');
@@ -214,6 +216,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),
+                          userType == 2 ? Container():
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
                             Get.to(MyLocations());
                           },15.0 ),
@@ -227,6 +230,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
+                          userType == 2 ? Container():
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
                           },15.0 ), 
@@ -258,9 +262,6 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
                             Get.to(UserAgreement())
                           },12.0 ),
-                           CustomListTile(AppImages.ugr, 'Term and Conditions'.tr, () => {
-                             Get.to(TermConditions())
-                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
                            Get.to(Contact())
                           },15.0 ),

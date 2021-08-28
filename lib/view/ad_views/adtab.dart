@@ -125,6 +125,7 @@ class _AdListTabState extends State<AdListTab> {
                                                     size: 50,
                                                   ),
                                                 ),
+                                      
                                       //  Image.asset(
                                       //   AppImages.profileBg,
                                       //   width: Get.width/4
@@ -282,6 +283,7 @@ class _AdListTabState extends State<AdListTab> {
                     ],
                   ),
                 ),
+             
               ),
             ),
           );

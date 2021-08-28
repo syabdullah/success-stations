@@ -490,7 +490,7 @@ Widget istStep(List list,List types){
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
-               
+                maxLength:30,
                 controller: titleController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {

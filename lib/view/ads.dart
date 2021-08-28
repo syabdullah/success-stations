@@ -58,7 +58,7 @@ class _AdsViewState extends State<AdsView> {
           GetBuilder<BannerController>(
             init: BannerController(),
             builder: (data){
-              print("....................---${data.bannerData}");
+              // print("....................---${data.bannerData}");
               imgList = [];
               return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? Center(heightFactor: 2, child: CircularProgressIndicator()):  carosalImage(data.bannerData['data']);
                   
@@ -81,7 +81,7 @@ class _AdsViewState extends State<AdsView> {
             GetBuilder<OfferController>(
             init: OfferController(),
             builder: (data){
-                print("....................................${data.offerDataList }");
+                // print("....................................${data.offerDataList }");
               return data.offerDataList != null ?  offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
             }),
            
