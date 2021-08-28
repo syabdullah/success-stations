@@ -99,11 +99,9 @@ class _AdListTabState extends State<AdListTab> {
                           Center(
                             child:
                              Container(
-                              
-                              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(40)) ),
+                                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(40)) ),
                                 height: Get.height / 4,
-                                
-                                child: Padding(
+                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: GestureDetector(
                                       child:
