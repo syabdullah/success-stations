@@ -45,7 +45,7 @@ class _AllAddsState extends State<AllAdds> {
   Color listIconColor = Colors.grey;
   bool liked = false;
   Color filterSelecredColor = Colors.blue;
-  var statusSelected;
+  var conditionSelected;
   GetStorage box = GetStorage();
   var lang;
   final banner = Get.put(BannerController());
@@ -56,6 +56,7 @@ class _AllAddsState extends State<AllAdds> {
   var end;
   var filterID;
   List<String> litems = [
+    
     "New",
     "Old",
   ];
@@ -75,10 +76,12 @@ class _AllAddsState extends State<AllAdds> {
   }
 
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   _onSelected(int index) {
-    setState(() => _selectedIndex = index);
+    setState(() => 
+    _selectedIndex = index
+  );
   }
 
   @override
@@ -189,7 +192,7 @@ class _AllAddsState extends State<AllAdds> {
     );
   }
  var catFilteredID;
-  void _adsfiltringheet() {
+  _adsfiltringheet() {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.white,
@@ -207,31 +210,38 @@ class _AllAddsState extends State<AllAdds> {
                   padding: MediaQuery.of(context).viewInsets,
                     duration: const Duration(milliseconds: 100),
                     curve: Curves.decelerate,
-                    child: Container(
+                    // child: Container(
                       child: Container(
-                        margin: EdgeInsets.only(top: 0, left: 40, right: 30),
+                        margin: EdgeInsets.only(top: 10,left:20, right:10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(AppString.filters,
-                                  style: TextStyle(
-                                    fontSize: 20, color: Colors.black
+                            Container(
+                              margin: EdgeInsets.only(top:20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin:EdgeInsets.only(left:10),
+                                    child: Text(AppString.filters,
+                                      style: TextStyle(
+                                        fontSize: 20, color: Colors.black
+                                      )
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:EdgeInsets.only(right:20),
+                                    child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(Icons.close)
+                                    )
                                   )
-                                ),
-                                Container(
-                                  child: InkWell(
-                                    onTap: () => Get.back(),
-                                    child: Icon(Icons.close)
-                                  )
-                                )
-                              ],
+                                ],
+                              ),
                             ),
-                            SizedBox(height: 10),
-                            Text("Type", style: TextStyle(fontSize: 15)),
-                            SizedBox(height: 10),
+                            SizedBox(height: Get.height*0.04),
+                            Text("Category", style: TextStyle(fontSize: 15)),
+                            // SizedBox(height: 10),
                             GetBuilder<CategoryController>(
                               init: CategoryController(),
                               builder: (data) {
@@ -247,7 +257,7 @@ class _AllAddsState extends State<AllAdds> {
                                       return Row(
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.only(left: 12.0),
+                                            margin: EdgeInsets.only(left: 8.0),
                                             child: GestureDetector(
                                               onTap: () {
                                                 setState(() {
@@ -292,7 +302,7 @@ class _AllAddsState extends State<AllAdds> {
                             Text("Condition", style: TextStyle(fontSize: 15)),
                             SizedBox(height: 10),
                             Container(
-                              height: 40,
+                              height: 20,
                               child: new ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -304,11 +314,16 @@ class _AllAddsState extends State<AllAdds> {
                                         setState((){
                                           _onSelected(index);
                                           status = litems[index];
+                                          print("....statusstatusstatus......$status");
+                                          // ignore: unnecessary_statements
+                                          // status == 'New'  ?  1  :0;
+
                                         });
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(left:20),
                                         width: Get.width / 5,
+                                        height: Get.height/4,
                                         decoration: BoxDecoration(
                                           // ignore: unnecessary_null_comparison
                                           color: _selectedIndex != null && _selectedIndex == index
@@ -337,28 +352,38 @@ class _AllAddsState extends State<AllAdds> {
                                       ),
                                     );
                                   }),
+                                ),
+                                SizedBox(height:20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                //  alignment: Alignment.topLeft,
+                                  child: Text("Price ",
+                                    style: TextStyle(
+                                      // fontWeight: FontWeight.bold,
+                                    )
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  child: Text("SAR 0 - SAR 10000 ",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal
+                                    )
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text("Price ",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold
-                              )
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text("SAR 0 - SAR 1000 ",
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal
-                              )
-                            ),
+                            
                             RangeSlider(
                               values: _currentRangeValues,
-                              min: 1,
-                              max: 1000,
+                              min: 1.00,
+                              max: 10000.00,
                               // divisions: 5,
                               labels: RangeLabels(
                                 _currentRangeValues.start.round().toString(),
@@ -378,7 +403,7 @@ class _AllAddsState extends State<AllAdds> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  // margin: EdgeInsets.only(top: 20),
                                   // ignore: deprecated_member_use
                                   child: RaisedButton(
                                     color: Colors.grey[100],
@@ -399,7 +424,7 @@ class _AllAddsState extends State<AllAdds> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  // margin: EdgeInsets.only(top: 20),
                                   // ignore: deprecated_member_use
                                   child: RaisedButton(
                                     color: Colors.blue,
@@ -420,7 +445,7 @@ class _AllAddsState extends State<AllAdds> {
                             )
                           ],
                         ),
-                      ),
+                      // ),
                     )),
               );
             
@@ -432,7 +457,7 @@ class _AllAddsState extends State<AllAdds> {
   applyFiltering() {
     var json = {
       'type': catFilteredID,
-      'condition': status,
+      'condition': status == 'New'? 1 : 0,
       'start':start,
       'end':end,
     };

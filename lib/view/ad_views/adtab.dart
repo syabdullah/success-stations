@@ -99,32 +99,28 @@ class _AdListTabState extends State<AdListTab> {
                           Center(
                             child:
                              Container(
-                              
-                              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(40)) ),
+                                decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(40)) ),
                                 height: Get.height / 4,
-                                
-                                child: Padding(
+                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: GestureDetector(
                                       child:
-                                          allDataAdds[index]['image'].length !=
-                                                  0
-                                              ? ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                child: Image.network(
-                                                    allDataAdds[index]['image'][0]
-                                                        ['url'],
-                                                    width: Get.width / 5,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                              )
-                                              : Container(
-                                                  width: Get.width / 5,
-                                                  child: Icon(
-                                                    Icons.image,
-                                                    size: 50,
-                                                  ),
-                                                ),
+                                          allDataAdds[index]['image'].length !=  0
+                                          ? ClipRRect(
+                                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                                            child: Image.network(
+                                              allDataAdds[index]['image'][0]['url'],
+                                              width: Get.width / 5,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                          : Container(
+                                            width: Get.width / 5,
+                                            child: Icon(
+                                              Icons.image,
+                                              size: 50,
+                                            ),
+                                          ),
                                       //  Image.asset(
                                       //   AppImages.profileBg,
                                       //   width: Get.width/4

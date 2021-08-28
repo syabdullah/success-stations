@@ -9,6 +9,7 @@ class AddBasedController extends GetxController {
   bool isLoading = false; 
   var cData;
   var allAdsData;
+var resultInvalid = false.obs;
   List catBaslistData = [];
   var adsFilterCreate;
 
@@ -42,9 +43,12 @@ class AddBasedController extends GetxController {
     await createAdsFilteringAction(data).then((res) {
       adsFilterCreate = jsonDecode(res.body);
       print("................>>>#........................fikl................$adsFilterCreate");
-      if(res.statusCode ==200||res.statusCode<  400){
-      } if(res.statusCode > 400){
-          Get.snackbar(adsFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+      if(res.statusCode ==200||res.statusCode <  400){
+        resultInvalid(false);
+         isLoading = false;
+      } if(adsFilterCreate['success'] == false){
+          resultInvalid(true);
+          isLoading = false;
       }
       isLoading=false;
     });
