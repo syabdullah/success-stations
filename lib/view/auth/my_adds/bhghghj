@@ -1,0 +1,63 @@
+ GetBuilder<CategoryController>(
+                                  init: CategoryController(),
+                                  builder: (data) {
+                                    return data.isLoading == true ? CircularProgressIndicator()
+                                    : data.subCatt != null  && data.subCatt['data'] !=null?  
+                                    Container(
+                                      height: Get.height/10,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: data.subCatt['data'].length,
+                                        itemBuilder:(BuildContext ctxt, int index){
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(left: 12.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    print("....!!!!!!!!!!!!!>...........oin tappp");
+                                                    setState(() {
+                                                      filteredIndex = index;
+                                                      print("filtered index,,,,,,,,........$filteredIndex");
+                                                      // catFilteredID =  data.subCatt['data'][index]['id'];
+                                                      // print("catFilteredIDcatFilteredIDcatFilteredIDcatFilteredIDcatFilteredID$catFilteredID");
+                                                      // controller.addedByIdAddes(filteredCategories[index]['id'],null);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(20.0),
+                                                      border: Border.all(color: Colors.blue),
+                                                      color: filteredIndex == index ? filterSelecredColor  : Colors.white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.grey,
+                                                          offset: Offset(0.0, 1.0),
+                                                          blurRadius: 6.0,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    padding: EdgeInsets.all(10.0),
+                                                      child: data.subCatt['data'] != null
+                                                      ? Text( data.subCatt['data'][index]['category']['en'],
+                                                        style: TextStyle(
+                                                        color: filteredIndex == index
+                                                          ? Colors.white  : Colors.blue,
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontStyle: FontStyle.normal,
+                                                        ),
+                                                      )
+                                                      : Container()),
+                                                ),
+                                              ),
+                                            ],
+                                           );
+
+                                        }
+                                      ),
+                                    ): Container();
+                                   
+                                  },
+                                ),

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
-import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
@@ -306,8 +305,7 @@ class _OfferListState extends State<OfferList> {
                                 start = _currentRangeValues.start
                                     .round()
                                     .toString();
-                                end =
-                                    _currentRangeValues.end.round().toString();
+                                end = _currentRangeValues.end.round().toString();
                                 print(".....!!!!!!!...!!!!!....$start");
                                 print(".....!!!!!!!...!!!!!....$end");
                               });

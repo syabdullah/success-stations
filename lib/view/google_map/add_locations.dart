@@ -157,9 +157,8 @@ class _AddLocationsState extends State<AddLocations> {
 Widget googleMap(){
   return Container(
     height: Get.height,
-    child: PlacePicker(
-      
-      apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
+    child: PlacePicker(   
+      apiKey: "AIzaSyCPLXiudqcih9E93EAmcB2Bs5MF-oxcO2g",
       initialPosition: LatLng(51.507351,-0.127758),
           useCurrentLocation: true,
           usePlaceDetailSearch: true,

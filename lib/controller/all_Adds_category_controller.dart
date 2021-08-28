@@ -41,14 +41,12 @@ class AddBasedController extends GetxController {
     isLoading = true;
     await createAdsFilteringAction(data).then((res) {
       adsFilterCreate = jsonDecode(res.body);
-      cData = adsFilterCreate;
-      print(adsFilterCreate);
-      print(res.statusCode);
-      if(res.statusCode < 200){
-        isLoading=false;
+      print("................>>>#........................fikl................$adsFilterCreate");
+      if(res.statusCode ==200||res.statusCode<  400){
       } if(res.statusCode > 400){
           Get.snackbar(adsFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
       }
+      isLoading=false;
     });
     update();
   }

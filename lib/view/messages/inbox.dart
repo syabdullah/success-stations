@@ -4,6 +4,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/messages/chat.dart';
 
 class Inbox extends StatefulWidget {
   _InboxState createState() => _InboxState();
@@ -142,7 +143,7 @@ Widget recentChat(){
     children: [
       GestureDetector(
         onTap : (){
-          // Get.to(ChattingPage());
+          Get.to(ChattingPage());
 
         },
         child: CircleAvatar(

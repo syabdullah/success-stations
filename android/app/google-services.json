@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "958707106290",
-    "project_id": "success-station",
-    "storage_bucket": "success-station.appspot.com"
+    "project_number": "148001945963",
+    "project_id": "success-station-f3124",
+    "storage_bucket": "success-station-f3124.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958707106290:android:5826f0e54b36120e14eb6b",
+        "mobilesdk_app_id": "1:148001945963:android:2cf56963a96ef2db16f42e",
         "android_client_info": {
           "package_name": "com.codility.success_stations"
         }
       },
       "oauth_client": [
         {
-          "client_id": "958707106290-3fc8fdv4j2cplnnpsvnnj6vh0alqh3s2.apps.googleusercontent.com",
+          "client_id": "148001945963-usduncuaa44oke506h8gsbbdl3r4leuq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.codility.success_stations",
@@ -22,28 +22,27 @@
           }
         },
         {
-          "client_id": "958707106290-blherc872ig41kksa7sg5v27ij9tmjsv.apps.googleusercontent.com",
+          "client_id": "148001945963-6cp9n8k2sbc55ko53udu8blkrbctnon9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfeK6O7ibx-57RwRnY8i9APRQg8OgrROg"
+          "current_key": "AIzaSyCvyJysHuxKc30bjN3gUbBduSOnyKJWwls"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "958707106290-blherc872ig41kksa7sg5v27ij9tmjsv.apps.googleusercontent.com",
+              "client_id": "148001945963-6cp9n8k2sbc55ko53udu8blkrbctnon9.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "958707106290-e3henf50qljlph8skepvf27doh36emfs.apps.googleusercontent.com",
+              "client_id": "148001945963-b2ungtu6drp5nknovbuam1nineeom32n.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.codility.success-station",
-                "app_store_id": "123456789"
+                "bundle_id": "com.success-stations.success-station"
               }
             }
           ]
