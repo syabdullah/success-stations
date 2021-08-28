@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:success_stations/action/offers/offer_category_action.dart';
 import 'package:success_stations/action/offers/user_offer_action.dart';
 
 class UserOfferController extends GetxController {

@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/sign_in_action.dart';
 import 'package:success_stations/action/social_register.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();
   var logindata;
   var subDom;
+  var usertype;
   var result = true;
   var resultInvalid = false.obs;
   RxBool isLoading = false.obs;
@@ -31,6 +33,7 @@ class LoginController extends GetxController {
         box.write('country_id', logindata['data']['user']['country_id']);
         box.write('city_id', logindata['data']['user']['city_id']);
         box.write('region_id', logindata['data']['user']['region_id']);
+        box.write('user_type', logindata['data']['user_type']);
 
         // print('.........................................................${Box.read(city_id);}');
         resultInvalid(false);
@@ -39,6 +42,9 @@ class LoginController extends GetxController {
       } else if (logindata['success'] == false) {
         resultInvalid(true);
         isLoading(false);
+      }
+      if(res.statusCode > 400){
+        Get.offAll(SignIn());
       }
     });
     update();
@@ -54,8 +60,10 @@ class LoginController extends GetxController {
         box.write('access_token', logindata['data']['token']);
         box.write('email', logindata['data']['user']['email']);
         box.write('name', logindata['data']['user']['name']);
+        // print("......TTTTTTTTTT____----------TTTTTT.........${logindata['data']}");
         print("......TTTTTTTTTT____----------TTTTTT.........${logindata['data']}");
         box.write('user_id', logindata['data']['user']['id']);
+       
         resultInvalid(false);
         isLoading(false);
         Get.offAllNamed('/tabs');

@@ -301,7 +301,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                           width: Get.width / 2.2,
                           height: Get.height / 5.2,
                           child: userData[index]['image'] != null
-                              ? Image.network(userData[index]['image']['url'])
+                              ? Image.network(userData[index]['image']['url'],fit: BoxFit.fill,)
                               : Icon(Icons.image)),
                     ),
                     Container(
