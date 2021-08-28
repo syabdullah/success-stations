@@ -120,19 +120,33 @@ Widget topImage(userData2){
       Center(
         child: FractionalTranslation(
           translation: const Offset(0.0, 1.6),
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
+          child: userData2['image'] != null?CircleAvatar(
+            backgroundImage: NetworkImage(userData2['image']['url']),
+            //backgroundColor: Colors.transparent,
             radius: 45.0,
-            child: 
-            userData2['image'] != null ?
-            ClipRRect(
-            borderRadius: BorderRadius.circular(150.0,),
+            // child: 
+            // userData2['image'] != null ?
+            // ClipRRect(
+            // borderRadius: BorderRadius.circular(150.0,),
             
-            child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
-            ) : Icon(Icons.image,size: 70,)
+            // child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
+            // ) : Icon(Icons.image,size: 70,)
           )
-        ),
-      ),
+        :CircleAvatar(
+           //backgroundImage:  AssetImage(AppImages.person,) ,
+           backgroundColor: Colors.grey,
+            radius: 45.0,
+            child: Icon(Icons.person,size: 70,color: Colors.black,)
+            // child: 
+            // userData2['image'] != null ?
+            // ClipRRect(
+            // borderRadius: BorderRadius.circular(150.0,),
+            
+            // child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
+            // ) : Icon(Icons.image,size: 70,)
+          ),
+      ),)
+    
     ],
   );
 }

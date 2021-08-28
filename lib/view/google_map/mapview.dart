@@ -25,14 +25,15 @@ class CustomInfoWindowExample extends StatefulWidget {
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-final banner = Get.put(BannerController());
+  final banner = Get.put(BannerController());
   final LatLng _latLng = LatLng(28.7041, 77.1025);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
-     var listtype = 'map'; 
+  var listtype = 'map';
   var grid = AppImages.gridOf;
-  Color listIconColor = Colors.grey; 
-    @override
+  Color listIconColor = Colors.grey;
+  GetStorage box = GetStorage();
+  @override
   void initState() {
     banner.bannerController();
     super.initState();
@@ -43,162 +44,174 @@ final banner = Get.put(BannerController());
     _customInfoWindowController.dispose();
     super.dispose();
   }
- void setMarkers(LatLng point) {
+
+  void setMarkers(LatLng point) {
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
-     setState(() {
-      _markers.add(
-        Marker(markerId: MarkerId(markersId),
-        position: point,
-        onTap: () {
-          _customInfoWindowController.addInfoWindow!(
-            
-            Column(
-              children: [
-                Expanded(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.white,
-                    elevation: 5,
-                    child: Container(
-                      // padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
-                            child: Image.asset(AppImages.bgImage,width: Get.width/4,fit: BoxFit.fill,height: Get.height/6)),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: RatingBar.builder(
-                                      initialRating: 3,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 13.5,
-                                      // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      },
-                                    ),
-                                  ),
+    setState(() {
+      _markers.add(Marker(
+          markerId: MarkerId(markersId),
+          position: point,
+          onTap: () {
+            _customInfoWindowController.addInfoWindow!(
+              Column(
+                children: [
+                  Expanded(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.white,
+                      elevation: 5,
+                      child: Container(
+                        // padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(15),
+                                    bottom: Radius.circular(15)),
+                                child: Image.asset(AppImages.bgImage,
+                                    width: Get.width / 4,
+                                    fit: BoxFit.fill,
+                                    height: Get.height / 6)),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 10,left:10),
-                                      child: Text("(657)",
-                                        style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: RatingBar.builder(
+                                        initialRating: 3,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 13.5,
+                                        // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                                        itemBuilder: (context, _) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
                                       ),
                                     ),
-                                ],
-                              ),
-                             
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Text(
-                                  "Maryam",
-                                  style:
-                                      Theme.of(context).textTheme.headline6!.copyWith(
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, left: 10),
+                                      child: Text(
+                                        "(657)",
+                                        style: TextStyle(
                                             color: Colors.grey,
-                                          ),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    "Maryam",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(
+                                          color: Colors.grey,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Container(
+                              child: Image.asset(
+                                AppImages.redHeart,
+                                height: 30,
                               ),
-                            ],
-                          ),
-                          Spacer(),
-                          Container(
-                            child: Image.asset(AppImages.redHeart,height: 30,),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Triangle.isosceles(
-                  edge: Edge.BOTTOM,
-                  child: Container(
-                    color: Colors.blue,
-                    width: 20.0,
-                    height: 10.0,
+                  Triangle.isosceles(
+                    edge: Edge.BOTTOM,
+                    child: Container(
+                      color: Colors.blue,
+                      width: 20.0,
+                      height: 10.0,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            point,
-          );
-        }
-        )
-      );
-     });
- }
+                ],
+              ),
+              point,
+            );
+          }));
+    });
+  }
+
   Set<Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Stack(
+      body: Stack(
         children: [
-           listtype == 'map' ? 
-          Stack(
-            children: <Widget>[
-              GoogleMap(
-                onTap: (position) {
-                 setMarkers(position);
-                },
-                onCameraMove: (position) {
-                  _customInfoWindowController.onCameraMove!();
-                },
-                onMapCreated: (GoogleMapController controller) async {
-                  _customInfoWindowController.googleMapController = controller;
-                },
-                markers: _markers,
-                initialCameraPosition: CameraPosition(
-                  target: _latLng,
-                  zoom: _zoom,
-                ),
-              ),
-              CustomInfoWindow(
-                controller: _customInfoWindowController,
-                height: Get.height/6,
-                width: Get.width/1.2,
-                offset: 50,
-              ),
-            ],
-          ):
-           GetBuilder<AllUsersController>( // specify type as Controller
-          init: AllUsersController(), // intialize with the Controller
-          builder: (value) {            
-             return 
-             value.userData != null ?
-             allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
-             } // value is an instance of Controller.
-          ),
+          listtype == 'map'
+              ? Stack(
+                  children: <Widget>[
+                    GoogleMap(
+                      onTap: (position) {
+                        setMarkers(position);
+                      },
+                      onCameraMove: (position) {
+                        _customInfoWindowController.onCameraMove!();
+                      },
+                      onMapCreated: (GoogleMapController controller) async {
+                        _customInfoWindowController.googleMapController =
+                            controller;
+                      },
+                      markers: _markers,
+                      initialCameraPosition: CameraPosition(
+                        target: _latLng,
+                        zoom: _zoom,
+                      ),
+                    ),
+                    CustomInfoWindow(
+                      controller: _customInfoWindowController,
+                      height: Get.height / 6,
+                      width: Get.width / 1.2,
+                      offset: 50,
+                    ),
+                  ],
+                )
+              : GetBuilder<AllUsersController>(
+                  // specify type as Controller
+                  init: AllUsersController(), // intialize with the Controller
+                  builder: (value) {
+                    return value.userData != null
+                        ? allUsers(value.userData['data'])
+                        : Center(child: CircularProgressIndicator());
+                  } // value is an instance of Controller.
+                  ),
           Container(
             child: Row(
-              children: [
-                topWidget()
-              ],
+              children: [topWidget()],
             ),
           )
         ],
       ),
     );
   }
- 
-  
-   Widget topWidget() {
+
+  Widget topWidget() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -241,116 +254,118 @@ final banner = Get.put(BannerController());
       ),
     );
   }
-  Widget allUsers(userData){
-  return GridView.builder(
-      padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
-      primary: false,
-      // padding: const EdgeInsets.all(0),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 20,
-        crossAxisCount: 2,
-        childAspectRatio: Get.width /
-            (Get.height >= 800
-                ? Get.height / 1.50
-                : Get.height <= 800
-                    ? Get.height / 1.80
-                    : 0),
-      ),
-      itemCount: userData.length,
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () {
-            // var j = userData[index]['id'];
-            // var k = box.write('ind', j);
-            // print("....hello hi...${box.read('ind')}");
-            // print("....!!!!!!...!!!!!...1.......$j");
 
-            Get.to(AdViewTab(), arguments: userData[index]['id']);
-            //var cc=userData[index]['id']);
-          },
-          child: Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0)),
-                    child: Container(
-                        width: Get.width / 2.2,
-                        height: Get.height / 5.2,
-                        child: userData[index]['image'] != null
-                            ? Image.network(userData[index]['image']['url'])
-                            : Icon(Icons.image)),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: Text(
-                      userData[index]['name'].toString(),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
+  Widget allUsers(userData) {
+    return GridView.builder(
+        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+        primary: false,
+        // padding: const EdgeInsets.all(0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 20,
+          crossAxisCount: 2,
+          childAspectRatio: Get.width /
+              (Get.height >= 800
+                  ? Get.height / 1.50
+                  : Get.height <= 800
+                      ? Get.height / 1.80
+                      : 0),
+        ),
+        itemCount: userData.length,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              var selectedUserId = userData[index]['id'];
+              var selectedUserIdb = box.write('selectedUser', selectedUserId);
+
+              /// print("....hello hi...${box.read('ind')}");
+              print("....!!!!!!..Tapped gridview user id.!!!!!...1.......$selectedUserIdb");
+
+              Get.to(AdViewTab(), arguments: userData[index]['id']);
+              //var cc=userData[index]['id']);
+            },
+            child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0)),
+                      child: Container(
+                          width: Get.width / 2.2,
+                          height: Get.height / 5.2,
+                          child: userData[index]['image'] != null
+                              ? Image.network(userData[index]['image']['url'])
+                              : Icon(Icons.image)),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        //
-                        children: [
-                          Container(
-                            //  margin: EdgeInsets.only(left:20),
-                            child: RatingBar.builder(
-                              ignoreGestures: true,
-                              initialRating:
-                                  userData[index]['rating'].toDouble(),
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 13.5,
-                              // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-
-                              onRatingUpdate: (rating) {
-                                //  var ratingjson = {
-                                //    'ads_id' : userData[index]['id'],
-                                //    'rate': rating
-                                //  };
-                                //  ratingcont.ratings(ratingjson );
-                                //  ratingcont.getratings(userData[index]['id']);
-                              },
-                            ),
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: Text(
-                                "(${userData[index]['rating_count'].toString()})",
-                                style: TextStyle(fontSize: 13),
-                              )),
-                        ],
+                    Container(
+                      margin: EdgeInsets.only(left: 20),
+                      child: Text(
+                        userData[index]['name'].toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
                       ),
-                      Image.asset(AppImages.heart)
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          //
+                          children: [
+                            Container(
+                              //  margin: EdgeInsets.only(left:20),
+                              child: RatingBar.builder(
+                                ignoreGestures: true,
+                                initialRating:
+                                    userData[index]['rating'].toDouble(),
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 13.5,
+                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+
+                                onRatingUpdate: (rating) {
+                                  //  var ratingjson = {
+                                  //    'ads_id' : userData[index]['id'],
+                                  //    'rate': rating
+                                  //  };
+                                  //  ratingcont.ratings(ratingjson );
+                                  //  ratingcont.getratings(userData[index]['id']);
+                                },
+                              ),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  "(${userData[index]['rating_count'].toString()})",
+                                  style: TextStyle(fontSize: 13),
+                                )),
+                          ],
+                        ),
+                        Image.asset(AppImages.heart)
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      });
-}
+          );
+        });
+  }
 //   return Container(
 //     margin: EdgeInsets.only(top:90,left: 15,right: 15),
 //     height: Get.height,
@@ -440,14 +455,14 @@ final banner = Get.put(BannerController());
 //    ),
 //  );
 
-void handleClick(int item) {
-  switch (item) {
-    case 0:
-      break;
-    case 1:
-      break;
+  void handleClick(int item) {
+    switch (item) {
+      case 0:
+        break;
+      case 1:
+        break;
+    }
   }
-}
 }
 
 
