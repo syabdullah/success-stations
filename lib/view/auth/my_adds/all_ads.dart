@@ -470,11 +470,7 @@ var catID;
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top:5),
-<<<<<<< HEAD
-                                  child:  allDataAdds[index]['is_rated'] == true ?
-=======
                                   child:  allDataAdds[index]['is_rated'] == false ?  
->>>>>>> 14df397102acae4b87347413edff514b88304887
                                   RatingBar.builder(
                                     initialRating: allDataAdds[index]['rating'].toDouble(),
                                     minRating: 1,

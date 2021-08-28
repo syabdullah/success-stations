@@ -41,10 +41,7 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
-<<<<<<< HEAD
             
-=======
->>>>>>> 14df397102acae4b87347413edff514b88304887
              GetBuilder<UserProfileController>( // specify type as Controller
           init: UserProfileController(), // intialize with the Controller
           builder: (value) { 
@@ -58,9 +55,7 @@ class _AboutTabState extends State<AboutTab> {
              } // value is an instance of Controller.
           ),
             // detail(),
-             Text("${'lastads'.tr}:",
-                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
-              ),
+             
             GetBuilder<LastAdsController>(
               init: LastAdsController(),
               builder: (value){
