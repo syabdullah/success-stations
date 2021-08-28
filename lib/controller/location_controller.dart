@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/location_action/save_location.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/view/google_map/my_locations.dart';
 
 class LocationController extends GetxController {
   bool isLoading = false;
@@ -14,13 +15,15 @@ class LocationController extends GetxController {
   }
 
   saveLocationToDB(data) async{
+      print("..................>$data");
     print("controller call of the Favorite list");
     isLoading = true;
     await saveLocation(data).then((value) {
-       
       if(value.statusCode == 200 || value.statusCode < 400){
         res = jsonDecode(value.body);
+        print("..................>$res");
          getMyLocationToDB();
+         Get.to(MyLocations());
         isLoading = false;
          Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
        

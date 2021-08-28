@@ -27,9 +27,9 @@ class _InboxState extends State<Inbox> {
       margin: EdgeInsets.only(top:Get.height/3.0),
       height: Get.height/1.2,
       child: ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
       itemCount: data[0]['participants'].length,
       itemBuilder: (context, index) {
-        print("-----====-=-=-=-${data[index]}");
       return ListTile(
           title: Padding(
             padding: const EdgeInsets.only(top:10.0),
@@ -46,7 +46,7 @@ Widget chatListView(data){
   return ListTile(
     onTap: (){
       chatCont.createConversation(data['id']);
-      Get.to(ChattingPage(),arguments: data['pivot']['conversation_id']);
+      Get.to(ChattingPage(),arguments: [data['pivot']['conversation_id'],data['name']]);
     },
     title: Row(
       children: [
@@ -101,7 +101,7 @@ Widget recentChat(data){
     children: [
       GestureDetector(
         onTap : (){
-          Get.to(ChattingPage(),arguments: data['id']);
+          Get.to(ChattingPage(),arguments:[ data['id'],data['name']]);
 
         },
         child: CircleAvatar(

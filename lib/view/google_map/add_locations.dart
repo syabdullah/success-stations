@@ -158,7 +158,7 @@ Widget googleMap(){
   return Container(
     height: Get.height,
     child: PlacePicker(   
-      apiKey: "AIzaSyCPLXiudqcih9E93EAmcB2Bs5MF-oxcO2g",
+      apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
       initialPosition: LatLng(51.507351,-0.127758),
           useCurrentLocation: true,
           usePlaceDetailSearch: true,
@@ -212,8 +212,9 @@ Widget saveButton(data) {
   var splitLngLat = lnglat.toString().split(',');
   var lng = splitLngLat[0].replaceAll('(','');
   var lat = splitLngLat[1].replaceAll(')','');
-  print("............$lng----------111$lat");
+ 
   var s = data!.adrAddress.replaceAll('</span>','');
+
   var street = s.toString().replaceAll('<span class=','');
   final f = street.toString().replaceAll('>','');
    var strAdr;
@@ -222,24 +223,25 @@ Widget saveButton(data) {
    var postCode;
    var countryName;
    var sp = f.split(',');
+    print("............$lng----------111$sp");
    for(int i=0; i< sp.length; i++) {
     //  print("....PPPPPP......${sp[i]}");
      if(sp[i].contains('street-address')){
        strAdr = sp[i].replaceAll('"street-address"', '');
       //  print("....PPPPPP.....----.$strAdr");
-     }
+     }else
      if(sp[i].contains('locality')){
        city = sp[i].replaceAll('"locality"', '');
       //  print("....PPPPPP.....ccccc----.$city");
-     }
+     }else
      if(sp[i].contains('region')){
        region = sp[i].replaceAll('"region"', '');
       //  print("....PPPPPP..-----${sp[i]}...crrrrrr----.$region");
-     }
+     }else
      if(sp[i].contains('postal-code')){
        postCode = sp[i].replaceAll('"postal-code"', '');
-      //  print("....PPPPPP.....cpppppp----.$postCode");
-     }
+       print("....PPPPPP.....cpppppp----.$postCode");
+     }else
      if(sp[i].contains('country-name')){
        countryName = sp[i].replaceAll('"country-name"', '');
       //  print("....PPPPPP.....cpppppp0000----.$countryName");

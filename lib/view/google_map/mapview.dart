@@ -1,14 +1,11 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:success_stations/controller/all_users_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
-import 'package:success_stations/controller/rating_controller.dart';
+import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
@@ -25,8 +22,8 @@ class CustomInfoWindowExample extends StatefulWidget {
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-final banner = Get.put(BannerController());
-  final LatLng _latLng = LatLng(28.7041, 77.1025);
+final mapCon = Get.put(LocationController());
+   LatLng _latLng = LatLng(28.7041, 77.1025);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
@@ -34,8 +31,10 @@ final banner = Get.put(BannerController());
   Color listIconColor = Colors.grey; 
     @override
   void initState() {
-    banner.bannerController();
     super.initState();
+    mapCon.getMyLocationToDB();
+   
+   
   }
 
   @override
@@ -43,10 +42,11 @@ final banner = Get.put(BannerController());
     _customInfoWindowController.dispose();
     super.dispose();
   }
- void setMarkers(LatLng point) {
+ void setMarkers(LatLng point, data) {
+   print("///.............-------$point.............>$data");
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
-     setState(() {
+    //  setState(() {
       _markers.add(
         Marker(markerId: MarkerId(markersId),
         position: point,
@@ -108,7 +108,7 @@ final banner = Get.put(BannerController());
                               Container(
                                 margin: EdgeInsets.only(top: 10),
                                 child: Text(
-                                  "Maryam",
+                                  data['user_name']['name'],
                                   style:
                                       Theme.of(context).textTheme.headline6!.copyWith(
                                             color: Colors.grey,
@@ -141,58 +141,71 @@ final banner = Get.put(BannerController());
         }
         )
       );
-     });
+    //  });
  }
   Set<Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Stack(
-        children: [
-           listtype == 'map' ? 
-          Stack(
-            children: <Widget>[
-              GoogleMap(
-                onTap: (position) {
-                 setMarkers(position);
-                },
-                onCameraMove: (position) {
-                  _customInfoWindowController.onCameraMove!();
-                },
-                onMapCreated: (GoogleMapController controller) async {
-                  _customInfoWindowController.googleMapController = controller;
-                },
-                markers: _markers,
-                initialCameraPosition: CameraPosition(
-                  target: _latLng,
-                  zoom: _zoom,
+      body:  GetBuilder<LocationController>(
+        init: LocationController(),
+        builder: (val){
+          if(val.locData != null)
+           for(int i=0; i < val.locData['data']['data'].length; i++) {
+        print("///.............-------${ val.locData['data']['data'][i]}");
+            if(val.locData['data']['data'][i]['location'] != null){
+            setMarkers(LatLng(val.locData['data']['data'][i]['long'],val.locData['data']['data'][i]['long']),val.locData['data']['data'][i]);
+            _latLng =LatLng(val.locData['data']['data'][i]['long'],val.locData['data']['data'][i]['long']);
+            }
+          }
+          return Stack(
+            children: [
+              listtype == 'map' ? 
+              Stack(
+                children: <Widget>[
+                  GoogleMap(
+                    onTap: (position) {
+                    //  setMarkers(position,'');
+                    },
+                    onCameraMove: (position) {
+                      _customInfoWindowController.onCameraMove!();
+                    },
+                    onMapCreated: (GoogleMapController controller) async {
+                      _customInfoWindowController.googleMapController = controller;
+                    },
+                    markers: _markers,
+                    initialCameraPosition: CameraPosition(
+                      target: _latLng,
+                      zoom: _zoom,
+                    ),
+                  ),
+                  CustomInfoWindow(
+                    controller: _customInfoWindowController,
+                    height: Get.height/6,
+                    width: Get.width/1.2,
+                    offset: 50,
+                  ),
+                ],
+              ):
+              GetBuilder<AllUsersController>( // specify type as Controller
+              init: AllUsersController(), // intialize with the Controller
+              builder: (value) {            
+                return 
+                value.userData != null ?
+                allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+                } // value is an instance of Controller.
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    topWidget()
+                  ],
                 ),
-              ),
-              CustomInfoWindow(
-                controller: _customInfoWindowController,
-                height: Get.height/6,
-                width: Get.width/1.2,
-                offset: 50,
-              ),
+              )
             ],
-          ):
-           GetBuilder<AllUsersController>( // specify type as Controller
-          init: AllUsersController(), // intialize with the Controller
-          builder: (value) {            
-             return 
-             value.userData != null ?
-             allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
-             } // value is an instance of Controller.
-          ),
-          Container(
-            child: Row(
-              children: [
-                topWidget()
-              ],
-            ),
-          )
-        ],
+        );
+        }
       ),
     );
   }

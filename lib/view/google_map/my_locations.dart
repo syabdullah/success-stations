@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
@@ -70,15 +71,15 @@ class _MyLocationsState extends State<MyLocations> {
   }
   
    Widget myAddsList(data) {
-     print("........................$data");
+     print("......................-----..$data");
     return ListView.builder(
       padding: EdgeInsets.all(5),
-      itemCount: data.length,
+      itemCount: data['data'].length,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         return Card(
           child: Container(
-            height: 130,
+            // height: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,8 +91,8 @@ class _MyLocationsState extends State<MyLocations> {
                           padding:
                           const EdgeInsets.all(10.0),
                           child: GestureDetector(
-                            child: data[index]['user_name']['media'].length != 0 ?
-                            Image.network(data[index]['user_name']['media'][0]['url'],height: 60,) :
+                            child: data['data'][index]['user_name']['media'].length != 0 ?
+                            Image.network(data['data'][index]['user_name']['media'][0]['url'],height: 60,) :
                             Container(width: Get.width/4,)
 
                             //  Image.asset(
@@ -107,7 +108,7 @@ class _MyLocationsState extends State<MyLocations> {
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children: [
                           Text(
-                            data[index]['user_name']['name'],
+                            data['data'][index]['user_name']['name'],
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight:FontWeight.bold
@@ -118,7 +119,12 @@ class _MyLocationsState extends State<MyLocations> {
                             width: Get.width/3.0,
                             child: 
                                 // Image.asset(AppImages.location, height:15),
-                                Text(data[index]['formated_address'] != null ? data[index]['formated_address']:'',textAlign: TextAlign.left,
+                                ReadMoreText(data['data'][index]['formated_address'] != null ? data['data'][index]['formated_address']:'',
+                                trimLines: 2,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.grey[400],

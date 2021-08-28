@@ -12,6 +12,7 @@ class ChattingPage extends StatefulWidget {
 }
 class _ChattingState extends State<ChattingPage> {
 var uId;
+ScrollController controller = new ScrollController();
   List<ChatMessage> me = [
     // ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
     // ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
@@ -30,13 +31,23 @@ var uId;
     // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
   ];
   final chatCont = Get.put(ChatController());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController msg = TextEditingController();
   var id;
+  var userData;
   GetStorage box = GetStorage();
    @override
   void initState() {
     super.initState();
-     id = Get.arguments;
+     userData = Get.arguments;
+     print(".............,kfdslkfkdls,,,,$userData");
+     id = userData[0];
+     controller.animateTo(
+            0.0,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 300),
+          );
+
      uId = box.read('user_id');
      print(id);
     //  chatCont.getChatConvo(id);
@@ -45,36 +56,72 @@ var uId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:  Size.fromHeight(50.0),
+        key: _scaffoldKey,
+        child:  AppBar(
+          leading:Container(
+            margin: EdgeInsets.only(top:20),
+            child: GestureDetector(
+              // behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Get.off(Inbox());
+              },
+              child: Image.asset(AppImages.arrowBack)),
+          ),
+          elevation: 0,
+          backgroundColor: AppColors.appBarBackGroundColor,
+          centerTitle: true,
+          title:Container(
+            margin: EdgeInsets.only(top:20),
+            child: Text(userData[1] ,
+              style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+            ),
+          )
+        ),
+      ),
       body: Stack(
         children: [
           Container(
-            height: Get.height,
+            height: Get.height/3.5,
             width: Get.width,
             color: AppColors.appBarBackGroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppBar(
-                  leading:GestureDetector(
-                    onTap: () {
-                      Get.off(Inbox());
-                    },
-                    child: Image.asset(AppImages.arrowBack)),
-                  elevation: 0,
-                  backgroundColor: AppColors.appBarBackGroundColor,
-                  centerTitle: true,
-                  title:Text( "INBOX",
-                    style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                  )
-                ),  
+                SizedBox(height: 20,),
+                // AppBar(
+                //   leading:Container(
+                //     child: GestureDetector(
+                //       // behavior: HitTestBehavior.translucent,
+                //       onTap: () {
+                //         Get.off(Inbox());
+                //       },
+                //       child: Image.asset(AppImages.arrowBack)),
+                //   ),
+                //   elevation: 0,
+                //   backgroundColor: AppColors.appBarBackGroundColor,
+                //   centerTitle: true,
+                //   title:Text(userData[1] ,
+                //     style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+                //   )
+                // ),  
               ],
             )
           ),
-          GetBuilder<ChatController>(
-            init: ChatController(),
-            builder: (val) {
-              return messageList(val.chat['data']['messages']);
-            },
+          Container(
+            child: GetBuilder<ChatController>(
+              init: ChatController(),
+              builder: (val) {
+                return val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+                  //  margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+                  //     color: Colors.white,
+                  //   ),
+                );
+              },
+            ),
           ),         
           Align(
             alignment: Alignment.bottomLeft,
@@ -138,48 +185,43 @@ var uId;
   }
   Widget messageList(data) {
     print(".......................>$data");
-    return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
-          color: Colors.white,
-        ),
-        margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
-        // height: Get.height,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: ListView.builder(
-                  itemCount: data['data'].length,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 10,bottom: 10),
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index){
-                    return Container(
-                      padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                      child: Align(
-                        alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10.0),
-                              bottomRight: Radius.circular(10.0),
-                              bottomLeft: Radius.circular(10.0)
-                            ),
-                            color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
-                          ),
-                          padding: EdgeInsets.all(16),
-                          child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
-                        ),
-                      ),
-                    );
-                  },
+    // controller.jumpTo(controller.position.maxScrollExtent);
+    return Container(
+     height: Get.height/1.5,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+        color: Colors.white,
+      ),
+      margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
+      // height: Get.height,
+        child: ListView.builder(
+          reverse: true,
+           controller: controller,
+          itemCount: data['data'].length,
+          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 10,bottom: 10),
+         physics: AlwaysScrollableScrollPhysics(),
+          itemBuilder: (context, index){
+            return Container(
+              padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
+              child: Align(
+                alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0)
+                    ),
+                    color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
                 ),
               ),
-            ],
-          ),
-      ),
+            );
+          },
+        ),
     );
   }
 }

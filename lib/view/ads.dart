@@ -238,7 +238,7 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['category']['en'] != null || data[index]['category'] != null ? data[index]['category']['en']:'',style: TextStyle(color: AppColors.grey)),
+                child: Text(data[index]['category'][lang] != null || data[index]['category'] != null ? data[index]['category'][lang]:'',style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
