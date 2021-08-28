@@ -13,14 +13,13 @@ class OfferList extends StatefulWidget {
 
 class _OfferListState extends State<OfferList> {
   final banner = Get.put(BannerController());
-  void initState() {
-    // TODO: implement initState
-    banner.bannerController();
-    super.initState();
-  }
+  
+ 
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
+  var json;
+
   var listtype = 'list';
   final offerFilterCont = Get.put(OffersFilteringController());
   var selectedIndex = 0;
@@ -38,8 +37,26 @@ class _OfferListState extends State<OfferList> {
     "Reset",
     "Save",
   ];
+  var cardHeight;
+  var cardwidth;
   @override
+   void initState() {
+    // TODO: implement initState
+    offerFilterCont.offerFilter(json);
+    banner.bannerController();
+    super.initState();
+  }
+  void dispose() {
+    // TODO: implement dispose
+    offerFilterCont.offerFilter(json);
+    //banner.bannerController();
+    super.dispose();
+
+  }
+  
   Widget build(BuildContext context) {
+    cardwidth = MediaQuery.of(context).size.width / 3.3;
+    cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
         body: Column(children: [
       topWidget(),
@@ -61,11 +78,18 @@ class _OfferListState extends State<OfferList> {
                       scrollDirection: Axis.vertical,
                       children: myAddGridView(val.offerFilterCreate['data']),
                     )
-                  : Container(child: Center(child: Text("No Offers Yet",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
+                  : Container(
+                      child: Center(
+                        child: Text(
+                          "No Offers Yet",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
             );
           }),
-    ])
-    );
+    ]));
   }
 
   Widget topWidget() {
@@ -151,7 +175,7 @@ class _OfferListState extends State<OfferList> {
   }
 
   applyofferFiltering() {
-    var json = {
+    json = {
       'type': id,
     };
     print(".....output of offer id ...$json");
@@ -465,11 +489,11 @@ class _OfferListState extends State<OfferList> {
   }
 
   List<Widget> myAddGridView(listFavou) {
- // print(".........listFavou.......!!!!!......!!!!.......${listFavou['data']['en']}");
+    // print(".........listFavou.......!!!!!......!!!!.......${listFavou['data']['en']}");
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
-       // print("!!!!1...helllloo.!!!!>.....!!!>.......${listFavou['data']['text_ads']['en']}");
+        // print("!!!!1...helllloo.!!!!>.....!!!>.......${listFavou['data']['text_ads']['en']}");
         favrties.add(Container(
           width: Get.width / 1.10,
           height: Get.height / 0.3,
@@ -479,7 +503,7 @@ class _OfferListState extends State<OfferList> {
                 return Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.only(left: 10),
+                        margin: EdgeInsets.all(15),
                         child: Card(
                           elevation: 1,
                           shape: RoundedRectangleBorder(
@@ -496,16 +520,20 @@ class _OfferListState extends State<OfferList> {
                                     bottomRight: Radius.circular(10)),
                                 child: Container(
                                   height: Get.height * 0.18,
+                                  width: Get.height * 0.18,
                                   child: listFavou[c]['image_ads'] != null &&
                                           listFavou[c]['image_ads']['url'] !=
                                               null
-                                      ? Image.network(
-                                          listFavou[c]['image_ads']['url'],
-                                          fit: BoxFit.cover)
+                                      ? FittedBox(
+                                          fit: BoxFit.cover,
+                                          child: Image.network(
+                                            listFavou[c]['image_ads']['url'],
+                                          ),
+                                        )
                                       : FittedBox(
-                                          fit: BoxFit.contain,
+                                          fit: BoxFit.cover,
                                           child: Icon(
-                                            Icons.person,
+                                            Icons.image,
                                             color: Colors.grey[400],
                                           ),
                                         ),

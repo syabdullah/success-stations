@@ -29,6 +29,7 @@ class _BottomTabsState extends State<BottomTabs> {
   void dispose() {
     // TODO: implement dispose
     banner.bannerController();
+    
     super.dispose();
 
   }
