@@ -15,17 +15,12 @@ var otp;
       otp = jsonDecode(response.body);
       print(response.statusCode);
       if(response.statusCode < 400){
-        
         Get.to(ResetPassword());
-
       }
       if(response.statusCode > 400){
         Get.snackbar("","Enter valid Verification Code",backgroundColor: Colors.blue);
       }
-      
-    
-  }
-    );
+    });
   }
 
 }

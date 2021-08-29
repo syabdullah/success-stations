@@ -1,13 +1,13 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/messages/chat.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,6 +19,7 @@ class _FriendProfileState extends State<FriendProfile> with AutomaticKeepAliveCl
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
   final chatCont = Get.put(ChatController());
+  GetStorage box = GetStorage();
   bool liked = false;
   var id ;
   @override
@@ -67,8 +68,10 @@ var image;
     print("..........---------${data['media']}DAATTAAA.....${data['image']}");
   if(data['image'] != null) {
     image = data['image']['url'];
+    box.write('chat_image', image);
   }else{
     image = null;
+    box.remove('chat_image');
   }
     return Stack(
       children: [         
@@ -180,6 +183,7 @@ var image;
             // margin: EdgeInsets.only(left: 250),
             onTap: (){
               print("././......$id");
+              
               chatCont.createConversation(id);
               Get.to(ChattingPage(),arguments: [id,name]);
               // Get.find<ChatController>().createConversation(id);

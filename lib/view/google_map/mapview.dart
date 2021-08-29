@@ -57,8 +57,7 @@ final mapCon = Get.put(LocationController());
         position: point,
         onTap: () {
           print("///.............-------.............>${data['user_name']['name']}");
-          double rat = double.parse(data['user_name']['rating'].toString());
-           
+          double rat = double.parse(data['user_name']['rating'].toString());       
           _customInfoWindowController.addInfoWindow!(            
             Column(
               children: [
@@ -83,13 +82,17 @@ final mapCon = Get.put(LocationController());
                               child: data['user_name']['image'] != null ? Image.network(data['user_name']['image']['url']) : Container(
                                 margin: EdgeInsets.all(20 ),
                                 // width: Get.width/4,
-                                child: Image.asset(AppImages.locationimg,fit: BoxFit.fill,height: 30))),
+                                child: Icon(Icons.image,size: 50)
+                                // Image.asset(AppImages.locationimg,fit: BoxFit.fill,height: 30)
+                              )),
                             SizedBox(
                               width: 8.0,
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
                                       margin: EdgeInsets.only(top: 10,left: 15),
@@ -107,7 +110,7 @@ final mapCon = Get.put(LocationController());
                                         ),
                                         onRatingUpdate: (rating) {
                                           print(rating);
-                                        },
+                                        },  
                                       ),
                                     ),
                                       Container(
@@ -120,13 +123,14 @@ final mapCon = Get.put(LocationController());
                                 ),
                                
                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
+                                  width: Get.width/4,
+                                  margin: EdgeInsets.only(top: 10,left:15),
                                   child: Text(
                                     data['user_name']['name'],
-                                    style:
-                                        Theme.of(context).textTheme.headline6!.copyWith(
-                                              color: Colors.grey,
-                                            ),
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
+                                        // Theme.of(context).textTheme.headline6!.copyWith(
+                                        //       color: Colors.black,
+                                        //     ),
                                   ),
                                 ),
                               ],

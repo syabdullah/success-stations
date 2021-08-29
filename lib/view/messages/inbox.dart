@@ -96,8 +96,9 @@ Widget chatListView(data){
 Widget recentlyContacted(data){
   return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: data.length,
+      itemCount:  data.length != 0 ? data[0]['participants'].length : 0,
       itemBuilder: (context, index) {
+        print("................${data[0]['participants'][index]['id'] != userId }");
       return data[0]['participants'][index]['id'] != userId ? 
        Padding(
         padding: const EdgeInsets.only(left:25.0,),
@@ -118,7 +119,7 @@ Widget recentChat(data){
             radius: 30,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(60.0),
-              child: data['image'] != null ? Image.asset(data['image']['url']) : Icon(Icons.person)),
+              child: data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 60,) : Icon(Icons.person)),
           ),
       ),
         SizedBox(height: 5,),

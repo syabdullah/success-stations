@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/ads_filtering_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -12,6 +11,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 
 class CatAdds extends StatefulWidget {
   _CatAddsState createState() => _CatAddsState();
@@ -23,7 +23,7 @@ class _CatAddsState extends State<CatAdds> {
   final controller = Get.put(AddBasedController());
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
-  final filterControlller = Get.put(AdsFilteringController());
+  final filterControlller = Get.put(AddBasedController());
   var listtype = 'list';
   var userId;
   bool _value = false;
@@ -367,7 +367,9 @@ class _CatAddsState extends State<CatAdds> {
                                             style: TextStyle(
                                                 color: Colors.white)))),
                                 onPressed: () {
+                                  
                                   applyFiltering();
+                                  Get.to(AllAdds());
                                   // Navigator.pushNamed(context, '/login');
                                   // Get.to(SignIn());
                                 }),
@@ -387,8 +389,8 @@ class _CatAddsState extends State<CatAdds> {
     var json = {
       'rangeValue': _currentRangeValues,
     };
-    print(json);
     filterControlller.createFilterAds(json);
+
   }
 
   Widget myAddsList(allDataAdds) {

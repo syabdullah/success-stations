@@ -19,11 +19,10 @@ class OfferCategoryController extends GetxController {
     print("controller call of the Favorite list");
     isLoading = true;
     await offersCategory().then((value) {
-      print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
       offerDattaTypeCategory = jsonDecode(value.body);
-      for (int c = 0; c < offerDattaTypeCategory['data'].length; c++) {
-        offeredList.add(offerDattaTypeCategory['data'][c]);
-      }
+      // for (int c = 0; c < offerDattaTypeCategory['data'].length; c++) {
+      //   offeredList.add(offerDattaTypeCategory['data'][c]);
+      // }
       isLoading = false;
     });
     update();
@@ -33,7 +32,6 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await offersCategoryById(id, userId).then((res) {
       cData = jsonDecode(res.body);
-     print("/////////////////// json offer by id .........................>>>>$cData");
       isLoading = false;
     });
     update();

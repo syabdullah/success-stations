@@ -30,7 +30,7 @@ class _MyLocationsState extends State<MyLocations> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-      backgroundColor:Colors.blue,title: Text('MY LOCATION'),centerTitle: true,
+      backgroundColor:Colors.blue,title: Text('MY LOCATIONS'),centerTitle: true,
       leading: IconButton(onPressed: () => _scaffoldKey.currentState!.openDrawer(), icon: Icon(Icons.arrow_back_ios)),
     ),  
     
@@ -73,7 +73,9 @@ class _MyLocationsState extends State<MyLocations> {
                     builder:(val) { 
                       return val.locData != null &&  val.locData['data'].length != 0  ?  Expanded(
                         child: myAddsList(val.locData['data'])): Container(
-                          child: Center(child: Text("No Location added yet!",style: TextStyle(fontWeight: FontWeight.bold),)),
+                          child: Center(
+                            heightFactor: 8*4,
+                            child: Text("No Location added yet!",style: TextStyle(fontWeight: FontWeight.bold),)),
                         );
                     }
                   )
