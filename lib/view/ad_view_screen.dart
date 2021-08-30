@@ -92,15 +92,6 @@ super.initState();
              children: [
              titleStep(val.adsD['data']),
              SizedBox(height: 10.h,),
-            //  listTileRow(val.adsD),
-            //   SizedBox(height: 14.h,),
-            //   Container(
-            //     margin: EdgeInsets.only(left:30),
-            //     child: Text('ad_posted_at'.tr,
-            //       style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
-            //       ),
-            //     ),
-            //   ),
               commentInput(),
               SizedBox(height: 10.h,),
               commentButton(),
@@ -247,12 +238,12 @@ Widget titleStep(data) {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
           child: 
-           data['created_by'] !=null ?
+           data['created_by'] !=null &&  data['created_by']['image'] != null  ?
             CircleAvatar(
                 backgroundColor: Colors.grey[200],
                 backgroundImage: NetworkImage(data['created_by']['image']['url']
-                              )
-                              ):Icon(Icons.image)) 
+                )
+              ):Icon(Icons.image)) 
           // Image.asset(
           //   AppImages.profile,
           // ),
