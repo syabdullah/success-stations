@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_html/style.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart';
+import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/google_map/mapview.dart';
 import 'package:success_stations/view/offers/my_offers.dart';
 
+final mapCon = Get.put(LocationController());
+final formKey = new GlobalKey<FormState>();
+var dis,lat,long;
+var city;
+var currentPostion;
+var position;
+var decideRouter;
+GetStorage box = GetStorage();
+var cityArray = [];
+var userId = box.read('user_id');
+  void _getUserLocation() async {
+    position  = await GeolocatorPlatform.instance
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    // setState(() {
+      currentPostion = LatLng(position.latitude, position.longitude);
+    // });
+  }
  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,) {
 
     return AppBar(
@@ -108,11 +133,11 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-    RangeValues _currentRangeValues = const RangeValues(1, 1000);
+    RangeValues _currentRangeValues = const RangeValues(1, 1000000);
     var start;
   var end;
   filtrationModel(context) async {
-     
+    //  print('..........-------${position.longitude}');
     var size = MediaQuery.of(context).size;
     print(size);
    showModalBottomSheet(  
@@ -171,48 +196,93 @@ Widget sAppbar(context ,icon,image,) {
                           Container(
                             child: Icon(Icons.location_on,color: Colors.blue,),
                           ),
-                          Container(
-                            child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                          GestureDetector(
+                            onTap: () {
+                               _getUserLocation();
+                            },
+                            child: Container(
+                              child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                            ),
                           )
                         ],
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: ('City'),
-                          // labelStyle: TextStyle(color: AppColors.basicColor),
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(5.0),
+                      child: Form(
+                        key: formKey,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            labelText: ('City'),
+                            // labelStyle: TextStyle(color: AppColors.basicColor),
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(5.0),
+                              ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                            )
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Theme.of(context).primaryColor)
-                          )
+                          onTap: (){
+                            // setState((){
+                              
+                            // });
+                          },
+                          onSubmitted: (val) {
+                             formKey.currentState!.save();
+                            setState((){
+                              decideRouter = 'city';
+                              cityArray.add(val);
+                              print("on saved ---- $cityArray");
+                            });                          
+                          },
                         ),
                       )
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                         color: Colors.blue[100],
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      width: Get.width/4,
-                     padding: EdgeInsets.symmetric(vertical: 10),
-                      margin: EdgeInsets.only(top: 20,left: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      height: 50,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          Container(
-                            child: Icon(Icons.location_on,color: Colors.blue,),
+                      for(var item in cityArray) 
+                      GestureDetector(
+                        onTap: () {
+                          setState((){
+                            decideRouter = 'nearby';
+                          });
+                        },
+                        child: Container(                          
+                          decoration: BoxDecoration(
+                             color: Colors.blue[100],
+                            borderRadius: BorderRadius.circular(20)
                           ),
-                          Container(
-                            child: Text("Nearby",style: TextStyle(color: Colors.blue)),
-                          )
-                        ],
+                          // width: Get.width/4,
+                         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                          margin: EdgeInsets.only(top: 10,left: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [                             
+                              Container(
+                                child: Text(item,style: TextStyle(color: Colors.blue)),
+                              ),
+                              GestureDetector(
+                                onTap: (){
+                                  setState((){
+                                    cityArray.remove(item);
+                                  });
+                                  print(cityArray);                                 
+                                },
+                                child: Container(
+                                  child: Icon(Icons.clear,color: Colors.blue,size:15),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                        ]
                       ),
                     ),
                     SizedBox(
@@ -222,7 +292,7 @@ Widget sAppbar(context ,icon,image,) {
                       child: RangeSlider(
                         values: _currentRangeValues,
                         min: 1.00,
-                        max: 10000.00,
+                        max: 1000000.00,
                         // divisions: 5,
                         labels: RangeLabels(
                           _currentRangeValues.start.round().toString(),
@@ -233,8 +303,6 @@ Widget sAppbar(context ,icon,image,) {
                             _currentRangeValues = values;
                               start = _currentRangeValues.start.round().toString();
                               end = _currentRangeValues.end.round().toString();
-                            print(".....!!!!!!!...!!!!!....$start");
-                            print(".....!!!!!!!...!!!!!....$end");
                           });
                         },
                       ),
@@ -279,7 +347,15 @@ Widget sAppbar(context ,icon,image,) {
                               )
                             ),
                             onPressed: (){
-
+                              if(decideRouter == 'city') {
+                                mapCon.getAllLocationByCity(cityArray,userId);
+                                Get.to(CustomInfoWindowExample(),arguments: [decideRouter,cityArray]);
+                              }else {
+                                 mapCon.getAllLocationNearBy(end, position.latitude, position.longitude);
+                                 Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
+                              }
+                             
+                              
                             },
                           )
                               // onPressed: catFilteredID  == null && status == null ?  null :() {

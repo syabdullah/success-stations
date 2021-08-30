@@ -1,16 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/user_fav_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:clippy_flutter/triangle.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class CustomInfoWindowExample extends StatefulWidget {
   @override
@@ -21,16 +24,17 @@ class CustomInfoWindowExample extends StatefulWidget {
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
+         final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 final mapCon = Get.put(LocationController());
 final adfavUser = Get.put(UserFavController());
-   LatLng _latLng = LatLng(28.7041, 77.1025);
+  late LatLng _latLng;
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
       //  Marker _markers = [];
          List<Marker> _markers = [];
   var adtofavJson,remtofavJson;
-
+   var route;
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
   GetStorage box = GetStorage();
@@ -38,17 +42,36 @@ final adfavUser = Get.put(UserFavController());
     @override
   void initState() {
     super.initState();
+    _getUserLocation();
     var id = box.read('user_id');
-    mapCon.getAllLocationToDB();
+    route = Get.arguments;
+    if(route != null )
+    if(route[0] == 'near') {
+       mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
+    }else if (route[0] == 'city') {
+      mapCon.getAllLocationByCity(route[1],id);
+    }
+    else{
+      mapCon.getAllLocationToDB();
+    }   
   }
 
+  _getUserLocation() async {
+    position  = await GeolocatorPlatform.instance
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      _latLng =  LatLng(position.latitude, position.longitude);
+      print("///.............-------.............>$_latLng");
+    });
+  }
   @override
   void dispose() {
     _customInfoWindowController.dispose();
     super.dispose();
   }
  void setMarkers(LatLng point, data) {
-  
+  //  print("///.............-------.............>${data['user_name']['name']}");
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
     //  setState(() {
@@ -60,7 +83,7 @@ final adfavUser = Get.put(UserFavController());
           setState(() {
             visible = !visible;
           });
-          print("///.............-------.............>${data['user_name']['name']}");
+         
           double rat = double.parse(data['user_name']['rating'].toString());       
           _customInfoWindowController.addInfoWindow!(            
             Column(
@@ -183,15 +206,27 @@ final adfavUser = Get.put(UserFavController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: route != null ?     
+       PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)) : null,
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body:  
       GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
+          print("--------------------------------------${val.allLoc}");
           if(val.allLoc != null)
            for(int i=0; i < val.allLoc['data']['data'].length; i++) {
             if(val.allLoc['data']['data'][i]['location'] != null){
+              //  print("--------------------------------------${val.allLoc}");
               setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
-              _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
+              // _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
               }
           }
           return Stack(

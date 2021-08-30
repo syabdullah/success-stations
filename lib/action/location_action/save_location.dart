@@ -47,14 +47,16 @@ Future<http.Response> getAllLocation() async{
 Future<http.Response> getNearByLocation(dis,lat,long) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}locations?distance=$dis&lat=$lat&lon=$long");
+  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
 }
 
-Future<http.Response> getCityLocation(city) async{
+Future<http.Response> getCityLocation(city,id) async{
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}user-location/2?city[]=$city");
+  var url = Uri.parse("${conf.baseUrl}user-location/$id?city[]=$city");
+  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;

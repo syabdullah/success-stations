@@ -28,7 +28,7 @@ class _BottomTabsState extends State<BottomTabs> {
     // TODO: implement initState
     banner.bannerController();
     var id = box.read('user_id');
-     mapCon.getAllLocationToDB();
+    //  mapCon.getAllLocationToDB();
     super.initState();
   }
   @override
