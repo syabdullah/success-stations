@@ -246,13 +246,18 @@ Widget titleStep(data) {
         radius: 30.0,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
-          child: user_image != null ? 
-          Image.network(user_image['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
+          child: 
+           data['created_by'] !=null ?
+            CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                backgroundImage: NetworkImage(data['created_by']['image']['url']
+                              )
+                              ):Icon(Icons.image)) 
           // Image.asset(
           //   AppImages.profile,
           // ),
-        )
-      ),
+        ),
+      
       Padding(
         padding: const EdgeInsets.only(left:8.0),
         child: Column(

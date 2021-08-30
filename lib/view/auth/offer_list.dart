@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
@@ -37,6 +38,8 @@ class _OfferListState extends State<OfferList> {
   var start;
   var end;
   var filterID;
+  var usertype;
+  GetStorage box = GetStorage ();
   List<String> litems = [
     "Reset",
     "Save",
@@ -49,6 +52,7 @@ class _OfferListState extends State<OfferList> {
     offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
+    usertype = box.read('user_type');
   }
   void dispose() {
     // TODO: implement dispose
@@ -129,7 +133,8 @@ class _OfferListState extends State<OfferList> {
               onTap: () {
                 //Get.toNamed('/adPostingScreen');
               },
-              child: Container(
+              child:  usertype == 2 ? Container() :
+              Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Image.asset(AppImages.plusImage, height: 24)),
             )

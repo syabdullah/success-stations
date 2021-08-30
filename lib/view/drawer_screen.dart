@@ -46,7 +46,7 @@ class _AppDrawerState extends State<AppDrawer> {
     XFile? pickedFile;
     var imageP;
     var fileName;
-    var userType;
+    var userType,accountType;
     final banner = Get.put(BannerController());
 
   @override
@@ -61,6 +61,9 @@ class _AppDrawerState extends State<AppDrawer> {
     userType = box.read('user_type');
     image = box.read('user_image');
     imageP = box.read('user_image_local');
+    accountType = box.read('account_type');
+    print("////////a//// $accountType");
+    print("////////a//// $userType");
     banner.bannerController();
     
   }
@@ -208,10 +211,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),
-                          userType == 2 ? Container():
+                          userType == 2 && accountType == 'Free'? Container():  accountType == 'Paid' ?
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
                             Get.to(MyLocations());
-                          },15.0 ),
+                          },15.0 ):
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
                           
                             Get.to(MemberShip());
@@ -222,10 +225,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
-                          userType == 2 ? Container():
+                           userType == 2  && accountType == 'Free' ? Container():  userType == 3 && accountType == "Paid" ? Container(): accountType == "Free" ? Container() :
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
-                          },15.0 ), 
+                          },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             Get.toNamed('/favourities')
                           },15.0 ), 
@@ -261,6 +264,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
                             box.remove('user_image_local');
+                            
                             logoutCont.userLogout();                            
                           },15.0 ),
                         ],
