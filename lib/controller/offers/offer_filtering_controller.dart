@@ -10,11 +10,11 @@ class OffersFilteringController extends GetxController {
   var getRate;
   var resultInvalid = false.obs;
 
-  @override
-  void onInit() {
-    isLoading = true;
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   isLoading = true;
+  //   super.onInit();
+  // }
 
   offerFilter(data) async {
     isLoading = true;
