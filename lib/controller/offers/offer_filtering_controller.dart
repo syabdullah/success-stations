@@ -8,6 +8,7 @@ class OffersFilteringController extends GetxController {
   var result = true;
   var rating;
   var getRate;
+  var resultInvalid = false.obs;
 
   @override
   void onInit() {
@@ -16,16 +17,17 @@ class OffersFilteringController extends GetxController {
   }
 
   offerFilter(data) async {
-    print("|onjebxtsttsstst......>Create");
     isLoading = true;
     await offerFilteringAction(data).then((res) {
       offerFilterCreate = jsonDecode(res.body);
       print("offer printing.......... Offer create Filter...... $offerFilterCreate");
-      if (res.statusCode == 200 || res.statusCode < 200) {
+      if (res.statusCode == 200 || res.statusCode < 400) {
+        resultInvalid(false);
         isLoading = false;
       }
-      if (res.statusCode > 400) {
-        //Get.snackbar(offerFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+      if(offerFilterCreate['success'] == false){
+         resultInvalid(true);
+        isLoading = false;
       }
     });
     update();

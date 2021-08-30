@@ -44,11 +44,13 @@ class _FilteredPageState extends State<FilteredAdds> {
           draftedlist(value.adsFilterCreate['data'] ):
           adbAsedContr.resultInvalid.isTrue &&value.adsFilterCreate['success'] == false ?  
            Container(
-                  margin: EdgeInsets.only(top: Get.height/ 5),
-                  child: Center(
-                    child: Text(
-                    adbAsedContr.adsFilterCreate['errors'], style:TextStyle(fontSize: 25)),
-            ) ):Container();
+              margin: EdgeInsets.only(top: Get.height/ 5),
+              child: Center(
+                child: Text(
+                adbAsedContr.adsFilterCreate['errors'], style:TextStyle(fontSize: 25)
+              ),
+            ) 
+          ):Container();
         }
       )
     );
