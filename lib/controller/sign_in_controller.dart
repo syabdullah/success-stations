@@ -34,6 +34,7 @@ class LoginController extends GetxController {
         box.write('city_id', logindata['data']['user']['city_id']);
         box.write('region_id', logindata['data']['user']['region_id']);
         box.write('user_type', logindata['data']['user_type']);
+        box.write('account_type', logindata['data']['user']['account_type']);
 
         // print('.........................................................${Box.read(city_id);}');
         resultInvalid(false);
@@ -42,9 +43,6 @@ class LoginController extends GetxController {
       } else if (logindata['success'] == false) {
         resultInvalid(true);
         isLoading(false);
-      }
-      if(res.statusCode > 400){
-        Get.offAll(SignIn());
       }
     });
     update();
