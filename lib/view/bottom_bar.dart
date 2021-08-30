@@ -25,12 +25,19 @@ class _BottomTabsState extends State<BottomTabs> {
   final mapCon = Get.put(LocationController());
   GetStorage box = GetStorage();
   void initState() {
+    // TODO: implement initState
     banner.bannerController();
-    mapCon.getAllLocationToDB();
+    var id = box.read('user_id');
+     mapCon.getAllLocationToDB();
     super.initState();
   }
+  @override
+  void dispose() {
   
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    super.dispose();
+
+  }
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
     AdsView(),
