@@ -31,10 +31,10 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
   var userId;
   GetStorage box = GetStorage();
   @override
-  // void initState() {
-  //   // adContr.addedAllAds();
-  //   super.initState();
-  // }
+
+  void initState() {
+    super.initState();
+  }
 
 
   @override
@@ -45,7 +45,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
       body: GetBuilder<OffersFilteringController> ( 
         init: OffersFilteringController(),
         builder: (value) { 
-          return value.offerFilterCreate !=null  && value.offerFilterCreate['success']==true ? 
+          return value.isLoading == true ?Container():value.offerFilterCreate !=null  && value.offerFilterCreate['data']!=null ? 
           draftedlist(value.offerFilterCreate['data'] ):
           adContr.resultInvalid.isTrue && value.offerFilterCreate['success'] == false ?  
            Container(
@@ -96,9 +96,9 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                           )
                         ),
                         Text(
-                           filteredAdds[index]['status'] == 1 ? "NEW": 
-                           filteredAdds[index]['status'] == 0 ? "OLD":
-                           filteredAdds[index]['status'] == null ? '':'',
+                          filteredAdds[index]['status'] == 1 ? "NEW": 
+                          filteredAdds[index]['status'] == 0 ? "OLD":
+                          filteredAdds[index]['status'] == null ? '':'',
                           style: TextStyle(
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color: filteredAdds[index]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
                           )
