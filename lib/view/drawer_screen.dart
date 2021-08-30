@@ -42,30 +42,24 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
-    final ImagePicker _picker = ImagePicker();
-    // Pick an image
+    final ImagePicker _picker = ImagePicker();  
     XFile? pickedFile;
-  var imageP;
-  var fileName;
-  var userType;
-   final banner = Get.put(BannerController());
+    var imageP;
+    var fileName;
+    var userType;
+    final banner = Get.put(BannerController());
 
   @override
   void dispose() {
-    // TODO: implement dispose
     banner.bannerController();
     super.dispose();
 
   }
-  // var name  = '';
-  // name  = box.read('name');
    @override
   void initState() {
     super.initState();
     userType = box.read('user_type');
-    print(".............user type......................$userType");
     image = box.read('user_image');
-    // print("............11-1-1-1--1-1-.$image");
     imageP = box.read('user_image_local');
     banner.bannerController();
     
@@ -99,9 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
-    // print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
     image = box.read('user_image');
-    
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
