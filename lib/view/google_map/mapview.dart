@@ -4,16 +4,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:success_stations/controller/all_users_controller.dart';
-import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/controller/user_fav_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
-
 import 'package:clippy_flutter/triangle.dart';
-import 'package:success_stations/view/ad_views/location_tab.dart';
 
 class CustomInfoWindowExample extends StatefulWidget {
   @override
@@ -25,12 +22,14 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
 final mapCon = Get.put(LocationController());
+final adfavUser = Get.put(UserFavController());
    LatLng _latLng = LatLng(28.7041, 77.1025);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
       //  Marker _markers = [];
          List<Marker> _markers = [];
+  var adtofavJson,remtofavJson;
 
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
@@ -66,6 +65,7 @@ final mapCon = Get.put(LocationController());
                   child: GestureDetector(
                     onTap: () {
                       Get.to(AdViewTab(),arguments: data['user_name']['id']);
+                      print(data['user_name']['id']);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -164,7 +164,8 @@ final mapCon = Get.put(LocationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  GetBuilder<LocationController>(
+      body:  
+      GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
         
@@ -204,12 +205,28 @@ final mapCon = Get.put(LocationController());
                   ),
                 ],
               ):
-              GetBuilder<AllUsersController>( // specify type as Controller
-              init: AllUsersController(), // intialize with the Controller
+        //        GetBuilder<LocationController>(
+        // init: LocationController(),
+        // builder: (val){
+        
+          // val.allLoc != null ?
+          //  for(int i=0; i < val.allLoc['data']['data'].length; i++) {
+            // if(val.allLoc['data']['data'][i]['location'] != null){
+            //   setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
+            //   _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
+            //   }
+            // print(ís ival.allLoc['data']['data'][i]['user_name']);
+           
+           
+          // return  allUsers(val.allLoc['data']['data']): CircularProgressIndicator();
+          
+          // }),
+              GetBuilder<LocationController>( // specify type as Controller
+              init: LocationController(), // intialize with the Controller
               builder: (value) {            
                 return 
-                value.userData != null ?
-                allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+                value.allLoc != null ?
+                allUsers(value.allLoc['data']): Center(child: CircularProgressIndicator());
                 } // value is an instance of Controller.
               ),
               Container(
@@ -282,13 +299,14 @@ final mapCon = Get.put(LocationController());
         crossAxisCount: 2,
         childAspectRatio: Get.width /
             (Get.height >= 800
-                ? Get.height / 1.50
+                ? Get.height / 1.65
                 : Get.height <= 800
-                    ? Get.height / 1.80
+                    ? Get.height / 1.60
                     : 0),
       ),
       itemCount: userData.length,
       itemBuilder: (BuildContext context, int index) {
+        print("my grid list is ${userData['data'][index]['user_name']}");
         return GestureDetector(
           onTap: () {
             // var j = userData[index]['id'];
@@ -296,7 +314,7 @@ final mapCon = Get.put(LocationController());
             // print("....hello hi...${box.read('ind')}");
             // print("....!!!!!!...!!!!!...1.......$j");
 
-            Get.to(AdViewTab(), arguments: userData[index]['id']);
+            Get.to(AdViewTab(), arguments: userData['data'][index]['user_name']['id']);
             //var cc=userData[index]['id']);
           },
           child: Card(
@@ -305,6 +323,7 @@ final mapCon = Get.put(LocationController());
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Container(
+              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -315,14 +334,14 @@ final mapCon = Get.put(LocationController());
                     child: Container(
                         width: Get.width / 2.2,
                         height: Get.height / 5.2,
-                        child: userData[index]['image'] != null
-                            ? Image.network(userData[index]['image']['url'])
+                        child: userData['data'][index]['user_name']['image'] != null
+                            ? Image.network(userData['data'][index]['user_name']['image']['url'],fit: BoxFit.fill,)
                             : Icon(Icons.image)),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20),
+                    margin: EdgeInsets.only(left: 20,top: 15),
                     child: Text(
-                      userData[index]['name'].toString(),
+                      userData['data'][index]['user_name']['name'].toString(),
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -340,7 +359,7 @@ final mapCon = Get.put(LocationController());
                             child: RatingBar.builder(
                               ignoreGestures: true,
                               initialRating:
-                                  userData[index]['rating'].toDouble(),
+                                  userData['data'][index]['user_name']['rating'].toDouble(),
                               minRating: 1,
                               direction: Axis.horizontal,
                               allowHalfRating: true,
@@ -366,12 +385,29 @@ final mapCon = Get.put(LocationController());
                           Container(
                               margin: EdgeInsets.only(left: 5),
                               child: Text(
-                                "(${userData[index]['rating_count'].toString()})",
+                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
                                 style: TextStyle(fontSize: 13),
                               )),
                         ],
                       ),
-                      Image.asset(AppImages.heart)
+                       
+                      
+                      GestureDetector(
+                        onTap: (){
+                          adtofavJson = {
+                              'user_id': userData['data'][index]['user_name']['id']
+                          };
+                          remtofavJson = {
+                           'user_id': userData['data'][index]['user_name']['id']
+                          };
+                          userData['data'][index]['user_name']['is_user_favourite'] == false ?
+                          adfavUser.profileAdsToFav(adtofavJson):
+                          adfavUser.profileRemToFav(remtofavJson);
+                          print(adtofavJson);
+                        },
+                        child: 
+                        userData['data'][index]['user_name']['is_user_favourite'] == false ?
+                        Image.asset(AppImages.blueHeart,height: 18,) : Image.asset(AppImages.heart)) 
                     ],
                   ),
                 ],
@@ -381,94 +417,6 @@ final mapCon = Get.put(LocationController());
         );
       });
 }
-//   return Container(
-//     margin: EdgeInsets.only(top:90,left: 15,right: 15),
-//     height: Get.height,
-//     child: GridView.builder(
-//         primary: false,
-//         padding: const EdgeInsets.all(0),
-//         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisSpacing: 6, mainAxisSpacing: 8, crossAxisCount: 2),
-//         itemCount: 6,
-//         itemBuilder: (BuildContext context, int index) {
-//           return Stack(
-//             children: [
-//               Card(
-//                 color: Colors.red,
-//                 elevation: 3,
-//                 shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(15.0),
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   ClipRRect(
-//                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-//                     child: Container(
-//                       width: Get.width/2.3,
-//                         height: Get.height/6.5,
-//                       child: Image.asset(AppImages.profileBg,fit: BoxFit.cover,)
-//                     ),
-//                   ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                   children: [
-//                   RatingBar.builder(
-//                     initialRating: 3,
-//                     minRating: 1,
-//                     direction: Axis.horizontal,
-//                     allowHalfRating: true,
-//                     itemCount: 5,
-//                     itemSize: 13.5,
-//                     // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-//                     itemBuilder: (context, _) => Icon(
-//                       Icons.star,
-//                       color: Colors.amber,
-//                     ),
-//                     onRatingUpdate: (rating) {
-//                       print(rating);
-//                     },
-//                   ),
-//                   SizedBox(width: 2,),
-//                   Text("(657)",
-//                     style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-//                    ),
-
-//                    PopupMenuButton<int>(
-//                   icon: Icon(Icons.more_vert),
-//                   onSelected: (int item) => handleClick(item),
-//                   itemBuilder: (context) => [
-//                     PopupMenuItem<int>(value: 0, child: Text('Logout')),
-//                     PopupMenuItem<int>(value: 1, child: Text('Settings')),
-//                   ],
-//                 ),
-//                  ]
-//                 ),
-//                 Container(
-//                    margin: EdgeInsets.only(left:10),
-//                   width: Get.width/3,
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Row(children: [
-//                         Text("Zealot Ulotpia",
-//                         style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-//                         ),
-//                       ]
-//                     ),
-//                     Image.asset(AppImages.heart)
-//                   ],
-//                 ),
-//                ),
-//                   SizedBox(height: 15,)
-//          ],
-//        ),
-//      ),
-//             ],
-//           );
-//     }
-//    ),
-//  );
 
 void handleClick(int item) {
   switch (item) {

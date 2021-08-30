@@ -17,10 +17,14 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
    GetStorage box = GetStorage();
   var userimage;
   var id ;
+  
+
   @override
   void initState() {
     super.initState();
     userimage = box.read('user_image');
+   
+   
     //  id = Get.arguments;
     // print("../././....----------$id");
     // friCont.friendDetails(id);

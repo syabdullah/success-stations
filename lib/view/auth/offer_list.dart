@@ -28,6 +28,8 @@ class _OfferListState extends State<OfferList> {
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
+  var bottomSheetCategory =0;
+  Color  filterCategoryColor = Colors.blue;
   var selectedIndexListing = 0;
   var status;
   var category;
@@ -59,38 +61,42 @@ class _OfferListState extends State<OfferList> {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
     cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
-        body: Column(children: [
-      topWidget(),
-
-      GetBuilder<OfferCategoryController>(
-        init: OfferCategoryController(),
-        builder: (val) {
-          return headingUpsell(val.offeredList);
-        },
-      ),
-      //headingUpsell(),
-      GetBuilder<OffersFilteringController>(
-          init: OffersFilteringController(),
+      body: Column(
+        children: [
+        topWidget(),
+        GetBuilder<OfferCategoryController>(
+          init: OfferCategoryController(),
+          builder: (val) {
+            return val.offerDattaTypeCategory !=null && val.offerDattaTypeCategory['data'] !=null ? headingUpsell(val.offerDattaTypeCategory['data']):
+            Container();
+          },
+        ),
+        GetBuilder<OffersFilteringController>(
+        init: OffersFilteringController(),
           builder: (val) {
             print("....fff....${val.offerFilterCreate['data']}......");
             return Expanded(
-              child: val.offerFilterCreate['data'] != null
-                  ? ListView(
-                      scrollDirection: Axis.vertical,
-                      children: myAddGridView(val.offerFilterCreate['data']),
-                    )
-                  : Container(
-                      child: Center(
-                        child: Text(
-                          "No Offers Yet",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
+              child: val.offerFilterCreate !=null && val.offerFilterCreate['data'] != null
+                ? ListView(
+                  scrollDirection: Axis.vertical,
+                  children: myAddGridView(val.offerFilterCreate['data']),
+                ): 
+                offerFilterCont.resultInvalid.isTrue && val.offerFilterCreate['success'] == false ?  
+                Container(
+                  child: Center(
+                    child: Text(
+                     offerFilterCont.offerFilterCreate['errors'],
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-            );
-          }),
-    ]));
+                  ),
+                ):Container()
+              );
+            }
+          ),
+        ]
+      )
+    );
   }
 
   Widget topWidget() {
@@ -101,7 +107,7 @@ class _OfferListState extends State<OfferList> {
           children: [
             InkWell(
               onTap: () {
-                _adsfiltringheet();
+               filteringCategory();
               },
               child: Container(
                 margin: EdgeInsets.only(left: 10),
@@ -179,222 +185,173 @@ class _OfferListState extends State<OfferList> {
     json = {
       'type': id,
     };
-    print(".....output of offer id ...$json");
     offerFilterCont.offerFilter(json);
-
-    //offerFilterControlller.offerFilter(json);
   }
 
-  void _adsfiltringheet() {
-    showModalBottomSheet<void>(
-        context: context,
-        backgroundColor: Colors.white,
-        // isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
+  idSended() {
+    var createFilterjson = {
+      'type': filteredIDCate,
+    };
+    offerFilterCont.offerFilter(createFilterjson);
+  }
+
+  var filteredIDCate;
+  filteringCategory() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
         ),
-        builder: (context) {
-          return StatefulBuilder(builder:
-              (BuildContext context, void Function(void Function()) setState) {
-            return SafeArea(
-              child: AnimatedPadding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.decelerate,
-                  child: Container(
-                    //  height:Get.height/1,
+      ),
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.6,
+          child: StatefulBuilder(
+            builder:(
+              BuildContext context, void Function(void Function()) setState) {
+                return SafeArea(
+                  child: AnimatedPadding(
+                    padding: MediaQuery.of(context).viewInsets,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.decelerate,
                     child: Container(
-                      margin: EdgeInsets.only(top: 0, left: 40, right: 30),
+                      margin: EdgeInsets.only(top: 10,left:20, right:10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(AppString.filters,
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.black)),
-                              Container(
-                                  // margin:EdgeInsets.only(right:30),
+                          Container(
+                            margin: EdgeInsets.only(top:20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  margin:EdgeInsets.only(left:10),
+                                  child: Text(AppString.filters,
+                                    style: TextStyle(
+                                      fontSize: 20, color: Colors.black
+                                    )
+                                  ),
+                                ),
+                                Container(
+                                  margin:EdgeInsets.only(right:20),
                                   child: InkWell(
-                                      onTap: () => Get.back(),
-                                      child: Icon(Icons.close)))
-                            ],
+                                    onTap: () => Get.back(),
+                                    child: Icon(Icons.close)
+                                  )
+                                )
+                              ],
+                            ),
                           ),
-                          SizedBox(height: 10),
-                          Text("Type", style: TextStyle(fontSize: 15)),
-                          SizedBox(height: 10),
+                          SizedBox(height: Get.height*0.04),
+                          Text("Category", style: TextStyle(fontSize: 15)),
                           GetBuilder<OfferCategoryController>(
                             init: OfferCategoryController(),
-                            builder: (val) {
-                              return headingofTypes(val.offeredList);
-                              //dataListedCateOffer[val]['type']['en'],
-                            },
-                          ),
-                          //                  GetBuilder<CategoryController>(
-                          //   init: CategoryController(),
-                          //   builder: (data) {
-                          //     return data.isLoading == true
-                          //         ? CircularProgressIndicator()
-                          //         : data.subCatt != null
-                          //             ? addsCategoryWidget2(data.subCatt['data'])
-                          //             : Container();
-                          //   },
-                          // ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text("Condition", style: TextStyle(fontSize: 15)),
-                          // SizedBox(height: 10),
-                          Container(
-                            height: 40,
-                            child: new ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: litems.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _onSelected(index);
-                                        status = litems[index];
-                                        print(
-                                            "....!!!!>...!!!!!...????///////.......$status");
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(left: 20),
-                                      //color: Colors.red,
-                                      //  height: Get.height/20,
-                                      width: Get.width / 5,
-                                      decoration: BoxDecoration(
-                                          color: _selectedIndex != null &&
-                                                  _selectedIndex == index
-                                              ? Colors.blue
-                                              : Colors
-                                                  .white, //Colors.blue[100],
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                            width: 1,
+                            builder: (data) {
+                              return  data.offerDattaTypeCategory != null  && data.offerDattaTypeCategory['data'] !=null?  
+                              Container(
+                                height: Get.height/10,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: data.offerDattaTypeCategory['data'].length,
+                                  itemBuilder:(BuildContext ctxt, int index){
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                bottomSheetCategory = index;
+                                                filteredIDCate =  data.offerDattaTypeCategory['data'][index]['id'];
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20.0),
+                                                border: Border.all(color: Colors.blue),
+                                                color: bottomSheetCategory == index ? filterCategoryColor  : Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey,
+                                                    offset: Offset(0.0, 1.0),
+                                                    blurRadius: 6.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: data.offerDattaTypeCategory['data'] != null
+                                              ? Text( data.offerDattaTypeCategory['data'][index]['category_name']['en'],
+                                                style: TextStyle(
+                                                  color: bottomSheetCategory == index ? Colors.white  : Colors.blue,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                              ): Container()
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5))),
-                                      child: Center(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 5),
-                                          child: Text(litems[index],
-                                              //softWrap: true,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _selectedIndex == index
-                                                      ? Colors.white
-                                                      : Colors.blue)),
                                         ),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
-                          Text("Price ",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("SAR 0 - SAR 1000 ",
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal)),
-                          RangeSlider(
-                            values: _currentRangeValues,
-                            min: 1,
-                            max: 1000,
-                            // divisions: 5,
-                            labels: RangeLabels(
-                              _currentRangeValues.start.round().toString(),
-                              _currentRangeValues.end.round().toString(),
-                            ),
-                            onChanged: (values) {
-                              setState(() {
-                                // print(
-                                //     "start : ${values.start}, end: ${values.end}");
-                                _currentRangeValues = values;
-                                start = _currentRangeValues.start
-                                    .round()
-                                    .toString();
-                                end =
-                                    _currentRangeValues.end.round().toString();
-                                print(".....!!!!!!!...!!!!!....$start");
-                                print(".....!!!!!!!...!!!!!....$end");
-                              });
+                                      ],
+                                    );
+                                  }
+                                ),
+                              ): Container();
                             },
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top: 20),
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                                    color: Colors.grey[100],
-                                    child: Container(
-                                        width: Get.width / 4,
-                                        child: Center(
-                                            child: Text(AppString.resetButton,
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .inputTextColor)))),
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/login');
-                                      // Get.to(SignIn());
-                                    }),
+                                  color: Colors.grey[100],
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                      child: Text(AppString.resetButton,
+                                        style: TextStyle(
+                                          color: AppColors.inputTextColor
+                                        )
+                                      )
+                                    )
+                                  ),
+                                  onPressed: () {}
+                                ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 20),
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                                    color: Colors.blue,
-                                    child: Container(
-                                        width: Get.width / 4,
-                                        child: Center(
-                                            child: Text("Apply",
-                                                style: TextStyle(
-                                                    color: Colors.white)))),
-                                    onPressed:
-                                        filterID == null && status == null
-                                            ? null
-                                            : () {
-                                                applyFiltering();
-                                                print(
-                                                    ".....category.......!!!!...!!!>....!!!>..$category");
-                                                print(".....status.......!!!!...!!!>....!!!>..$status");
-                                                print(
-                                                    ".....start.......!!!!...!!!>....!!!>..$start");
-                                                print(
-                                                    ".....end.......!!!!...!!!>....!!!>..$end");
-                                                // Navigator.pushNamed(context, '/login');
-                                                // Get.to(SignIn());
-                                              }),
+                                  color: Colors.blue,
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                      child: Text("Apply",
+                                        style: TextStyle( color: Colors.white)
+                                      )
+                                    )
+                                  ),
+                                  onPressed: filteredIDCate  == null ? null  :() {
+                                    idSended();
+                                    Get.off(FilteredCategoryResult());
+                                  }
+                                ),
                               ),
                             ],
                           )
                         ],
                       ),
-                    ),
-                  )),
-            );
-          });
-        });
-  }
-
+                    )
+                  ),
+                );
+              }
+            ),
+          );
+        }
+      );
+    }
+ 
   applyFiltering() {
     var json = {
       //'rangeValue': _currentRangeValues,
@@ -403,14 +360,11 @@ class _OfferListState extends State<OfferList> {
       'start': start,
       'end': end,
     };
-    print(".....output>..$json");
     // filterControlller.createFilterAds(json);
   }
 
   var ind1 = 0;
   Widget headingofTypes(dataListedCateOffer) {
-    // print(
-    //     "my adds Page.......................,,,,,,,...-------------------$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -434,50 +388,36 @@ class _OfferListState extends State<OfferList> {
                         setState(() {
                           // ind1 = ++ind1;
                           selectedIndexListing = val;
-                          category =
-                              dataListedCateOffer[val]['category_name']['en'];
-                          print(
-                              "....!!!1!!!!.category.!!!!!......!!!!1.....!!!!!...$category");
-                          //controller.addedByIdAddes(listingCategoriesData[index]['id']);
-                          // filterControlller
-                          //     .createFilterAds(dataListedCateOffer[val]['id']);
-                          print(
-                              "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
+                          category =dataListedCateOffer[val]['category_name']['en'];
                           filterID = dataListedCateOffer[val]['id'];
-                          //createFilterAds
-                          //AdsFilteringController
                         });
                       },
                       child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(color: Colors.blue),
-                            color: selectedIndexListing == val
-                                ? selectedColor
-                                : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 1.0),
-                                blurRadius: 6.0,
-                              ),
-                            ],
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(color: Colors.blue),
+                          color: selectedIndexListing == val ? selectedColor  : Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: dataListedCateOffer != null
+                        ? Text(
+                          dataListedCateOffer[val]['category_name']['en'],
+                          style: TextStyle(
+                            color: selectedIndexListing == val? Colors.white: Colors.blue,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
                           ),
-                          padding: EdgeInsets.all(10.0),
-                          child: dataListedCateOffer != null
-                              ? Text(
-                                  dataListedCateOffer[val]['category_name']
-                                      ['en'],
-                                  style: TextStyle(
-                                    color: selectedIndexListing == val
-                                        ? Colors.white
-                                        : Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                  ),
-                                )
-                              : Container()),
+                        )
+                        : Container()
+                      ),
                     ),
                   ),
                 ],
@@ -490,77 +430,75 @@ class _OfferListState extends State<OfferList> {
   }
 
   List<Widget> myAddGridView(listFavou) {
-    // print(".........listFavou.......!!!!!......!!!!.......${listFavou['data']['en']}");
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
-        // print("!!!!1...helllloo.!!!!>.....!!!>.......${listFavou['data']['text_ads']['en']}");
-        favrties.add(Container(
-          width: Get.width / 1.10,
-          height: Get.height / 0.3,
-          child: GridView.count(
+        favrties.add(
+          Container(
+            width: Get.width / 1.10,
+            height: Get.height / 0.3,
+            child: GridView.count(
               crossAxisCount: 2,
               children: List.generate(listFavou.length, (c) {
                 return Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.all(10),
-                        child: Card(
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
-                                child: Container(
-                                  height: Get.height * 0.18,
-                                  width: Get.height * 0.18,
-                                  child: listFavou[c]['image_ads'] != null &&
-                                          listFavou[c]['image_ads']['url'] !=
-                                              null
-                                      ? FittedBox(
-                                          fit: BoxFit.cover,
-                                          child: Image.network(
-                                            listFavou[c]['image_ads']['url'],
-                                          ),
-                                        )
-                                      : FittedBox(
-                                          fit: BoxFit.cover,
-                                          child: Icon(
-                                            Icons.image,
-                                            color: Colors.grey[400],
-                                          ),
-                                        ),
+                      margin: EdgeInsets.all(10),
+                      child: Card(
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)
+                              ),
+                              child: Container(
+                                height: Get.height * 0.18,
+                                width: Get.height * 0.18,
+                                child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+                                ? FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Image.network(
+                                    listFavou[c]['image_ads']['url'],
+                                  ),
+                                ): FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Icon(
+                                    Icons.image,
+                                    color: Colors.grey[400],
+                                  ),
                                 ),
-                              )
-                            ],
-                          ),
-                        )),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ),
                     Container(
-                        child: Text(
-                            listFavou[c]['text_ads']['en'] != null
-                                ? listFavou[c]['text_ads']['en'].toString()
-                                : '',
-                            style:
-                                TextStyle(fontSize: 13, color: Colors.black)))
+                      child: Text(
+                        listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+                        style:TextStyle(fontSize: 13, color: Colors.black)
+                      )
+                    )
                   ],
                 );
-              })),
-        ));
+              })
+            ),
+          )
+        );
       }
     }
     return favrties;
   }
 
-  Widget headingUpsell(List dataListedCateOffer) {
-    print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
+  Widget headingUpsell(dataListedCateOffer) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -578,10 +516,7 @@ class _OfferListState extends State<OfferList> {
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
-                          print(selectedIndex);
                           id = dataListedCateOffer[index]['id'];
-                          print("....<><><><><>.......$id");
-                          print("the category hited...");
                         });
                         applyofferFiltering();
                       },
@@ -589,9 +524,7 @@ class _OfferListState extends State<OfferList> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color: Colors.blue),
-                          color: selectedIndex == index
-                              ? selectedColor
-                              : Colors.white,
+                          color: selectedIndex == index ? selectedColor: Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey,
@@ -604,9 +537,7 @@ class _OfferListState extends State<OfferList> {
                         child: Text(
                           dataListedCateOffer[index]['category_name']['en'],
                           style: TextStyle(
-                            color: selectedIndex == index
-                                ? Colors.white
-                                : Colors.blue,
+                            color: selectedIndex == index? Colors.white : Colors.blue,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),
@@ -623,3 +554,4 @@ class _OfferListState extends State<OfferList> {
     );
   }
 }
+
