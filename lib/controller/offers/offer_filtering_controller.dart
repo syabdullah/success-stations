@@ -26,7 +26,7 @@ class OffersFilteringController extends GetxController {
         isLoading = false;
       }
       if(offerFilterCreate['success'] == false){
-        resultInvalid(true);
+         resultInvalid(true);
         isLoading = false;
       }
     });

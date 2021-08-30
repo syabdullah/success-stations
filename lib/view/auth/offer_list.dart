@@ -314,6 +314,7 @@ class _OfferListState extends State<OfferList> {
         }
       );
     }
+ 
 
   applyFiltering() {
     var json = {
@@ -324,7 +325,8 @@ class _OfferListState extends State<OfferList> {
       'end': end,
     };
     // filterControlller.createFilterAds(json);
-  }   
+  }
+
   var ind1 = 0;
   Widget headingofTypes(dataListedCateOffer) {
     return Column(
