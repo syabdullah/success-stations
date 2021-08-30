@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/offers/my_offers.dart';
 
  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,) {
+
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
@@ -105,7 +108,11 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
+    RangeValues _currentRangeValues = const RangeValues(1, 1000);
+    var start;
+  var end;
   filtrationModel(context) async {
+     
     var size = MediaQuery.of(context).size;
     print(size);
    showModalBottomSheet(  
@@ -123,22 +130,169 @@ Widget sAppbar(context ,icon,image,) {
           return Wrap(
             children: [
               Container(
-                height: Get.height/1.5,
+                height: Get.height/2,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
+                      margin: EdgeInsets.only(top:20),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          
+                          Container(
+                            margin:EdgeInsets.only(left:30),
+                            child: Text(AppString.filters,
+                              style: TextStyle(
+                                fontSize: 20, color: Colors.black
+                              )
+                            ),
+                          ),
+                          Container(
+                            margin:EdgeInsets.only(right:20),
+                            child: InkWell(
+                              onTap: () => Get.back(),
+                              child: Icon(Icons.close)
+                            )
+                          )
                         ],
                       ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                         color: Colors.blue[100],
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      width: Get.width/4,
+                     padding: EdgeInsets.symmetric(vertical: 10),
+                      margin: EdgeInsets.only(top: 20,left: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Icon(Icons.location_on,color: Colors.blue,),
+                          ),
+                          Container(
+                            child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: ('City'),
+                          // labelStyle: TextStyle(color: AppColors.basicColor),
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(5.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                          )
+                        ),
+                      )
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                         color: Colors.blue[100],
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      width: Get.width/4,
+                     padding: EdgeInsets.symmetric(vertical: 10),
+                      margin: EdgeInsets.only(top: 20,left: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Icon(Icons.location_on,color: Colors.blue,),
+                          ),
+                          Container(
+                            child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: RangeSlider(
+                        values: _currentRangeValues,
+                        min: 1.00,
+                        max: 10000.00,
+                        // divisions: 5,
+                        labels: RangeLabels(
+                          _currentRangeValues.start.round().toString(),
+                          _currentRangeValues.end.round().toString(),
+                        ),
+                        onChanged: (values) {
+                          setState(() {
+                            _currentRangeValues = values;
+                              start = _currentRangeValues.start.round().toString();
+                              end = _currentRangeValues.end.round().toString();
+                            print(".....!!!!!!!...!!!!!....$start");
+                            print(".....!!!!!!!...!!!!!....$end");
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          // margin: EdgeInsets.only(top: 20),
+                          // ignore: deprecated_member_use
+                          child: RaisedButton(
+                            color: Colors.grey[100],
+                            child: Container(
+                              width: Get.width / 4,
+                              child: Center(
+                                child: Text(AppString.resetButton,
+                                  style: TextStyle(
+                                    color: AppColors.inputTextColor
+                                      )
+                                    )
+                                  )
+                                ),
+                            onPressed: () {
+                              // Get.to(SignIn());
+                            }
+                          ),
+                        ),
+                        Container(
+                          // margin: EdgeInsets.only(top: 20),
+                          // ignore: deprecated_member_use
+                          child: RaisedButton(
+                            color: Colors.blue,
+                            child: Container(
+                              width: Get.width / 4,
+                              child: Center(
+                                child: Text("Apply",
+                                  style: TextStyle( color: Colors.white)
+                                )
+                              )
+                            ),
+                            onPressed: (){
+
+                            },
+                          )
+                              // onPressed: catFilteredID  == null && status == null ?  null :() {
+                              //   applyFiltering();
+                              //   Get.off(FilteredAdds());
+                              // }),
+                        ),
+                      ],
                     )
                   ],
                 ),
-
               )
             ]
-
           );
           });
    

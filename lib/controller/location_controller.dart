@@ -86,4 +86,26 @@ deleteLocationToDB(id,userId) async {
     });
     update();
   }
+
+   getAllLocationNearBy(dis,lat,long) async{
+    print("controller call of the Favorite list");
+    isLoading = true;
+    await getNearByLocation(dis,lat,long).then((value) {
+      allLoc = jsonDecode(value.body);
+      print("json decode response of offer.......>$allLoc");
+      isLoading = false;
+    });
+    update();
+  }
+
+   getAllLocationByCity(city) async{
+    print("controller call of the Favorite list");
+    isLoading = true;
+    await getCityLocation(city).then((value) {
+      allLoc = jsonDecode(value.body);
+      print("json decode response of offer.......>$allLoc");
+      isLoading = false;
+    });
+    update();
+  }
 }

@@ -83,9 +83,12 @@ final mapCon = Get.put(LocationController());
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             data['user_name']['image'] != null ?
-                            ClipRRect(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
-                              child:  Image.network(data['user_name']['image']['url']))
+                            Container(
+                              width: Get.width/5,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
+                                child:  Image.network(data['user_name']['image']['url'])),
+                            )
                                : Container(
                                  height: Get.height/3,
                                  width: Get.width/5.5,
