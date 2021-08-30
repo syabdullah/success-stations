@@ -42,6 +42,7 @@ var resultInvalid = false.obs;
     isLoading = true;
     await createAdsFilteringAction(data).then((res) {
       adsFilterCreate = jsonDecode(res.body);
+      isLoading = false;
       print("................>>>#........................fikl................$adsFilterCreate");
       if(res.statusCode ==200||res.statusCode <  400){
         resultInvalid(false);

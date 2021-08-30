@@ -49,7 +49,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
           draftedlist(value.offerFilterCreate['data'] ):
           adContr.resultInvalid.isTrue && value.offerFilterCreate['success'] == false ?  
            Container(
-            margin: EdgeInsets.only(top: Get.height/10),
+            margin: EdgeInsets.only(top: Get.height*0.00),
             child: Center(
               child: Text(
                 adContr.offerFilterCreate['errors'], style:TextStyle(fontSize: 25)

@@ -27,7 +27,7 @@ class _FilteredPageState extends State<FilteredAdds> {
   GetStorage box = GetStorage();
   @override
   void initState() {
-    adbAsedContr.addedAllAds();
+    // adbAsedContr.addedAllAds();
     super.initState();
   }
 
@@ -40,11 +40,11 @@ class _FilteredPageState extends State<FilteredAdds> {
       body: GetBuilder<AddBasedController> ( 
         init: AddBasedController(),
         builder: (value) { 
-          return value.adsFilterCreate !=null  && value.adsFilterCreate['success']==true ? 
+          return value.adsFilterCreate !=null && value.adsFilterCreate['data']!=null ?
           draftedlist(value.adsFilterCreate['data'] ):
-          adbAsedContr.resultInvalid.isTrue &&value.adsFilterCreate['success'] == false ?  
+          adbAsedContr.resultInvalid.isTrue && value.adsFilterCreate['success'] == false ?  
            Container(
-              margin: EdgeInsets.only(top: Get.height/ 5),
+              margin: EdgeInsets.only(top: Get.height*0.00),
               child: Center(
                 child: Text(
                 adbAsedContr.adsFilterCreate['errors'], style:TextStyle(fontSize: 25)
@@ -187,10 +187,10 @@ class _FilteredPageState extends State<FilteredAdds> {
                           backgroundColor: Colors.grey[400],
                            radius: 20,
                            child: ClipRRect(
-                             
                               borderRadius: BorderRadius.circular(50.0),
                               child:filteredAdds[index]['category']['image']!=null &&  filteredAdds[index]['category']['image']['url'] !=null ? 
-                              Image.network(filteredAdds[index]['category']['image']['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
+                              Image.network( filteredAdds[index]['category']['image']['url'],  fit: BoxFit.fill, height:40) : 
+                              Image.asset(AppImages.person,color: Colors.grey[400], height: 40,)
                               // Image.asset(
                               //   AppImages.profile,
                               // ),
@@ -206,14 +206,17 @@ class _FilteredPageState extends State<FilteredAdds> {
                                   'ads_id': filteredAdds[index]['id']
                                 };
                                 liked = !liked;
-                                filteredAdds[index]['is_favorite'] == false ? frindCont.profileAdsToFav(json, userId)  : frindCont.profileAdsRemove(json, userId);
-                                
+                                filteredAdds[index]['is_favorite'] == false ? 
+                                frindCont.profileAdsToFav(json, userId)  :
+                                frindCont.profileAdsRemove(json, userId);
                                 adbAsedContr.addedByIdAddes(filteredAdds[index]['id'],null);
                               },
                               child: Container(
                                 padding: EdgeInsets.only(right: 5),
                                 child: filteredAdds[index]['is_favorite'] == true ? Image.asset(AppImages.redHeart, height: 20)
-                                : Image.asset(AppImages.blueHeart, height: 20)),
+                                : Image.asset(
+                                  AppImages.blueHeart, height: 20)
+                                ),
                             ),
                             GestureDetector(
                               onTap: (){
