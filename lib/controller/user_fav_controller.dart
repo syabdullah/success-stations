@@ -18,11 +18,11 @@ class UserFavController extends GetxController{
      
       print(res.statusCode);
       if(res.statusCode < 400){
-        Get.snackbar('', 'user add to fav sucessfully');
+        // Get.snackbar('', 'user add to fav sucessfully');
         loc.getAllLocationToDB();
       }
       if(res.statusCode > 400){
-        Get.snackbar("","unSucessfully ");
+        // Get.snackbar("","unSucessfully ");
       }
       isLoading = false;
     });
@@ -35,11 +35,11 @@ class UserFavController extends GetxController{
      
       print(res.statusCode);
       if(res.statusCode < 400){
-        Get.snackbar('', 'user add to fav sucessfully');
+        // Get.snackbar('', 'user add to fav sucessfully');
         loc.getAllLocationToDB();
       }
       if(res.statusCode > 400){
-        Get.snackbar("","unSucessfully ");
+        // Get.snackbar("","unSucessfully ");
       }
       isLoading = false;
     });
