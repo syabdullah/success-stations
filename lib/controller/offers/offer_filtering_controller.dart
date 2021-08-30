@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/offers/offer_filtering_action.dart';
-import 'package:success_stations/styling/colors.dart';
 
 class OffersFilteringController extends GetxController {
   bool isLoading = false;
@@ -9,11 +8,11 @@ class OffersFilteringController extends GetxController {
   var result = true;
   var rating;
   var getRate;
+  var resultInvalid = false.obs;
 
   @override
   void onInit() {
     isLoading = true;
-
     super.onInit();
   }
 
@@ -21,31 +20,17 @@ class OffersFilteringController extends GetxController {
     isLoading = true;
     await offerFilteringAction(data).then((res) {
       offerFilterCreate = jsonDecode(res.body);
-      print("......offer filter......${res.body}");
-      print("...status code of offer post....$offerFilterCreate");
-      print("......here the result.........$offerFilterCreate");
-      if (res.statusCode < 200) {
+      print("offer printing.......... Offer create Filter...... $offerFilterCreate");
+      if (res.statusCode == 200 || res.statusCode < 400) {
+        resultInvalid(false);
         isLoading = false;
       }
-      if (res.statusCode > 400) {
-        //Get.snackbar(offerFilterCreate['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+      if(offerFilterCreate['success'] == false){
+         resultInvalid(true);
+        isLoading = false;
       }
     });
     update();
   }
 
-  getOfferFiltering(data) async {
-    isLoading = true;
-    await offerGetFilteringAction(data).then((value) {
-      getRate = jsonDecode(value.body);
-      print(
-          " .......... .... ....yesddddddd ....... .........  ...... $getRate");
-      isLoading = false;
-    });
-    update();
-  }
 }
-
- 
-
-//offerGetFilteringAction

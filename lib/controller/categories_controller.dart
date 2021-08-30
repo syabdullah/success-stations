@@ -32,7 +32,6 @@ class CategoryController extends GetxController {
   update();
   }
   getCategoryTypes() async {
-    // datacateg = [];
     await  categoryTypes().then((value) {
       isLoading = true ;
       subCatt =  jsonDecode(value.body);

@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
-import 'package:success_stations/controller/ads_filtering_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -16,6 +15,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+bool check = true;
 
 class AllAdds extends StatefulWidget {
   _AllAddsState createState() => _AllAddsState();
@@ -29,20 +30,22 @@ class _AllAddsState extends State<AllAdds> {
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
   final catCobtroller = Get.put(MyListingFilterController());
-  final filterControlller = Get.put(AdsFilteringController());
+  final filterControlller = Get.put(AddBasedController());
   var listtype = 'list';
   var userId;
   var myrate;
   late double valueData;
   bool _value = false;
   var selectedIndex = 0;
+  var filteredIndex =0;
   var selectedIndexListing = 0;
   var bClicked = false;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color listIconColor = Colors.grey;
   bool liked = false;
-  var statusSelected;
+  Color filterSelecredColor = Colors.blue;
+  var conditionSelected;
   GetStorage box = GetStorage();
   var lang;
   final banner = Get.put(BannerController());
@@ -53,17 +56,14 @@ class _AllAddsState extends State<AllAdds> {
   var end;
   var filterID;
   List<String> litems = [
+    
     "New",
     "Old",
   ];
-  // List<String> litems = [
-  //   'Yes',
-  //   'No',
-  // ];
-
   @override
   void initState() {
     super.initState();
+    check = true;
 
     banner.bannerController();
     controller.addedAllAds();
@@ -76,10 +76,12 @@ class _AllAddsState extends State<AllAdds> {
   }
 
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   _onSelected(int index) {
-    setState(() => _selectedIndex = index);
+    setState(() => 
+    _selectedIndex = index
+  );
   }
 
   @override
@@ -97,7 +99,7 @@ class _AllAddsState extends State<AllAdds> {
             builder: (data) {
               return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
-          ),
+          ), 
           Expanded(
             child: GetBuilder<AddBasedController>(
             init: AddBasedController(),
@@ -105,7 +107,7 @@ class _AllAddsState extends State<AllAdds> {
               return val.isLoading == true ||  val.cData == null  ? Container() :
                 val.cData['data'] == null ? Container() : listtype == 'list' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']);
             },
-          )),
+          ))
         ],
       ),
     );
@@ -189,15 +191,15 @@ class _AllAddsState extends State<AllAdds> {
       ],
     );
   }
-
-  void _adsfiltringheet() {
+ var catFilteredID;
+  _adsfiltringheet() {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.white,
-      // isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
+          topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
+        ),
       ),
       builder: (context) {
         return StatefulBuilder(
@@ -208,55 +210,99 @@ class _AllAddsState extends State<AllAdds> {
                   padding: MediaQuery.of(context).viewInsets,
                     duration: const Duration(milliseconds: 100),
                     curve: Curves.decelerate,
-                    child: Container(
+                    // child: Container(
                       child: Container(
-                        margin: EdgeInsets.only(top: 0, left: 40, right: 30),
+                        margin: EdgeInsets.only(top: 10,left:20, right:10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(AppString.filters,
-                                  style: TextStyle(
-                                    fontSize: 20, color: Colors.black
+                            Container(
+                              margin: EdgeInsets.only(top:20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin:EdgeInsets.only(left:10),
+                                    child: Text(AppString.filters,
+                                      style: TextStyle(
+                                        fontSize: 20, color: Colors.black
+                                      )
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:EdgeInsets.only(right:20),
+                                    child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(Icons.close)
+                                    )
                                   )
-                                ),
-                                Container(
-                                  child: InkWell(
-                                    onTap: () => Get.back(),
-                                    child: Icon(Icons.close)
-                                  )
-                                )
-                              ],
+                                ],
+                              ),
                             ),
-                            SizedBox(height: 10),
-                            Text("Type", style: TextStyle(fontSize: 15)),
-                            SizedBox(height: 10),
-                            GetBuilder<MyListingFilterController>(
-                              init: MyListingFilterController(),
-                              builder: (val) {
-                                return headingofTypes(val.myMyAdd);
-                                //dataListedCateOffer[val]['type']['en'],
+                            SizedBox(height: Get.height*0.04),
+                            Text("Category", style: TextStyle(fontSize: 15)),
+                            // SizedBox(height: 10),
+                            GetBuilder<CategoryController>(
+                              init: CategoryController(),
+                              builder: (data) {
+                                return data.isLoading == true ? CircularProgressIndicator()
+                                : data.subCatt != null  && data.subCatt['data'] !=null?  
+                                Container(
+                                  height: Get.height/10,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: data.subCatt['data'].length,
+                                    itemBuilder:(BuildContext ctxt, int index){
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(left: 8.0),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  filteredIndex = index;
+                                                  catFilteredID =  data.subCatt['data'][index]['id'];
+                                                });
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                  border: Border.all(color: Colors.blue),
+                                                  color: filteredIndex == index ? filterSelecredColor  : Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey,
+                                                      offset: Offset(0.0, 1.0),
+                                                      blurRadius: 6.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                                padding: EdgeInsets.all(10.0),
+                                                child: data.subCatt['data'] != null
+                                                ? Text( data.subCatt['data'][index]['category']['en'],
+                                                  style: TextStyle(
+                                                    color: filteredIndex == index ? Colors.white  : Colors.blue,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.normal,
+                                                  ),
+                                                ): Container()
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  ),
+                                ): Container();
                               },
                             ),
-                            //                  GetBuilder<CategoryController>(
-                            //   init: CategoryController(),
-                            //   builder: (data) {
-                            //     return data.isLoading == true
-                            //         ? CircularProgressIndicator()
-                            //         : data.subCatt != null
-                            //             ? addsCategoryWidget2(data.subCatt['data'])
-                            //             : Container();
-                            //   },
-                            // ),
-                            SizedBox(
-                              height: 15,
-                            ),
+                            SizedBox( height: 15,),
                             Text("Condition", style: TextStyle(fontSize: 15)),
-                            // SizedBox(height: 10),
+                            SizedBox(height: 10),
                             Container(
-                              height: 40,
+                              height: 20,
                               child: new ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -268,13 +314,18 @@ class _AllAddsState extends State<AllAdds> {
                                         setState((){
                                           _onSelected(index);
                                           status = litems[index];
-                                          print("....!!!!>...!!!!!...????///////.......$status");
+                                          print("....statusstatusstatus......$status");
+                                          // ignore: unnecessary_statements
+                                          // status == 'New'  ?  1  :0;
+
                                         });
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(left:20),
                                         width: Get.width / 5,
+                                        height: Get.height/4,
                                         decoration: BoxDecoration(
+                                          // ignore: unnecessary_null_comparison
                                           color: _selectedIndex != null && _selectedIndex == index
                                             ? Colors.blue
                                             : Colors.white, //Colors.blue[100],
@@ -301,28 +352,38 @@ class _AllAddsState extends State<AllAdds> {
                                       ),
                                     );
                                   }),
+                                ),
+                                SizedBox(height:20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                //  alignment: Alignment.topLeft,
+                                  child: Text("Price ",
+                                    style: TextStyle(
+                                      // fontWeight: FontWeight.bold,
+                                    )
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  child: Text("SAR 0 - SAR 10000 ",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal
+                                    )
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text("Price ",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold
-                              )
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text("SAR 0 - SAR 1000 ",
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal
-                              )
-                            ),
+                            
                             RangeSlider(
                               values: _currentRangeValues,
-                              min: 1,
-                              max: 1000,
+                              min: 1.00,
+                              max: 10000.00,
                               // divisions: 5,
                               labels: RangeLabels(
                                 _currentRangeValues.start.round().toString(),
@@ -342,7 +403,7 @@ class _AllAddsState extends State<AllAdds> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  // margin: EdgeInsets.only(top: 20),
                                   // ignore: deprecated_member_use
                                   child: RaisedButton(
                                     color: Colors.grey[100],
@@ -363,35 +424,28 @@ class _AllAddsState extends State<AllAdds> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  // margin: EdgeInsets.only(top: 20),
                                   // ignore: deprecated_member_use
                                   child: RaisedButton(
-                                      color: Colors.blue,
-                                      child: Container(
-                                          width: Get.width / 4,
-                                          child: Center(
-                                              child: Text("Apply",
-                                                  style: TextStyle(
-                                                      color: Colors.white)))),
-                                      onPressed: filterID  == null && status == null ?  null :() {
+                                    color: Colors.blue,
+                                    child: Container(
+                                      width: Get.width / 4,
+                                      child: Center(
+                                        child: Text("Apply",
+                                          style: TextStyle( color: Colors.white)
+                                        )
+                                      )
+                                    ),
+                                      onPressed: catFilteredID  == null && status == null ?  null :() {
                                         applyFiltering();
-                                        print(
-                                            ".....category.......!!!!...!!!>....!!!>..$category");
-                                        print(
-                                            ".....status.......!!!!...!!!>....!!!>..$status");
-                                        print(
-                                            ".....start.......!!!!...!!!>....!!!>..$start");
-                                            print(
-                                            ".....end.......!!!!...!!!>....!!!>..$end");
-                                        // Navigator.pushNamed(context, '/login');
-                                        // Get.to(SignIn());
+                                        Get.off(FilteredAdds());
                                       }),
                                 ),
                               ],
                             )
                           ],
                         ),
-                      ),
+                      // ),
                     )),
               );
             
@@ -402,9 +456,8 @@ class _AllAddsState extends State<AllAdds> {
 
   applyFiltering() {
     var json = {
-      //'rangeValue': _currentRangeValues,
-      'type': filterID,
-      'condition': status,
+      'type': catFilteredID,
+      'condition': status == 'New'? 1 : 0,
       'start':start,
       'end':end,
     };
@@ -417,8 +470,6 @@ var catID;
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        print(
-            "........-------=ratingggggggggg=====---------......${allDataAdds[index]['rating']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -511,22 +562,7 @@ var catID;
                                       // ratingcont.getratings(allDataAdds[index]['id']);
                                                 
                                     },
-                                  ) 
-                                  // RatingBar.builder(
-                                  //   // ignoreGestures: true,
-                                  //   initialRating: allDataAdds[index]['rating'].toDouble(),
-                                  //   minRating: 1,
-                                  //   direction: Axis.horizontal,
-                                  //   allowHalfRating: true,
-                                  //   itemCount: 5,
-                                  //   itemSize: 22.5,
-                                  //   itemBuilder: (context, _) => Icon(
-                                  //     Icons.star,
-                                  //     color: Colors.amber,
-                                  //   ),
-                                  //   onRatingUpdate: (rating) {         
-                                  //   },
-                                  // )
+                                  )
                                  
                                 )
                               ],
@@ -619,46 +655,37 @@ var catID;
   }
 
   var ind = 0;
-  myAddGridView(dataListValue) {
-    print(
-        "datalist value...................data list value..... $dataListValue");
-    return Container(
+  myAddGridView(dataListValue) {;
+     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
           crossAxisCount: 2,
           children: List.generate(dataListValue.length, (index) {
             print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
             return Container(
-                width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
-                margin: EdgeInsets.only(left: 15),
-                height: Get.height < 420 ? Get.height / 3.6 : Get.height / 8.0,
-                child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
+              margin: EdgeInsets.only(left: 15),
+              height: Get.height < 420 ? Get.height / 3.6 : Get.height / 8.0,
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                         child: Container(
-                            width: Get.width < 420
-                                ? Get.width / 1.4
-                                : Get.width / 2.3,
+                          width: Get.width < 420 ? Get.width / 1.4   : Get.width / 2.3,
                             height: Get.height / 8.0,
                             child: dataListValue[index]['image'].length != 0
-                                ? Image.network(
-                                    dataListValue[index]['image'][0]['url'],
-                                    width: Get.width / 4,
-                                    fit: BoxFit.fill,
-                                  )
-                                : Container(width: Get.width / 4,
-                                 child: Icon(Icons.image,size: 50,),
-                                )
-                            // child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                              ? Image.network(  dataListValue[index]['image'][0]['url'],
+                                width: Get.width / 4,  fit: BoxFit.fill,
+                              ): Container(
+                                width: Get.width / 4,
+                                child: Icon(Icons.image,size: 50,),
+                              )
                             ),
                       ),
                       Container(
@@ -764,9 +791,7 @@ var catID;
 
   void navigateToGoogleLogin() {}
 
-  Widget addsCategoryWidget(listingCategoriesData) {
-    // print(
-        // "my adds Page.......................,,,,,,,...-------------------$listingCategoriesData");
+  Widget addsCategoryWidget(listingCategoriesData) {;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -776,7 +801,6 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              
               if (ind == 0) {
                 catID =  listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'],null);
@@ -846,6 +870,7 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, val) {
+              print("context Api......... val of the field .....>$val");
               if (ind1 == 0) {
                 // controller.addedByIdAddes(listingCategoriesData[0]['id']);
               }
@@ -855,19 +880,13 @@ var catID;
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        // print(
-                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
                         setState(() {
                           // ind1 = ++ind1;
                           selectedIndexListing = val;
                           category = dataListedCateOffer[val]['type']['en'];
-                          print(
-                              "....!!!1!!!!.category.!!!!!......!!!!1.....!!!!!...$category");
                           //controller.addedByIdAddes(listingCategoriesData[index]['id']);
                           // filterControlller
                           //     .createFilterAds(dataListedCateOffer[val]['id']);
-                          print(
-                              "....!!!...!!!!....!!!!!...111.....${dataListedCateOffer[val]['id']}");
                           filterID =dataListedCateOffer[val]['id'];
                           //createFilterAds
                           //AdsFilteringController
@@ -913,64 +932,5 @@ var catID;
     );
   }
 
-  // Widget headingofTypes(List dataListedCateOffer) {
-  //   print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Container(
-  //         height: MediaQuery.of(context).size.height / 9.22,
-  //         child: ListView.builder(
-  //           scrollDirection: Axis.horizontal,
-  //           itemCount: dataListedCateOffer.length,
-  //           itemBuilder: (context, index) {
-  //             return Row(
-  //               children: [
-  //                 Container(
-  //                   margin: EdgeInsets.only(left: 12.0),
-  //                   child: GestureDetector(
-  //                     onTap: () {
-  //                       setState(() {
-  //                         selectedIndexListing = index;
-  //                         print("....tspppp...!!!!!....!!!....$selectedIndexListing");
-  //                       });
-  //                     },
-  //                     child: Container(
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(20.0),
-  //                         border: Border.all(color: Colors.blue),
-  //                         color: selectedIndexListing == index
-  //                             ? selectedColor
-  //                             : Colors.white,
-  //                         boxShadow: [
-  //                           BoxShadow(
-  //                             color: Colors.grey,
-  //                             offset: Offset(0.0, 1.0),
-  //                             blurRadius: 6.0,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                       padding: EdgeInsets.all(10.0),
-  //                       child: Text(
-  //                         dataListedCateOffer[index]['type']['en'],
-  //                         style: TextStyle(
-  //                           color: selectedIndexListing == index
-  //                               ? Colors.white
-  //                               : Colors.blue,
-  //                           fontSize: 12,
-  //                           fontStyle: FontStyle.normal,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             );
-  //           },
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
 
 }
