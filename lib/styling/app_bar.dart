@@ -18,10 +18,15 @@ import 'package:success_stations/view/offers/my_offers.dart';
         child: Image.asset(image, height: 40),
       ), 
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(top:12.0,right: 10,),
-          child: Image.asset(
-           AppImages.appBarSearch,color: Colors.white,width: 25.w,
+        GestureDetector(
+          onTap: () {
+            filtrationModel(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top:12.0,right: 10,),
+            child: Image.asset(
+             AppImages.appBarSearch,color: Colors.white,width: 25.w,
+            ),
           ),
         )
       ],
@@ -99,4 +104,44 @@ Widget sAppbar(context ,icon,image,) {
       
       backgroundColor: AppColors.appBarBackGroundColor,
     );
+  }
+  filtrationModel(context) async {
+    var size = MediaQuery.of(context).size;
+    print(size);
+   showModalBottomSheet(  
+     isScrollControlled: false,
+     context: context,   
+     shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
+        ),
+      ),
+      backgroundColor: Colors.white,
+       builder:(BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+          return Wrap(
+            children: [
+              Container(
+                height: Get.height/1.5,
+                child: Column(
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+
+              )
+            ]
+
+          );
+          });
+   
+       }
+   );
   }

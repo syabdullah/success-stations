@@ -35,6 +35,7 @@ final mapCon = Get.put(LocationController());
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
   GetStorage box = GetStorage();
+  bool visible = false;
     @override
   void initState() {
     super.initState();
@@ -54,8 +55,12 @@ final mapCon = Get.put(LocationController());
     //  setState(() {
       _markers.add(
         Marker(markerId: MarkerId(markersId),
+        // visible: visible,
         position: point,
         onTap: () {
+          setState(() {
+            visible = !visible;
+          });
           print("///.............-------.............>${data['user_name']['name']}");
           double rat = double.parse(data['user_name']['rating'].toString());       
           _customInfoWindowController.addInfoWindow!(            
@@ -77,14 +82,17 @@ final mapCon = Get.put(LocationController());
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            data['user_name']['image'] != null ?
                             ClipRRect(
                               borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
-                              child: data['user_name']['image'] != null ? Image.network(data['user_name']['image']['url']) : Container(
+                              child:  Image.network(data['user_name']['image']['url']))
+                               : Container(
+                                 height: Get.height/3,
+                                 width: Get.width/5.5,
+                                 color: Colors.grey[100],
                                 margin: EdgeInsets.all(20 ),
-                                // width: Get.width/4,
-                                child: Icon(Icons.image,size: 50)
-                                // Image.asset(AppImages.locationimg,fit: BoxFit.fill,height: 30)
-                              )),
+                                child: Icon(Icons.image,size: 60)
+                              ),
                             SizedBox(
                               width: 8.0,
                             ),
@@ -100,7 +108,9 @@ final mapCon = Get.put(LocationController());
                                         initialRating: rat ,
                                         minRating: 1,
                                         direction: Axis.horizontal,
+                                        ignoreGestures: true,
                                         allowHalfRating: true,
+                                        // tapOnlyMode: false,
                                         itemCount: 5,
                                         itemSize: 19.5,
                                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
@@ -108,7 +118,8 @@ final mapCon = Get.put(LocationController());
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
-                                        onRatingUpdate: (rating) {
+                                        onRatingUpdate: 
+                                        (rating) {
                                           print(rating);
                                         },  
                                       ),
