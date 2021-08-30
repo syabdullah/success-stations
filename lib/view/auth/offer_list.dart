@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
+import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/view/offer_filtered.dart';
 
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
@@ -74,6 +74,7 @@ class _OfferListState extends State<OfferList> {
         GetBuilder<OffersFilteringController>(
         init: OffersFilteringController(),
           builder: (val) {
+            print("....fff....${val.offerFilterCreate['data']}......");
             return Expanded(
               child: val.offerFilterCreate !=null && val.offerFilterCreate['data'] != null
                 ? ListView(
@@ -134,6 +135,42 @@ class _OfferListState extends State<OfferList> {
             )
           ],
         ),
+        // Row(
+        //   children: [
+        //     IconButton(
+        //       onPressed: () {
+        //         setState(() {
+        //           listtype = 'grid';
+        //           listIconColor = Colors.grey;
+        //           grid = AppImages.grid;
+        //         });
+        //       },
+        //       icon:
+        //           // Container(
+        //           // height: 100,
+        //           Image.asset(grid),
+        //     ),
+        //     Container(
+        //       margin: EdgeInsets.only(bottom: 15),
+        //       child: IconButton(
+        //           onPressed: () {
+        //             setState(() {
+        //               listtype = 'list';
+        //               listIconColor = AppColors.appBarBackGroundColor;
+        //               grid = AppImages.gridOf;
+        //             });
+        //           },
+        //           icon: Container(
+        //               padding: EdgeInsets.only(top: 10),
+        //               child: Image.asset(AppImages.listing,
+        //                   color: listIconColor, height: 20))),
+        //     ),
+        //     SizedBox(
+        //       height: 30,
+        //       width: 15,
+        //     )
+        //   ],
+        // )
       ],
     );
   }
@@ -315,7 +352,6 @@ class _OfferListState extends State<OfferList> {
       );
     }
  
-
   applyFiltering() {
     var json = {
       //'rangeValue': _currentRangeValues,
@@ -347,6 +383,8 @@ class _OfferListState extends State<OfferList> {
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
+                        // print(
+                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
                         setState(() {
                           // ind1 = ++ind1;
                           selectedIndexListing = val;
