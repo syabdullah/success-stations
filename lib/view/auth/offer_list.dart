@@ -23,6 +23,13 @@ class _OfferListState extends State<OfferList> {
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
   var json;
 
+   int slctedInd = 0;
+
+  onSelected(int index) {
+    setState(() => slctedInd = index);
+  }
+
+
   var listtype = 'list';
   final offerFilterCont = Get.put(OffersFilteringController());
   var selectedIndex = 0;
@@ -35,15 +42,18 @@ class _OfferListState extends State<OfferList> {
   var selectedIndexListing = 0;
   var status;
   var category;
+  var statusFiltered;
   var start;
   var end;
   var filterID;
   var usertype;
-  GetStorage box = GetStorage ();
-  List<String> litems = [
-    "Reset",
-    "Save",
+  List<String> itemsList = [
+    "Old",
+    "New",
   ];
+  
+  GetStorage box = GetStorage ();
+  
   var cardHeight;
   var cardwidth;
   @override
@@ -124,7 +134,7 @@ class _OfferListState extends State<OfferList> {
                     Text(
                       "Filter",
                       style: TextStyle(color: Colors.grey[700]),
-                    )
+                    ), 
                   ],
                 ),
               ),
@@ -140,52 +150,11 @@ class _OfferListState extends State<OfferList> {
             )
           ],
         ),
-        // Row(
-        //   children: [
-        //     IconButton(
-        //       onPressed: () {
-        //         setState(() {
-        //           listtype = 'grid';
-        //           listIconColor = Colors.grey;
-        //           grid = AppImages.grid;
-        //         });
-        //       },
-        //       icon:
-        //           // Container(
-        //           // height: 100,
-        //           Image.asset(grid),
-        //     ),
-        //     Container(
-        //       margin: EdgeInsets.only(bottom: 15),
-        //       child: IconButton(
-        //           onPressed: () {
-        //             setState(() {
-        //               listtype = 'list';
-        //               listIconColor = AppColors.appBarBackGroundColor;
-        //               grid = AppImages.gridOf;
-        //             });
-        //           },
-        //           icon: Container(
-        //               padding: EdgeInsets.only(top: 10),
-        //               child: Image.asset(AppImages.listing,
-        //                   color: listIconColor, height: 20))),
-        //     ),
-        //     SizedBox(
-        //       height: 30,
-        //       width: 15,
-        //     )
-        //   ],
-        // )
       ],
     );
   }
 
-  int _selectedIndex = 0;
-
-  _onSelected(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
+ 
   applyofferFiltering() {
     json = {
       'type': id,
@@ -196,11 +165,16 @@ class _OfferListState extends State<OfferList> {
   idSended() {
     var createFilterjson = {
       'type': filteredIDCate,
+      'status': statusFiltered == 'New'? 1 : 0,
     };
+    print("Sended Data.......!!!!!!!!!CREATEDFILTEREDJSON................$createFilterjson");
     offerFilterCont.offerFilter(createFilterjson);
   }
 
   var filteredIDCate;
+
+
+
   filteringCategory() {
     showModalBottomSheet(
       context: context,
@@ -212,7 +186,7 @@ class _OfferListState extends State<OfferList> {
       ),
       builder: (context) {
         return FractionallySizedBox(
-          heightFactor: 0.6,
+          heightFactor: 0.8,
           child: StatefulBuilder(
             builder:(
               BuildContext context, void Function(void Function()) setState) {
@@ -305,47 +279,101 @@ class _OfferListState extends State<OfferList> {
                               ): Container();
                             },
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                // ignore: deprecated_member_use
-                                child: RaisedButton(
-                                  color: Colors.grey[100],
-                                  child: Container(
-                                    width: Get.width / 4,
-                                    child: Center(
-                                      child: Text(AppString.resetButton,
-                                        style: TextStyle(
-                                          color: AppColors.inputTextColor
+                          Text("Status", style: TextStyle(fontSize: 15)),
+                          SizedBox(height: 10),
+                          Container(
+                            height: Get.height*0.05,
+                            child: new ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: itemsList.length,
+                              itemBuilder: (
+                                BuildContext ctxt, int index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState((){
+                                        onSelected(index);
+                                        statusFiltered = itemsList[index];
+                                        // ignore: unnecessary_statements
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(left:20),
+                                      width: Get.width / 5,
+                                      height: Get.height/2,
+                                      decoration: BoxDecoration(
+                                        // ignore: unnecessary_null_comparison
+                                        color: slctedInd != null && slctedInd == index
+                                          ? Colors.blue
+                                          : Colors.white, //Colors.blue[100],
+                                          border: Border.all(
+                                            color: Colors.blue,
+                                            width: 1,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5)
+                                          )
+                                      ),
+                                      child: Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Text(itemsList[index],
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: slctedInd == index
+                                            ? Colors.white
+                                            : Colors.blue)),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                              SizedBox(height:30),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    // ignore: deprecated_member_use
+                                    child: RaisedButton(
+                                      color: Colors.grey[100],
+                                      child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                          child: Text(AppString.resetButton,
+                                            style: TextStyle(
+                                              color: AppColors.inputTextColor
+                                            )
+                                          )
                                         )
-                                      )
-                                    )
+                                      ),
+                                      onPressed: () {
+                                        Get.back();
+                                      }
+                                    ),
                                   ),
-                                  onPressed: () {}
-                                ),
-                              ),
-                              Container(
-                                // ignore: deprecated_member_use
-                                child: RaisedButton(
-                                  color: Colors.blue,
-                                  child: Container(
-                                    width: Get.width / 4,
-                                    child: Center(
-                                      child: Text("Apply",
-                                        style: TextStyle( color: Colors.white)
-                                      )
-                                    )
+                                  Container(
+                                    // ignore: deprecated_member_use
+                                    child: RaisedButton(
+                                      color: Colors.blue,
+                                      child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                          child: Text("Apply",
+                                            style: TextStyle( color: Colors.white)
+                                          )
+                                        )
+                                      ),
+                                      onPressed: filteredIDCate  == null  && statusFiltered == null? null  :() {
+                                        idSended();
+                                        Get.off(FilteredCategoryResult());
+                                      }
+                                    ),
                                   ),
-                                  onPressed: filteredIDCate  == null ? null  :() {
-                                    idSended();
-                                    Get.off(FilteredCategoryResult());
-                                  }
-                                ),
-                              ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
                       ),
                     )
                   ),
@@ -439,64 +467,66 @@ class _OfferListState extends State<OfferList> {
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
         favrties.add(
-          Container(
-            width: Get.width / 1.10,
-            height: Get.height / 0.3,
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(listFavou.length, (c) {
-                return Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: Card(
-                        elevation: 1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)
-                              ),
-                              child: Container(
-                                height: Get.height * 0.18,
-                                width: Get.height * 0.18,
-                                child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
-                                ? FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Image.network(
-                                    listFavou[c]['image_ads']['url'],
-                                  ),
-                                ): FittedBox(
-                                  fit: BoxFit.cover,
-                                  child: Icon(
-                                    Icons.image,
-                                    color: Colors.grey[400],
+          // SingleChildScrollView(
+            Container(
+              width: Get.width / 1.10,
+              height: Get.height / 0.3,
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(listFavou.length, (c) {
+                  return Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Card(
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)
+                                ),
+                                child: Container(
+                                  height: Get.height * 0.18,
+                                  width: Get.height * 0.18,
+                                  child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+                                  ? FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: Image.network(
+                                      listFavou[c]['image_ads']['url'],
+                                    ),
+                                  ): FittedBox(
+                                    fit: BoxFit.cover,
+                                    child: Icon(
+                                      Icons.image,
+                                      color: Colors.grey[400],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
+                              )
+                            ],
+                          ),
+                        )
+                      ),
+                      Container(
+                        child: Text(
+                          listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+                          style:TextStyle(fontSize: 13, color: Colors.black)
+                        )
                       )
-                    ),
-                    Container(
-                      child: Text(
-                        listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-                        style:TextStyle(fontSize: 13, color: Colors.black)
-                      )
-                    )
-                  ],
-                );
-              })
+                    ],
+                  );
+                })
+              ),
             ),
-          )
+          // )
         );
       }
     }

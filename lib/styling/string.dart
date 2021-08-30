@@ -105,7 +105,7 @@ class AppString {
   //reset password 
  static String resetPassword = 'Reset Password';
  static String resetSetPass =  'Set the new password to login';
- static String resetButton = 'RESET';
+ static String resetButton = 'CANCEL';
  static String newPass = 'New Password';
  static String confirmPass = ' Confirm Password';
   static String changedPasww = 'Password Changed,';

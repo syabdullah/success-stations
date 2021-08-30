@@ -202,254 +202,256 @@ class _AllAddsState extends State<AllAdds> {
         ),
       ),
       builder: (context) {
-        return StatefulBuilder(
-          builder:(
-            BuildContext context, void Function(void Function()) setState) {
-              return SafeArea(
-                child: AnimatedPadding(
-                  padding: MediaQuery.of(context).viewInsets,
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.decelerate,
-                    // child: Container(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10,left:20, right:10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top:20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin:EdgeInsets.only(left:10),
-                                    child: Text(AppString.filters,
-                                      style: TextStyle(
-                                        fontSize: 20, color: Colors.black
-                                      )
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: StatefulBuilder(
+            builder:(
+              BuildContext context, void Function(void Function()) setState) {
+                return SafeArea(
+                  child: AnimatedPadding(
+                    padding: MediaQuery.of(context).viewInsets,
+                      duration: const Duration(milliseconds: 100),
+                      curve: Curves.decelerate,
+                      // child: Container(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10,left:20, right:10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(top:20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin:EdgeInsets.only(left:10),
+                                      child: Text(AppString.filters,
+                                        style: TextStyle(
+                                          fontSize: 20, color: Colors.black
+                                        )
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    margin:EdgeInsets.only(right:20),
-                                    child: InkWell(
-                                      onTap: () => Get.back(),
-                                      child: Icon(Icons.close)
+                                    Container(
+                                      margin:EdgeInsets.only(right:20),
+                                      child: InkWell(
+                                        onTap: () => Get.back(),
+                                        child: Icon(Icons.close)
+                                      )
                                     )
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(height: Get.height*0.04),
-                            Text("Category", style: TextStyle(fontSize: 15)),
-                            // SizedBox(height: 10),
-                            GetBuilder<CategoryController>(
-                              init: CategoryController(),
-                              builder: (data) {
-                                return data.isLoading == true ? CircularProgressIndicator()
-                                : data.subCatt != null  && data.subCatt['data'] !=null?  
-                                Container(
-                                  height: Get.height/10,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: data.subCatt['data'].length,
-                                    itemBuilder:(BuildContext ctxt, int index){
-                                      return Row(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(left: 8.0),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  filteredIndex = index;
-                                                  catFilteredID =  data.subCatt['data'][index]['id'];
-                                                });
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(20.0),
-                                                  border: Border.all(color: Colors.blue),
-                                                  color: filteredIndex == index ? filterSelecredColor  : Colors.white,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey,
-                                                      offset: Offset(0.0, 1.0),
-                                                      blurRadius: 6.0,
-                                                    ),
-                                                  ],
-                                                ),
-                                                padding: EdgeInsets.all(10.0),
-                                                child: data.subCatt['data'] != null
-                                                ? Text( data.subCatt['data'][index]['category']['en'],
-                                                  style: TextStyle(
-                                                    color: filteredIndex == index ? Colors.white  : Colors.blue,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontStyle: FontStyle.normal,
+                              SizedBox(height: Get.height*0.02),
+                              Text("Category", style: TextStyle(fontSize: 15)),
+                              // SizedBox(height: 10),
+                              GetBuilder<CategoryController>(
+                                init: CategoryController(),
+                                builder: (data) {
+                                  return data.isLoading == true ? Container(height: Get.height/10,)
+                                  : data.subCatt != null  && data.subCatt['data'] !=null?  
+                                  Container(
+                                    height: Get.height/10,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: data.subCatt['data'].length,
+                                      itemBuilder:(BuildContext ctxt, int index){
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(left: 8.0),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    filteredIndex = index;
+                                                    catFilteredID =  data.subCatt['data'][index]['id'];
+                                                  });
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20.0),
+                                                    border: Border.all(color: Colors.blue),
+                                                    color: filteredIndex == index ? filterSelecredColor  : Colors.white,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey,
+                                                        offset: Offset(0.0, 1.0),
+                                                        blurRadius: 6.0,
+                                                      ),
+                                                    ],
                                                   ),
-                                                ): Container()
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: data.subCatt['data'] != null
+                                                  ? Text( data.subCatt['data'][index]['category']['en'],
+                                                    style: TextStyle(
+                                                      color: filteredIndex == index ? Colors.white  : Colors.blue,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontStyle: FontStyle.normal,
+                                                    ),
+                                                  ): Container()
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  ),
-                                ): Container();
-                              },
-                            ),
-                            SizedBox( height: 15,),
-                            Text("Condition", style: TextStyle(fontSize: 15)),
-                            SizedBox(height: 10),
-                            Container(
-                              height: 20,
-                              child: new ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: litems.length,
-                                itemBuilder: (
-                                  BuildContext ctxt, int index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        setState((){
-                                          _onSelected(index);
-                                          status = litems[index];
-                                          print("....statusstatusstatus......$status");
-                                          // ignore: unnecessary_statements
-                                          // status == 'New'  ?  1  :0;
-
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.only(left:20),
-                                        width: Get.width / 5,
-                                        height: Get.height/4,
-                                        decoration: BoxDecoration(
-                                          // ignore: unnecessary_null_comparison
-                                          color: _selectedIndex != null && _selectedIndex == index
-                                            ? Colors.blue
-                                            : Colors.white, //Colors.blue[100],
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(5)
-                                            )
-                                        ),
-                                        child: Center(
-                                          child: Container(
-                                            margin: EdgeInsets.only(left: 5),
-                                            child: Text(litems[index],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: _selectedIndex == index
-                                              ? Colors.white
-                                              : Colors.blue)),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ),
-                                SizedBox(height:20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                //  alignment: Alignment.topLeft,
-                                  child: Text("Price ",
-                                    style: TextStyle(
-                                      // fontWeight: FontWeight.bold,
-                                    )
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  child: Text("SAR 0 - SAR 10000 ",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal
-                                    )
-                                  ),
-                                ),
-                              ],
-                            ),
-                            
-                            RangeSlider(
-                              values: _currentRangeValues,
-                              min: 1.00,
-                              max: 10000.00,
-                              // divisions: 5,
-                              labels: RangeLabels(
-                                _currentRangeValues.start.round().toString(),
-                                _currentRangeValues.end.round().toString(),
+                                          ],
+                                        );
+                                      }
+                                    ),
+                                  ): Container();
+                                },
                               ),
-                              onChanged: (values) {
-                                setState(() {
-                                  _currentRangeValues = values;
-                                    start = _currentRangeValues.start.round().toString();
-                                    end = _currentRangeValues.end.round().toString();
-                                  print(".....!!!!!!!...!!!!!....$start");
-                                  print(".....!!!!!!!...!!!!!....$end");
-                                });
-                              },
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  // margin: EdgeInsets.only(top: 20),
-                                  // ignore: deprecated_member_use
-                                  child: RaisedButton(
-                                    color: Colors.grey[100],
-                                    child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                        child: Text(AppString.resetButton,
-                                          style: TextStyle(
-                                            color: AppColors.inputTextColor
+                              SizedBox( height: 15,),
+                              Text("Condition", style: TextStyle(fontSize: 15)),
+                              SizedBox(height: 10),
+                              Container(
+                                height: Get.height*0.05,
+                                child: new ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: litems.length,
+                                  itemBuilder: (
+                                    BuildContext ctxt, int index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState((){
+                                            _onSelected(index);
+                                            status = litems[index];
+                                            print("....statusstatusstatus......$status");
+                                            // ignore: unnecessary_statements
+                                            // status == 'New'  ?  1  :0;
+
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(left:20),
+                                          width: Get.width / 5,
+                                          height: Get.height/2,
+                                          decoration: BoxDecoration(
+                                            // ignore: unnecessary_null_comparison
+                                            color: _selectedIndex != null && _selectedIndex == index
+                                              ? Colors.blue
+                                              : Colors.white, //Colors.blue[100],
+                                              border: Border.all(
+                                                color: Colors.grey,
+                                                width: 1,
+                                              ),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(5)
                                               )
-                                            )
-                                          )
+                                          ),
+                                          child: Center(
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 5),
+                                              child: Text(litems[index],
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: _selectedIndex == index
+                                                ? Colors.white
+                                                : Colors.blue)),
+                                            ),
+                                          ),
                                         ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/login');
-                                      // Get.to(SignIn());
-                                    }
+                                      );
+                                    }),
                                   ),
-                                ),
-                                Container(
-                                  // margin: EdgeInsets.only(top: 20),
-                                  // ignore: deprecated_member_use
-                                  child: RaisedButton(
-                                    color: Colors.blue,
-                                    child: Container(
-                                      width: Get.width / 4,
-                                      child: Center(
-                                        child: Text("Apply",
-                                          style: TextStyle( color: Colors.white)
-                                        )
+                                  SizedBox(height:20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                  //  alignment: Alignment.topLeft,
+                                    child: Text("Price ",
+                                      style: TextStyle(
+                                        // fontWeight: FontWeight.bold,
                                       )
                                     ),
-                                      onPressed: catFilteredID  == null && status == null ?  null :() {
-                                        applyFiltering();
-                                        Get.off(FilteredAdds());
-                                      }),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    child: Text("SAR 0 - SAR 10000 ",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal
+                                      )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              
+                              RangeSlider(
+                                values: _currentRangeValues,
+                                min: 1.00,
+                                max: 10000.00,
+                                // divisions: 5,
+                                labels: RangeLabels(
+                                  _currentRangeValues.start.round().toString(),
+                                  _currentRangeValues.end.round().toString(),
                                 ),
-                              ],
-                            )
-                          ],
-                        ),
-                      // ),
-                    )),
-              );
-            
-          });
+                                onChanged: (values) {
+                                  setState(() {
+                                    _currentRangeValues = values;
+                                      start = _currentRangeValues.start.round().toString();
+                                      end = _currentRangeValues.end.round().toString();
+                                    print(".....!!!!!!!...!!!!!....$start");
+                                    print(".....!!!!!!!...!!!!!....$end");
+                                  });
+                                },
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                    // margin: EdgeInsets.only(top: 20),
+                                    // ignore: deprecated_member_use
+                                    child: RaisedButton(
+                                      color: Colors.grey[100],
+                                      child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                          child: Text(AppString.resetButton,
+                                            style: TextStyle(
+                                              color: AppColors.inputTextColor
+                                                )
+                                              )
+                                            )
+                                          ),
+                                      onPressed: () {
+                                        Get.back();
+                                      }
+                                    ),
+                                  ),
+                                  Container(
+                                    // margin: EdgeInsets.only(top: 20),
+                                    // ignore: deprecated_member_use
+                                    child: RaisedButton(
+                                      color: Colors.blue,
+                                      child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                          child: Text("Apply",
+                                            style: TextStyle( color: Colors.white)
+                                          )
+                                        )
+                                      ),
+                                        onPressed: catFilteredID  == null && status == null ?  null :() {
+                                          applyFiltering();
+                                          Get.off(FilteredAdds());
+                                        }),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        // ),
+                      )),
+                );
+              
+            }),
+        );
         
        });
   }
