@@ -72,7 +72,8 @@ class _AdListTabState extends State<AdListTab> {
           print(
               "........-------=ratingggggggggg=====---------......${allDataAdds[index]['id']}");
           return GestureDetector(
-            onTap: ()=> Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']),
+            onTap: allDataAdds[index]['id'] != null ?
+            ()=> Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']): null,
             child: Card(
               child: Container(
                 height: 100,
