@@ -31,21 +31,24 @@ class _AdViewScreenState extends State<AdViewScreen> {
   final adDetailCont = Get.put(MyAddsController());
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
-  var id,adId,notificationID;
+  var id,adId,notificationID,aboutadID;
   var lang;
   String? comment,myName;
   var user_image;
    @override
   void initState() {
-    super.initState();
+    
     id = box.read('user_id');
     lang = box.read('lang_code');
     myName = box.read('name');
     user_image = box.read('user_image');
     adId = Get.arguments;
+    aboutadID =Get.arguments;
+    print(aboutadID);
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
-
+    
+super.initState();
   }
   postComment() {
     var json = {

@@ -7,6 +7,7 @@ import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/ad_view_screen.dart';
 
 class AboutTab extends StatefulWidget {
   const AboutTab({ Key? key }) : super(key: key);
@@ -32,7 +33,6 @@ class _AboutTabState extends State<AboutTab> {
     super.initState();
   }    
   
-  
   int offer = 0;
   @override
   Widget build(BuildContext context) {
@@ -41,15 +41,11 @@ class _AboutTabState extends State<AboutTab> {
         padding: const EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           children: [
-            
              GetBuilder<UserProfileController>( // specify type as Controller
-          init: UserProfileController(), // intialize with the Controller
-          builder: (value) { 
-          
+             init: UserProfileController(), // intialize with the Controller
+             builder: (value) { 
              return 
-             
              value.userData2 != null ?
-             
              detail(value.userData2['data']):Center(child: CircularProgressIndicator());
             //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
              } // value is an instance of Controller.
@@ -65,6 +61,7 @@ class _AboutTabState extends State<AboutTab> {
                 value.lastuserads != null ?
                 lastAds(value.lastuserads['data']): Center(child: CircularProgressIndicator());
               }),
+              
              Text("${'lastoffers'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
               ),
@@ -78,8 +75,8 @@ class _AboutTabState extends State<AboutTab> {
                   lastAds2(value.offerDattaTypeCategory['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
                 }
                   ),
-           
-             Text("${'laslocation'.tr}:",
+          //  SizedBox(height: 10,),
+             Text("${'lastlocation'.tr}:",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.inputTextColor),
               ),
               GetBuilder<LastLocationController>( // specify type as Controller
@@ -178,8 +175,8 @@ Widget detail(userData2){
 }
 Widget lastAds2(offerDattaTypeCategory){
   return Container(
-    margin: EdgeInsets.symmetric(vertical:15),
-    height: Get.height/4.5,
+    margin: EdgeInsets.only(top:10),
+    height: Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: offerDattaTypeCategory.length,
@@ -195,13 +192,18 @@ Widget lastAds2(offerDattaTypeCategory){
                 
               child:offerDattaTypeCategory[index]['image_ads'] != null ?  Container(
                 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(offerDattaTypeCategory[index]['image_ads']['url'],fit: BoxFit.cover,height: Get.height/6,width: Get.width/2,),
+                child: Container(
+                  width: Get.width/2.4,
+                  height: Get.height/5.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(offerDattaTypeCategory[index]['image_ads']['url'],fit: BoxFit.cover,),
+                  ),
                 ),
               ):Container(
-                width: Get.width/2,
-                child: Icon(Icons.image,size: Get.height/6,))
+                 width: Get.width/2.3,
+                height: Get.height/5.0,
+                child: Icon(Icons.image))
             ),
             offerDattaTypeCategory[index]['text_ads']['en'] != null ?
             Container(
@@ -217,7 +219,7 @@ Widget lastAds2(offerDattaTypeCategory){
  var imageGived;
 Widget lastAds(lastuserad){
   return Container(
-    margin: EdgeInsets.symmetric(vertical:15),
+    margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -231,76 +233,83 @@ Widget lastAds(lastuserad){
 
         }
         
-        return Card(
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              lastuserad[index]["image"] != null ?
-              ClipRRect(
-               borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                child: Container(
-                  width: Get.width/2.3,
-                  height: Get.height/7.5,
-                  child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
-                ),
-              ): Container(
-                width: Get.width/2,
-                child: Icon(Icons.image,size: Get.height/6,)),
-              lastuserad[index]['title'] != null ?
-             Container(
-              margin: EdgeInsets.only(left:10,top: 2),
-              child: Text(lastuserad[index]['title']['en'].toString(),
-                style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
-              ),
-             ):Container(),
-            SizedBox(height: 5,),
-            Container(
-              margin: EdgeInsets.only(left:9,),
-              width: Get.width/2.6,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    Image.asset(AppImages.location,height: 17,),
-                    SizedBox(width: 3,),
-                    lastuserad[index]['city'] != null ?
-                    Text(lastuserad[index]['city']['city'],
-                      style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                     ): Container()
-                   ]
-                ),
-             lastuserad[index]['price']!= null ?
-                Text(lastuserad[index]['price'],
-                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                ): Container()
-              ],
+        return GestureDetector(
+          onTap: (){
+          
+            Get.to(AdViewScreen(),arguments:lastuserad[index]["id"]);
+              print(lastuserad[index]["id"]);
+          },
+          child: Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            ),
-            SizedBox(height: 6,),
-            Container(
-              margin: EdgeInsets.only(left:10),
-              width: Get.width/3,
-              child: Row(
-                children: [
-                  Row(children: [
-                    Image.asset(AppImages.userProfile,height: 16,),
-                    SizedBox(width: 4,),
-                   lastuserad[index]['contact_name'] != null ?
-                    Text(lastuserad[index]['contact_name'],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                lastuserad[index]["image"] != null ?
+                ClipRRect(
+                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                  child: Container(
+                    width: Get.width/2.3,
+                    height: Get.height/7.5,
+                    child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
+                  ),
+                ): Container(
+                  width: Get.width/2,
+                  child: Icon(Icons.image,size: Get.height/6,)),
+                lastuserad[index]['title'] != null ?
+               Container(
+                margin: EdgeInsets.only(left:10,top: 2),
+                child: Text(lastuserad[index]['title']['en'].toString(),
+                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
+                ),
+               ):Container(),
+              SizedBox(height: 5,),
+              Container(
+                margin: EdgeInsets.only(left:9,),
+                width: Get.width/2.6,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      Image.asset(AppImages.location,height: 17,),
+                      SizedBox(width: 3,),
+                      lastuserad[index]['city'] != null ?
+                      Text(lastuserad[index]['city']['city'],
+                        style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                       ): Container()
+                     ]
+                  ),
+               lastuserad[index]['price']!= null ?
+                  Text("SAR ${lastuserad[index]['price']}",
                     style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                    ): Container()
-                  ]
-                ),
-              ],
-            ),
-           ),
-         ],
-       ),
-     );
+                  ): Container()
+                ],
+              ),
+              ),
+              SizedBox(height: 6,),
+              Container(
+                margin: EdgeInsets.only(left:10),
+                width: Get.width/3,
+                child: Row(
+                  children: [
+                    Row(children: [
+                      Image.asset(AppImages.userProfile,height: 16,),
+                      SizedBox(width: 4,),
+                     lastuserad[index]['contact_name'] != null ?
+                      Text(lastuserad[index]['contact_name'],
+                      style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                      ): Container()
+                    ]
+                  ),
+                ],
+              ),
+             ),
+           ],
+               ),
+             ),
+        );
     }
    ),
  );
@@ -309,40 +318,44 @@ Widget lastLocations(lastLocation){
  
   return Container(
      
-    // margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/7,
+    margin: EdgeInsets.symmetric(vertical:10),
+    height: Get.height/5.5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount:lastLocation.length,
+      itemCount:4,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
         
         return 
         
          Container(
+          // margin: EdgeInsets.only(left:10),
          width: 250,
           height: 100,
           child: Card(
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  Row(
                    children: [
+                     Container(
+                       margin: EdgeInsets.only(left:15),
+                       child: Image.asset(AppImages.location,color: Colors.blue,)),
                      Padding(
-                       padding: const EdgeInsets.only(left:12.0,top:20),
-                       child: Image.asset(AppImages.location,color: Colors.blue,),
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.only(top:20.0,left: 15),
+                       padding: const EdgeInsets.only(top:10.0,left: 15),
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
                            Row(
                              children: [
-                               lastLocation[index]['location'] != null ?
-                               Text(lastLocation[index]['location'],overflow: TextOverflow.clip,maxLines: 6,
+                               lastLocation['data'][index]['location'] != null ?
+                               Container(
+                                 width: Get.width/3,
+                                 child: Text(lastLocation['data'][index]['location'],textAlign: TextAlign.left,
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                             ): Container(),
+                             ),
+                               ): Container(),
                              ],
                            ),
                             // Row(
@@ -359,8 +372,8 @@ Widget lastLocations(lastLocation){
                           Row(
                             children: [
                               Text("city: ",  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10)),
-                              lastLocation[index] != null && lastLocation[index]['city'] !=null?
-                              Text(lastLocation[index]['city']['city'],
+                              lastLocation['data'][index] != null && lastLocation['data'][index]['locality'] !=null?
+                              Text(lastLocation['data'][index]['locality'],
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
                               ): Container(),
                               SizedBox(width: 5,),
@@ -371,8 +384,8 @@ Widget lastLocations(lastLocation){
                           Row(
                             children: [
                               Text("Country: " ,  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10)),
-                              lastLocation[index]['country'] != null ?
-                              Text(lastLocation[index]["country"]['name'],
+                              lastLocation['data'][index]["country_name"] != null ?
+                              Text(lastLocation['data'][index]["country_name"],
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
                               ): Container(),
                             ],

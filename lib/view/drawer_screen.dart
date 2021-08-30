@@ -65,7 +65,7 @@ class _AppDrawerState extends State<AppDrawer> {
     userType = box.read('user_type');
     print(".............user type......................$userType");
     image = box.read('user_image');
-    print("............11-1-1-1--1-1-.$image");
+    // print("............11-1-1-1--1-1-.$image");
     imageP = box.read('user_image_local');
     banner.bannerController();
     

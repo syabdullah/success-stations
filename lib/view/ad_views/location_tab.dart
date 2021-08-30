@@ -24,33 +24,36 @@ class _LocationTabState extends State<LocationTab> {
     id = Get.arguments;
     print(id);
     lastLoc.userlocationList(id);
+    print(id);
     super.initState();
   }   
   @override
   Widget build(BuildContext context) {
    
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
-          filter(),
-           GetBuilder<LastLocationController>( // specify type as Controller
-                init: LastLocationController(), // intialize with the Controller
-                builder: (value){ 
-                  print(value.lastLocation);
-                  return value.isLoading == true ? Center(child: CircularProgressIndicator()):
-                  value.lastLocation !=null &&   value.lastLocation['success']== true ?
-                   locationList(value.lastLocation['data'])
-                   :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
-                   Container(
-                     child:Text(lastLoc.lastLocation['errors'])):Container();
-                  
-                }
-                  ),
-         
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            filter(),
+             GetBuilder<LastLocationController>( // specify type as Controller
+                  init: LastLocationController(), // intialize with the Controller
+                  builder: (value){ 
+                    print(value.lastLocation);
+                    return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                    value.lastLocation !=null &&   value.lastLocation['success']== true ?
+                     locationList(value.lastLocation['data'])
+                     :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+                     Container(
+                       child:Text(lastLoc.lastLocation['errors'])):Container();
+                    
+                  }
+                    ),
+           
+          ],
+          ),
         ],
-      )
       ),
     );
   }
@@ -263,9 +266,12 @@ Widget locationList(lastLocation) {
     return Container(
       height: Get.height,
       child: ListView.builder(
-        itemCount: 10,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: lastLocation['data'].length,
         // ignore: non_constant_identifier_names
         itemBuilder: (BuildContext,index) {
+        
+          print("${lastLocation['data'][index]['location']}");
           return Card(
             child: Container(
               height: 100,
@@ -289,37 +295,38 @@ Widget locationList(lastLocation) {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.only(top:.0),
                         child: Column(
                           crossAxisAlignment:CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
                               children: [
                               
-                                 lastLocation[index]['location'] != null ?
-                               Text(lastLocation[index]['location'],overflow: TextOverflow.clip,maxLines: 6,
+                                 lastLocation['data'][index]['location'] != null ?
+                               Text(lastLocation['data'][index]['location'],overflow: TextOverflow.clip,maxLines: 6,
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
                              ): Container(),
                               ],
                             ),
                             SizedBox(height: 3),
-                             lastLocation[index]['formated_address'] != null ?
+                             lastLocation['data'][index]['formated_address'] != null ?
                                Container(
                                  width: Get.width/2,
-                                 child: Text(lastLocation[index]['formated_address'],textAlign: TextAlign.left,
+                                 child: Text(lastLocation['data'][index]['formated_address'],textAlign: TextAlign.left,
                                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
                                                           ),
                                )
                               : Container()
                             ,Row(
                               children: [
-                               lastLocation[index] != null && lastLocation[index]['city'] !=null?
-                              Text(lastLocation[index]['city']['city'],
+                                lastLocation['data'][index]['locality'] !=null?
+                              Text(lastLocation['data'][index]['locality'],
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 8),
                               ): Container(),
                               SizedBox(width: 3,),
-                               lastLocation[index]['country'] != null ?
-                              Text(lastLocation[index]["country"]['name'],
+                               lastLocation['data'][index]['country_name'] != null ?
+                              Text(lastLocation['data'][index]["country_name"],
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
                               ): Container(),
                               ],
