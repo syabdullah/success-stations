@@ -7,6 +7,7 @@ import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/offer_filtered.dart';
 
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
@@ -74,9 +75,8 @@ class _OfferListState extends State<OfferList> {
         GetBuilder<OffersFilteringController>(
         init: OffersFilteringController(),
           builder: (val) {
-            print("....fff....${val.offerFilterCreate['data']}......");
             return Expanded(
-              child: val.offerFilterCreate !=null && val.offerFilterCreate['data'] != null
+              child: val.offerFilterCreate !=null && val.offerFilterCreate['data'] != null && val.offerFilterCreate['success'] == true 
                 ? ListView(
                   scrollDirection: Axis.vertical,
                   children: myAddGridView(val.offerFilterCreate['data']),
