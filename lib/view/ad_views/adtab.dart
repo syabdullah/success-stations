@@ -6,6 +6,7 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdListTab extends StatefulWidget {
@@ -29,40 +30,32 @@ class _AdListTabState extends State<AdListTab> {
 
   @override
   void initState() {
-    id = Get.arguments;
-    super.initState();
-    controller.addedAllAds();
-    //   addsController.profileAds(id);
+    
+     id = Get.arguments;
+    // controller.addedAllAds();
+      //  addsController.profileAds(indId);
     userId = box.read('user_id');
-    indId = box.read('ind');
-    addsController.profileAds(indId);
+    indId = box.read('selectedUser');
+    friCont.profileAds(id);
+    print(" User Ads $id");
+    
+    indId = Get.arguments;
+       super.initState();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          //physics: ScrollPhysics(),
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GetBuilder<FriendsController>(
-            init: FriendsController(),
-            builder: (val) {
-              //print("....here in buider.......${val.userAds['id]}"),
-              return val.isLoading == true
-                  ? Container(child: Padding(
-                    padding: const EdgeInsets.only(top:48.0),
-                    child: Center(child: CircularProgressIndicator()),
-                  ))
-                  : val.userAds != null && val.userAds['data'] != null
-                      ? adList(val.userAds['data'])
-                      : Container(child: Center(child: Text("No Ad's Yet"))); //: myAddGridView(val.cData['data']);
-            },
-          ),
-          //filter(),
-          //adList(),
-        ],
-      )),
+      body: GetBuilder<FriendsController>(
+        init: FriendsController(),
+        builder: (val) {
+          //print("....here in buider.......${val.userAds['id]}"),
+          return val.isLoading == true
+              ? Center(child: CircularProgressIndicator())
+              : val.userAds != null && val.userAds['data'] != null
+                  ? adList(val.userAds['data'])
+                  : Container(child: Center(child: Text("No Ads Yet",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),))); //: myAddGridView(val.cData['data']);
+        },
+      ),
     );
   }
 
@@ -70,18 +63,17 @@ class _AdListTabState extends State<AdListTab> {
   Widget adList(allDataAdds) {
     //print("........WWWWWW...WWW........$id");
     return Container(
-      height: Get.height/1.4,
+      height: Get.height,
       child: ListView.builder(
-        // physics: NeverScrollableScrollPhysics(),
-        // shrinkWrap: true,
+         physics: NeverScrollableScrollPhysics(),
+        
         itemCount: allDataAdds.length,
         itemBuilder: (BuildContext context, index) {
           print(
               "........-------=ratingggggggggg=====---------......${allDataAdds[index]['id']}");
           return GestureDetector(
-            onTap: () {
-              //Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
-            },
+            onTap: allDataAdds[index]['id'] != null ?
+            ()=> Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']): null,
             child: Card(
               child: Container(
                 height: 100,
@@ -91,7 +83,9 @@ class _AdListTabState extends State<AdListTab> {
                     Row(
                       children: [
                         Center(
-                          child: Container(
+                          child:
+                           Container(
+                            
                             decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(40)) ),
                               height: Get.height / 4,
                               
@@ -101,44 +95,53 @@ class _AdListTabState extends State<AdListTab> {
                                     child:
                                         allDataAdds[index]['image'].length !=
                                                 0
-                                            ? Image.network(
-                                                allDataAdds[index]['image'][0]
-                                                    ['url'],
-                                                width: Get.width / 5,
-                                                fit: BoxFit.fill,
-                                              )
+                                            ? ClipRRect(
+                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                              child: Image.network(
+                                                  allDataAdds[index]['image'][0]
+                                                      ['url'],
+                                                  width: Get.width / 5,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                            )
                                             : Container(
-                                                width: Get.width / 4,
+                                                width: Get.width / 5,
                                                 child: Icon(
                                                   Icons.image,
                                                   size: 50,
                                                 ),
-                                              )
+                                              ),
+                                    
                                     //  Image.asset(
                                     //   AppImages.profileBg,
                                     //   width: Get.width/4
                                     // ),
                                     ),
                               )),
+                        
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                child: Text(
-                                  //"",
-                                  allDataAdds[index]['title']['en']
-                                      .toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0),
+                                child: Container(
+                                  child: Text(
+                                    //"",
+                                    allDataAdds[index]['title']['en']
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
+                              SizedBox(height:5),
                               
-                              Expanded(
-                                flex: 2,
+                              Container(
+                                //flex: 2,
                                 child: Row(
                                   children: [
                                     Icon(Icons.location_on_sharp,
@@ -146,11 +149,10 @@ class _AdListTabState extends State<AdListTab> {
                                     Container(
                                       // margin:EdgeInsets.only(left:29),
                                       child: Text(
-                                        allDataAdds[index]['country']
-                                                    ['name'] !=
+                                        allDataAdds[index]['city']['city'] !=
                                                 null
-                                            ? allDataAdds[index]['country']
-                                                ['name']
+                                            ? allDataAdds[index]['city']
+                                                ['city']
                                             : '',
                                         style: TextStyle(
                                             color: Colors.grey[300]),
@@ -164,10 +166,11 @@ class _AdListTabState extends State<AdListTab> {
                                     Container(
                                       // margin:EdgeInsets.only(left:29),
                                       child: Text(
-                                        allDataAdds[index]['city']['city'] !=
+                                        allDataAdds[index]['country']
+                                                    ['name'] !=
                                                 null
-                                            ? allDataAdds[index]['city']
-                                                ['city']
+                                            ? allDataAdds[index]['country']
+                                                ['name']
                                             : '',
                                         style: TextStyle(
                                             color: Colors.grey[300]),
@@ -176,8 +179,8 @@ class _AdListTabState extends State<AdListTab> {
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 2,
+                              Container(
+                                //flex: 1,
                                 child: Row(
                                   children: [
                                     Icon(Icons.person, color: Colors.grey),
@@ -202,7 +205,7 @@ class _AdListTabState extends State<AdListTab> {
                         // ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    //SizedBox(height: 20),
                     Column(
                       children: [
                         Padding(
@@ -231,11 +234,11 @@ class _AdListTabState extends State<AdListTab> {
                                 allDataAdds[index]['is_favorite'] == false
                                     ? friCont.profileAdsToFav(json, indId)
                                     : friCont.profileAdsRemove(json, indId);
-
+          
                                 // addsController.addedByIdAddes(json, indId);
                               },
                               child: Container(
-                                  padding: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(right: 2),
                                   child: allDataAdds[index]['is_favorite'] ==
                                           false
                                       ? Image.asset(AppImages.blueHeart,
@@ -253,7 +256,7 @@ class _AdListTabState extends State<AdListTab> {
                                   // if(text == AppString.fav) {
                                   //   Get.toNamed('/favourities');
                                   //   } else {
-
+          
                                   //launch("tel:${data['phone']}");
                                   //}
                                 },
@@ -266,6 +269,7 @@ class _AdListTabState extends State<AdListTab> {
                   ],
                 ),
               ),
+           
             ),
           );
         },

@@ -13,6 +13,7 @@ import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/third_step.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/view/UseProfile/notifier_user.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,22 +32,26 @@ class _AdViewScreenState extends State<AdViewScreen> {
   final adDetailCont = Get.put(MyAddsController());
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
-  var id,adId,notificationID;
+  var id,adId,notificationID,aboutadID;
   var lang;
   String? comment,myName;
   var user_image;
    @override
   void initState() {
-    super.initState();
+    
     id = box.read('user_id');
     lang = box.read('lang_code');
     myName = box.read('name');
     user_image = box.read('user_image');
     adId = Get.arguments;
+    aboutadID =Get.arguments;
+    print(aboutadID);
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
-
+    
+super.initState();
   }
+  
   postComment() {
     var json = {
       'listing_id':adId,
@@ -55,6 +60,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
     };
     print(json);
     adpostingController.commentPost(json);
+  }
+  @override
+  void dispose() {
+    adId = Get.arguments;
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -82,15 +92,15 @@ class _AdViewScreenState extends State<AdViewScreen> {
              children: [
              titleStep(val.adsD['data']),
              SizedBox(height: 10.h,),
-             listTileRow(val.adsD),
-              SizedBox(height: 14.h,),
-              Container(
-                margin: EdgeInsets.only(left:30),
-                child: Text('ad_posted_at'.tr,
-                  style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
-                  ),
-                ),
-              ),
+            //  listTileRow(val.adsD),
+            //   SizedBox(height: 14.h,),
+            //   Container(
+            //     margin: EdgeInsets.only(left:30),
+            //     child: Text('ad_posted_at'.tr,
+            //       style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+            //       ),
+            //     ),
+            //   ),
               commentInput(),
               SizedBox(height: 10.h,),
               commentButton(),
@@ -124,7 +134,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
 
 Widget titleStep(data) {
-  print("ppppppppp-------${data['category']}");
+  
+  print("ppppppppp-------${data['created_by']}");
   var htmldata = '';
   if(data != null ) {
  htmldata =
@@ -227,16 +238,8 @@ Widget titleStep(data) {
         ),
        ),
       ),
-    ],
-   );
-}
-Widget listTileRow(data){
-
-  return data == null ? 
-      Container(
-        child: Text("No Detail"),
-      ) :ListTile(
-    title: Row(
+      ListTile(
+      title: Row(
       children: [
         CircleAvatar(
         backgroundColor: Colors.white54,
@@ -255,13 +258,14 @@ Widget listTileRow(data){
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            data['created_by'] != null?
             Container(
               width: Get.width/3.5,
-              child: Text(myName.toString(),style:
+              child: Text(data['created_by']['name'],style:
                 AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
                 ),
               ),
-            ),
+            ): Container(),
             Text("Owner",style:
             AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
             ),
@@ -274,15 +278,71 @@ Widget listTileRow(data){
     trailing: 
       GestureDetector(
         onTap: () {
-          Get.to(UserProfile());
+          Get.to(NotifierUser(),arguments: data['created_by']['id']);
+          print(data['created_by']['id']);
         },
         child: Text("${"see_profile".tr} >",style:
         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
         ),
     ),
       ),
-  );
+  )
+    ],
+   );
 }
+// Widget listTileRow(data){
+
+//   return data == null ? 
+//       Container(
+//         child: Text("No Detail"),
+//        ) :ListTile(
+//       title: Row(
+//       children: [
+//         CircleAvatar(
+//         backgroundColor: Colors.white54,
+//         radius: 30.0,
+//         child: ClipRRect(
+//           borderRadius: BorderRadius.circular(50.0),
+//           child: user_image != null ? 
+//           Image.network(user_image['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
+//           // Image.asset(
+//           //   AppImages.profile,
+//           // ),
+//         )
+//       ),
+//       Padding(
+//         padding: const EdgeInsets.only(left:8.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Container(
+//               width: Get.width/3.5,
+//               child: Text(myName.toString(),style:
+//                 AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
+//                 ),
+//               ),
+//             ),
+//             Text("Owner",style:
+//             AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
+//             ),
+//           ),
+//          ],
+//         ),
+//       )
+//      ],
+//     ),
+//     trailing: 
+//       GestureDetector(
+//         onTap: () {
+//           Get.to(UserProfile());
+//         },
+//         child: Text("${"see_profile".tr} >",style:
+//         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
+//         ),
+//     ),
+//       ),
+//   );
+// }
 
 Widget listTileRow2(data) {
   return Container(
