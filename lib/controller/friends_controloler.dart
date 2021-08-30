@@ -141,10 +141,11 @@ class FriendsController extends GetxController {
   profileAdsToFav(id, userId) async {
     isLoading = true;
     await addAdsFav(id).then((res) {
-      addAd = jsonDecode(res.body);
-      if (addAd['success'] == true) {
-        if (userId != null) profileAds(userId);
-        //SnackBarWidget().showToast("", addAd['message']);
+      addAd = jsonDecode(res.body);     
+      if(addAd['success'] == true) {
+        if(userId != null)
+        profileAds(userId);
+        //SnackBarWidget().showToast("", addAd['message']); 
       }
       print("/././././jjjjjjjj.-----$addAd");
       isLoading = false;

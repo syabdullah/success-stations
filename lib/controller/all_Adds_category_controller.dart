@@ -50,7 +50,7 @@ var resultInvalid = false.obs;
           resultInvalid(true);
           isLoading = false;
       }
-      isLoading=false;
+      // isLoading=false;
     });
     update();
   }
