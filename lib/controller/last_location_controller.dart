@@ -18,7 +18,7 @@ class LastLocationController extends GetxController {
     print("controller call of the Favorite list");
     isLoading = true;
     await lastLocatin(id).then((value) {
-      print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
+      print("Last Locations $value");
       lastLocation = jsonDecode(value.body);
       print("Last Locations $lastLocation");
       // isLoading = false;

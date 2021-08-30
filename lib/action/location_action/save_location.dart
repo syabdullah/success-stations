@@ -12,7 +12,7 @@ Future<http.Response> saveLocation(data) async{
     return result;
 }
 
-Future<http.Response> editLocation(id,data) async{;
+Future<http.Response> editLocation(id,data) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}update-locations/$id");
   final result = await http.post(
@@ -20,7 +20,7 @@ Future<http.Response> editLocation(id,data) async{;
     return result;
 }
 
-Future<http.Response> deleteLocation(id) async{;
+Future<http.Response> deleteLocation(id) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}delete-locations/$id");
   final result = await http.post(

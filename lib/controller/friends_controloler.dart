@@ -119,7 +119,7 @@ class FriendsController extends GetxController {
     await friendsProfile(id).then((res) {
       // print("/././././.-----$id");
       friendProfileData = jsonDecode(res.body);
-       print("/././././.-----$friendProfileData");
+      //  print("/././././.-----$friendProfileData");
       isLoading = false;
     }).catchError((e) {
       return e;
@@ -131,7 +131,7 @@ class FriendsController extends GetxController {
     isLoading = true;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-      print("/././././.-----$userAds");
+      // print("/././././.-----$userAds");
       print("......here the reo.....!!!!!!...!!!!>.......$userAds");
       isLoading = false;
     });
@@ -173,6 +173,7 @@ class FriendsController extends GetxController {
     isLoading = true;
     await reportUser(data).then((res) {
       rep = jsonDecode(res.body);
+      // print("/././././.-----$rep");
       if (rep['success'] == true) {
         SnackBarWidget().showToast("", rep['message']);
       } else {

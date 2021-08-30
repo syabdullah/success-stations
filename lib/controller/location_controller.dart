@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/location_action/save_location.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 
 class LocationController extends GetxController {
@@ -73,6 +74,7 @@ deleteLocationToDB(id,userId) async {
       locData = jsonDecode(value.body);
       print("json decode response of offer.......>$res");
       isLoading = false;
+      
     });
     update();
   }

@@ -17,11 +17,13 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
    GetStorage box = GetStorage();
   var userimage;
   var notifyid;
+  var adID;
   // var id ;
   @override
   void initState() {
     super.initState();
     notifyid = Get.arguments;
+    adID = Get.arguments;
     userimage = box.read('user_image');
     dataUser.getUseradProfile(notifyid);
     //  id = Get.arguments;
