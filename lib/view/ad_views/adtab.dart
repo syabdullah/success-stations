@@ -245,17 +245,18 @@ class _AdListTabState extends State<AdListTab> {
                             ),
                             GestureDetector(
                                 onTap: () {
-                                  // _makingPhoneCall();
-                                  // var contactNmbr =
-                                  //     allDataAdds[index]['telephone'];
-                                  launch(
-                                      "tel:${allDataAdds[index]['telephone']}");
-                                  // if(text == AppString.fav) {
-                                  //   Get.toNamed('/favourities');
-                                  //   } else {
-
-                                  //launch("tel:${data['phone']}");
-                                  //}
+                                  print(".......QQQQ...QQQQ>...qqqq....$indId");
+                                  print("....add id...${allDataAdds[index]['id']}");
+                                  print(".......user id...!!!!...!!!....$indId");
+                                  var json = {
+                                    'ads_id': allDataAdds[index]['id']
+                                  };
+                                  liked = !liked;
+                                  allDataAdds[index]['is_favorite'] == false
+                                      ? friCont.profileAdsToFav(json, indId)
+                                      : friCont.profileAdsRemove(json, indId);
+            
+                                  // addsController.addedByIdAddes(json, indId);
                                 },
                                 child:
                                     Image.asset(AppImages.call, height: 20)),
