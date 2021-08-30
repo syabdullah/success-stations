@@ -37,9 +37,13 @@ class _AdsViewState extends State<AdsView> {
   }
   
   final banner = Get.put(BannerController());
+  var userType;
   GetStorage box = GetStorage();
   var lang;
   var address;
+    var isVisible = true ;
+   var  newv; 
+   var accounType;
    @override
   void initState() {
     super.initState();
@@ -49,49 +53,107 @@ class _AdsViewState extends State<AdsView> {
     banner.bannerController();
     lang = box.read('lang_code');
     address = box.read('address');
+    newv = box.read('updare');
+     userType = box.read('user_type');
+     accounType = box.read('account_type');
+     print('../////asdad///// $accounType');
+     print('../////asdad///// $userType');
   }
   @override
   Widget build(BuildContext context) { 
-    return ListView(
-      padding: EdgeInsets.symmetric(horizontal:20),
+    print(newv);
+    return Stack(
       children: [
-          GetBuilder<BannerController>(
-            init: BannerController(),
-            builder: (data){
-              // print("....................---${data.bannerData}");
-              imgList = [];
-              return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? Center(heightFactor: 2, child: CircularProgressIndicator()):  carosalImage(data.bannerData['data']);
-                  
-            }),
-         featureTextAdded("advertisingCategories".tr,"all".tr),
-         GetBuilder<CategoryController>(
-            init: CategoryController(),
-            builder: (dat){
-              return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg);
-            }
-          ),
-         featureTextAdded("FeaturedAds".tr,"all".tr), 
-          GetBuilder<MyAddsController>(
-            init: MyAddsController(),
-            builder: (data){ 
-              return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
-            }
-          ),
-            text('specialofer'.tr,"all".tr),
-            GetBuilder<OfferController>(
-            init: OfferController(),
-            builder: (data){
-                // print("....................................${data.offerDataList }");
-              return data.offerDataList != null ?  offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
-            }),
-           
-         
+       
+        ListView(
+          padding: EdgeInsets.symmetric(horizontal:20),
+          children: [
+             
+              GetBuilder<BannerController>(
+                init: BannerController(),
+                builder: (data){
+                  imgList = [];
+                  return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
+                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                    children: [
+                      carosalImage(data.bannerData['data']),
+                    ],
+                  );
+                }),
+             featureTextAdded("advertisingCategories".tr,"all".tr),
+             GetBuilder<CategoryController>(
+              init: CategoryController(),
+              builder: (dat){
+                return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg);
+                }
+              ),
+             featureTextAdded("FeaturedAds".tr,"all".tr), 
+              GetBuilder<MyAddsController>(
+                init: MyAddsController(),
+                builder: (data){ 
+                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
+                }
+              ),
+                text('specialofer'.tr,"all".tr),
+                GetBuilder<OfferController>(
+                init: OfferController(),
+                builder: (data){
+                  return data.offerDataList != null ? 
+                   offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
+                }),
+          ],
+        ),
+      //  userType== 2 &&  accounType == 'free'  ? upgradeBnner() : Container()
+      userType == 2 ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
       ],
     );
   }
-  // Widget myList(){
-  //   return ListView.builder(itemBuilder: itemBuilder)
-  // }
+
+  Widget upgradeBnner (){
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal:10.0),
+      child: Visibility(
+                visible: isVisible,
+                maintainSize: true,
+                maintainAnimation: true,
+                maintainState: true,
+        child: Container(
+                margin: EdgeInsets.only(top:5),
+                height: Get.height/10,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  color: Colors.red
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top:.0,left:10),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: Get.width/1.3,
+                        child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isVisible = false;
+                            
+                          });
+                          box.write('upgrade', isVisible);
+                          newv = box.read('upgrade');
+                          print(newv);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 30,left:10),
+                          child: Icon(Icons.close,color: Colors.white,)),
+                      )
+                    ],
+                  ),
+                ),
+      
+              ),
+      ),
+    );
+
+  }
   Widget carosalImage(data) { 
     // if(banner != null){
       for(int i=0; i < data.length; i++) {
@@ -169,7 +231,6 @@ class _AdsViewState extends State<AdsView> {
         ),
         GestureDetector(
           onTap: () {
-             print("-----------------111111111....,,,");
             Get.to(HomeAllFeature());
           },
           child: Container(
@@ -190,7 +251,6 @@ class _AdsViewState extends State<AdsView> {
         ),
         GestureDetector(
           onTap: () {
-             print("-----------------111111111....,,,");
             Get.to(CatAdds());
           },
           child: Container(
@@ -201,10 +261,7 @@ class _AdsViewState extends State<AdsView> {
       ],
     );
   }
-
-
   advertisingList(conHeight,imageW,imageH,data) {
-   
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
       height: conHeight,
@@ -212,7 +269,6 @@ class _AdsViewState extends State<AdsView> {
         scrollDirection: Axis.horizontal,
         itemCount: data.length,
         itemBuilder: (BuildContext context,index) {
-          
           return Column(
             children: [
               GestureDetector(
@@ -229,7 +285,7 @@ class _AdsViewState extends State<AdsView> {
                     child: Container(
                       width: imageW,
                       height: imageH,
-                      child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
+                      child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
                          child: Icon(Icons.image,size: 50,),
                       )
                       //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
@@ -266,7 +322,7 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url']) : Container(
+                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
                        child: Icon(Icons.image,size: 50,),
                     )
                     //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
@@ -291,7 +347,7 @@ class _AdsViewState extends State<AdsView> {
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
-        itemBuilder: (BuildContext,index) {
+        itemBuilder: (BuildContext context,index) {
           return 
           GestureDetector(
             onTap: () {
@@ -308,9 +364,9 @@ class _AdsViewState extends State<AdsView> {
                   ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                     child: Container(
-                      width: Get.width < 420 ? Get.width/2.4: Get.width/2.3,
+                      width: Get.width < 420 ? Get.width/2.3: Get.width/2.3,
                       height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
-                      child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.fill,): Container(
+                      child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
                         child: Icon(Icons.image,size: 50,),
                       )
                       //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
@@ -318,52 +374,45 @@ class _AdsViewState extends State<AdsView> {
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top:2,left: 5),
-                    child: Text(data[index]['title'][lang] != null ?allWordsCapitilize(data[index]['title'][lang]):'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
+                    margin: EdgeInsets.only(top:5,left: 5),
+                    child: Text(data[index]['title'][lang] != null ? allWordsCapitilize(data[index]['title'][lang]):'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     width: Get.width/2.3,
                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(top:6,left: 5),
-                          child: Image.asset(AppImages.location,height: 15, color:Colors.grey[600],)
-                        ),
-                        SizedBox(width:2),
                         Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:6, left: 5),
+                              margin: EdgeInsets.only(top:6,left: 5),
+                              child: Image.asset(AppImages.location,height: 15, color:Colors.grey[600],)
+                            ),
+                        
+                         Container(
+                              margin: EdgeInsets.only(top:6,left:5),
                               child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
                               ): Container()
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top:6,left: 5),
-                              child: data[index]['price'] !=null ? Text(
-                               'SAR:${data[index]['price']}'
-                              ): Container()
-                            )
-                          ],
-                        ),
+                        // SizedBox(width:2),
                        
+                         ],
+                        ),
+                         Container(
+                          margin: EdgeInsets.only(top:6,right: 3),
+                          child: data[index]['price'] !=null ? Text(
+                           'SAR:${data[index]['price']}',style: TextStyle(fontSize: 13),
+                          ): Container()
+                        ),
                       ],
                     ),
                   ), 
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Container(
-                  //       margin: EdgeInsets.only(top:6,left: Get.height*0.04),
-                  //       child: data[index]['country']!=null ? Text(data[index]['country']['name'] ): Container()
-                  //     ),
-                  //   ],
-                  // ) ,
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        // margin: EdgeInsets.only(left: 5),
+                        margin: EdgeInsets.only(top:5),
                         child: Icon(Icons.person,color:Colors.grey[600]),
                       ),
                       SizedBox(width:5),
