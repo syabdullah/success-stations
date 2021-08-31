@@ -101,8 +101,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
       ),
     );
   }
-
-
   List<Widget> allOffersWidget(listFavou) {
     List<Widget> favrties = [];
     if( listFavou !=null || listFavou.length !=null){
@@ -110,17 +108,15 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
-              // margin: EdgeInsets.only(top:40),
               child: ListTile(
                 onTap: (){
                   Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
-
                 },
                 leading: Container(
                   height: Get.height/2,
                   width: Get.width/4,
-                  child: listFavou[c]['image_ads'] != null && listFavou[c]['image_ads']['url']!= null? 
-                    Image.network( listFavou[c]['image_ads']['url'],
+                  child: listFavou[c]['image'] != null && listFavou[c]['image']['url']!= null? 
+                    Image.network( listFavou[c]['image']['url'],
                   ):Container(
                      child: Icon(Icons.image,size: 50,),
                   )
