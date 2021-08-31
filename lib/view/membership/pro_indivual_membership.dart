@@ -6,6 +6,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class IndividualMemeberShip extends StatefulWidget {
 }
 
 class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
+   bool statustogle= false;
 
   List<String> memberShipDatta = [
     "Profile",
@@ -87,6 +89,34 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
           child: Text(
             "PRO(Company)", style:TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[500])
           )
+        ),
+        Row(
+          children: [
+            Container(
+              child: Text("Monthly", style:TextStyle(color:AppColors.appBarBackGroundColor))
+            ),
+            Container(
+              child:  FlutterSwitch(
+                width: 70.0,
+                height: 35.0,
+                valueFontSize: 25.0,
+                toggleSize: 45.0,
+                value: statustogle,
+                borderRadius: 30.0,
+                // padding: 8.0,
+                // showOnOff: true,
+                onToggle: (val) {
+                  setState(() {
+                    print("object......$val");
+                    statustogle = val;
+                  });
+                },
+              )
+            ),
+            Container(
+              child: Text("Yearly", style:TextStyle(color:Colors.grey[400]))
+            ),
+          ],
         ),
       ],
     );

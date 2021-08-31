@@ -25,8 +25,7 @@ class OfferCategoryController extends GetxController {
     });
     update();
   }
-
-    categorrOfferByID(id) async {
+  categorrOfferByID(id) async {
       print(".....Ctaegory OFFER loadede.....>$id");
       isLoading = true;
      await offersCategoryById(id).then((res) {
