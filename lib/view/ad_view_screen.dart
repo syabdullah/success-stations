@@ -86,7 +86,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           init: MyAddsController(),
           builder: (val) {
           return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) :   val.adsD== null ? Container(
-            child: Center(child: Text("NO Detail Here !"),),
+            child: Center(child: Text("no_detail_here!".tr),),
           ): Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
@@ -136,7 +136,7 @@ Widget titleStep(data) {
   }
       return data == null ? 
       Container(
-        child: Text("No Detail"),
+        child: Text("no_detail_here".tr),
       ) :
   Column(
       children: [
@@ -172,11 +172,11 @@ Widget titleStep(data) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 30,),
-                        Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                        Text('city'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 15.h,),
-                         Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                         Text("add_number".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                         SizedBox(height: 7.h),
                         Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                         SizedBox(height: 15.h,),
@@ -194,13 +194,13 @@ Widget titleStep(data) {
                            crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // SizedBox(heig,),
-                            Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            Text("type".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
                             Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h,),
-                             Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                             Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
-                            Text(data['status'] == 0 ? 'Old': 'New',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            Text(data['status'] == 0 ? 'old'.tr: 'new'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
                             
                           ],
@@ -219,7 +219,7 @@ Widget titleStep(data) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+            Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
             SizedBox(height:5.h),
             Html(data: htmldata)
             // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
@@ -262,7 +262,7 @@ Widget titleStep(data) {
                 ),
               ),
             ): Container(),
-            Text("Owner",style:
+            Text("owner".tr,style:
             AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
             ),
           ),

@@ -47,7 +47,7 @@ class _FriendReqListState extends State<FriendReqList> {
             return val.suggestionsData == null ? Container() : val.suggestionsData.length == 0  || val.suggestionsData == null? Container(
               child: Container(
                 child:
-               Text("no suggestions " ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) )
+               Text("suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) )
               ),
             ) :  Column(
               children: [
@@ -87,7 +87,7 @@ class _FriendReqListState extends State<FriendReqList> {
             count == 1  ?  Container(
               margin: EdgeInsets.only(top: 20,left: 20),
               child: Text(
-                "Friend Requests",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                'frien_request'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
             ):Container(),
              GestureDetector(
@@ -152,7 +152,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         child:
                         Container(                        
                           child: Text(
-                            "Approve",
+                            "approve".tr,
                             style:TextStyle(
                               color: Colors.white,
                             ),
@@ -178,7 +178,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         child:
                         Container(                        
                           child: Text(
-                            "Cancel",
+                            "cancel".tr,
                             style:TextStyle(
                               color: Colors.white,
                             ),
@@ -206,7 +206,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         Container(
                           margin:EdgeInsets.only(left:10),
                           child: Text(
-                            'Reject',
+                            'reject'.tr,
                             style:TextStyle(
                               color: Colors.white,
                             ),
@@ -254,7 +254,7 @@ class _FriendReqListState extends State<FriendReqList> {
               i == 0 ?  Container(
               margin: EdgeInsets.only(top: 20,left: 20,bottom: 10),
               child: Text(
-                "Suggestions",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
+                "suggestion".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
             ):Container(),
              GestureDetector(
@@ -321,8 +321,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         ),
                         child:
                         Container(
-                          child: Text(
-                            AppString.addFriend,
+                          child: Text('add_friend'.tr,
                             style:TextStyle(
                               color: Colors.white,
                             ),
@@ -346,7 +345,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         Container(
                           margin:EdgeInsets.only(left:10),
                           child: Text(
-                            AppString.remove,
+                            'remove'.tr,
                             style:TextStyle(
                               color: Colors.white,
                             ),
