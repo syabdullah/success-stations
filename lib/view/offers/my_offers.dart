@@ -108,7 +108,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
-              height: 100,
+              // height: Get.height/6.5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,12 +116,12 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     children: [
                       Center(
                         child: Container(
-                          height: Get.height / 4,
+                          height: Get.height / 7,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: GestureDetector(
                               onTap: (){
-                                Get.to(MyOfferDetailMain(), arguments: listFavou[c]);
+                                Get.to(MyOfferDetailMain(), arguments:listFavou[c]);
 
                               },
                               child: listFavou[c]['image'] !=null &&  listFavou[c]['image']['url']!=null? 
@@ -157,6 +157,29 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 ),
                               ],
                             ),
+                             Container(
+                               width: Get.width/2.5,
+                               child: ReadMoreText(
+                                listFavou[c]['description'] != null ?
+                                listFavou[c]['description']['en'] : "",
+                                style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
+                                trimLines: 2,
+                                colorClickableText: AppColors.appBarBackGroundColor,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                      ),
+                             ),
+                            // Center(
+                            //   child: Container(
+                            //    width: Get.width/3,
+                            //     margin: EdgeInsets.only(top:5),
+                            //     child: listFavou[c]['description']!=null  ?  
+                            //     Text(
+                            //       listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
+                            //     ):Container()
+                            //   ),
+                            // ),
                             Container(
                               margin: EdgeInsets.only(top:5),
                               child: listFavou[c]['url']!=null  ?  
@@ -186,9 +209,15 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       Container(
                         child: Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(right: 10),
-                              child:  Image.asset(AppImages.edit, height: 30)
+                            GestureDetector(
+                              onTap: (){
+                                Get.to(AddOffersPage(), arguments: listFavou[c]);
+
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(right: 10),
+                                child:  Image.asset(AppImages.edit, height: 30)
+                              ),
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 10),
