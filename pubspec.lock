@@ -330,7 +330,7 @@ packages:
     source: hosted
     version: "9.1.0"
   geolocator:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: geolocator
       url: "https://pub.dartlang.org"

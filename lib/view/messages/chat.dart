@@ -33,21 +33,22 @@ ScrollController controller = new ScrollController();
   final chatCont = Get.put(ChatController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController msg = TextEditingController();
-  var id;
+  var id,userId;
   var userData;
+  var image;
   GetStorage box = GetStorage();
    @override
   void initState() {
     super.initState();
      userData = Get.arguments;
-     print(".............,kfdslkfkdls,,,,$userData");
+     userId = box.read('user_id');
      id = userData[0];
+     image = box.read('chat_image');
      controller.animateTo(
-            0.0,
-            curve: Curves.easeOut,
-            duration: const Duration(milliseconds: 300),
-          );
-
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
      uId = box.read('user_id');
      print(id);
     //  chatCont.getChatConvo(id);
@@ -93,30 +94,46 @@ ScrollController controller = new ScrollController();
               ],
             )
           ),
-          FractionalTranslation(
-            translation: Get.height > 700 ? const Offset(2.5, 1.3): const Offset(0.2, 0.9),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              radius: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child: Icon(Icons.person)),
-            )
-          ),
+          
           Container(
             child: GetBuilder<ChatController>(
               init: ChatController(),
               builder: (val) {
-                return val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+                if(val.isLoading == false && val.chat != null) {
+                  if(val.chat['data']['participants'][0]['id'] == userId) {
+                    print(".............11111---${val.chat['data']['participants'][1]['image']}");
+                    if (val.chat['data']['participants'][1]['image'] != null) {
+                    image = val.chat['data']['participants'][1]['image']['url'];
+                  }
+                  }
+                }
+                return Column(
+                  children: [
+                     val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+
                   //  margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
                   // decoration: BoxDecoration(
                   //     borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
                   //     color: Colors.white,
                   //   ),
+                )
+                  ],
                 );
+                
               },
             ),
-          ),         
+          ), 
+          FractionalTranslation(
+            translation: Get.height > 700 ? const Offset(2.0, 1.7): const Offset(0.2, 0.9),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              radius: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child: image != null ? Image.network(image,fit: BoxFit.fill,height: 80,): Icon(Icons.person)
+              ),
+            )
+          ),        
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -127,19 +144,19 @@ ScrollController controller = new ScrollController();
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(Icons.add, color: Colors.white, size: 20, ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //   },
+                  //   child: Container(
+                  //     height: 30,
+                  //     width: 30,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.lightBlue,
+                  //       borderRadius: BorderRadius.circular(30),
+                  //     ),
+                  //     child: Icon(Icons.add, color: Colors.white, size: 20, ),
+                  //   ),
+                  // ),
                   SizedBox(width: 15,),
                   Expanded(
                     child: TextField(

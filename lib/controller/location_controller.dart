@@ -88,4 +88,23 @@ deleteLocationToDB(id,userId) async {
     });
     update();
   }
+
+   getAllLocationNearBy(dis,lat,long) async{
+    isLoading = true;
+    await getNearByLocation(dis,lat,long).then((value) {
+      allLoc = jsonDecode(value.body);
+      isLoading = false;
+    });
+    update();
+  }
+
+   getAllLocationByCity(city,id) async {
+    isLoading = true;
+    await getCityLocation(city,id).then((value) {
+      allLoc = jsonDecode(value.body);
+      print("json decode response of offer.......>$allLoc");
+      isLoading = false;
+    });
+    update();
+  }
 }

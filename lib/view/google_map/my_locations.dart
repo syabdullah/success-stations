@@ -30,7 +30,7 @@ class _MyLocationsState extends State<MyLocations> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-      backgroundColor:Colors.blue,title: Text('MY LOCATION'),centerTitle: true,
+      backgroundColor:Colors.blue,title: Text('MY LOCATIONS'),centerTitle: true,
       leading: IconButton(onPressed: () => _scaffoldKey.currentState!.openDrawer(), icon: Icon(Icons.arrow_back_ios)),
     ),  
     
@@ -73,7 +73,9 @@ class _MyLocationsState extends State<MyLocations> {
                     builder:(val) { 
                       return val.locData != null &&  val.locData['data'].length != 0  ?  Expanded(
                         child: myAddsList(val.locData['data'])): Container(
-                          child: Center(child: Text("No Location added yet!",style: TextStyle(fontWeight: FontWeight.bold),)),
+                          child: Center(
+                            heightFactor: 8*4,
+                            child: Text("No Location added yet!",style: TextStyle(fontWeight: FontWeight.bold),)),
                         );
                     }
                   )
@@ -108,7 +110,7 @@ class _MyLocationsState extends State<MyLocations> {
                             child: data[index]['user_name']['media'].length != 0 ?
                             Image.network(data[index]['user_name']['media'][0]['url'],height: 60,) :
                             Container(
-                              child: Image.asset(AppImages.location),
+                              child: Image.asset(AppImages.locationimg),
                               width: Get.width/6)
 
                             //  Image.asset(
@@ -123,13 +125,14 @@ class _MyLocationsState extends State<MyLocations> {
                       child: Column(
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            data[index]['user_name']['name'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight:FontWeight.bold
-                            ),
-                          ),
+                          // Text(
+                          //   "Location",
+                          //   // data[index]['user_name']['name'],
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontWeight:FontWeight.bold
+                          //   ),
+                          // ),
                           SizedBox(height: 7),
                           Container(
                             width: Get.width/3.0,

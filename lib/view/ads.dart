@@ -47,6 +47,8 @@ class _AdsViewState extends State<AdsView> {
    @override
   void initState() {
     super.initState();
+    
+    isVisible = box.read('upgrade');
     catCont.getCategoryNames();
     addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
@@ -104,7 +106,7 @@ class _AdsViewState extends State<AdsView> {
           ],
         ),
       //  userType== 2 &&  accounType == 'free'  ? upgradeBnner() : Container()
-      userType == 2 ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
+      userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
       ],
     );
   }

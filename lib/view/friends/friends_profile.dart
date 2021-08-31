@@ -1,7 +1,10 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,6 +19,7 @@ class _FriendProfileState extends State<FriendProfile>
   GetStorage box = GetStorage();
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
+  final chatCont = Get.put(ChatController());
   bool liked = false;
   var city;
   var id;
@@ -63,7 +67,7 @@ class _FriendProfileState extends State<FriendProfile>
                       : Column(
                           children: [
                             profileDetail(val.friendProfileData['data']),
-                            tabs(val.friendProfileData['data']),
+                            tabs(val.friendProfileData['data']['name']),
                             general(val.friendProfileData['data'],
                                 val.userAds['data']),
                           ],
@@ -78,11 +82,13 @@ class _FriendProfileState extends State<FriendProfile>
     //print("....Countries.......${data['country']}");
     var country = data['country'];
     print("..........---------${data['media']}DAATTAAA.....${data['image']}");
-    if (data['image'] != null) {
-      image = data['image']['url'];
-    } else {
-      image = null;
-    }
+  if(data['image'] != null) {
+    image = data['image']['url'];
+    box.write('chat_image', image);
+  }else{
+    image = null;
+    box.remove('chat_image');
+  }
     return Stack(
       children: [
         Container(
@@ -210,7 +216,7 @@ class _FriendProfileState extends State<FriendProfile>
     );
   }
 
-  Widget tabs(data) {
+  Widget tabs(name) {
     return Wrap(
       children: [
         FractionalTranslation(
@@ -252,6 +258,13 @@ class _FriendProfileState extends State<FriendProfile>
           translation: const Offset(0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
+            onTap: (){
+              print("././......$id");
+              
+              chatCont.createConversation(id);
+              Get.to(ChattingPage(),arguments: [id, name]);
+              // Get.find<ChatController>().createConversation(id);
+            },
             child: Container(
               height: Get.height / 9 * 0.5,
               width: Get.width / 3.2,
