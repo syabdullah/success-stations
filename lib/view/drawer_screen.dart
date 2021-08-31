@@ -251,7 +251,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'about_us'.tr, () => {
+                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
                            Get.to(AboutUs())
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {

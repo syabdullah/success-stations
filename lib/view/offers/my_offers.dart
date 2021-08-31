@@ -108,38 +108,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
-<<<<<<< HEAD
-              child: ListTile(
-                onTap: (){
-                  Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
-                },
-                trailing: 
-                    
-                   Image.asset(AppImages.delete,height: 30,),
-                   
-               
-                leading:  
-                Container(
-                  height: Get.height/2,
-                  width: Get.width/4,
-                  child: listFavou[c]['image'] != null && listFavou[c]['image']['url']!= null? 
-                    Image.network( listFavou[c]['image']['url'],
-                  ):Container(
-                     child: Icon(Icons.image,size: 50,),
-                  )
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          listFavou[c]['text_ads']['en'] !=null ? 
-                          listFavou[c]['text_ads']['en'].toString() :'', 
-                          style: TextStyle(
-                            fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
-=======
               height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,7 +136,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 ),
                               )
                             ),
->>>>>>> 95251da53e3e2b507f7c5a2d359287695d02e90d
                           )
                         ),
                       ),

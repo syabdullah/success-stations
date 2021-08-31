@@ -214,5 +214,13 @@ const Map<String, String> ar = {
   'drafted_ads':'الإعلانات المصاغة',
   'noOfferyet':'لا توجد عروض حتى الآن!',
   'NoAdsYet':'لا توجد إعلانات حتى الآن',
+  'no_detail_here':'لا توجد تفاصيل هنا',
+  'add_number': 'أضف رقم',
+  'owner':'صاحب',
+  'aboutus':'معلومات عنا',
+  'suggestion':'اقتراح',
+  'frien_request':'طلب صداقة',
+  'approve':'يوافق',
+  'remove':'إزالة'
  
 };

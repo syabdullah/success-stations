@@ -213,6 +213,15 @@ const Map<String, String> en = {
   'pr':'pr',
   'noOfferyet':"No Offer Yet!",
   'NoAdsYet':"NoAdsYet",
+  'no_detail_here':'NO Detail Here !',
+  'add_number':'Add Number',
+  'owner':'owner',
+  'aboutus':'About US',
+  'suggestion':'Suggestion',
+  'frien_request':'Friend Request',
+  'approve':'Approve',
+  'remove':'remove'
+  
 
 };
 
