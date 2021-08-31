@@ -21,6 +21,9 @@ var city;
 var currentPostion; 
 var position;
 var decideRouter;
+var array = [] ;
+var color = Colors.grey[100];
+bool textfeild = true;
 GetStorage box = GetStorage();
 var cityArray = [];
 var userId = box.read('user_id');
@@ -32,7 +35,7 @@ var userId = box.read('user_id');
       currentPostion = LatLng(position.latitude, position.longitude);
     // });
   }
- Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,) {
+ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,index) {
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -46,17 +49,18 @@ var userId = box.read('user_id');
         child: Image.asset(image, height: 40),
       ), 
       actions: [
+        index == 3 ? 
         GestureDetector(
-          onTap: () {
+          onTap: index == 3 ?  () {
             filtrationModel(context);
-          },
+          } : null,
           child: Padding(
             padding: const EdgeInsets.only(top:12.0,right: 10,),
             child: Image.asset(
              AppImages.appBarSearch,color: Colors.white,width: 25.w,
             ),
           ),
-        )
+        ): Container()
       ],
       backgroundColor: AppColors.appBarBackGroundColor,
     );
@@ -141,7 +145,9 @@ Widget sAppbar(context ,icon,image,) {
     var size = MediaQuery.of(context).size;
     print(size);
    showModalBottomSheet(  
-     isScrollControlled: false,
+     isScrollControlled: true,
+    // useRootNavigator: true,
+    // enableDrag: true,
      context: context,   
      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -155,216 +161,235 @@ Widget sAppbar(context ,icon,image,) {
           return Wrap(
             children: [
               Container(
-                height: Get.height/2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                height: Get.height/1.6,
+                child: ListView(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top:20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            margin:EdgeInsets.only(left:30),
-                            child: Text(AppString.filters,
-                              style: TextStyle(
-                                fontSize: 20, color: Colors.black
-                              )
-                            ),
-                          ),
-                          Container(
-                            margin:EdgeInsets.only(right:20),
-                            child: InkWell(
-                              onTap: () => Get.back(),
-                              child: Icon(Icons.close)
-                            )
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                         color: Colors.blue[100],
-                        borderRadius: BorderRadius.circular(20)
-                      ),
-                      width: Get.width/4,
-                     padding: EdgeInsets.symmetric(vertical: 10),
-                      margin: EdgeInsets.only(top: 20,left: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Icon(Icons.location_on,color: Colors.blue,),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                               _getUserLocation();
-                            },
-                            child: Container(
-                              child: Text("Nearby",style: TextStyle(color: Colors.blue)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                      child: Form(
-                        key: formKey,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            labelText: ('City'),
-                            // labelStyle: TextStyle(color: AppColors.basicColor),
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(5.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColor)
-                            )
-                          ),
-                          onTap: (){
-                            // setState((){
-                              
-                            // });
-                          },
-                          onSubmitted: (val) {
-                             formKey.currentState!.save();
-                            setState((){
-                              decideRouter = 'city';
-                              cityArray.add(val);
-                              print("on saved ---- $cityArray");
-                            });                          
-                          },
-                        ),
-                      )
-                    ),
-                    Container(
-                      height: 50,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                      for(var item in cityArray) 
-                      GestureDetector(
-                        onTap: () {
-                          setState((){
-                            decideRouter = 'nearby';
-                          });
-                        },
-                        child: Container(                          
-                          decoration: BoxDecoration(
-                             color: Colors.blue[100],
-                            borderRadius: BorderRadius.circular(20)
-                          ),
-                          // width: Get.width/4,
-                         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                          margin: EdgeInsets.only(top: 10,left: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [                             
-                              Container(
-                                child: Text(item,style: TextStyle(color: Colors.blue)),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState((){
-                                    cityArray.remove(item);
-                                  });
-                                  print(cityArray);                                 
-                                },
-                                child: Container(
-                                  child: Icon(Icons.clear,color: Colors.blue,size:15),
+                            margin: EdgeInsets.only(top:20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  margin:EdgeInsets.only(left:30),
+                                  child: Text(AppString.filters,
+                                    style: TextStyle(
+                                      fontSize: 20, color: Colors.black
+                                    )
+                                  ),
                                 ),
-                              )
-                            ],
+                                Container(
+                                  margin:EdgeInsets.only(right:20),
+                                  child: InkWell(
+                                    onTap: () => Get.back(),
+                                    child: Icon(Icons.close)
+                                  )
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                        ]
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      child: RangeSlider(
-                        values: _currentRangeValues,
-                        min: 1.00,
-                        max: 1000000.00,
-                        // divisions: 5,
-                        labels: RangeLabels(
-                          _currentRangeValues.start.round().toString(),
-                          _currentRangeValues.end.round().toString(),
-                        ),
-                        onChanged: (values) {
-                          setState(() {
-                            _currentRangeValues = values;
-                              start = _currentRangeValues.start.round().toString();
-                              end = _currentRangeValues.end.round().toString();
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          // margin: EdgeInsets.only(top: 20),
-                          // ignore: deprecated_member_use
-                          child: RaisedButton(
-                            color: Colors.grey[100],
-                            child: Container(
-                              width: Get.width / 4,
-                              child: Center(
-                                child: Text(AppString.resetButton,
-                                  style: TextStyle(
-                                    color: AppColors.inputTextColor
+                          Container(
+                            decoration: BoxDecoration(
+                               color: color,
+                              borderRadius: BorderRadius.circular(20)
+                            ),
+                            width: Get.width/4,
+                           padding: EdgeInsets.symmetric(vertical: 10),
+                            margin: EdgeInsets.only(top: 20,left: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Icon(Icons.location_on,color:Colors.blue),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState((){
+                                      color = Colors.blue[100];
+                                      textfeild = !textfeild;
+                                    });
+                                     _getUserLocation();
+                                  },
+                                  child: Container(
+                                    child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                            child: Form(
+                              key: formKey,
+                              child: Container(
+                                // padding: EdgeInsets.only(
+                                //   bottom: MediaQuery.of(context).viewInsets.vertical),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    enabled: textfeild,
+                                    labelText: ('City'),
+                                    // labelStyle: TextStyle(color: AppColors.basicColor),
+                                    prefixIcon: Icon(Icons.search),
+                                    border: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                        const Radius.circular(5.0),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                    )
+                                  ),
+                                  onTap: (){
+                                    // setState((){
+                                      
+                                    // });
+                                  },
+                                  onSubmitted: (val) {
+                                     formKey.currentState!.save();
+                                    setState((){
+                                      decideRouter = 'city';
+                                      array.add(val);
+                                      cityArray.add('city[]=$val');
+                                      print("on saved ---- $cityArray");
+                                    });                          
+                                  },
+                                ),
+                              ),
+                            )
+                          ),
+                          Container(
+                            height: 50,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                            for(var item in array) 
+                            GestureDetector(
+                              onTap: () {
+                                setState((){
+                                  decideRouter = 'nearby';
+                                });
+                              },
+                              child: Container(                          
+                                decoration: BoxDecoration(
+                                   color: Colors.blue[100],
+                                  borderRadius: BorderRadius.circular(20)
+                                ),
+                                // width: Get.width/4,
+                               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                                margin: EdgeInsets.only(top: 10,left: 30),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [                             
+                                    Container(
+                                      child: Text(item,style: TextStyle(color: Colors.blue)),
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        setState((){
+                                           
+                                            var ind = 1;
+                                            ind = array.indexOf(item);
+                                             array.remove(item);
+                                            cityArray.removeAt(ind);
+                                           
+                                        });
+                                        print(cityArray);                                 
+                                      },
+                                      child: Container(
+                                        child: Icon(Icons.clear,color: Colors.blue,size:15),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                              ]
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            child: RangeSlider(
+                              values: _currentRangeValues,
+                              min: 1.00,
+                              max: 1000000.00,
+                              // divisions: 5,
+                              labels: RangeLabels(
+                                _currentRangeValues.start.round().toString(),
+                                _currentRangeValues.end.round().toString(),
+                              ),
+                              onChanged: (values) {
+                                setState(() {
+                                  _currentRangeValues = values;
+                                    start = _currentRangeValues.start.round().toString();
+                                    end = _currentRangeValues.end.round().toString();
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                // margin: EdgeInsets.only(top: 20),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                  color: Colors.grey[100],
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                      child: Text('Reset',
+                                        style: TextStyle(
+                                          color: AppColors.inputTextColor
+                                            )
+                                          )
+                                        )
+                                      ),
+                                  onPressed: () {
+                                    array.clear();
+                                    cityArray.clear();
+                                    Get.back();
+                                    Get.find<LocationController>().getAllLocationToDB();
+                                    // Get.to(SignIn());
+                                  }
+                                ),
+                              ),
+                              Container(
+                                child: RaisedButton(
+                                  color: Colors.blue,
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(
+                                      child: Text("Apply",
+                                        style: TextStyle( color: Colors.white)
                                       )
                                     )
-                                  )
-                                ),
-                            onPressed: () {
-                              // Get.to(SignIn());
-                            }
-                          ),
-                        ),
-                        Container(
-                          // margin: EdgeInsets.only(top: 20),
-                          // ignore: deprecated_member_use
-                          child: RaisedButton(
-                            color: Colors.blue,
-                            child: Container(
-                              width: Get.width / 4,
-                              child: Center(
-                                child: Text("Apply",
-                                  style: TextStyle( color: Colors.white)
+                                  ),
+                                  onPressed: (){
+                                    if(decideRouter == 'city') {
+                                   var cityFinal = cityArray.toString();
+                                   var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
+                                       Get.find<LocationController>().getAllLocationByCity(cityFinalData);
+                                    }else if(decideRouter == 'near'){
+                                      Get.find<LocationController>().getAllLocationNearBy(end, position.latitude, position.longitude);
+                                    }
+                                   Get.back();
+                                  },
                                 )
-                              )
-                            ),
-                            onPressed: (){
-                              if(decideRouter == 'city') {
-                                mapCon.getAllLocationByCity(cityArray,userId);
-                                Get.to(CustomInfoWindowExample(),arguments: [decideRouter,cityArray]);
-                              }else {
-                                //  mapCon.getAllLocationNearBy(end, position.latitude, position.longitude);
-                                 Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
-                              }
-                             
-                              
-                            },
+                              ),
+                            ],
                           )
-                              // onPressed: catFilteredID  == null && status == null ?  null :() {
-                              //   applyFiltering();
-                              //   Get.off(FilteredAdds());
-                              // }),
-                        ),
-                      ],
-                    )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               )

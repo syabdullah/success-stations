@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/UseProfile/notifier_user.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdViewScreen extends StatefulWidget {
@@ -71,7 +72,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     return Scaffold(
        key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
       drawer: Theme(
         data: Theme.of(context).copyWith(
         ),
@@ -199,7 +200,7 @@ Widget titleStep(data) {
                             SizedBox(height: 15.h,),
                              Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
-                            Text(data['status'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            Text(data['status'] == 0 ? 'Old': 'New',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
                             
                           ],
@@ -273,7 +274,7 @@ Widget titleStep(data) {
     trailing: 
       GestureDetector(
         onTap: () {
-          Get.to(NotifierUser(),arguments: data['created_by']['id']);
+          Get.to(FriendProfile(),arguments: ["ads",data['created_by']['id']]);
           print(data['created_by']['id']);
         },
         child: Text("${"see_profile".tr} >",style:

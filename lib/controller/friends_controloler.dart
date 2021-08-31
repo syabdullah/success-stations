@@ -87,8 +87,10 @@ class FriendsController extends GetxController {
     isLoading = true;
     await sendFriendReq(data).then((res) {
       print(".,.,.,.,RRRRR.,.,------${res.statusCode}");
-      if (res.statusCode > 400) {
-        SnackBarWidget().showToast("", res.body);
+      if ( res.statusCode ==  200 || res.statusCode < 400) {
+       
+      }else {
+         SnackBarWidget().showToast("", res.body);
       }
       sendReq = jsonDecode(res.body);
       getFriendsList();
@@ -104,8 +106,10 @@ class FriendsController extends GetxController {
     isLoading = true;
     await delFriendReq(id).then((res) {
       // friendsData = res.body;
+      
       getFriendsList();
       getSuggestionsList();
+print(res.body);  
       SnackBarWidget().showToast("", res.body);
       isLoading = false;
     }).catchError((e) {

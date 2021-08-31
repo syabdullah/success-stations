@@ -102,7 +102,6 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                         // SizedBox(height:40)  
                       ],
                     )
-                    
                   ],
                 )
             )

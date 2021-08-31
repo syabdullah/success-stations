@@ -83,6 +83,7 @@ deleteLocationToDB(id,userId) async {
     update();
   }
   getAllLocationToDB() async{
+     allLoc = null;
     print("controller call of the Favorite list");
     isLoading = true;
     await getAllLocation().then((value) {
@@ -93,8 +94,31 @@ deleteLocationToDB(id,userId) async {
     update();
   }
 
+
+ getAllLocationNearBy(dis,lat,long) async{
+    isLoading = true;
+    await getAllNearByLocation(dis,lat,long).then((value) {
+      allLoc = jsonDecode(value.body);
+      isLoading = false;
+    });
+    update();
+  }
+
+   getAllLocationByCity(city,) async {
+    isLoading = true;
+    allLoc = null;
+    await getAllCityLocation(city).then((value) {
+      allLoc = jsonDecode(value.body);
+      isLoading = false;
+      print("json decode response of offer.......>$allLoc");
+    });
+    update();
+   }
+
+
    getUserLocationNearBy(id,dis,lat,long) async{
     isLoading = true;
+     allLoc = null;
     await getNearByLocation(id,dis,lat,long).then((value) {
       // allLoc = jsonDecode(value.body);
       lastLocation = jsonDecode(value.body);
@@ -103,11 +127,12 @@ deleteLocationToDB(id,userId) async {
     update();
   }
 
-   getAllLocationByCity(city,id) async {
+   getUSerLocationByCity(city,id) async {
     isLoading = true;
     await getCityLocation(city,id).then((value) {
       // allLoc = jsonDecode(value.body);
       lastLocation = jsonDecode(value.body);
+      isLoading = false;
       print("json decode response of offer.......>$allLoc");
     });
     update();

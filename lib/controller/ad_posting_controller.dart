@@ -47,7 +47,7 @@ finalAdEditing(dataa,adID) async {
       if(res.statusCode == 200 || res.statusCode < 400){
         // editAd = jsonDecode(res.body); 
         Get.off(MyAdds());
-        Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("Ads successfully updated",'',backgroundColor: AppColors.appBarBackGroundColor);
         isLoading(false);      
       } if(res.statusCode >=  400){
           Get.snackbar("${editAd['errors']}",'',backgroundColor: AppColors.appBarBackGroundColor);
