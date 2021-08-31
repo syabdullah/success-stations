@@ -200,7 +200,7 @@ Widget titleStep(data) {
                             SizedBox(height: 15.h,),
                              Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
-                            Text(data['status'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            Text(data['status'] == 0 ? 'Old': 'New',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
                             
                           ],
