@@ -15,13 +15,20 @@ class UserProfileController extends GetxController {
     isLoading = true;
     super.onInit();
     getUserProfile();
+    
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+     getUserProfile();
   }
   getUserProfile() async{
     isLoading = true ;
     await userProfileAction().then((res) {
       print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData = jsonDecode(res.body);
-      box.write('user_image',userData['data']['image']);
+      // box.write('user_image',userData['data']['image']);
     
       isLoading = false;
       print("////////////////////////////////    $userData");
@@ -33,10 +40,10 @@ getUseradProfile(id) async{
     await userProfiletabAction(id).then((res) {
       print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData2 = jsonDecode(res.body);
-      box.write('user_image',userData['data']['image']);
+      // box.write('user_image',userData['data']['image']);
     
       isLoading = false;
-      print("////////////////////////////////    $userData");
+      // print("////////////////////////////////    $userData");
     });
     update();
   }

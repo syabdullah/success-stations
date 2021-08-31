@@ -475,7 +475,9 @@ var catID;
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
           },
-          child: Card(
+          child:
+          allDataAdds[index]['is_active'] == 0 ? Container():
+           Card(
             child: Container(
               height: 100,
               child: Row(
@@ -624,6 +626,7 @@ var catID;
                         // height: Get.height/5.5,
                         child:  Row(
                               children: [
+                                
                                 GestureDetector(
                                   onTap: () {
                                     var json = {
