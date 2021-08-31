@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
+import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
-import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
@@ -13,25 +13,19 @@ import 'package:success_stations/view/offer_filtered.dart';
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
 }
-
-class _OfferListState extends State<OfferList> {
-  final banner = Get.put(BannerController());
-  
  
+class _OfferListState extends State<OfferList> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  RangeValues _currentRangeValues = const RangeValues(1, 1000);
+ final contByCatOffer = Get.put(OfferCategoryController());
+ final banner = Get.put(BannerController());
   var json;
-
-   int slctedInd = 0;
-
+  int slctedInd = 0;
   onSelected(int index) {
     setState(() => slctedInd = index);
   }
-
-
   var listtype = 'list';
   final offerFilterCont = Get.put(OffersFilteringController());
+  final offeCont = Get.put(MyOffersDrawerController());
   var selectedIndex = 0;
   var id;
   var grid = AppImages.gridOf;
@@ -58,19 +52,17 @@ class _OfferListState extends State<OfferList> {
   var cardwidth;
   @override
    void initState() {
-    // TODO: implement initState
-    offerFilterCont.offerFilter(json);
+    // offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
     usertype = box.read('user_type');
   }
-  void dispose() {
-    // TODO: implement dispose
-    offerFilterCont.offerFilter(json);
-    //banner.bannerController();
-    super.dispose();
+  // void dispose() {
+  //   offerFilterCont.offerFilter(json);
+  //   //banner.bannerController();
+  //   super.dispose();
 
-  }
+  // }
   
   Widget build(BuildContext context) {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
@@ -82,30 +74,27 @@ class _OfferListState extends State<OfferList> {
         GetBuilder<OfferCategoryController>(
           init: OfferCategoryController(),
           builder: (val) {
-            return val.offerDattaTypeCategory !=null && val.offerDattaTypeCategory['data'] !=null ? headingUpsell(val.offerDattaTypeCategory['data']):
+            return val.offerDattaTypeCategory !=null && val.offerDattaTypeCategory['data'] !=null ? subOffers(val.offerDattaTypeCategory['data']):
             Container();
           },
         ),
-        GetBuilder<OffersFilteringController>(
-        init: OffersFilteringController(),
+        GetBuilder<OfferCategoryController>(
+        init: OfferCategoryController(),
           builder: (val) {
-            return Expanded(
-              child: val.offerFilterCreate !=null && val.offerFilterCreate['data'] != null && val.offerFilterCreate['success'] == true 
-                ? ListView(
-                  scrollDirection: Axis.vertical,
-                  children: myAddGridView(val.offerFilterCreate['data']),
-                ): 
-                offerFilterCont.resultInvalid.isTrue && val.offerFilterCreate['success'] == false ?  
-                Container(
-                  child: Center(
-                    child: Text(
-                     offerFilterCont.offerFilterCreate['errors'],
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+            return  val.iDBasedOffers !=null &&  val.iDBasedOffers['data'] !=null && val.iDBasedOffers['success'] == true? 
+              allUsers(val.iDBasedOffers['data']): 
+              contByCatOffer.resultInvalid.isTrue && val.iDBasedOffers['success'] == false ?  
+              Container(
+                margin:EdgeInsets.only(top:Get.height/3),
+                child: Center(
+                  child: Text(
+                    contByCatOffer.iDBasedOffers['errors'],
+                    style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ):Container()
-              );
+                ),
+                ):Container();
+              // );
             }
           ),
         ]
@@ -155,12 +144,6 @@ class _OfferListState extends State<OfferList> {
   }
 
  
-  applyofferFiltering() {
-    json = {
-      'type': id,
-    };
-    offerFilterCont.offerFilter(json);
-  }
 
   idSended() {
     var createFilterjson = {
@@ -172,10 +155,7 @@ class _OfferListState extends State<OfferList> {
   }
 
   var filteredIDCate;
-
-
-
-  filteringCategory() {
+   filteringCategory() {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
@@ -385,155 +365,154 @@ class _OfferListState extends State<OfferList> {
       );
     }
  
-  applyFiltering() {
-    var json = {
-      //'rangeValue': _currentRangeValues,
-      'type': filterID,
-      'condition': status,
-      'start': start,
-      'end': end,
-    };
-    // filterControlller.createFilterAds(json);
-  }
-
-  var ind1 = 0;
-  Widget headingofTypes(dataListedCateOffer) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height / 9.22,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: dataListedCateOffer.length,
-            itemBuilder: (context, val) {
-              if (ind1 == 0) {
-                // controller.addedByIdAddes(listingCategoriesData[0]['id']);
-              }
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 12.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        // print(
-                        //     "rrrrrrrrrrrr redixxx${dataListedCateOffer[val]['id']}");
-                        setState(() {
-                          // ind1 = ++ind1;
-                          selectedIndexListing = val;
-                          category =dataListedCateOffer[val]['category_name']['en'];
-                          filterID = dataListedCateOffer[val]['id'];
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.blue),
-                          color: selectedIndexListing == val ? selectedColor  : Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        child: dataListedCateOffer != null
-                        ? Text(
-                          dataListedCateOffer[val]['category_name']['en'],
-                          style: TextStyle(
-                            color: selectedIndexListing == val? Colors.white: Colors.blue,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        )
-                        : Container()
-                      ),
-                    ),
+  Widget allUsers(listFavou){
+    return Container(
+      height: Get.height / 1.7,
+      child: GridView.builder(
+        // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+        primary: false,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 20,
+          crossAxisCount: 2,
+            // childAspectRatio: 
+        ),
+        itemCount: listFavou.length,
+        itemBuilder: (BuildContext context, int c) {
+          return  Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                ],
-              );
-            },
-          ),
-        )
-      ],
-    );
-  }
-
-  List<Widget> myAddGridView(listFavou) {
-    List<Widget> favrties = [];
-    if (listFavou != null || listFavou.length != null) {
-      for (int c = 0; c < listFavou.length; c++) {
-        favrties.add(
-          // SingleChildScrollView(
-            Container(
-              width: Get.width / 1.10,
-              height: Get.height / 0.3,
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(listFavou.length, (c) {
-                  return Column(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Card(
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10)
+                        ),
+                        child: Container(
+                          height: Get.height * 0.18,
+                          width: Get.height * 0.18,
+                          child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+                          ? FittedBox(
+                            fit: BoxFit.cover,
+                            child: Image.network(
+                              listFavou[c]['image_ads']['url'],
+                            ),
+                          ): FittedBox(
+                            fit: BoxFit.cover,
+                            child: Icon(
+                              Icons.image,
+                              color: Colors.grey[400],
+                            ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)
-                                ),
-                                child: Container(
-                                  height: Get.height * 0.18,
-                                  width: Get.height * 0.18,
-                                  child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
-                                  ? FittedBox(
-                                    fit: BoxFit.cover,
-                                    child: Image.network(
-                                      listFavou[c]['image_ads']['url'],
-                                    ),
-                                  ): FittedBox(
-                                    fit: BoxFit.cover,
-                                    child: Icon(
-                                      Icons.image,
-                                      color: Colors.grey[400],
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ),
-                      Container(
-                        child: Text(
-                          listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-                          style:TextStyle(fontSize: 13, color: Colors.black)
-                        )
+                        ),
                       )
                     ],
-                  );
-                })
+                  ),
+                )
               ),
-            ),
-          // )
-        );
-      }
-    }
-    return favrties;
-  }
+              Container(
+                child: Text(
+                  listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+                  style:TextStyle(fontSize: 13, color: Colors.black)
+                )
+              )
+            ],
+          );
+        }),
+    );
+}
 
-  Widget headingUpsell(dataListedCateOffer) {
+
+  //  myAddGridView(listFavou) {
+  //   // List<Widget> favrties = [];
+  //   // if (listFavou != null || listFavou.length != null) {
+  //   //   for (int c = 0; c < listFavou.length; c++) {
+  //       // favrties.add(
+  //         // SingleChildScrollView(
+  //           Container(
+  //             // width: Get.width / 1.10,
+  //             height: Get.height / 3.3,
+  //             child: GridView.builder(
+  //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //                 crossAxisSpacing: 10,
+  //                 mainAxisSpacing: 20,
+  //                 crossAxisCount: 2,
+  //                 childAspectRatio: 1.0
+  //                 ),
+  //               // crossAxisCount: 2,
+  //                itemCount: listFavou.length,
+  //               itemBuilder: (BuildContext context, int c) {
+  //                 return Column(
+  //                   children: [
+  //                     Container(
+  //                       margin: EdgeInsets.all(10),
+  //                       child: Card(
+  //                         elevation: 1,
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(15.0),
+  //                         ),
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             ClipRRect(
+  //                               borderRadius: BorderRadius.only(
+  //                                 topLeft: Radius.circular(10),
+  //                                 topRight: Radius.circular(10),
+  //                                 bottomLeft: Radius.circular(10),
+  //                                 bottomRight: Radius.circular(10)
+  //                               ),
+  //                               child: Container(
+  //                                 height: Get.height * 0.18,
+  //                                 width: Get.height * 0.18,
+  //                                 child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+  //                                 ? FittedBox(
+  //                                   fit: BoxFit.cover,
+  //                                   child: Image.network(
+  //                                     listFavou[c]['image_ads']['url'],
+  //                                   ),
+  //                                 ): FittedBox(
+  //                                   fit: BoxFit.cover,
+  //                                   child: Icon(
+  //                                     Icons.image,
+  //                                     color: Colors.grey[400],
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             )
+  //                           ],
+  //                         ),
+  //                       )
+  //                     ),
+  //                     Container(
+  //                       child: Text(
+  //                         listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+  //                         style:TextStyle(fontSize: 13, color: Colors.black)
+  //                       )
+  //                     )
+  //                   ],
+  //                 );
+  //               })
+  //             );
+  //           // ),
+  //         // )
+  //       // );
+  //   //   }
+  //   // }
+  //   // return favrties;
+  // }
+ var offerBYID;
+  var ind1 = 0;
+  Widget subOffers(dataListedCateOffer) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -543,6 +522,13 @@ class _OfferListState extends State<OfferList> {
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, index) {
+              if(ind1 == 0){
+                offerBYID =dataListedCateOffer[index]['id'];
+                print(".........!!!!!!!!!..............offer BY ID.........$offerBYID");
+                contByCatOffer.categorrOfferByID(dataListedCateOffer[index]['id']);
+
+              }
+              ++ind1;
               return Row(
                 children: [
                   Container(
@@ -551,9 +537,10 @@ class _OfferListState extends State<OfferList> {
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
-                          id = dataListedCateOffer[index]['id'];
+                          offerBYID = dataListedCateOffer[index]['id'];
+                          print(".......!!!!!!!!!!!! stState by tapping..........$offerBYID");
+                          contByCatOffer.categorrOfferByID(dataListedCateOffer[index]['id']);
                         });
-                        applyofferFiltering();
                       },
                       child: Container(
                         decoration: BoxDecoration(

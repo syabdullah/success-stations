@@ -33,12 +33,13 @@ class _LocationTabState extends State<LocationTab> {
       var array = [] ;
       var userId;
       var end;
+     bool textfeild = true;
+     var color = Colors.grey[100];
       GetStorage box = GetStorage();
       void initState() {
          _getUserLocation();
           userId = box.read('user_id');
         id = Get.arguments;
-        print("=-=-=-=-=-=-=-=-=-=--=-==--=-==--=-=id");
         lastLoc.userlocationList(id);
         print(id);
         super.initState();
@@ -55,6 +56,7 @@ class _LocationTabState extends State<LocationTab> {
   Widget build(BuildContext context) {
    
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: ListView(
         children: [
           Column(
@@ -86,223 +88,239 @@ class _LocationTabState extends State<LocationTab> {
 
   void _showModal() {
      _getUserLocation();
-    showModalBottomSheet<void>(
+    showModalBottomSheet(
       context: context,
       backgroundColor:Colors.white,
-      // isScrollControlled: true,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
       ),
       builder: (context) {
-        return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) { 
-        return  AnimatedPadding(
-          padding: MediaQuery.of(context).viewInsets,
-          duration: const Duration(milliseconds: 100),
-            curve: Curves.decelerate,
-          child: Container(
-            //  height:Get.height/2,
-            child: Container(
-              margin:EdgeInsets.only(top: 20, left: 40,right: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[   
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
-                      ),
-                      Container(
-                        // margin:EdgeInsets.only(right:30),
-                        child: InkWell(
-                          onTap:()=> Get.back(),
-                          child: Icon(Icons.close))
-                      )
-                    ],
-                  ),
-                  SizedBox(height:10),
-                  Container(
-                    height: 30,
-                    width: Get.width/4,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[100],
-                      borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
-                    child: GestureDetector(
-                      onTap: decideRouter == 'city' ? null :  () {
-                        setState((){
-                              decideRouter = 'near';
-                            }); 
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left:10),
-                        child: Row(
-                          children: [
-                            Image.asset(AppImages.nearby,height: 15,color:Colors.blue),
-                            SizedBox(width: 5,),
-                            Text(
-                              "Nearby".tr,style:  TextStyle(fontSize: 15, color: Colors.blue)
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // SizedBox(height: 15,),
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: 15),
-                      child: Form(
-                        key: formKey,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            labelText: ('City'),
-                            // labelStyle: TextStyle(color: AppColors.basicColor),
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(5.0),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Theme.of(context).primaryColor)
-                            )
-                          ),
-                          onSubmitted: (val) {
-                             formKey.currentState!.save();
-                            setState((){
-                              decideRouter = 'city';
-                              array.add(val);
-                              cityArray.add('city[]=$val');
-                              print("on saved ---- $cityArray");
-                            });                          
-                          },
-                        ),
-                      )
-                    ), 
-                  Container(
-                      height: 50,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                      for(var item in array) 
-                      GestureDetector(
-                        onTap: () {
-                          setState((){
-                            decideRouter = 'nearby';
-                          });
-                        },
-                        child: Container(                          
-                          decoration: BoxDecoration(
-                             color: Colors.blue[100],
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          // width: Get.width/4,
-                         padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                          margin: EdgeInsets.only(left: 30),
-                          child: Row(
+        
+        return FractionallySizedBox(
+          child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) { 
+            
+          return  Wrap(
+            children: [
+              Container(
+                 height:Get.height/1.6,
+                child: ListView(
+                  children: [
+                    Container(
+                      
+                      margin:EdgeInsets.only(top: 20, left: 40,right: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[   
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [                             
-                              Container(
-                                child: Text(item,style: TextStyle(color: Colors.blue)),
+                            children: [
+                              Text(
+                                'filter'.tr ,style:  TextStyle(fontSize: 20, color: Colors.black)
                               ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState((){
-                                    cityArray.remove(item);
-                                    array.remove(item);
-                                  });
-                                  print(cityArray);                                 
-                                },
-                                child: Container(
-                                  child: Icon(Icons.clear,color: Colors.blue,size:15),
-                                ),
+                              Container(
+                                // margin:EdgeInsets.only(right:30),
+                                child: InkWell(
+                                  onTap:()=> Get.back(),
+                                  child: Icon(Icons.close))
                               )
                             ],
                           ),
-                        ),
-                      ),
-                        ]
-                      ),
-                    ),
-                  // SizedBox(height: 20),
-                  Text(
-                    'distance.tr',style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
-                    ),
-                    Text(
-                    _currentRangeValues.start.round().toString(),style:  TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.normal)
-                    ),
-                     SizedBox(height: 10),
-                    RangeSlider(
-                      values: _currentRangeValues,
-                      min: 5,
-                      max: 500,
-                      // divisions: 5,
-                      labels: RangeLabels(
-                        _currentRangeValues.start.round().toString(),
-                        _currentRangeValues.end.round().toString(),
-                      ),
-                      onChanged: (values) {
-                        setState(() {
-                          print("start : ${values.start}, end: ${values.end}");
-                          end = values.start;
-                          _currentRangeValues = values;
-                        });
-                      },
-                    ),
-                    
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top:20),
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(
-                          color: Colors.grey[100],
-                          child: Container(
-                            width: Get.width / 4,
-                            child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
+                          SizedBox(height:10),
+                          Container(
+                            height: 30,
+                            width: Get.width/4,
+                            decoration: BoxDecoration(
+                              color:color,
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                            child: GestureDetector(
+                              onTap: decideRouter == 'city' ? null :  () {
+                                setState((){
+                                  decideRouter = 'near';
+                                  color = Colors.blue[100];
+                                }); 
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(left:10),
+                                child: Row(
+                                  children: [
+                                    Image.asset(AppImages.nearby,height: 15,color:Colors.blue),
+                                    SizedBox(width: 5,),
+                                    Text(
+                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: Colors.blue)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                          onPressed: () {
-                            array.clear();
-                            cityArray.clear();
-                             Get.back();
-                             print("..,.,.,.........---======");
-                            lastLoc.userlocationList(id);
-                          }
-                        ),                        
+                          // SizedBox(height: 15,),
+                          Container(
+                              margin: EdgeInsets.symmetric(vertical: 15),
+                              child: Form(
+                                key: formKey,
+                                child: Container(
+                            //       padding: EdgeInsets.only(
+                            // bottom: MediaQuery.of(context).viewInsets),
+                                  child: TextField(
+                                     enabled: textfeild,
+                                    decoration: InputDecoration(
+                                      labelText: ('City'),
+                                      // labelStyle: TextStyle(color: AppColors.basicColor),
+                                      prefixIcon: Icon(Icons.search),
+                                      border: OutlineInputBorder(
+                                        borderRadius: const BorderRadius.all(
+                                          const Radius.circular(5.0),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                      )
+                                    ),
+                                    onSubmitted: (val) {
+                                       formKey.currentState!.save();
+                                      setState((){
+                                        decideRouter = 'city';
+                                        array.add(val);
+                                        cityArray.add('city[]=$val');
+                                        print("on saved ---- $cityArray");
+                                      });                          
+                                    },
+                                  ),
+                                ),
+                              )
+                            ), 
+                          Container(
+                              height: 50,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                              for(var item in array) 
+                              GestureDetector(
+                                onTap: () {
+                                  setState((){
+                                    decideRouter = 'nearby';
+                                  });
+                                },
+                                child: Container(                          
+                                  decoration: BoxDecoration(
+                                     color: Colors.blue[100],
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  // width: Get.width/4,
+                                 padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                                  margin: EdgeInsets.only(left: 30),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [                             
+                                      Container(
+                                        child: Text(item,style: TextStyle(color: Colors.blue)),
+                                      ),
+                                      GestureDetector(
+                                        onTap: (){
+                                          setState(() {
+                                            var ind = 1;
+                                            ind = array.indexOf(item);
+                                             array.remove(item);
+                                            cityArray.removeAt(ind);
+                                            
+                                          });
+                                        },
+                                        child: Container(
+                                          child: Icon(Icons.clear,color: Colors.blue,size:15),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                                ]
+                              ),
+                            ),
+                          // SizedBox(height: 20),
+                          Text(
+                            'distance',style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                            ),
+                            Text(
+                            _currentRangeValues.start.round().toString(),style:  TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.normal)
+                            ),
+                             SizedBox(height: 10),
+                            RangeSlider(
+                              values: _currentRangeValues,
+                              min: 5,
+                              max: 500,
+                              // divisions: 5,
+                              labels: RangeLabels(
+                                _currentRangeValues.start.round().toString(),
+                                _currentRangeValues.end.round().toString(),
+                              ),
+                              onChanged: (values) {
+                                setState(() {
+                                  print("start : ${values.start}, end: ${values.end}");
+                                  end = values.start;
+                                  _currentRangeValues = values;
+                                });
+                              },
+                            ),
+                            
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top:20),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                  color: Colors.grey[100],
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
+                                  ),
+                                  onPressed: () {
+                                    array.clear();
+                                    cityArray.clear();
+                                     Get.back();
+                                     print("..,.,.,.........---======");
+                                    lastLoc.userlocationList(id);
+                                  }
+                                ),                        
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top:20),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                  color: Colors.blue,
+                                  child: Container(
+                                    width: Get.width / 4,
+                                    child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
+                                  ),
+                                  onPressed: () {
+                                   if(decideRouter == 'city') {
+                                     var cityFinal = cityArray.toString();
+                                     var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
+                                        lastLoc.getUSerLocationByCity(cityFinalData,id);
+                                  }else if(decideRouter == 'near'){
+                                    print("...///././././..");
+                                         lastLoc.getUserLocationNearBy(id,end, position.latitude, position.longitude);
+                                        //  Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
+                                      }
+                                     Get.back();
+                                  }
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top:20),
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(
-                          color: Colors.blue,
-                          child: Container(
-                            width: Get.width / 4,
-                            child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
-                          ),
-                          onPressed: () {
-                           if(decideRouter == 'city') {
-                             var cityFinal = cityArray.toString();
-                             var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
-                                lastLoc.getAllLocationByCity(cityFinalData,id);
-                          }else if(decideRouter == 'near'){
-                            print("...///././././..");
-                                 lastLoc.getUserLocationNearBy(id,end, position.latitude, position.longitude);
-                                //  Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
-                              }
-                             Get.back();
-                          }
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-        );
+            ],
+          );
     }
-  );
+  ),
+        );
   }
  );
   
@@ -370,6 +388,8 @@ Widget locationList(lastLocation) {
                     children: [
                       Center(
                         child: Container(
+                          color: Colors.grey[100],
+                          width: Get.width/4,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),
@@ -383,43 +403,43 @@ Widget locationList(lastLocation) {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:.0),
+                        padding: const EdgeInsets.only(top:.0,left: 10),
                         child: Column(
                           crossAxisAlignment:CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              children: [
+                            // Row(
+                            //   children: [
                               
-                                 lastLocation['data'][index]['location'] != null ?
-                               Text(lastLocation['data'][index]['location'],overflow: TextOverflow.clip,maxLines: 6,
-                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                             ): Container(),
-                              ],
-                            ),
-                            SizedBox(height: 3),
+                            //      lastLocation['data'][index]['location'] != null ?
+                            //    Text(lastLocation['data'][index]['location'],overflow: TextOverflow.clip,maxLines: 6,
+                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
+                            //  ): Container(),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 3),
                              lastLocation['data'][index]['formated_address'] != null ?
                                Container(
-                                 width: Get.width/2,
+                                 width: Get.width/1.5,
                                  child: Text(lastLocation['data'][index]['formated_address'],textAlign: TextAlign.left,
-                                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
-                                                          ),
+                                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                                  ),
                                )
                               : Container()
-                            ,Row(
-                              children: [
-                                lastLocation['data'][index]['locality'] !=null?
-                              Text(lastLocation['data'][index]['locality'],
-                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 8),
-                              ): Container(),
-                              SizedBox(width: 3,),
-                               lastLocation['data'][index]['country_name'] != null ?
-                              Text(lastLocation['data'][index]["country_name"],
-                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 10),
-                              ): Container(),
-                              ],
-                            ),
-                            SizedBox(height: 8),
+                            // ,Row(
+                            //   children: [
+                            //     lastLocation['data'][index]['locality'] !=null?
+                            //   Text(lastLocation['data'][index]['locality'],
+                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                            //   ): Container(),
+                            //   SizedBox(width: 3,),
+                            //    lastLocation['data'][index]['country_name'] != null ?
+                            //   Text(lastLocation['data'][index]["country_name"],
+                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                            //   ): Container(),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 8),
                               
                           ],
                         ),

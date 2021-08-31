@@ -266,9 +266,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -309,24 +311,20 @@ var id,userId;
   // }
   void initState() {
     super.initState();
-     channel = IOWebSocketChannel.connect(
-    Uri.parse('wss://49.12.192.180/$id'),
-  );
+   channelconnect();
      userData = Get.arguments;
      userId = box.read('user_id');
      id = userData[0];
      image = box.read('chat_image');
-    //  controller.animateTo(
-    //   0.0,
-    //   curve: Curves.easeOut,
-    //   duration: const Duration(milliseconds: 300),
-    // );
   }
-  channelconnect(){ //function to connect 
+  channelconnect() async{
+    ApiHeaders().getData(); //function to connect 
     try{
-         channel = IOWebSocketChannel.connect("wss://49.12.192.180"); //channel IP : Port
+         channel = IOWebSocketChannel.connect(Uri.parse("ws://49.12.192.180"),headers: {'Connection': 'upgrade', 'Upgrade': 'websocket'});
+         print("====---------------$channel");
+          //channel IP : Port
          channel!.stream.listen((message) {
-            print(message);
+            print("------..........$message");
             setState(() {
                  if(message == "connected"){
                       connected = true;
@@ -413,94 +411,105 @@ var id,userId;
         ),
       ),
         body: Container( 
-           child: Stack(children: [
-               Positioned( 
-                  top:0,bottom:70,left:0, right:0,
-                  child:Container( 
-                    padding: EdgeInsets.all(15),
-                    child: SingleChildScrollView( 
-                      child:Column(children: [
+          child: Stack(
+            children: [
+              Container(
+                height: Get.height/3.5,
+                width: Get.width,
+                color: AppColors.appBarBackGroundColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20,),
+                  ],
+                )
+              ),
 
-                            Container( 
-                              child:Text("Your Messages", style: TextStyle(fontSize: 20)),
-                            ),
+              Container(
+                child: GetBuilder<ChatController>(
+                  init: ChatController(),
+                  builder: (val) {
+                    if(val.isLoading == false && val.chat != null) {
+                      if(val.chat['data']['participants'][0]['id'] == userId) {
+                        print(".............11111---${val.chat['data']['participants'][1]['image']}");
+                        if (val.chat['data']['participants'][1]['image'] != null) {
+                        image = val.chat['data']['participants'][1]['image']['url'];
+                      }
+                      }
+                    }
+                    return Column(
+                      children: [
+                        // val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+                        // )
+                      ],
+                    );
+                    
+                  },
+                ),
+              ), 
+              FractionalTranslation(
+                translation: Get.height > 700 ? const Offset(2.0, 1.7): const Offset(0.2, 0.9),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  radius: 40,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(60.0),
+                    child: image != null ? Image.network(image,fit: BoxFit.fill,height: 80,): Icon(Icons.person)
+                  ),
+                )
+              ),  
+              //  Positioned( 
+              //     top:0,bottom:70,left:0, right:0,
+              //     child:Container( 
+              //       padding: EdgeInsets.all(15),
+              //       child: SingleChildScrollView( 
+              //         child:Column(children: [
 
-                            Container( 
-                              child: Column( 
-                                children: msglist.map((onemsg){
-                                  return Container( 
-                                     margin: EdgeInsets.only( //if is my message, then it has margin 40 at left
-                                             left: onemsg.isme?40:0,
-                                             right: onemsg.isme?0:40, //else margin at right
-                                          ),
-                                     child: Card( 
-                                        color: onemsg.isme?Colors.blue[100]:Colors.red[100],
-                                        //if its my message then, blue background else red background
-                                        child: Container( 
-                                          width: double.infinity,
-                                          padding: EdgeInsets.all(15),
+              //               Container( 
+              //                 child:Text("Your Messages", style: TextStyle(fontSize: 20)),
+              //               ),
+
+              //               Container( 
+              //                 child: Column( 
+              //                   children: msglist.map((onemsg){
+              //                     return Container( 
+              //                        margin: EdgeInsets.only( //if is my message, then it has margin 40 at left
+              //                                left: onemsg.isme?40:0,
+              //                                right: onemsg.isme?0:40, //else margin at right
+              //                             ),
+              //                        child: Card( 
+              //                           color: onemsg.isme?Colors.blue[100]:Colors.red[100],
+              //                           //if its my message then, blue background else red background
+              //                           child: Container( 
+              //                             width: double.infinity,
+              //                             padding: EdgeInsets.all(15),
                                           
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
+              //                             child: Column(
+              //                               crossAxisAlignment: CrossAxisAlignment.start,
+              //                               children: [
 
-                                              Container(
-                                                child:Text(onemsg.isme?"ID: ME":"ID: " + onemsg.userid)
-                                              ),
+              //                                 Container(
+              //                                   child:Text(onemsg.isme?"ID: ME":"ID: " + onemsg.userid)
+              //                                 ),
 
-                                              Container( 
-                                                 margin: EdgeInsets.only(top:10,bottom:10),
-                                                 child: Text("Message: " + onemsg.msgtext, style: TextStyle(fontSize: 17)),
-                                              ),
+              //                                 Container( 
+              //                                    margin: EdgeInsets.only(top:10,bottom:10),
+              //                                    child: Text("Message: " + onemsg.msgtext, style: TextStyle(fontSize: 17)),
+              //                                 ),
                                                 
-                                            ],),
-                                        )
-                                     )
-                                  );
-                                }).toList(),
-                              )
-                            )
-                       ],)
-                    )
-                  )
-               ),
+              //                               ],),
+              //                           )
+              //                        )
+              //                     );
+              //                   }).toList(),
+              //                 )
+              //               )
+              //          ],)
+              //       )
+              //     )
+              //  ),
 
-               Positioned(  //position text field at bottom of screen
-               
-                 bottom: 0, left:0, right:0,
-                 child: Container( 
-                      color: Colors.black12,
-                      height: 70,
-                      child: Row(children: [
-                          
-                          Expanded(
-                            child: Container( 
-                              margin: EdgeInsets.all(10),
-                              child: TextField(
-                                  controller: msgtext,
-                                  decoration: InputDecoration( 
-                                    hintText: "Enter your Message"
-                                  ),
-                              ),
-                            )
-                          ),
-
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            child: ElevatedButton( 
-                              child:Icon(Icons.send),
-                              onPressed: (){
-                                if(msgtext.text != ""){
-                                  sendmsg(msgtext.text, recieverid); //send message with webspcket
-                                }else{
-                                  print("Enter message");
-                                }
-                              },
-                            )
-                          )
-                      ],)
-                    ),
-               )
+              
            ],)
         )
      );

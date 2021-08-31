@@ -204,7 +204,8 @@ const Map<String, String> en = {
   'lastoffers': 'Last Offers',
   'lastlocation':'Last Locations',
   'about':'About',
-  'distance':'Distance'
+  'distance':'Distance',
+  'memberShip':'You can use following services in Pro Company',
 
 };
 

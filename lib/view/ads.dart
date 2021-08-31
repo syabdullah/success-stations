@@ -58,8 +58,6 @@ class _AdsViewState extends State<AdsView> {
     newv = box.read('updare');
      userType = box.read('user_type');
      accounType = box.read('account_type');
-     print('../////asdad///// $accounType');
-     print('../////asdad///// $userType');
   }
   @override
   Widget build(BuildContext context) { 

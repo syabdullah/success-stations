@@ -9,12 +9,12 @@ Future<http.Response> offersCategory() async {
   final result =await http.get(url,headers: ApiHeaders().headersWithToken);  
   return result;
 }
-Future<http.Response> offersCategoryById(id,uId) async {
-  print(">>????????????????/////////////////////////////////////////////////$id");
+Future<http.Response> offersCategoryById(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
-  var url = uId == null ? Uri.parse("${config.baseUrl}offers/$id") :  Uri.parse("${config.baseUrl}offers/$id/$uId");
-  print("url of the beased api ................>>>>>$url");
+  // var url = uId == null ? Uri.parse("${config.baseUrl}offers/$id") :  Uri.parse("${config.baseUrl}offers/$id/$uId");
+  var url =  Uri.parse("${config.baseUrl}offers/$id");
+  print("url of the beased api .....offerrrr Category...........>>>>>$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
