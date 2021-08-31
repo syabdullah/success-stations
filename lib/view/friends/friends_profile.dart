@@ -836,14 +836,14 @@ class _FriendProfileState extends State<FriendProfile>
                             image != null
                                 ? CircleAvatar(
                                     backgroundImage: NetworkImage(image),
-                                    radius: 25.0,
+                                    radius: 20.0,
                                   )
                                 : CircleAvatar(
                                     backgroundColor: Colors.grey,
-                                    radius: 50.0,
+                                    radius: 20.0,
                                     child: Icon(
                                       Icons.person,
-                                      size: 70,
+                                      size: 20,
                                       color: Colors.black,
                                     )),
 

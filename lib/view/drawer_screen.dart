@@ -42,31 +42,28 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
-    final ImagePicker _picker = ImagePicker();
-    // Pick an image
+    final ImagePicker _picker = ImagePicker();  
     XFile? pickedFile;
-  var imageP;
-  var fileName;
-  var userType;
-   final banner = Get.put(BannerController());
+    var imageP;
+    var fileName;
+    var userType,accountType;
+    final banner = Get.put(BannerController());
 
   @override
   void dispose() {
-    // TODO: implement dispose
     banner.bannerController();
     super.dispose();
 
   }
-  // var name  = '';
-  // name  = box.read('name');
    @override
   void initState() {
     super.initState();
     userType = box.read('user_type');
-    print(".............user type......................$userType");
     image = box.read('user_image');
-    // print("............11-1-1-1--1-1-.$image");
     imageP = box.read('user_image_local');
+    accountType = box.read('account_type');
+    print("////////a//// $accountType");
+    print("////////a//// $userType");
     banner.bannerController();
     
   }
@@ -99,9 +96,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
-    // print(".............$imageP...........YYYYYYYYYYYY${Get.height}");
     image = box.read('user_image');
-    
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -216,10 +211,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),
-                          userType == 2 ? Container():
+                          userType == 2 && accountType == 'Free'? Container():  accountType == 'Paid' ?
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
                             Get.to(MyLocations());
-                          },15.0 ),
+                          },15.0 ):
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
                           
                             Get.to(MemberShip());
@@ -230,10 +225,10 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.to(FriendReqList());
                           } ,15.0),
-                          userType == 2 ? Container():
+                           userType == 2  && accountType == 'Free' ? Container():  userType == 3 && accountType == "Paid" ? Container(): accountType == "Free" ? Container() :
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.to(OffersDetail());
-                          },15.0 ), 
+                          },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             Get.toNamed('/favourities')
                           },15.0 ), 
@@ -269,6 +264,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
                             box.remove('user_image_local');
+                            box.write('upgrade', true);
                             logoutCont.userLogout();                            
                           },15.0 ),
                         ],

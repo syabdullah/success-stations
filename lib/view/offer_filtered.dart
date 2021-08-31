@@ -45,11 +45,11 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
       body: GetBuilder<OffersFilteringController> ( 
         init: OffersFilteringController(),
         builder: (value) { 
-          return value.offerFilterCreate !=null  && value.offerFilterCreate['success']==true ? 
+          return value.isLoading ==true ? Container(): value.offerFilterCreate !=null  && value.offerFilterCreate['success']==true ? 
           draftedlist(value.offerFilterCreate['data'] ):
           adContr.resultInvalid.isTrue && value.offerFilterCreate['success'] == false ?  
            Container(
-            margin: EdgeInsets.only(top: Get.height/10),
+            margin: EdgeInsets.only(top: Get.height*0.00),
             child: Center(
               child: Text(
                 adContr.offerFilterCreate['errors'], style:TextStyle(fontSize: 25)

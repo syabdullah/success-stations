@@ -27,7 +27,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
          final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 final mapCon = Get.put(LocationController());
 final adfavUser = Get.put(UserFavController());
-  late LatLng _latLng;
+  late LatLng _latLng = LatLng(37.785834, -122.406417);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
@@ -45,13 +45,15 @@ final adfavUser = Get.put(UserFavController());
     _getUserLocation();
     var id = box.read('user_id');
     route = Get.arguments;
-    if(route != null )
+    if(route != null ){
     if(route[0] == 'near') {
        mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
     }else if (route[0] == 'city') {
       mapCon.getAllLocationByCity(route[1],id);
     }
+    }
     else{
+      print("..............dfpaesvpdb jdsbvoidfpbd oidvpdovd");
       mapCon.getAllLocationToDB();
     }   
   }
@@ -74,16 +76,13 @@ final adfavUser = Get.put(UserFavController());
   //  print("///.............-------.............>${data['user_name']['name']}");
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
-    //  setState(() {
       _markers.add(
         Marker(markerId: MarkerId(markersId),
-        // visible: visible,
         position: point,
         onTap: () {
           setState(() {
             visible = !visible;
-          });
-         
+          });        
           double rat = double.parse(data['user_name']['rating'].toString());       
           _customInfoWindowController.addInfoWindow!(            
             Column(
@@ -220,13 +219,12 @@ final adfavUser = Get.put(UserFavController());
       GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
-          print("--------------------------------------${val.allLoc}");
           if(val.allLoc != null)
            for(int i=0; i < val.allLoc['data']['data'].length; i++) {
             if(val.allLoc['data']['data'][i]['location'] != null){
-              //  print("--------------------------------------${val.allLoc}");
+               print("--------------------------------------${val.allLoc}");
               setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
-              // _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
+              _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
               }
           }
           return Stack(
@@ -258,22 +256,6 @@ final adfavUser = Get.put(UserFavController());
                   ),
                 ],
               ):
-        //        GetBuilder<LocationController>(
-        // init: LocationController(),
-        // builder: (val){
-        
-          // val.allLoc != null ?
-          //  for(int i=0; i < val.allLoc['data']['data'].length; i++) {
-            // if(val.allLoc['data']['data'][i]['location'] != null){
-            //   setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
-            //   _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
-            //   }
-            // print(ís ival.allLoc['data']['data'][i]['user_name']);
-           
-           
-          // return  allUsers(val.allLoc['data']['data']): CircularProgressIndicator();
-          
-          // }),
               GetBuilder<LocationController>( // specify type as Controller
               init: LocationController(), // intialize with the Controller
               builder: (value) {            
