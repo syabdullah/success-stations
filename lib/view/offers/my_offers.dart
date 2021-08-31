@@ -192,7 +192,12 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 10),
-                              child: Image.asset(AppImages.delete, height: 30)
+                              child: GestureDetector(
+                                onTap: (){
+                                  print(listFavou[c]['id']);
+                                  delete.deleteOfferController( listFavou[c]['id']);
+                                },
+                                child: Image.asset(AppImages.delete, height: 30))
                             ),
                           ],
                         )
