@@ -32,8 +32,7 @@ class _AdListTabState extends State<AdListTab> {
   void initState() {
     
      id = Get.arguments;
-    // controller.addedAllAds();
-      //  addsController.profileAds(indId);
+    
     userId = box.read('user_id');
     indId = box.read('selectedUser');
     friCont.profileAds(id);
@@ -61,7 +60,7 @@ class _AdListTabState extends State<AdListTab> {
 
   var catID;
   Widget adList(allDataAdds) {
-    //print("........WWWWWW...WWW........$id");
+    print("........WWWWWW...WWW........$id");
     return Container(
       height: Get.height,
       child: ListView.builder(
@@ -93,18 +92,17 @@ class _AdListTabState extends State<AdListTab> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: GestureDetector(
                                     child:
-                                        allDataAdds[index]['image'].length !=
-                                                0
+                                        allDataAdds[index]['image'].length != 0
                                             ? ClipRRect(
                                               borderRadius: BorderRadius.all(Radius.circular(10)),
                                               child: Image.network(
-                                                  allDataAdds[index]['image'][0]
-                                                      ['url'],
+                                                  allDataAdds[index]['image'][0]['url'],
                                                   width: Get.width / 5,
                                                   fit: BoxFit.fill,
                                                 ),
                                             )
-                                            : Container(
+                                            : 
+                                            Container(
                                                 width: Get.width / 5,
                                                 child: Icon(
                                                   Icons.image,
@@ -210,7 +208,7 @@ class _AdListTabState extends State<AdListTab> {
                       children: [
                         Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: allDataAdds[index]['created_by']!=null ?
+                            child: allDataAdds[index]['created_by']['image'] !=null ?
                             CircleAvatar(
                                 backgroundColor: Colors.grey[200],
                                 backgroundImage: NetworkImage(allDataAdds[index]['created_by']['image']['url']
