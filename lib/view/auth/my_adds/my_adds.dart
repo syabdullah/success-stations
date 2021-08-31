@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/ad_delete_controller.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -10,6 +12,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class MyAdds extends StatefulWidget {
@@ -21,6 +24,8 @@ class _MyAddsState extends State<MyAdds> {
   final controller = Get.put(AddBasedController());
   final controllerCat = Get.put(CategoryController());
    final friCont = Get.put(FriendsController()); 
+   final deleteAd = Get.put(AdDeletingController());
+   final adStatus = Get.put(AdPostingController());
   var listtype = 'list';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
@@ -28,6 +33,7 @@ class _MyAddsState extends State<MyAdds> {
   Color listIconColor = Colors.grey;
    bool liked = false;
   var lang;
+  bool _value = true;
   var userId;
   GetStorage box = GetStorage();
   @override
@@ -70,7 +76,7 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                  print("mejmej me j mje ${val.cData}");
+                  // print("mejmej me j mje ${val.cData}");
                 return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(
@@ -166,6 +172,7 @@ class _MyAddsState extends State<MyAdds> {
         ],
       );
     }
+  
 void _adsfiltringheet() {
     showModalBottomSheet<void>(
       context: context,
@@ -373,163 +380,189 @@ void _adsfiltringheet() {
   }
  ); 
 }
-
+  var deleteAdJson;
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
-       
+        
+        print("type...... ${allDataAdds[index]['category_id']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(),arguments: allDataAdds[index]['id']);
           },
-          child: Card(
-            child: Container(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Center(
-                        child: Container(
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              child:  allDataAdds[index]['media'].length != 0 ?
-                              Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
-                              Container(
-                                width: Get.width/4,
-                                 child: Icon(Icons.image,size: 50,),
-                              )
-                              // Image.asset(
-                              //   AppImages.profileBg
-                              // ),
-                            ),
-                          )
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  allDataAdds[index]['title'][lang] != null ? 
-                                  allDataAdds[index]['title'][lang]:'',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight:FontWeight.bold
-                                  ),
-                                ),
-                              ),
-                              // Expanded(
-                              //   flex : 2,
-                              //   child:  Row(
-                              //     children: [
-                              //       Icon(Icons.location_on, color:Colors.grey),
-                              //       Container(
-                              //         margin:EdgeInsets.only(left:29),
-                              //         child: Text(
-                              //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                              //           style: TextStyle(
-                              //             color: Colors.grey[300]
-                              //           ),
-                              //         ),
-                              //       )
-                              //     ],
-                              //   ),
-                              // ),
-                              Expanded(
-                                // flex : 2,
-                                child:  Row(
-                                  children: [
-                                  Icon(Icons.person, color:Colors.grey),
-                                  Container(
-                                    // margin:EdgeInsets.only(left:29),
-                                    child: Text(
-                                      allDataAdds[index]['contact_name']!= null ? allDataAdds[index]['contact_name']: '',
-                                      style: TextStyle(
-                                        color: Colors.grey[300]
-                                      ),
-                                    ),
-                                  )
-                                  ],
-                                ),
-                              ),
-                              // SizedBox(height: 8),
-                                // Expanded(
-                                //   flex:3,
-                                //   child: Container(
-                                //     margin: EdgeInsets.only(left:10),
-                                //     child: Row(
-                                //       children: [
-                                //         Icon(Icons.person, color:Colors.grey),
-                                //         Text(
-                                //           allDataAdds[index]['user']['name'],
-                                //           style: TextStyle(
-                                //             color: Colors.grey[300]
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
+          child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                allDataAdds[index]['is_active'] == 0 ?
+                Colors.white:Colors.transparent, BlendMode.softLight),
+              child: Card(
+              child: Container(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Center(
+                          child: Container(
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.all(10.0),
+                              child: GestureDetector(
+                                child:  allDataAdds[index]['media'].length != 0 ?
+                                Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
+                                Container(
+                                  width: Get.width/4,
+                                   child: Icon(Icons.image,size: 50,),
+                                )
+                                // Image.asset(
+                                //   AppImages.profileBg
                                 // ),
-                            ],
+                              ),
+                            )
                           ),
                         ),
-                      // ),
-                    ],
-                  ),
-                  SizedBox(height:20),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: 
-                        CircleAvatar(
-                          backgroundColor: Colors.grey[200],
-                          child: Icon(Icons.person)
-                          ) 
-                      ),
-
-                      Container(
-                        child:
-                        GetBuilder<FriendsController>(
-                          init: FriendsController(),
-                          builder: (val){
-                            return
-                            Row(
-                              children: [ 
-                                GestureDetector(
-                                  onTap: () {
-                                    var json = {
-                                        'ads_id' : allDataAdds[index]['id']
-                                      };
-                                      // setState(() {
-                                        liked = !liked;
-                                      // });
-                                      allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                                      controller.addedByIdAddes(catID, userId);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(right:5),
-                                    child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    allDataAdds[index]['title'][lang] != null ? 
+                                    allDataAdds[index]['title'][lang]:'',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight:FontWeight.bold
+                                    ),
                                   ),
                                 ),
-                                Image.asset(AppImages.call, height: 25),
+                             
+                                Expanded(
+                                  // flex : 2,
+                                  child:  Row(
+                                    children: [
+                                    GestureDetector(
+                                      onTap: (){
+                                         deleteAd.adDelete(allDataAdds[index]['id']);
+                                         controller.addedByIdAddes(catID, userId);
+                                      },
+                                      child: Image.asset(AppImages.delete,height: 30,)),
+                                    SizedBox(width: 3,),
+                                    GestureDetector(
+                                      onTap:(){
+                                        Get.to(AddPostingScreen(),arguments:allDataAdds[index]);
+                                      },
+                                      child: Image.asset(AppImages.edit,height: 30,))
+                                    
+                                    ],
+                                  ),
+                                ),
+                                // SizedBox(height: 8),
+                                  // Expanded(
+                                  //   flex:3,
+                                  //   child: Container(
+                                  //     margin: EdgeInsets.only(left:10),
+                                  //     child: Row(
+                                  //       children: [
+                                  //         Icon(Icons.person, color:Colors.grey),
+                                  //         Text(
+                                  //           allDataAdds[index]['user']['name'],
+                                  //           style: TextStyle(
+                                  //             color: Colors.grey[300]
+                                  //           ),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
                               ],
-                            );
-                          })
-                      )
-                    ],
-                  ),
-                ],
+                            ),
+                          ),
+                        // ),
+                      ],
+                    ),
+                    SizedBox(height:10),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: 
+                          Row(
+                            children: [
+                              // GestureDetector(
+                              //   onTap: (){
+                              //     Get.to(AddPostingScreen(),arguments:allDataAdds[index] );
+                              //   },
+                              //   child: CircleAvatar(
+                              //     radius: 10,
+                              //     backgroundColor: Colors.red,
+                              //     child: Icon(Icons.edit,color: Colors.white,)),
+                              // ),
+                              //   SizedBox(width: 3,),
+                              // CircleAvatar(
+                              //   backgroundColor: Colors.grey[200],
+                              //   child: GestureDetector(
+                              //     onTap: (){
+                              //     deleteAd.adDelete(allDataAdds[index]['id']);
+                              //     controller.addedByIdAddes(allDataAdds[index]['id'],allDataAdds[index]['category_id']);
+                              //     },
+                              //     child: Icon(Icons.person))
+                              //   ),
+                                
+                            ],
+                          ) 
+                        ),
+                        
+                        Container(
+                          child:
+                          GetBuilder<FriendsController>(
+                            init: FriendsController(),
+                            builder: (val){
+                              return
+                              Row(
+                                children: [ 
+                                  
+                                  GestureDetector(
+                                    onTap: () {
+                                      var json = {
+                                          'ads_id' : allDataAdds[index]['id']
+                                        };
+                                        // setState(() {
+                                          liked = !liked;
+                                        // });
+                                        allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                                        controller.addedByIdAddes(catID, userId);
+                                    },
+                                    child: Container(
+                                      // padding: EdgeInsets.only(right:5),
+                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                                    ),
+                                  ),
+                                
+                                ],
+                              );
+                            })
+                        
+                        ),
+                       Switch.adaptive(
+                         activeColor: Colors.blue,
+                         value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                        setState(() {
+                          allDataAdds[index]['is_active'] == 1 ?
+                          adStatus.deactiveAd(allDataAdds[index]['id']) :
+                          adStatus.activeAd(allDataAdds[index]['id']) ;
+                          controller.addedByIdAddes(catID, userId);
+                        });
+                      print(allDataAdds[index]['is_active']);
+                      }),   
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ),
+              ),
+          ),
         );
         },
     );
@@ -542,110 +575,140 @@ void _adsfiltringheet() {
         crossAxisCount: 2,
         children: List.generate(
           dataListValue.length, (index) {
-            return Container(
-              width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-              margin: EdgeInsets.only(left:15),
-              height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
-              child:  GestureDetector(
-                onTap: () {
-                  Get.to(AdViewScreen(),arguments: dataListValue[index]['id']);
-                },
-                child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                        child: Container(
-                          width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                          height: Get.height /8.0,
-                          child: dataListValue[index]['media'].length != 0 ?
-                                Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
-                                Container(
-                                  width: Get.width/4,
-                                  child: Icon(Icons.image,size: 50,),
-                                )
-                          // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+            return ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                dataListValue[index]['is_active'] == 0 ?
+                Colors.white:Colors.transparent, BlendMode.softLight),
+              child: Container(
+                width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
+                margin: EdgeInsets.only(left:15),
+                height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
+                child:  GestureDetector(
+                  onTap: () {
+                    Get.to(AdViewScreen(),arguments: dataListValue[index]['id']);
+                  },
+                  child: Card(
+                    
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                          child: Container(
+                            width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                            height: Get.height /8.0,
+                            child: dataListValue[index]['media'].length != 0 ?
+                                  Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
+                                  Container(
+                                    width: Get.width/4,
+                                    child: Icon(Icons.image,size: 50,),
+                                  )
+                            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: Text( dataListValue[index]['title'][lang] !=null ? dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
-                      ),
-                      // dataListValue[index]['user']['address'] == null ? Container(): 
-                      // Expanded(
-                      //   child:  Row(
-                      //     children: [
-                      //       Icon(Icons.location_on, color:Colors.grey),
-                      //       Container(
-                      //         child: Text(
-                      //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                      //           style: TextStyle(
-                      //             color: Colors.grey[300]
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
-                      Expanded(
-                        flex : 2,
-                        child:  Row(
-                          children: [
-                            SizedBox(width: 5),
-                            Icon(Icons.person, color:Colors.grey[400],),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: Text(
-                                dataListValue[index]['contact_name']!=null ? dataListValue[index]['contact_name']: '',
-                                style: TextStyle(
-                                  color: Colors.grey[300]
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: Text( dataListValue[index]['title'][lang] !=null ?
+                           dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                        ),
+                        // dataListValue[index]['user']['address'] == null ? Container(): 
+                        // Expanded(
+                        //   child:  Row(
+                        //     children: [
+                        //       Icon(Icons.location_on, color:Colors.grey),
+                        //       Container(
+                        //         child: Text(
+                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                        //           style: TextStyle(
+                        //             color: Colors.grey[300]
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        Expanded(
+                          // flex : 2,
+                          child:  Container(
+                            margin: EdgeInsets.only(left:10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                        deleteAd.adDelete(dataListValue[index]['id']);
+                                        controller.addedByIdAddes(catID, userId);
+                                    },
+                                    child: Image.asset(AppImages.delete,height: 30,)),
+                                  SizedBox(width: 3,),
+                                  GestureDetector(
+                                    onTap:(){
+                                      
+                                      Get.to(AddPostingScreen(),arguments:dataListValue[index]);
+                                    },
+                                    child: Image.asset(AppImages.edit,height: 30,))
+                                  
+                                  ],
                                 ),
-                              ),
-                            )
-                          ],
+                              Switch.adaptive(
+                         activeColor: Colors.blue,
+                         value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                        setState(() {
+                          dataListValue[index]['is_active'] == 1 ?
+                          adStatus.deactiveAd(dataListValue[index]['id']) :
+                          adStatus.activeAd(dataListValue[index]['id']) ;
+                          controller.addedByIdAddes(catID, userId);
+                        });
+                      print(dataListValue[index]['is_active']);
+                      }),   
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      // dataListValue[index]['user']['address'] == null ? Container(): 
-                      // Expanded(
-                      //   child:  Row(
-                      //     children: [
-                      //       Icon(Icons.location_on, color:Colors.grey),
-                      //       Container(
-                      //         child: Text(
-                      //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                      //           style: TextStyle(
-                      //             color: Colors.grey[300]
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
-                      // Expanded(
-                      //   flex : 2,
-                      //   child:  Row(
-                      //     children: [
-                      //       Icon(Icons.person, color:Colors.grey[400],),
-                      //       Container(
-                      //         child: Text(
-                      //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                      //           style: TextStyle(
-                      //             color: Colors.grey[300]
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
+                        
+                        // dataListValue[index]['user']['address'] == null ? Container(): 
+                        // Expanded(
+                        //   child:  Row(
+                        //     children: [
+                        //       Icon(Icons.location_on, color:Colors.grey),
+                        //       Container(
+                        //         child: Text(
+                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
+                        //           style: TextStyle(
+                        //             color: Colors.grey[300]
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        // Expanded(
+                        //   flex : 2,
+                        //   child:  Row(
+                        //     children: [
+                        //       Icon(Icons.person, color:Colors.grey[400],),
+                        //       Container(
+                        //         child: Text(
+                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
+                        //           style: TextStyle(
+                        //             color: Colors.grey[300]
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
+              ),
             );
           }
         )

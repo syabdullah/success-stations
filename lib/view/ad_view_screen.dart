@@ -37,8 +37,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   String? comment,myName;
   var user_image;
    @override
-  void initState() {
-    
+   void initState() {
     id = box.read('user_id');
     lang = box.read('lang_code');
     myName = box.read('name');
@@ -49,7 +48,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
     
-super.initState();
+  super.initState();
   }
   
   postComment() {

@@ -23,25 +23,6 @@ class StorePostAddesController extends GetxController {
     // isLoading = true;
     super.onInit();
   }
-
-  // storefOffersAAll(data) async {
-  //   isLoading = true;
-  //   await storeAddOffer(data).then((response){
-  //     if(response.statusCode == 200 || response.statusCode < 400){
-  //       storedOfferotp = jsonDecode(response.body);
-  //       isLoading = false;
-  //       myofferlistin.offerList();
-  //       Get.to(OffersDetail());
-  //       if(storedOfferotp['success']== true){
-  //         Get.snackbar(storedOfferotp['message'],'',backgroundColor: AppColors.appBarBackGroundColor);
-  //       }
-  //     }
-  //     if(response.statusCode >= 400){
-  //       Get.snackbar("Offers Entries Wrong",'',backgroundColor: AppColors.appBarBackGroundColor);
-  //     }
-  //   });
-  //   update();
-  // }
   storefOffersAAll(data) async {
     isLoading(true);
     await ApiHeaders().getData();
@@ -65,7 +46,6 @@ class StorePostAddesController extends GetxController {
 
 
   uploadMyAdd(data) async {
-    print("______))))))))))");
     await ApiHeaders().getData();
     final Config conf = Config();
     print(ApiHeaders().headersWithToken);

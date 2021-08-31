@@ -131,7 +131,6 @@ class FriendsController extends GetxController {
     isLoading = true;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-      // print("/././././.-----$userAds");
       print("......here the reo.....!!!!!!...!!!!>.......$userAds");
       isLoading = false;
     });
