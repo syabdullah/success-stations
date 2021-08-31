@@ -71,7 +71,7 @@ class _BottomTabsState extends State<BottomTabs> {
           onTap: onTabTapped,
         items: [
           BottomNavigationBarItem(
-            title: Text('Home', style: AppTextStyles.appTextStyle(
+            title: Text('home'.tr, style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
               ) 
             ),
@@ -79,21 +79,21 @@ class _BottomTabsState extends State<BottomTabs> {
             //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
             ),
           BottomNavigationBarItem(
-            title: Text('Offers', style: AppTextStyles.appTextStyle(
+            title: Text('offer'.tr, style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
               ) 
             ),
             icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
-              title: Text('Friends' ,style: AppTextStyles.appTextStyle(
+              title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                 ) 
               ),
               icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
-              title: Text('Locations', style: AppTextStyles.appTextStyle(
+              title: Text('location'.tr, style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 
                 ),
@@ -101,7 +101,7 @@ class _BottomTabsState extends State<BottomTabs> {
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('Ads',style: 
+              title: Text('ads'.tr,style: 
                 AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   )

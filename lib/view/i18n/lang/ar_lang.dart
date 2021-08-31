@@ -101,6 +101,7 @@ const Map<String, String> ar = {
   "notes": "ملاحظات",
   "previous": "السابق",
   "save_as_draft": "حفظ كمسودة",
+  "draft_ads":"مسودة الإعلانات",
   "publish": "ينشر",
   "details": "تفاصيل",
   "ad_posted_at": "تم نشر الإعلان في",
@@ -198,8 +199,8 @@ const Map<String, String> ar = {
   "please_select_your_language": "الرجاء اختيار لغتك",
   "please_enter_comment": "الرجاء إدخال تعليق",
   "request_pending": "الطلب معلق",
-  "new": "جديد",
-  "old": "قديم",
+  "New": "جديد",
+  'old': "قديم",
   "price": "سعر",
   "please_enter_password": "الرجاء إدخال كلمة المرور",
   "please_enter_email": "الرجاء إدخال البريد الإلكتروني",
@@ -208,6 +209,7 @@ const Map<String, String> ar = {
   'lastlocation':'اخر موقع',
   'about':'حول',
   'distance':'مسافه',
- 'memberShip':'يمكنك استخدام الخدمات التالية في شركة Pro'
-
+  'general':'جنرال لواء',
+  'message':'رسالة',
+  'drafted_ads':'الإعلانات المصاغة',
 };

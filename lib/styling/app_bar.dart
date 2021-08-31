@@ -166,7 +166,7 @@ Widget sAppbar(context ,icon,image,) {
                         children: [
                           Container(
                             margin:EdgeInsets.only(left:30),
-                            child: Text(AppString.filters,
+                            child: Text('filter'.tr,
                               style: TextStyle(
                                 fontSize: 20, color: Colors.black
                               )
@@ -201,7 +201,7 @@ Widget sAppbar(context ,icon,image,) {
                                _getUserLocation();
                             },
                             child: Container(
-                              child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                              child: Text("Nearby".tr,style: TextStyle(color: Colors.blue)),
                             ),
                           )
                         ],
@@ -213,7 +213,7 @@ Widget sAppbar(context ,icon,image,) {
                         key: formKey,
                         child: TextField(
                           decoration: InputDecoration(
-                            labelText: ('City'),
+                            labelText: ("city".tr),
                             // labelStyle: TextStyle(color: AppColors.basicColor),
                             prefixIcon: Icon(Icons.search),
                             border: OutlineInputBorder(
@@ -233,7 +233,7 @@ Widget sAppbar(context ,icon,image,) {
                           onSubmitted: (val) {
                              formKey.currentState!.save();
                             setState((){
-                              decideRouter = 'city';
+                              decideRouter = "city";
                               cityArray.add(val);
                               print("on saved ---- $cityArray");
                             });                          
