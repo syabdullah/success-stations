@@ -101,23 +101,23 @@ class _MyAddsState extends State<MyAdds> {
         children: [
           Row(
             children: [
-              InkWell(
-                onTap: (){ _adsfiltringheet();},
-                child: Container(
-                  margin: EdgeInsets.only(left:10),
-                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15) ,
-                  color: Colors.grey[200],
-                  child: Row(
-                    children: [
-                      Image.asset(AppImages.filter,height: 15),
-                      SizedBox(width:5),
-                      Text( 
-                        'filter'.tr,style: TextStyle(color: Colors.grey[700]),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: (){ _adsfiltringheet();},
+              //   child: Container(
+              //     margin: EdgeInsets.only(left:10),
+              //     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15) ,
+              //     color: Colors.grey[200],
+              //     child: Row(
+              //       children: [
+              //         Image.asset(AppImages.filter,height: 15),
+              //         SizedBox(width:5),
+              //         Text( 
+              //           'filter'.tr,style: TextStyle(color: Colors.grey[700]),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () {
                   Get.toNamed('/adPostingScreen');

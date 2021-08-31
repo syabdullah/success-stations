@@ -264,7 +264,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           Divider(),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
                             box.remove('user_image_local');
-                            
+                            box.write('upgrade', true);
                             logoutCont.userLogout();                            
                           },15.0 ),
                         ],
