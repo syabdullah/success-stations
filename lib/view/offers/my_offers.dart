@@ -108,23 +108,11 @@ class _MyOffersDetailState extends State<OffersDetail> {
       for(int c = 0 ; c < listFavou.length; c++ ){
         // print(" ID GET IT ${listFavou[c]['id']}");
         favrties.add(
-<<<<<<< HEAD
-          Container(
-            height: 100,
-            child:
-             Card(
-              child: ListTile(
-                onTap: (){
-                  // Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
-                   delete.deleteOffer(listFavou[c]['id']);
-
-=======
           Card(
             child: Container(
               child: ListTile(
                 onTap: (){
                   Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
->>>>>>> 1ab7dee7b8c44745333e527603bb4ad1638bdbc2
                 },
                 trailing: 
                     

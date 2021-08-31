@@ -78,8 +78,6 @@ var typeId;
     editData = Get.arguments;
     
     if(editData != null ) {
-      print(".....type-----$editData['type']['type]");
-      print(".....EEEEE-----$editData");
       adID = editData['id'];
       print("......a......$adID");
       titleController = TextEditingController(text: editData['title'][lang]);
@@ -91,6 +89,8 @@ var typeId;
       priceController = TextEditingController(text: editData['price']);
       fullNameController = TextEditingController(text: editData['contact_name']);
       selectedCategory = editData['category']['category'][lang];
+      subtypeId = editData['category_id'];
+      typeId = editData['type_id'];
       selectedtype = editData['type']['type']['en'];
       emailController = TextEditingController(text: editData['contact_email']);
       telePhoneController = TextEditingController(text: editData['telephone']);
@@ -182,7 +182,7 @@ var typeId;
               'phone': mobileNoController.text,
               'telephone': telePhoneController.text,
               'title':titleController.text,
-              'created_by': id.toString(),
+              // 'created_by': id.toString(),
               'email': emailController.text,
               'country_id': crid.toString(),
               'city_id':cid.toString(),
@@ -192,6 +192,7 @@ var typeId;
               'is_published':1,
               "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
+     print("...............$json");
      Get.find<AdPostingController>().finalAdEditing(json,adID);
     //  if(pickedFile != null) {
     //     try {
