@@ -109,11 +109,9 @@ deleteLocationToDB(id,userId) async {
       // allLoc = jsonDecode(value.body);
       lastLocation = jsonDecode(value.body);
       print("json decode response of offer.......>$allLoc");
-      isLoading = false;
     });
     update();
-  }
-
+   }
   userlocationList(id) async{
     print("controller call of the Favorite list");
     isLoading = true;
@@ -133,4 +131,5 @@ deleteLocationToDB(id,userId) async {
     });
     update();
   }
+   
 }

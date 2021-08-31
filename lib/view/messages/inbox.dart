@@ -47,6 +47,7 @@ class _InboxState extends State<Inbox> {
   }
 
 Widget chatListView(data){
+ 
   return ListTile(
     onTap: (){
        if(data['image'] != null){

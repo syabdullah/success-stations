@@ -49,7 +49,7 @@ final adfavUser = Get.put(UserFavController());
     if(route[0] == 'near') {
       //  mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
     }else if (route[0] == 'city') {
-      mapCon.getAllLocationByCity(route[1],id);
+      // mapCon.getAllLocationByCity(route[1],id);
     }
     }
     else{
