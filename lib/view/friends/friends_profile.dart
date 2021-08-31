@@ -239,17 +239,21 @@ class _FriendProfileState extends State<FriendProfile>
                 child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        choice = !choice;
                         if(dtaaa[0] == 'ads' && choice == false) {
                           var json = {
                             'friend_send_request_to': id
                           };
+                          choice = !choice;
                           print("...................$json");
                            friCont.sendFriend(json);
                         }
                         else if (choice == true) {
-                          friCont.deleteFriend(selectedUser);
+                          choice = !choice;
+                          // var reqid = friCont.sendReq['id'];
+                          // print("...................on");
+                          // friCont.deleteFriend(reqid);
                         } else {
+                          choice = !choice;
                           var json = {
                             'friend_send_request_to': requister
                           };
@@ -263,16 +267,16 @@ class _FriendProfileState extends State<FriendProfile>
                         decoration: BoxDecoration(
                             color: AppColors.appBarBackGroundColor,
                             borderRadius: BorderRadius.circular(50)),
-                        child: dtaaa[0] == 'ads' && choice == true  ?
+                        child: dtaaa[0] == 'ads' && choice == false  ?
                         Center(
-                          child:   Text(
-                                  "Add Friend",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                          child: Text(
+                            "Add Friend",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ):
                          Center(
-                          child: choice == false
-                              ? Text("Cancel", //
+                          child: choice == true
+                              ? Text("Sent", //
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))

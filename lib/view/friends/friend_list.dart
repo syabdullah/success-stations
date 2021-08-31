@@ -126,9 +126,9 @@ class _FriendListState extends State<FriendList> {
                   selected = box.write("selected", dataa[index]['id']);
                   requisterId = box.write("requister", dataa[index]['requister_id']);
                   Get.to(FriendProfile(),
-                  arguments: id != dataa[index]['requister_id']
-                  ? dataa[index]['requister_id']
-                  : dataa[index]['user_requisted']['id']);
+                  arguments: id == ['friend',dataa[index]['requister_id']]
+                  ? ['friend',dataa[index]['requister_id']]
+                  : ['friend',dataa[index]['user_requisted']['id']]);
                 },
                 child: Card(
                   child: Row(

@@ -240,10 +240,10 @@ class _LocationTabState extends State<LocationTab> {
                             ),
                           // SizedBox(height: 20),
                           Text(
-                            'distance',style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.bold)
+                            'Distance',style:  TextStyle(fontSize: 20, color: Colors.black)
                             ),
                             Text(
-                            _currentRangeValues.start.round().toString(),style:  TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.normal)
+                            "${_currentRangeValues.start.round().toString()} miles",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.normal)
                             ),
                              SizedBox(height: 10),
                             RangeSlider(

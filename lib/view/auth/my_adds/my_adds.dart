@@ -445,7 +445,8 @@ void _adsfiltringheet() {
                                     GestureDetector(
                                       onTap: (){
                                          deleteAd.adDelete(allDataAdds[index]['id']);
-                                         controller.addedByIdAddes(catID, userId);
+                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
+                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
                                       },
                                       child: Image.asset(AppImages.delete,height: 30,)),
                                     SizedBox(width: 3,),
@@ -453,7 +454,8 @@ void _adsfiltringheet() {
                                       onTap:(){
                                         Get.to(AddPostingScreen(),arguments:allDataAdds[index]);
                                       },
-                                      child: Image.asset(AppImages.edit,height: 30,))
+                                      child: Image.asset(AppImages.edit,height: 30,)
+                                    )
                                     
                                     ],
                                   ),
