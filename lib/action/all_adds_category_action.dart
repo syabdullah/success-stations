@@ -3,7 +3,6 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
 
 Future<http.Response> basedAddById(id,uId) async {
-  print(">>????????????????/////////////////////////////////////////////////$id");
   await ApiHeaders().getData();
   final Config config = Config();
   var url = uId == null ? Uri.parse("${config.baseUrl}ads/category/$id") :  Uri.parse("${config.baseUrl}ads/category/$id/$uId");

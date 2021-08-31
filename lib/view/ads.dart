@@ -48,7 +48,7 @@ class _AdsViewState extends State<AdsView> {
   void initState() {
     super.initState();
     
-    isVisible = box.read('upgrade');
+    // isVisible = box.read('upgrade');
     catCont.getCategoryNames();
     addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
@@ -58,8 +58,6 @@ class _AdsViewState extends State<AdsView> {
     newv = box.read('updare');
      userType = box.read('user_type');
      accounType = box.read('account_type');
-     print('../////asdad///// $accounType');
-     print('../////asdad///// $userType');
   }
   @override
   Widget build(BuildContext context) { 

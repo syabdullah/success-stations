@@ -27,6 +27,7 @@ import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/member_ship/member_ship.dart';
+import 'package:success_stations/view/membership/pro_indivual_membership.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:success_stations/view/offers/my_offers.dart';
 import 'package:dio/dio.dart' as dio;
@@ -215,9 +216,11 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.location, 'addlocation'.tr, () {
                             Get.to(MyLocations());
                           },15.0 ):
+                          CustomListTile(AppImages.location, 'addlocation'.tr, () {
+                            Get.to(MyLocations());
+                          },15.0 ),
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
-                          
-                            Get.to(MemberShip());
+                            Get.to(IndividualMemeberShip());
                           },13.2 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
                             Get.to(NotificationPage())
