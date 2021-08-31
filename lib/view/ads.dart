@@ -344,7 +344,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/3.5: Get.height/4.0,
+      height: Get.width < 420 ? Get.height/3.2: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -400,12 +400,7 @@ class _AdsViewState extends State<AdsView> {
                        
                          ],
                         ),
-                         Container(
-                          margin: EdgeInsets.only(top:6,right: 3),
-                          child: data[index]['price'] !=null ? Text(
-                           'SAR:${data[index]['price']}',style: TextStyle(fontSize: 13),
-                          ): Container()
-                        ),
+                         
                       ],
                     ),
                   ), 
@@ -423,7 +418,14 @@ class _AdsViewState extends State<AdsView> {
                         child: Text(allWordsCapitilize(data[index]['contact_name']),style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
                       ),
                     ],
-                  ),               
+                    
+                  ),
+                  Container(
+                          margin: EdgeInsets.only(top:6,left:6),
+                          child: data[index]['price'] !=null ? Text(
+                           'SAR:${data[index]['price']}',style: TextStyle(fontSize: 13),
+                          ): Container()
+                        ),               
                 ],
               ),
             ),
