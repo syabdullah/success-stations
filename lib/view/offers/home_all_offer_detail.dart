@@ -102,41 +102,6 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                         // SizedBox(height:40)  
                       ],
                     )
-                    // Row(
-                    //   children: [
-                    //     Container(
-                    //       height:Get.height *0.04,
-                    //       color:Colors.blue,
-                    //       width: Get.width/1.3,
-                    //       child: Container(
-                    //         margin:EdgeInsets.only(left:12,top:3),
-                    //         child:  idIdId !=null && idIdId['url'] !=null ? Text(
-                    //           idIdId['url'], style:TextStyle(color:Colors.white, fontSize: 14), 
-                    //         ):Container()
-                    //       )
-                    //     ),
-                    //   ],
-                    // ),
-                    // Container(
-                    //   height:Get.height *0.04,
-                    //   width: Get.width/1.3,
-                    //   child: Container(
-                    //     margin:EdgeInsets.only(top:3),
-                    //     child: Text("DESCRIPTION:",
-                    //       style:TextStyle(color:Colors.black, fontSize: 16), 
-                    //     )
-                    //   )
-                    // ),
-                    // Container(
-                    //   height:Get.height *0.04,
-                    //   width: Get.width/1.3,
-                    //   child: Container(
-                    //     margin:EdgeInsets.only(top:3),
-                    //     child:idIdId['description']!=null  &&idIdId['description']['en']!=null ?   Text(
-                    //       idIdId['description']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
-                    //     ):Container()
-                    //   )
-                    // ),
                     
                   ],
                 )

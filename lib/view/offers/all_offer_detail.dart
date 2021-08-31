@@ -21,7 +21,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   @override
   void initState() {
     idIdId = Get.arguments;
-    print(".....................IF IF ID.......>$idIdId");
     super.initState();
   }
 
@@ -36,8 +35,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
+      ),
         child: AppDrawer(),
       ),
       body: SingleChildScrollView(
@@ -51,7 +49,9 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                 Container(
                   width: Get.width/1.1,
                   child:  idIdId !=null && idIdId['image'] !=null && idIdId['image']['url'] !=null ? 
-                  Image.network(idIdId['image']['url'], height:Get.height/2, fit:BoxFit.fitHeight ):Container()
+                  Image.network(idIdId['image']['url'], height:Get.height/2, fit:BoxFit.fitHeight ):Container(
+                    child: Icon(Icons.image,size: 50,),
+                  )
                 ),
                 Column(
                   children: [     
@@ -99,42 +99,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                         // SizedBox(height:40)  
                       ],
                     )
-                    // Row(
-                    //   children: [
-                    //     Container(
-                    //       height:Get.height *0.04,
-                    //       color:Colors.blue,
-                    //       width: Get.width/1.3,
-                    //       child: Container(
-                    //         margin:EdgeInsets.only(left:12,top:3),
-                    //         child:  idIdId !=null && idIdId['url'] !=null ? Text(
-                    //           idIdId['url'], style:TextStyle(color:Colors.white, fontSize: 14), 
-                    //         ):Container()
-                    //       )
-                    //     ),
-                    //   ],
-                    // ),
-                    // Container(
-                    //   height:Get.height *0.04,
-                    //   width: Get.width/1.3,
-                    //   child: Container(
-                    //     margin:EdgeInsets.only(top:3),
-                    //     child: Text("DESCRIPTION:",
-                    //       style:TextStyle(color:Colors.black, fontSize: 16), 
-                    //     )
-                    //   )
-                    // ),
-                    // Container(
-                    //   height:Get.height *0.04,
-                    //   width: Get.width/1.3,
-                    //   child: Container(
-                    //     margin:EdgeInsets.only(top:3),
-                    //     child:idIdId['description']!=null  &&idIdId['description']['en']!=null ?   Text(
-                    //       idIdId['description']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
-                    //     ):Container()
-                    //   )
-                    // ),
-                    
                   ],
                 )
             )
