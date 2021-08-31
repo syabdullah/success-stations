@@ -10,6 +10,7 @@ import 'package:readmore/readmore.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
+import 'package:success_stations/view/offers/all_offer_detail.dart';
 
 
 class OffersDetail extends StatefulWidget {
@@ -21,12 +22,12 @@ class _MyOffersDetailState extends State<OffersDetail> {
   final putData  = Get.put(MyOffersDrawerController());
   bool errorCheck = true;
 
-  allWordsCapitilize (String str) {
-    return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-      return word[0].toUpperCase() + leftText;
-    }).join(' ');
-  }
+  // allWordsCapitilize (String str) {
+  //   return str.toLowerCase().split(' ').map((word) {
+  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+  //     return word[0].toUpperCase() + leftText;
+  //   }).join(' ');
+  // }
   @override
   void initState() {
     putData.drawerMyOffer();
@@ -83,7 +84,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder:(val){
-                return  val.isLoading == true ? CircularProgressIndicator(): val.myofferListDrawer  !=null && val.myofferListDrawer['success'] == true  ? Column(
+                return  val.isLoading == true ? CircularProgressIndicator(): val.myofferListDrawer !=null  && val.myofferListDrawer['data'] !=null ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 ):
                 putData.resultInvalid.isTrue &&val.myofferListDrawer['success'] == false ? 
@@ -111,6 +112,10 @@ class _MyOffersDetailState extends State<OffersDetail> {
             child: Container(
               // margin: EdgeInsets.only(top:40),
               child: ListTile(
+                onTap: (){
+                  Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
+
+                },
                 leading: Container(
                   height: Get.height/2,
                   width: Get.width/4,
@@ -128,7 +133,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       children: [
                         Text(
                           listFavou[c]['text_ads']['en'] !=null ? 
-                          allWordsCapitilize(listFavou[c]['text_ads']['en'].toString()) :'', 
+                          listFavou[c]['text_ads']['en'].toString() :'', 
                           style: TextStyle(
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
                           )
@@ -147,7 +152,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     Container(
                       child: ReadMoreText(
                         listFavou[c]['description'] != null ?
-                        allWordsCapitilize(listFavou[c]['description']['en']) : "",
+                       listFavou[c]['description']['en'] : "",
                         style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
                         trimLines: 2,
                         colorClickableText: AppColors.appBarBackGroundColor,
@@ -158,7 +163,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     ),
                     SizedBox(height:5),
                     Container(
-                      child:  listFavou[c]['url'] != null ? Text(allWordsCapitilize(listFavou[c]['url']) ,
+                      child:  listFavou[c]['url'] != null ? Text(listFavou[c]['url'] ,
                         style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
                       ): Container()
                     ),
