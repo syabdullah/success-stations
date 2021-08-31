@@ -158,7 +158,7 @@ var idd;
                 index == 0 ? 
                 Container(
                   margin: EdgeInsets.only(left: 20,top:10, right: 12),
-                  child:Text("Recent Notifications",  
+                  child:Text("recent_notification".tr,  
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ var idd;
                 index == 2 ?
                 Container(
                   margin: EdgeInsets.only(left: 20,top:10, right: 12,bottom: 10),
-                  child:Text("Old Notifications",  
+                  child:Text("Old old_notification".tr,  
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

@@ -220,8 +220,9 @@ const Map<String, String> en = {
   'suggestion':'Suggestion',
   'frien_request':'Friend Request',
   'approve':'Approve',
-  'remove':'remove'
-  
+  'remove':'remove',
+  'recent_notification':'Recent Notification',
+  'old_notification':'old_notification'  
 
 };
 

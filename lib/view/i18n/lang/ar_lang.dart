@@ -221,6 +221,8 @@ const Map<String, String> ar = {
   'suggestion':'اقتراح',
   'frien_request':'طلب صداقة',
   'approve':'يوافق',
-  'remove':'إزالة'
+  'remove':'إزالة',
+  'recent_notification':'الإخطار الأخير',
+  'old_notification':'لإخطار القديم'
  
 };
