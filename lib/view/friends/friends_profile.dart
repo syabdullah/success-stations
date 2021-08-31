@@ -7,10 +7,6 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/view/messages/chat.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
@@ -36,16 +32,11 @@ class _FriendProfileState extends State<FriendProfile>
     super.initState();
     selectedUser = box.read("selected");
     requister = box.read("requister");
-    print("....here in main......seleceted user value...$selectedUser");
-    print("....here in main......requester user value...$requister");
 
     id = Get.arguments;
     print("../././...here the id.----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
-    //friCont.deleteFriend(id);
-    // _controller = DefaultTabController(length: 2, child: this.tabs(data));
-    // _controller = TabController(length: 2,vsync: this);
   }
 
   @override
@@ -61,7 +52,6 @@ class _FriendProfileState extends State<FriendProfile>
         body: GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
-              // print("----------././././///-----${val.friendProfileData}");
               return val.friendProfileData == null || val.userAds == null
                   ? SingleChildScrollView(
                       child: Container(
@@ -239,22 +229,13 @@ class _FriendProfileState extends State<FriendProfile>
                         choice = !choice;
                         if (choice == true) {
                           friCont.deleteFriend(selectedUser);
-                          print(
-                              "when....true,,,!!!!");
                         } else {
                           var json = {
-                            // 'requister_id' : id,
                             'friend_send_request_to': requister
                           };
-                          print(".....fa;se../////");
-                         // friCont.sendFriend(json);
-                          //friCont.getSuggestionsList();
                            friCont.sendFriend(json);
                         }
                       });
-
-                      print(
-                          "......send to delete controller..selected user....$selectedUser");
                     },
                     child: Container(
                         height: Get.height / 9 * 0.5,
@@ -272,9 +253,6 @@ class _FriendProfileState extends State<FriendProfile>
                                   "Add Friend",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                          // style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontWeight: FontWeight.bold)
                         ))))),
         FractionalTranslation(
           translation: const Offset(0.7, -0.5),
@@ -298,10 +276,13 @@ class _FriendProfileState extends State<FriendProfile>
                     width: 2,
                   )),
               child: Center(
-                  child: Text("Message",
-                      style: TextStyle(
-                          color: AppColors.appBarBackGroundColor,
-                          fontWeight: FontWeight.bold))),
+                child: Text("Message",
+                  style: TextStyle(
+                    color: AppColors.appBarBackGroundColor,
+                    fontWeight: FontWeight.bold
+                  )
+                )
+              ),
             ),
           ),
         ),
@@ -339,26 +320,6 @@ class _FriendProfileState extends State<FriendProfile>
                       'Ads',
                     ),
                   ])),
-          // TabBar(
-          //   labelColor: AppColors.appBarBackGroundColor,
-          //     unselectedLabelColor: Colors.red,
-          //   indicatorWeight: 5.0,
-
-          //   tabs: [
-          //     Tab(
-          //       child: Text("General",
-          //           style: TextStyle(
-          //               color: AppColors.appBarBackGroundColor,
-          //               fontWeight: FontWeight.bold)),
-          //     ),
-          //     Tab(
-          //       child: Text("Ads",
-          //           style: TextStyle(
-          //               color: AppColors.appBarBackGroundColor,
-          //               fontWeight: FontWeight.bold)),
-          //     ),
-          //   ],
-          // ),
         ),
       ],
     );
@@ -596,8 +557,7 @@ class _FriendProfileState extends State<FriendProfile>
                                   ),
                                   data['college'] != null
                                       ? Container(
-                                          margin: EdgeInsets.only(
-                                            top: 5,
+                                          margin: EdgeInsets.only(top: 5,
                                           ),
                                           child: Text(
                                               data['college']['college']
@@ -696,26 +656,30 @@ class _FriendProfileState extends State<FriendProfile>
               ),
               Card(
                 child: Container(
-                  padding: EdgeInsets.only(left: 20),
+                  //padding: EdgeInsets.only(left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Text("about".tr,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey))),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Text("about".tr,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey)
+                        )
+                      ),
                       data["about"] != null
-                          ? Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text(data["about"],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)))
-                          : Container()
+                        ? Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                          child: Text(data["about"],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)
+                          )
+                        )
+                        : Container()
                     ],
                   ),
                 ),
@@ -771,20 +735,6 @@ class _FriendProfileState extends State<FriendProfile>
                           SizedBox(
                             height: 5,
                           ),
-                          // Row(
-                          //   children: [
-                          //     Image.asset(
-                          //       AppImages.person,
-                          //       height: 15,
-                          //     ),
-                          //     SizedBox(width: 5),
-                          //     Container(
-                          //       child: Text(adsData[index]['contact_name'],
-                          //           style:
-                          //               TextStyle(fontWeight: FontWeight.w600)),
-                          //     ),
-                          //   ],
-                          // ),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -846,21 +796,6 @@ class _FriendProfileState extends State<FriendProfile>
                                       size: 20,
                                       color: Colors.black,
                                     )),
-
-                            // CircleAvatar(
-                            //   backgroundColor: Colors.grey[100],
-                            //   radius: 30,
-                            //   child: ClipRRect(
-                            //       borderRadius: BorderRadius.circular(50),
-                            //       child: image != nulljhj
-                            //           ? Image.network(
-                            //               image,
-                            //               height: 60,
-                            //               fit: BoxFit.fill,
-                            //             )
-                            //           : Image.asset(AppImages.person,
-                            //               fit: BoxFit.fill, height: 30)),
-                            // ),
                             SizedBox(
                               height: 5,
                             ),
