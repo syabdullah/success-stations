@@ -49,7 +49,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
     return Scaffold( 
       key: _scaffoldKey,
       appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch),
+        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
        ),
        drawer: Theme(
         data: Theme.of(context).copyWith(
@@ -102,14 +102,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
       ),
     );
   }
-
-
   List<Widget> allOffersWidget(listFavou) {
     List<Widget> favrties = [];
     if( listFavou !=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
         // print(" ID GET IT ${listFavou[c]['id']}");
         favrties.add(
+<<<<<<< HEAD
           Container(
             height: 100,
             child:
@@ -119,6 +118,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   // Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
                    delete.deleteOffer(listFavou[c]['id']);
 
+=======
+          Card(
+            child: Container(
+              child: ListTile(
+                onTap: (){
+                  Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
+>>>>>>> 1ab7dee7b8c44745333e527603bb4ad1638bdbc2
                 },
                 trailing: 
                     
@@ -129,8 +135,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
                 Container(
                   height: Get.height/2,
                   width: Get.width/4,
-                  child: listFavou[c]['image_ads'] != null && listFavou[c]['image_ads']['url']!= null? 
-                    Image.network( listFavou[c]['image_ads']['url'],
+                  child: listFavou[c]['image'] != null && listFavou[c]['image']['url']!= null? 
+                    Image.network( listFavou[c]['image']['url'],
                   ):Container(
                      child: Icon(Icons.image,size: 50,),
                   )

@@ -23,7 +23,6 @@ class _InboxState extends State<Inbox> {
     // _controller = TabController(length: 2,vsync: this); 
   }
  Widget messageList(data) {
-   print("..................$data");
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),

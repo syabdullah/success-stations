@@ -75,6 +75,8 @@
 	<string>Example: You should fill this in</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Example: You should fill this in</string>
+	<key>EnableBackgroundLocationUpdates</key>
+    <true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
