@@ -52,26 +52,15 @@ class _OfferListState extends State<OfferList> {
   var cardwidth;
   @override
    void initState() {
-<<<<<<< HEAD
-    offerFilterCont.offerFilter(json);
-=======
     // offerFilterCont.offerFilter(json);
->>>>>>> a17ca75caad322197494f96c35c92be574e9866c
     banner.bannerController();
     super.initState();
     usertype = box.read('user_type');
   }
-<<<<<<< HEAD
-  void dispose() {
-    offerFilterCont.offerFilter(json);
-    //banner.bannerController();
-    super.dispose();
-=======
   // void dispose() {
   //   offerFilterCont.offerFilter(json);
   //   //banner.bannerController();
   //   super.dispose();
->>>>>>> a17ca75caad322197494f96c35c92be574e9866c
 
   // }
   

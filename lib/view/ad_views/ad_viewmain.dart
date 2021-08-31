@@ -50,11 +50,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                       init: UserProfileController(), // intialize with the Controller
                       builder: (value) { 
                         return 
-<<<<<<< HEAD
                         value.userData2 != null && value.userData2['success'] != true ?
-=======
-                        value.userData2 != null?
->>>>>>> a17ca75caad322197494f96c35c92be574e9866c
                         topImage(value.userData2['data'])
                       : LinearProgressIndicator();
                     } 
