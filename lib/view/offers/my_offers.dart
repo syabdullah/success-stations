@@ -7,8 +7,6 @@ import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:readmore/readmore.dart';
-import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
@@ -110,6 +108,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
+<<<<<<< HEAD
               child: ListTile(
                 onTap: (){
                   Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
@@ -140,9 +139,75 @@ class _MyOffersDetailState extends State<OffersDetail> {
                           listFavou[c]['text_ads']['en'].toString() :'', 
                           style: TextStyle(
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
+=======
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Center(
+                        child: Container(
+                          height: Get.height / 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: (){
+                                Get.to(MyOfferDetailMain(), arguments: listFavou[c]);
+
+                              },
+                              child: listFavou[c]['image'] !=null &&  listFavou[c]['image']['url']!=null? 
+                              Image.network(
+                                listFavou[c]['image']['url'],
+                                width: Get.width / 4,
+                                fit: BoxFit.fill,
+                              )
+                              : Container(width: Get.width / 4,
+                                child: Icon(
+                                  Icons.image,size: 50,
+                                ),
+                              )
+                            ),
+>>>>>>> 95251da53e3e2b507f7c5a2d359287695d02e90d
                           )
                         ),
-                        Text(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  child: listFavou[c]['text_ads']['en']!=null ?  Text(
+                                   listFavou[c]['text_ads']['en'].toString(),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  ):Container(),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top:5),
+                              child: listFavou[c]['url']!=null  ?  
+                              Text(
+                                listFavou[c]['url'], style:TextStyle(color:Colors.blue)
+                              ):Container()
+                            )
+                          ]
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
                           listFavou[c]['status'] == 1 ? "NEW": 
                           listFavou[c]['status'] == 0 ? "OLD":
                           listFavou[c]['status'] == null ? '':'',
@@ -150,30 +215,24 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color:listFavou[c]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
                           )
                         )
-                      ],
-                    ),
-                    SizedBox(height:5),
-                    Container(
-                      child: ReadMoreText(
-                        listFavou[c]['description'] != null ?
-                       listFavou[c]['description']['en'] : "",
-                        style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
-                        trimLines: 2,
-                        colorClickableText: AppColors.appBarBackGroundColor,
-                        trimMode: TrimMode.Line,
-                        trimCollapsedText: 'Show more',
-                        trimExpandedText: 'Show less',
                       ),
-                    ),
-                    SizedBox(height:5),
-                    Container(
-                      child:  listFavou[c]['url'] != null ? Text(listFavou[c]['url'] ,
-                        style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
-                      ): Container()
-                    ),
-                  ],
-                ),
-                 
+                      Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(right: 10),
+                              child:  Image.asset(AppImages.edit, height: 30)
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              child: Image.asset(AppImages.delete, height: 30)
+                            ),
+                          ],
+                        )
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           )

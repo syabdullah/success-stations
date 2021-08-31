@@ -478,7 +478,7 @@ var catID;
           },
           child:
           allDataAdds[index]['is_active'] == 0 ? Container():
-           Card(
+          Card(
             child: Container(
               height: 100,
               child: Row(
@@ -588,25 +588,6 @@ var catID;
                                 ],
                               ),
                             ),
-                            
-                            // SizedBox(height: 8),
-                            // Expanded(
-                            //   flex:3,
-                            //   child: Container(
-                            //     margin: EdgeInsets.only(left:10),
-                            //     child: Row(
-                            //       children: [
-                            //         Icon(Icons.person, color:Colors.grey),
-                            //         Text(
-                            //           allDataAdds[index]['user']['name'],
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                             
                           ],
                         ),

@@ -49,6 +49,7 @@ var userId = box.read('user_id');
         child: Image.asset(image, height: 40),
       ), 
       actions: [
+        index == 3 ? 
         GestureDetector(
           onTap: index == 3 ?  () {
             filtrationModel(context);
@@ -59,7 +60,7 @@ var userId = box.read('user_id');
              AppImages.appBarSearch,color: Colors.white,width: 25.w,
             ),
           ),
-        )
+        ): Container()
       ],
       backgroundColor: AppColors.appBarBackGroundColor,
     );

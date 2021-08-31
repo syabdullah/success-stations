@@ -9,6 +9,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/offer_filtered.dart';
+import 'package:success_stations/view/offers/add_offers.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
 
 class OfferList extends StatefulWidget {
@@ -131,7 +132,7 @@ class _OfferListState extends State<OfferList> {
             ),
             GestureDetector(
               onTap: () {
-                //Get.toNamed('/adPostingScreen');
+               Get.to(AddOffersPage());
               },
               child:  usertype == 2 ? Container() :
               Container(
