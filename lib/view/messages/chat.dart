@@ -8,6 +8,7 @@ import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/messages/inbox.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+
 class ChattingPage extends StatefulWidget {
   _ChattingState createState() => _ChattingState();
 }

@@ -6,7 +6,8 @@ class OfferCategoryController extends GetxController {
   bool isLoading = false;
   List offeredList = [];
   var offerDattaTypeCategory;
-  var cData;
+  var iDBasedOffers;
+  var resultInvalid = false.obs; 
 
   @override
   void onInit() {
@@ -20,19 +21,25 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await offersCategory().then((value) {
       offerDattaTypeCategory = jsonDecode(value.body);
-      // for (int c = 0; c < offerDattaTypeCategory['data'].length; c++) {
-      //   offeredList.add(offerDattaTypeCategory['data'][c]);
-      // }
       isLoading = false;
     });
     update();
   }
 
-  offeraddedByIdAddes(id, userId) async {
-    isLoading = true;
-    await offersCategoryById(id, userId).then((res) {
-      cData = jsonDecode(res.body);
-      isLoading = false;
+    categorrOfferByID(id) async {
+      print(".....Ctaegory OFFER loadede.....>$id");
+      isLoading = true;
+     await offersCategoryById(id).then((res) {
+      iDBasedOffers = jsonDecode(res.body);
+      if(res.statusCode == 200 || res.statusCode <400){
+        resultInvalid(false);
+        isLoading = false;
+      }
+      else if(iDBasedOffers['success'] == false){
+        resultInvalid(true);
+       isLoading = false;
+
+      }
     });
     update();
   }

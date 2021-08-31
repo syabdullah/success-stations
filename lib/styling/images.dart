@@ -75,7 +75,7 @@ class AppImages {
 
   static String cross = imagePath + 'cross@3x.png';
   static String memberSuccess = imagePath + 'illustration@3x.png';
-   static String person = imagePath + "usernqame@3x.png";
+  static String person = imagePath + "usernqame@3x.png";
 
   //maps
 
@@ -85,5 +85,7 @@ class AppImages {
   static String edit = imagePath + 'edit.png';
   //addoffers
   static String addOfferImage  = imagePath +'Group 2108@3x.png';
-   static String locationimg  = imagePath +'location.png';
+  static String locationimg  = imagePath +'location.png';
+  //membership
+  static String memberShip = imagePath + 'company.png';
 }

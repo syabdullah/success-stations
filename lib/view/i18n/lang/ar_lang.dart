@@ -207,6 +207,7 @@ const Map<String, String> ar = {
   'lastoffers':'العروض الأخيرة',
   'lastlocation':'اخر موقع',
   'about':'حول',
-  'distance':'مسافه'
+  'distance':'مسافه',
+ 'memberShip':'يمكنك استخدام الخدمات التالية في شركة Pro'
 
 };

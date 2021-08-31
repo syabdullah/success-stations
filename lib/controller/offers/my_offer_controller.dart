@@ -23,10 +23,10 @@ class MyOffersDrawerController extends GetxController {
       myofferListDrawer = jsonDecode(res.body);
         if (res.statusCode == 200 || res.statusCode < 400) {
           resultInvalid(false);
-        isLoading = false;
-        // Get.offAllNamed('/tabs');
-      print("1----------2-------------3---------------------4---------------------$myofferListDrawer");
-      } else if (myofferListDrawer['success'] == false) {
+          isLoading = false;
+          // Get.offAllNamed('/tabs');
+         print("1----------2-------------3---------------------4---------------------$myofferListDrawer");
+        } else if (myofferListDrawer['success'] == false) {
         resultInvalid(true);
         isLoading = false;
       }
