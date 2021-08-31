@@ -38,7 +38,8 @@ class AddOffersState extends State<AddOffersPage> {
   var selectedtype;
   var selectedCategory, hintLinkingId;
   var subtypeId;
-  var statusSelected;
+  var statusSelected , imageName;
+  var postDataEdited,addedEditPosting, edittImage; 
   final formKey = GlobalKey<FormState>();
   var uiStatus,  hintTextCate, hintLinking, idCategory;
   TextEditingController textEditingController = TextEditingController();
@@ -51,6 +52,32 @@ class AddOffersState extends State<AddOffersPage> {
   TextEditingController telePhoneController = TextEditingController();
   TextEditingController textAddsController = TextEditingController();
    TextEditingController statusController = TextEditingController();
+
+   @override
+  void initState() {
+    super.initState();
+    postDataEdited =Get.arguments;
+
+    if(postDataEdited !=null){
+      print("postDataEditedpostDataEditedpostDataEdited$postDataEdited");
+      addedEditPosting = postDataEdited['id'];
+      hintTextCate = postDataEdited['category']['category_name']['en'];
+      idCategory= postDataEdited['category']['id'];
+      descriptionController= TextEditingController(text:postDataEdited['description']['en']);
+      titleController= TextEditingController(text: postDataEdited['text_ads']['en']);
+      urlContr= TextEditingController(text: postDataEdited['url']);
+      hintLinkingId= postDataEdited['link_to_listings'];
+      statusSelected= TextEditingController(text: postDataEdited['status'].toString() );
+      edittImage = postDataEdited['image']!=null ?postDataEdited['image']['url']:null;
+      imageName =  postDataEdited['image']!=null?  postDataEdited['image']['file_name']: null;
+      hintLinking=  postDataEdited['listing']['title']['en'];
+      print("...id...CAT.,............$idCategory");
+
+
+
+    }
+    
+  }
 
   var createdJson;
   GetStorage box = GetStorage();
@@ -96,7 +123,7 @@ class AddOffersState extends State<AddOffersPage> {
             'url': urlContr.text,
             'listing_id': hintLinkingId,
             'status': statusSelected,
-            'image':Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
+            'image': imageName != null ? imageName :Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
           print("add posting screen .....................................>$formData");
           Get.find<StorePostAddesController>().storefOffersAAll(formData); 
@@ -104,13 +131,26 @@ class AddOffersState extends State<AddOffersPage> {
       }
     }
   }
+
+ editPost() async {
+    var json = {
+      'category_id': idCategory,
+      'description': descriptionController.text,
+      'text_ads': titleController.text,
+      'url': urlContr.text,
+      'listing_id': hintLinkingId,
+      'status': statusSelected,
+      'image': imageName != null ? imageName :Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
+    };
+      Get.find<StorePostAddesController>().editOffersCategory(json,addedEditPosting);
+  }
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(50, context));
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      appBar: AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text('ADD OFFER'),centerTitle: true,),
+      appBar:  AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text( postDataEdited ==null ?'ADD OFFER':'EDIT OFFER'),centerTitle: true,),
       body: SingleChildScrollView(
         child:Form(
           key: formKey,
@@ -146,7 +186,7 @@ class AddOffersState extends State<AddOffersPage> {
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
                 buttonText: "PUBLISH",
-                callback: adOffersCreate,
+                callback: postDataEdited == null ?adOffersCreate: editPost,
               ),
               space20,
             ]
@@ -199,7 +239,7 @@ class AddOffersState extends State<AddOffersPage> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
                 hint: Text(
-                  statusSelected == null ? 'status'.tr : statusSelected == '1' ? 'New': 'Old',
+                  statusSelected == null ? 'status'.tr : statusSelected == 1 ? 'New': 'Old',
                   style: TextStyle(fontSize: 13, color: Colors.grey[800])
                 ),
                 dropdownColor: AppColors.inPutFieldColor,
@@ -215,7 +255,7 @@ class AddOffersState extends State<AddOffersPage> {
                 onChanged: (value) {
                   setState(() {
                     statusSelected = value;
-                    value == 'New' ? statusSelected = '1' : statusSelected = '0' ;
+                    value == 'New' ? statusSelected = 1 : statusSelected = 0 ;
                   });
                 },
               )
@@ -426,7 +466,10 @@ Widget offerDesc(){
                 getImage();
               },
               child: Center(
-                child: fileName !=null ? Image.file(File(image), fit:BoxFit.fitWidth, width:Get.width/1.1, height: Get.height/4.7):
+                child: fileName !=null ? Image.file(File(image), fit:BoxFit.fitWidth, width:Get.width/1.1,
+                 height: Get.height/4.7):
+                 edittImage != null ? Image.network(edittImage,fit: BoxFit.fill,width: Get.width/1.1,height: Get.height/4.7,):
+
                 Image.asset(AppImages.addOfferImage, height:90
                 )
               )

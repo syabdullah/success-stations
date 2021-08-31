@@ -37,7 +37,7 @@ class  AdPostingController extends GetxController {
      });
      update();
    }
-finalAdEditing(dataa,adID) async {
+  finalAdEditing(dataa,adID) async {
      print("..........'''''$adID");
      isLoading(true);
      await editAdPosting(dataa,adID).then((res) {    
