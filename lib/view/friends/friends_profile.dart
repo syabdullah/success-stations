@@ -30,14 +30,22 @@ class _FriendProfileState extends State<FriendProfile>
   var selectedUser;
   var requister;
   var textHolder;
+  var notifyid;
+  var adID;
   bool choice = false;
+  var dtaaa;
   @override
   void initState() {
     super.initState();
     selectedUser = box.read("selected");
     requister = box.read("requister");
 
-    id = Get.arguments;
+    dtaaa = Get.arguments;
+    // if(dtaaa[0] == 'ads') {
+    //   notifyid = dtaaa[1];
+    // }else
+    adID = dtaaa[1]; 
+    id = dtaaa[1];
     print("../././...here the id.----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
@@ -53,7 +61,8 @@ class _FriendProfileState extends State<FriendProfile>
       length: 2,
       child: 
       Scaffold(
-        body: GetBuilder<FriendsController>(
+        body: 
+        GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
               return val.friendProfileData == null || val.userAds == null
@@ -124,7 +133,7 @@ class _FriendProfileState extends State<FriendProfile>
                 widthFactor: 2.7,
                 child: Container(
                   child: Text(
-                    "PROFILE",
+                    "",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -141,11 +150,11 @@ class _FriendProfileState extends State<FriendProfile>
             Center(
               child: Container(
                 margin: EdgeInsets.only(
-                    left: 10.0, right: 10.0, top: Get.height / 8.5),
+                    left: 10.0, right: 10.0, top: Get.height / 15.5),
                 child: data['image'] != null
                     ? CircleAvatar(
                         backgroundImage: NetworkImage(data['image']['url']),
-                        radius: 50.0,
+                        radius: 20.0,
                       )
                     : CircleAvatar(
                         backgroundColor: Colors.grey,
@@ -231,7 +240,14 @@ class _FriendProfileState extends State<FriendProfile>
                     onTap: () {
                       setState(() {
                         choice = !choice;
-                        if (choice == true) {
+                        if(dtaaa[0] == 'ads' && choice == false) {
+                          var json = {
+                            'friend_send_request_to': id
+                          };
+                          print("...................$json");
+                           friCont.sendFriend(json);
+                        }
+                        else if (choice == true) {
                           friCont.deleteFriend(selectedUser);
                         } else {
                           var json = {
@@ -247,13 +263,20 @@ class _FriendProfileState extends State<FriendProfile>
                         decoration: BoxDecoration(
                             color: AppColors.appBarBackGroundColor,
                             borderRadius: BorderRadius.circular(50)),
-                        child: Center(
+                        child: dtaaa[0] == 'ads' && choice == true  ?
+                        Center(
+                          child:   Text(
+                                  "Add Friend",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                        ):
+                         Center(
                           child: choice == false
                               ? Text("Cancel", //
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))
-                              : Text(
+                              :  Text(
                                   "Add Friend",
                                   style: TextStyle(color: Colors.white),
                                 ),

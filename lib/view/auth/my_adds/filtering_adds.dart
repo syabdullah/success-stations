@@ -66,7 +66,8 @@ class _FilteredPageState extends State<FilteredAdds> {
           // onTap: () {
           //   Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
           // },
-          child: Card(
+          child: 
+          Card(
             child: Container(
               height: 100,
               child: Row(

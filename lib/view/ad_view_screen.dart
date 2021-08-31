@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/UseProfile/notifier_user.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdViewScreen extends StatefulWidget {
@@ -273,7 +274,7 @@ Widget titleStep(data) {
     trailing: 
       GestureDetector(
         onTap: () {
-          Get.to(NotifierUser(),arguments: data['created_by']['id']);
+          Get.to(FriendProfile(),arguments: ["ads",data['created_by']['id']]);
           print(data['created_by']['id']);
         },
         child: Text("${"see_profile".tr} >",style:
