@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
+import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -21,7 +22,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
 
   final putData  = Get.put(MyOffersDrawerController());
   bool errorCheck = true;
-
+  final delete = Get.put(UserOfferController());
   // allWordsCapitilize (String str) {
   //   return str.toLowerCase().split(' ').map((word) {
   //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
@@ -107,16 +108,25 @@ class _MyOffersDetailState extends State<OffersDetail> {
     List<Widget> favrties = [];
     if( listFavou !=null || listFavou.length !=null){
       for(int c = 0 ; c < listFavou.length; c++ ){
+        // print(" ID GET IT ${listFavou[c]['id']}");
         favrties.add(
-          Card(
-            child: Container(
-              // margin: EdgeInsets.only(top:40),
+          Container(
+            height: 100,
+            child:
+             Card(
               child: ListTile(
                 onTap: (){
-                  Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
+                  // Get.to(MyOfferDetailMain(),arguments: listFavou[c]);
+                   delete.deleteOffer(listFavou[c]['id']);
 
                 },
-                leading: Container(
+                trailing: 
+                    
+                   Image.asset(AppImages.delete,height: 30,),
+                   
+               
+                leading:  
+                Container(
                   height: Get.height/2,
                   width: Get.width/4,
                   child: listFavou[c]['image_ads'] != null && listFavou[c]['image_ads']['url']!= null? 
@@ -169,6 +179,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                     ),
                   ],
                 ),
+                 
               ),
             ),
           )
