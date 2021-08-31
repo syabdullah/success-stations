@@ -18,7 +18,7 @@ final mapCon = Get.put(LocationController());
 final formKey = new GlobalKey<FormState>();
 var dis,lat,long;
 var city;
-var currentPostion;
+var currentPostion; 
 var position;
 var decideRouter;
 GetStorage box = GetStorage();
@@ -351,7 +351,7 @@ Widget sAppbar(context ,icon,image,) {
                                 mapCon.getAllLocationByCity(cityArray,userId);
                                 Get.to(CustomInfoWindowExample(),arguments: [decideRouter,cityArray]);
                               }else {
-                                 mapCon.getAllLocationNearBy(end, position.latitude, position.longitude);
+                                //  mapCon.getAllLocationNearBy(end, position.latitude, position.longitude);
                                  Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
                               }
                              

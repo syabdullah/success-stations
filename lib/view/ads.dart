@@ -48,7 +48,7 @@ class _AdsViewState extends State<AdsView> {
   void initState() {
     super.initState();
     
-    // isVisible = box.read('upgrade');
+    isVisible = box.read('upgrade');
     catCont.getCategoryNames();
     addescontrollRefresh.myAddsCategory();
     catCont.getCategoryTypes();
