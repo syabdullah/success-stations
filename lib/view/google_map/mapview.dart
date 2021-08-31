@@ -47,9 +47,9 @@ final adfavUser = Get.put(UserFavController());
     route = Get.arguments;
     if(route != null ){
     if(route[0] == 'near') {
-       mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
+      //  mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
     }else if (route[0] == 'city') {
-      mapCon.getAllLocationByCity(route[1],id);
+      // mapCon.getAllLocationByCity(route[1],id);
     }
     }
     else{
@@ -424,9 +424,7 @@ final adfavUser = Get.put(UserFavController());
                                 style: TextStyle(fontSize: 13),
                               )),
                         ],
-                      ),
-                       
-                      
+                      ),                     
                       GestureDetector(
                         onTap: (){
                           adtofavJson = {
@@ -442,7 +440,8 @@ final adfavUser = Get.put(UserFavController());
                         },
                         child: 
                         userData['data'][index]['user_name']['is_user_favourite'] == false ?
-                        Image.asset(AppImages.blueHeart,height: 18,) : Image.asset(AppImages.heart)) 
+                        Image.asset(AppImages.blueHeart,height: 18,) : Image.asset(AppImages.heart)
+                      ) 
                     ],
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:success_stations/action/location_action/last_location_action.dart';
 import 'package:success_stations/action/location_action/save_location.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
@@ -11,6 +12,9 @@ class LocationController extends GetxController {
   var locData;
   var allLoc;
   var editLoc;
+    List offeredList = [];
+  var lastLocation;
+   var resultInvalid = false.obs;
    @override
   void onInit(){
     isLoading = true;
@@ -89,10 +93,11 @@ deleteLocationToDB(id,userId) async {
     update();
   }
 
-   getAllLocationNearBy(dis,lat,long) async{
+   getUserLocationNearBy(id,dis,lat,long) async{
     isLoading = true;
-    await getNearByLocation(dis,lat,long).then((value) {
-      allLoc = jsonDecode(value.body);
+    await getNearByLocation(id,dis,lat,long).then((value) {
+      // allLoc = jsonDecode(value.body);
+      lastLocation = jsonDecode(value.body);
       isLoading = false;
     });
     update();
@@ -101,10 +106,30 @@ deleteLocationToDB(id,userId) async {
    getAllLocationByCity(city,id) async {
     isLoading = true;
     await getCityLocation(city,id).then((value) {
-      allLoc = jsonDecode(value.body);
+      // allLoc = jsonDecode(value.body);
+      lastLocation = jsonDecode(value.body);
       print("json decode response of offer.......>$allLoc");
-      isLoading = false;
+    });
+    update();
+   }
+  userlocationList(id) async{
+    print("controller call of the Favorite list");
+    isLoading = true;
+    await lastLocatin(id).then((value) {
+      print("Last Locations $value");
+      lastLocation = jsonDecode(value.body);
+      print("Last Locations $lastLocation");
+      // isLoading = false;
+      if (value.statusCode == 200 || value.statusCode < 400) {
+        resultInvalid(false);
+        isLoading = false;
+      }
+      else if (lastLocation['success'] == false) {
+        resultInvalid(false);
+        isLoading = false;
+      }
     });
     update();
   }
+   
 }

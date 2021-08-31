@@ -7,6 +7,10 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/messages/chat.dart';
+import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/utils/skalton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
