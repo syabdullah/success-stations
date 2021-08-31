@@ -61,11 +61,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   late String image;
   var editImage;
   var fileName;
-var id,cid,rid,crid ;
+var id,cid,rid,crid , adID;
 var uploadedImage;
 var lang;
 var editData;
 var imageName;
+var typeId;
   @override
   void initState() {
     super.initState();
@@ -75,24 +76,29 @@ var imageName;
     crid = box.read('country_id');
     lang = box.read('lang_code');
     editData = Get.arguments;
-    // if(editData != null ) {
-    //   print(".....EEEEE-----$editData");
-    //   titleController = TextEditingController(text: editData['title'][lang]);
-    //   selectedStatus =  editData['status'];
-    //   descController =  TextEditingController(text: editData['description'][lang]);
-    //   editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;     
-    //   imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
-    //    print(".....EEEEE-----$imageName");
-    //   priceController = TextEditingController(text: editData['price']);
-    //   fullNameController = TextEditingController(text: editData['contact_name']);
-    //   selectedCategory = editData['category']['category'][lang];
-    //   // selectedtype = editData['type']['type'][lang];
-    //   emailController = TextEditingController(text: editData['email']);
-    //   telePhoneController = TextEditingController(text: editData['telephone']);
-    //   mobileNoController = TextEditingController(text: editData['phone']);
-    // }
-    // catogoryController.getCategoryNames();
-    // catogoryController.getCategoryTypes();
+    
+    if(editData != null ) {
+      print(".....type-----$editData['type']['type]");
+      print(".....EEEEE-----$editData");
+      adID = editData['id'];
+      print("......a......$adID");
+      titleController = TextEditingController(text: editData['title'][lang]);
+      selectedStatus =  editData['status'];
+      descController =  TextEditingController(text: editData['description'][lang]);
+      editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;     
+      imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
+      //  print(".....EEEEE-----$imageName");
+      priceController = TextEditingController(text: editData['price']);
+      fullNameController = TextEditingController(text: editData['contact_name']);
+      selectedCategory = editData['category']['category'][lang];
+      selectedtype = editData['type']['type']['en'];
+      emailController = TextEditingController(text: editData['contact_email']);
+      telePhoneController = TextEditingController(text: editData['telephone']);
+      mobileNoController = TextEditingController(text: editData['phone']);
+    
+    }
+    catogoryController.getCategoryNames();
+    catogoryController.getCategoryTypes();
 
   }
   Future getImage() async {
@@ -130,14 +136,63 @@ var imageName;
               'telephone': telePhoneController.text,
               'title':titleController.text,
               'created_by': id.toString(),
-              'email': emailController.text,
+              'contact_email': emailController.text,
               'country_id': crid.toString(),
               'city_id':cid.toString(),
               'region_id': rid.toString(),
+              'is_active' : 1,
+              'type_id': typeId,
               'is_published':1,
               "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
      Get.find<AdPostingController>().finalAdPosting(json);
+    //  if(pickedFile != null) {
+    //     try {
+    //       dio.FormData formData = dio.FormData.fromMap({            
+    //          'category_id' : subtypeId,
+    //           'status': selectedStatus,
+    //           'description': descController.text,
+    //           'price': priceController.text,
+    //           'contact_name': fullNameController.text,
+    //           'mobile_no': mobileNoController.text,
+    //           'tel_no': telePhoneController.text,
+    //           'title':titleController.text,
+    //           'created_by': id.toString(),
+    //           'email': emailController.text,
+    //           'country_id': crid.toString(),
+    //           'city_id':cid.toString(),
+    //           'region_id': rid.toString(),
+    //           "image": Get.find<AdPostingController>().adUpload['name'],            
+    //       }); 
+    //       print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
+    //       Get.find<AdPostingController>().finalAdPosting(formData); 
+    //     } catch (e) {
+    //         print("...............$e");
+    //     }
+    //   }
+  
+  }
+  editpost() async{ 
+     var json = {
+       'category_id' : subtypeId,
+              'status': selectedStatus,
+              'description': descController.text,
+              'price': priceController.text,
+              'contact_name': fullNameController.text,
+              'phone': mobileNoController.text,
+              'telephone': telePhoneController.text,
+              'title':titleController.text,
+              'created_by': id.toString(),
+              'email': emailController.text,
+              'country_id': crid.toString(),
+              'city_id':cid.toString(),
+              'region_id': rid.toString(),
+              'is_active' : 1,
+              'type_id': typeId,
+              'is_published':1,
+              "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
+     };
+     Get.find<AdPostingController>().finalAdEditing(json,adID);
     //  if(pickedFile != null) {
     //     try {
     //       dio.FormData formData = dio.FormData.fromMap({            
@@ -434,6 +489,7 @@ Widget istStep(List list,List types){
                             subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
+                            print(subtypeId);
                           });
                         },
                       )
@@ -475,8 +531,9 @@ Widget istStep(List list,List types){
                           setState(() {
                             adsubCategory = val as Map;
                             selectedtype = adsubCategory['type'][lang];
-                            // subtypeId =adsubCategory['id'];
-                            // print(subtypeId);
+                            print(selectedtype);
+                             typeId =adsubCategory['id'];
+                             print(typeId);
                             
                           });
                         },
@@ -863,7 +920,7 @@ Widget secondStep(){
         width: Get.width,
         child: Card(
           child:Padding(
-          padding: const EdgeInsets.only(top:15,left:30),
+          padding: const EdgeInsets.only(top:15,left:50),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -893,7 +950,8 @@ Widget secondStep(){
         fontWeight: FontWeight.bold)),
         onPressed: () { 
           print("..........");
-        adpost();
+          editData == null ?
+        adpost():editpost();
         // Get.off(MyAdds());
         },
         child: Text("publish".tr),

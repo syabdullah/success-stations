@@ -15,6 +15,8 @@ class  AdPostingController extends GetxController {
   var adpost;
   var adUpload;
   var postComment;
+  var editAd;
+  var adact,addct;
    RxBool isLoading = false.obs;
    finalAdPosting(dataa) async {
      print("..........'''''$dataa");
@@ -35,26 +37,24 @@ class  AdPostingController extends GetxController {
      });
      update();
    }
-  //   finalAdPosting(data) async {
-  //     await ApiHeaders().getData();
-  //     final Config conf = Config();
-  //       print("object----------------------${ApiHeaders().headersWithToken}");
-  //     String url =conf.baseUrl + "ads";
-  //     Dio dio = Dio();
-  //       response.Response result =
-  //       await dio.post(url, data: data,options:Options(
-  //         followRedirects: false,
-  //         headers: ApiHeaders().headersWithToken));
-  //   // await updateProfile(data).then((res) {
-  //      print("object----------------------$result");
-  //     adpost = result.data;
-  //     if(result.data['success'] == true){
-  //        isLoading(true);
-  //        Get.off(MyAdds());
-  //        Get.snackbar("Ad successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
-  //     } 
-  //   update();
-  // }
+finalAdEditing(dataa,adID) async {
+     print("..........'''''$adID");
+     isLoading(true);
+     await editAdPosting(dataa,adID).then((res) {    
+      var editAd = jsonDecode(res.body);
+      print(res.statusCode);
+        print(editAd);
+      if(res.statusCode == 200 || res.statusCode < 400){
+        // editAd = jsonDecode(res.body); 
+        Get.off(MyAdds());
+        Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
+        isLoading(false);      
+      } if(res.statusCode >=  400){
+          Get.snackbar("${editAd['errors']}",'',backgroundColor: AppColors.appBarBackGroundColor);
+      }
+     });
+     update();
+   }
     finalAdDrafting(data) async {
       await ApiHeaders().getData();
       final Config conf = Config();
@@ -112,6 +112,42 @@ class  AdPostingController extends GetxController {
       } if(res.statusCode >=  400){
           Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
       }
+     });
+     update();
+   }
+    activeAd(dataa) async {
+     print("..........'''''$dataa");
+     isLoading(true);
+     await adActive(dataa).then((res) {    
+      var adact = jsonDecode(res.body);
+    
+      print(res.statusCode);
+        print(adact);
+      // if(res.statusCode == 200 || res.statusCode < 400){
+      
+    
+      //   Get.snackbar("Ad Active",'',backgroundColor: AppColors.appBarBackGroundColor);
+      //   isLoading(false);      
+      // } if(res.statusCode >=  400){
+      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
+      // }
+     });
+     update();
+   }
+    deactiveAd(dataa) async {
+     print("..........'''''$dataa");
+     isLoading(true);
+     await adDeActive(dataa).then((res) {    
+      var addct = jsonDecode(res.body);
+      print(res.statusCode);
+        print(addct);
+      // if(res.statusCode == 200 || res.statusCode < 400){
+       
+      //   Get.snackbar("Ads Deactive ",'',backgroundColor: AppColors.appBarBackGroundColor);
+      //   isLoading(false);      
+      // } if(res.statusCode >=  400){
+      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
+      // }
      });
      update();
    }

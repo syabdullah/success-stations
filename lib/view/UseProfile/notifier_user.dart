@@ -45,7 +45,7 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
         builder:(val) {
           print(val.userData2);
           return 
-          val.userData!= null ? Column(
+          val.userData!= null  || val.userData2 != null ? Column(
             children: [
              profileDetail(val.userData2['data']),
              general(val.userData2['data'])

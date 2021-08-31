@@ -32,6 +32,17 @@ class _AboutTabState extends State<AboutTab> {
     lastLoc.userlocationList(id);
     super.initState();
   }    
+  // @override
+  // void dispose() {
+  //  id = Get.arguments;
+  //   print(id);
+  //   userProfile.getUseradProfile(id);
+  //   lastads.userOfferList(id);
+  //   userOffers.userOfferList(id);
+  //   lastLoc.userlocationList(id);
+  //   super.dispose();
+
+  // }
   
   int offer = 0;
   @override
@@ -138,8 +149,8 @@ Widget detail(userData2){
                   SizedBox(height: 15),
                   Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  userData2['name'] != null ?
-                  Text(userData2['name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),): Container(),
+                  userData2['name'] == null ? Container():
+                  Text(userData2['name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                   SizedBox(height: 15),
                     Text("${'mobile'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
@@ -160,8 +171,8 @@ Widget detail(userData2){
                   SizedBox(height: 15),
                   Text("${'address'.tr}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                   SizedBox(height: 7),
-                  userData2['address'] != null ?
-                  Text(userData2['address'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):Container(),
+                  userData2['address'] == null ? Container() : 
+                  Text(userData2['address'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                   SizedBox(height: 10),
                   
                 ],

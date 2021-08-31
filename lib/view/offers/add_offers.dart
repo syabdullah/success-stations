@@ -121,6 +121,7 @@ class AddOffersState extends State<AddOffersPage> {
               GetBuilder<OfferCategoryController>(
                 init: OfferCategoryController(),
                 builder: (val){
+                  print(".....................................${val.offerDattaTypeCategory}");
                   return addsOffers(val.offeredList);
                 },
               ),

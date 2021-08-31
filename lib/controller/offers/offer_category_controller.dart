@@ -20,6 +20,7 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await offersCategory().then((value) {
       offerDattaTypeCategory = jsonDecode(value.body);
+      print(offerDattaTypeCategory);
       // for (int c = 0; c < offerDattaTypeCategory['data'].length; c++) {
       //   offeredList.add(offerDattaTypeCategory['data'][c]);
       // }

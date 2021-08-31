@@ -50,7 +50,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                       init: UserProfileController(), // intialize with the Controller
                       builder: (value) { 
                         return 
-                        value.userData2 != null ?
+                        value.userData2 != null && value.userData2['success'] != true ?
                         topImage(value.userData2['data'])
                       : LinearProgressIndicator();
                     } 
@@ -102,7 +102,6 @@ Widget topImage(userData2){
              centerTitle: true,
               title:  userData2['name'] != null ?
                  Center(
-                 
                    child: Text(userData2['name'],
                    style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
                   ),
