@@ -93,11 +93,10 @@ class _AllAddsState extends State<AllAdds> {
       body: Column(
         children: [
           topWidget(),
-          
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true ? CircularProgressIndicator()   : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
+              return data.isLoading == true ? CircularProgressIndicator()  : data.subCatt != null  ? addsCategoryWidget(data.subCatt['data'])  : Container();
             },
           ), 
           Expanded(
@@ -796,7 +795,7 @@ var catID;
 
   void navigateToGoogleLogin() {}
 
-  Widget addsCategoryWidget(listingCategoriesData) {;
+  Widget addsCategoryWidget(listingCategoriesData) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

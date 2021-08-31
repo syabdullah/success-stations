@@ -1,16 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/user_fav_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:clippy_flutter/triangle.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 
 class CustomInfoWindowExample extends StatefulWidget {
   @override
@@ -21,43 +24,66 @@ class CustomInfoWindowExample extends StatefulWidget {
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
+         final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 final mapCon = Get.put(LocationController());
 final adfavUser = Get.put(UserFavController());
-   LatLng _latLng = LatLng(28.7041, 77.1025);
+  late LatLng _latLng = LatLng(37.785834, -122.406417);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
       //  Marker _markers = [];
          List<Marker> _markers = [];
   var adtofavJson,remtofavJson;
-
+   var route;
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey; 
   GetStorage box = GetStorage();
+  bool visible = false;
     @override
   void initState() {
     super.initState();
+    _getUserLocation();
     var id = box.read('user_id');
-    mapCon.getAllLocationToDB();
+    route = Get.arguments;
+    if(route != null ){
+    if(route[0] == 'near') {
+      //  mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
+    }else if (route[0] == 'city') {
+      // mapCon.getAllLocationByCity(route[1],id);
+    }
+    }
+    else{
+      print("..............dfpaesvpdb jdsbvoidfpbd oidvpdovd");
+      mapCon.getAllLocationToDB();
+    }   
   }
 
+  _getUserLocation() async {
+    position  = await GeolocatorPlatform.instance
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      _latLng =  LatLng(position.latitude, position.longitude);
+      print("///.............-------.............>$_latLng");
+    });
+  }
   @override
   void dispose() {
     _customInfoWindowController.dispose();
     super.dispose();
   }
  void setMarkers(LatLng point, data) {
-  
+  //  print("///.............-------.............>${data['user_name']['name']}");
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
-    //  setState(() {
       _markers.add(
         Marker(markerId: MarkerId(markersId),
         position: point,
         onTap: () {
-          print("///.............-------.............>${data['user_name']['name']}");
-          double rat = double.parse(data['user_name']['rating'].toString());
-           
+          setState(() {
+            visible = !visible;
+          });        
+          double rat = double.parse(data['user_name']['rating'].toString());       
           _customInfoWindowController.addInfoWindow!(            
             Column(
               children: [
@@ -78,54 +104,69 @@ final adfavUser = Get.put(UserFavController());
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
-                              child: data['user_name']['image'] != null ? Image.network(data['user_name']['image']['url']) : Container(
-                                width: Get.width/4,
-                                child: Image.asset(AppImages.location,width: 50,fit: BoxFit.fill,height: 50))),
+                            data['user_name']['image'] != null ?
+                            Container(
+                              width: Get.width/5,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(15),bottom:Radius.circular(15) ),
+                                child:  Image.network(data['user_name']['image']['url'])),
+                            )
+                               : Container(
+                                 height: Get.height/3,
+                                 width: Get.width/5.5,
+                                 color: Colors.grey[100],
+                                margin: EdgeInsets.all(20 ),
+                                child: Icon(Icons.image,size: 60)
+                              ),
                             SizedBox(
                               width: 8.0,
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(top: 10,left: 15),
                                       child: RatingBar.builder(
                                         initialRating: rat ,
                                         minRating: 1,
                                         direction: Axis.horizontal,
+                                        ignoreGestures: true,
                                         allowHalfRating: true,
+                                        // tapOnlyMode: false,
                                         itemCount: 5,
-                                        itemSize: 13.5,
+                                        itemSize: 19.5,
                                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
                                         itemBuilder: (context, _) => Icon(
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
-                                        onRatingUpdate: (rating) {
+                                        onRatingUpdate: 
+                                        (rating) {
                                           print(rating);
-                                        },
+                                        },  
                                       ),
                                     ),
                                       Container(
                                         margin: EdgeInsets.only(top: 10,left:10),
-                                        child: Text(data['user_name']['rating_count'].toString(),
-                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                        child: Text("(${data['user_name']['rating_count'].toString()})",
+                                          style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,),
                                         ),
                                       ),
                                   ],
                                 ),
                                
                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
+                                  width: Get.width/4,
+                                  margin: EdgeInsets.only(top: 10,left:15),
                                   child: Text(
                                     data['user_name']['name'],
-                                    style:
-                                        Theme.of(context).textTheme.headline6!.copyWith(
-                                              color: Colors.grey,
-                                            ),
+                                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
+                                        // Theme.of(context).textTheme.headline6!.copyWith(
+                                        //       color: Colors.black,
+                                        //     ),
                                   ),
                                 ),
                               ],
@@ -164,14 +205,24 @@ final adfavUser = Get.put(UserFavController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: route != null ?     
+       PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)) : null,
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body:  
       GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
-        
           if(val.allLoc != null)
            for(int i=0; i < val.allLoc['data']['data'].length; i++) {
             if(val.allLoc['data']['data'][i]['location'] != null){
+               print("--------------------------------------${val.allLoc}");
               setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
               _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
               }
@@ -205,22 +256,6 @@ final adfavUser = Get.put(UserFavController());
                   ),
                 ],
               ):
-        //        GetBuilder<LocationController>(
-        // init: LocationController(),
-        // builder: (val){
-        
-          // val.allLoc != null ?
-          //  for(int i=0; i < val.allLoc['data']['data'].length; i++) {
-            // if(val.allLoc['data']['data'][i]['location'] != null){
-            //   setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
-            //   _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
-            //   }
-            // print(ís ival.allLoc['data']['data'][i]['user_name']);
-           
-           
-          // return  allUsers(val.allLoc['data']['data']): CircularProgressIndicator();
-          
-          // }),
               GetBuilder<LocationController>( // specify type as Controller
               init: LocationController(), // intialize with the Controller
               builder: (value) {            
@@ -289,7 +324,7 @@ final adfavUser = Get.put(UserFavController());
   }
   Widget allUsers(userData){
     print(":';';';';';';';'%%%%%%------$userData");
-  return GridView.builder(
+    return GridView.builder(
       padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
       primary: false,
       // padding: const EdgeInsets.all(0),
@@ -389,9 +424,7 @@ final adfavUser = Get.put(UserFavController());
                                 style: TextStyle(fontSize: 13),
                               )),
                         ],
-                      ),
-                       
-                      
+                      ),                     
                       GestureDetector(
                         onTap: (){
                           adtofavJson = {
@@ -407,7 +440,8 @@ final adfavUser = Get.put(UserFavController());
                         },
                         child: 
                         userData['data'][index]['user_name']['is_user_favourite'] == false ?
-                        Image.asset(AppImages.blueHeart,height: 18,) : Image.asset(AppImages.heart)) 
+                        Image.asset(AppImages.blueHeart,height: 18,) : Image.asset(AppImages.heart)
+                      ) 
                     ],
                   ),
                 ],

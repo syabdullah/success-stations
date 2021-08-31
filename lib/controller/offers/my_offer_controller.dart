@@ -9,13 +9,6 @@ class MyOffersDrawerController extends GetxController {
   var resultInvalid = false.obs;
   bool isLoading = false;
 
-  //  @override
-  // void onInit(){
-  //   isLoading = true;
-  //   drawerMyOffer();
-  //   super.onInit();
-  // }
-
   drawerMyOffer() async{
     print("offer list Api ....................... ");
     isLoading = true;
@@ -23,10 +16,8 @@ class MyOffersDrawerController extends GetxController {
       myofferListDrawer = jsonDecode(res.body);
         if (res.statusCode == 200 || res.statusCode < 400) {
           resultInvalid(false);
-        isLoading = false;
-        // Get.offAllNamed('/tabs');
-      print("1----------2-------------3---------------------4---------------------$myofferListDrawer");
-      } else if (myofferListDrawer['success'] == false) {
+          isLoading = false;
+        } else if (myofferListDrawer['success'] == false) {
         resultInvalid(true);
         isLoading = false;
       }

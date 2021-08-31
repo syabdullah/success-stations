@@ -16,6 +16,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dio/dio.dart' as dio;
 // import 'package:validators/validators.dart';
@@ -97,7 +98,7 @@ class AddOffersState extends State<AddOffersPage> {
             'status': statusSelected,
             'image':Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
-          //  print("add posting screen .....................................>${ Get.find<StorePostAddesController>().uploadImageOfAdd['name']}");
+          print("add posting screen .....................................>$formData");
           Get.find<StorePostAddesController>().storefOffersAAll(formData); 
         }catch(e){}
       }
@@ -121,8 +122,12 @@ class AddOffersState extends State<AddOffersPage> {
               GetBuilder<OfferCategoryController>(
                 init: OfferCategoryController(),
                 builder: (val){
+<<<<<<< HEAD
                   print(".....................................${val.offerDattaTypeCategory}");
                   return addsOffers(val.offeredList);
+=======
+                  return val.offerDattaTypeCategory !=null && val.offerDattaTypeCategory['data'] !=null ? addsOffers(val.offerDattaTypeCategory['data']): Container();
+>>>>>>> a17ca75caad322197494f96c35c92be574e9866c
                 },
               ),
               space15,
@@ -227,16 +232,54 @@ class AddOffersState extends State<AddOffersPage> {
   }
   
 
+  // Widget url() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal:15),
+  //     child: TextFormField(
+  //       focusNode: FocusNode(),
+  //       controller: urlContr,
+  //       validator: (val) {
+  //         String pattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)'
+
+  //          ;
+  //         RegExp regExp = RegExp(pattern);
+  //         if ( val == null || val.isEmpty ){
+  //           return 'URL field is Required';
+  //         }
+  //         else if (!regExp.hasMatch(val)) {
+  //           return "Enter Valid URL";
+  //         }
+  //         return null;
+  //       },
+  //       decoration:InputDecoration( 
+  //         hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: BorderSide(color: Colors.grey),
+  //         ),
+  //       ) ,
+  //     ),
+  //   );
+  // }
+  
   Widget url() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:15),
-      child: TextFormField(
-        // focusNode: FocusNode(),
-        controller: urlContr,
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        isObscure: false,
+        hintText: 'URL',
+        hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
+        // hintColor: AppColors.inputTextColor,
+        onChanged: (value) {  },
+        onFieldSubmitted: (value) {  },
+        textController: urlContr,
+        onSaved: (newValue) { 
+        }, 
         validator: (val) {
           String pattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)'
 
-;
+           ;
           RegExp regExp = RegExp(pattern);
           if ( val == null || val.isEmpty ){
             return 'URL field is Required';
@@ -246,13 +289,7 @@ class AddOffersState extends State<AddOffersPage> {
           }
           return null;
         },
-        decoration:InputDecoration( 
-          hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-        ) ,
+        errorText: '',
       ),
     );
   }

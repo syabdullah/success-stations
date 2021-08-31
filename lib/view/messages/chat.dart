@@ -6,6 +6,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/messages/inbox.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+
 
 class ChattingPage extends StatefulWidget {
   _ChattingState createState() => _ChattingState();
@@ -33,26 +35,42 @@ ScrollController controller = new ScrollController();
   final chatCont = Get.put(ChatController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController msg = TextEditingController();
-  var id;
+  var id,userId;
   var userData;
+  var image;
   GetStorage box = GetStorage();
    @override
   void initState() {
     super.initState();
      userData = Get.arguments;
-     print(".............,kfdslkfkdls,,,,$userData");
+     userId = box.read('user_id');
      id = userData[0];
+     image = box.read('chat_image');
      controller.animateTo(
-            0.0,
-            curve: Curves.easeOut,
-            duration: const Duration(milliseconds: 300),
-          );
-
+      0.0,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
      uId = box.read('user_id');
      print(id);
     //  chatCont.getChatConvo(id);
     // _controller = TabController(length: 2,vsync: this); 
   }
+   final _channel = WebSocketChannel.connect(
+    Uri.parse('wss://http://49.12.192.180'),
+  );
+   void _sendMessage() {
+    if (msg.text.isNotEmpty) {
+      print(msg.text);
+      _channel.sink.add(msg.text);
+    }
+  }
+   @override
+  void dispose() {
+    _channel.sink.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,30 +111,40 @@ ScrollController controller = new ScrollController();
               ],
             )
           ),
-          FractionalTranslation(
-            translation: Get.height > 700 ? const Offset(2.5, 1.3): const Offset(0.2, 0.9),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              radius: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child: Icon(Icons.person)),
-            )
-          ),
+          
           Container(
             child: GetBuilder<ChatController>(
               init: ChatController(),
               builder: (val) {
-                return val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
-                  //  margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
-                  // decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
-                  //     color: Colors.white,
-                  //   ),
+                if(val.isLoading == false && val.chat != null) {
+                  if(val.chat['data']['participants'][0]['id'] == userId) {
+                    print(".............11111---${val.chat['data']['participants'][1]['image']}");
+                    if (val.chat['data']['participants'][1]['image'] != null) {
+                    image = val.chat['data']['participants'][1]['image']['url'];
+                  }
+                  }
+                }
+                return Column(
+                  children: [
+                    val.isLoading == false && val.chat != null? messageList(val.chat['data']['messages']):Container(
+                    )
+                  ],
                 );
+                
               },
             ),
-          ),         
+          ), 
+          FractionalTranslation(
+            translation: Get.height > 700 ? const Offset(2.0, 1.7): const Offset(0.2, 0.9),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              radius: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(60.0),
+                child: image != null ? Image.network(image,fit: BoxFit.fill,height: 80,): Icon(Icons.person)
+              ),
+            )
+          ),        
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -127,19 +155,6 @@ ScrollController controller = new ScrollController();
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(Icons.add, color: Colors.white, size: 20, ),
-                    ),
-                  ),
                   SizedBox(width: 15,),
                   Expanded(
                     child: TextField(
@@ -156,6 +171,7 @@ ScrollController controller = new ScrollController();
                   SizedBox(width: 15,),
                   FloatingActionButton(
                     onPressed: (){
+                      _sendMessage();
                       setState(() {
                         me.add(
                         ChatMessage(messageContent: msg.text,messageType: "sender")
@@ -178,45 +194,52 @@ ScrollController controller = new ScrollController();
     );
   }
   Widget messageList(data) {
-    print(".......................>$data");
+    
     // controller.jumpTo(controller.position.maxScrollExtent);
-    return Container(
-      
-     height: Get.height/1.5,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
-        color: Colors.white,
-      ),
-      margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
-      // height: Get.height,
-        child: ListView.builder(
-          reverse: true,
-           controller: controller,
-          itemCount: data['data'].length,
-          shrinkWrap: true,
-          padding: EdgeInsets.only(top: 10,bottom: 10),
-         physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, index){
-            return Container(
-              padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
-              child: Align(
-                alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0)
+    return  StreamBuilder(
+      stream: _channel.stream,
+      builder: (context, snapshot) {
+        print(".......................>${snapshot.data}");
+        return 
+                // Text(snapshot.hasData ? '${snapshot.data}' : '');            
+        Container(       
+          height: Get.height/1.5,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+            color: Colors.white,
+          ),
+          margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
+          // height: Get.height,
+            child: ListView.builder(
+              reverse: true,
+              controller: controller,
+              itemCount: data['data'].length,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(top: 10,bottom: 10),
+            physics: AlwaysScrollableScrollPhysics(),
+              itemBuilder: (context, index){
+                return Container(
+                  padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
+                  child: Align(
+                    alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0)
+                        ),
+                        color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
                     ),
-                    color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+        );
+      },
     );
   }
 }
