@@ -27,7 +27,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
          final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 final mapCon = Get.put(LocationController());
 final adfavUser = Get.put(UserFavController());
-  late LatLng _latLng = LatLng(37.785834, -122.406417);
+  late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
   final double _zoom = 15.0;
   int _makrr_id_counter = 1;
      var listtype = 'map'; 
@@ -45,18 +45,9 @@ final adfavUser = Get.put(UserFavController());
     _getUserLocation();
     var id = box.read('user_id');
     route = Get.arguments;
-    if(route != null ){
-    if(route[0] == 'near') {
-      //  mapCon.getAllLocationNearBy(route[1], route[2], route[3]);     
-    }else if (route[0] == 'city') {
-      // mapCon.getAllLocationByCity(route[1],id);
-    }
-    }
-    else{
-      print("..............dfpaesvpdb jdsbvoidfpbd oidvpdovd");
       mapCon.getAllLocationToDB();
     }   
-  }
+  
 
   _getUserLocation() async {
     position  = await GeolocatorPlatform.instance
@@ -73,9 +64,9 @@ final adfavUser = Get.put(UserFavController());
     super.dispose();
   }
  void setMarkers(LatLng point, data) {
-  //  print("///.............-------.............>${data['user_name']['name']}");
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
+    print(".................-==--==-=--==-=--=-=");
       _markers.add(
         Marker(markerId: MarkerId(markersId),
         position: point,
@@ -206,48 +197,26 @@ final adfavUser = Get.put(UserFavController());
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: route != null ?     
-       PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)) : null,
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
       body:  
       GetBuilder<LocationController>(
         init: LocationController(),
         builder: (val){
+          _markers.clear();         
           if(val.allLoc != null)
            for(int i=0; i < val.allLoc['data']['data'].length; i++) {
             if(val.allLoc['data']['data'][i]['location'] != null){
-               print("--------------------------------------${val.allLoc}");
               setMarkers(LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']),val.allLoc['data']['data'][i]);
               _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
-              }
+            }
           }
-          return Stack(
+          print("--------------------------------------$_latLng");
+          return  Stack(
             children: [
               listtype == 'map' ? 
               Stack(
                 children: <Widget>[
-                  GoogleMap(
-                    onTap: (position) {
-                    //  setMarkers(position,'');
-                    },
-                    onCameraMove: (position) {
-                      _customInfoWindowController.onCameraMove!();
-                    },
-                    onMapCreated: (GoogleMapController controller) async {
-                      _customInfoWindowController.googleMapController = controller;
-                    },
-                    markers: _markers.toSet(),
-                    initialCameraPosition: CameraPosition(
-                      target: _latLng,
-                      zoom: _zoom,
-                    ),
-                  ),
+                  val.allLoc != null ? 
+                  googleMap(_latLng):Container(),
                   CustomInfoWindow(
                     controller: _customInfoWindowController,
                     height: Get.height/6,
@@ -323,7 +292,7 @@ final adfavUser = Get.put(UserFavController());
     );
   }
   Widget allUsers(userData){
-    print(":';';';';';';';'%%%%%%------$userData");
+   print(":';';';';';';';'%%%%%%------${userData['data'].length}");
     return GridView.builder(
       padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
       primary: false,
@@ -339,16 +308,11 @@ final adfavUser = Get.put(UserFavController());
                     ? Get.height / 1.60
                     : 0),
       ),
-      itemCount: userData.length,
+      itemCount: userData['data'].length,
       itemBuilder: (BuildContext context, int index) {
-        print("my grid list is ${userData['data'][index]['user_name']}");
+         print(":';';';';';';';'%%%%%%------${userData['data'][index]}");
         return GestureDetector(
           onTap: () {
-            // var j = userData[index]['id'];
-            // var k = box.write('ind', j);
-            // print("....hello hi...${box.read('ind')}");
-            // print("....!!!!!!...!!!!!...1.......$j");
-
             Get.to(AdViewTab(), arguments: userData['data'][index]['user_name']['id']);
             //var cc=userData[index]['id']);
           },
@@ -450,6 +414,7 @@ final adfavUser = Get.put(UserFavController());
           ),
         );
       });
+      
 }
 
 void handleClick(int item) {
@@ -459,6 +424,32 @@ void handleClick(int item) {
     case 1:
       break;
   }
+}
+Widget googleMap(kInitialPosition){ 
+  return Container(
+    height: Get.height,
+    child: 
+    GoogleMap(
+      onTap: (position) {
+        setState(() {
+          
+        });
+       
+      },
+      onCameraMove: (position) {
+        _customInfoWindowController.onCameraMove!();
+      },
+      onMapCreated: (GoogleMapController controller) async {
+        _customInfoWindowController.googleMapController = controller;
+      },
+      
+      initialCameraPosition: CameraPosition(
+        target: kInitialPosition,
+        // zoom: _zoom,
+      ),
+      markers: _markers.toSet(),
+    ),
+    );
 }
 }
 
@@ -636,49 +627,7 @@ void handleClick(int item) {
 //   }
 
 
-// Widget googleMap(kInitialPosition){ 
-//   return Container(
-//     height: Get.height,
-//     child: 
-//     GoogleMap(
-//         mapType: MapType.normal,
-//         initialCameraPosition: _kGooglePlex,
-//         // onMapCreated: (GoogleMapController controller) {
-//         //   // _controller.complete(controller);
-//         // },
-//         onMapCreated: (GoogleMapController controller) async {
-//               _customInfoWindowController.googleMapController = controller;
-//             },
-//         markers: customMarkers.toSet(),
-//         onTap: (point) {
-//           // customMarkers.clear();
-//           print("........................$point");
-//           setMarkers(point);
-//         },
-//       ),
-//       // floatingActionButton: FloatingActionButton.extended(
-//       //   onPressed: _goToTheLake,
-//       //   label: Text('To the lake!'),
-//       //   icon: Icon(Icons.directions_boat),
-//       // ),
-//     // PlacePicker(
-//     //   apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
-//     //   initialPosition: kInitialPosition,
-//     //       useCurrentLocation: true,
-//     //       usePlaceDetailSearch: true,
-//     //       onPlacePicked: (result) {
-//     //         print(result.geometry!.location);
-//     //         // selectedPlace = result;
-//     //         // Navigator.of(context).pop();
-//     //         // setState(() {});
-//     //       },
-//     //   // initialCameraPosition: CameraPosition(
-//     //   //   zoom: 15,
-//     //   //   target: LatLng(51.507351,-0.127758),
-//     //   // ),
-//     // ),
-//   );
-// }
+
 
 
 

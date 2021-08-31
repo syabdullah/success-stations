@@ -199,16 +199,19 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.aboutus, 'draft_ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
                             Get.to(DraftAds());
-                          },15.0 ),
-                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
-                            // Get.toNamed('/friendProfile');
-                            Get.to(UserProfile());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                            Get.to(MyAdds());
                           } ,15.0),
+                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
+                            // Get.toNamed('/friendProfile');
+                            Get.to(UserProfile());
+                          },15.0 ),
+                          // CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
+                          //  Get.to(MyAdds());
+                          // } ,15.0),
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
                             Get.to(Inbox());
                           },15.0 ),

@@ -6,22 +6,23 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 
-class MyOfferDetailMain extends StatefulWidget {
-  _MyAllOffersDetailState createState() => _MyAllOffersDetailState();
+class HomeAllOfferDEtailPage extends StatefulWidget {
+  _HomeAllOfferDEtailPageState createState() => _HomeAllOfferDEtailPageState();
 }
-class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
+class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final putData  = Get.put(MyOffersDrawerController());
   
-  var idIdId;
+  var homeCategoryById;
 
   @override
   void initState() {
-    idIdId = Get.arguments;
-    print(".....................IF IF ID.......>$idIdId");
+    homeCategoryById = Get.arguments;
+    print(".....................IF IF ID.......>$homeCategoryById");
     super.initState();
   }
 
@@ -50,8 +51,10 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
               children: [
                 Container(
                   width: Get.width/1.1,
-                  child:  idIdId !=null && idIdId['image'] !=null && idIdId['image']['url'] !=null ? 
-                  Image.network(idIdId['image']['url'], height:Get.height/2, fit:BoxFit.fitHeight ):Container()
+                  child:  homeCategoryById !=null && homeCategoryById['image'] !=null && homeCategoryById['image']['url'] !=null ? 
+                  Image.network(homeCategoryById['image']['url'], height:Get.height/2, fit:BoxFit.fitHeight ):Container(
+                     child: Icon(Icons.image,size: 50,),
+                  )
                 ),
                 Column(
                   children: [     
@@ -66,11 +69,11 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                               width: MediaQuery.of(context).size.width/1,
                               color: AppColors.appBarBackGroundColor,
                               padding: EdgeInsets.only(top:10,bottom:15,left: 15),
-                              child: idIdId !=null && idIdId['url'] !=null ?
+                              child: homeCategoryById !=null && homeCategoryById['url'] !=null ?
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text( idIdId['url'] ,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)
+                                    Text( homeCategoryById['url'] ,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(right:10),
@@ -88,8 +91,8 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                               Container(
                                 margin: EdgeInsets.only(left:14, right:10),
                                 alignment: Alignment.topLeft,
-                                child:idIdId['description']!=null  &&idIdId['description']['en']!=null ?   Text(
-                                  idIdId['description']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
+                                child:homeCategoryById['description']!=null  &&homeCategoryById['description']['en']!=null ?   Text(
+                                  homeCategoryById['description']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
                                 ):Container()
                               ),
                             ],

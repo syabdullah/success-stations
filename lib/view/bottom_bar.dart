@@ -58,7 +58,7 @@ class _BottomTabsState extends State<BottomTabs> {
     return Scaffold(
       key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch)),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,_currentIndex)),
       drawer: Theme(
         data: Theme.of(context).copyWith(
           // canvasColor: AppColors.botomTiles

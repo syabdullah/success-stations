@@ -125,7 +125,7 @@ const Map<String, String> en = {
   "contact": "Contact",
   "connect": "Connect",
   "read_more": "Read More",
-  "reset": "Reset",
+  "reset": "reset",
   "filter": "Filter",
   "done": "Done",
   "nofriends":"No Friends!",
@@ -209,8 +209,10 @@ const Map<String, String> en = {
   'memberShip':'You can use following services in Pro Company',
   'general':'General',
   'message':'Message',
-  'drafted_ads':'Drafted Ads',
-  'pr':'pr'
+  'drafted_ads':'drafted_ads',
+  'pr':'pr',
+  'noOfferyet':"No Offer Yet!",
+  'NoAdsYet':"NoAdsYet",
 
 };
 

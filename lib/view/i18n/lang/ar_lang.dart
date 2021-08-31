@@ -212,4 +212,7 @@ const Map<String, String> ar = {
   'general':'جنرال لواء',
   'message':'رسالة',
   'drafted_ads':'الإعلانات المصاغة',
+  'noOfferyet':'لا توجد عروض حتى الآن!',
+  'NoAdsYet':'لا توجد إعلانات حتى الآن',
+ 
 };

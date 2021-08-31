@@ -51,7 +51,7 @@ class GoogleSignInC {
         });
       } 
       );
-      Get.to(StudentSignUp());
+      // Get.to(StudentSignUp());
     } catch (error) {
       print(error);
     }

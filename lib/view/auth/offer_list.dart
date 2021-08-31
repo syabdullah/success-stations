@@ -9,6 +9,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/offer_filtered.dart';
+import 'package:success_stations/view/offers/home_all_offer_detail.dart';
 
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
@@ -321,7 +322,7 @@ class _OfferListState extends State<OfferList> {
                                       child: Container(
                                         width: Get.width / 4,
                                         child: Center(
-                                          child: Text(AppString.resetButton,
+                                          child: Text('reset'.tr,
                                             style: TextStyle(
                                               color: AppColors.inputTextColor
                                             )
@@ -379,54 +380,60 @@ class _OfferListState extends State<OfferList> {
         ),
         itemCount: listFavou.length,
         itemBuilder: (BuildContext context, int c) {
-          return  Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                        ),
-                        child: Container(
-                          height: Get.height * 0.18,
-                          width: Get.height * 0.18,
-                          child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
-                          ? FittedBox(
-                            fit: BoxFit.cover,
-                            child: Image.network(
-                              listFavou[c]['image_ads']['url'],
-                            ),
-                          ): FittedBox(
-                            fit: BoxFit.cover,
-                            child: Icon(
-                              Icons.image,
-                              color: Colors.grey[400],
+          return  GestureDetector(
+            onTap:(){
+              Get.to(HomeAllOfferDEtailPage(),arguments:listFavou[c]);
+
+            },
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)
+                          ),
+                          child: Container(
+                            height: Get.height * 0.18,
+                            width: Get.height * 0.18,
+                            child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+                            ? FittedBox(
+                              fit: BoxFit.cover,
+                              child: Image.network(
+                                listFavou[c]['image_ads']['url'],
+                              ),
+                            ): FittedBox(
+                              fit: BoxFit.cover,
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.grey[400],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                        )
+                      ],
+                    ),
+                  )
+                ),
+                Container(
+                  child: Text(
+                    listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+                    style:TextStyle(fontSize: 13, color: Colors.black)
+                  )
                 )
-              ),
-              Container(
-                child: Text(
-                  listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-                  style:TextStyle(fontSize: 13, color: Colors.black)
-                )
-              )
-            ],
+              ],
+            ),
           );
         }),
     );
