@@ -39,7 +39,7 @@ class ChatController extends GetxController {
       
       if(res.statusCode == 200 || res.statusCode < 400) {
         chat = jsonDecode(res.body);
-        print("//.//././.-----000000----$chat");
+        // print("//.//././.-----000000----$chat");
         // Get.to(ChattingPage());
       }
       isLoading = false;
@@ -54,7 +54,7 @@ class ChatController extends GetxController {
       
       if(res.statusCode == 200 || res.statusCode < 400) {
         allConvo = jsonDecode(res.body);
-        print("//.//././.-----000000----$allConvo");
+        // print("//.//././.-----000000----$allConvo");/
       }
       isLoading = false;
     });
