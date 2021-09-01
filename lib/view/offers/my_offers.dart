@@ -252,7 +252,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
         favrties.add(
           Card(
             child: Container(
-              child:Text("No Offers Yet!") 
+              child:Text("noOfferyet".tr) 
             )
           )
           );

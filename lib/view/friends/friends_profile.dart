@@ -7,10 +7,7 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/messages/chat.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
@@ -46,7 +43,7 @@ class _FriendProfileState extends State<FriendProfile>
     // }else
     adID = dtaaa[1]; 
     id = dtaaa[1];
-    print("../././...here the id.----------$id");
+    print("../././...here the id.----------$ads");
     friCont.friendDetails(id);
     friCont.profileAds(id);
   }
@@ -164,23 +161,6 @@ class _FriendProfileState extends State<FriendProfile>
                           size: 70,
                           color: Colors.black,
                         )),
-
-                // CircleAvatar(
-                //   backgroundColor: Colors.grey[100],
-                //   radius: 50.0,
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.circular(50.0),
-                //     child:
-                //     data['image'] == null ?
-                //     Image.asset(AppImages.person):
-                //     Image.network(
-                //       data['image']['url'] ,
-                //       fit: BoxFit.fill,
-                //       height: 80,
-
-                //     ),
-                //   )
-                // )
               ),
             ),
             Container(
@@ -249,15 +229,9 @@ class _FriendProfileState extends State<FriendProfile>
                         }
                         else if (choice == true) {
                           choice = !choice;
-                          // var reqid = friCont.sendReq['id'];
-                          // print("...................on");
-                          // friCont.deleteFriend(reqid);
-                        } else {
+                        } else if(dtaaa[0] == 'friend') {
                           choice = !choice;
-                          var json = {
-                            'friend_send_request_to': requister
-                          };
-                           friCont.sendFriend(json);
+                          friCont.deleteFriend(requister);
                         }
                       });
                     },
@@ -281,7 +255,7 @@ class _FriendProfileState extends State<FriendProfile>
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))
                               :  Text(
-                                  "Add Friend",
+                                  "Cancel",
                                   style: TextStyle(color: Colors.white),
                                 ),
                         ))))),
@@ -307,7 +281,7 @@ class _FriendProfileState extends State<FriendProfile>
                     width: 2,
                   )),
               child: Center(
-                child: Text("Message",
+                child: Text("messeges".tr,
                   style: TextStyle(
                     color: AppColors.appBarBackGroundColor,
                     fontWeight: FontWeight.bold
@@ -345,10 +319,10 @@ class _FriendProfileState extends State<FriendProfile>
                   ),
                   tabs: [
                     Text(
-                      'General',
+                      'general'.tr,
                     ),
                     Text(
-                      'Ads',
+                      'ads'.tr,
                     ),
                   ])),
         ),
@@ -872,7 +846,7 @@ class _FriendProfileState extends State<FriendProfile>
                 ),
               )
             : Container(
-                child: Text("No Ads "),
+                child: Text("No_Ads_Yet".tr),
               );
       },
     );

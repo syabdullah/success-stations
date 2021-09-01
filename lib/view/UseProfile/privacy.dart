@@ -20,7 +20,7 @@ class _PrivacyState extends State<Privacy> {
     return Scaffold(
       // bottomNavigationBar: CustomBottomBar(),
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'Privacy',AppImages.appBarSearch),
+       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'privacy',AppImages.appBarSearch),
       ),
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),

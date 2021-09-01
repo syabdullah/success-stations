@@ -199,7 +199,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'Draft Ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
                             Get.to(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
@@ -251,8 +251,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
-                           Get.to(AboutUs());
+                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                           Get.to(AboutUs())
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
                             Get.to(Privacy())

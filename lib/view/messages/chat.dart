@@ -320,7 +320,7 @@ var id,userId;
   channelconnect() async{
     ApiHeaders().getData(); //function to connect 
     try{
-         channel = IOWebSocketChannel.connect(Uri.parse("ws://49.12.192.180/nodejsApp"),headers: {'Connection': 'upgrade', 'Upgrade': 'websocket'});
+         channel = IOWebSocketChannel.connect(Uri.parse("ws://49.12.192.180"),headers: {'Connection': 'upgrade', 'Upgrade': 'websocket'});
          print("====---------------$channel");
           //channel IP : Port
          channel!.stream.listen((message) {

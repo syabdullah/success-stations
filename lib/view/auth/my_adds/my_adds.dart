@@ -429,8 +429,8 @@ void _adsfiltringheet() {
                               children: [
                                 Container(
                                   child: Text(
-                                    allDataAdds[index]['title'][lang] != null ? 
-                                    allDataAdds[index]['title'][lang]:'',
+                                    allDataAdds[index]['title']['en'] != null ? 
+                                    allDataAdds[index]['title']['en']:'',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight:FontWeight.bold
@@ -779,7 +779,7 @@ var catID;
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
-                          listingCategoriesData[index]['category'][lang] != null ? listingCategoriesData[index]['category'][lang]:'',
+                          listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

@@ -175,7 +175,7 @@ Widget sAppbar(context ,icon,image,) {
                               children: [
                                 Container(
                                   margin:EdgeInsets.only(left:30),
-                                  child: Text(AppString.filters,
+                                  child: Text('filter'.tr,
                                     style: TextStyle(
                                       fontSize: 20, color: Colors.black
                                     )
@@ -214,7 +214,7 @@ Widget sAppbar(context ,icon,image,) {
                                      _getUserLocation();
                                   },
                                   child: Container(
-                                    child: Text("Nearby",style: TextStyle(color: Colors.blue)),
+                                    child: Text("Nearby".tr,style: TextStyle(color: Colors.blue)),
                                   ),
                                 )
                               ],
@@ -230,7 +230,7 @@ Widget sAppbar(context ,icon,image,) {
                                 child: TextField(
                                   decoration: InputDecoration(
                                     enabled: textfeild,
-                                    labelText: ('City'),
+                                    labelText: ('city'.tr),
                                     // labelStyle: TextStyle(color: AppColors.basicColor),
                                     prefixIcon: Icon(Icons.search),
                                     border: OutlineInputBorder(
@@ -356,7 +356,7 @@ Widget sAppbar(context ,icon,image,) {
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(
-                                      child: Text('Reset',
+                                      child: Text('reset'.tr,
                                         style: TextStyle(
                                           color: AppColors.inputTextColor
                                             )
@@ -378,7 +378,7 @@ Widget sAppbar(context ,icon,image,) {
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(
-                                      child: Text("Apply",
+                                      child: Text("apply".tr,
                                         style: TextStyle( color: Colors.white)
                                       )
                                     )

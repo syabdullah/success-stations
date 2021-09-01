@@ -67,7 +67,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
        child: Container(
         //  padding:EdgeInsets.only(top:8)R,
-         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'ADVERTISE WITH US',AppImages.appBarSearch)),
+         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'advertise_with_us'.tr,AppImages.appBarSearch)),
       ),
       body: SingleChildScrollView(
         child: Form(
