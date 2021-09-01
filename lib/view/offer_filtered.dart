@@ -9,6 +9,7 @@ import 'package:success_stations/controller/offers/offer_filtering_controller.da
 import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/controller/user_drafted_controller.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/view/offers/home_all_offer_detail.dart';
 
 class FilteredCategoryResult extends StatefulWidget {
   _FilteredCtaegPageState createState() => _FilteredCtaegPageState();
@@ -18,12 +19,12 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
   final getData= Get.put(DraftAdsController());
    final adContr = Get.put(OffersFilteringController());
   final frindCont = Get.put(FriendsController());
-    allWordsCapitilize (String str) {
-    return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-      return word[0].toUpperCase() + leftText;
-    }).join(' ');
-  }
+  //   allWordsCapitilize (String str) {
+  //   return str.toLowerCase().split(' ').map((word) {
+  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+  //     return word[0].toUpperCase() + leftText;
+  //   }).join(' ');
+  // }
 
   final ratingFilteringController = Get.put(RatingController());
   var lang;
@@ -67,9 +68,9 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
       itemCount: filteredAdds.length,
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
-          // onTap: () {
-          //   Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
-          // },
+          onTap: () {
+            Get.to(HomeAllOfferDEtailPage(), arguments: filteredAdds[index]);
+          },
           child:  Card(
             child: Container(
               child: ListTile(
@@ -90,7 +91,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                       children: [
                         Text(
                            filteredAdds[index]['text_ads']['en'] !=null ? 
-                          allWordsCapitilize( filteredAdds[index]['text_ads']['en'].toString()) :'', 
+                          filteredAdds[index]['text_ads']['en'].toString() :'', 
                           style: TextStyle(
                             fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal,
                           )
@@ -109,7 +110,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                     Container(
                       child: ReadMoreText(
                          filteredAdds[index]['description'] != null ?
-                        allWordsCapitilize( filteredAdds[index]['description']['en']) : "",
+                        filteredAdds[index]['description']['en'] : "",
                         style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
                         trimLines: 2,
                         colorClickableText: AppColors.appBarBackGroundColor,
@@ -120,7 +121,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                     ),
                     SizedBox(height:5),
                     Container(
-                      child:   filteredAdds[index]['url'] != null ? Text(allWordsCapitilize( filteredAdds[index]['url']) ,
+                      child:   filteredAdds[index]['url'] != null ? Text(filteredAdds[index]['url'] ,
                         style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
                       ): Container()
                     ),

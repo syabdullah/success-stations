@@ -429,8 +429,8 @@ void _adsfiltringheet() {
                               children: [
                                 Container(
                                   child: Text(
-                                    allDataAdds[index]['title'][lang] != null ? 
-                                    allDataAdds[index]['title'][lang]:'',
+                                    allDataAdds[index]['title']['en'] != null ? 
+                                    allDataAdds[index]['title']['en']:'',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight:FontWeight.bold
@@ -445,7 +445,8 @@ void _adsfiltringheet() {
                                     GestureDetector(
                                       onTap: (){
                                          deleteAd.adDelete(allDataAdds[index]['id']);
-                                         controller.addedByIdAddes(catID, userId);
+                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
+                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
                                       },
                                       child: Image.asset(AppImages.delete,height: 30,)),
                                     SizedBox(width: 3,),
@@ -453,7 +454,8 @@ void _adsfiltringheet() {
                                       onTap:(){
                                         Get.to(AddPostingScreen(),arguments:allDataAdds[index]);
                                       },
-                                      child: Image.asset(AppImages.edit,height: 30,))
+                                      child: Image.asset(AppImages.edit,height: 30,)
+                                    )
                                     
                                     ],
                                   ),
@@ -777,7 +779,7 @@ var catID;
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
-                          listingCategoriesData[index]['category'][lang] != null ? listingCategoriesData[index]['category'][lang]:'',
+                          listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
                             color: selectedIndex == index ? Colors.white : Colors.blue,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

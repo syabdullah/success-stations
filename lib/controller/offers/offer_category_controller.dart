@@ -31,6 +31,7 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await offersCategoryById(id).then((res) {
     iDBasedOffers = jsonDecode(res.body);
+      print(".....Ctaegory OFFER loadede.....>$iDBasedOffers");
     if(res.statusCode == 200 || res.statusCode <400){
       resultInvalid(false);
       isLoading = false;
