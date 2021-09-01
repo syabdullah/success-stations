@@ -131,7 +131,7 @@ Widget titleStep(data) {
   if(data != null ) {
  htmldata =
         """ <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-          ${data['description'][lang]}
+          ${data['description']['en']}
     """;
   }
       return data == null ? 
@@ -157,7 +157,8 @@ Widget titleStep(data) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(data['title'][lang].toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
+                    data['title']!= null ?
+                    Text(data['title']['en'],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),):Container(),
                    data['price'] !=null ?  Text('SAR ${data['price']}',style: TextStyle(fontSize: 15),): Container()
                   ],
                 ),

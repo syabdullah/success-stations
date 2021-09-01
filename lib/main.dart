@@ -8,7 +8,7 @@ import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 var auth;
-
+var lan;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -24,11 +24,14 @@ GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
   box.write('upgrade', true);
+
 }
 
 class SuccessApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+   
     return ScreenUtilInit(
       builder:() => GetMaterialApp(      
         debugShowCheckedModeBanner: false,

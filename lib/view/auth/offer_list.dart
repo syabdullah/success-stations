@@ -70,7 +70,7 @@ class _OfferListState extends State<OfferList> {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
     cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
         topWidget(),
         GetBuilder<OfferCategoryController>(
