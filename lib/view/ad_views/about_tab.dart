@@ -326,9 +326,7 @@ Widget lastAds(lastuserad){
  );
 }
 Widget lastLocations(lastLocation){
- 
   return Container(
-     
     margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height/5.5,
     child: ListView.builder(
@@ -336,14 +334,11 @@ Widget lastLocations(lastLocation){
       itemCount:4,
       // ignore: non_constant_identifier_names
       itemBuilder: (BuildContext,index) {
-        
         return 
-        
          Container(
-          // margin: EdgeInsets.only(left:10),
-         width: 250,
-          height: 100,
-          child: Card(
+           width: 250,
+           height: 100,
+           child: Card(
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                mainAxisAlignment: MainAxisAlignment.center,

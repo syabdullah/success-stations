@@ -44,8 +44,8 @@ class _OfferListState extends State<OfferList> {
   var filterID;
   var usertype;
   List<String> itemsList = [
-    "Old",
-    "New",
+    "old".tr,
+    "New".tr,
   ];
   
   GetStorage box = GetStorage ();
@@ -70,7 +70,7 @@ class _OfferListState extends State<OfferList> {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
     cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
         topWidget(),
         GetBuilder<OfferCategoryController>(
@@ -123,7 +123,7 @@ class _OfferListState extends State<OfferList> {
                     Image.asset(AppImages.filter, height: 15),
                     SizedBox(width: 5),
                     Text(
-                      "Filter",
+                      "filter".tr,
                       style: TextStyle(color: Colors.grey[700]),
                     ), 
                   ],
@@ -189,7 +189,7 @@ class _OfferListState extends State<OfferList> {
                               children: [
                                 Container(
                                   margin:EdgeInsets.only(left:10),
-                                  child: Text(AppString.filters,
+                                  child: Text("filter".tr,
                                     style: TextStyle(
                                       fontSize: 20, color: Colors.black
                                     )
@@ -206,7 +206,7 @@ class _OfferListState extends State<OfferList> {
                             ),
                           ),
                           SizedBox(height: Get.height*0.04),
-                          Text("Category", style: TextStyle(fontSize: 15)),
+                          Text("category".tr, style: TextStyle(fontSize: 15)),
                           GetBuilder<OfferCategoryController>(
                             init: OfferCategoryController(),
                             builder: (data) {
@@ -261,7 +261,7 @@ class _OfferListState extends State<OfferList> {
                               ): Container();
                             },
                           ),
-                          Text("Status", style: TextStyle(fontSize: 15)),
+                          Text("status".tr, style: TextStyle(fontSize: 15)),
                           SizedBox(height: 10),
                           Container(
                             height: Get.height*0.05,
@@ -323,7 +323,7 @@ class _OfferListState extends State<OfferList> {
                                       child: Container(
                                         width: Get.width / 4,
                                         child: Center(
-                                          child: Text(AppString.resetButton,
+                                          child: Text('reset'.tr,
                                             style: TextStyle(
                                               color: AppColors.inputTextColor
                                             )
@@ -342,7 +342,7 @@ class _OfferListState extends State<OfferList> {
                                       child: Container(
                                         width: Get.width / 4,
                                         child: Center(
-                                          child: Text("Apply",
+                                          child: Text("apply".tr,
                                             style: TextStyle( color: Colors.white)
                                           )
                                         )

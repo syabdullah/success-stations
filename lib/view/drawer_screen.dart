@@ -98,6 +98,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
+    print("Get.");
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -156,18 +157,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     
                     // SizedBox(height:30),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                         Container(  
-                       margin: Get.height > 700 ? EdgeInsets.only(top:35,left: 35): EdgeInsets.only(top:25,left: 85),        
-                       child: IconButton(
-                       onPressed: () {
-                         getImage();
-                       },
-                       icon:Icon(Icons.camera_alt,size: 40,color: Colors.grey,)
-                       )
-                      // ),
-                    ),
+                         IconButton(
+                         onPressed: () {
+                           getImage();
+                         },
+                         icon:Icon(Icons.camera_alt,size: 40,color: Colors.grey,)
+                         ),
                         Padding(
                           padding: Get.height > 700 ?  const EdgeInsets.only(left:50.0) :const EdgeInsets.only(left:50.0),
                           child: Container(
@@ -199,7 +196,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'Draft Ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
                             Get.to(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
@@ -251,8 +248,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'about_us'.tr, ()  {
-                           Get.to(AboutUs());
+                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                           Get.to(AboutUs())
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
                             Get.to(Privacy())

@@ -7,6 +7,7 @@ import 'package:success_stations/view/i18n/lang/en_dart.dart';
 
 
 class LocalizationServices extends Translations {
+  
   // See http://en.wikipedia.org/wiki/Right-to-left
   static const List<String> _rtlLanguages = <String>[
     'ar', // Arabic
@@ -18,7 +19,7 @@ class LocalizationServices extends Translations {
   GetStorage box = GetStorage();
   /// The locale for which the values of this class's localized resources
   /// have been translated.
-
+  
   @override
   // ignore: override_on_non_overriding_member
   TextDirection get textDirection => _textDirection;
@@ -48,14 +49,20 @@ class LocalizationServices extends Translations {
   void changeLocale(String lang) {
     print("chnggelocal................$lang");
     if(lang.length == 2) {
-      print("langiaaaauahgahgggagagagga");
+     
       _getLangFromLocal(Locale(lang));
       _textDirection = _rtlLanguages.contains(lang) ? TextDirection.rtl : TextDirection.ltr;
        Get.updateLocale(Locale(lang));
+        print("chnggelocal..........if......$lang");
+        box.write('language', lang);
+       
     }else{
       _textDirection = _rtlLanguages.contains(lang) ? TextDirection.rtl : TextDirection.ltr;
       print("jksdhjdshdshdkhjsjhahdhdsa$_textDirection");
       Get.updateLocale(locale);
+       print("chnggelocal.......else.........$lang");
+       
+      
     }
   }
   _getLangFromLocal(loc) {

@@ -30,7 +30,7 @@ class _DraftAdsState extends State<DraftAds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text("Drafted Ads",),
+      appBar:AppBar(title: Text("drafted_ads".tr),
         backgroundColor: AppColors.appBarBackGroundColor,),
         body: GetBuilder<DraftAdsController>( // specify type as Controller
           init: DraftAdsController(), // intialize with the Controller
@@ -170,7 +170,7 @@ Widget draftedlist(allDataAdds){
                       height: 30,
                       width: Get.width/4,
                       // margin: EdgeInsets.only(right: ),
-                      child: Center(child: Text("Publish",style: TextStyle(color: Colors.white),)),
+                      child: Center(child: Text("publish".tr,style: TextStyle(color: Colors.white),)),
                     ),
                   )
                 ],

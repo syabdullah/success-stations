@@ -21,7 +21,7 @@ Future<http.Response> offersCategoryById(id) async {
 }
 
 
-Future<http.Response>editOffers(id, data) async {
+Future<http.Response>editOffers(data,id) async {
   await ApiHeaders().getData();
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}edit-offers/$id");

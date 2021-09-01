@@ -40,11 +40,12 @@ class _BottomTabsState extends State<BottomTabs> {
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 0;
   final List<Widget> _children = [
-    AdsView(),
+   
     OfferList(),
     FriendList(),
+     AdsView(),
+    AllAdds(),
     CustomInfoWindowExample(),
-    AllAdds()  
   ];
 
   void onTabTapped(int index) {
@@ -70,44 +71,50 @@ class _BottomTabsState extends State<BottomTabs> {
         currentIndex: _currentIndex,
           onTap: onTabTapped,
         items: [
+         
           BottomNavigationBarItem(
-            title: Text('Home', style: AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
-            ),
-            icon: Icon(Icons.home,color: AppColors.grey)
-            //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
-          BottomNavigationBarItem(
-            title: Text('Offers', style: AppTextStyles.appTextStyle(
+            // ignore: deprecated_member_use
+            title: Text('offer'.tr, style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
               ) 
             ),
             icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
-              title: Text('Friends' ,style: AppTextStyles.appTextStyle(
+              // ignore: deprecated_member_use
+              title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                 ) 
               ),
               icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
             ),
-            BottomNavigationBarItem(
-              title: Text('Locations', style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
-                ),
-              icon: ImageIcon(AssetImage(AppImages.locations),color: AppColors.grey),
+             BottomNavigationBarItem(
+            // ignore: deprecated_member_use
+            title: Text('home'.tr, style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+              ) 
             ),
-            BottomNavigationBarItem(
+            icon: Icon(Icons.home,color: AppColors.grey)
+            //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+            ),
+             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('Ads',style: 
+              title: Text('ads'.tr,style: 
                 AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   )
                 ),
               icon:ImageIcon(AssetImage(AppImages.ma),color: AppColors.grey),
             ),
+            BottomNavigationBarItem(
+              // ignore: deprecated_member_use
+              title: Text('location'.tr, style: AppTextStyles.appTextStyle(
+                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
+                  ) 
+                ),
+              icon: ImageIcon(AssetImage(AppImages.locations),color: AppColors.grey),
+            ),
+           
         ],
       ),
     );
