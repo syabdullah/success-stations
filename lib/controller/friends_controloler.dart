@@ -87,12 +87,14 @@ class FriendsController extends GetxController {
     isLoading = true;
     await sendFriendReq(data).then((res) {
       print(".,.,.,.,RRRRR.,.,------${res.statusCode}");
-      if ( res.statusCode ==  200 || res.statusCode < 400) {
        
+      if ( res.statusCode ==  200 || res.statusCode < 400) {
+        sendReq = jsonDecode(res.body);
+        SnackBarWidget().showToast("", sendReq['message']);
       }else {
          SnackBarWidget().showToast("", res.body);
       }
-      sendReq = jsonDecode(res.body);
+     
       getFriendsList();
       print(".,.,.,.,RRRRR.,.,$sendReq");
       isLoading = false;
@@ -123,7 +125,7 @@ print(res.body);
     await friendsProfile(id).then((res) {
       // print("/././././.-----$id");
       friendProfileData = jsonDecode(res.body);
-      //  print("/././././.-----$friendProfileData");
+       print("/././././.-----$friendProfileData");
       isLoading = false;
     }).catchError((e) {
       return e;

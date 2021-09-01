@@ -249,17 +249,8 @@ class _AdListTabState extends State<AdListTab> {
                             ),
                             GestureDetector(
                                 onTap: () {
-                                  print(".......QQQQ...QQQQ>...qqqq....$indId");
-                                  print("....add id...${allDataAdds[index]['id']}");
-                                  print(".......user id...!!!!...!!!....$indId");
-                                  var json = {
-                                    'ads_id': allDataAdds[index]['id']
-                                  };
-                                  liked = !liked;
-                                  allDataAdds[index]['is_favorite'] == false
-                                      ? friCont.profileAdsToFav(json, indId)
-                                      : friCont.profileAdsRemove(json, indId);
-            
+                                  print(".......................>${allDataAdds[index]['telephone']}");
+                                  launch('tel:${allDataAdds[index]['telephone']}');
                                   // addsController.addedByIdAddes(json, indId);
                                 },
                                 child:

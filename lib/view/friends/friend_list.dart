@@ -126,9 +126,9 @@ class _FriendListState extends State<FriendList> {
                   requisterId =
                       box.write("requister", dataa[index]['requister_id']);
                   Get.to(FriendProfile(),
-                      arguments: id != dataa[index]['requister_id']
-                          ? dataa[index]['requister_id']
-                          : dataa[index]['user_requisted']['id']);
+                  arguments: id == ['friend',dataa[index]['requister_id']]
+                  ? ['friend',dataa[index]['requister_id']]
+                  : ['friend',dataa[index]['user_requisted']['id']]);
                 },
                 child: Card(
                   child: Row(
@@ -229,9 +229,9 @@ class _FriendListState extends State<FriendList> {
                 requisterId =
                     box.write("requister", data[index]['requister_id']);
                 Get.to(FriendProfile(),
-                    arguments: id != data[index]['requister_id']
-                        ? data[index]['requister_id']
-                        : data[index]['user_requisted']['id']);
+                    arguments: id == ['friend',data[index]['requister_id']]
+                  ? ['friend',data[index]['requister_id']]
+                  : ['friend',data[index]['user_requisted']['id']]);
               },
               child: Card(
                 child: Column(

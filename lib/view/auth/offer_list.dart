@@ -406,13 +406,13 @@ class _OfferListState extends State<OfferList> {
                             bottomRight: Radius.circular(10)
                           ),
                           child: Container(
-                            height: Get.height * 0.18,
+                            height: Get.height * 0.15,
                             width: Get.height * 0.18,
-                            child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
+                            child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
                             ? FittedBox(
                               fit: BoxFit.cover,
                               child: Image.network(
-                                listFavou[c]['image_ads']['url'],
+                                listFavou[c]['image']['url'],
                               ),
                             ): FittedBox(
                               fit: BoxFit.cover,

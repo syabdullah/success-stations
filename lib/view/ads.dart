@@ -322,7 +322,7 @@ class _AdsViewState extends State<AdsView> {
                   child: Container(
                     width: imageW,
                     height: imageH,
-                    child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
+                    child:data[index]['media'].length != 0 && data[index]['media'][0]['url'] != null ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
                        child: Icon(Icons.image,size: 50,),
                     )
                     //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)

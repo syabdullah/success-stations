@@ -32,6 +32,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>EnableBackgroundLocationUpdates</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>495109941777752</string>
 	<key>FacebookDisplayName</key>
@@ -75,8 +77,6 @@
 	<string>Example: You should fill this in</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Example: You should fill this in</string>
-	<key>EnableBackgroundLocationUpdates</key>
-    <true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
