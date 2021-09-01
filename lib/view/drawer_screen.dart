@@ -98,7 +98,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
-    print("Get.");
+    print("${Get.height}");
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),

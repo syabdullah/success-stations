@@ -526,7 +526,7 @@ Widget istStep(List list,List types){
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type'][lang];
+                            selectedtype = adsubCategory['type']['en'];
                             print(selectedtype);
                              typeId =adsubCategory['id'];
                              print(typeId);
