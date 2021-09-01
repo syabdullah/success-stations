@@ -137,7 +137,7 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-    RangeValues _currentRangeValues = const RangeValues(1, 1000000);
+    RangeValues _currentRangeValues = const RangeValues(5, 500);
     var start;
   var end;
   filtrationModel(context) async {
@@ -289,7 +289,6 @@ Widget sAppbar(context ,icon,image,) {
                                     GestureDetector(
                                       onTap: (){
                                         setState((){
-                                           
                                             var ind = 1;
                                             ind = array.indexOf(item);
                                              array.remove(item);
@@ -313,10 +312,22 @@ Widget sAppbar(context ,icon,image,) {
                             height: 20,
                           ),
                           Container(
+                            margin: EdgeInsets.only(left: 15),
+                            child: Text(
+                              'Distance',style:  TextStyle(fontSize: 20, color: Colors.black,)
+                              ),
+                          ),
+                            Container(
+                              margin: EdgeInsets.only(left: 15),
+                              child: Text(
+                              "${_currentRangeValues.start.round().toString()} miles",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.normal)
+                              ),
+                            ),
+                          Container(
                             child: RangeSlider(
                               values: _currentRangeValues,
-                              min: 1.00,
-                              max: 1000000.00,
+                              min: 5.00,
+                              max: 500.00,
                               // divisions: 5,
                               labels: RangeLabels(
                                 _currentRangeValues.start.round().toString(),
