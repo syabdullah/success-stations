@@ -7,6 +7,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:success_stations/utils/page_util.dart';
+import 'package:success_stations/view/member_ship/payment_tap.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
   @override
@@ -62,7 +64,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
             buttonText: 'UPDATE SUBSCRITIPN',
             bgcolor: AppColors.appBarBackGroundColor,  
             textColor: AppColors.appBarBackGroun, 
-            // callback:
+            callback:navigateToHomeScreen
           ),
         ],
       ),
@@ -164,3 +166,6 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     );
   }
 }
+void navigateToHomeScreen() {
+    PageUtils.pushPage(Payments());
+  }
