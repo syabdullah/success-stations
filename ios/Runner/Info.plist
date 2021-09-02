@@ -32,8 +32,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>EnableBackgroundLocationUpdates</key>
-	<true/>
 	<key>FacebookAppID</key>
 	<string>495109941777752</string>
 	<key>FacebookDisplayName</key>
