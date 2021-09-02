@@ -57,8 +57,8 @@ class _AllAddsState extends State<AllAdds> {
   var filterID;
   List<String> litems = [
     
-    "new".tr,
     "old".tr,
+    "New".tr,
   ];
   
   @override

@@ -168,7 +168,7 @@ var idd;
                 index == 2 ?
                 Container(
                   margin: EdgeInsets.only(left: 20,top:10, right: 12,bottom: 10),
-                  child:Text("Old old_notification".tr,  
+                  child:Text("old_notification".tr,  
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
