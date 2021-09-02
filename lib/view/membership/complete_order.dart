@@ -49,8 +49,6 @@ class _CompleteOrderState extends State<CompleteOrder> {
               space20,
               phoneNember(),
               space20,
-              // streetAddress(),
-              // space20,
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
