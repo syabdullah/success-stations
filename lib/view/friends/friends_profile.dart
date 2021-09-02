@@ -216,54 +216,58 @@ class _FriendProfileState extends State<FriendProfile>
     return Wrap(
       children: [
         FractionalTranslation(
-            translation: langg ==  'en' ? const Offset(0.5, -0.5) :  const Offset(-0.5, -0.5),
-            child: Container(
-                // margin: EdgeInsets.only(left: 250),
-                child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        choice = !choice;
-                        if(dtaaa[0] == 'ads' && choice == false) {
-                          var json = {
-                            'friend_send_request_to': id
-                          };
-                          print("...................$json");
-                           friCont.sendFriend(json);
-                        }
-                        else if (choice == true) {
-                          // friCont.deleteFriend(selectedUser);
-                        } else {
-                          var json = {
-                            'friend_send_request_to': requister
-                          };
-                           friCont.sendFriend(json);
-                        }
-                      });
-                    },
-                    child: Container(
-                        height: Get.height / 9 * 0.5,
-                        width: Get.width / 3.2,
-                        decoration: BoxDecoration(
-                            color: AppColors.appBarBackGroundColor,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: dtaaa[0] == 'ads' && choice == true  ?
-                        Center(
-                          child:   Text(
-                                  "Add Friend",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                        ):
-                         Center(
-                          child: choice == false
-                              ? Text("cancel".tr, //
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold))
-                              :  Text(
-                                  "Add Friend",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                        ))))),
+          translation: langg ==  'en' ? const Offset(0.5, -0.5) :  const Offset(-0.5, -0.5),
+          child: Container(
+              // margin: EdgeInsets.only(left: 250),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  choice = !choice;
+                  if(dtaaa[0] == 'ads') {
+                    var json = {
+                      'friend_send_request_to': id
+                    };
+                    print("...................$json");
+                      friCont.sendFriend(json);
+                  }
+                  else if (choice == false && dtaaa[0] == 'friend') {
+                    friCont.deleteFriend(id);
+                  } else {
+                    // var json = {
+                    //   'friend_send_request_to': requister
+                    // };
+                    //  friCont.sendFriend(json);
+                  }
+                });
+              },
+              child: Container(
+                height: Get.height / 9 * 0.5,
+                width: Get.width / 3.2,
+                decoration: BoxDecoration(
+                  color: AppColors.appBarBackGroundColor,
+                  borderRadius: BorderRadius.circular(50)),
+                child: dtaaa[0] == 'ads'?
+                Center(
+                  child: Text(
+                    "Add Friend",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ):
+                  Center(
+                  child: choice == false 
+                  ? Text("cancel".tr, //
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold))
+                  :  Text(
+                    "Add Friend",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              )
+            )
+          )
+        ),
         FractionalTranslation(
           translation: langg ==  'en' ? const Offset(0.7, -0.5) : const Offset(-0.7, -0.5),
           child: GestureDetector(
