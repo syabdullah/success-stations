@@ -222,7 +222,7 @@ const Map<String, String> en = {
   'approve':'Approve',
   'remove':'remove',
   'recent_notification':'Recent Notification',
-  'old_notification':'old_notification'  
+  'old_notification':'Old Notification'  
 
 };
 

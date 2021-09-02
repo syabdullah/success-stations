@@ -249,7 +249,7 @@ class _FriendProfileState extends State<FriendProfile>
                         child: dtaaa[0] == 'ads' && choice == true  ?
                         Center(
                           child:   Text(
-                                  "Add Friend",
+                                  "add_friend".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                         ):
@@ -260,7 +260,7 @@ class _FriendProfileState extends State<FriendProfile>
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))
                               :  Text(
-                                  "Add Friend",
+                                  "add_friend".tr,
                                   style: TextStyle(color: Colors.white),
                                 ),
                         ))))),
