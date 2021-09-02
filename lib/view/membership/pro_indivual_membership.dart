@@ -167,5 +167,5 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   }
 }
 void navigateToHomeScreen() {
-    PageUtils.pushPage(Payments());
+    // PageUtils.pushPage(Payments());
   }

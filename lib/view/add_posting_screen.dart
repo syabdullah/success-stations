@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,7 +16,6 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
-// import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 
 class AddPostingScreen extends StatefulWidget {
@@ -118,9 +116,6 @@ var typeId;
       });
       Get.find<AdPostingController>().uploadAdImage(formData);      
        uploadedImage  = Get.find<AdPostingController>().adUpload['name'];
-
-        // print(".......UPload image$uploadedImage");
-
     } catch (e) {
     }
      
@@ -524,7 +519,7 @@ Widget istStep(List list,List types){
                           // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['type']['en'])
+                            child:Text(coun!['type'][lang])
                           );
                         }).toList(),
                           onChanged: (val) {

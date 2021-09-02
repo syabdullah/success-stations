@@ -8,7 +8,7 @@ import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 var auth;
-
+var lang;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,33 +23,42 @@ void main() async {
 GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
+  lang = await box.read('lang_code');
   box.write('upgrade', true);
+
 }
 
 class SuccessApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+   print('.,..,.l;l""dskfjrkggdfg////// $lang');
     return ScreenUtilInit(
-      builder:() => GetMaterialApp(      
+      builder:()  {
+        return GetMaterialApp(     
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: LocalizationServices.locale,
+        locale: lang != null ?  Locale(lang,''): LocalizationServices.locale,
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
-        theme: ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,),
+        theme:   ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,
+           fontFamily: 'STC Bold'
+        ) ,
+        // : ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,
+        // ),
           //  home: AddOffersPage(),
         initialRoute:  auth == null ? '/langua' : '/tabs',
         // initialRoute:  '/langua' ,
 
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
-      ),
-       designSize: const Size(360, 640),
+      );}
+      //  designSize: const Size(360, 640),
     );
   }
 }

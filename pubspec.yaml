@@ -67,7 +67,7 @@ dependencies:
   geolocator: ^7.5.0
   web_socket_channel: ^2.1.0
   flutter_switch: ^0.3.2
-  go_sell_sdk_flutter: ^2.0.7
+  # go_sell_sdk_flutter: ^2.0.7
 
   
   
@@ -108,17 +108,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: STC Bold
+      fonts:
+        - asset: assets/fonts/stc.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  # fonts:
+  #   -  assets/fonts/stc.ttf
+       
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

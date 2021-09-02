@@ -224,7 +224,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               child: GestureDetector(
                                 onTap: (){
                                   print(listFavou[c]['id']);
-                                  delete.deleteOfferController(listFavou[c]['id']);
+                                  delete.deleteOfferController( listFavou[c]['id']);
                                 },
                                 child: Image.asset(AppImages.delete, height: 30))
                             ),

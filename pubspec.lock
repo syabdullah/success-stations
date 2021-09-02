@@ -385,13 +385,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
-  go_sell_sdk_flutter:
-    dependency: "direct main"
-    description:
-      name: go_sell_sdk_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.7"
   google_api_headers:
     dependency: transitive
     description:
@@ -755,7 +748,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.1"
+    version: "0.26.0"
   shimmer:
     dependency: "direct main"
     description:
