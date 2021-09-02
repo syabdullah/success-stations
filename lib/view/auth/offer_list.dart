@@ -5,9 +5,11 @@ import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offer_filtered.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
@@ -17,7 +19,7 @@ class OfferList extends StatefulWidget {
 }
  
 class _OfferListState extends State<OfferList> {
-
+ var offerid;
  final contByCatOffer = Get.put(OfferCategoryController());
  final banner = Get.put(BannerController());
   var json;
@@ -25,6 +27,7 @@ class _OfferListState extends State<OfferList> {
   onSelected(int index) {
     setState(() => slctedInd = index);
   }
+
   var listtype = 'list';
   final offerFilterCont = Get.put(OffersFilteringController());
   final offeCont = Get.put(MyOffersDrawerController());
@@ -57,6 +60,7 @@ class _OfferListState extends State<OfferList> {
     // offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
+    offerid = Get.arguments;
     usertype = box.read('user_type');
   }
   // void dispose() {
@@ -65,11 +69,22 @@ class _OfferListState extends State<OfferList> {
   //   super.dispose();
 
   // }
-  
+     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
     cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
+      key:_scaffoldKey,
+       appBar: offerid != null ?
+        PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,'')):null,
+      // drawer: AppDrawer(),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
+        ),
+        child: AppDrawer(),
+      ),
       body: ListView(
         children: [
         topWidget(),
@@ -133,8 +148,8 @@ class _OfferListState extends State<OfferList> {
             GestureDetector(
               onTap: () {
                Get.to(AddOffersPage());
-              },
-              child:  usertype == 2 ? Container() :
+            },
+              child:  usertype == 2  ||  usertype == 3 ? Container() :
               Container(
                   margin: EdgeInsets.only(left: 10),
                   child: Image.asset(AppImages.plusImage, height: 24)),

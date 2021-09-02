@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
@@ -92,10 +93,10 @@ class _SignPageState extends State<StudentSignUp> {
           key: formKey,
           child: Column(
             children: [
-              space20,
+              space10,
               fullNameStudent(),
               space10,
-              SizedBox(height:10),
+              // SizedBox(height:10),
               eMail(),
               // GetBuilder<SignUpController>(
               //   init: SignUpController(),
@@ -113,7 +114,7 @@ class _SignPageState extends State<StudentSignUp> {
 
               //    }),
               
-              SizedBox(height:10),
+              // SizedBox(height:10),
               space10,
               mobile(),
               space10,
@@ -402,35 +403,53 @@ class _SignPageState extends State<StudentSignUp> {
   
   Widget mobile() {
     return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: 'mobile'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {}, 
-        textController: mobileController,
-        onSaved: (String? newValue) {}, 
-        validator: (value) {
-          String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
-          RegExp regExp = RegExp(pattern);
-          if( value.length  == 0){
-            return 'Enter Mobile Number';
-          }
-          else if(!regExp.hasMatch(value)) {
-            return "Phone must be in digits";
-          }
-          else if(value.length !=12){
-            return 'Mobile Number must be of 12 digits';
-          }
-          else 
-          return null;
-        },
-        errorText: '',
-      ),
-    );
+      
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: InternationalPhoneNumberInput(
+              inputDecoration:   InputDecoration(
+              fillColor: AppColors.inputColor,
+              filled: true,
+              border: InputBorder.none,
+              errorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                 borderSide: BorderSide(
+                  color: Colors.red
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.outline
+                ),
+              ),
+              hintText: "Mobile",
+              
+            ),
+              onInputChanged: (PhoneNumber number) {
+                print(number.phoneNumber);
+              },
+              onInputValidated: (bool value) {
+                print(value);
+              },
+              selectorConfig: SelectorConfig(
+                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+              ),
+              ignoreBlank: false,
+              autoValidateMode: AutovalidateMode.disabled,
+              selectorTextStyle: TextStyle(color: Colors.black),
+              // initialValue: n,
+              textFieldController: mobileController,
+              formatInput: false,
+              keyboardType:
+                  TextInputType.numberWithOptions(signed: true, decimal: true),
+              inputBorder: OutlineInputBorder(),
+              onSaved: (PhoneNumber number) {
+                print('On Saved: $number');
+              },
+            ));
   }
   var finalDate;
   Widget studentdob() {
@@ -462,7 +481,7 @@ class _SignPageState extends State<StudentSignUp> {
     //   ),
     // );
         return Container(
-          padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical:18.0,horizontal: 10),
           margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -486,7 +505,9 @@ class _SignPageState extends State<StudentSignUp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500])),
+            Container(
+              // padding: EdgeInsets.only(right:100),
+              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500]))),
             GestureDetector(
               child: Icon(Icons.calendar_today),
               onTap: () {               
