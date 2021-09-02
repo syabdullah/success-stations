@@ -223,6 +223,6 @@ const Map<String, String> ar = {
   'approve':'يوافق',
   'remove':'إزالة',
   'recent_notification':'الإخطار الأخير',
-  'old_notification':'لإخطار القديم'
+  'old_notification':'لإخطار القديم',
  
 };
