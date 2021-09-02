@@ -31,8 +31,9 @@ class _CompleteOrderState extends State<CompleteOrder> {
     final space20 = SizedBox(height: getSize(5, context));
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
-          child: sAppbar(context, Icons.arrow_back_ios, AppImages.appBarLogo)),
+        preferredSize: Size.fromHeight(70.0),
+        child: sAppbar(context, Icons.arrow_back_ios, AppImages.appBarLogo)
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
@@ -173,50 +174,46 @@ class _CompleteOrderState extends State<CompleteOrder> {
 
   Widget countryRegion(List data) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 1.0),
-   //padding: const EdgeInsets.onl(8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 1.0),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey, width: 1),
           borderRadius: BorderRadius.all(
-              Radius.circular(5.0) //                 <--- border radius here
-              ),
+            Radius.circular(5.0) //                 <--- border radius here
+          ),
         ),
         child: ButtonTheme(
-            alignedDropdown: true,
-            child: Container(
-              width: Get.width,
-              child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
+          alignedDropdown: true,
+          child: Container(
+            width: Get.width,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
                 hint: Text(
-                hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                
-                    //selectedCategory != null ? selectedCategory : "categories".tr,
-                    style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
-                    ),
+                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                  style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                ),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
                   return DropdownMenuItem(
-                      value: coun,
-                      child:Text(coun['name'])
-                      //child: Text(coun)
-                      );
-                }).toList(),
-                onChanged: (val) {
-                  var mapCountry;
-                  setState(() {
-                    mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'];
-                selectedCountry = mapCountry['id'];
-                    // selectedCategory = adCategory['category']['en'];
-                    // subtypeId = adCategory['id'];
-                    // type = adCategory['category_listing_types'];
-                    // selectedtype = 'Type';
-                    // print(subtypeId);
-                  });
-                },
-              )),
-            )));
+                    value: coun,
+                    child:Text(coun['name']
+                  )
+                );
+              }).toList(),
+              onChanged: (val) {
+                var mapCountry;
+                setState(() {
+                  mapCountry = val as Map;
+                  hintTextCountry = mapCountry['name'];
+                  selectedCountry = mapCountry['id'];
+                });
+              },
+            )
+          ),
+        )
+      )
+    );
+
   }
 
   Widget streetAddress() {
