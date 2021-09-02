@@ -9,7 +9,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/member_ship/payment_tap.dart';
-import 'package:success_stations/view/membership/complete_order.dart';
+import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
   @override
@@ -175,6 +175,6 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
 }
 
 void navigateToHomeScreen() {
-  Get.to(CompleteOrder());
+  Get.to(UserInformation());
   // PageUtils.pushPage(Payments());
 }

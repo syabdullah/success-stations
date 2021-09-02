@@ -10,14 +10,14 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 
-class CompleteOrder extends StatefulWidget {
-  const CompleteOrder({Key? key}) : super(key: key);
+class UserInformation extends StatefulWidget {
+  const UserInformation({Key? key}) : super(key: key);
 
   @override
-  _CompleteOrderState createState() => _CompleteOrderState();
+  _UserInformationState createState() => _UserInformationState();
 }
 
-class _CompleteOrderState extends State<CompleteOrder> {
+class _UserInformationState extends State<UserInformation> {
   get space20 => null;
 
   get statustogle => null;
