@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -14,7 +15,7 @@ class _CountryPageState extends State<Ccountry> {
   TextEditingController emailController = TextEditingController();
 
   var selectedIndex;
-
+  GetStorage box = GetStorage();
   Widget featureCountryList(countryListData){
     return Container(
       alignment: Alignment.bottomCenter,
@@ -28,6 +29,8 @@ class _CountryPageState extends State<Ccountry> {
             onTap: (){
               setState(() {
                 selectedIndex = index;
+                print(selectedIndex);
+                box.write("country",selectedIndex);
               });
             },
             child: Column(
