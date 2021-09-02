@@ -493,6 +493,7 @@ Widget istStep(List list,List types){
                   )
                 )
               ),    
+           
             SizedBox(height: 5.h,),
             Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
