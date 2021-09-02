@@ -51,7 +51,6 @@ class _FriendProfileState extends State<FriendProfile>
     friCont.profileAds(id);
   }
 
-  @override
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
@@ -296,8 +295,8 @@ class _FriendProfileState extends State<FriendProfile>
             ),
           ),
         ),
-        SizedBox(
-          height: 30,
+        SizedBox( 
+          height:langg ==  'en'? 30:50,
           child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
