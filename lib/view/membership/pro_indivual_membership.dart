@@ -9,6 +9,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/member_ship/payment_tap.dart';
+import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class IndividualMemeberShip extends StatefulWidget {
 }
 
 class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
-   bool statustogle= false;
+  bool statustogle = false;
 
   List<String> memberShipDatta = [
     "Profile",
@@ -33,16 +34,17 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     final space50 = SizedBox(height: getSize(50, context));
     final space20 = SizedBox(height: getSize(20, context));
     return Scaffold(
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: sAppbar(context,Icons.arrow_back_ios, AppImages.appBarLogo )),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(70.0),
+          child: sAppbar(context, Icons.arrow_back_ios, AppImages.appBarLogo)),
       body: Column(
         children: [
           space20,
           headingMember(),
           space20,
           Container(
-            height: Get.height/ 2,
-            width: Get.width/1.5,
+            height: Get.height / 1.9,
+            width: Get.width / 1.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
               border: Border.all(
@@ -61,63 +63,67 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
           ),
           space50,
           submitButton(
-            buttonText: 'UPDATE SUBSCRITIPN',
-            bgcolor: AppColors.appBarBackGroundColor,  
-            textColor: AppColors.appBarBackGroun, 
-            callback:navigateToHomeScreen
-          ),
+              buttonText: 'UPDATE SUBSCRITIPN',
+              bgcolor: AppColors.appBarBackGroundColor,
+              textColor: AppColors.appBarBackGroun,
+              callback: navigateToHomeScreen),
         ],
       ),
     );
   }
+
   Widget headingMember() {
     return Container(
-      margin: EdgeInsets.only(left:9),
-      child: Text(
-        "You can use following services in Pro Company", style:TextStyle(fontSize: 15, color:Colors.grey[600])
-      )
-    );
+        margin: EdgeInsets.only(left: 0),
+        child: Text("You can use following services in Pro Company",
+            style: TextStyle(fontSize: 17, color: Colors.grey[600])));
   }
+
   Widget imagess(context) {
     final space20 = SizedBox(height: getSize(20, context));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          child: Image.asset(AppImages.memberShip, height: 40,)
-        ),
+            child: Image.asset(
+          AppImages.memberShip,
+          height: 30,
+        )),
         space20,
         Container(
-          child: Text(
-            "PRO(Company)", style:TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey[500])
-          )
-        ),
+            child: Text("PRO(Company)",
+                style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500]))),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              child: Text("Monthly", style:TextStyle(color:AppColors.appBarBackGroundColor))
-            ),
+                child: Text("Monthly",
+                    style: TextStyle(color: AppColors.appBarBackGroundColor))),
+                    SizedBox(width: 5,),
             Container(
-              child:  FlutterSwitch(
-                width: 70.0,
-                height: 35.0,
-                valueFontSize: 25.0,
-                toggleSize: 45.0,
-                value: statustogle,
-                borderRadius: 30.0,
-                // padding: 8.0,
-                // showOnOff: true,
-                onToggle: (val) {
-                  setState(() {
-                    print("object......$val");
-                    statustogle = val;
-                  });
-                },
-              )
-            ),
+                child: FlutterSwitch(
+              width: 50.0,
+              height: 25.0,
+              valueFontSize: 25.0,
+              toggleSize: 45.0,
+              value: statustogle,
+              borderRadius: 30.0,
+              // padding: 8.0,
+              // showOnOff: true,
+              onToggle: (val) {
+                setState(() {
+                  print("object......$val");
+                  statustogle = val;
+                });
+              },
+            )),
+            SizedBox(width: 5,),
             Container(
-              child: Text("Yearly", style:TextStyle(color:Colors.grey[400]))
-            ),
+                child:
+                    Text("Yearly", style: TextStyle(color: Colors.grey[400]))),
           ],
         ),
       ],
@@ -125,47 +131,50 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   }
 
   Widget dataBox() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          alignment: Alignment.topLeft,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: memberShipDatta.length,
-            itemBuilder: ( BuildContext ctxt, int index) {
-              return Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top:12),
-                    child: Text(
-                      memberShipDatta[index],
-                      style:TextStyle(
-                        fontSize: 16, color: AppColors.appBarBackGroundColor
-                      )
-                    ),
-                  ),
-                ],
-              );
-            }
-          )
-        ),
-      ],
+    return Flexible(
+      child: ListView.builder(
+        //physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+    
+          //shrinkWrap: true,
+          itemCount: memberShipDatta.length,
+          itemBuilder: (BuildContext ctxt, int index) {
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Text(memberShipDatta[index],
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.appBarBackGroundColor)),
+                ),
+              ],
+            );
+          }),
     );
   }
 
-   Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton(
+      {buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      fontWeight}) {
     return AppButton(
-      buttonText: buttonText, 
+      buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
       textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
       fontSize: fontSize,
     );
   }
 }
+
 void navigateToHomeScreen() {
-    // PageUtils.pushPage(Payments());
-  }
+  Get.to(UserInformation());
+  // PageUtils.pushPage(Payments());
+}
