@@ -49,7 +49,7 @@ class _AppDrawerState extends State<AppDrawer> {
     var fileName;
     var userType,accountType;
     final banner = Get.put(BannerController());
-
+var lang;
   @override
   void dispose() {
     banner.bannerController();
@@ -63,7 +63,8 @@ class _AppDrawerState extends State<AppDrawer> {
     image = box.read('user_image');
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
-    print("////////a//// $accountType");
+    lang = box.read('lang_code');
+    print("////////a//// $lang");
     print("////////a//// $userType");
     banner.bannerController();
     
@@ -121,7 +122,8 @@ class _AppDrawerState extends State<AppDrawer> {
                                 getImage();
                               },
                               child: FractionalTranslation(
-                                translation: Get.height > 700 ? const Offset(0.2, 1.3): const Offset(0.2, 0.9),
+                                translation: lang == 'en' ? Get.height > 700 ?  const Offset(0.2, 1.3): const Offset(0.2, 0.9):
+                                Get.height > 700 ?  const Offset(-0.1, 1.3): const Offset(-0.2, 0.9),
                                 child: CircleAvatar(
                                   backgroundColor: Colors.grey[200],
                                   radius: 60.0,
@@ -180,7 +182,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:50.0),
+                      padding: lang == 'en' ?  const EdgeInsets.only(top:50.0): const EdgeInsets.only(top:50.0,right: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

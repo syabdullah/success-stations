@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
+import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/messages/chat.dart';
@@ -31,11 +32,13 @@ class _FriendProfileState extends State<FriendProfile>
   var adID;
   bool choice = false;
   var dtaaa;
+  var langg;
   @override
   void initState() {
     super.initState();
     selectedUser = box.read("selected");
     requister = box.read("requister");
+    langg = box.read('lang_code');
 
     dtaaa = Get.arguments;
     // if(dtaaa[0] == 'ads') {
@@ -43,7 +46,7 @@ class _FriendProfileState extends State<FriendProfile>
     // }else
     adID = dtaaa[1]; 
     id = dtaaa[1];
-    print("../././...here the id.----------$ads");
+    print("../././...here the id.----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
   }
@@ -213,25 +216,27 @@ class _FriendProfileState extends State<FriendProfile>
     return Wrap(
       children: [
         FractionalTranslation(
-            translation: const Offset(0.5, -0.5),
+            translation: langg ==  'en' ? const Offset(0.5, -0.5) :  const Offset(-0.5, -0.5),
             child: Container(
                 // margin: EdgeInsets.only(left: 250),
                 child: GestureDetector(
                     onTap: () {
                       setState(() {
+                        choice = !choice;
                         if(dtaaa[0] == 'ads' && choice == false) {
                           var json = {
                             'friend_send_request_to': id
                           };
-                          choice = !choice;
                           print("...................$json");
                            friCont.sendFriend(json);
                         }
                         else if (choice == true) {
-                          choice = !choice;
-                        } else if(dtaaa[0] == 'friend') {
-                          choice = !choice;
-                          friCont.deleteFriend(requister);
+                          // friCont.deleteFriend(selectedUser);
+                        } else {
+                          var json = {
+                            'friend_send_request_to': requister
+                          };
+                           friCont.sendFriend(json);
                         }
                       });
                     },
@@ -241,26 +246,26 @@ class _FriendProfileState extends State<FriendProfile>
                         decoration: BoxDecoration(
                             color: AppColors.appBarBackGroundColor,
                             borderRadius: BorderRadius.circular(50)),
-                        child: dtaaa[0] == 'ads' && choice == false  ?
+                        child: dtaaa[0] == 'ads' && choice == true  ?
                         Center(
-                          child: Text(
-                            "Add Friend",
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          child:   Text(
+                                  "Add Friend",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                         ):
                          Center(
-                          child: choice == true
-                              ? Text("Sent", //
+                          child: choice == false
+                              ? Text("cancel".tr, //
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))
                               :  Text(
-                                  "Cancel",
+                                  "Add Friend",
                                   style: TextStyle(color: Colors.white),
                                 ),
                         ))))),
         FractionalTranslation(
-          translation: const Offset(0.7, -0.5),
+          translation: langg ==  'en' ? const Offset(0.7, -0.5) : const Offset(-0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: (){

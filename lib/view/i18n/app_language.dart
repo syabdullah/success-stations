@@ -24,7 +24,7 @@ class LocalizationServices extends Translations {
   // ignore: override_on_non_overriding_member
   TextDirection get textDirection => _textDirection;
   late TextDirection _textDirection;
-
+// var loc = box.read(key)
   static final locale = Locale('en', '');
 
   // fallbackLocale saves the day when the locale gets in trouble
