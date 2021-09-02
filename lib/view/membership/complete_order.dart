@@ -21,11 +21,10 @@ class _CompleteOrderState extends State<CompleteOrder> {
   get space20 => null;
 
   get statustogle => null;
-
+  var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity;
   @override
-  var types = ['hello', 'hi'];
 
-    var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
+    
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     final space20 = SizedBox(height: getSize(5, context));
@@ -41,7 +40,6 @@ class _CompleteOrderState extends State<CompleteOrder> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               headingMember(),
-              //Material example
               space20,
               emailAddress(),
               space20,
@@ -55,7 +53,6 @@ class _CompleteOrderState extends State<CompleteOrder> {
                   return countryRegion(val.countryListdata);
                 } ,
               ),
-              //countryRegion(),
               space20,
               apartmentAddress(),
               space20,
@@ -65,7 +62,6 @@ class _CompleteOrderState extends State<CompleteOrder> {
                   return region(val.listDataRegion);
                 },
               ),
-              //state(),
               space20,
               GetBuilder<CityController>(
                 init: CityController(),
@@ -73,13 +69,11 @@ class _CompleteOrderState extends State<CompleteOrder> {
                   return city(val.cityListData);
                 },
               ),
-              // city(),
               space20,
               submitButton(
               buttonText: 'Complete Order',
               bgcolor: AppColors.appBarBackGroundColor,
               textColor: AppColors.appBarBackGroun,
-              //callback: navigateToHomeScreen
               ),
             ],
           ),
@@ -99,13 +93,11 @@ class _CompleteOrderState extends State<CompleteOrder> {
         border: OutlineInputBorder(),
         hintText: 'Email Address',
         hintStyle: TextStyle(
-        color: Colors.grey, // <-- Change this
+        color: Colors.grey,
         fontSize: null,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         ),
-        //style: TextStyle(fontSize: 24, color: Colors.grey)
-        //labelText: 'Text field alternate'
       ),
       controller: new TextEditingController(),
     );
@@ -120,12 +112,11 @@ class _CompleteOrderState extends State<CompleteOrder> {
               border: OutlineInputBorder(),
               hintText: 'First Name',
               hintStyle: TextStyle(
-              color: Colors.grey, // <-- Change this
+              color: Colors.grey,
               fontSize: null,
               fontWeight: FontWeight.w400,
               fontStyle: FontStyle.normal,
               ),
-              //labelText: 'Text field alternate'
             ),
             controller: new TextEditingController(),
           ),
@@ -139,12 +130,11 @@ class _CompleteOrderState extends State<CompleteOrder> {
               border: OutlineInputBorder(),
               hintText: 'Last Name',
               hintStyle: TextStyle(
-              color: Colors.grey, // <-- Change this
+              color: Colors.grey,
               fontSize: null,
               fontWeight: FontWeight.w400,
               fontStyle: FontStyle.normal,
               ),
-              //labelText: 'Text field alternate'
             ),
             controller: new TextEditingController(),
           ),
