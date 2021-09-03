@@ -47,28 +47,12 @@ class _UserInformationState extends State<UserInformation> {
               space20,
               phoneNember(),
               space20,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return countryRegion(val.countryListdata);
-                } ,
-              ),
+               countryRegion(),
               space20,
               apartmentAddress(),
               space20,
-              GetBuilder<RegionController>(
-                init: RegionController(),
-                builder: (val){
-                  return region(val.listDataRegion);
-                },
-              ),
-              space20,
-              GetBuilder<CityController>(
-                init: CityController(),
-                builder: (val){
-                  return city(val.cityListData);
-                },
-              ),
+               region(),
+              space20,city(),
               space20,
               submitButton(
               buttonText: 'Complete Order',
@@ -159,50 +143,67 @@ class _UserInformationState extends State<UserInformation> {
       controller: new TextEditingController(),
     );
   }
-
-  Widget countryRegion(List data) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 1.0),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 1),
-          borderRadius: BorderRadius.all(
-            Radius.circular(5.0) //                 <--- border radius here
-          ),
+  Widget countryRegion() {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        hintText: 'Country',
+        hintStyle: TextStyle(
+        color: Colors.grey, // <-- Change this
+        fontSize: null,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
         ),
-        child: ButtonTheme(
-          alignedDropdown: true,
-          child: Container(
-            width: Get.width,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                hint: Text(
-                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
-                ),
-                dropdownColor: AppColors.inPutFieldColor,
-                icon: Icon(Icons.arrow_drop_down),
-                items: data.map((coun) {
-                  return DropdownMenuItem(
-                    value: coun,
-                    child:Text(coun['name']
-                  )
-                );
-              }).toList(),
-              onChanged: (val) {
-                var mapCountry;
-                setState(() {
-                  mapCountry = val as Map;
-                  hintTextCountry = mapCountry['name'];
-                  selectedCountry = mapCountry['id'];
-                });
-              },
-            )
-          ),
-        )
-      )
+        //labelText: 'Text field alternate'
+      ),
+      controller: new TextEditingController(),
     );
-
   }
+  
+
+  // Widget countryRegion(List data) {
+  //   return Container(
+  //     margin: const EdgeInsets.symmetric(horizontal: 1.0),
+  //       decoration: BoxDecoration(
+  //         border: Border.all(color: Colors.grey, width: 1),
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(5.0) //                 <--- border radius here
+  //         ),
+  //       ),
+  //       child: ButtonTheme(
+  //         alignedDropdown: true,
+  //         child: Container(
+  //           width: Get.width,
+  //           child: DropdownButtonHideUnderline(
+  //             child: DropdownButton(
+  //               hint: Text(
+  //                 hintTextCountry != null ? hintTextCountry : 'country'.tr,
+  //                 style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+  //               ),
+  //               dropdownColor: AppColors.inPutFieldColor,
+  //               icon: Icon(Icons.arrow_drop_down),
+  //               items: data.map((coun) {
+  //                 return DropdownMenuItem(
+  //                   value: coun,
+  //                   child:Text(coun['name']
+  //                 )
+  //               );
+  //             }).toList(),
+  //             onChanged: (val) {
+  //               var mapCountry;
+  //               setState(() {
+  //                 mapCountry = val as Map;
+  //                 hintTextCountry = mapCountry['name'];
+  //                 selectedCountry = mapCountry['id'];
+  //               });
+  //             },
+  //           )
+  //         ),
+  //       )
+  //     )
+  //   );
+
+  // }
 
   Widget streetAddress() {
     return TextField(
@@ -231,89 +232,120 @@ class _UserInformationState extends State<UserInformation> {
       controller: new TextEditingController(),
     );
   }
-  Widget region(List dataRegion) {
-    return  Container(
-      margin: const EdgeInsets.symmetric(horizontal: 1.0),
-      padding: const EdgeInsets.all(6.0),
-      width: Get.width ,//* 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: Colors.grey, width: 1),
-        borderRadius: BorderRadius.circular(5.0)
+   Widget region() {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        hintText: 'Region',
+         hintStyle: TextStyle(
+        color: Colors.grey, // <-- Change this
+        fontSize: null,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+        ),
+        //labelText: 'Text field alternate'
       ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
-            ),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: dataRegion.map((reg) {
-              return DropdownMenuItem(
-                value: reg,
-                child:Text(
-                  reg['region']
-                )
-              );
-            }).toList(),
-            onChanged: (data) {
-              var mapRegion;
-              setState(() {
-                mapRegion = data as Map ;
-                hintRegionText = mapRegion['region'];
-                selectedRegion = data['id'];
-              });
-            },
-          )
-        )
-      )
+      controller: new TextEditingController(),
     );
   }
-
+  // Widget region(List dataRegion) {
+  //   return  Container(
+  //     margin: const EdgeInsets.symmetric(horizontal: 1.0),
+  //     padding: const EdgeInsets.all(6.0),
+  //     width: Get.width ,//* 0.9,
+  //     decoration: BoxDecoration(
+  //       color: AppColors.inputColor,
+  //       border: Border.all(color: Colors.grey, width: 1),
+  //       borderRadius: BorderRadius.circular(5.0)
+  //     ),
+  //     child: ButtonTheme(
+  //       alignedDropdown: true,
+  //       child: DropdownButtonHideUnderline(
+  //         child: DropdownButton(
+  //           hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
+  //             style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+  //           ),
+  //           dropdownColor: AppColors.inPutFieldColor,
+  //           icon: Icon(Icons.arrow_drop_down),
+  //           items: dataRegion.map((reg) {
+  //             return DropdownMenuItem(
+  //               value: reg,
+  //               child:Text(
+  //                 reg['region']
+  //               )
+  //             );
+  //           }).toList(),
+  //           onChanged: (data) {
+  //             var mapRegion;
+  //             setState(() {
+  //               mapRegion = data as Map ;
+  //               hintRegionText = mapRegion['region'];
+  //               selectedRegion = data['id'];
+  //             });
+  //           },
+  //         )
+  //       )
+  //     )
+  //   );
+  // }
+  Widget city() {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        hintText: 'City',
+         hintStyle: TextStyle(
+        color: Colors.grey, // <-- Change this
+        fontSize: null,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.normal,
+        ),
+        //labelText: 'Text field alternate'
+      ),
+      controller: new TextEditingController(),
+    );
+  }
   
-  Widget city(List citydata) {
-    return  Container(
-      margin: const EdgeInsets.symmetric(horizontal: 1.0),
-      padding: const EdgeInsets.all(6.0),
-      width: Get.width ,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: Colors.grey, width: 1),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(
-              hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 13, color: AppColors.inputTextColor
-              )
-            ),
-            dropdownColor: AppColors.inputColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: citydata.map((citt) {
-              // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
-              return DropdownMenuItem(
-                value: citt,
-                child:Text(citt['city'])
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                var mapCity ;
-                mapCity = value as Map;
-                hintcityText = mapCity['city'];
-                selectedCity = mapCity['id'];
-              });
-            },
-          )
-        )
-      )
-    );
-  }
+  // Widget city(List citydata) {
+  //   return  Container(
+  //     margin: const EdgeInsets.symmetric(horizontal: 1.0),
+  //     padding: const EdgeInsets.all(6.0),
+  //     width: Get.width ,
+  //     decoration: BoxDecoration(
+  //       color: AppColors.inputColor,
+  //       border: Border.all(color: Colors.grey, width: 1),
+  //       borderRadius: BorderRadius.circular(2.0)
+  //     ),
+  //     child: ButtonTheme(
+  //       alignedDropdown: true,
+  //       child: DropdownButtonHideUnderline(
+  //         child: DropdownButton(
+  //           hint:Text(
+  //             hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
+  //               fontSize: 13, color: AppColors.inputTextColor
+  //             )
+  //           ),
+  //           dropdownColor: AppColors.inputColor,
+  //           icon: Icon(Icons.arrow_drop_down),
+  //           items: citydata.map((citt) {
+  //             // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
+  //             return DropdownMenuItem(
+  //               value: citt,
+  //               child:Text(citt['city'])
+  //             );
+  //           }).toList(),
+  //           onChanged: (value) {
+  //             setState(() {
+  //               var mapCity ;
+  //               mapCity = value as Map;
+  //               hintcityText = mapCity['city'];
+  //               selectedCity = mapCity['id'];
+  //             });
+  //           },
+  //         )
+  //       )
+  //     )
+  //   );
+  // }
 
  
   Widget submitButton(
