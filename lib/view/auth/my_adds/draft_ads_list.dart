@@ -52,128 +52,132 @@ Widget draftedlist(allDataAdds){
           onTap: () {
             // Get.to(AddPostingScreen(), arguments: allDataAdds[index]);
           },
-          child: Card(
-            child: Container(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Center(
-                        child: Container(
-                            height: Get.height / 4,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: GestureDetector(
-                                  child: allDataAdds[index]['image'].length != 0
-                                      ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.network(
-                                            allDataAdds[index]['image'][0]['url'],
-                                            width: Get.width / 4,
-                                            fit: BoxFit.fill,
-                                          ),
-                                      )
-                                      : Container(width: Get.width / 4,
-                                      child: Icon(Icons.image,size: 50,),
-                                      )
-                                  //  Image.asset(
-                                  //   AppImages.profileBg,
-                                  //   width: Get.width/4
-                                  // ),
-                                  ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                allDataAdds[index]['title'][lang].toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            // Expanded(
-                            //   flex : 2,
-                            //   child:  Row(
-                            //     children: [
-                            //       Icon(Icons.location_on, color:Colors.grey),
-                            //       Container(
-                            //         margin:EdgeInsets.only(left:29),
-                            //         child: Text(
-                            //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       )
-                            //     ],
-                            //   ),
-                                      // ),
-                           
-                              
-                            Expanded(
-                              flex: 2,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.person, color: Colors.grey),
-                                  Container(
-                                    width: Get.width/4,
-                                    // margin:EdgeInsets.only(left:29),
-                                    child: Text(
-                                      allDataAdds[index]['contact_name'] != null
-                                          ? allDataAdds[index]['contact_name']
-                                          : '',
-                                      style: TextStyle(color: Colors.grey[300]),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              child: Container(
+                height: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Center(
+                          child: Container(
+                              height: Get.height / 4,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                    child: allDataAdds[index]['image'].length != 0
+                                        ? ClipRRect(
+                                          borderRadius: BorderRadius.circular(20),
+                                          child: Image.network(
+                                              allDataAdds[index]['image'][0]['url'],
+                                              width: Get.width / 4,
+                                              fit: BoxFit.fill,
+                                            ),
+                                        )
+                                        : Container(width: Get.width / 4,
+                                        child: Icon(Icons.image,size: 50,),
+                                        )
+                                    //  Image.asset(
+                                    //   AppImages.profileBg,
+                                    //   width: Get.width/4
+                                    // ),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            
-                            // SizedBox(height: 8),
-                            // Expanded(
-                            //   flex:3,
-                            //   child: Container(
-                            //     margin: EdgeInsets.only(left:10),
-                            //     child: Row(
-                            //       children: [
-                            //         Icon(Icons.person, color:Colors.grey),
-                            //         Text(
-                            //           allDataAdds[index]['user']['name'],
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            
-                          ],
+                              )),
                         ),
-                      ),
-                      // ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      getData.getDraftedAdsOublished(allDataAdds[index]['id']);
-                    },
-                    child: Container(
-                      color : AppColors.appBarBackGroundColor,
-                      height: 30,
-                      width: Get.width/4,
-                      // margin: EdgeInsets.only(right: ),
-                      child: Center(child: Text("publish".tr,style: TextStyle(color: Colors.white),)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  allDataAdds[index]['title'][lang].toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              // Expanded(
+                              //   flex : 2,
+                              //   child:  Row(
+                              //     children: [
+                              //       Icon(Icons.location_on, color:Colors.grey),
+                              //       Container(
+                              //         margin:EdgeInsets.only(left:29),
+                              //         child: Text(
+                              //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       )
+                              //     ],
+                              //   ),
+                                        // ),
+                             
+                                
+                              Expanded(
+                                flex: 2,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.person, color: Colors.grey),
+                                    Container(
+                                      width: Get.width/4,
+                                      // margin:EdgeInsets.only(left:29),
+                                      child: Text(
+                                        allDataAdds[index]['contact_name'] != null
+                                            ? allDataAdds[index]['contact_name']
+                                            : '',
+                                        style: TextStyle(color: Colors.grey[300]),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              
+                              // SizedBox(height: 8),
+                              // Expanded(
+                              //   flex:3,
+                              //   child: Container(
+                              //     margin: EdgeInsets.only(left:10),
+                              //     child: Row(
+                              //       children: [
+                              //         Icon(Icons.person, color:Colors.grey),
+                              //         Text(
+                              //           allDataAdds[index]['user']['name'],
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                              
+                            ],
+                          ),
+                        ),
+                        // ),
+                      ],
                     ),
-                  )
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        getData.getDraftedAdsOublished(allDataAdds[index]['id']);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        color : AppColors.appBarBackGroundColor,
+                        height: 30,
+                        width: Get.width/4,
+                        // margin: EdgeInsets.only(right: ),
+                        child: Center(child: Text("publish".tr,style: TextStyle(color: Colors.white),)),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
