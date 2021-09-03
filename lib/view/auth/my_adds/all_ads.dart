@@ -173,10 +173,7 @@ class _AllAddsState extends State<AllAdds> {
                   grid = AppImages.grid;
                 });
               },
-              icon:
-                  // Container(
-                  // height: 100,
-                  Image.asset(grid),
+              icon: Image.asset(grid),
             ),
             Container(
               margin: EdgeInsets.only(bottom: 15),
