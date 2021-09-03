@@ -1,3 +1,7 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,69 +10,45 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/messages/inbox.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ChattingPage extends StatefulWidget {
   _ChattingState createState() => _ChattingState();
 }
 class _ChattingState extends State<ChattingPage> {
-var uId;
-ScrollController controller = new ScrollController();
-  List<ChatMessage> me = [
-    // ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-    // ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
-    // ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
-    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    //  ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    //  ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-    // ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
-    // ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
-  ];
+  var uId;
+  ScrollController controller = new ScrollController();
+  List<ChatMessage> me = [];
   final chatCont = Get.put(ChatController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController msg = TextEditingController();
   var id,userId;
   var userData;
   var image;
-   IOWebSocketChannel ? channel;
+  var page = 1;
   GetStorage box = GetStorage();
    @override
   void initState() {
     super.initState();
-     channel = IOWebSocketChannel.connect(
-    Uri.parse('wss://49.12.192.180/$id'),
-  );
-     userData = Get.arguments;
-     userId = box.read('user_id');
-     id = userData[0];
-     chatCont.getChatConvo(id);
-     image = box.read('chat_image');
-     controller.animateTo(
-      0.0,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 300),
-    );
+    connect();
+    userData = Get.arguments;
+    userId = box.read('user_id');
+    id = userData[0];
+    image = box.read('chat_image');
      uId = box.read('user_id');
   }
-   
-   void _sendMessage() {
-    if (msg.text.isNotEmpty) {
-      print(msg.text);
-      channel!.sink.add(msg.text);
-    }
-  }
-   @override
-  void dispose() {
-    channel!.sink.close();
-    super.dispose();
+  void connect(){
+    IO.Socket socket = IO.io('http://49.12.192.180', <String, dynamic>{
+      "transports":["websocket"],
+      "autoConnect": false,
+
+    });
+    socket.connect();
+    socket.onConnect((data) => print("CONNECTED"));
+    print(" PRINTED WEBSOCKET VALUE .........${socket.connected}");
+    
   }
 
   @override
@@ -171,7 +151,7 @@ ScrollController controller = new ScrollController();
                   SizedBox(width: 15,),
                   FloatingActionButton(
                     onPressed: (){
-                      _sendMessage();
+                      // _sendMessage();
                       setState(() {
                         me.add(
                         ChatMessage(messageContent: msg.text,messageType: "sender")
@@ -193,13 +173,24 @@ ScrollController controller = new ScrollController();
       ),
     );
   }
+  bool isLoading = false;
+  Future _loadData(data) async {
+    // perform fetching data delay
+    await Future.delayed(new Duration(seconds: 1));
+    print("ddddddddaaatatatatatahjfkg-----------$data");
+    if(data != null ){
+      ++page;
+   await chatCont.getChatConvo(id,page);
+    }
+    
+    // var pageSize = int.parse(_pageSize) + int.parse(pls);
+    // _pageSize = pageSize.toString();
+    setState(() {
+      isLoading = false;
+    });
+  }
   Widget messageList(data) {
-    return  StreamBuilder(
-      stream: channel!.stream,
-      builder: (context, snapshot) {
-        print(".......................>${snapshot.data}");
-        return 
-                // Text(snapshot.hasData ? '${snapshot.data}' : '');            
+    return          
         Container(       
           height: Get.height/1.5,
           decoration: BoxDecoration(
@@ -208,37 +199,49 @@ ScrollController controller = new ScrollController();
           ),
           margin: EdgeInsets.only(top:Get.height/5.0,bottom: 25),
           // height: Get.height,
-            child: ListView.builder(
-              reverse: true,
-              controller: controller,
-              itemCount: data['data'].length,
-              shrinkWrap: true,
-              padding: EdgeInsets.only(top: 10,bottom: 10),
-            physics: AlwaysScrollableScrollPhysics(),
-              itemBuilder: (context, index){
-                return Container(
-                  padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
-                  child: Align(
-                    alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          bottomRight: Radius.circular(10.0),
-                          bottomLeft: Radius.circular(10.0)
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                  // // setState(() {
+                    isLoading = true;
+                  // // });
+                  print(".........-------------$data");
+                  _loadData(data['next_page_url']);
+                }
+                  return false;
+                },
+              child: ListView.builder(
+                reverse: true,
+                controller: controller,
+                itemCount: data['data'].length,
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 10,bottom: 10),
+              physics: AlwaysScrollableScrollPhysics(),
+                itemBuilder: (context, index){
+                  return Container(
+                    padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
+                    child: Align(
+                      alignment: (uId != data['data'][index]["created_by"]?Alignment.topLeft:Alignment.topRight),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10.0),
+                            bottomRight: Radius.circular(10.0),
+                            bottomLeft: Radius.circular(10.0)
+                          ),
+                          color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
                         ),
-                        color: (uId != data['data'][index]["created_by"]?Colors.grey.shade200:Colors.blue[200]),
+                        padding: EdgeInsets.all(16),
+                        child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
                       ),
-                      padding: EdgeInsets.all(16),
-                      child: Text(data['data'][index]['message'], style: TextStyle(fontSize: 15),),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
         );
-      },
-    );
+      // },
+    // );
   }
 }
 
