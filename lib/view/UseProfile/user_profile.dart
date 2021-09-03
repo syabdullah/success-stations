@@ -64,6 +64,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
+       
         Container(
           margin: EdgeInsets.only(top:30),
           child: Row(
