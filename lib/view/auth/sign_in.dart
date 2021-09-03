@@ -143,7 +143,7 @@ class _SignPageState extends State<SignIn> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: "email".tr,
-        hintStyle: TextStyle(fontSize: 18,),
+        hintStyle: TextStyle(fontSize: 14,),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 

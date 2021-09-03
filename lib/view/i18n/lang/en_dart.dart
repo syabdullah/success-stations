@@ -26,7 +26,7 @@ const Map<String, String> en = {
   "password":"Password",
   "forgot_your_password": "Forgot your password?",
   "phone_email_username": "Phone Number, email or name",
-  "email": "EMAIL",
+  "email": "Email",
   "send": "Send",
   "or": "OR",
   "back_to": "Back to",
