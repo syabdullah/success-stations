@@ -179,7 +179,7 @@ class _SignPageState extends State<StudentSignUp> {
                   Text(
                     'terms'.tr, 
                     style: TextStyle( 
-                      fontSize: 14, fontWeight: FontWeight.w300
+                      fontSize: 18, fontWeight: FontWeight.w300
                     )
                   ),
                   Text(
@@ -192,7 +192,7 @@ class _SignPageState extends State<StudentSignUp> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: "sign_up_text".tr,
+                buttonText: "sign_up_text".tr,fontSize: 18.0,
                 callback: _isChecked == true ?  createUser : null
                 // callback:  createUser
               ),
@@ -205,7 +205,7 @@ class _SignPageState extends State<StudentSignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("have_account".tr,
-                      style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
+                      style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300
                       ),
                     ),
                     Text("sign_in".tr, style: TextStyle( fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
@@ -227,7 +227,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'full_name'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -257,7 +257,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'semester'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -287,7 +287,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'address'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -317,7 +317,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'about'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -347,7 +347,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'degree'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -377,7 +377,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         isObscure: false,
         hintText: 'email'.tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (newValue) {
@@ -507,7 +507,7 @@ class _SignPageState extends State<StudentSignUp> {
           children: <Widget>[
             Container(
               // padding: EdgeInsets.only(right:100),
-              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500]))),
+              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 18))),
             GestureDetector(
               child: Icon(Icons.calendar_today),
               onTap: () {               
@@ -550,7 +550,7 @@ class _SignPageState extends State<StudentSignUp> {
           child: DropdownButton(
             hint: Text(
               hintTextCountry != null ? hintTextCountry : 'country'.tr, 
-              style:  TextStyle(fontSize: 13,  color: AppColors.inputTextColor )
+              style:  TextStyle(fontSize: 18,  color: AppColors.inputTextColor )
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
@@ -588,7 +588,7 @@ class _SignPageState extends State<StudentSignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
             
             ),
             dropdownColor: AppColors.inPutFieldColor,
@@ -630,7 +630,7 @@ class _SignPageState extends State<StudentSignUp> {
           child: DropdownButton(
             hint:Text(
               hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 13, color: AppColors.inputTextColor
+                fontSize: 18, color: AppColors.inputTextColor
               )
             ),
             dropdownColor: AppColors.inputColor,
@@ -668,7 +668,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintUniText !=null ? hintUniText: "university".tr,style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            hint:Text(hintUniText !=null ? hintUniText: "university".tr,style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: daattta.map((uni) {
@@ -703,7 +703,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint: Text(hintClgText !=null ? hintClgText: "college".tr, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)),
+            hint: Text(hintClgText !=null ? hintClgText: "college".tr, style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: collegeData.map((coll) {

@@ -45,6 +45,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
+          
          padding: widget.padding,
           child: TextFormField(     
             // focusNode: FocusNode(),      

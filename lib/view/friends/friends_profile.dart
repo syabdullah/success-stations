@@ -148,12 +148,17 @@ class _FriendProfileState extends State<FriendProfile>
           children: [
             Center(
               child: Container(
+              
+                decoration: BoxDecoration(
+                  border:Border.all(width: 2,color: Colors.white),
+                  shape: BoxShape.circle),
+                
                 margin: EdgeInsets.only(
-                    left: 10.0, right: 10.0, top: Get.height / 15.5),
+                    left: 0.0, right: 10.0, top: Get.height / 13.5),
                 child: data['image'] != null
                     ? CircleAvatar(
                         backgroundImage: NetworkImage(data['image']['url']),
-                        radius: 20.0,
+                        radius: 60.0,
                       )
                     : CircleAvatar(
                         backgroundColor: Colors.grey,
