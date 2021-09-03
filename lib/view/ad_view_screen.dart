@@ -7,14 +7,10 @@ import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/custom_list.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:success_stations/utils/third_step.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/view/UseProfile/notifier_user.dart';
-import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,7 +76,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     ),
        body: SingleChildScrollView(
          child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 5),
+           padding: const EdgeInsets.symmetric(horizontal: 10),
            child: 
            GetBuilder<MyAddsController>(
           init: MyAddsController(),
@@ -125,8 +121,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
 
 Widget titleStep(data) {
-  
-  print("ppppppppp-------${data['created_by']}");
   var htmldata = '';
   if(data != null ) {
  htmldata =
@@ -216,11 +210,13 @@ Widget titleStep(data) {
         ),
       Card(
         child:Padding(
-        padding: const EdgeInsets.only(left:30,top: 15),
+        padding: const EdgeInsets.only(left:20,top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+            Container(
+            margin: EdgeInsets.only(left:10),  
+            child: Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
             SizedBox(height:5.h),
             Html(data: htmldata)
             // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
@@ -429,7 +425,6 @@ Widget mytraling(idU){
 
 Widget commentButton() {
     return Container(
-       padding: EdgeInsets.symmetric(horizontal: 10),
       height: 40.h,
       width: Get.width,
       child: ElevatedButton(
