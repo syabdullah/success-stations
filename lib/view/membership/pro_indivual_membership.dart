@@ -17,14 +17,14 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
 bool value = true;
   List<String> memberShipDatta = [
-    "Profile",
-    "My Ads",
-    "My Locations",
-    "My Offers",
-    "Messages",
-    "Notifications",
-    "Friend Requests",
-    "Favourites",
+    "profile".tr,
+    "my_ads".tr,
+    "my_location".tr,
+    "my_offer".tr,
+    "messeges".tr,
+    "notification".tr,
+    "friend_requests".tr,
+    "favourite".tr,
   ];
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ bool value = true;
           ),
           // space50,
           submitButton(
-              buttonText: 'UPDATE SUBSCRIPTION',
+              buttonText:'update_succe'.tr,
               bgcolor: AppColors.appBarBackGroundColor,
               textColor: AppColors.appBarBackGroun,
               callback: navigateToHomeScreen),
@@ -86,7 +86,7 @@ bool value = true;
   Widget headingMember() {
     return Container(
         margin: EdgeInsets.only(left: 0),
-        child: Text("You can use following services in Pro Company",
+        child: Text('head_members'.tr,
             style: TextStyle(fontSize: 17, color: Colors.grey[600])));
   }
 
@@ -111,7 +111,7 @@ bool value = true;
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                child: Text("Monthly",
+                child: Text("monthly".tr,
                     style: TextStyle(color: AppColors.appBarBackGroundColor))),
                     SizedBox(width: 5,),
                Switch.adaptive(
@@ -126,7 +126,7 @@ bool value = true;
             SizedBox(width: 5,),
             Container(
                 child:
-                    Text("Yearly", style: TextStyle(color: Colors.grey[400]))),
+                    Text('yearly'.tr, style: TextStyle(color: Colors.grey[400]))),
           ],
         ),
       ],
