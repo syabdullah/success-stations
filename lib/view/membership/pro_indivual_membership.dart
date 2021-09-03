@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
@@ -7,8 +6,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/view/member_ship/payment_tap.dart';
 import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
@@ -18,7 +15,7 @@ class IndividualMemeberShip extends StatefulWidget {
 
 class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
-
+bool value = true;
   List<String> memberShipDatta = [
     "Profile",
     "My Ads",
@@ -46,11 +43,12 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
             height: Get.height / 1.9,
             width: Get.width / 1.5,
             decoration: BoxDecoration(
+
               borderRadius: BorderRadius.circular(16.0),
               border: Border.all(
                 color: Colors.blue,
                 style: BorderStyle.solid,
-                width: 1.0,
+                width: 2.0,
               ),
             ),
             child: Column(
@@ -61,7 +59,20 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
               ],
             ),
           ),
-          space50,
+          FractionalTranslation(
+            translation: const Offset(0.0, -0.5),
+            child: Container(
+              height:50,
+              width: 120,
+              decoration: BoxDecoration(
+                color: AppColors.appBarBackGroundColor,
+                 borderRadius: BorderRadius.circular(10),
+                // borderRadius: Border.all()
+              ),
+              child: Center(child: Text("\$140",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),)),
+            ),
+          ),
+          // space50,
           submitButton(
               buttonText: 'UPDATE SUBSCRITIPN',
               bgcolor: AppColors.appBarBackGroundColor,
@@ -91,9 +102,9 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
         )),
         space20,
         Container(
-            child: Text("PRO(Company)",
+            child: Text("PRO (Company)",
                 style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[500]))),
         Row(
@@ -103,23 +114,15 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
                 child: Text("Monthly",
                     style: TextStyle(color: AppColors.appBarBackGroundColor))),
                     SizedBox(width: 5,),
-            Container(
-                child: FlutterSwitch(
-              width: 50.0,
-              height: 25.0,
-              valueFontSize: 25.0,
-              toggleSize: 45.0,
-              value: statustogle,
-              borderRadius: 30.0,
-              // padding: 8.0,
-              // showOnOff: true,
-              onToggle: (val) {
-                setState(() {
-                  print("object......$val");
-                  statustogle = val;
-                });
-              },
-            )),
+               Switch.adaptive(
+                
+                         activeColor: Colors.blue,
+                         value:(value), onChanged: (newValue) {
+                        setState(() {
+                         
+                        });
+                      
+                      }), 
             SizedBox(width: 5,),
             Container(
                 child:

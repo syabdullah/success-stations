@@ -390,13 +390,18 @@ class _OfferListState extends State<OfferList> {
     return Padding(
       padding: EdgeInsets.only(left: 10,right: 15),
       child: Container(
-        height: Get.height / 0.9,
+        height: Get.height ,
         child: GridView.builder(
           // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
           primary: false,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-              // childAspectRatio: 
+            childAspectRatio:Get.width /
+            (Get.height >= 800
+                ? Get.height / 1.65
+                : Get.height <= 800
+                    ? Get.height / 1.60
+                    : 0), 
           ),
           itemCount: listFavou.length,
           itemBuilder: (BuildContext context, int c) {
@@ -545,7 +550,7 @@ class _OfferListState extends State<OfferList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height / 9.22,
+          height: MediaQuery.of(context).size.height / 9.2,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
