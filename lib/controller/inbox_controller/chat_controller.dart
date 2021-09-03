@@ -34,7 +34,7 @@ class ChatController extends GetxController {
   }
  getChatConvo(id) async{
     isLoading = true ;
-    await getconvo(23).then((res) {
+    await getconvo(id).then((res) {
       chat = res.body;
       
       if(res.statusCode == 200 || res.statusCode < 400) {

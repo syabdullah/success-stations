@@ -464,14 +464,16 @@ Widget istStep(List list,List types){
                     width: Get.width,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                        hint: Text(
-                          selectedCategory != null ? selectedCategory : "categories".tr, 
-                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        hint: Container(
+                          margin: EdgeInsets.only(right: 10),
+                          child: Text(
+                            selectedCategory != null ? selectedCategory : "categories".tr, 
+                            style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                          ),
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: types.map((coun) {
-                          
                           return DropdownMenuItem(
                             value: coun,
                             child:Text(coun['category']['en'])

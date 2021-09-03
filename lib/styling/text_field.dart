@@ -47,7 +47,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         Padding(
          padding: widget.padding,
           child: TextFormField(     
-            focusNode: FocusNode(),      
+            // focusNode: FocusNode(),      
             controller: widget.textController,
             onFieldSubmitted: widget.onFieldSubmitted,
             onChanged: widget.onChanged,

@@ -216,11 +216,11 @@ Widget titleStep(data) {
         ),
       Card(
         child:Padding(
-        padding: const EdgeInsets.only(left:30,top: 15),
+        padding: const EdgeInsets.only(left:20,top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+            Container(child: Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
             SizedBox(height:5.h),
             Html(data: htmldata)
             // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",

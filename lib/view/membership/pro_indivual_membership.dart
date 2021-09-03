@@ -63,7 +63,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
           ),
           space50,
           submitButton(
-              buttonText: 'UPDATE SUBSCRITIPN',
+              buttonText: 'UPDATE SUBSCRIPTION',
               bgcolor: AppColors.appBarBackGroundColor,
               textColor: AppColors.appBarBackGroun,
               callback: navigateToHomeScreen),

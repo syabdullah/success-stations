@@ -30,7 +30,7 @@ class _MyAppState extends State<Payments> {
   // configure SDK
   Future<void> configureSDK() async {
     // configure app
-    configureApp();
+   await configureApp();
     // sdk session configurations
     setupSDKSession();
   }
@@ -39,8 +39,8 @@ class _MyAppState extends State<Payments> {
   Future<void> configureApp() async {
     GoSellSdkFlutter.configureApp(
       bundleId: Platform.isAndroid ? "com.codility.success_stations" : "com.success-stations.success-station",
-      productionSecreteKey: Platform.isAndroid ? "pk_test_nYJXCi69s7vI4jwl3a0TDx1R" : "pk_test_nYJXCi69s7vI4jwl3a0TDx1R",
-      sandBoxsecretKey: Platform.isAndroid ? "sk_test_Jt9pPdo2g73cVaieyOYGKIbw" : "sk_test_Jt9pPdo2g73cVaieyOYGKIbw",
+      productionSecreteKey: "pk_test_nYJXCi69s7vI4jwl3a0TDx1R",
+      sandBoxsecretKey: "sk_test_Jt9pPdo2g73cVaieyOYGKIbw",
       lang: "en"
     );
   }
@@ -48,79 +48,135 @@ class _MyAppState extends State<Payments> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> setupSDKSession() async {
     try {
-      GoSellSdkFlutter.sessionConfigurations(
-          trxMode: TransactionMode.PURCHASE,
-          transactionCurrency: "kwd",
-          amount: '100',
-          customer: Customer(
-              customerId: "2", // customer id is important to retrieve cards saved for this customer
-              email: "test@tedsst.com",
-              isdNumber: "965",
-              number: "0000220000",
-              firstName: "tdest",
-              middleName: "tedst",
-              lastName: "tedst",
-              metaData: null),
-          paymentItems: <PaymentItem>[
+    GoSellSdkFlutter.sessionConfigurations(
+        trxMode: TransactionMode.TOKENIZE_CARD,
+        transactionCurrency: "kwd",
+        amount: '100',
+        customer: Customer(
+            customerId: "1122",
+            email: "h@tap.company",
+            isdNumber: "965",
+            number: "000000",
+            firstName: "Haitham",
+            middleName: "Mohammad",
+            lastName: "Elsheshtawy",
+            metaData: null),
+        paymentItems: <PaymentItem>[
             PaymentItem(
                 name: "item1",
                 amountPerUnit: 1,
                 quantity: Quantity(value: 1),
-                discount: {"type": "F", "value": 10, "maximum_fee": 10, "minimum_fee": 1},
+                discount: {
+                "type": "F",
+                "value": 10,
+                "maximum_fee": 10,
+                "minimum_fee": 1
+                },
                 description: "Item 1 Apple",
-                taxes: [Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")],
+                taxes: [
+                Tax(
+                    amount: Amount(
+                        type: "F",
+                        value: 10,
+                        // minimum_fee: 1,
+                        // maximum_fee: 10
+                    ),
+                    name: "tax1",
+                    description: "tax describtion")
+                ],
                 totalAmount: 100),
-          ],
-          // List of taxes
-          taxes: [
-            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion"),
-            Tax(amount: Amount(type: "F", value: 10, minimumFee: 1, maximumFee: 10), name: "tax1", description: "tax describtion")
-          ],
-          // List of shippnig
-          shippings: [
-            Shipping(name: "shipping 1", amount: 100, description: "shiping description 1"),
-            Shipping(name: "shipping 2", amount: 150, description: "shiping description 2")
-          ],
-          // Post URL
-          postURL: "https://tap.company",
-          // Payment description
-          paymentDescription: "paymentDescription",
-          // Payment Metadata
-          paymentMetaData: {
+        ],
+        // List of taxes
+        taxes: [
+            Tax(
+                amount: Amount(
+                    type: "F", value: 10,
+                    //  minimum_fee: 1, maximum_fee: 10
+                     ),
+                name: "tax1",
+                description: "tax describtion"),
+            Tax(
+                amount: Amount(
+                    type: "F", value: 10,
+                    //  minimum_fee: 1, maximum_fee: 10
+                    
+                    ),
+                name: "tax1",
+                description: "tax describtion")
+        ],
+        // List of shippnig
+        shippings: [
+            Shipping(
+                name: "shipping 1",
+                amount: 100,
+                description: "shiping description 1"),
+            Shipping(
+                name: "shipping 2",
+                amount: 150,
+                description: "shiping description 2")
+        ],
+        // Post URL
+        postURL: "https://tap.company",
+        // Payment description
+        paymentDescription: "paymentDescription",
+        // Payment Metadata
+        paymentMetaData: {
             "a": "a meta",
             "b": "b meta",
-          },
-          // Payment Reference
-          paymentReference: Reference(
-              acquirer: "acquirer", gateway: "gateway", payment: "payment", track: "track", transaction: "trans_910101", order: "order_262625"),
-          // payment Descriptor
-          paymentStatementDescriptor: "paymentStatementDescriptor",
-          // Save Card Switch
-          isUserAllowedToSaveCard: true,
-          // Enable/Disable 3DSecure
-          isRequires3DSecure: true,
-          // Receipt SMS/Email
-          receipt: Receipt(true, false),
-          // Authorize Action [Capture - Void]
-          authorizeAction: AuthorizeAction(type: AuthorizeActionType.CAPTURE, timeInHours: 10),
-          // Destinations
-          destinations: null,
-          // merchant id
-          merchantID: "33",
-          // Allowed cards
-          allowedCadTypes: CardType.CREDIT,
-          applePayMerchantID: "applePayMerchantID",
-          allowsToSaveSameCardMoreThanOnce: false,
-          // pass the card holder name to the SDK
-          cardHolderName: "Card Holder NAME",
-          // disable changing the card holder name by the user
-          allowsToEditCardHolderName: true,
-          // select payments you need to show [Default is all, and you can choose between WEB-CARD-APPLEPAY ]
-          paymentType: PaymentType.ALL,
-          // Transaction mode
-          sdkMode: SDKMode.Sandbox);
+        },
+        // Payment Reference
+        paymentReference: Reference(
+            acquirer: "acquirer",
+            gateway: "gateway",
+            payment: "payment",
+            track: "track",
+            transaction: "trans_910101",
+            order: "order_262625"),
+        // payment Descriptor
+        paymentStatementDescriptor: "paymentStatementDescriptor",
+        // Save Card Switch
+        isUserAllowedToSaveCard: true,
+        // Enable/Disable 3DSecure
+        isRequires3DSecure: false,
+        // Receipt SMS/Email
+        receipt: Receipt(true, false),
+        // Authorize Action [Capture - Void]
+        authorizeAction: AuthorizeAction(
+            type: AuthorizeActionType.CAPTURE, timeInHours: 10),
+        // Destinations
+        destinations:Destinations(
+            amount: 100,
+            currency: 'kwd',
+            count: 2,
+            destinationlist: [
+                Destination(
+                    id: "",
+                    amount: 100,
+                    currency: "kwd",
+                    description: "des",
+                    reference: "ref_121299"),
+                Destination(
+                    id: "",
+                    amount: 100,
+                    currency: "kwd",
+                    description: "des",
+                   reference: "ref_22444444")
+            ])
+        ,
+        // merchant id
+        merchantID: "",
+        // Allowed cards
+        allowedCadTypes: CardType.ALL,
+        applePayMerchantID: "applePayMerchantID",
+        allowsToSaveSameCardMoreThanOnce: false,
+        // pass the card holder name to the SDK
+        cardHolderName: "Card Holder NAME",
+        // disable changing the card holder name by the user
+        allowsToEditCardHolderName: true,
+        paymentType: PaymentType.ALL,
+        sdkMode: SDKMode.Sandbox);
     } on PlatformException {
-      // platformVersion = 'Failed to get platform version.';
+      print("....................................");
     }
 
     if (!mounted) return;
@@ -131,13 +187,10 @@ class _MyAppState extends State<Payments> {
   }
 
   Future<void> startSDK() async {
-    setState(() {
-      // loaderController.start();
-    });
     tapSDKResult = await GoSellSdkFlutter.startPaymentSDK;
     // loaderController.stopWhenFull();
 
-    print('>>>> $tapSDKResult');
+    print('>>>>----------------------------------- $tapSDKResult');
     setState(() {
       switch (tapSDKResult!['sdk_result']) {
         case "SUCCESS":
@@ -270,6 +323,8 @@ class _MyAppState extends State<Payments> {
                   ),
                 ],
               ),
-            )));
+            )
+        )
+    );
   }
 }

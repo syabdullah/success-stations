@@ -143,16 +143,7 @@ var idd;
                   }
               //  
                var inputDate = DateTime.parse(data[index]['created_at']).toLocal();
-              //  var outputFormat = DateFormat('hh:mm a');
-              //  var outputDate = outputFormat.format(inputDate);
-              //  print("...........................$outputDate");
-
-          if(data !=null && data[index]['notifiable']['image'] !=null){
-          for(int c = 0; c<data[index]['notifiable']['image'].length;  c++){
-           imageGived = data[index]['notifiable']['image'][c]['url'];
-          //  print(".............adasd $imageGived2");
-          }}
-         return   Column(
+               return   Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 index == 0 ? 

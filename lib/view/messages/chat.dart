@@ -49,6 +49,7 @@ ScrollController controller = new ScrollController();
      userData = Get.arguments;
      userId = box.read('user_id');
      id = userData[0];
+     chatCont.getChatConvo(id);
      image = box.read('chat_image');
      controller.animateTo(
       0.0,

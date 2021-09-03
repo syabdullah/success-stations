@@ -15,6 +15,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/category_ads.dart';
+import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/home_offer.dart';
 
 
@@ -84,14 +85,16 @@ class _AdsViewState extends State<AdsView> {
              GetBuilder<CategoryController>(
               init: CategoryController(),
               builder: (dat){
-                return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg);
+                return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
+                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(
+                    
+                    data.addsCategoryArray) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),
@@ -99,7 +102,7 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null ? 
-                   offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
                 }),
           ],
         ),
@@ -231,7 +234,7 @@ class _AdsViewState extends State<AdsView> {
         ),
         GestureDetector(
           onTap: () {
-            Get.to(HomeAllFeature());
+            Get.to(OfferList(),arguments: 100);
           },
           child: Container(
             margin: EdgeInsets.only(right:10),
@@ -342,7 +345,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/3.2: Get.height/4.0,
+      height: Get.width < 420 ? Get.height/2.9: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -421,7 +424,7 @@ class _AdsViewState extends State<AdsView> {
                   Container(
                           margin: EdgeInsets.only(top:6,left:6),
                           child: data[index]['price'] !=null ? Text(
-                           'SAR:${data[index]['price']}',style: TextStyle(fontSize: 13),
+                           'SAR: ${data[index]['price']}',style: TextStyle(fontSize: 13),
                           ): Container()
                         ),               
                 ],

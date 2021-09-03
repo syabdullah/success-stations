@@ -195,7 +195,7 @@ var lang;
                               ),
                             ),
                           ),
-                          CustomListTile(AppImages.aboutus, 'home'.tr, ()  {
+                          CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
