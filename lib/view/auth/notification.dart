@@ -124,7 +124,6 @@ var idd;
               // scrollDirection: Axis.horizontal,
               itemCount: data.length,
               itemBuilder: (BuildContext context, index) {
-                  print(data[index]['notifiable']['image']);
               //  idd = data[index]['id'];
               //  print(idd);
                 String convertToAgo(DateTime input){
@@ -242,7 +241,7 @@ var idd;
               
                               ),
                             
-                             data[index]['notifiable']['created_at']!= null ?
+                             data[index]['notifiable']!= null ?
                             Container(
                               margin: EdgeInsets.only(right: 15),
                               alignment: Alignment.topRight,
