@@ -130,9 +130,13 @@ class _OfferListState extends State<OfferList> {
                filteringCategory();
               },
               child: Container(
-                margin: EdgeInsets.only(left: 10),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                color: Colors.grey[200],
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(13),
+                  color: Colors.grey[200],
+                ),
+                margin: EdgeInsets.only(left: 10,top: 10),
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                
                 child: Row(
                   children: [
                     Image.asset(AppImages.filter, height: 15),
@@ -383,75 +387,76 @@ class _OfferListState extends State<OfferList> {
     }
  
   Widget allUsers(listFavou){
-    return Container(
-      height: Get.height / 1.7,
-      child: GridView.builder(
-        // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
-        primary: false,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 20,
-          crossAxisCount: 2,
-            // childAspectRatio: 
-        ),
-        itemCount: listFavou.length,
-        itemBuilder: (BuildContext context, int c) {
-          return  GestureDetector(
-            onTap:(){
-              Get.to(HomeAllOfferDEtailPage(),arguments:listFavou[c]);
-
-            },
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: Card(
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)
-                          ),
-                          child: Container(
-                            height: Get.height * 0.15,
-                            width: Get.height * 0.18,
-                            child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
-                            ? FittedBox(
-                              fit: BoxFit.cover,
-                              child: Image.network(
-                                listFavou[c]['image']['url'],
-                              ),
-                            ): FittedBox(
-                              fit: BoxFit.cover,
-                              child: Icon(
-                                Icons.image,
-                                color: Colors.grey[400],
+    return Padding(
+      padding: EdgeInsets.only(left: 10,right: 15),
+      child: Container(
+        height: Get.height / 0.9,
+        child: GridView.builder(
+          // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+          primary: false,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+              // childAspectRatio: 
+          ),
+          itemCount: listFavou.length,
+          itemBuilder: (BuildContext context, int c) {
+            return  GestureDetector(
+              onTap:(){
+                Get.to(HomeAllOfferDEtailPage(),arguments:listFavou[c]);
+    
+              },
+              child: Column(
+                children: [
+                  Container(
+                   // margin: EdgeInsets.all(10),
+                    child: Card(
+                      elevation: 1,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)
+                            ),
+                            child: Container(
+                              height: Get.height * 0.23,
+                              width: Get.height * 0.23,
+                              child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
+                              ? FittedBox(
+                                fit: BoxFit.cover,
+                                child: Image.network(
+                                  listFavou[c]['image']['url'],
+                                ),
+                              ): FittedBox(
+                                fit: BoxFit.cover,
+                                child: Icon(
+                                  Icons.image,
+                                  color: Colors.grey[400],
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+                    )
+                  ),
+                  Container(
+                    child: Text(
+                      listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
+                      style:TextStyle(fontSize: 16, color: Colors.black)
+                    )
                   )
-                ),
-                Container(
-                  child: Text(
-                    listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-                    style:TextStyle(fontSize: 13, color: Colors.black)
-                  )
-                )
-              ],
-            ),
-          );
-        }),
+                ],
+              ),
+            );
+          }),
+      ),
     );
 }
 
