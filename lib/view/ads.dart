@@ -30,12 +30,12 @@ class _AdsViewState extends State<AdsView> {
     final catCont = Get.put(CategoryController());
      final addescontrollRefresh = Get.put(MyAddsController());
 
-    allWordsCapitilize (String str) {
-    return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-      return word[0].toUpperCase() + leftText;
-    }).join(' ');
-  }
+  //   allWordsCapitilize (String str) {
+  //   return str.toLowerCase().split(' ').map((word) {
+  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+  //     return word[0].toUpperCase() + leftText;
+  //   }).join(' ');
+  // }
   
   final banner = Get.put(BannerController());
   var userType;
@@ -170,7 +170,7 @@ class _AdsViewState extends State<AdsView> {
           items: imgList
           .map<Widget>((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(5.0),
+            margin: EdgeInsets.only(top:5),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
@@ -368,7 +368,7 @@ class _AdsViewState extends State<AdsView> {
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                     child: Container(
                       width: Get.width < 420 ? Get.width/2.3: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                      height: Get.width < 420 ? Get.height/7.0:  Get.height/9.5,
                       child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
                         child: Icon(Icons.image,size: 50,),
                       )
@@ -378,7 +378,7 @@ class _AdsViewState extends State<AdsView> {
                   Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(top:5,left: 5),
-                    child: Text(data[index]['title'][lang] != null ? allWordsCapitilize(data[index]['title'][lang]):'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
+                    child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     width: Get.width/2.3,
@@ -416,7 +416,7 @@ class _AdsViewState extends State<AdsView> {
                       SizedBox(width:5),
                       Container(
                         margin: EdgeInsets.only(top:6, left: Get.height*0.000),
-                        child: Text(allWordsCapitilize(data[index]['contact_name']),style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
+                        child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
                       ),
                     ],
                     
