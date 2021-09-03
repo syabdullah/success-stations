@@ -15,10 +15,10 @@ Future<http.Response> createconvo(data) async{
     return result;
 }
 
-Future<http.Response> getconvo(data) async{
+Future<http.Response> getconvo(data,page) async{
   await ApiHeaders().getData();
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}chats/$data/messages/?page=1");
+  var url = Uri.parse("${conf.baseUrl}chats/$data/messages/?page=$page");
   print(url);
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
