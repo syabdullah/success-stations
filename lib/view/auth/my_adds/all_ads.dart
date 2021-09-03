@@ -143,7 +143,7 @@ class _AllAddsState extends State<AllAdds> {
                     SizedBox(width: 5),
                     Text(
                       "filter".tr,
-                      style: TextStyle(color: Colors.grey[700]),
+                      style: TextStyle(color: Colors.grey[700],),
                     )
                   ],
                 ),
@@ -173,10 +173,7 @@ class _AllAddsState extends State<AllAdds> {
                   grid = AppImages.grid;
                 });
               },
-              icon:
-                  // Container(
-                  // height: 100,
-                  Image.asset(grid),
+              icon: Image.asset(grid),
             ),
             Container(
               margin: EdgeInsets.only(bottom: 15),
@@ -213,296 +210,255 @@ class _AllAddsState extends State<AllAdds> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
         ),
-        builder: (context) {
-          return FractionallySizedBox(
-            heightFactor: 0.9,
-            child: StatefulBuilder(builder: (BuildContext context,
-                void Function(void Function()) setState) {
-              return SafeArea(
-                child: AnimatedPadding(
-                    padding: MediaQuery.of(context).viewInsets,
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.decelerate,
-                    // child: Container(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10, left: 20, right: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+      builder: (context) {
+        return SafeArea(
+          child: FractionallySizedBox(
+            // heightFactor: 2.5,
+            child: StatefulBuilder(
+              builder:(
+                BuildContext context, void Function(void Function()) setState) {
+                  return SafeArea(
+                    child: AnimatedPadding(
+                      padding: MediaQuery.of(context).viewInsets,
+                        duration: const Duration(milliseconds: 100),
+                        curve: Curves.decelerate,
+                        // child: Container(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 10,left:20, right:10),
+                            child: ListView(
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
                                 Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: Text("filter".tr,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
-                                ),
-                                Container(
-                                    margin: EdgeInsets.only(right: 20),
-                                    child: InkWell(
-                                        onTap: () => Get.back(),
-                                        child: Icon(Icons.close)))
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: Get.height * 0.02),
-                          Text("category".tr, style: TextStyle(fontSize: 15)),
-                          // SizedBox(height: 10),
-                          GetBuilder<CategoryController>(
-                            init: CategoryController(),
-                            builder: (data) {
-                              return data.isLoading == true
-                                  ? Container(
-                                      height: Get.height / 10,
-                                    )
-                                  : data.subCatt != null &&
-                                          data.subCatt['data'] != null
-                                      ? Container(
-                                          height: Get.height / 10,
-                                          child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  data.subCatt['data'].length,
-                                              itemBuilder: (BuildContext ctxt,
-                                                  int index) {
-                                                return Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 8.0),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            filteredIndex =
-                                                                index;
-                                                            catFilteredID = data
-                                                                        .subCatt[
-                                                                    'data']
-                                                                [index]['id'];
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20.0),
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .blue),
-                                                              color: filteredIndex ==
-                                                                      index
-                                                                  ? filterSelecredColor
-                                                                  : Colors
-                                                                      .white,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  offset:
-                                                                      Offset(
-                                                                          0.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      6.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    10.0),
-                                                            child: data.subCatt[
-                                                                        'data'] !=
-                                                                    null
-                                                                ? Text(
-                                                                    data.subCatt['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'category']['en'],
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: filteredIndex ==
-                                                                              index
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .blue,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      fontStyle:
-                                                                          FontStyle
-                                                                              .normal,
-                                                                    ),
-                                                                  )
-                                                                : Container()),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                        )
-                                      : Container();
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text("condition".tr, style: TextStyle(fontSize: 15)),
-                          SizedBox(height: 10),
-                          Container(
-                            height: Get.height * 0.05,
-                            child: new ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: litems.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _onSelected(index);
-                                        status = litems[index];
-                                        print(
-                                            "....statusstatusstatus......$status");
-                                        // ignore: unnecessary_statements
-                                        // status == 'New'  ?  1  :0;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(left: 20),
-                                      width: Get.width / 5,
-                                      height: Get.height / 2,
-                                      decoration: BoxDecoration(
-                                          // ignore: unnecessary_null_comparison
-                                          color: _selectedIndex != null &&
-                                                  _selectedIndex == index
-                                              ? Colors.blue
-                                              : Colors
-                                                  .white, //Colors.blue[100],
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5))),
-                                      child: Center(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 5),
-                                          child: Text(litems[index],
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _selectedIndex == index
-                                                      ? Colors.white
-                                                      : Colors.blue)),
+                                  margin: EdgeInsets.only(top:20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin:EdgeInsets.only(left:10),
+                                        child: Text("filter".tr,
+                                          style: TextStyle(
+                                            fontSize: 20, color: Colors.black
+                                          )
                                         ),
                                       ),
+                                      Container(
+                                        margin:EdgeInsets.only(right:20),
+                                        child: InkWell(
+                                          onTap: () => Get.back(),
+                                          child: Icon(Icons.close)
+                                        )
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: Get.height*0.02),
+                                Text("category".tr, style: TextStyle(fontSize: 18)),
+                                // SizedBox(height: 10),
+                                GetBuilder<CategoryController>(
+                                  init: CategoryController(),
+                                  builder: (data) {
+                                    return data.isLoading == true ? Container(height: Get.height/10,)
+                                    : data.subCatt != null  && data.subCatt['data'] !=null?  
+                                    Container(
+                                      height: Get.height/10,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: data.subCatt['data'].length,
+                                        itemBuilder:(BuildContext ctxt, int index){
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(left: 8.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      filteredIndex = index;
+                                                      catFilteredID =  data.subCatt['data'][index]['id'];
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(7.0),
+                                                      border: Border.all(color: Colors.blue),
+                                                      color: filteredIndex == index ? filterSelecredColor  : Colors.white,
+                                                      boxShadow: [
+                                                        // BoxShadow(
+                                                        //   color: Colors.grey,
+                                                        //   offset: Offset(0.0, 1.0),
+                                                        //   blurRadius: 6.0,
+                                                        // ),
+                                                      ],
+                                                    ),
+                                                    padding: EdgeInsets.all(10.0),
+                                                    child: data.subCatt['data'] != null
+                                                    ? Text( data.subCatt['data'][index]['category']['en'],
+                                                      style: TextStyle(
+                                                        color: filteredIndex == index ? Colors.white  : Colors.blue,
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontStyle: FontStyle.normal,
+                                                      ),
+                                                    ): Container()
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }
+                                      ),
+                                    ): Container();
+                                  },
+                                ),
+                                SizedBox( height: 15,),
+                                Text("condition".tr, style: TextStyle(fontSize: 18)),
+                                SizedBox(height: 10),
+                                Container(
+                                  height: Get.height*0.05,
+                                  child: new ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: litems.length,
+                                    itemBuilder: (
+                                      BuildContext ctxt, int index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState((){
+                                              _onSelected(index);
+                                              status = litems[index];
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(left:20),
+                                            width: Get.width / 5,
+                                            height: Get.height/2,
+                                            decoration: BoxDecoration(
+                                              // ignore: unnecessary_null_comparison
+                                              color: _selectedIndex != null && _selectedIndex == index
+                                                ? Colors.blue
+                                                : Colors.white, //Colors.blue[100],
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)
+                                                )
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                margin: EdgeInsets.only(left: 5),
+                                                child: Text(litems[index],
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: _selectedIndex == index
+                                                  ? Colors.white
+                                                  : Colors.blue)),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
                                     ),
-                                  );
-                                }),
-                          ),
-                          SizedBox(height: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                //  alignment: Alignment.topLeft,
-                                child: Text("price".tr,
-                                    style: TextStyle(
-                                        // fontWeight: FontWeight.bold,
-                                        )),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                child: Text("SAR 0 - SAR 10000 ",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal)),
-                              ),
-                            ],
-                          ),
-
-                          RangeSlider(
-                            values: _currentRangeValues,
-                            min: 1.00,
-                            max: 10000.00,
-                            // divisions: 5,
-                            labels: RangeLabels(
-                              _currentRangeValues.start.round().toString(),
-                              _currentRangeValues.end.round().toString(),
+                                    SizedBox(height:20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                    //  alignment: Alignment.topLeft,
+                                      child: Text("price".tr,
+                                        style: TextStyle(
+                                          fontSize: 18
+                                          // fontWeight: FontWeight.bold,
+                                        )
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      child: Text("SAR 0 - SAR 10000 ",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal
+                                        )
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                RangeSlider(
+                                  values: _currentRangeValues,
+                                  min: 1.00,
+                                  max: 10000.00,
+                                  // divisions: 5,
+                                  labels: RangeLabels(
+                                    _currentRangeValues.start.round().toString(),
+                                    _currentRangeValues.end.round().toString(),
+                                  ),
+                                  onChanged: (values) {
+                                    setState(() {
+                                      _currentRangeValues = values;
+                                        start = _currentRangeValues.start.round().toString();
+                                        end = _currentRangeValues.end.round().toString();
+                                    });
+                                  },
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      // margin: EdgeInsets.only(top: 20),
+                                      // ignore: deprecated_member_use
+                                      child: RaisedButton(
+                                        color: Colors.grey[100],
+                                        child: Container(
+                                          width: Get.width / 4,
+                                          child: Center(
+                                            child: Text("reset".tr,
+                                              style: TextStyle(
+                                                color: AppColors.inputTextColor
+                                                  )
+                                                )
+                                              )
+                                            ),
+                                        onPressed: () {
+                                          Get.back();
+                                        }
+                                      ),
+                                    ),
+                                    Container(
+                                      // margin: EdgeInsets.only(top: 20),
+                                      // ignore: deprecated_member_use
+                                      child: RaisedButton(
+                                        color: Colors.blue,
+                                        child: Container(
+                                          width: Get.width / 4,
+                                          child: Center(
+                                            child: Text("apply".tr,
+                                              style: TextStyle( color: Colors.white),
+                                            )
+                                          )
+                                        ),
+                                          onPressed: catFilteredID  == null && status == null ?  null :() {
+                                            applyFiltering();
+                                            Get.off(FilteredAdds());
+                                          }),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            onChanged: (values) {
-                              setState(() {
-                                _currentRangeValues = values;
-                                start = _currentRangeValues.start
-                                    .round()
-                                    .toString();
-                                end =
-                                    _currentRangeValues.end.round().toString();
-                                print(".....!!!!!!!...!!!!!....$start");
-                                print(".....!!!!!!!...!!!!!....$end");
-                              });
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                // margin: EdgeInsets.only(top: 20),
-                                // ignore: deprecated_member_use
-                                child: RaisedButton(
-                                    color: Colors.grey[100],
-                                    child: Container(
-                                        width: Get.width / 4,
-                                        child: Center(
-                                            child: Text(AppString.resetButton,
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .inputTextColor)))),
-                                    onPressed: () {
-                                      Get.back();
-                                    }),
-                              ),
-                              Container(
-                                // margin: EdgeInsets.only(top: 20),
-                                // ignore: deprecated_member_use
-                                child: RaisedButton(
-                                    color: Colors.blue,
-                                    child: Container(
-                                        width: Get.width / 4,
-                                        child: Center(
-                                            child: Text("Apply",
-                                                style: TextStyle(
-                                                    color: Colors.white)))),
-                                    onPressed:
-                                        catFilteredID == null && status == null
-                                            ? null
-                                            : () {
-                                                applyFiltering();
-                                                Get.off(FilteredAdds());
-                                              }),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      // ),
-                    )),
-              );
-            }),
-          );
-        });
+                          // ),
+                        )),
+                  );
+                
+              }),
+          ),
+        );
+        
+       });
   }
 
   applyFiltering() {
@@ -536,193 +492,184 @@ class _AllAddsState extends State<AllAdds> {
                     //   ),
                     // ],
                   ),
-                  child: Card(
-                    child: Container(
-                      height: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Center(
-                                child: Container(
-                                    height: Get.height / 4,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: GestureDetector(
-                                          child: allDataAdds[index]['image']
-                                                      .length !=
-                                                  0
-                                              ? ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                child: Image.network(
-                                                    allDataAdds[index]['image'][0]
-                                                        ['url'],
-                                                    width: Get.width / 4,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                              )
-                                              : Container(
-                                                  width: Get.width / 4,
-                                                  child: Icon(
-                                                    Icons.image,
-                                                    size: 50,
-                                                  ),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal:10),
+                    child: Card(
+                      child: Container(
+                        height: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Center(
+                                  child: Container(
+                                      height: Get.height / 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: GestureDetector(
+                                            child: allDataAdds[index]['image']
+                                                        .length !=
+                                                    0
+                                                ? ClipRRect(
+                                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                  child: Image.network(
+                                                      allDataAdds[index]['image'][0]
+                                                          ['url'],
+                                                      width: Get.width / 4,
+                                                      fit: BoxFit.fill,
+                                                    ),
                                                 )
-                                          //  Image.asset(
-                                          //   AppImages.profileBg,
-                                          //   width: Get.width/4
-                                          // ),
-                                          ),
-                                    )),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        allDataAdds[index]['title'][lang]
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                            margin: EdgeInsets.only(top: 5),
-                                            child: allDataAdds[index]
-                                                        ['is_rated'] ==
-                                                    false
-                                                ? RatingBar.builder(
-                                                    initialRating:
-                                                        allDataAdds[index]
-                                                                ['rating']
-                                                            .toDouble(),
-                                                    minRating: 1,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemSize: 22.5,
-                                                    itemBuilder: (context, _) =>
-                                                        Icon(
-                                                      Icons.star,
-                                                      color: Colors.amber,
+                                                : Container(
+                                                    width: Get.width / 4,
+                                                    child: Icon(
+                                                      Icons.image,
+                                                      size: 50,
                                                     ),
-                                                    onRatingUpdate: (rating) {
-                                                      print(
-                                                          'rating on tap ........$rating');
-                                                      var ratingjson = {
-                                                        'ads_id':
-                                                            allDataAdds[index]
-                                                                ['id'],
-                                                        'rate': rating
-                                                      };
-                                                      print(
-                                                          '.....................Rating data on Tap .........$ratingjson');
-                                                      ratingcont
-                                                          .ratings(ratingjson);
-                                                      // ratingcont.getratings(allDataAdds[index]['id']);
-                                                    },
                                                   )
-                                                : RatingBar.builder(
-                                                    initialRating:
-                                                        allDataAdds[index]
-                                                                ['rating']
-                                                            .toDouble(),
-                                                    ignoreGestures: true,
-                                                    minRating: 1,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemSize: 22.5,
-                                                    itemBuilder: (context, _) =>
-                                                        Icon(
-                                                      Icons.star,
-                                                      color: Colors.amber,
-                                                    ),
-                                                    onRatingUpdate: (rating) {
-                                                      // ratingcont.getratings(allDataAdds[index]['id']);
-                                                    },
-                                                  ))
-                                      ],
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: [
-                                          Icon(Icons.person,
-                                              color: Colors.grey),
-                                          Container(
-                                            // margin:EdgeInsets.only(left:29),
-                                            child: Text(
-                                              allDataAdds[index]
-                                                          ['contact_name'] !=
-                                                      null
-                                                  ? allDataAdds[index]
-                                                      ['contact_name']
-                                                  : '',
-                                              style: TextStyle(
-                                                  color: Colors.grey[300]),
+                                            //  Image.asset(
+                                            //   AppImages.profileBg,
+                                            //   width: Get.width/4
+                                            // ),
                                             ),
-                                          )
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          allDataAdds[index]['title'][lang]
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              child: allDataAdds[index]
+                                                          ['is_rated'] ==
+                                                      false
+                                                  ? RatingBar.builder(
+                                                      initialRating:
+                                                          allDataAdds[index]
+                                                                  ['rating']
+                                                              .toDouble(),
+                                                      minRating: 1,
+                                                      direction: Axis.horizontal,
+                                                      allowHalfRating: true,
+                                                      itemCount: 5,
+                                                      itemSize: 22.5,
+                                                      itemBuilder: (context, _) =>
+                                                          Icon(
+                                                        Icons.star,
+                                                        color: Colors.amber,
+                                                      ),
+                                                      onRatingUpdate: (rating) {
+                                                        print(
+                                                            'rating on tap ........$rating');
+                                                        var ratingjson = {
+                                                          'ads_id':
+                                                              allDataAdds[index]
+                                                                  ['id'],
+                                                          'rate': rating
+                                                        };
+                                                        print(
+                                                            '.....................Rating data on Tap .........$ratingjson');
+                                                        ratingcont
+                                                            .ratings(ratingjson);
+                                                        // ratingcont.getratings(allDataAdds[index]['id']);
+                                                      },
+                                                    )
+                                                  : RatingBar.builder(
+                                                      initialRating:
+                                                      allDataAdds[index]['rating'].toDouble(),
+                                                      ignoreGestures: true,
+                                                      minRating: 1,
+                                                      direction: Axis.horizontal,
+                                                      allowHalfRating: true,
+                                                      itemCount: 5,
+                                                      itemSize: 22.5,
+                                                      itemBuilder: (context, _) =>
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: Colors.amber,
+                                                      ),
+                                                      onRatingUpdate: (rating) {
+                                                        // ratingcont.getratings(allDataAdds[index]['id']);
+                                                      },
+                                                    ))
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Column(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: CircleAvatar(
-                                      backgroundColor: Colors.grey[200],
-                                      child: Icon(Icons.person))),
-                              Container(
-                                  // width: Get.width/4,
-                                  // height: Get.height/5.5,
-                                  child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      var json = {
-                                        'ads_id': allDataAdds[index]['id']
-                                      };
-                                      liked = !liked;
-                                      print(
-                                          "..................-----------$catID.........${allDataAdds[index]['is_favorite']}");
-                                      allDataAdds[index]['is_favorite'] == false
-                                          ? friCont.profileAdsToFav(
-                                              json, userId)
-                                          : friCont.profileAdsRemove(
-                                              json, userId);
-
-                                      controller.addedByIdAddes(catID, null);
-                                    },
-                                    child: Container(
-                                        padding: EdgeInsets.only(right: 5),
-                                        child: allDataAdds[index]
-                                                    ['is_favorite'] ==
-                                                false
-                                            ? Image.asset(AppImages.blueHeart,
-                                                height: 20)
-                                            : Image.asset(AppImages.redHeart,
-                                                height: 20)),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.person,
+                                                color: Colors.grey),
+                                            Container(
+                                              // margin:EdgeInsets.only(left:29),
+                                              child: Text(
+                                                allDataAdds[index]['contact_name'] !=null
+                                                    ? allDataAdds[index]['contact_name']: '',
+                                                style: TextStyle(
+                                                    color: Colors.grey[300]),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Image.asset(AppImages.call, height: 20),
-                                ],
-                              ))
-                            ],
-                          ),
-                        ],
+                                ),
+                                // ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Column(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: CircleAvatar(
+                                        backgroundColor: Colors.grey[200],
+                                        child: Icon(Icons.person))),
+                                Container(
+                                    // width: Get.width/4,
+                                    // height: Get.height/5.5,
+                                    child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        var json = {
+                                          'ads_id': allDataAdds[index]['id']
+                                        };
+                                        liked = !liked;
+                                        allDataAdds[index]['is_favorite'] == false
+                                            ? friCont.profileAdsToFav(json, userId)
+                                            : friCont.profileAdsRemove(json, userId);
+                                        controller.addedByIdAddes(catID, null);
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.only(right: 5),
+                                          child: allDataAdds[index]
+                                                      ['is_favorite'] ==  false
+                                              ? Image.asset(AppImages.blueHeart,
+                                                  height: 25)
+                                              : Image.asset(AppImages.redHeart,
+                                                  height: 25)),
+                                    ),
+                                    Image.asset(AppImages.call, height:25),
+                                  ],
+                                ))
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -731,11 +678,10 @@ class _AllAddsState extends State<AllAdds> {
       },
     );
   }
-
   var ind = 0;
   myAddGridView(dataListValue) {
-    ;
     return Container(
+      
       width: Get.width / 1.10,
       child: GridView.count(
           crossAxisCount: 2,
@@ -747,6 +693,7 @@ class _AllAddsState extends State<AllAdds> {
                 //margin: EdgeInsets.only(left: 10),
                 height: Get.height < 420 ? Get.height / 3.6 : Get.height / 8.0,
                 child: Container(
+                  
                   child: Card(
                     elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -789,23 +736,6 @@ class _AllAddsState extends State<AllAdds> {
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        // dataListValue[index]['user']['address'] == null ? Container():
-                        // Expanded(
-                        //   // flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
                         Expanded(
                           flex: 2,
                           child: Row(
@@ -826,27 +756,6 @@ class _AllAddsState extends State<AllAdds> {
                             ],
                           ),
                         ),
-                        // Container(
-                        //   width: Get.width/2.3,
-                        //   child: Row(
-                        //     children: [
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6,left: 10),
-                        //         child: Icon(Icons.person, color:Colors.grey[400],)
-                        //       ),
-                        //       SizedBox(width:5),
-                        //       Container(
-                        //         margin: EdgeInsets.only(top:6),
-                        //         child: Text(dataListValue[index]['user']['name'] !=null ? dataListValue[index]['user']['name']:'',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400)),
-                        //       ),
-                        //       // Spacer(flex: 2),
-                        //       // Container(
-                        //       //   margin: EdgeInsets.only(right:6),
-                        //       //   child: Text("SAR 99",textAlign: TextAlign.end,style: TextStyle(color:Colors.grey,fontWeight: FontWeight.w400)),
-                        //       // )
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

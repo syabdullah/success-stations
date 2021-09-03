@@ -124,30 +124,35 @@ var lang;
                               child: FractionalTranslation(
                                 translation: lang == 'en' ? Get.height > 700 ?  const Offset(0.2, 1.3): const Offset(0.2, 0.9):
                                 Get.height > 700 ?  const Offset(-0.1, 1.3): const Offset(-0.2, 0.9),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.grey[200],
-                                  radius: 60.0,
-                                  // child:   Column(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                      // SizedBox(height:30)≥
-                                      child:ClipRRect(
-                                        borderRadius: BorderRadius.circular(60.0),
-                                        child:                                       
-                                        imageP.toString() != 'null' ?
-                                         Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
-                                         image.toString() == 'null' ? 
-                                        Image.asset(AppImages.person,color: Colors.grey[400]) : 
-                                        Image.network(
-                                          image['url'],
-                                          fit: BoxFit.fill,
-                                          height: Get.height/6.5,width: Get.width/3.3,
-                                        )
-                                        )
-                                      
-                                      
-                                  //   ],
-                                  // )
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 3,color: Colors.white),
+                                      shape: BoxShape.circle,),
+                                    child: CircleAvatar(
+                                    backgroundColor: Colors.grey[200],
+                                    radius: 60.0,
+                                    // child:   Column(
+                                    //   mainAxisAlignment: MainAxisAlignment.center,
+                                    //   children: [
+                                        // SizedBox(height:30)≥
+                                        child:ClipRRect(
+                                          borderRadius: BorderRadius.circular(60.0),
+                                          child:                                       
+                                          imageP.toString() != 'null' ?
+                                           Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
+                                           image.toString() == 'null' ? 
+                                          Image.asset(AppImages.person,color: Colors.grey[400]) : 
+                                          Image.network(
+                                            image['url'],
+                                            fit: BoxFit.fill,
+                                            height: Get.height/6.5,width: Get.width/3.3,
+                                          )
+                                          )
+                                        
+                                        
+                                    //   ],
+                                    // )
+                                  ),
                                 )
                               ),
                             ),
@@ -195,6 +200,7 @@ var lang;
                               ),
                             ),
                           ),
+                          SizedBox(height: 10,),
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
@@ -223,7 +229,7 @@ var lang;
                           },15.0 ),
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
                             Get.to(IndividualMemeberShip());
-                          },13.2 ),
+                          },15.0 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
                             Get.to(NotificationPage())
                           },15.0 ),
@@ -237,9 +243,9 @@ var lang;
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             Get.toNamed('/favourities')
                           },15.0 ), 
-                          SizedBox(height: 10.h),
+                          // SizedBox(height: 8.h),
                           Divider(),
-                          SizedBox(height: 10.h),
+                          SizedBox(height: 20.h),
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
                             child: Text(
@@ -267,6 +273,7 @@ var lang;
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
+                           SizedBox(height: 10.h),
                           CustomListTile(AppImages.logout, 'logout'.tr, ()  {
                             box.remove('user_image_local');
                             box.write('upgrade', true);
@@ -291,30 +298,29 @@ var lang;
   CustomListTile(this.image, this.text, this.onTap ,this.height);
   @override
   Widget build(BuildContext context) {
-    return Padding (
-      padding: EdgeInsets.fromLTRB(15.0, 0, 8.0, 0),
-      child: InkWell(
-        splashColor: Colors.grey,
-        onTap:() => onTap(),
-        child:Container(
-          height: 50,
-          child: Row(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(image.toString(),height: height,color:Colors.grey[600]),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:20),
-                      child:Text(text,textAlign: TextAlign.start,
-                       style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
-                      )
-                    )
+    return InkWell(
+      splashColor: Colors.grey,
+      onTap:() => onTap(),
+      child:Container(
+        height: 50,
+        margin: EdgeInsets.only(left:10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 25,
+                  child: Center(child: Image.asset(image.toString(),color:Colors.grey[600],height: 20,))),
+                Container(
+                  margin: EdgeInsets.only(left:10),
+                  child: Text(text,textAlign: TextAlign.start,
+                   style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
                   )
-                ],
-              ),
-            ],
-          )
+                    ),
+                ),
+              ],
+            ),
+          ],
         )
       )
     );

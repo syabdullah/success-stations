@@ -124,6 +124,7 @@ var idd;
               // scrollDirection: Axis.horizontal,
               itemCount: data.length,
               itemBuilder: (BuildContext context, index) {
+                  print(data[index]['notifiable']['image']);
               //  idd = data[index]['id'];
               //  print(idd);
                 String convertToAgo(DateTime input){
@@ -149,6 +150,7 @@ var idd;
 
           if(data !=null && data[index]['notifiable']['image'] !=null){
           for(int c = 0; c<data[index]['notifiable']['image'].length;  c++){
+          
            imageGived = data[index]['notifiable']['image'][c]['url'];
           //  print(".............adasd $imageGived2");
           }}

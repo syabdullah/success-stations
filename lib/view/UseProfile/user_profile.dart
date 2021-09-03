@@ -75,7 +75,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   Get.to(BottomTabs());
                   banner.bannerController();
                 },
-                icon: Icon(Icons.arrow_back,color: Colors.black)
+                icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
               // Center(
               //   widthFactor: 3,
@@ -91,10 +91,14 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           children: [
             Center(
               child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color:Colors.white,width: 3),
+                   shape: BoxShape.circle,
+                ),
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[100],
-                  radius: 40.0,
+                  radius: 60.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60.0),
                     child:
