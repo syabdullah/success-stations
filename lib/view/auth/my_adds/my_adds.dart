@@ -30,11 +30,12 @@ class _MyAddsState extends State<MyAdds> {
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
-  Color listIconColor = Colors.grey;
+  Color listIconColor = Colors.blue;
    bool liked = false;
   var lang;
   bool _value = true;
   var userId;
+   bool isButtonPressed = false;
   GetStorage box = GetStorage();
   @override
   void initState() {
@@ -138,9 +139,11 @@ class _MyAddsState extends State<MyAdds> {
           Row(
             children: [
               IconButton(
+               color: isButtonPressed ? Colors.blue : Colors.grey,
                 onPressed: (){
                   setState(() {
                     listtype = 'grid';
+                    isButtonPressed = !isButtonPressed;
                     listIconColor = Colors.grey;
                     grid = AppImages.grid;
                   });             
@@ -156,7 +159,7 @@ class _MyAddsState extends State<MyAdds> {
                   onPressed: (){
                     setState(() {
                       listtype = 'list';
-                      listIconColor = AppColors.appBarBackGroundColor;
+                      listIconColor = Colors.blue;
                       grid = AppImages.gridOf;
                     });
                   },
