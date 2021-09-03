@@ -80,7 +80,7 @@ const Map<String, String> en = {
   "mobile_no": "Mobile No",
   "Telephone_no": "Telephone No",
   "notes": "Notes",
-  "previous": "Previous",
+  "previous": "PREVIOUS",
   "draft_ads":"Draft Ads",
   "save_as_draft": "Save as draft",
   "publish": "Publish",
@@ -117,7 +117,7 @@ const Map<String, String> en = {
   "reply": "Reply",
   "type": "Type",
   "ad_number": "Ad Number",
-  "status": "status",
+  "status": "Status",
   "section": "Section",
   "write_comment_here": "Write Comment Here",
   "add_to_favourites": "Add to Favourites",
@@ -222,7 +222,18 @@ const Map<String, String> en = {
   'approve':'Approve',
   'remove':'remove',
   'recent_notification':'Recent Notification',
-  'old_notification':'Old Notification'  
+  'old_notification':'Old Notification' ,
+  'head_members':'You can use following services in Pro Company',
+  'update_succe':'UPDATE SUBSCRITION' ,
+  'yearly':'Yearly',
+  'monthly':'Monthly',
+  'pro_comp':'Pro(Company)',
+  'my_offer':'My Offer',
+  'email_address':'Email Address',
+  'first_name':'First Name',
+  'last_name':'Last Name',
+  'apartment':'Apartment',
+  'comp_order':'Complete Order'
 
 };
 
