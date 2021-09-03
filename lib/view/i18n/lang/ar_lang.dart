@@ -59,6 +59,7 @@ const Map<String, String> ar = {
   "back_to": "ارجع الى",
   "sign_in_title": "  تسجيل الدخول",
   "enter_otp": "أدخل الرمز المكون من 4 أرقام",
+  "myoffer":"عرضي",
   "otp_desc": "أدخل الرمز المكون من 4 أرقام الذي تلقيته في بريدك الإلكتروني",
   "resend": "إعادة إرسال",
   "reset_password": "إعادة تعيين كلمة المرور",
@@ -115,8 +116,6 @@ const Map<String, String> ar = {
   "profile": "الملف الشخصي",
   "my_ads": "إعلاناتي",
   "messeges": "إعلاناتي",
-  "myoffer":"عرضي",
-  "notifications": "إشعارات",
   "favourite": "المفضل",
   "membership": "عضوية",
   "notification": "تنبيه",
@@ -224,5 +223,16 @@ const Map<String, String> ar = {
   'remove':'إزالة',
   'recent_notification':'الإخطار الأخير',
   'old_notification':'لإخطار القديم',
+  'head_members':'يمكنك استخدام الخدمات التالية في شركة',
+  'update_succe':'تحديث الاشتراك',
+  'yearly':'سنوي',
+  'monthly':'شهريا',
+  'pro_comp':'شركة برو',
+  'my_offer':'عرضي',
+  'email_address':'عنوان البريد الإلكتروني',
+  'first_name':'الاسم الأول',
+  'last_name':'الكنية',
+  'apartment':'شقة',
+  'comp_order':'اكمل الطلب'
  
 };

@@ -382,35 +382,38 @@ var typeId;
 
   /// Returns the header wrapping the header text.
   Widget header() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        activeStep == 0 ?
-        Text("announce_new".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
-          ) 
-         ):
-        Text("announce_new".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey
-            )
+    return Padding(
+      padding: const EdgeInsets.only(left:10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          activeStep == 0 ?
+          Text("announce_new".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
+            ) 
+           ):
+          Text("announce_new".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey
+              )
+            ),
+          activeStep == 1 ?
+          Text("contact_information".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+          ):
+          Text("contact_information".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
           ),
-        activeStep == 1 ?
-        Text("contact_information".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
-        ):
-        Text("contact_information".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
-        ),
-        activeStep == 2 ?
-        Text("review_publish".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
-        ):
-        Text("review_publish".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
-        ),
-      ],
+          activeStep == 2 ?
+          Text("review_publish".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+          ):
+          Text("review_publish".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
+          ),
+        ],
+      ),
     );
   }
 
@@ -464,9 +467,12 @@ Widget istStep(List list,List types){
                     width: Get.width,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                        hint: Text(
-                          selectedCategory != null ? selectedCategory : "categories".tr, 
-                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        hint: Container(
+                            
+                          child: Text(
+                            selectedCategory != null ? selectedCategory : "categories".tr, 
+                            style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                          ),
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
@@ -497,7 +503,7 @@ Widget istStep(List list,List types){
             SizedBox(height: 5.h,),
             Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
-                padding: const EdgeInsets.all(3.0),
+                padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey,width: 1),
                   borderRadius: BorderRadius.all(
@@ -581,7 +587,7 @@ Widget istStep(List list,List types){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedStatus == null ? 'status'.tr : selectedStatus == '1' ? 'New': 'Old',
+                          selectedStatus == null ? 'Status'.tr : selectedStatus == '1' ? 'New': 'Old',
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
@@ -600,7 +606,7 @@ Widget istStep(List list,List types){
                            
                             selectedStatus = value;
 
-                            value == 'New' ? selectedStatus = '1' : selectedStatus = '0' ;
+                            value == 'New'.tr ? selectedStatus = '1' : selectedStatus = '0' ;
                            
                             
                           });
