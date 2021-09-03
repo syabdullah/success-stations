@@ -40,7 +40,7 @@ class _CountryPageState extends State<Ccountry> {
                   height: Get.height /6.25,
                   width: Get.width/3.4,
                   decoration: BoxDecoration(
-                    border: Border.all( color: selectedIndex == index ? AppColors.appBarBackGroundColor: AppColors.grey),
+                    border: Border.all( color: selectedIndex == index ? AppColors.appBarBackGroundColor: AppColors.grey,width: 5),
                     shape: BoxShape.circle,
                     image:  countryListData[index]['flag'] != null ?DecorationImage(
                       fit: BoxFit.fill,
@@ -127,10 +127,10 @@ class _CountryPageState extends State<Ccountry> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("have_account".tr, 
-              style: TextStyle( fontSize: 13, fontWeight: FontWeight.w300
+              style: TextStyle( fontSize: 17, fontWeight: FontWeight.w300
               ),
             ),
-            Text("sign_in".tr, style: TextStyle(fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+            Text("sign_in".tr, style: TextStyle(fontSize: 17,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
         ), 
       ),
