@@ -25,16 +25,16 @@ class ChatController extends GetxController {
       adsCreate = jsonDecode(res.body);
       print("//.//././.------$adsCreate");
       if(res.statusCode == 200 || res.statusCode < 400) {
-        getChatConvo(adsCreate['data']['id']);
+        getChatConvo(adsCreate['data']['id'],1);
         
       }
       isLoading = false;
     });
     update();
   }
- getChatConvo(id) async{
+ getChatConvo(id,page) async{
     isLoading = true ;
-    await getconvo(23).then((res) {
+    await getconvo(id,page).then((res) {
       chat = res.body;
       
       if(res.statusCode == 200 || res.statusCode < 400) {
