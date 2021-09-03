@@ -36,7 +36,8 @@ final adfavUser = Get.put(UserFavController());
   var adtofavJson,remtofavJson;
    var route;
   var grid = AppImages.gridOf;
-  Color listIconColor = Colors.grey; 
+  Color listIconColor = Colors.blue; 
+  bool isButtonPressed = false;
   GetStorage box = GetStorage();
   bool visible = false;
     @override
@@ -256,6 +257,7 @@ final adfavUser = Get.put(UserFavController());
         child: Row(
           children: [
             IconButton(
+              
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
@@ -269,10 +271,12 @@ final adfavUser = Get.put(UserFavController());
                 bottom: 10,
               ),
               child: IconButton(
+                color: isButtonPressed ? Colors.grey : Colors.blue,
                   onPressed: () {
                     setState(() {
                       listtype = 'map';
-                      listIconColor = AppColors.appBarBackGroundColor;
+                      isButtonPressed = !isButtonPressed;
+                      listIconColor = Colors.blue;
                       grid = AppImages.gridOf;
                     });
                   },
