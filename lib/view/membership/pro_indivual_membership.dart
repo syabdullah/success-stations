@@ -43,6 +43,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
             height: Get.height / 1.9,
             width: Get.width / 1.5,
             decoration: BoxDecoration(
+
               borderRadius: BorderRadius.circular(16.0),
               border: Border.all(
                 color: Colors.blue,

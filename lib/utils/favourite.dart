@@ -28,8 +28,9 @@ class _FavouritePageState extends State<FavouritePage> {
   var grid = AppImages.gridOf;
   var id, imageUploaded, fvrtListId;
   Color selectedColor = Colors.blue;
-  Color listIconColor = Colors.grey;
+  Color listIconColor = Colors.blue;
   GetStorage box = GetStorage();
+  bool isButtonPressed = false;
 
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -105,9 +106,11 @@ class _FavouritePageState extends State<FavouritePage> {
         Row(
           children: [
             IconButton(
+              color: isButtonPressed ? Colors.blue : Colors.grey,
               onPressed: (){
                 setState(() {
                   listtype = 'grid';
+                  isButtonPressed = !isButtonPressed;
                   listIconColor = Colors.grey;
                   grid = AppImages.grid;
                 });             
@@ -120,7 +123,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 onPressed: (){
                   setState(() {
                     listtype = 'list';
-                    listIconColor = AppColors.appBarBackGroundColor;
+                    listIconColor = Colors.blue;
                     grid = AppImages.gridOf;
                   });
                 },
