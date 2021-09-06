@@ -5,6 +5,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_html/flutter_html.dart';
+
 class AboutUs extends StatefulWidget {
   const AboutUs({ Key? key }) : super(key: key);
 
