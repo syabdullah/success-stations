@@ -15,16 +15,16 @@ class IndividualMemeberShip extends StatefulWidget {
 
 class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
-bool value = true;
+  bool value = true;
   List<String> memberShipDatta = [
-    "Profile",
-    "My Ads",
-    "My Locations",
-    "My Offers",
-    "Messages",
-    "Notifications",
-    "Friend Requests",
-    "Favourites",
+    "profile".tr,
+    "my_ads".tr,
+    "my_location".tr,
+    "my_offer".tr,
+    "messeges".tr,
+    "notification".tr,
+    "friend_requests".tr,
+    "favourite".tr,
   ];
   @override
   Widget build(BuildContext context) {
@@ -62,19 +62,26 @@ bool value = true;
           FractionalTranslation(
             translation: const Offset(0.0, -0.5),
             child: Container(
-              height:50,
+              height: 50,
               width: 120,
               decoration: BoxDecoration(
                 color: AppColors.appBarBackGroundColor,
-                 borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10),
                 // borderRadius: Border.all()
               ),
-              child: Center(child: Text("\$140",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),)),
+              child: Center(
+                  child: Text(
+                "\$140",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              )),
             ),
           ),
           // space50,
           submitButton(
-              buttonText: 'UPDATE SUBSCRITIPN',
+              buttonText: 'update_succe'.tr,
               bgcolor: AppColors.appBarBackGroundColor,
               textColor: AppColors.appBarBackGroun,
               callback: navigateToHomeScreen),
@@ -86,7 +93,7 @@ bool value = true;
   Widget headingMember() {
     return Container(
         margin: EdgeInsets.only(left: 0),
-        child: Text("You can use following services in Pro Company",
+        child: Text('head_members'.tr,
             style: TextStyle(fontSize: 17, color: Colors.grey[600])));
   }
 
@@ -102,7 +109,7 @@ bool value = true;
         )),
         space20,
         Container(
-            child: Text("PRO (Company)",
+            child: Text("pro_comp".tr,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -111,22 +118,26 @@ bool value = true;
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                child: Text("Monthly",
+                child: Text("monthly".tr,
                     style: TextStyle(color: AppColors.appBarBackGroundColor))),
-                    SizedBox(width: 5,),
-               Switch.adaptive(
-                
-                         activeColor: Colors.blue,
-                         value:(value), onChanged: (newValue) {
-                        setState(() {
-                         
-                        });
-                      
-                      }), 
-            SizedBox(width: 5,),
+            SizedBox(
+              width: 5,
+            ),
+            Switch.adaptive(
+                activeColor: Colors.blue,
+                value: (value),
+                onChanged: (newValue) {
+                  setState(() {
+                    // value = newValue;
+                    //toggleSwitch(value);
+                  });
+                }),
+            SizedBox(
+              width: 5,
+            ),
             Container(
-                child:
-                    Text("Yearly", style: TextStyle(color: Colors.grey[400]))),
+                child: Text('yearly'.tr,
+                    style: TextStyle(color: Colors.grey[400]))),
           ],
         ),
       ],
@@ -136,9 +147,9 @@ bool value = true;
   Widget dataBox() {
     return Flexible(
       child: ListView.builder(
-        //physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-    
+          //physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+
           //shrinkWrap: true,
           itemCount: memberShipDatta.length,
           itemBuilder: (BuildContext ctxt, int index) {

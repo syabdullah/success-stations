@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/controller/city_controller.dart';
-import 'package:success_stations/controller/country_controller.dart';
-import 'package:success_stations/controller/region_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -26,7 +22,6 @@ class _UserInformationState extends State<UserInformation> {
 
     
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
     final space20 = SizedBox(height: getSize(5, context));
     return Scaffold(
       appBar: PreferredSize(
@@ -38,6 +33,7 @@ class _UserInformationState extends State<UserInformation> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               headingMember(),
               space20,
@@ -55,7 +51,7 @@ class _UserInformationState extends State<UserInformation> {
               space20,city(),
               space20,
               submitButton(
-              buttonText: 'Complete Order',
+              buttonText: 'comp_order'.tr,
               bgcolor: AppColors.appBarBackGroundColor,
               textColor: AppColors.appBarBackGroun,
               ),
@@ -67,15 +63,18 @@ class _UserInformationState extends State<UserInformation> {
   }
 
   Widget headingMember() {
-    return Text("Contact Information",
-        style: TextStyle(fontSize: 24, color: Colors.grey));
+    return Text("contact_information".tr,
+  //   maxLines: 1,
+  //  overflow: TextOverflow.ellipsis,
+  //   softWrap: false,
+    style: TextStyle(fontSize: 20, color: Colors.grey));
   }
 
   Widget emailAddress() {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Email Address',
+        hintText: 'email_address'.tr,
         hintStyle: TextStyle(
         color: Colors.grey,
         fontSize: null,
@@ -94,7 +93,7 @@ class _UserInformationState extends State<UserInformation> {
           child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'First Name',
+              hintText: 'first_name'.tr,
               hintStyle: TextStyle(
               color: Colors.grey,
               fontSize: null,
@@ -112,7 +111,7 @@ class _UserInformationState extends State<UserInformation> {
           child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Last Name',
+              hintText: 'last_name'.tr,
               hintStyle: TextStyle(
               color: Colors.grey,
               fontSize: null,
@@ -131,7 +130,7 @@ class _UserInformationState extends State<UserInformation> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Phone Number',
+        hintText: 'telephone_numbers'.tr,
         hintStyle: TextStyle(
         color: Colors.grey, // <-- Change this
         fontSize: null,
@@ -147,7 +146,7 @@ class _UserInformationState extends State<UserInformation> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Country',
+        hintText: 'country'.tr,
         hintStyle: TextStyle(
         color: Colors.grey, // <-- Change this
         fontSize: null,
@@ -220,7 +219,7 @@ class _UserInformationState extends State<UserInformation> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Apartment,Suite,Unit',
+        hintText: 'apartment'.tr,
          hintStyle: TextStyle(
         color: Colors.grey, // <-- Change this
         fontSize: null,
@@ -236,7 +235,7 @@ class _UserInformationState extends State<UserInformation> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'Region',
+        hintText: 'region'.tr,
          hintStyle: TextStyle(
         color: Colors.grey, // <-- Change this
         fontSize: null,
@@ -292,7 +291,7 @@ class _UserInformationState extends State<UserInformation> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: 'City',
+        hintText: 'city'.tr,
          hintStyle: TextStyle(
         color: Colors.grey, // <-- Change this
         fontSize: null,
@@ -366,8 +365,4 @@ class _UserInformationState extends State<UserInformation> {
       fontSize: fontSize,
     );
   }
-
-  
-
- 
 }

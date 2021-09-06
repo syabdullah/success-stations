@@ -178,7 +178,6 @@ class _AllAddsState extends State<AllAdds> {
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: IconButton(
-                color: Colors.red,
                   onPressed: () {
                     setState(() {
                       listtype = 'list';

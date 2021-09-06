@@ -253,7 +253,11 @@ final adfavUser = Get.put(UserFavController());
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+        ),
+        
         child: Row(
           children: [
             IconButton(
@@ -261,6 +265,7 @@ final adfavUser = Get.put(UserFavController());
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
+                    isButtonPressed = !isButtonPressed;
                     listIconColor = Colors.grey;
                     grid = AppImages.grid;
                   });
