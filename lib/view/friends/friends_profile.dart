@@ -44,7 +44,7 @@ class _FriendProfileState extends State<FriendProfile>
     // if(dtaaa[0] == 'ads') {
     //   notifyid = dtaaa[1];
     // }else
-    adID = dtaaa[1]; 
+    // adID = dtaaa[1]; 
     id = dtaaa[1];
     print("../././...here the id.----------$id");
     friCont.friendDetails(id);
@@ -63,7 +63,7 @@ class _FriendProfileState extends State<FriendProfile>
         body: 
         GetBuilder<FriendsController>(
             init: FriendsController(),
-            builder: (val) {
+            builder: (val) { 
               return val.friendProfileData == null || val.userAds == null
                   ? SingleChildScrollView(
                       child: Container(
@@ -79,7 +79,7 @@ class _FriendProfileState extends State<FriendProfile>
                       : Column(
                           children: [
                             profileDetail(val.friendProfileData['data']),
-                            tabs(val.friendProfileData['data']['name']),
+                            tabs(val.friendProfileData['data']),
                             general(val.friendProfileData['data'],
                                 val.userAds['data']),
                           ],
@@ -217,6 +217,7 @@ class _FriendProfileState extends State<FriendProfile>
   }
 
   Widget tabs(name) {
+    print("...................$name");
     return Wrap(
       children: [
         FractionalTranslation(
@@ -227,21 +228,17 @@ class _FriendProfileState extends State<FriendProfile>
               onTap: () {
                 setState(() {
                   choice = !choice;
-                  if(dtaaa[0] == 'ads') {
+                  if( name['is_user_friend'].length  == 0 || name['is_user_friend'] == null) {
                     var json = {
                       'friend_send_request_to': id
                     };
-                    print("...................$json");
+                 
                       friCont.sendFriend(json);
                   }
-                  else if (choice == false && dtaaa[0] == 'friend') {
-                    friCont.deleteFriend(id);
-                  } else {
-                    // var json = {
-                    //   'friend_send_request_to': requister
-                    // };
-                    //  friCont.sendFriend(json);
-                  }
+                  else  {
+                       print("...................${name['id']}");
+                    friCont.deleteFriend(name['is_user_friend'][0]['id'],'pro');
+                  } 
                 });
               },
               child: Container(
@@ -250,7 +247,7 @@ class _FriendProfileState extends State<FriendProfile>
                 decoration: BoxDecoration(
                   color: AppColors.appBarBackGroundColor,
                   borderRadius: BorderRadius.circular(50)),
-                child: dtaaa[0] == 'ads'?
+                child: name['is_user_friend'].length  == 0 || name['is_user_friend'] == null?
                 Center(
                   child: Text(
                     "Add Friend",
@@ -258,7 +255,7 @@ class _FriendProfileState extends State<FriendProfile>
                   ),
                 ):
                   Center(
-                  child: choice == false 
+                  child: choice == false || name['is_user_friend'].length  != 0
                   ? Text("cancel".tr, //
                     style: TextStyle(
                         color: Colors.white,
@@ -277,10 +274,9 @@ class _FriendProfileState extends State<FriendProfile>
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: (){
-              print("././......$id");
-              
+              print("././......$id");              
               chatCont.createConversation(id);
-              Get.to(ChattingPage(),arguments: [id, name]);
+              Get.to(ChattingPage(),arguments: [id, name['name']]);
               // Get.find<ChatController>().createConversation(id);
             },
             child: Container(

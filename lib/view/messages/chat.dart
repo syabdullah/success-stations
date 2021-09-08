@@ -40,7 +40,7 @@ class _ChattingState extends State<ChattingPage> {
      uId = box.read('user_id');
   }
   void connect(){
-    IO.Socket socket = IO.io('http://49.12.192.180', <String, dynamic>{
+    IO.Socket socket = IO.io('https://ssnode.codility.co/', <String, dynamic>{
       "transports":["websocket"],
       "autoConnect": false,
 

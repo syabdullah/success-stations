@@ -33,6 +33,7 @@ class _UserInformationState extends State<UserInformation> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               headingMember(),
               space20,
@@ -62,7 +63,11 @@ class _UserInformationState extends State<UserInformation> {
   }
 
   Widget headingMember() {
-    return Text("contact_information".tr,style: TextStyle(fontSize: 24, color: Colors.grey));
+    return Text("contact_information".tr,
+  //   maxLines: 1,
+  //  overflow: TextOverflow.ellipsis,
+  //   softWrap: false,
+    style: TextStyle(fontSize: 20, color: Colors.grey));
   }
 
   Widget emailAddress() {

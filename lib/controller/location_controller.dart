@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/action/location_action/last_location_action.dart';
 import 'package:success_stations/action/location_action/save_location.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -15,6 +16,7 @@ class LocationController extends GetxController {
     List offeredList = [];
   var lastLocation;
    var resultInvalid = false.obs;
+   var latLng;
    @override
   void onInit(){
     isLoading = true;
@@ -88,6 +90,11 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
     await getAllLocation().then((value) {
       allLoc = jsonDecode(value.body);
+      for(int i=0; i < allLoc['data']['data'].length; i++) {
+            if(allLoc['data']['data'][i]['location'] != null) {
+              latLng =LatLng(allLoc['data']['data'][i]['long'],allLoc['data']['data'][i]['long']);
+            }
+          }
       print("json decode response of offer.......>$allLoc");
       isLoading = false;
     });

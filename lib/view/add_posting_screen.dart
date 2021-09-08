@@ -586,7 +586,7 @@ Widget istStep(List list,List types){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedStatus == null ? 'Status'.tr : selectedStatus == '1' ? 'New': 'Old',
+                          selectedStatus == null ? 'status'.tr : selectedStatus == '1' ? 'New': 'Old',
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
