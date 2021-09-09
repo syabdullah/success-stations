@@ -235,7 +235,10 @@ const Map<String, String> en = {
   'first_name':'First Name',
   'last_name':'Last Name',
   'apartment':'Apartment',
-  'comp_order':'Complete Order'
+  'comp_order':'Complete Order',
+  'email_required':'Email Required',
+  'enter_password':'Enter a Password',
+  'pass_to_short':'Password too short'
 
 };
 

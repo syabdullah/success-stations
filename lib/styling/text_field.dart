@@ -45,8 +45,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          
-         padding: widget.padding,
+          padding: widget.padding,
           child: TextFormField(     
             // focusNode: FocusNode(),      
             controller: widget.textController,
@@ -56,6 +55,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
             obscureText: widget.isObscure,
             onSaved: widget.onSaved,
             decoration: InputDecoration(
+              contentPadding: new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               fillColor: AppColors.inputColor,
               filled: true,
               border: InputBorder.none,

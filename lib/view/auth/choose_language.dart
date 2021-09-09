@@ -29,7 +29,7 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
      body : GetBuilder<LanguageController>(
       init: LanguageController(),
       builder:(data){
-        return language(data.languageList['data']);
+        return data.isLoading == false ? language(data.languageList['data']):Container();
       }
       )
 
