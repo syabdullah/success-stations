@@ -30,13 +30,11 @@ var userId = box.read('user_id');
   void _getUserLocation() async {
     position  = await GeolocatorPlatform.instance
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
     // setState(() {
       currentPostion = LatLng(position.latitude, position.longitude);
     // });
   }
  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,index) {
-
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
