@@ -8,7 +8,7 @@ import 'package:success_stations/controller/inbox_controller/chat_controller.dar
 import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/messages/chat.dart';
+import 'package:success_stations/view/messages/chatting_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
@@ -276,7 +276,7 @@ class _FriendProfileState extends State<FriendProfile>
               print("././......$id");
               
               chatCont.createConversation(id);
-              Get.to(ChattingPage(),arguments: [id, name]);
+              Get.to(ChattinPagePersonal(),arguments: [id, name]);
               // Get.find<ChatController>().createConversation(id);
             },
             child: Container(

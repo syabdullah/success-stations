@@ -6,6 +6,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
@@ -178,6 +179,6 @@ bool value = true;
 }
 
 void navigateToHomeScreen() {
-  Get.to(UserInformation());
+  // // Get.to(UserInformation());
   // PageUtils.pushPage(Payments());
 }
