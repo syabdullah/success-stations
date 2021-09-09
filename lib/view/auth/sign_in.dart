@@ -207,9 +207,9 @@ class _SignPageState extends State<SignIn> {
         onFieldSubmitted: (value) {},
         textController: fulNameController,
         validator: (value) => value == ''
-            ? 'Email Required'
+            ? 'email_required'.tr
             : !value.contains('@') || !value.contains('.')
-                ? 'Enter valid Email'
+                ? 'enter_valid_email'.tr
                 : null,
         errorText: '',
       ),
@@ -293,9 +293,9 @@ class _SignPageState extends State<SignIn> {
             ),
           ),
           validator: (val) => val == ''
-              ? 'Enter a Password '
+              ? 'enter_password'.tr
               : val!.length < 4
-                  ? 'Password too short'
+                  ? 'pass_to_short'.tr
                   : null,
           onSaved: (val) => password = TextEditingController(text: val),
         ));
