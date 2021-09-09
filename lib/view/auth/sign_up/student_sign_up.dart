@@ -16,36 +16,46 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
-  DateTime  ? dateTime;
-   var dateFormate = DateFormat("yyyy-MM-dd").format(
-        DateTime.parse(dateTime.toString()
-     ));
-      // var str = JSON.encode(dt, toEncodable: myEncode);
-
+DateTime? dateTime;
+var dateFormate =
+    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+// var str = JSON.encode(dt, toEncodable: myEncode);
 
 class StudentSignUp extends StatefulWidget {
   _SignPageState createState() => _SignPageState();
 }
+
 class _SignPageState extends State<StudentSignUp> {
+  var selectedCountry,
+      selectCountry,
+      selectedCity,
+      selectedRegion,
+      selectedUniversity,
+      selectedCollege,
+      selectCollege,
+      mapuni,
+      mapClgSleceted,
+      hintTextCountry,
+      hintRegionText,
+      hintUniText,
+      hintcityText,
+      hintClgText;
 
-  var selectedCountry,selectCountry,  selectedCity , selectedRegion, selectedUniversity, selectedCollege, 
-  selectCollege, mapuni, mapClgSleceted, hintTextCountry ,hintRegionText, hintUniText, hintcityText, hintClgText;
-
-  late String firstName, emailSaved , mobileSaved, dobSaved;
+  late String firstName, emailSaved, mobileSaved, dobSaved;
 
   final formKey = GlobalKey<FormState>();
 
-  final TextEditingController nameController =  TextEditingController();
-  final TextEditingController emailController =  TextEditingController();
-  final TextEditingController dobController =  TextEditingController();
-  final TextEditingController mobileController =  TextEditingController();
-  final TextEditingController semesterController =  TextEditingController();
-  final TextEditingController addressController =  TextEditingController();
-  final TextEditingController aboutController =  TextEditingController();
-  final TextEditingController degreeController =  TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController semesterController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController aboutController = TextEditingController();
+  final TextEditingController degreeController = TextEditingController();
 
-  bool _isChecked=false;
-  
+  bool _isChecked = false;
+
   final countryPut = Get.put(ContryController());
   final signUpCont = Get.put(SignUpController());
   GetStorage box = GetStorage();
@@ -57,62 +67,62 @@ class _SignPageState extends State<StudentSignUp> {
     print(lang);
     super.initState();
   }
+
   void createUser() {
     final form = formKey.currentState;
-    if(form!.validate()){
+    if (form!.validate()) {
       form.save();
       var json = {
-      "name": nameController.text,
-      'email': emailController.text,
-      "mobile": mobileController.text, 
-      "country_id": selectedCountry,
-      "city_id": selectedCity,
-      "region_id": selectedRegion,
-      "user_type": 2,
-      "date_of_birth":finalDate,
-      "college_id": selectedCollege,
-      'university_id':selectedUniversity,
-      'semester': semesterController.text,
-      'address': addressController.text,
-      'about': aboutController.text,
-      'degree': degreeController.text
-    };
-    print("hxsahkjkjhsxahgjxhsgaxdiuljhxbkjaxn ksamnckjsabc,mnxsbckhjd,bafiouqrefioewq$json");
-    signUpCont.createAccountData(json);
-
+        "name": nameController.text,
+        'email': emailController.text,
+        "mobile": mobileController.text,
+        "country_id": selectedCountry,
+        "city_id": selectedCity,
+        "region_id": selectedRegion,
+        "user_type": 2,
+        "date_of_birth": finalDate,
+        "college_id": selectedCollege,
+        'university_id': selectedUniversity,
+        'semester': semesterController.text,
+        'address': addressController.text,
+        'about': aboutController.text,
+        'degree': degreeController.text
+      };
+      print(
+          "hxsahkjkjhsxahgjxhsgaxdiuljhxbkjaxn ksamnckjsabc,mnxsbckhjd,bafiouqrefioewq$json");
+      signUpCont.createAccountData(json);
+    }
   }
-    
- }
-  
+
   @override
   Widget build(BuildContext context) {
     // print("signUpCont.signup['errors']['email']signUpCont.signup['errors']['email']signUpCont.signup['message']['email']${signUpCont.signup['message']}");
     final space20 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              space10,
-              fullNameStudent(),
-              space10,
-              // SizedBox(height:10),
-              eMail(),
-              // GetBuilder<SignUpController>(
-              //   init: SignUpController(),
-              //   builder: (val){
-              //     return  signUpCont.resultInvalid.isTrue ? Container(
-              //       margin:EdgeInsets.only(left:10),
-              //       alignment: Alignment.topLeft,
-              //       child: Container(
-              //           margin:EdgeInsets.only(left:10),
-              //         alignment: Alignment.topLeft,
-              //         child: Text(signUpCont.signup['errors']['email'][0],
-              //         style: TextStyle(color: Colors.red),)
-              //       )
-              //       ):Container();
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            space10,
+            fullNameStudent(),
+            space10,
+            // SizedBox(height:10),
+            eMail(),
+            // GetBuilder<SignUpController>(
+            //   init: SignUpController(),
+            //   builder: (val){
+            //     return  signUpCont.resultInvalid.isTrue ? Container(
+            //       margin:EdgeInsets.only(left:10),
+            //       alignment: Alignment.topLeft,
+            //       child: Container(
+            //           margin:EdgeInsets.only(left:10),
+            //         alignment: Alignment.topLeft,
+            //         child: Text(signUpCont.signup['errors']['email'][0],
+            //         style: TextStyle(color: Colors.red),)
+            //       )
+            //       ):Container();
 
               //    }),
               
@@ -224,13 +234,13 @@ class _SignPageState extends State<StudentSignUp> {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
   Widget fullNameStudent() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -238,21 +248,19 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: nameController,
-        onSaved: (newValue) { 
-        }, 
-        validator: (value) { 
+        onSaved: (newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -260,8 +268,8 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget semester() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -269,27 +277,26 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: semesterController,
-        onSaved: (newValue) { 
-        }, 
-        validator: (value) { 
-          String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+        onSaved: (newValue) {},
+        validator: (value) {
+          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if (value.length == 0) {
             return "semesterfield".tr;
           } 
           else if(!regExp.hasMatch(value)) {
             return "semester must be in digits";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
     );
   }
+
   Widget address() {
     return  Container(
       
@@ -301,30 +308,28 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'address'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: addressController,
-        onSaved: (newValue) { 
-        }, 
-       validator: (value) { 
+        onSaved: (newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "adressField".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
     );
   }
-  
-   Widget about() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+
+  Widget about() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -332,21 +337,19 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'aboutsu'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: aboutController,
-        onSaved: (newValue) { 
-        }, 
-        validator: (value) { 
+        onSaved: (newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "aboutfield".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -354,8 +357,8 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget degree() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -363,30 +366,28 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'degreesu'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: degreeController,
-        onSaved: (newValue) { 
-        }, 
-        validator: (value) { 
+        onSaved: (newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "degreeReq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Degree must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
     );
   }
 
-   Widget eMail() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+  Widget eMail() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -394,13 +395,13 @@ class _SignPageState extends State<StudentSignUp> {
         hintText: 'emails'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (newValue) {
-        }, 
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
         textController: emailController,
         validator: (val) {
-          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern =
+              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
             return 'enterEmail'.tr;
@@ -409,63 +410,55 @@ class _SignPageState extends State<StudentSignUp> {
             return "Enter Valid Email Address";
           }
           return null;
-        }, 
+        },
         errorText: '',
-        
       ),
     );
   }
-  
+
   Widget mobile() {
-    return  Container(
-      
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: InternationalPhoneNumberInput(
-              inputDecoration:   InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
-                ),
-              ),
-              hintText: "Mobile",
-              hintStyle: TextStyle(color: Colors.grey)
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: InternationalPhoneNumberInput(
+          inputDecoration: InputDecoration(
+            fillColor: AppColors.inputColor,
+            filled: true,
+            border: InputBorder.none,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
             ),
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-              ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              // initialValue: n,
-              textFieldController: mobileController,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ));
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.outline),
+            ),
+            hintText: "Mobile",
+          ),
+          onInputChanged: (PhoneNumber number) {
+            print(number.phoneNumber);
+          },
+          onInputValidated: (bool value) {
+            print(value);
+          },
+          selectorConfig: SelectorConfig(
+            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          ),
+          ignoreBlank: false,
+          autoValidateMode: AutovalidateMode.disabled,
+          selectorTextStyle: TextStyle(color: Colors.black),
+          // initialValue: n,
+          textFieldController: mobileController,
+          formatInput: false,
+          keyboardType:
+              TextInputType.numberWithOptions(signed: true, decimal: true),
+          inputBorder: OutlineInputBorder(),
+          onSaved: (PhoneNumber number) {
+            print('On Saved: $number');
+          },
+        ));
   }
+
   var finalDate;
   Widget studentdob() {
     // return  Container(
@@ -477,10 +470,10 @@ class _SignPageState extends State<StudentSignUp> {
     //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
     //     hintColor: AppColors.inputTextColor,
     //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
+    //     onFieldSubmitted: (value) {},
     //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
+    //     onSaved: (String? newValue) {
+    //     },
     //     validator: (value) {
     //     String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
     //     RegExp regExp = RegExp(pattern);
@@ -491,7 +484,7 @@ class _SignPageState extends State<StudentSignUp> {
     //         }
     //         return null;
     //       },
-           
+
     //     errorText: '',
     //   ),
     // );
@@ -506,12 +499,12 @@ class _SignPageState extends State<StudentSignUp> {
           child:   GestureDetector(
           onTap: () {
           showDatePicker(
-            context: context,
-            initialDate:  DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime.now()
-          ).then((date) {
-            setState(() {               
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now())
+              .then((date) {
+            setState(() {
               dateTime = date;
               finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
               print("..................$finalDate");
@@ -528,12 +521,12 @@ class _SignPageState extends State<StudentSignUp> {
               child: Icon(Icons.calendar_today,color: Colors.grey,),
               onTap: () {               
                 showDatePicker(
-                  context: context,
-                  initialDate:  DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now()
-                ).then((date) {
-                  setState(() {               
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now())
+                    .then((date) {
+                  setState(() {
                     dateTime = date;
                     finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
                     print("..................$finalDate");
@@ -552,6 +545,7 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget country(List data) {
+    print("....<><><><><><><><><><><><>..//////......$data");
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
@@ -670,7 +664,7 @@ class _SignPageState extends State<StudentSignUp> {
       )
     );
   }
-  
+
   Widget university(List daattta) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
@@ -741,17 +735,22 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton(
+      {buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      fontWeight}) {
     return AppButton(
-      buttonText: buttonText, 
+      buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
       textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
       fontSize: fontSize,
     );
   }
-  
 }
-
