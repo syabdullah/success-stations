@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/city_controller.dart';
@@ -12,7 +13,6 @@ import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
@@ -48,11 +48,13 @@ class _SignPageState extends State<StudentSignUp> {
   
   final countryPut = Get.put(ContryController());
   final signUpCont = Get.put(SignUpController());
-
+  GetStorage box = GetStorage();
+  var lang;
   @override 
   void initState() {
+    lang = box.read('lang_code');
     countryPut.getCountries();
-    
+    print(lang);
     super.initState();
   }
   void createUser() {
@@ -118,8 +120,6 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               mobile(),
               space10,
-              semester(),
-              space10,
               address(),
               space10,
               about(),
@@ -155,6 +155,9 @@ class _SignPageState extends State<StudentSignUp> {
                 },
               ),
               space10,
+              semester(),
+              
+              space10,
               GetBuilder<CollegeController>(
                 init: CollegeController(),
                 builder: (val){
@@ -165,26 +168,31 @@ class _SignPageState extends State<StudentSignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  new Checkbox(
-                    activeColor: Colors.blue,
-                    value: _isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        print("hbsdbjhsdbjshgdSjhgd on changed......>>>>>>>$value");
-                        _isChecked= value!;
-                        // _isChecked= true;
-                      });
-                    },
+                  Transform.scale(
+                    scale: .9,
+                    child: new Checkbox(
+                      
+                      activeColor: Colors.blue,
+                      value: _isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          print("hbsdbjhsdbjshgdSjhgd on changed......>>>>>>>$value");
+                          _isChecked= value!;
+                          // _isChecked= true;
+                        });
+                      },
+                    ),
                   ),
                   Text(
                     'terms'.tr, 
                     style: TextStyle( 
-                      fontSize: 18, fontWeight: FontWeight.w300
+                      fontSize: 12,
+                      color: Colors.grey 
                     )
                   ),
                   Text(
                     "terms_condition".tr, style: TextStyle(
-                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold)
+                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 12, )
                   ),
                 ],
               ),
@@ -192,7 +200,7 @@ class _SignPageState extends State<StudentSignUp> {
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
-                buttonText: "sign_up_text".tr,fontSize: 18.0,
+                buttonText: "sign_up_text".tr,fontSize: 16.0,
                 callback: _isChecked == true ?  createUser : null
                 // callback:  createUser
               ),
@@ -205,7 +213,7 @@ class _SignPageState extends State<StudentSignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("have_account".tr,
-                      style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300
+                      style: TextStyle( fontSize: 16, fontWeight: FontWeight.w300,color: Colors.grey
                       ),
                     ),
                     Text("sign_in".tr, style: TextStyle( fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
@@ -225,9 +233,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'full_name'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -238,7 +247,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Name is Required";
+            return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
           }
@@ -255,9 +264,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'semester'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'semestersu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -268,7 +278,7 @@ class _SignPageState extends State<StudentSignUp> {
           String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if (value.length == 0) {
-            return "semester Field Required";
+            return "semesterfield".tr;
           } 
           else if(!regExp.hasMatch(value)) {
             return "semester must be in digits";
@@ -282,12 +292,14 @@ class _SignPageState extends State<StudentSignUp> {
   }
   Widget address() {
     return  Container(
+      
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'address'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -298,7 +310,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Address field is Required";
+            return "adressField".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
           }
@@ -315,9 +327,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'about'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'aboutsu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -328,7 +341,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "About field is Required";
+            return "aboutfield".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
           }
@@ -345,9 +358,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'degree'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'degreesu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {  },
@@ -358,7 +372,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Degree field is Required";
+            return "degreeReq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Degree must be a-z and A-Z";
           }
@@ -375,9 +389,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'email'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'emails'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (newValue) {
@@ -388,7 +403,7 @@ class _SignPageState extends State<StudentSignUp> {
           String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
-            return 'Enter An Email';
+            return 'enterEmail'.tr;
           }
           else if (!regExp.hasMatch(val)) {
             return "Enter Valid Email Address";
@@ -426,7 +441,7 @@ class _SignPageState extends State<StudentSignUp> {
                 ),
               ),
               hintText: "Mobile",
-              
+              hintStyle: TextStyle(color: Colors.grey)
             ),
               onInputChanged: (PhoneNumber number) {
                 print(number.phoneNumber);
@@ -481,7 +496,8 @@ class _SignPageState extends State<StudentSignUp> {
     //   ),
     // );
         return Container(
-          padding: const EdgeInsets.symmetric(vertical:18.0,horizontal: 10),
+          height: 50,
+          padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
           margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -507,9 +523,9 @@ class _SignPageState extends State<StudentSignUp> {
           children: <Widget>[
             Container(
               // padding: EdgeInsets.only(right:100),
-              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 18))),
+              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
-              child: Icon(Icons.calendar_today),
+              child: Icon(Icons.calendar_today,color: Colors.grey,),
               onTap: () {               
                 showDatePicker(
                   context: context,
@@ -550,7 +566,7 @@ class _SignPageState extends State<StudentSignUp> {
           child: DropdownButton(
             hint: Text(
               hintTextCountry != null ? hintTextCountry : 'country'.tr, 
-              style:  TextStyle(fontSize: 18,  color: AppColors.inputTextColor )
+              style:  TextStyle(fontSize: 16,  color: AppColors.inputTextColor )
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
@@ -588,7 +604,7 @@ class _SignPageState extends State<StudentSignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+              style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)
             
             ),
             dropdownColor: AppColors.inPutFieldColor,
@@ -630,7 +646,7 @@ class _SignPageState extends State<StudentSignUp> {
           child: DropdownButton(
             hint:Text(
               hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 18, color: AppColors.inputTextColor
+                fontSize: 16, color: AppColors.inputTextColor
               )
             ),
             dropdownColor: AppColors.inputColor,
@@ -668,7 +684,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintUniText !=null ? hintUniText: "university".tr,style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+            hint:Text(hintUniText !=null ? hintUniText: "universitysu".tr,style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: daattta.map((uni) {
@@ -703,7 +719,7 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint: Text(hintClgText !=null ? hintClgText: "college".tr, style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+            hint: Text(hintClgText !=null ? hintClgText: "collegesu".tr, style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: collegeData.map((coll) {

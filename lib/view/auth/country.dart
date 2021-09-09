@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/country_controller.dart';
@@ -6,6 +7,8 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/ad_views/ad_viewmain.dart';
+import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
 class Ccountry extends StatefulWidget {
@@ -31,6 +34,7 @@ class _CountryPageState extends State<Ccountry> {
                 selectedIndex = index;
                 print(selectedIndex);
                 box.write("country",selectedIndex);
+                Get.to(TabBarPage());
               });
             },
             child: Column(
@@ -40,7 +44,7 @@ class _CountryPageState extends State<Ccountry> {
                   height: Get.height /6.25,
                   width: Get.width/3.4,
                   decoration: BoxDecoration(
-                    border: Border.all( color: selectedIndex == index ? AppColors.appBarBackGroundColor: AppColors.grey,width: 5),
+                    // border: Border.all( color: selectedIndex == index ? AppColors.appBarBackGroundColor: Colors.transparent,width: 4),
                     shape: BoxShape.circle,
                     image:  countryListData[index]['flag'] != null ?DecorationImage(
                       fit: BoxFit.fill,
@@ -66,11 +70,22 @@ class _CountryPageState extends State<Ccountry> {
     final space50 = SizedBox(height: getSize(50, context));
     final space100 = SizedBox(height: getSize(100, context));
     return Scaffold(
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: EdgeInsets.all(20),
+          child: GestureDetector(
+            onTap: (){Get.back();},
+            child: Text("previous".tr,style: TextStyle(decoration: TextDecoration.underline,fontSize: 18,fontWeight: FontWeight.bold),)),
+        ),
+      ),
       body:SingleChildScrollView(
         child: Column(
           children: [
             space50, 
-            mainLogo(),
+            space50, 
+            space50, 
+            space50, 
+            // mainLogo(),
             SizedBox(height:40),
             Container(
               height: MediaQuery.of(context).size.height * 0.05,
@@ -86,17 +101,19 @@ class _CountryPageState extends State<Ccountry> {
               
               },
             ),
-            submitButton(
-              bgcolor: AppColors.appBarBackGroundColor,  
-              textColor: AppColors.appBarBackGroun,
-              buttonText: "next".tr,
-              fontSize: 18.toDouble(),
-              callback: (){
-                Get.off(TabBarPage());
-              }
-               // callback: signIn
-            ),
-            space100,
+            // submitButton(
+            //   bgcolor: AppColors.appBarBackGroundColor,  
+            //   textColor: AppColors.appBarBackGroun,
+            //   buttonText: "next".tr,
+            //   fontSize: 18.toDouble(),
+            //   callback: (){
+            //     Get.off(TabBarPage());
+            //   }
+            //    // callback: signIn
+            // ),
+             HorizontalOrLine(label: "oR".tr, height: 2),
+            space50,
+           
             Container(
               child: existingAccount()
             ),
@@ -127,7 +144,7 @@ class _CountryPageState extends State<Ccountry> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("have_account".tr, 
-              style: TextStyle( fontSize: 17, fontWeight: FontWeight.w300
+              style: TextStyle( fontSize: 17, fontWeight: FontWeight.w300,color: Colors.grey
               ),
             ),
             Text("sign_in".tr, style: TextStyle(fontSize: 17,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),

@@ -8,6 +8,7 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
+import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class Language extends StatefulWidget {
@@ -70,7 +71,7 @@ class _LanguagePageState extends State<Language> {
                 box.write('lang_id',dataLanguage['data'][i]['id']);
                 box.write('lang_code', dataLanguage['data'][i]['short_code']);
                 LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
-                
+                Get.to(Ccountry());
               });
             },
           ),
@@ -88,8 +89,12 @@ class _LanguagePageState extends State<Language> {
         // children: [
          child:  Column(
             children: [
-              space50, 
-              mainLogo(),
+              // space50, 
+              // mainLogo(),
+              space50,
+              space50,
+              space50,
+              space50,
               space50,
               Container(
                 height: MediaQuery.of(context).size.height * 0.05,
@@ -106,14 +111,15 @@ class _LanguagePageState extends State<Language> {
                   );
                 }
               ),
-              submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
-                buttonText: "next".tr,
-                fontSize: 18.toDouble(),
-                callback: navigateToHomeScreen
-              ),
-              SizedBox(height: Get.height * 0.13),
+              // submitButton(
+              //   bgcolor: AppColors.appBarBackGroundColor,  
+              //   textColor: AppColors.appBarBackGroun,
+              //   buttonText: "next".tr,
+              //   fontSize: 18.toDouble(),
+              //   callback: navigateToHomeScreen
+              // ),
+              HorizontalOrLine(label: "oR".tr, height: 2),
+              SizedBox(height: Get.height * 0.03),
               Container(
                 alignment: Alignment.bottomRight,
                 child: existingAccount()
@@ -146,10 +152,10 @@ class _LanguagePageState extends State<Language> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("have_account".tr, 
-              style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300
+              style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300,color: Colors.grey
               ),
             ),
-            Text("sign_in".tr, style: TextStyle(fontSize: 18,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+            Text("sign_in".tr, style: TextStyle(fontSize: 18 ,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
         ), 
       ),

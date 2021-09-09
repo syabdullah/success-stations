@@ -73,10 +73,13 @@ Widget sAppbar(context ,icon,image,) {
       leading: 
       // Padding(
         // padding: const EdgeInsets.only(top:10.0),
-        IconButton(
-          icon: Icon(icon,
-          color: AppColors.backArrow),
-          onPressed: () => Navigator.of(context).pop(),
+        Padding(
+          padding: const EdgeInsets.only(top:15.0),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       //
       //  ),

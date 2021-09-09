@@ -93,7 +93,7 @@ class _SignPageState extends State<SignIn> {
                           ),
                         ),
                         submitButton(
-                          bgcolor: AppColors.appBarBackGroundColor,  
+                          bgcolor: AppColors.buttonColor,  
                           textColor: AppColors.appBarBackGroun,
                           buttonText: "sign_in".tr,
                           callback: signIn
@@ -128,6 +128,7 @@ class _SignPageState extends State<SignIn> {
                     ),
                   ),
                 )
+                
               ],
             ),
           );
@@ -230,7 +231,7 @@ class _SignPageState extends State<SignIn> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Dont_have_account".tr),
+          Text("Dont_have_account".tr,style: TextStyle(color: Colors.grey),),
           GestureDetector(
             onTap: (){
               print("ontap itmemmm.....>!!!");

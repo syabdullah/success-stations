@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -16,8 +12,6 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/home_offer.dart';
-
 
   List<String> imgList = [];
 

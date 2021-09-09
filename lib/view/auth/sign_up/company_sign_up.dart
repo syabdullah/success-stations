@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_multiselect/flutter_multiselect.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/country_controller.dart';
 import 'package:success_stations/controller/region_controller.dart';
@@ -23,7 +22,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
   DateTime  ? dateTime;
    var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 
- 
+ var lang;
 class CompanySignUp extends StatefulWidget {
 
   final val;
@@ -39,7 +38,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
    late String savedData;
    var tyming;
    List selectedValues = [];
-
 
 
   var array = [
@@ -77,7 +75,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   bool _isChecked = false;
    bool errorCheck = true;
-  
+    var type = 'Account Type';
+    var serviceName,serviceId;
 
   var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
   
@@ -86,19 +85,23 @@ class _CompanySignPageState extends State<CompanySignUp> {
    List<GroupModel> _group = [
     GroupModel(
       text: "individual".tr,
-      index:1 
+      index:1 ,
+      clr: Colors.grey
+      
     ),
     GroupModel(
       text: "company".tr,
-      index:2 
+      index:2,
+        clr: Colors.grey
     ),
   ];
 
   
-
+  GetStorage box = GetStorage();
   @override 
   void initState() {
     super.initState();
+     lang = box.read('lang_code');
       errorCheck = true;
   }
    
@@ -116,7 +119,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         "user_type":  4,
         "cr_number":  crController.text ,
         'company_name':comNameController.text,
-        'service_ids[]': selectedValues
+        'service_ids[]': serviceId
       };
       signUpCont.companyAccountData(json);
     }
@@ -154,7 +157,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             children: [
               space10,
               fullName(),
-              space10,
+             space10,
               eMail(),
               // v == 1? 
               // GetBuilder<SignUpController>(
@@ -222,7 +225,18 @@ class _CompanySignPageState extends State<CompanySignUp> {
               ),
               space10,
               v == 1 ?
-              companyDob()
+              Column(
+                children: [
+                  companyDob(),
+                   GetBuilder<ServicesController>(
+                init: ServicesController(),
+                builder: (val){
+                  return services(val.servicesListdata);
+                },
+              ),
+                ],
+              )
+              
               : Container(),
               v ==2 ? 
               GetBuilder<ServicesController>(
@@ -234,18 +248,28 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               radioalert(),
               v == 2 ? 
-              SizedBox(
-                height: Get.height/ 9.3,
-                child: comName()
-              ):
-              space10,
+            
+               comName()
+              
+              :space10,
               v == 2 ?
               cR():
-              space10,
+              // space10,
               v == 1 ? 
               Container(
                 margin: EdgeInsets.only(bottom: 10),
-                child: iqama()): 
+                child: Column(
+                  children: [
+                    iqama(),
+                    // space10,
+              //       GetBuilder<ServicesController>(
+              //   init: ServicesController(),
+              //   builder: (val){
+              //     return services(val.servicesListdata);
+              //   },
+              // ),
+                  ],
+                )): 
               space10,
               responsible(),
               space10,
@@ -254,24 +278,29 @@ class _CompanySignPageState extends State<CompanySignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    activeColor: Colors.blue,
-                    value: _isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        _isChecked= value!;
-                      });
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(60)
+                    ),
+                    child: Checkbox(
+                      activeColor: Colors.blue,
+                      value: _isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          _isChecked= value!;
+                        });
+                      },
+                    ),
                   ),
                   Text(
                     "terms".tr, 
                     style: TextStyle(
-                      fontFamily: 'Lato', fontSize: 18, fontWeight: FontWeight.w300
+                      fontFamily: 'Lato', fontSize: 12, fontWeight: FontWeight.w300
                     )
                   ),
                   Text(
                     "terms_condition".tr, style: TextStyle(
-                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold)
+                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 12, )
                   ),
                 ],
               ),
@@ -291,7 +320,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("have_account".tr, 
-                      style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300
+                      style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300,color: Colors.grey
                       ),
                     ),
                     Text("sign_in".tr, style: TextStyle(fontSize: 18,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
@@ -311,9 +340,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        padding :EdgeInsets.only(top:10), 
         isObscure: false,
         hintText: "full_name".tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 
@@ -323,7 +354,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Name is Required";
+            return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
           }
@@ -341,8 +372,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:"email".tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        hintText:"emails".tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (newValue) {
@@ -353,10 +385,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
-            return 'Enter An Email';
+            return 'enterEmail'.tr;
           }
           else if (!regExp.hasMatch(val)) {
-            return "Enter Valid Email Address";
+            return "enterEmail".tr;
           }
           return null;
         }, 
@@ -368,53 +400,56 @@ class _CompanySignPageState extends State<CompanySignUp> {
   
   Widget mobile() {
     return   Container(
+  
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: InternationalPhoneNumberInput(
-              inputDecoration:   InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
+                inputDecoration:   InputDecoration(
+                fillColor: AppColors.inputColor,
+               contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+                filled: true,
+                border: InputBorder.none,
+                errorBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                    color: Colors.red
+                  ),
                 ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
+                focusedErrorBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                    color: Colors.red
+                  ),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.outline
+                  ),
                 ),
+                hintText: "Mobile",
+                 hintStyle: TextStyle(fontSize: 16, color: AppColors.grey),
+                
               ),
-              hintText: "Mobile",
-               hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
-              
-            ),
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                onInputChanged: (PhoneNumber number) {
+                  print(number.phoneNumber);
+                },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                // initialValue: n,
+                textFieldController: mobile1Controller,
+                formatInput: false,
+                keyboardType:
+                    TextInputType.numberWithOptions(signed: true, decimal: true),
+                inputBorder: OutlineInputBorder(),
+                onSaved: (PhoneNumber number) {
+                  print('On Saved: $number');
+                },
               ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              // initialValue: n,
-              textFieldController: mobile1Controller,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ));
+      );
   }
   var finalDate;
   Widget companyDob() {
@@ -445,10 +480,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
     //   ),
     // );
   return Container(
-          padding: const EdgeInsets.symmetric(vertical:18.0,horizontal: 10),
+      height: 55,
+          padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
           margin: EdgeInsets.only(left: 18,right: 20,bottom: 10),
           decoration: BoxDecoration(
-            
+            color:AppColors.inputColor,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: AppColors.outline)
           ),
@@ -470,9 +506,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500],fontSize: 18)),
+            Text(dateTime == null ? 'date_of_birth'.tr : dateFormate, style: TextStyle(color: Colors.grey[500],fontSize: 17)),
             GestureDetector(
-              child: Icon(Icons.calendar_today),
+              child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {
                 
                 showDatePicker(
@@ -499,9 +535,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: "company".tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onFieldSubmitted: (value) {},  
@@ -512,7 +549,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return " Company Name is Required";
+            return " companyName".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
           }
@@ -528,6 +565,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
+      
       decoration: BoxDecoration(
         color: AppColors.inputColor,
         border: Border.all(color: AppColors.outline),
@@ -539,7 +577,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           child: DropdownButton(
             hint: Text(
               hintTextCountry != null ? hintTextCountry : 'country'.tr, 
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+              style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
@@ -578,7 +616,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
             hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+              style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
@@ -619,7 +657,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           child: DropdownButton(
             hint:Text(
               hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 18, color: AppColors.inputTextColor
+                fontSize: 16, color: AppColors.inputTextColor
               )
             ),
             dropdownColor: AppColors.inputColor,
@@ -646,46 +684,85 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
 
-  Widget services( allServices){
+  Widget services( List allServices){
     return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(20),
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.always,
-        child: Column(
-          children: [
-            MultiSelectFormField(
-              autovalidate: false,
-              chipBackGroundColor: Colors.grey[200],
-              chipLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-              dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              checkBoxActiveColor: Colors.white,
-              checkBoxCheckColor: Colors.green,
-              dialogShapeBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12.0))),
-              title: Text(
-                "services".tr,
-                style: TextStyle(fontSize: 18),
-              ),
-              dataSource: allServices !=null ? allServices: '' ,
-              textField: 'servics_name',
-              valueField: 'id',
-              okButtonLabel: 'OK',
-              cancelButtonLabel: 'CANCEL',
-              hintWidget: Text('more'.tr,style: TextStyle(fontSize: 18),),
-              onSaved: (value) {
-                if (value == null) return;
-                setState(() {
-                 selectedValues = value;
-                });
-              },
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(
+            //  "Services",
+              serviceName != null ? serviceName : 'services'.tr, 
+              style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)
             ),
-
-          ]
-        ),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: allServices.map((coun) {
+              return DropdownMenuItem(
+                value: coun,
+                child:Text(coun['servics_name'])
+              );
+            }).toList(),
+            onChanged: (val) {
+              var mapServices;
+              setState(() {
+                mapServices = val as Map;
+                serviceName = mapServices['servics_name'];
+                serviceId = mapServices['id'];
+                print("Hello there here is ur Service $serviceName  $serviceId");
+              });
+            },
+          )
+        )
       )
     );
+    
+    //  Container(
+    //   alignment: Alignment.center,
+    //   padding: EdgeInsets.all(20),
+    //   child: Form(
+    //     key: _formKey,
+    //     autovalidateMode: AutovalidateMode.always,
+    //     child: Column(
+    //       children: [
+    //         MultiSelectFormField(
+    //           autovalidate: false,
+    //           chipBackGroundColor: Colors.grey[200],
+    //           chipLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+    //           dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
+    //           checkBoxActiveColor: Colors.white,
+    //           checkBoxCheckColor: Colors.green,
+    //           dialogShapeBorder: RoundedRectangleBorder(
+    //               borderRadius: BorderRadius.all(Radius.circular(12.0))),
+    //           title: Text(
+    //             "services".tr,
+    //             style: TextStyle(fontSize: 18),
+    //           ),
+    //           dataSource: allServices !=null ? allServices: '' ,
+    //           textField: 'servics_name',
+    //           valueField: 'id',
+    //           okButtonLabel: 'OK',
+    //           cancelButtonLabel: 'CANCEL',
+    //           hintWidget: Text('more'.tr,style: TextStyle(fontSize: 18),),
+    //           onSaved: (value) {
+    //             if (value == null) return;
+    //             setState(() {
+    //              selectedValues = value;
+    //             });
+    //           },
+    //         ),
+
+    //       ]
+    //     ),
+    //   )
+    // );
      
   }
 
@@ -694,9 +771,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: "enter_iqama_number".tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 
@@ -707,7 +785,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if( value.length  == 0){
-            return 'Enter Iqama Number';
+            return 'iqama'.tr;
           }
           else if(!regExp.hasMatch(value)) {
               return "Iqama must be in digits";
@@ -728,9 +806,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: "Responsible".tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {  },
         onSaved: (String? newValue) {  }, 
@@ -745,64 +824,69 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget mobileNumber() {
     return   Container(
+      
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: InternationalPhoneNumberInput(
-              inputDecoration:   InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
+          
+                inputDecoration:   InputDecoration(
+                contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+                fillColor: AppColors.inputColor,
+                filled: true,
+                border: InputBorder.none,
+                errorBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                    color: Colors.red
+                  ),
                 ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
+                focusedErrorBorder: OutlineInputBorder(
+                   borderSide: BorderSide(
+                    color: Colors.red
+                  ),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.outline
+                  ),
                 ),
+                hintText: "Mobile",
+                hintStyle: TextStyle(color: Colors.grey)
               ),
-              hintText: "Mobile",
-              
-            ),
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                onInputChanged: (PhoneNumber number) {
+                  print(number.phoneNumber);
+                },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                // initialValue: n,
+                // textFieldController: mobileController,
+                formatInput: false,
+                keyboardType:
+                    TextInputType.numberWithOptions(signed: true, decimal: true),
+                inputBorder: OutlineInputBorder(),
+                onSaved: (PhoneNumber number) {
+                  print('On Saved: $number');
+                },
               ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              // initialValue: n,
-              // textFieldController: mobileController,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ));
+      );
   }
 
    
 
   Widget cR() {
     return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+      margin:EdgeInsets.only(left:20, right: 20,top: 10,bottom: 10),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: AppString.cr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.textInput),
+        hintText: "crs".tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {  }, 
@@ -813,7 +897,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return " CR is Required";
+            return " crs".tr;
           } else if (!regExp.hasMatch(value)) {
             return "CR must be a-z and A-Z";
           }
@@ -841,8 +925,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return  Row(
       children: [
         Container(
-          padding: EdgeInsets.only(left:20),
-          child: Text("Account_type".tr,style: TextStyle(fontSize: 16))
+         
+          padding:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10),
+          child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
         ),
         Expanded(
           flex: 2 ,
@@ -863,7 +948,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                   ),Container(
                     
-                  child: Text(t.text,style: TextStyle(fontSize: 16),),)
+                  child: Text(t.text,style: TextStyle(fontSize: 16,color: Colors.grey),),)
                 ],
               ),
             )).toList()
@@ -877,6 +962,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
 class GroupModel {
   String text;
   int index;
-  GroupModel({required this.text, required this.index});
+  Color clr;
+  GroupModel({required this.text, required this.index,required this.clr});
 }
 
