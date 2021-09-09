@@ -234,6 +234,9 @@ const Map<String, String> ar = {
   'first_name':'الاسم الأول',
   'last_name':'الكنية',
   'apartment':'شقة',
-  'comp_order':'اكمل الطلب'
+  'comp_order':'اكمل الطلب',
+  'email_required':'البريد الإلكتروني (مطلوب',
+  'enter_password':'أدخل كلمة المرور',
+  'pass_to_short':'كلمة المرور أقصر مما يجب'
  
 };
