@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:success_stations/controller/notification_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:readmore/readmore.dart';
 import 'package:success_stations/view/UseProfile/notifier_user.dart';
-import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
@@ -21,56 +17,9 @@ class _NotificationPageState extends State<NotificationPage> {
   var id;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // controller.createFilterAds(id);
     controller.allNoti();
   }
-
-//   final Map<String, dynamic> offerNotification =  {
-//   "recent".tr: [
-//     { 
-//       "image": "assets/images/coppsule.png",
-//       "searchText": "John Doe",
-//       "text": "Selling plan name displayed in the cart and during checkout. It's recommended that this name includes the frequency of deliveries",
-      
-//     },
-//     { 
-//       "image": "assets/images/coppsule.png",
-//       "searchText": "john Doe",
-//       "text": "Selling plan name displayed in the cart and during checkout. It's recommended that this name includes the frequency of deliveries",
-      
-//     },
-    
-//   ],
-//   "oldernoti".tr: [
-//     {
-//       "image": "assets/images/coppsule.png",
-//       "searchText": "Sheeza Tariq",
-//       "text": "Label in the plan selector on the product page",
-      
-//     },
-//     {
-//       "image": "assets/images/coppsule.png",
-//       "searchText": "Sheeza Tariq",
-//       "text": "Label in the plan selector on the product page",
-      
-//     },
-//     {
-//      "image": "assets/images/coppsule.png",
-//       "searchText": "Sheeza Tariq",
-//       "text": "Label in the plan selector on the product page",
-      
-//     },
-//   ], 
-  
-// };
-// List<String> litems = ['Categoryt A', 'Categoryt 1', 'Categoryt 2','Categoryt 3', 'Categoryt 4', 'Categoryt 5'];
-//   var listtype = 'list';
-//   var selectedIndex = 0;
-//   var grid = AppImages.gridOf;
-//   Color selectedColor = Colors.blue;
-//   Color listIconColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
     return  Scaffold( 
@@ -84,35 +33,37 @@ class _NotificationPageState extends State<NotificationPage> {
         child: AppDrawer(),
       ),
 
-      body: ListView(
-        children:[
-        //  GetBuilder<NotificationController>( // specify type as Controller
-        //         init: NotificationController(), // intialize with the Controller
-        //         builder: (value){ 
-        //           print(value.recentNotifications);
-        //           return 
-        //           value.recentNotifications != null ?
-        //           recentNotifications(value.recentNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
-        //         }
-        //           ),
-        //           SizedBox(height: 10,),
-                 
-                GetBuilder<NotificationController>( // specify type as Controller
-                init: NotificationController(), // intialize with the Controller
-                builder: (value){ 
-                  print(value.allNotifications);
-                  
-                  return 
-                  value.allNotifications != null ?
-                  fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
-                }
-                  ),
-        ],
-
+      body:SafeArea(
+        child: ListView(
+          children:[
+          //  GetBuilder<NotificationController>( // specify type as Controller
+          //         init: NotificationController(), // intialize with the Controller
+          //         builder: (value){ 
+          //           print(value.recentNotifications);
+          //           return 
+          //           value.recentNotifications != null ?
+          //           recentNotifications(value.recentNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+          //         }
+          //           ),
+          //           SizedBox(height: 10,),
+                   
+                  GetBuilder<NotificationController>( // specify type as Controller
+                  init: NotificationController(), // intialize with the Controller
+                  builder: (value){ 
+                    print(value.allNotifications);
+                    
+                    return 
+                    value.allNotifications != null ?
+                    fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+                  }
+                    ),
+          ],
+      
+        ),
       ),
     );
   }
-var imageGived;
+// var imageGived;
 var idd;
   Widget fullNotifications(data) {
    
@@ -124,8 +75,7 @@ var idd;
               // scrollDirection: Axis.horizontal,
               itemCount: data.length,
               itemBuilder: (BuildContext context, index) {
-              //  idd = data[index]['id'];
-              //  print(idd);
+                 
                 String convertToAgo(DateTime input){
                   Duration diff = DateTime.now().difference(input);
 
@@ -141,9 +91,9 @@ var idd;
                   return 'just now';
                   }
                   }
-              //  
-               var inputDate = DateTime.parse(data[index]['created_at']).toLocal();
-               return   Column(
+           
+        var inputDate = DateTime.parse(data[index]['created_at']).toLocal();
+         return   Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 index == 0 ? 
@@ -166,7 +116,6 @@ var idd;
                     ),
                   ),
                 ):Container(),
-                // SizedBox(height:10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -206,23 +155,6 @@ var idd;
                                           child: Icon(Icons.cancel, color: Colors.grey,))
                                       ],
                                     ),
-                                    
-                                    // SizedBox(height:5),
-                                    // Container(
-                                    //   // width: 160,
-                                    //   // margin: EdgeInsets.only(bottom:10),
-                                    //   child: ReadMoreText(  
-                                      
-                                    //    " offerNotification[key][j]['text']",
-                                    //     trimLines: 2,
-                                    //     colorClickableText: Colors.blue,
-                                    //     trimMode: TrimMode.Line,
-                                    //     trimCollapsedText: 'See More',
-                                    //     // color: Colors.black
-                                    //     trimExpandedText: 'Show less',
-                                    //     style:TextStyle(color:AppColors.inputTextColor, fontSize: 13) ,
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                                  leading:
@@ -240,8 +172,7 @@ var idd;
                                 ),
               
                               ),
-                            
-                             data[index]['notifiable']!= null ?
+                             data[index]['notifiable']  != null ?
                             Container(
                               margin: EdgeInsets.only(right: 15),
                               alignment: Alignment.topRight,
@@ -258,11 +189,8 @@ var idd;
                 ),
               ]
             );
-          // )
-        } 
-              
-         ),
+        }     
+      ),
      );
-   
   }
 }

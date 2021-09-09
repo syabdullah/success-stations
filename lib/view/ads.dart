@@ -67,7 +67,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
        
         ListView(
-          padding: EdgeInsets.symmetric(horizontal:20),
+          padding: EdgeInsets.symmetric(horizontal:0),
           children: [
              
               GetBuilder<BannerController>(
@@ -92,8 +92,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(
-                    
+                  return data.isLoading == false &&  data.addsCategoryArray.length != 0  ?  featuredAdsList(                  
                     data.addsCategoryArray) : Container();
                 }
               ),
@@ -229,6 +228,7 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
+           margin: EdgeInsets.only(left:10),
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
           )
         ),
@@ -249,6 +249,7 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
+          margin: EdgeInsets.only(left:10),
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
           )
         ),
@@ -266,7 +267,7 @@ class _AdsViewState extends State<AdsView> {
   }
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
+      // margin: EdgeInsets.symmetric(vertical:5),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -279,7 +280,7 @@ class _AdsViewState extends State<AdsView> {
                   Get.to(CatAdds(),arguments:data[index]['id']);
                 },
                 child: Card(
-                  elevation: 3,
+                  elevation: 5,
                   shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -307,7 +308,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
+      margin: EdgeInsets.symmetric(vertical:5),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -316,7 +317,7 @@ class _AdsViewState extends State<AdsView> {
           return Column(
             children: [
               Card(
-                elevation: 3,
+                elevation: 5,
                 shape:  RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -344,20 +345,22 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/2.9: Get.height/4.0,
+      margin: EdgeInsets.symmetric(vertical:5),
+      height: Get.width < 420 ? Get.height/3.8: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (BuildContext context,index) {
+          var doubleval = double.parse(data[index]['price']);
+          var price = doubleval.toInt();
           return 
           GestureDetector(
             onTap: () {
               Get.to(AdViewScreen(),arguments:data[index]['id']);
             },
             child: Card(
-              elevation: 1,
+              elevation: 3,
               shape:  RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -377,7 +380,7 @@ class _AdsViewState extends State<AdsView> {
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top:5,left: 5),
+                    margin: EdgeInsets.only(top:5,left: 7),
                     child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
                   ),
                   Container(
@@ -388,17 +391,23 @@ class _AdsViewState extends State<AdsView> {
                         Row(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(top:6,left: 5),
-                              child: Image.asset(AppImages.location,height: 15, color:Colors.grey[600],)
-                            ),
-                        
-                         Container(
-                              margin: EdgeInsets.only(top:6,left:5),
+                              margin: EdgeInsets.only(left: 5),
+                              child: Image.asset(AppImages.location,height: 13, color:Colors.grey[600],)
+                            ),                        
+                            Container(
+                              width: Get.width/4.9,
+                              margin: EdgeInsets.only(left:5),
                               child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
                               ): Container()
                             ),
                         // SizedBox(width:2),
-                       
+                             Container(
+                              //  width: Get.width/5.5,
+                              // margin: EdgeInsets.only(left:6),
+                              child: data[index]['price'] !=null ? Text(
+                                'SAR: $price',style: TextStyle(fontSize: 13),
+                              ): Container()
+                            ),
                          ],
                         ),
                          
@@ -410,23 +419,18 @@ class _AdsViewState extends State<AdsView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top:5),
-                        child: Icon(Icons.person,color:Colors.grey[600]),
+                        margin: EdgeInsets.only(),
+                        child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
                       ),
                       SizedBox(width:5),
                       Container(
-                        margin: EdgeInsets.only(top:6, left: Get.height*0.000),
+                        margin: EdgeInsets.only( left: Get.height*0.000),
                         child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
                       ),
                     ],
                     
                   ),
-                  Container(
-                          margin: EdgeInsets.only(top:6,left:6),
-                          child: data[index]['price'] !=null ? Text(
-                           'SAR: ${data[index]['price']}',style: TextStyle(fontSize: 13),
-                          ): Container()
-                        ),               
+                                
                 ],
               ),
             ),

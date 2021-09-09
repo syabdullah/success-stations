@@ -26,6 +26,7 @@ const Map<String, String> ar = {
   "forgot_login_detail": "نسيت تفاصيل تسجيل الدخول الخاصة بك؟",
   "get_help": "احصل على المساعدة لتسجيل الدخول",
   "email": "البريد الإلكتروني",
+  "emails":"البريد الإلكتروني",
   "send": "إرسال",
   "or": "أو",
   "recentelyContact": "مؤخرا",
