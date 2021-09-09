@@ -516,7 +516,7 @@ class _SignPageState extends State<StudentSignUp> {
           children: <Widget>[
             Container(
               // padding: EdgeInsets.only(right:100),
-              child: Text(dateTime == null ? 'Date Of Birth' : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
+              child: Text(dateTime == null ? 'date_of_birth'.tr : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey,),
               onTap: () {               
