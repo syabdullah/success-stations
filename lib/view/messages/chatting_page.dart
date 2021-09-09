@@ -23,9 +23,8 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   List dataArray = [];
   late IO.Socket socket;
 
-   @override
-   void initState() {
-   
+  @override
+  void initState() {
     super.initState();
     userData = Get.arguments;
     userId = box.read('user_id');
@@ -54,41 +53,47 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     socket.emit("chatMessage", chatMessage);
   }
 
-  handleMessage( data) {
+  handleMessage(data) {
     print("Hnalder Message function..........>$data");
-    dataArray.add(data);
+    // dataArray.add(data);
+    chatCont.loadMessage(data);
     print("Hnalder Message function..........>$dataArray");
   }
  //reviewd
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomNavigationBar: textFieldDataSender(),
       body: Stack(
         children: [
-          Container(
-            height: Get.height,
-            width: Get.width,
-            color: AppColors.appBarBackGroundColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppBar(
-                  leading:GestureDetector(
-                    onTap: (){
-                      Get.off(Inbox());
-                    },
-                    child: Image.asset(AppImages.arrowBack)
-                  ),
-                  elevation: 0,
-                  backgroundColor: AppColors.appBarBackGroundColor,
-                  centerTitle: true,
-                  title:Text(userData[1].toString(),
-                    style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                  )
-                ),
-                    
-              ],
-            )
+          Column(
+            children: [
+              Container(
+                height: Get.height,
+                width: Get.width,
+                color: AppColors.appBarBackGroundColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppBar(
+                      leading:GestureDetector(
+                        onTap: (){
+                          Get.off(Inbox());
+                        },
+                        child: Image.asset(AppImages.arrowBack)
+                      ),
+                      elevation: 0,
+                      backgroundColor: AppColors.appBarBackGroundColor,
+                      centerTitle: true,
+                      title:Text(userData[1].toString(),
+                        style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+                      )
+                    ),
+                        
+                  ],
+                )
+              ),
+            ],
           ),
           chattingList(),
           // showMessage(dataArray),
@@ -142,14 +147,14 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           return false;
           },
         child: ListView.builder(
+          scrollDirection: Axis.vertical,
           reverse: true,
           controller: controller,
           itemCount: messages.length,
           shrinkWrap: true,
           padding: EdgeInsets.only(top: 10,bottom: 10),
-          physics: AlwaysScrollableScrollPhysics(),
+          // physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index){
-            print("all pages Data......${messages[index]}");
             return Container(
               padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
               child: Align(
@@ -168,48 +173,12 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                 ),
               ),
             );
+           
           },
         ),
       ),
     );
   }
- //reviewed
-  // Widget showMessage(msg) {
-  //   print('message list printed.....$msg');
-  //   return Column(
-  //     children: [
-  //       ListView.builder(
-  //         reverse: true,
-  //         controller: controller,
-  //         itemCount:  msg.length,
-  //         shrinkWrap: true,
-  //         padding: EdgeInsets.only(top: 10,bottom: Get.height/6, right:20),
-  //         physics: AlwaysScrollableScrollPhysics(),
-  //         itemBuilder: (context, index){
-  //           return Align(
-  //             alignment: (userId != msg[index]["username"]?Alignment.topRight:Alignment.topLeft),
-  //             child: Container(
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.only(
-  //                   topRight: Radius.circular(10.0),
-  //                   bottomRight: Radius.circular(10.0),
-  //                   bottomLeft: Radius.circular(10.0)
-  //                 ),
-  //                 color: (userId != msg[index]["username"]?Colors.grey.shade200:Colors.blue[200]),
-  //               ),
-  //               padding: EdgeInsets.all(16),
-  //               child: Text(msg[index]['text'], style: TextStyle(fontSize: 15),),
-  //             ),
-  //           );
-  //           // );
-  //         },
-  //       ),
-      
-  //       // ),
-        
-  //     ],
-  //   );
-  // }
   //reviewed
   Widget textFieldDataSender() {
     return Align(

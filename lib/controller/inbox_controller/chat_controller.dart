@@ -36,6 +36,7 @@ class ChatController extends GetxController {
 
   loadMessage(message){
     allChat.add(message);
+    update();
   }
 
   getChatConvo(id,page) async{

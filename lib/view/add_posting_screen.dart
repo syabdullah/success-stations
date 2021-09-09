@@ -550,7 +550,7 @@ Widget istStep(List list,List types){
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
-                maxLength:30,
+                maxLength:20,
                 controller: titleController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -562,6 +562,7 @@ Widget istStep(List list,List types){
                   color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 0.0, 0),
                   hintText: "title".tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
@@ -587,7 +588,7 @@ Widget istStep(List list,List types){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Text(
-                          selectedStatus == null ? 'Status'.tr : selectedStatus == '1' ? 'New': 'Old',
+                          selectedStatus == null ? 'status'.tr : selectedStatus == '1' ? 'New': 'Old',
                           style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
