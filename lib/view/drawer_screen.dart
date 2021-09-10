@@ -64,7 +64,7 @@ var lang;
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
     lang = box.read('lang_code');
-    print("////////a//// $lang");
+    print("///////here /a//// $lang");
     print("////////a//// $userType");
     banner.bannerController();
     

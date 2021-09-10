@@ -114,6 +114,7 @@ class _FriendListState extends State<FriendList> {
             )
           ],
         )
+      
       ],
     );
   }

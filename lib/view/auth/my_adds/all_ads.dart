@@ -162,12 +162,12 @@ class _AllAddsState extends State<AllAdds> {
         Row(
           children: [
             IconButton(
-              color: isButtonPressed ? Colors.blue : Colors.grey,
+              
               //listIconColor =isButtonPressed ? Colors.blue : Colors.red;
               onPressed: () {
                 setState(() {
                   listtype = 'grid';
-                  isButtonPressed = !isButtonPressed;
+                  //isButtonPressed = !isButtonPressed;
                   listIconColor = Colors.grey;
 
                   grid = AppImages.grid;

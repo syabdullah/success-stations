@@ -45,7 +45,7 @@ var userId = box.read('user_id');
         icon: Icon(Icons.menu,color: Colors.white),
         onPressed: () => globalKey.currentState!.openDrawer()),
       title: Padding(
-       padding: const EdgeInsets.only(top:10.0),
+       padding: const EdgeInsets.only(top:10.0,right:15),
         child: Image.asset(image, height: 40),
       ), 
       actions: [
@@ -55,7 +55,8 @@ var userId = box.read('user_id');
             filtrationModel(context);
           } : null,
           child: Padding(
-            padding: const EdgeInsets.only(top:12.0,right: 10,),
+            padding: const EdgeInsets.only(top:12.0,right: 10,
+            ),
             child: Image.asset(
              AppImages.appBarSearch,color: Colors.white,width: 25.w,
             ),
