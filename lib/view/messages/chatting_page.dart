@@ -31,11 +31,13 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     userId = box.read('user_id');
     conversationID = userData[0];
     image = box.read('chat_image');
-    connect(conversationID, userId);
+    connect();
   }
 
-  void connect(conversationID, userId) {
+  void connect() {
     loginToken = box.read('access_token');
+    conversationID = userData[0];
+    userId = box.read('user_id');
 
     socket = IO.io('https://ssnode.codility.co',
         IO.OptionBuilder().setTransports(['websocket']).build());
@@ -142,8 +144,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
 
   //reviewed
   Widget messageList(messages, nextPageUrl) {
-    print("dataArray handlerMessage......$dataArray");
-    print("data list of get Api.......$nextPageUrl");
     return Container(
       height: Get.height / 1.5,
       decoration: BoxDecoration(
