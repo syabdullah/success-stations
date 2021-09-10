@@ -2,19 +2,19 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/messages/inbox_action.dart';
-import 'package:success_stations/view/messages/chat.dart';
 
 class ChatController extends GetxController {
   bool isLoading = false; 
   var adsCreate;
   var chat;
   var allConvo;
+  var allChat = [];
   
 
   @override
   void onInit(){
+    allChat=[];
     isLoading = true;
     super.onInit();
   }
@@ -29,18 +29,30 @@ class ChatController extends GetxController {
         
       }
       isLoading = false;
+      
     });
     update();
   }
- getChatConvo(id,page) async{
+
+  loadMessage(message){
+    allChat.add(message);
+    update();
+  }
+
+  getChatConvo(id,page) async{
     isLoading = true ;
     await getconvo(id,page).then((res) {
       chat = res.body;
-      
       if(res.statusCode == 200 || res.statusCode < 400) {
         chat = jsonDecode(res.body);
-        // print("//.//././.-----000000----$chat");
-        // Get.to(ChattingPage());
+        print(" chat response controller.....................$chat");
+        if(chat['data'] !=null && chat['data']['messages']['data']!=null){
+          for(int m = 0; m < chat['data']['messages']['data'].length; m++ ){
+            allChat.add(chat['data']['messages']['data'][m]);
+            print("Allchat printed/........$allChat");
+
+          }
+        }
       }
       isLoading = false;
     });
