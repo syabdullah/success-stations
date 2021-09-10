@@ -90,4 +90,5 @@ class AppImages {
   //membership
   static String memberShip = imagePath + 'company.png';
   static String homeicon = imagePath + 'home.png';
+  static String camera = imagePath + 'cam@3x.png';
 }

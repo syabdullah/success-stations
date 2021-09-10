@@ -8,6 +8,7 @@ const Map<String, String> ar = {
   "google": "Google",
   "facebook": "Facebook",
   "choose_language": "اختر اللغة",
+  'choose_language_drop':"اختر اللغة",
   "choose_country": "اختر الدولة",
   "welcome_back": "مرحبا بعودتك!",
   "sign_continue":"تسجيل الدخول للمتابعة",

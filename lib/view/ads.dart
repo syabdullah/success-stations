@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
@@ -30,6 +32,7 @@ class _AdsViewState extends State<AdsView> {
   final CarouselController _controller = CarouselController();
     final catCont = Get.put(CategoryController());
      final addescontrollRefresh = Get.put(MyAddsController());
+     final ratingcont = Get.put(RatingController());
 
   //   allWordsCapitilize (String str) {
   //   return str.toLowerCase().split(' ').map((word) {
@@ -70,8 +73,7 @@ class _AdsViewState extends State<AdsView> {
        
         ListView(
           padding: EdgeInsets.symmetric(horizontal:0),
-          children: [
-             
+          children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
                 builder: (data){
@@ -87,7 +89,7 @@ class _AdsViewState extends State<AdsView> {
              GetBuilder<CategoryController>(
               init: CategoryController(),
               builder: (dat){
-                return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                return  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
@@ -225,8 +227,8 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
+           margin: EdgeInsets.only(left:10,right: 10,top: 10),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
           )
         ),
         GestureDetector(
@@ -234,8 +236,8 @@ class _AdsViewState extends State<AdsView> {
             Get.to(OfferList(),arguments: 100);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+            margin: EdgeInsets.only(right:10,left: 10,top: 10),
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
           ),
         )
       ],
@@ -247,7 +249,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
           )
         ),
         GestureDetector(
@@ -256,7 +258,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
           ),
         )
       ],
@@ -295,7 +297,12 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : '',style: TextStyle(color: AppColors.grey)),
+                width: imageW,
+                child: Center(
+                  child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : '',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: AppColors.grey)),
+                ),
               )
             ],
           );
@@ -343,7 +350,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5),
-      height: Get.width < 420 ? Get.height/3.8: Get.height/4.0,
+      height: Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -367,7 +374,7 @@ class _AdsViewState extends State<AdsView> {
                   ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                     child: Container(
-                      width: Get.width < 420 ? Get.width/2.3: Get.width/2.3,
+                      width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
                       height: Get.width < 420 ? Get.height/7.0:  Get.height/9.5,
                       child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
                         child: Icon(Icons.image,size: 50,),
@@ -381,10 +388,71 @@ class _AdsViewState extends State<AdsView> {
                       child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold,)),
                     ),
                   ),
+                  
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [                     
+                    children: [   
+                       Row(
+                    children: [
                       Container(
+                          margin: lang == 'ar' ?  EdgeInsets.only(top:5,right: 5):  EdgeInsets.only(top:5,left: 5),
+                          child: data[index]
+                          ['is_rated'] ==
+                            false
+                          ? RatingBar.builder(
+                            initialRating:
+                                data[index]
+                                        ['rating']
+                                    .toDouble(),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 18.0,
+                            itemBuilder: (context, _) =>
+                                Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              print(
+                                  'rating on tap ........$rating');
+                              var ratingjson = {
+                                'ads_id':
+                                    data[index]
+                                        ['id'],
+                                'rate': rating
+                              };
+                              print(
+                                  '.....................Rating data on Tap .........$ratingjson');
+                              ratingcont
+                                  .ratings(ratingjson);
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                        : RatingBar.builder(
+                            initialRating:
+                            data[index]['rating'].toDouble(),
+                            ignoreGestures: true,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 22.5,
+                            itemBuilder: (context, _) =>
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                      )
+                    ],
+                  ),                  
+                      Container(
+                        margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 5),
                         width: Get.width/2.3,
                         child: Row(
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -402,29 +470,31 @@ class _AdsViewState extends State<AdsView> {
                                   style: TextStyle(fontSize: 13,color:Colors.grey[600])
                                   ): Container()
                                 ),
-                                Container(
-                                  child: data[index]['price'] !=null ? Text(
-                                    'SAR: $price',style: TextStyle(fontSize: 13,color:Colors.grey[600]),
-                                  ): Container()
-                                ),
+                                
                               ],
                             ),                         
                           ],
                         ),
+                      ),
+                      Container(
+                         margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 5),
+                        child: data[index]['price'] !=null ? Text(
+                          'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
+                        ): Container()
                       ),                 
-                      Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(),
-                            child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
-                          ),
-                          SizedBox(width:5),
-                          Container(
-                            margin: EdgeInsets.only( left: Get.height*0.000),
-                            child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
-                          ),
-                        ],                      
-                      ),                                
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       margin: EdgeInsets.only(),
+                      //       child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
+                      //     ),
+                      //     SizedBox(width:5),
+                      //     Container(
+                      //       margin: EdgeInsets.only( left: Get.height*0.000),
+                      //       child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
+                      //     ),
+                      //   ],                      
+                      // ),                                
                     ],
                   ),
                 ],
