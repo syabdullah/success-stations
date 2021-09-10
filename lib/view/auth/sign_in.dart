@@ -57,21 +57,13 @@ class _SignPageState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: GetBuilder<LanguageController>(
             init: LanguageController(),
             builder: (val) {
-              return language(val.languageList['data']);
+              return val.languageList['data']==null?Container():language(val.languageList['data']);
             },
           ),
         ),
@@ -123,7 +115,7 @@ class _SignPageState extends State<SignIn> {
                                 alignment: Alignment.bottomRight,
                                 margin: EdgeInsets.only(
                                     bottom: 10, right: 18, top: 6),
-                                child: Text('forgot_your_password'.tr,
+                                child: Text('forgot_password'.tr,
                                     style: TextStyle(color: Colors.grey),
                                     textAlign: TextAlign.end),
                               ),
@@ -131,29 +123,30 @@ class _SignPageState extends State<SignIn> {
                             submitButton(
                                 bgcolor: AppColors.appBarBackGroundColor,
                                 textColor: AppColors.appBarBackGroun,
-                                buttonText: "sign_in".tr,
+                                buttonText: "login".tr,
+                                fontSize:20.0,
                                 callback: signIn),
                             Container(
                               margin: EdgeInsets.only(
                                   top: 10, bottom: 10, left: 20, right: 20),
                               child: Row(
-                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                        child: Divider(
-                                      color: Colors.black,
-                                    )),
-                                    SizedBox(
-                                      width: 3,
-                                    ),
+                                    // Expanded(
+                                    //     child: Divider(
+                                    //   color: Colors.black,
+                                    // )),
+                                    // SizedBox(
+                                    //   width: 3,
+                                    // ),
                                     Text("or".tr,style: TextStyle(color: Colors.grey),),
                                     SizedBox(
                                       width: 3,
                                     ),
-                                    Expanded(
-                                        child: Divider(
-                                      color: Colors.black,
-                                    )),
+                                    // Expanded(
+                                    //     child: Divider(
+                                    //   color: Colors.black,
+                                    // )),
                                   ]),
                             ),
                             // Container(
