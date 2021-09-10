@@ -162,7 +162,7 @@ class _FriendReqListState extends State<FriendReqList> {
                     ): 
                     GestureDetector(
                       onTap: (){ 
-                        friCont.deleteFriend(data[i]['id']);
+                        friCont.deleteFriend(data[i]['id'],'');
                       },
                       child: Container( 
                          margin:EdgeInsets.only(right:10),
@@ -330,7 +330,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){friCont.deleteFriend(data[i]['id']);},
+                      onTap: (){friCont.deleteFriend(data[i]['id'],'');},
                       child: Container( 
                         alignment: Alignment.center,
                         width: Get.width/4.2,

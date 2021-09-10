@@ -767,6 +767,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 ),
               ),
               hintText: "Mobile",
+              hintStyle:  TextStyle(color: AppColors.inputTextColor)
               
             ),
               onInputChanged: (PhoneNumber number) {

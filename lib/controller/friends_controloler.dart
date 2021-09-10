@@ -10,6 +10,7 @@ import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
+import 'package:success_stations/view/friends/friend_list.dart';
 
 class FriendsController extends GetxController {
   final repetedCon = Get.put(FavoriteController());
@@ -104,14 +105,17 @@ class FriendsController extends GetxController {
     update();
   }
 
-  deleteFriend(id) async {
+  deleteFriend(id,pro) async {
     isLoading = true;
     await delFriendReq(id).then((res) {
       // friendsData = res.body;
       
       getFriendsList();
       getSuggestionsList();
-print(res.body);  
+      print(res.body);  
+       if(pro == 'pro') {
+         Get.back();
+       }
       SnackBarWidget().showToast("", res.body);
       isLoading = false;
     }).catchError((e) {

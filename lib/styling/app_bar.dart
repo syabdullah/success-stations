@@ -30,13 +30,11 @@ var userId = box.read('user_id');
   void _getUserLocation() async {
     position  = await GeolocatorPlatform.instance
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
     // setState(() {
       currentPostion = LatLng(position.latitude, position.longitude);
     // });
   }
  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,index) {
-
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
@@ -49,9 +47,9 @@ var userId = box.read('user_id');
         child: Image.asset(image, height: 40),
       ), 
       actions: [
-        index == 3 ? 
+        index == 4 ? 
         GestureDetector(
-          onTap: index == 3 ?  () {
+          onTap: index == 4 ?  () {
             filtrationModel(context);
           } : null,
           child: Padding(

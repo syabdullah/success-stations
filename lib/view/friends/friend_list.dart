@@ -122,7 +122,6 @@ class _FriendListState extends State<FriendList> {
   Widget friendList(dataa) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-
      // margin: EdgeInsets.only(left: 10),
       child: ListView.builder(
         itemCount: dataa.length,
@@ -133,9 +132,9 @@ class _FriendListState extends State<FriendList> {
               selected = box.write("selected", dataa[index]['id']);
               requisterId = box.write("requister", dataa[index]['requister_id']);
               Get.to(FriendProfile(),
-              arguments: id == ['friend',dataa[index]['requister_id']]
-              ? ['friend',dataa[index]['requister_id']]
-              : ['friend',dataa[index]['user_requisted']['id']]);
+              arguments: id != dataa[index]['requister_id']
+              ? [dataa[index]['id'],dataa[index]['requister_id']]
+              : [dataa[index]['id'],dataa[index]['user_requisted']['id']]);
             },
             child: Card(
               child: Row(
@@ -187,6 +186,7 @@ class _FriendListState extends State<FriendList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        margin: EdgeInsets.only(left: 10),
                         child: id == dataa[index]['requister_id']
                         ? Text(
                           dataa[index]['user_requisted']['name'],
@@ -200,14 +200,44 @@ class _FriendListState extends State<FriendList> {
                           ),
                         )
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 5),
-                          Container(
-                              // child: Text(dataa[index]['user_requisted']['city']['city']),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: id == dataa[index]['requister_id']
+                        ? Text(
+                          dataa[index]['user_requisted']['degree'] ?? '',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold),
+                        )
+                        : Text(
+                          dataa[index]['requister']['degree'] ?? '',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold
                           ),
-                        ],
+                        )
+                      ),
+                      Container(
+                        // margin: EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.location_on,color:Colors.grey,),
+                            SizedBox(width: 5),
+                            Container(
+                              child: id == dataa[index]['requister_id']
+                              ? Text(
+                                dataa[index]['user_requisted']['address'] ?? '',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              )
+                              : Text(
+                                dataa[index]['requister']['address'] ?? '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -239,48 +269,108 @@ class _FriendListState extends State<FriendList> {
                 selected = box.write("selected", data[index]['id']);
                 requisterId = box.write("requister", data[index]['requister_id']);
                 Get.to(FriendProfile(),
-                arguments: id == ['friend',data[index]['requister_id']]
-                ? ['friend',data[index]['requister_id']]
-                : ['friend',data[index]['user_requisted']['id']]);
+                arguments: id != data[index]['requister_id']
+                ? [data[index]['id'],data[index]['requister_id']]
+                : [data[index]['id'],data[index]['user_requisted']['id']]);
               },
               child: Card(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(height: 8),
-                    id == data[index]['requister_id']
+                    id != data[index]['requister_id']
                     ? Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                      child: data[index]['requister']['image'] != null?CircleAvatar(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0
+                    ),
+                    child: Container(
+                      child: CircleAvatar(
                         radius: 30.0,
-                        backgroundImage: NetworkImage(data[index]['requister']['image']['url'])
-                      )
-                      :CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: AssetImage(AppImages.person)
-                      ),
-                    )
-                    : Container(
-                      child:data[index]['user_requisted']['image'] !=null
-                      ? CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(data[index]['user_requisted']['image']['url'])
-                      )
-                      :CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: AssetImage(AppImages.person)
+                        backgroundColor: Colors.grey[100],
+                        child: data[index]['requister']['image'] !=
+                        null
+                        ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.network(
+                            data[index]['requister']['image'] ['url'],
+                            height: 80,
+                            fit: BoxFit.fill,
+                          )
+                        )
+                        : Image.asset(AppImages.person)
                       ),
                     ),
+                  )
+                    : Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    child: CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Colors.grey[100],
+                      child: data[index]['user_requisted']['image'] != null
+                      ? ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(50.0),
+                          child: Image.network(
+                            data[index]['user_requisted']
+                                ['image']['url'],
+                            height: 80,
+                            fit: BoxFit.fill,
+                          )
+                      )
+                      : Image.asset(AppImages.person)
+                    ),
+                  ),
                     Column(
                       children: [
-                        Container(
-                          child: id == data[index]['requister_id']
-                          ? Text(data[index]['user_requisted']['name'],
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          )
-                          : Text(data[index]['requister']['name'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )
+                       Container(
+                        child: id == data[index]['requister_id']
+                        ? Text(
+                          data[index]['user_requisted']['name'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold),
+                        )
+                        : Text(
+                          data[index]['requister']['name'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          ),
+                        )
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: id == data[index]['requister_id']
+                        ? Text(
+                          data[index]['user_requisted']['degree'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold),
+                        )
+                        : Text(
+                          data[index]['requister']['degree'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          ),
+                        )
+                      ),
+                       Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.location_on,color:Colors.grey,),
+                            SizedBox(width: 5),
+                            Container(
+                              child: id == data[index]['requister_id']
+                              ? Text(
+                                data[index]['user_requisted']['address'] ?? '',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              )
+                              : Text(
+                                data[index]['requister']['address'] ?? '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -290,7 +380,8 @@ class _FriendListState extends State<FriendList> {
               ),
             );
           },
-        ));
+        )
+      );
   }
 
   Widget submitButton(

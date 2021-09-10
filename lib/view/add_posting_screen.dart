@@ -477,7 +477,6 @@ Widget istStep(List list,List types){
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: types.map((coun) {
-                          
                           return DropdownMenuItem(
                             value: coun,
                             child:Text(coun['category']['en'])

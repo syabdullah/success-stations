@@ -18,7 +18,7 @@ class AppImages {
   //Drawer Images
   static String handshake = imagePath + 'handshake.png';
   static String userProfile = imagePath + 'user.png';
-  static String adwithus = imagePath + 'adwithus.png';
+  static String adwithus = imagePath + 'ad with us@3x.png';
   static String aboutus = imagePath + 'aboutus.png';
   static String privacy = imagePath + 'privacy.png';
   static String message = imagePath + 'message.png';
@@ -39,6 +39,7 @@ class AppImages {
   //about us logo
 
   static String logo = imagePath + 'logo.png';
+  static String language = imagePath + 'Union 5.png';
   
   //addviewscreen
   static String profile = imagePath + 'profile.png';
