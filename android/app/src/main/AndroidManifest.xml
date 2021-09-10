@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codility.success_stations">
+    package="com.successstations.success_stations">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -59,6 +59,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
              <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c"/>
+               android:value="AIzaSyBcaXsdhHe4ctXSbb9UEK47x7TNn7B6IAU"/>
     </application>
 </manifest>

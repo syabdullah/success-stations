@@ -14,7 +14,6 @@ import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:success_stations/view/auth/notification.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
-import 'package:success_stations/view/dashboard.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
@@ -54,8 +53,6 @@ class SuccessStationRoutes {
     switch (settings.name) {
       case login:
         return MaterialPageRoute(builder: (_) => SignIn());
-        case home:
-        return MaterialPageRoute(builder: (_) => Dashboard());
         case tabBar:
         return MaterialPageRoute(builder: (_) => TabBarPage());
         case adViewScreen:

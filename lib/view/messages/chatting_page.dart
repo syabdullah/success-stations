@@ -9,6 +9,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:success_stations/view/messages/inbox.dart';
 
 var loginUser, conversationID, loginToken;
+
 class ChattinPagePersonal extends StatefulWidget {
   _ChattinPageState createState() => _ChattinPageState();
 }
@@ -19,7 +20,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   ScrollController controller = new ScrollController();
   final chatCont = Get.put(ChatController());
   TextEditingController msg = TextEditingController();
-  var userId, userData,  image, page = 1;
+  var userId, userData, image, page = 1;
   List dataArray = [];
   late IO.Socket socket;
 
@@ -33,18 +34,22 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     connect(conversationID, userId);
   }
 
-  void connect(conversationID, userId) { 
-    loginToken=  box.read('access_token');
+  void connect(conversationID, userId) {
+    loginToken = box.read('access_token');
 
     socket = IO.io('https://ssnode.codility.co',
-      IO.OptionBuilder()
-      .setTransports(['websocket'])
-      .build()
-    );
+        IO.OptionBuilder().setTransports(['websocket']).build());
     socket.connect();
-    socket.on('connect', (_) => print('connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
+    socket.on(
+        'connect',
+        (_) => print(
+            'connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
     socket.on('message', handleMessage);
-    socket.emit('joinRoom', { "token": loginToken, "room": "convo-$conversationID" , "username": "user-$userId" });
+    socket.emit('joinRoom', {
+      "token": loginToken,
+      "room": "convo-$conversationID",
+      "username": "user-$userId"
+    });
     socket.onDisconnect((_) => print('disconnect'));
   }
 
@@ -59,55 +64,62 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     chatCont.loadMessage(data);
     print("Hnalder Message function..........>$dataArray");
   }
- //reviewd
+
+  //reviewd
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // bottomNavigationBar: textFieldDataSender(),
       body: Stack(
         children: [
-          Column(
-            children: [
-              Container(
-                height: Get.height,
-                width: Get.width,
-                color: AppColors.appBarBackGroundColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppBar(
-                      leading:GestureDetector(
-                        onTap: (){
-                          Get.off(Inbox());
-                        },
-                        child: Image.asset(AppImages.arrowBack)
-                      ),
+          Container(
+              height: Get.height,
+              width: Get.width,
+              color: AppColors.appBarBackGroundColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppBar(
+                      leading: GestureDetector(
+                          onTap: () {
+                            Get.off(Inbox());
+                          },
+                          child: Image.asset(AppImages.arrowBack)),
                       elevation: 0,
                       backgroundColor: AppColors.appBarBackGroundColor,
                       centerTitle: true,
-                      title:Text(userData[1].toString(),
-                        style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                      )
-                    ),
-                        
-                  ],
-                )
-              ),
-            ],
-          ),
+                      title: Text(
+                        userData[1].toString(),
+                        style: AppTextStyles.appTextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
+                ],
+              )),
           chattingList(),
           // showMessage(dataArray),
           FractionalTranslation(
-            translation: Get.height > 700 ? const Offset(1.4, 1.4): const Offset(0.2, 0.9),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey[400],
-              radius: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child: image != null ? Image.network(image,fit: BoxFit.fill,height: 80,): Icon(Icons.person, color: Colors.blue[100],)
-              ),
-            )
-          ),
+              translation: Get.height > 700
+                  ? const Offset(1.4, 1.4)
+                  : const Offset(0.2, 0.9),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[400],
+                radius: 50,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(60.0),
+                    child: image != null
+                        ? Image.network(
+                            image,
+                            fit: BoxFit.fill,
+                            height: 80,
+                          )
+                        : Icon(
+                            Icons.person,
+                            color: Colors.blue[100],
+                          )),
+              )),
           textFieldDataSender()
         ],
       ),
@@ -127,58 +139,68 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       isLoading = false;
     });
   }
+
   //reviewed
   Widget messageList(messages, nextPageUrl) {
     print("dataArray handlerMessage......$dataArray");
     print("data list of get Api.......$nextPageUrl");
-    return Container(       
-      height: Get.height/1.5,
+    return Container(
+      height: Get.height / 1.5,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50), topRight: Radius.circular(50)),
         color: Colors.white,
       ),
-      margin: EdgeInsets.only(top: Get.height/5.0, bottom: 25),
+      margin: EdgeInsets.only(top: Get.height / 5.0, bottom: 25),
       child: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
-          if (!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+          if (!isLoading &&
+              scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
             isLoading = true;
             _loadData(nextPageUrl);
           }
           return false;
-          },
+        },
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           reverse: true,
           controller: controller,
           itemCount: messages.length,
           shrinkWrap: true,
-          padding: EdgeInsets.only(top: 10,bottom: 10),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           // physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, index){
+          itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.only(left: 14,right: 14,top: 14,bottom: 30),
+              padding:
+                  EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 30),
               child: Align(
-                alignment: (userId != messages[index]["created_by"]? Alignment.topLeft: Alignment.topRight ),
+                alignment: (userId != messages[index]["created_by"]
+                    ? Alignment.topLeft
+                    : Alignment.topRight),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0)
-                    ),
-                    color: (userId != messages[index]["created_by"]? Colors.grey.shade200 : Colors.blue[200]),
+                        topRight: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                        bottomLeft: Radius.circular(10.0)),
+                    color: (userId != messages[index]["created_by"]
+                        ? Colors.grey.shade200
+                        : Colors.blue[200]),
                   ),
                   padding: EdgeInsets.all(16),
-                  child: Text(messages[index]['message'], style: TextStyle(fontSize: 15),),
+                  child: Text(
+                    messages[index]['message'],
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
               ),
             );
-           
           },
         ),
       ),
     );
   }
+
   //reviewed
   Widget textFieldDataSender() {
     return Align(
@@ -186,13 +208,13 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       child: Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(78)
-        ),
-        margin: EdgeInsets.symmetric(horizontal:15),
+            color: Colors.grey[300], borderRadius: BorderRadius.circular(78)),
+        margin: EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           children: <Widget>[
-            SizedBox(width: 15,),
+            SizedBox(
+              width: 15,
+            ),
             Expanded(
               child: TextField(
                 controller: msg,
@@ -203,24 +225,28 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   disabledBorder: InputBorder.none,
                   hintText: "Type your message here",
                   hintStyle: TextStyle(color: Colors.grey),
-                  
                 ),
               ),
             ),
-            SizedBox(width: 15,),
+            SizedBox(
+              width: 15,
+            ),
             Container(
               padding: EdgeInsetsDirectional.all(8),
               child: FloatingActionButton(
-                onPressed: (){
+                onPressed: () {
                   sendMessage(msg.text);
                   setState(() {
-                      me.add(
-                      ChatMessage(messageContent: msg.text,messageType: "sender")
-                    );
+                    me.add(ChatMessage(
+                        messageContent: msg.text, messageType: "sender"));
                     msg.clear();
                   });
                 },
-                child: Icon(Icons.send,color: Colors.white,size: 18,),
+                child: Icon(
+                  Icons.send,
+                  color: Colors.white,
+                  size: 18,
+                ),
                 backgroundColor: Colors.blue,
                 elevation: 0,
               ),
@@ -234,42 +260,44 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   //reviewed
   Widget chattingList() {
     return Container(
-      margin: EdgeInsets.only(top:Get.height/4.4),
+      margin: EdgeInsets.only(top: Get.height / 4.4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft:Radius.circular(50),topRight:Radius.circular(50)
-        ),
+            topLeft: Radius.circular(50), topRight: Radius.circular(50)),
         color: Colors.grey[100],
       ),
-      child:  Container(
-        child: GetBuilder<ChatController>(
-          init: ChatController(),
-          builder: (val) {
-            if(val.isLoading == false && val.chat!=null && val.chat['data'] !=null ) {
-              if(val.chat['data']['participants']!=null){
-                if(val.chat['data']['participants'][0]['id'] == userId) {
-                  if (val.chat['data']['participants'][1]['image'] != null) {
-                    image = val.chat['data']['participants'][1]['image']['url'];
-                  }
+      child: Container(
+          child: GetBuilder<ChatController>(
+        init: ChatController(),
+        builder: (val) {
+          if (val.isLoading == false &&
+              val.chat != null &&
+              val.chat['data'] != null) {
+            if (val.chat['data']['participants'] != null) {
+              if (val.chat['data']['participants'][0]['id'] == userId) {
+                if (val.chat['data']['participants'][1]['image'] != null) {
+                  image = val.chat['data']['participants'][1]['image']['url'];
                 }
               }
             }
-            return val.isLoading == false && val.allChat.length != 0 ? 
-            ListView(
-              children: [
-                messageList(val.allChat, val.chat['data']['messages']['next_page_url']),
-              ],
-            ): Container();
-          },
-        )
-      ),
+          }
+          return val.isLoading == false && val.allChat.length != 0
+              ? ListView(
+                  children: [
+                    messageList(val.allChat,
+                        val.chat['data']['messages']['next_page_url']),
+                  ],
+                )
+              : Container();
+        },
+      )),
     );
   }
 }
+
 //reviewed
-class ChatMessage{
+class ChatMessage {
   String messageContent;
   String messageType;
   ChatMessage({required this.messageContent, required this.messageType});
 }
-
