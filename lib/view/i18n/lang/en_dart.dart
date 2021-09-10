@@ -20,7 +20,7 @@ const Map<String, String> en = {
   "sign_up_text": "SIGN UP",
   "home":"Home",
   "addlocation":"Add Location",
-
+  "Select_your_prefered_language":"Select your prefered language",
   "user_name_placeholder": "User Name",
   "user_name": "User Name",
   "password_placeholder": "Password",

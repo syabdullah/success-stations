@@ -47,7 +47,7 @@ class _InboxState extends State<Inbox> {
 
   Widget chatListView(data){
     return Container(
-      height:Get.height/8,
+      height:Get.height/7,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -71,11 +71,11 @@ class _InboxState extends State<Inbox> {
                 radius: 35,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60.0),
-                  child:  data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 60,) : Icon(Icons.person)
+                  child:  data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 67,) : Icon(Icons.person)
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left:12, top: 20),
+                margin: EdgeInsets.only(left:12, top: 20,right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -119,9 +119,9 @@ Widget recentChat(data){
         },
         child: CircleAvatar(
             backgroundColor: Colors.grey,
-            radius: 37,
+            radius: 35,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(60.0),
+              borderRadius: BorderRadius.circular(67.0),
               child: data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 60,) : Icon(Icons.person)),
           ),
       ),
@@ -182,7 +182,7 @@ Widget recentChat(data){
                     ),
                     Expanded(
                       child: Container(
-                        margin: const EdgeInsets.only(top:25.0),
+                        margin: const EdgeInsets.only(top:10.0),
                         height: Get.height,
                         child: val.isLoading ==false && val.allConvo['success'] == true ? recentlyContacted(conData) :Container()
                       ),
