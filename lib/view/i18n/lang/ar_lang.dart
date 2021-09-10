@@ -237,6 +237,7 @@ const Map<String, String> ar = {
   'comp_order':'اكمل الطلب',
   'email_required':'البريد الإلكتروني (مطلوب',
   'enter_password':'أدخل كلمة المرور',
-  'pass_to_short':'كلمة المرور أقصر مما يجب'
+  'pass_to_short':'كلمة المرور أقصر مما يجب',
+  'filtered_result':'النتائج المصنفة'
  
 };
