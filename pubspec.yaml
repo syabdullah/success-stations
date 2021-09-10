@@ -70,7 +70,7 @@ dependencies:
   go_sell_sdk_flutter: ^2.0.7
   intl_phone_field: ^2.0.1
   intl_phone_number_input: ^0.7.0+2
-  socket_io_client: ^1.0.1
+  socket_io_client: ^2.0.0-beta.4-nullsafety.0
   google_fonts_arabic: ^1.1.7
   # go_sell_sdk_flutter: ^2.0.7
 

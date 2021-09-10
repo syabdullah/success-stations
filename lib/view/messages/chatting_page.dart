@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
+import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -31,25 +33,28 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     userId = box.read('user_id');
     conversationID = userData[0];
     image = box.read('chat_image');
-    connect(conversationID, userId);
+    connection();
   }
 
-  void connect(conversationID, userId) {
-    loginToken = box.read('access_token');
-
-    socket = IO.io('https://ssnode.codility.co',
-        IO.OptionBuilder().setTransports(['websocket']).build());
-    socket.connect();
-    socket.on(
-        'connect',
-        (_) => print(
-            'connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
-    socket.on('message', handleMessage);
-    socket.emit('joinRoom', {
-      "token": loginToken,
-      "room": "convo-$conversationID",
-      "username": "user-$userId"
-    });
+  void connection() async{
+     loginToken = await box.read('access_token');   
+      try {
+        socket = IO.io('https://ssnode.codility.co',
+        IO.OptionBuilder().setTransports(['websocket']).build());          
+        socket.connect();
+        print("--------------------------------0-0-0-0-0-0----${socket.connected}");
+        socket.on('connect',(_) => 
+          print('connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
+        socket.on('message', handleMessage);
+        socket.emit('joinRoom', {
+          "token": loginToken,
+          "room": "convo-$conversationID",
+          "username": "user-$userId"
+        });
+      }
+      catch (e) {
+      print(e.toString());
+    }
     socket.onDisconnect((_) => print('disconnect'));
   }
 
@@ -58,11 +63,8 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     socket.emit("chatMessage", chatMessage);
   }
 
-  handleMessage(data) {
-    print("Hnalder Message function..........>$data");
-    // dataArray.add(data);
+  handleMessage(data) { 
     chatCont.loadMessage(data);
-    print("Hnalder Message function..........>$dataArray");
   }
 
   //reviewd
@@ -100,25 +102,48 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
               )),
           chattingList(),
           // showMessage(dataArray),
+           lang == 'en' ?
           FractionalTranslation(
-              translation: Get.height > 700
-                  ? const Offset(1.4, 1.4)
-                  : const Offset(0.2, 0.9),
+              translation: Get.height > 700 
+                  ? const Offset(1.5, 1.5)
+                  : const Offset(1.3, 1.0),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[400],
                 radius: 50,
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(60.0),
-                    child: image != null
-                        ? Image.network(
-                            image,
-                            fit: BoxFit.fill,
-                            height: 80,
-                          )
-                        : Icon(
-                            Icons.person,
-                            color: Colors.blue[100],
-                          )),
+                  borderRadius: BorderRadius.circular(60.0),
+                  child: image != null
+                  ? Image.network(
+                      image,
+                      fit: BoxFit.fill,
+                      height: 80,
+                    )
+                  : Icon(
+                      Icons.person,
+                      color: Colors.blue[100],
+                      )
+                ),
+              )):
+              FractionalTranslation(
+              translation: Get.height > 700 
+                  ? const Offset(-1.5, 1.5)
+                  : const Offset(-1.3, 1.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[400],
+                radius: 50,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(60.0),
+                  child: image != null
+                  ? Image.network(
+                      image,
+                      fit: BoxFit.fill,
+                      height: 80,
+                    )
+                  : Icon(
+                      Icons.person,
+                      color: Colors.blue[100],
+                      )
+                ),
               )),
           textFieldDataSender()
         ],
@@ -129,7 +154,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   bool isLoading = false;
   //reviewed
   Future _loadData(data) async {
-    print("load data calling .......$data");
     await Future.delayed(new Duration(seconds: 1));
     if (data != null) {
       ++page;
@@ -142,15 +166,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
 
   //reviewed
   Widget messageList(messages, nextPageUrl) {
-    print("dataArray handlerMessage......$dataArray");
-    print("data list of get Api.......$nextPageUrl");
     return Container(
-      height: Get.height / 1.5,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-        color: Colors.white,
-      ),
       margin: EdgeInsets.only(top: Get.height / 5.0, bottom: 25),
       child: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
@@ -170,14 +186,18 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           padding: EdgeInsets.only(top: 10, bottom: 10),
           // physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
+            // print("..................>$messages");
+            var date = DateTime.parse(messages[index]["created_at"]);
+            var time = DateFormat().add_jm().format(date);
             return Container(
               padding:
-                  EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 30),
+                  EdgeInsets.only(left: 14, right: 14, bottom: 30),
               child: Align(
                 alignment: (userId != messages[index]["created_by"]
                     ? Alignment.topLeft
                     : Alignment.topRight),
                 child: Container(
+                  // width: Get.width/1.5,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10.0),
@@ -185,12 +205,21 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                         bottomLeft: Radius.circular(10.0)),
                     color: (userId != messages[index]["created_by"]
                         ? Colors.grey.shade200
-                        : Colors.blue[200]),
+                        : AppColors.appBarBackGroundColor),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    messages[index]['message'],
-                    style: TextStyle(fontSize: 15),
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        messages[index]['message'],
+                        style: TextStyle(fontSize: 16,color:userId == messages[index]["created_by"] ? Colors.white : Colors.grey),
+                      ),
+                      Text(
+                       time.toString(),
+                        style: TextStyle(fontSize: 12,color:userId == messages[index]["created_by"] ? Colors.white : Colors.grey),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -218,7 +247,9 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
             Expanded(
               child: TextField(
                 controller: msg,
+                maxLines: null,
                 decoration: InputDecoration(
+                isDense: true,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -247,7 +278,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   color: Colors.white,
                   size: 18,
                 ),
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.appBarBackGroundColor,
                 elevation: 0,
               ),
             ),
@@ -283,6 +314,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           }
           return val.isLoading == false && val.allChat.length != 0
               ? ListView(
+                reverse: true,
                   children: [
                     messageList(val.allChat,
                         val.chat['data']['messages']['next_page_url']),
