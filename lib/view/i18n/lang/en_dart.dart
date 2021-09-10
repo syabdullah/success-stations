@@ -239,7 +239,8 @@ const Map<String, String> en = {
   'comp_order':'Complete Order',
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
-  'pass_to_short':'Password too short'
+  'pass_to_short':'Password too short',
+  'filtered_result':'FILTERED RESULTS'
 
 };
 

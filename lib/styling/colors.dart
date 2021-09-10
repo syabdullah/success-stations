@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // signUP
   // signUP  #2F4199
   static Color appBarBackGroundColor = Color(0xFF2F4199);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
