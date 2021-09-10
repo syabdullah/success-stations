@@ -8,6 +8,7 @@ const Map<String, String> en = {
   "google": "Google",
   "facebook": "Facebook",
   "choose_language": "Choose Language",
+  "choose_language_drop": "CHOOSE LANGUAGE",
   "choose_country": "Choose Country",
   "welcome_back": "Welcome Back!",
   "date_of_birth": "Date of Birth",

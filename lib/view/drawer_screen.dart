@@ -11,6 +11,7 @@ import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/controller/sign_in_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/main.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -110,7 +111,7 @@ var lang;
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
     lang = box.read('lang_code');
-     print("..........=-=-=-=-=-=-=-=-=$lang");  
+    print(".....................>....$image");
     print("${Get.height}");
     return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -120,13 +121,12 @@ var lang;
                 child: Column(
                   children: [
                     Container(
-                      color: Colors.blue,
+                      color: AppColors.appBarBackGroundColor,
                       width: Get.width,
                       height: Get.height/4,
                       padding: lang == 'ar' ? EdgeInsets.only(right: 10,top: 20): EdgeInsets.only(left: 10,top: 20),
                       child: GestureDetector(
                         onTap: () {
-                          print("object");
                         },
                         child: Stack(
                           children: [    
@@ -153,9 +153,9 @@ var lang;
                                             child:ClipRRect(
                                               borderRadius: BorderRadius.circular(60.0),
                                               child:                                       
-                                              imageP.toString() != 'null' ?
+                                              imageP.toString() != 'null' || imageP == null ?
                                                 Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
-                                                image.toString() == 'null' ? 
+                                                image.toString() == 'null' || image == null ? 
                                               Image.asset(AppImages.person,color: Colors.grey[400]) : 
                                               Image.network(
                                                 image['url'],
@@ -166,12 +166,12 @@ var lang;
                                           ),
                                         ),
                                         FractionalTranslation(
-                                          translation :  lang == 'ar' ? const Offset(-1.5, 1.5): const Offset(1.5, 1.5),
+                                          translation :  lang == 'ar' ? const Offset(-0.7, 2.0): const Offset(1.0, 2.0),
                                           child: IconButton(
                                             onPressed: () {
                                               getImage();
                                             },
-                                            icon:Icon(Icons.camera_alt,size: 40,color: Colors.white,)
+                                            icon: Image.asset(AppImages.camera,height: 40,)
                                           ),
                                         ),
                                       ],
@@ -182,7 +182,7 @@ var lang;
                                       child: Text(
                                         box.read('name'),
                                         style:AppTextStyles.appTextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
+                                          fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white
                                         ),
                                       ),
                                     ),
@@ -392,7 +392,7 @@ var lang;
                       package: 'google_fonts_arabic',
                       fontSize: 14.0,
                     ):
-                    AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
+                    AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade800,
                     )
                   ),
                 ),

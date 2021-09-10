@@ -209,7 +209,7 @@ final adfavUser = Get.put(UserFavController());
               _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
             }
           }
-          print("--------------------------------------$_latLng");
+          // print("--------------------------------------$_latLng");
           return  Stack(
             children: [
               listtype == 'map' ? 

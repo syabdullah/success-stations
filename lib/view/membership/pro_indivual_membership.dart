@@ -30,12 +30,13 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     "friend_requests".tr,
     "favourite".tr,
   ];
-   @override
+  @override
   void initState() {
     super.initState();
     var id = box.read('user_id');
     memberShipCon.getMemberShip();
-    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
@@ -71,7 +72,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
           GetBuilder<MemberShipController>(
             init: MemberShipController(),
             builder: (val) {
-              return  FractionalTranslation(
+              return FractionalTranslation(
                 translation: const Offset(0.0, -0.5),
                 child: Container(
                   height: 50,
@@ -82,20 +83,21 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
                     // borderRadius: Border.all()
                   ),
                   child: Center(
-                      child: val.result != null ? Text(
-                        statustogle == false ? 
-                     "\$ ${val.result['data']['monthly'].toString()}":
-                     "\$ ${val.result['data']['yearly'].toString()}",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ) : Text('')
-                  ),
+                      child: val.result != null
+                          ? Text(
+                              statustogle == false
+                                  ? "\$ ${val.result['data']['monthly'].toString()}"
+                                  : "\$ ${val.result['data']['yearly'].toString()}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            )
+                          : Text('')),
                 ),
               );
             },
-          ),        
+          ),
           // space50,
           submitButton(
               buttonText: 'update_succe'.tr,

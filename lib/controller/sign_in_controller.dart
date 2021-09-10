@@ -28,6 +28,7 @@ class LoginController extends GetxController {
         box.write('email', logindata['data']['user']['email']);
         box.write('address', logindata['data']['user']['address']);
         box.write('name', logindata['data']['user']['name']);
+        // box.write('login_id', logindata['data']['user']['id']);
         box.write('user_image', logindata['data']['user']['image']);
         box.write('user_id', logindata['data']['user_id']);
         box.write('country_id', logindata['data']['user']['country_id']);
