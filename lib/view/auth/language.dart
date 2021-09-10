@@ -32,7 +32,8 @@ class _LanguagePageState extends State<Language> {
   void initState() {
     getLang.getLanguas();
     super.initState();
-    box.write('lang_code','en');
+    box.write('lang_code','ar');
+    print(".......///.....-----dosesgrudgirdfgredoig");
   }
   
   List<Widget> getTextWidgets(dataLanguage){
@@ -67,6 +68,7 @@ class _LanguagePageState extends State<Language> {
             onTap: () {
               setState(() {
                 index = i;
+                print(".......///.....----------${dataLanguage['data'][i]['short_code']}");
                 box.write('lang_id',dataLanguage['data'][i]['id']);
                 box.write('lang_code', dataLanguage['data'][i]['short_code']);
                 LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);

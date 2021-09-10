@@ -44,7 +44,7 @@ class _FriendProfileState extends State<FriendProfile>
     // if(dtaaa[0] == 'ads') {
     //   notifyid = dtaaa[1];
     // }else
-    adID = dtaaa[1]; 
+    // adID = dtaaa[1]; 
     id = dtaaa[1];
     print("../././...here the id.----------$id");
     friCont.friendDetails(id);
@@ -63,7 +63,7 @@ class _FriendProfileState extends State<FriendProfile>
         body: 
         GetBuilder<FriendsController>(
             init: FriendsController(),
-            builder: (val) {
+            builder: (val) { 
               return val.friendProfileData == null || val.userAds == null
                   ? SingleChildScrollView(
                       child: Container(
@@ -79,7 +79,7 @@ class _FriendProfileState extends State<FriendProfile>
                       : Column(
                           children: [
                             profileDetail(val.friendProfileData['data']),
-                            tabs(val.friendProfileData['data']['name']),
+                            tabs(val.friendProfileData['data']),
                             general(val.friendProfileData['data'],
                                 val.userAds['data']),
                           ],
@@ -217,66 +217,66 @@ class _FriendProfileState extends State<FriendProfile>
   }
 
   Widget tabs(name) {
+    print("...................$name");
     return Wrap(
       children: [
         FractionalTranslation(
-            translation: langg ==  'en' ? const Offset(0.5, -0.5) :  const Offset(-0.5, -0.5),
-            child: Container(
-                // margin: EdgeInsets.only(left: 250),
-                child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        choice = !choice;
-                        if(dtaaa[0] == 'ads' && choice == false) {
-                          var json = {
-                            'friend_send_request_to': id
-                          };
-                          print("...................$json");
-                           friCont.sendFriend(json);
-                        }
-                        else if (choice == true) {
-                          // friCont.deleteFriend(selectedUser);
-                        } else {
-                          var json = {
-                            'friend_send_request_to': requister
-                          };
-                           friCont.sendFriend(json);
-                        }
-                      });
-                    },
-                    child: Container(
-                        height: Get.height / 9 * 0.5,
-                        width: Get.width / 3.2,
-                        decoration: BoxDecoration(
-                            color: AppColors.appBarBackGroundColor,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: dtaaa[0] == 'ads' && choice == true  ?
-                        Center(
-                          child:   Text(
-                                  "add_friend".tr,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                        ):
-                         Center(
-                          child: choice == false
-                              ? Text("cancel".tr, //
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold))
-                              :  Text(
-                                  "add_friend".tr,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                        ))))),
+          translation: langg ==  'en' ? const Offset(0.5, -0.5) :  const Offset(-0.5, -0.5),
+          child: Container(
+              // margin: EdgeInsets.only(left: 250),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  choice = !choice;
+                  if( name['is_user_friend'].length  == 0 || name['is_user_friend'] == null) {
+                    var json = {
+                      'friend_send_request_to': id
+                    };
+                 
+                      friCont.sendFriend(json);
+                  }
+                  else  {
+                       print("...................${name['id']}");
+                    friCont.deleteFriend(name['is_user_friend'][0]['id'],'pro');
+                  } 
+                });
+              },
+              child: Container(
+                height: Get.height / 9 * 0.5,
+                width: Get.width / 3.2,
+                decoration: BoxDecoration(
+                  color: AppColors.appBarBackGroundColor,
+                  borderRadius: BorderRadius.circular(50)),
+                child: name['is_user_friend'].length  == 0 || name['is_user_friend'] == null?
+                Center(
+                  child: Text(
+                    "Add Friend",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ):
+                  Center(
+                  child: choice == false || name['is_user_friend'].length  != 0
+                  ? Text("cancel".tr, //
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold))
+                  :  Text(
+                    "Add Friend",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              )
+            )
+          )
+        ),
         FractionalTranslation(
           translation: langg ==  'en' ? const Offset(0.7, -0.5) : const Offset(-0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: (){
-              print("././......$id");
-              
+              print("././......$id");              
               chatCont.createConversation(id);
-              Get.to(ChattingPage(),arguments: [id, name]);
+              Get.to(ChattingPage(),arguments: [id, name['name']]);
               // Get.find<ChatController>().createConversation(id);
             },
             child: Container(
