@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
@@ -18,29 +16,28 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 
 import 'package:success_stations/view/auth/sign_in.dart';
- var finalIndex;
 
-  DateTime  ? dateTime;
-   var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+var finalIndex, shortCode;
 
- 
+DateTime? dateTime;
+var dateFormate =
+    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+
 class CompanySignUp extends StatefulWidget {
-
   final val;
   //  late String savedData;
-  
 
   CompanySignUp({this.val});
 
   _CompanySignPageState createState() => _CompanySignPageState();
 }
+
 class _CompanySignPageState extends State<CompanySignUp> {
-   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   late String savedData;
-   var tyming;
-   List selectedValues = [];
-
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String savedData;
+  var tyming;
+  var counCode, counID;
+  List selectedValues = [];
 
   var array = [
     {
@@ -63,272 +60,276 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController nameController =  TextEditingController();
-  TextEditingController mobileController =  TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
   TextEditingController mobile1Controller = TextEditingController();
-  TextEditingController iqamaController =  TextEditingController();
-  TextEditingController crController =  TextEditingController();
-  TextEditingController comNameController =TextEditingController();
-  TextEditingController respController= TextEditingController();
+  TextEditingController iqamaController = TextEditingController();
+  TextEditingController crController = TextEditingController();
+  TextEditingController comNameController = TextEditingController();
+  TextEditingController respController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
+  PhoneNumber companyCode = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
-   bool errorCheck = true;
-  
+  bool errorCheck = true;
 
-  var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
-  
+  var valueRadio,
+      hintTextCountry,
+      selectedRegion,
+      hintRegionText,
+      selectedCountry,
+      hintcityText,
+      selectedCity;
+
   var v = 1;
 
-   List<GroupModel> _group = [
-    GroupModel(
-      text: "individual".tr,
-      index:1 
-    ),
-    GroupModel(
-      text: "company".tr,
-      index:2 
-    ),
+  List<GroupModel> _group = [
+    GroupModel(text: "individual".tr, index: 1),
+    GroupModel(text: "company".tr, index: 2),
   ];
 
-  
-
-  @override 
+  @override
   void initState() {
     super.initState();
-      errorCheck = true;
+    counCode = Get.arguments;
+    shortCode = counCode[0].toString();
+    companyCode = PhoneNumber(isoCode: shortCode);
+    print("countryIdGetcountryIdGetcountryIdGet$shortCode");
+    errorCheck = true;
   }
-   
+
   companyUser() {
     final form = formKey.currentState;
-    if(form!.validate()){
+    if (form!.validate()) {
       form.save();
       var json = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobile1Controller.text, 
+        "mobile": mobile1Controller.text,
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
-        "user_type":  4,
-        "cr_number":  crController.text ,
-        'company_name':comNameController.text,
+        "user_type": 4,
+        "cr_number": crController.text,
+        'company_name': comNameController.text,
         'service_ids[]': selectedValues
       };
       signUpCont.companyAccountData(json);
     }
   }
+
   individualSignUp() {
     final form = formKey.currentState;
-    if(form!.validate()){
+    if (form!.validate()) {
       form.save();
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobile1Controller.text, 
+        "mobile": mobile1Controller.text,
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
-        "date_of_birth" : finalDate,
-        "user_type":  3,
+        "date_of_birth": finalDate,
+        "user_type": 3,
         'iqama_number': iqamaController.text,
         // 'service_ids[]': selectedValues
-
       };
       print("....>!!!!!!!!!!!!!!..//////..........$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              space10,
-              fullName(),
-              space10,
-              eMail(),
-              // v == 1? 
-              // GetBuilder<SignUpController>(
-              //   init: SignUpController(),
-              //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue  &&  errorCheck == true? 
-              //     Container(
-              //       margin:EdgeInsets.only(left:10),
-              //       alignment: Alignment.topLeft,
-              //       child: Container(
-              //         margin:EdgeInsets.only(left:10),
-              //         alignment: Alignment.topLeft,
-              //         child: Text( signUpCont.indiviualSignup['errors']['email'][0],
-              //         style: TextStyle(color: Colors.red),
-              //         )
-              //       )
-              //     ):Container() ;
-              //   }
-              // ): 
-              // GetBuilder<SignUpController>(
-              //   init: SignUpController(),
-              //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue && errorCheck == true ? 
-              //     Container(
-              //       margin:EdgeInsets.only(left:10),
-              //       alignment: Alignment.topLeft,
-              //       child: Container(
-              //           margin:EdgeInsets.only(left:10),
-              //         alignment: Alignment.topLeft,
-              //         child: Text( signUpCont.companySignUp['errors']['email'][0] ,
-              //         style: TextStyle(color: Colors.red),
-              //         )
-              //       )
-              //     ): Container();
-              //   }
-              // ),
-              space10,
-              mobile(),
-              space10 ,
-              // v != 2 ? SizedBox(
-              //   height: 
-              //   Get.height / 9.3,
-              //   child: companyDob()
-              // ): 
-              space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return country(val.countryListdata);
-                } ,
-              ),
-              space10,
-              GetBuilder<RegionController>(
-                init: RegionController(),
-                builder: (val){
-                  return region(val.listDataRegion);
-                },
-              ),
-              space10,
-              GetBuilder<CityController>(
-                init: CityController(),
-                builder: (val){
-                  return city(val.cityListData);
-                },
-              ),
-              space10,
-              v == 1 ?
-              companyDob()
-              : Container(),
-              v ==2 ? 
-              GetBuilder<ServicesController>(
-                init: ServicesController(),
-                builder: (val){
-                  return services(val.servicesListdata);
-                },
-              ): Container(),
-              space10,
-              radioalert(),
-              v == 2 ? 
-              SizedBox(
-                height: Get.height/ 9.3,
-                child: comName()
-              ):
-              space10,
-              v == 2 ?
-              cR():
-              space10,
-              v == 1 ? 
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: iqama()): 
-              space10,
-              responsible(),
-              space10,
-              mobileNumber(),
-              space10,
-              Row(
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            space10,
+            fullName(),
+            space10,
+            eMail(),
+            // v == 1?
+            // GetBuilder<SignUpController>(
+            //   init: SignUpController(),
+            //   builder: (val){
+            //     return signUpCont.resultInvalid.isTrue  &&  errorCheck == true?
+            //     Container(
+            //       margin:EdgeInsets.only(left:10),
+            //       alignment: Alignment.topLeft,
+            //       child: Container(
+            //         margin:EdgeInsets.only(left:10),
+            //         alignment: Alignment.topLeft,
+            //         child: Text( signUpCont.indiviualSignup['errors']['email'][0],
+            //         style: TextStyle(color: Colors.red),
+            //         )
+            //       )
+            //     ):Container() ;
+            //   }
+            // ):
+            // GetBuilder<SignUpController>(
+            //   init: SignUpController(),
+            //   builder: (val){
+            //     return signUpCont.resultInvalid.isTrue && errorCheck == true ?
+            //     Container(
+            //       margin:EdgeInsets.only(left:10),
+            //       alignment: Alignment.topLeft,
+            //       child: Container(
+            //           margin:EdgeInsets.only(left:10),
+            //         alignment: Alignment.topLeft,
+            //         child: Text( signUpCont.companySignUp['errors']['email'][0] ,
+            //         style: TextStyle(color: Colors.red),
+            //         )
+            //       )
+            //     ): Container();
+            //   }
+            // ),
+            space10,
+            mobile(),
+            space10,
+            // v != 2 ? SizedBox(
+            //   height:
+            //   Get.height / 9.3,
+            //   child: companyDob()
+            // ):
+            space10,
+            GetBuilder<ContryController>(
+              init: ContryController(),
+              builder: (val) {
+                return country(val.countryListdata);
+              },
+            ),
+            space10,
+            GetBuilder<RegionController>(
+              init: RegionController(),
+              builder: (val) {
+                return region(val.listDataRegion);
+              },
+            ),
+            space10,
+            GetBuilder<CityController>(
+              init: CityController(),
+              builder: (val) {
+                return city(val.cityListData);
+              },
+            ),
+            space10,
+            v == 1 ? companyDob() : Container(),
+            v == 2
+                ? GetBuilder<ServicesController>(
+                    init: ServicesController(),
+                    builder: (val) {
+                      return services(val.servicesListdata);
+                    },
+                  )
+                : Container(),
+            space10,
+            radioalert(),
+            v == 2
+                ? SizedBox(height: Get.height / 9.3, child: comName())
+                : space10,
+            v == 2 ? cR() : space10,
+            v == 1
+                ? Container(margin: EdgeInsets.only(bottom: 10), child: iqama())
+                : space10,
+            responsible(),
+            space10,
+            mobileNumber(),
+            space10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  activeColor: Colors.blue,
+                  value: _isChecked,
+                  onChanged: (value) {
+                    setState(() {
+                      _isChecked = value!;
+                    });
+                  },
+                ),
+                Text("terms".tr,
+                    style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300)),
+                Text("terms_condition".tr,
+                    style: TextStyle(
+                        fontFamily: 'Lato',
+                        color: AppColors.appBarBackGroundColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+            space20,
+            submitButton(
+                buttonText: 'sign_up_text'.tr,
+                bgcolor: AppColors.appBarBackGroundColor,
+                textColor: AppColors.appBarBackGroun,
+                fontSize: 18.0,
+                callback: _isChecked == true
+                    ? v == 1
+                        ? individualSignUp
+                        : companyUser
+                    : null),
+            space20,
+            GestureDetector(
+              onTap: () {
+                Get.to(SignIn());
+              },
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    activeColor: Colors.blue,
-                    value: _isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        _isChecked= value!;
-                      });
-                    },
+                  Text(
+                    "have_account".tr,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                   ),
                   Text(
-                    "terms".tr, 
+                    "sign_in".tr,
                     style: TextStyle(
-                      fontFamily: 'Lato', fontSize: 18, fontWeight: FontWeight.w300
-                    )
-                  ),
-                  Text(
-                    "terms_condition".tr, style: TextStyle(
-                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold)
+                        fontSize: 18,
+                        color: AppColors.appBarBackGroundColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              space20,
-              submitButton(
-                buttonText: 'sign_up_text'.tr, 
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,fontSize: 18.0, 
-                callback:   _isChecked == true ?  v == 1 ? individualSignUp : companyUser: null 
-              ),
-              space20,
-              GestureDetector(
-                onTap: (){
-                  Get.to(SignIn());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("have_account".tr, 
-                      style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300
-                      ),
-                    ),
-                    Text("sign_in".tr, style: TextStyle(fontSize: 18,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
-                  ],
-                ),
-              ),
-              space20,
-            ],
-          ),
+            ),
+            space20,
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
 
   Widget fullName() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
         hintText: "full_name".tr,
         hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) { },
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         textController: nameController,
-        validator: (value) { 
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "Name is Required";
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -336,86 +337,86 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget eMail() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-        hintText:"email".tr,
+        hintText: "email".tr,
         hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (newValue) {
-        }, 
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
         textController: emailController,
         validator: (val) {
-          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern =
+              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
-          if ( val.length == 0 ){
+          if (val.length == 0) {
             return 'Enter An Email';
-          }
-          else if (!regExp.hasMatch(val)) {
+          } else if (!regExp.hasMatch(val)) {
             return "Enter Valid Email Address";
           }
           return null;
-        }, 
+        },
         errorText: '',
-        
       ),
     );
   }
-  
+
   Widget mobile() {
-    return   Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: InternationalPhoneNumberInput(
-              inputDecoration:   InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
-                ),
-              ),
-              hintText: "Mobile",
-               hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
-              
+    return Container(
+        width: Get.width / 1.1,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            // color: Colors.grey[100],
+            border: Border.all(color: Color(0xFFEEEEEE)
+                // width: 5,
+                )),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: InternationalPhoneNumberInput(
+          inputDecoration: InputDecoration(
+            fillColor: AppColors.inputColor,
+            filled: true,
+            border: InputBorder.none,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
             ),
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-              ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              // initialValue: n,
-              textFieldController: mobile1Controller,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ));
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            // enabledBorder: OutlineInputBorder(
+            //   borderSide: BorderSide(color: AppColors.outline),
+            // ),
+            hintText: "Mobile",
+            hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+          ),
+          onInputChanged: (PhoneNumber number) {
+            print(number.phoneNumber);
+          },
+          onInputValidated: (bool value) {
+            print(value);
+          },
+          selectorConfig: SelectorConfig(
+            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          ),
+          ignoreBlank: false,
+          autoValidateMode: AutovalidateMode.disabled,
+          selectorTextStyle: TextStyle(color: Colors.black),
+          // initialValue: n,
+          textFieldController: mobile1Controller,
+          formatInput: false,
+          keyboardType:
+              TextInputType.numberWithOptions(signed: true, decimal: true),
+          inputBorder: OutlineInputBorder(),
+          onSaved: (PhoneNumber number) {
+            print('On Saved: $number');
+          },
+          initialValue: companyCode,
+        ));
   }
+
   var finalDate;
   Widget companyDob() {
     // return Container(
@@ -427,10 +428,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
     //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
     //     hintColor: AppColors.inputTextColor,
     //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
+    //     onFieldSubmitted: (value) {},
     //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
+    //     onSaved: (String? newValue) {
+    //     },
     //     validator: (value) {
     //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
     //       RegExp regExp = RegExp(pattern);
@@ -440,27 +441,25 @@ class _CompanySignPageState extends State<CompanySignUp> {
     //         return 'Enter a valid birthday format is yyyy-mm-dd';
     //         }
     //         return null;
-    //       }, 
+    //       },
     //     errorText: '',
     //   ),
     // );
-  return Container(
-          padding: const EdgeInsets.symmetric(vertical:18.0,horizontal: 10),
-          margin: EdgeInsets.only(left: 18,right: 20,bottom: 10),
-          decoration: BoxDecoration(
-            
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppColors.outline)
-          ),
-          child:   GestureDetector(
-          onTap: () {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
+      margin: EdgeInsets.only(left: 18, right: 20, bottom: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: AppColors.outline)),
+      child: GestureDetector(
+        onTap: () {
           showDatePicker(
-            context: context,
-            initialDate:  DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime.now()
-          ).then((date) {
-            setState(() {               
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now())
+              .then((date) {
+            setState(() {
               dateTime = date;
               finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
               print("..................$finalDate");
@@ -470,18 +469,18 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'Date Of Birth' : dateFormate, style: TextStyle(color: Colors.grey[500],fontSize: 18)),
+            Text(dateTime == null ? 'Date Of Birth' : dateFormate,
+                style: TextStyle(color: Colors.grey[500], fontSize: 18)),
             GestureDetector(
               child: Icon(Icons.calendar_today),
               onTap: () {
-                
                 showDatePicker(
-                  context: context,
-                  initialDate:  DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now()
-                ).then((date) {
-                  setState(() {               
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now())
+                    .then((date) {
+                  setState(() {
                     dateTime = date;
                     finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
                     print("..................$finalDate");
@@ -494,31 +493,30 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
     );
   }
+
   Widget comName() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
         hintText: "company".tr,
         hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {},  
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: comNameController,
-        onSaved: (String? newValue) {  
-        }, 
-        validator: (value) { 
+        onSaved: (String? newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return " Company Name is Required";
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
-          }
-          else
-          return null;
-        }, 
+          } else
+            return null;
+        },
         errorText: '',
       ),
     );
@@ -526,135 +524,107 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget country(List data) {
     return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint: Text(
-              hintTextCountry != null ? hintTextCountry : 'country'.tr, 
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
-            ),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: data.map((coun) {
-              return DropdownMenuItem(
-                value: coun,
-                child:Text(coun['name'])
-              );
-            }).toList(),
-            onChanged: (val) {
-              var mapCountry;
-              setState(() {
-                mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'];
-                selectedCountry = mapCountry['id'];
-              });
-            },
-          )
-        )
-      )
-    );
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
+        decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)),
+        child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+              hint: Text(
+                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                  style:
+                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+              dropdownColor: AppColors.inPutFieldColor,
+              icon: Icon(Icons.arrow_drop_down),
+              items: data.map((coun) {
+                return DropdownMenuItem(value: coun, child: Text(coun['name']));
+              }).toList(),
+              onChanged: (val) {
+                var mapCountry;
+                setState(() {
+                  mapCountry = val as Map;
+                  hintTextCountry = mapCountry['name'];
+                  selectedCountry = mapCountry['id'];
+                });
+              },
+            ))));
   }
 
-  
   Widget region(List dataRegion) {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
-            ),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: dataRegion.map((reg) {
-              return DropdownMenuItem(
-                value: reg,
-                child:Text(
-                  reg['region']
-                )
-              );
-            }).toList(),
-            onChanged: (data) {
-              var mapRegion;
-              setState(() {
-                mapRegion = data as Map ;
-                hintRegionText = mapRegion['region'];
-                selectedRegion = data['id'];
-              });
-            },
-          )
-        )
-      )
-    );
+    return Container(
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
+        decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)),
+        child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+                  style:
+                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+              dropdownColor: AppColors.inPutFieldColor,
+              icon: Icon(Icons.arrow_drop_down),
+              items: dataRegion.map((reg) {
+                return DropdownMenuItem(value: reg, child: Text(reg['region']));
+              }).toList(),
+              onChanged: (data) {
+                var mapRegion;
+                setState(() {
+                  mapRegion = data as Map;
+                  hintRegionText = mapRegion['region'];
+                  selectedRegion = data['id'];
+                });
+              },
+            ))));
   }
 
   Widget city(List citydata) {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(
-              hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 18, color: AppColors.inputTextColor
-              )
-            ),
-            dropdownColor: AppColors.inputColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: citydata.map((citt) {
-              // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
-              return DropdownMenuItem(
-                value: citt,
-                child:Text(citt['city'])
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                var mapCity ;
-                mapCity = value as Map;
-                hintcityText = mapCity['city'];
-                selectedCity = mapCity['id'];
-              });
-            },
-          )
-        )
-      )
-    );
+    return Container(
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
+        decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)),
+        child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+              hint: Text(hintcityText != null ? hintcityText : "city".tr,
+                  style:
+                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+              dropdownColor: AppColors.inputColor,
+              icon: Icon(Icons.arrow_drop_down),
+              items: citydata.map((citt) {
+                // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
+                return DropdownMenuItem(value: citt, child: Text(citt['city']));
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  var mapCity;
+                  mapCity = value as Map;
+                  hintcityText = mapCity['city'];
+                  selectedCity = mapCity['id'];
+                });
+              },
+            ))));
   }
 
-
-  Widget services( allServices){
+  Widget services(allServices) {
     return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(20),
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.always,
-        child: Column(
-          children: [
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(20),
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.always,
+          child: Column(children: [
             MultiSelectFormField(
               autovalidate: false,
               chipBackGroundColor: Colors.grey[200],
@@ -668,55 +638,51 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 "services".tr,
                 style: TextStyle(fontSize: 18),
               ),
-              dataSource: allServices !=null ? allServices: '' ,
+              dataSource: allServices != null ? allServices : '',
               textField: 'servics_name',
               valueField: 'id',
               okButtonLabel: 'OK',
               cancelButtonLabel: 'CANCEL',
-              hintWidget: Text('more'.tr,style: TextStyle(fontSize: 18),),
+              hintWidget: Text(
+                'more'.tr,
+                style: TextStyle(fontSize: 18),
+              ),
               onSaved: (value) {
                 if (value == null) return;
                 setState(() {
-                 selectedValues = value;
+                  selectedValues = value;
                 });
               },
             ),
-
-          ]
-        ),
-      )
-    );
-     
+          ]),
+        ));
   }
 
   Widget iqama() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
         hintText: "enter_iqama_number".tr,
         hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: iqamaController,
         validator: (value) {
-          String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
-          if( value.length  == 0){
+          if (value.length == 0) {
             return 'Enter Iqama Number';
-          }
-          else if(!regExp.hasMatch(value)) {
-              return "Iqama must be in digits";
-          }
-          else if(value.length !=13){
+          } else if (!regExp.hasMatch(value)) {
+            return "Iqama must be in digits";
+          } else if (value.length != 13) {
             return 'Mobile Number must be of 13 digits';
-          }
-          else 
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -724,81 +690,80 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget responsible() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
         hintText: "Responsible".tr,
         hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: respController,
-        validator: (value) {  }, 
+        validator: (value) {},
         errorText: '',
       ),
     );
   }
 
   Widget mobileNumber() {
-    return   Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: InternationalPhoneNumberInput(
-              inputDecoration:   InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
-                ),
-              ),
-              hintText: "Mobile",
-              hintStyle:  TextStyle(color: AppColors.inputTextColor)
-              
+    return Container(
+        width: Get.width / 1.1,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            // color: Colors.grey[100],
+            border: Border.all(color: Color(0xFFEEEEEE)
+                // width: 5,
+                )),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: InternationalPhoneNumberInput(
+          inputDecoration: InputDecoration(
+            fillColor: AppColors.inputColor,
+            filled: true,
+            border: InputBorder.none,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
             ),
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-              ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              // initialValue: n,
-              // textFieldController: mobileController,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ));
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            // enabledBorder: OutlineInputBorder(
+            //   borderSide: BorderSide(color: AppColors.outline),
+            // ),
+            hintText: "Mobile",
+            hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+          ),
+          onInputChanged: (PhoneNumber number) {
+            print(number.phoneNumber);
+          },
+          onInputValidated: (bool value) {
+            print(value);
+          },
+          selectorConfig: SelectorConfig(
+            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          ),
+          ignoreBlank: false,
+          autoValidateMode: AutovalidateMode.disabled,
+          selectorTextStyle: TextStyle(color: Colors.black),
+          // initialValue: n,
+          textFieldController: mobile1Controller,
+          formatInput: false,
+          keyboardType:
+              TextInputType.numberWithOptions(signed: true, decimal: true),
+          inputBorder: OutlineInputBorder(),
+          onSaved: (PhoneNumber number) {
+            print('On Saved: $number');
+          },
+          initialValue: companyCode,
+        ));
   }
 
-   
-
   Widget cR() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
@@ -806,69 +771,78 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintStyle: TextStyle(fontSize: 18, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: crController,
-        validator: (value) { 
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return " CR is Required";
           } else if (!regExp.hasMatch(value)) {
             return "CR must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
     );
   }
 
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton(
+      {buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      fontWeight}) {
     return AppButton(
-      buttonText: buttonText, 
+      buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
       textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
       fontSize: fontSize,
     );
   }
 
   radioalert() {
-    return  Row(
+    return Row(
       children: [
         Container(
-          padding: EdgeInsets.only(left:20),
-          child: Text("Account_type".tr,style: TextStyle(fontSize: 16))
-        ),
+            padding: EdgeInsets.only(left: 20),
+            child: Text("Account_type".tr, style: TextStyle(fontSize: 16))),
         Expanded(
-          flex: 2 ,
+          flex: 2,
           child: Row(
-            children: _group.map((t) => 
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Radio(
-                    value: t.index,
-                    groupValue: v,
-                    activeColor: Colors.blue,
-                    onChanged: (int?value ) {
-                      setState(() {
-                        v = value!;
-                      });
-                    },
-                  ),Container(
-                    
-                  child: Text(t.text,style: TextStyle(fontSize: 16),),)
-                ],
-              ),
-            )).toList()
-          ),
+              children: _group
+                  .map((t) => Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Radio(
+                              value: t.index,
+                              groupValue: v,
+                              activeColor: Colors.blue,
+                              onChanged: (int? value) {
+                                setState(() {
+                                  v = value!;
+                                });
+                              },
+                            ),
+                            Container(
+                              child: Text(
+                                t.text,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                  .toList()),
         ),
       ],
     );
@@ -880,4 +854,3 @@ class GroupModel {
   int index;
   GroupModel({required this.text, required this.index});
 }
-
