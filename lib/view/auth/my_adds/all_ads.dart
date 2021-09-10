@@ -71,8 +71,7 @@ class _AllAddsState extends State<AllAdds> {
     if(data != null) {
       controller.addedByIdAddes(data[1],null);
       id = data[1];
-    }
-    
+    }    
     check = true;
     banner.bannerController();
     controller.addedAllAds();

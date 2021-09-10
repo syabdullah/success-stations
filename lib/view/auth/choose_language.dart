@@ -6,6 +6,7 @@ import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class ChooseLanguage extends StatefulWidget {
@@ -25,20 +26,29 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'choose_language'.tr,AppImages.appBarSearch)),
-     body : GetBuilder<LanguageController>(
-      init: LanguageController(),
-      builder:(data){
-        return data.isLoading == false ? language(data.languageList['data']):Container();
-      }
-      )
+      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'choose_language_drop'.tr,AppImages.appBarSearch)),
+     body : Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         Container(
+           margin: EdgeInsets.only(left: 20,top: 20),
+           child: Text("Select your prefered language",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+         ),
+         GetBuilder<LanguageController>(
+          init: LanguageController(),
+          builder:(data){
+            return data.isLoading == false ? language(data.languageList['data']):Container();
+          }
+          ),
+       ],
+     )
 
     );
   }
 
   Widget language(List data) {
     return Container(
-      margin:EdgeInsets.only(left:20, right: 20,top: 20),
+      margin:EdgeInsets.only(left:20, right: 20,top: 10),
       width: Get.width * 0.9,
       decoration: BoxDecoration(
         color: AppColors.inputColor,
@@ -70,6 +80,7 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
                 box.write('lang_id',mapCountry['id']);
                 box.write('lang_code', mapCountry['short_code']);
                 LocalizationServices().changeLocale(mapCountry['short_code']);
+                Get.to(BottomTabs());
               });
             },
           )

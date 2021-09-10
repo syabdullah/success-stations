@@ -110,12 +110,13 @@ Widget sAppbar(context ,icon,image,) {
         ),
       ), 
       actions: [
+        string != 'CHOOSE LANGUAGE' ?
         Padding(
           padding: const EdgeInsets.only(right: 10,),
           child:  Image.asset(
            AppImages.appBarSearch,color: Colors.white,width: 25.w,
           ),
-        )
+        ): Container()
       ],
       backgroundColor: AppColors.appBarBackGroundColor,
     );
