@@ -46,8 +46,8 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   google_maps_flutter: ^2.0.6
   shimmer: ^2.0.0
-  firebase_crashlytics: ^2.1.1
-  firebase_core: ^1.4.0
+  firebase_crashlytics: 
+  firebase_core: 
   url_launcher: ^6.0.9
   # multi_select_flutter: ^4.0.0
   multiselect_formfield: 
@@ -82,6 +82,7 @@ dev_dependencies:
   flutter_native_splash: ^1.2.3
 flutter_native_splash:
   color: "#ffffff"
+  
   image: assets/images/splash.png
   android: true
   ios: true

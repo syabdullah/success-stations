@@ -54,9 +54,12 @@ var userId = box.read('user_id');
           } : null,
           child: Padding(
             padding: const EdgeInsets.only(top:12.0,right: 10,),
-            child: Image.asset(
-             AppImages.appBarSearch,color: Colors.white,width: 25.w,
-            ),
+            // child: Image.asset("
+            //  AppImages.appBarSearch",color: Colors.white,width: 25.w,
+            // ),
+            // child: Image.asset(
+            //  AppImages.appBarSearch,color: Colors.white,width: 25.w,
+            // ),
           ),
         ): Container()
       ],

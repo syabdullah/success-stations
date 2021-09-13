@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -43,6 +44,7 @@ class _OfferListState extends State<OfferList> {
   var bottomSheetCategory = 0;
   Color filterCategoryColor = AppColors.appBarBackGroundColor;
   var selectedIndexListing = 0;
+  var listImg = AppImages.listing;
   var status;
   var category;
   var statusFiltered;
@@ -65,7 +67,7 @@ class _OfferListState extends State<OfferList> {
     banner.bannerController();
     super.initState();
     offerid = Get.arguments;
-    //lang = box.read('langs_code');
+    lang = box.read('lang_code');
     print("///////here /a//// $lang");
     usertype = box.read('user_type');
   }
@@ -84,8 +86,8 @@ class _OfferListState extends State<OfferList> {
         appBar: offerid != null
             ? PreferredSize(
                 preferredSize: Size.fromHeight(70.0),
-                child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
-                    " ", ''))
+                child: appbar(
+                    _scaffoldKey, '', AppImages.appBarLogo, " ", ''))
             : null,
         // drawer: AppDrawer(),
         drawer: Theme(
@@ -148,34 +150,26 @@ class _OfferListState extends State<OfferList> {
               onTap: () {
                 filteringCategory();
               },
-              child: Padding(
-                padding: lang == 'en'
-                    ? const EdgeInsets.only(left: 15, top: 8)
-                    : const EdgeInsets.only(right: 15, top: 8),
-                child: Container(
-                  //width: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(13),
-                    color: Colors.grey[200],
-                  ),
-                  margin: lang == 'en'
-                      ? EdgeInsets.only(
-                          right: 10,
-                        )
-                      : EdgeInsets.only(
-                          left: 10,
-                        ),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  child: Row(
-                    children: [
-                      Image.asset(AppImages.filter, height: 15),
-                      SizedBox(width: 5),
-                      Text(
-                        "filter".tr,
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ],
-                  ),
+              child: Container(
+                margin: lang == 'en'
+                    ? EdgeInsets.only(left: 15, top: 8)
+                    : EdgeInsets.only(right: 15, top: 8),
+                //width: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.grey[200],
+                ),
+
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.filter, height: 15),
+                    SizedBox(width: 5),
+                    Text(
+                      "filter".tr,
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -186,54 +180,106 @@ class _OfferListState extends State<OfferList> {
               child: usertype == 2 || usertype == 3
                   ? Container()
                   : Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Image.asset(AppImages.plusImage, height: 24)),
+                  margin: EdgeInsets.only(left: 10),
+                  child: Image.asset(AppImages.plusImage, height: 24,color: Colors.red,)),
             )
           ],
         ),
-        Row(
-          children: [
-            IconButton(
-                //color: isButtonPressed ? Colors.grey : Colors.blue,
+        Container(
+          margin: lang == 'en'
+              ? EdgeInsets.only(
+                  left: 10,
+                )
+              : EdgeInsets.only(
+                  right: 20,
+                ),
+                child: Row(
+            children: [
+              CupertinoButton(
+                minSize: double.minPositive,
+                padding: EdgeInsets.zero,
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
                     box.write("type", listtype);
                     print(".....<><><><><><>///<><><....$listtype");
                     isButtonPressed = !isButtonPressed;
-                    listIconColor = AppColors.appBarBackGroundColor;
+                    //listIconColor = AppColors.appBarBackGroundColor;
                     grid = AppImages.grid;
                   });
                 },
-                icon: Image.asset(
-                  grid,
-                  height: 30,
-                  color: listIconColor,
-                )),
-            Container(
-              margin: EdgeInsets.only(bottom: 15),
-              child: IconButton(
+                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+              ),
+              SizedBox(width: 5,),
+              Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
                       print(".....<><><><><><>///<><><....$listtype");
                       lisselect = !lisselect;
                       isButtonPressed = !isButtonPressed;
-                      listIconColor = Colors.grey;
-                      grid = AppImages.gridOf;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
                     });
                   },
-                  icon: Icon(
-                    Icons.list,
-                    color: isButtonPressed ? Colors.blue : Colors.grey,
-                    size: 40,
-                  )),
-            ),
-            SizedBox(
-              height: 30,
-              width: 15,
-            )
-          ],
+                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                ),
+              ),
+              SizedBox(height: 10,width: 15)
+            ],
+          ),
+        
+        
+      
+    
+        
+          // child: Row(
+          //   children: [
+          //     IconButton(
+          //         //color: isButtonPressed ? Colors.grey : Colors.blue,
+          //         onPressed: () {
+          //           setState(() {
+          //             listtype = 'grid';
+          //             box.write("type", listtype);
+          //             print(".....<><><><><><>///<><><....$listtype");
+          //             isButtonPressed = !isButtonPressed;
+          //             listIconColor = AppColors.appBarBackGroundColor;
+          //             grid = AppImages.grid;
+          //           });
+          //         },
+          //         icon: Image.asset(
+          //           grid,
+          //           height: 40,
+          //           color: listIconColor,
+          //         )),
+          //     //SizedBox(width: 8,),
+          //     Container(
+          //       //margin: EdgeInsets.only(bottom: 20),
+          //       child: IconButton(
+          //           onPressed: () {
+          //             setState(() {
+          //               listtype = 'list';
+          //               print(".....<><><><><><>///<><><....$listtype");
+          //               lisselect = !lisselect;
+          //               isButtonPressed = !isButtonPressed;
+          //               listIconColor = Colors.grey;
+          //               listImg = AppImages.listing;
+          //             });
+          //           },
+          //           icon: Image.asset(listImg,height: 50,
+          //           color: isButtonPressed?AppColors.appBarBackGroundColor:Colors.grey,),
+          //           ),
+          //     ),
+          //     SizedBox(
+          //       height: 30,
+          //       width: 15,
+          //     )
+          //   ],
+          // ),
+        
         )
       ],
     );
@@ -260,7 +306,7 @@ class _OfferListState extends State<OfferList> {
         ),
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 0.8,
+            heightFactor: 0.6,
             child: StatefulBuilder(builder: (BuildContext context,
                 void Function(void Function()) setState) {
               return SafeArea(
@@ -269,7 +315,9 @@ class _OfferListState extends State<OfferList> {
                     duration: const Duration(milliseconds: 100),
                     curve: Curves.decelerate,
                     child: Container(
-                      margin: EdgeInsets.only(top: 10, left: 20, right: 10),
+                      margin: lang == 'en'
+                          ? EdgeInsets.only(top: 10, left: 20, right: 20)
+                          : EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: ListView(
                         //crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -279,21 +327,34 @@ class _OfferListState extends State<OfferList> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 8),
+                                  margin: lang == 'en'
+                                      ? EdgeInsets.only(top: 8, left: 8)
+                                      : EdgeInsets.only(top: 8, right: 8),
                                   child: Text("filter".tr,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.black)),
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(right: 20),
+                                    margin: lang == 'en'
+                                        ? EdgeInsets.only(top: 8, left: 8)
+                                        : EdgeInsets.only(top: 8, right: 8),
                                     child: InkWell(
                                         onTap: () => Get.back(),
-                                        child: Icon(Icons.close,color: Colors.grey,)))
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.grey,
+                                        )))
                               ],
                             ),
                           ),
-                         SizedBox(height: Get.height * 0.02),
-                          Text("category".tr, style: TextStyle(fontSize: 15,color:Colors.grey)),
+                       SizedBox(height: Get.height * 0.01),
+                          Container(
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 6, left: 8)
+                                  : EdgeInsets.only(top: 6, right: 8),
+                              child: Text("category".tr,
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.grey))),
                           GetBuilder<OfferCategoryController>(
                             init: OfferCategoryController(),
                             builder: (data) {
@@ -301,7 +362,7 @@ class _OfferListState extends State<OfferList> {
                                       data.offerDattaTypeCategory['data'] !=
                                           null
                                   ? Container(
-                                      height: Get.height / 10,
+                                      height: Get.height * 0.035,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: data
@@ -312,8 +373,12 @@ class _OfferListState extends State<OfferList> {
                                             return Row(
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.only(
-                                                      left: 8.0),
+                                                  height: Get.height * 0.035,
+                                                  margin: lang == 'en'
+                                                      ? EdgeInsets.only(
+                                                          left: 8.0)
+                                                      : EdgeInsets.only(
+                                                          right: 8.0),
                                                   child: GestureDetector(
                                                     onTap: () {
                                                       setState(() {
@@ -321,23 +386,25 @@ class _OfferListState extends State<OfferList> {
                                                             index;
                                                         filteredIDCate =
                                                             data.offerDattaTypeCategory[
-                                                                    'data']
-                                                                [index]['id'];
+                                                                    'data']                                      [index]['id'];
                                                       });
                                                     },
                                                     child: Container(
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20.0),
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5)),
                                                           border: Border.all(
-                                                              color:
-                                                                  AppColors.appBarBackGroundColor,),
+                                                            color: AppColors
+                                                                .appBarBackGroundColor,
+                                                          ),
                                                           color: bottomSheetCategory ==
                                                                   index
-                                                              ? filterCategoryColor
+                                                              ? AppColors
+                                                                  .appCategSeleGroundColor
                                                               : Colors.white,
                                                           boxShadow: [
                                                             BoxShadow(
@@ -350,7 +417,7 @@ class _OfferListState extends State<OfferList> {
                                                           ],
                                                         ),
                                                         padding: EdgeInsets.all(
-                                                            10.0),
+                                                            4.0),
                                                         child:
                                                             data.offerDattaTypeCategory[
                                                                         'data'] !=
@@ -365,9 +432,10 @@ class _OfferListState extends State<OfferList> {
                                                                         TextStyle(
                                                                       color: bottomSheetCategory ==
                                                                               index
-                                                                          ? Colors
-                                                                              .white
-                                                                          : AppColors.appBarBackGroundColor,
+                                                                          ? AppColors
+                                                                              .appBarBackGroundColor
+                                                                          : AppColors
+                                                                              .appBarBackGroundColor,
                                                                       fontSize:
                                                                           12,
                                                                       fontWeight:
@@ -388,10 +456,16 @@ class _OfferListState extends State<OfferList> {
                                   : Container();
                             },
                           ),
-                          Text("condition".tr, style: TextStyle(fontSize: 15,color: Colors.grey)),
-                          SizedBox(height: 10),
                           Container(
-                            height: Get.height * 0.05,
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, left: 8)
+                                  : EdgeInsets.only(top: 8, right: 8),
+                              child: Text("condition".tr,
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.grey))),
+                         // SizedBox(height: 10),
+                          Container(
+                            height: Get.height * 0.035,
                             child: new ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -406,18 +480,22 @@ class _OfferListState extends State<OfferList> {
                                       });
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(left: 20),
+                                      //height: Get.height / 10,
+                                      margin: lang == 'en'
+                                          ? EdgeInsets.only(left: 8)
+                                          : EdgeInsets.only(right: 8),
                                       width: Get.width / 5,
-                                      height: Get.height / 2,
+                                      height: Get.height / 3,
                                       decoration: BoxDecoration(
                                           // ignore: unnecessary_null_comparison
                                           color: slctedInd != null &&
                                                   slctedInd == index
-                                              ? AppColors.appBarBackGroundColor
+                                              ? AppColors.appCategSeleGroundColor
                                               : Colors
                                                   .white, //Colors.blue[100],
                                           border: Border.all(
-                                            color: Colors.blue,
+                                            color:
+                                                AppColors.appBarBackGroundColor,
                                             width: 1,
                                           ),
                                           borderRadius: BorderRadius.all(
@@ -428,10 +506,13 @@ class _OfferListState extends State<OfferList> {
                                           child: Text(itemsList[index],
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: slctedInd == index
-                                                      ? Colors.white
-                                                      : AppColors.appBarBackGroundColor,)),
+                                                fontSize: 15,
+                                                color: slctedInd == index
+                                                    ? AppColors
+                                                        .appBarBackGroundColor
+                                                    : AppColors
+                                                        .appBarBackGroundColor,
+                                              )),
                                         ),
                                       ),
                                     ),
@@ -440,40 +521,44 @@ class _OfferListState extends State<OfferList> {
                           ),
                           SizedBox(height: 20),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
+                                height: Get.height * 0.05,
+                                margin: lang == 'en'
+                                    ? EdgeInsets.only(top: 8, left: 8)
+                                    : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.grey[100],
-                                        borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                        
-
-                                      ),
+                                //height: Get.height / 18,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[100],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
                                 // ignore: deprecated_member_use
                                 child: GestureDetector(
-                                    
                                     child: Center(
                                         child: Text('reset'.tr,
                                             style: TextStyle(
-                                                color: AppColors
-                                                    .inputTextColor))),
+                                                color:
+                                                    AppColors.inputTextColor))),
                                     onTap: () {
                                       Get.back();
                                     }),
                               ),
+                              SizedBox(
+                                width: 20,
+                              ),
                               Container(
+                                height: Get.height * 0.05,
+                                margin: lang == 'en'
+                                    ? EdgeInsets.only(top: 8, left: 8)
+                                    : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.appBarBackGroundColor,
-                                        borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                        
-
-                                      ),
+                                //height: Get.height / 18,
+                                decoration: BoxDecoration(
+                                    color: AppColors.appBarBackGroundColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
                                 // ignore: deprecated_member_use
                                 child: GestureDetector(
                                     // color: Colors.transparent,
@@ -488,9 +573,13 @@ class _OfferListState extends State<OfferList> {
                                         : () {
                                             idSended();
                                             listtype != 'grid'
-                                                ? Get.off(
-                                                    FilteredCategoryResult())
-                                                : Get.off(FilteredCategory());
+                                            // print(
+                                            //     "hellll....helllll.....helll.....$listtype");
+                                            // Get.to(FilteredCategory(),
+                                            //     arguments: listtype);
+                                            ? Get.off(
+                                                FilteredCategoryResult())
+                                            : Get.off(FilteredCategory());
                                           }),
                               ),
                             ],
@@ -508,7 +597,8 @@ class _OfferListState extends State<OfferList> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 15),
       child: Container(
-        height: Get.height,
+        height: Get.height/1.68,
+        //height: Get.height,
         child: ListView.builder(
             // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
             primary: false,
@@ -525,7 +615,7 @@ class _OfferListState extends State<OfferList> {
             itemBuilder: (BuildContext context, int c) {
               return GestureDetector(
                 onTap: () {
-                  Get.to(HomeAllOfferDEtailPage(),arguments:listFavou[c]);
+                  Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
                 },
                 child: Container(
                     child: Card(
@@ -697,9 +787,10 @@ class _OfferListState extends State<OfferList> {
 
   Widget allUsers(listFavou) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10,bottom: 20),
       child: Container(
-        height: Get.height,
+        margin: EdgeInsets.only(bottom: 20),
+        height: Get.height/1.67,
         child: GridView.builder(
             // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
             primary: false,
@@ -874,7 +965,9 @@ class _OfferListState extends State<OfferList> {
               return Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 12.0),
+                    margin: lang == 'en'
+                        ? EdgeInsets.only(left: 12.0)
+                        : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -889,7 +982,8 @@ class _OfferListState extends State<OfferList> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color:AppColors.appBarBackGroundColor),
+                          border: Border.all(
+                              color: AppColors.appBarBackGroundColor),
                           color: selectedIndex == index
                               ? selectedColor
                               : Colors.white,
@@ -924,4 +1018,3 @@ class _OfferListState extends State<OfferList> {
     );
   }
 }
-
