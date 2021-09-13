@@ -189,70 +189,12 @@ var lang;
                                   ],
                                 ),
                               ),
-                              // child: FractionalTranslation(
-                              //   translation: lang == 'en' ? Get.height > 700 ?  const Offset(0.2, 1.3): const Offset(0.2, 0.9):
-                              //   Get.height > 700 ?  const Offset(-0.1, 1.3): const Offset(-0.2, 0.9),
-                              //   child: Container(
-                              //     decoration: BoxDecoration(
-                              //       border: Border.all(width: 3,color: Colors.white),
-                              //         shape: BoxShape.circle,),
-                              //       child: CircleAvatar(
-                              //       backgroundColor: Colors.grey[200],
-                              //       radius: 60.0,
-                              //       // child:   Column(
-                              //       //   mainAxisAlignment: MainAxisAlignment.center,
-                              //       //   children: [
-                              //           // SizedBox(height:30)≥
-                              //           child:ClipRRect(
-                              //             borderRadius: BorderRadius.circular(60.0),
-                              //             child:                                       
-                              //             imageP.toString() != 'null' ?
-                              //              Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
-                              //              image.toString() == 'null' ? 
-                              //             Image.asset(AppImages.person,color: Colors.grey[400]) : 
-                              //             Image.network(
-                              //               image['url'],
-                              //               fit: BoxFit.fill,
-                              //               height: Get.height/6.5,width: Get.width/3.3,
-                              //             )
-                              //             )
-                                        
-                                        
-                              //       //   ],
-                              //       // )
-                              //     ),
-                              //   )
-                            //   ),
                             ),                            
                           ],
                         ),
                       ),
                     ),
-                    
-                    // SizedBox(height:30),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //      IconButton(
-                    //      onPressed: () {
-                    //        getImage();
-                    //      },
-                    //      icon:Icon(Icons.camera_alt,size: 40,color: Colors.grey,)
-                    //      ),
-                    //     Padding(
-                    //       padding: Get.height > 700 ?  const EdgeInsets.only(left:50.0) :const EdgeInsets.only(left:50.0),
-                    //       child: Container(
-                    //         width: Get.width/3.5,
-                    //         child: Text(
-                    //           box.read('name'),
-                    //           style:AppTextStyles.appTextStyle(
-                    //             fontSize: 18, fontWeight: FontWeight.bold, color:Colors.grey.shade800
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                   
                     Padding(
                       padding: lang == 'en' ?  const EdgeInsets.only(top:20.0): const EdgeInsets.only(top:20.0,right: 10),
                       child: Column(
