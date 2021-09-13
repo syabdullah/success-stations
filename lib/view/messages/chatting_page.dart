@@ -51,11 +51,12 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           "room": "convo-$conversationID",
           "username": "user-$userId"
         });
+          socket.onDisconnect((_) => print('disconnect-----========----'));
       }
       catch (e) {
       print(e.toString());
     }
-    socket.onDisconnect((_) => print('disconnect'));
+    
   }
 
   sendMessage(String chatMessage) {
@@ -66,7 +67,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   handleMessage(data) { 
     chatCont.loadMessage(data);
   }
-
   //reviewd
   @override
   Widget build(BuildContext context) {
@@ -75,33 +75,35 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       body: Stack(
         children: [
           Container(
-              height: Get.height,
-              width: Get.width,
-              color: AppColors.appBarBackGroundColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppBar(
-                      leading: GestureDetector(
-                          onTap: () {
-                            Get.off(Inbox());
-                          },
-                          child: Image.asset(AppImages.arrowBack)),
-                      elevation: 0,
-                      backgroundColor: AppColors.appBarBackGroundColor,
-                      centerTitle: true,
-                      title: Text(
-                        userData[1].toString(),
-                        style: AppTextStyles.appTextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      )),
-                ],
-              )),
+            height: Get.height,
+            width: Get.width,
+            color: AppColors.appBarBackGroundColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppBar(
+                  leading: GestureDetector(
+                    onTap: () {    
+                      socket.dispose();
+                      Get.back();
+                    },
+                    child: Image.asset(AppImages.arrowBack)),
+                  elevation: 0,
+                  backgroundColor: AppColors.appBarBackGroundColor,
+                  centerTitle: true,
+                  title: Text(
+                    userData[1].toString(),
+                    style: AppTextStyles.appTextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                ),
+              ],
+            )
+          ),
           chattingList(),
-          // showMessage(dataArray),
            lang == 'en' ?
           FractionalTranslation(
               translation: Get.height > 700 
@@ -184,11 +186,9 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           itemCount: messages.length,
           shrinkWrap: true,
           padding: EdgeInsets.only(top: 10, bottom: 10),
-          // physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            // print("..................>$messages");
             var date = DateTime.parse(messages[index]["created_at"]);
-            var time = DateFormat().add_jm().format(date);
+            var time = DateFormat().add_jm().format(date.toLocal());
             return Container(
               padding:
                   EdgeInsets.only(left: 14, right: 14, bottom: 30),
