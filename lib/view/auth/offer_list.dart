@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -86,7 +87,7 @@ class _OfferListState extends State<OfferList> {
             ? PreferredSize(
                 preferredSize: Size.fromHeight(70.0),
                 child: appbar(
-                    _scaffoldKey, context, AppImages.appBarLogo, " ", ''))
+                    _scaffoldKey, '', AppImages.appBarLogo, " ", ''))
             : null,
         // drawer: AppDrawer(),
         drawer: Theme(
@@ -179,8 +180,8 @@ class _OfferListState extends State<OfferList> {
               child: usertype == 2 || usertype == 3
                   ? Container()
                   : Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Image.asset(AppImages.plusImage, height: 24)),
+                  margin: EdgeInsets.only(left: 10),
+                  child: Image.asset(AppImages.plusImage, height: 24,color: Colors.red,)),
             )
           ],
         ),
@@ -194,7 +195,9 @@ class _OfferListState extends State<OfferList> {
                 ),
                 child: Row(
             children: [
-              IconButton(
+              CupertinoButton(
+                minSize: double.minPositive,
+                padding: EdgeInsets.zero,
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
@@ -205,10 +208,13 @@ class _OfferListState extends State<OfferList> {
                     grid = AppImages.grid;
                   });
                 },
-                icon: Image.asset(grid,height: 50,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
               ),
+              SizedBox(width: 5,),
               Container(
-                child: IconButton(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
@@ -219,12 +225,16 @@ class _OfferListState extends State<OfferList> {
                       listImg = AppImages.listing;
                     });
                   },
-                  icon: Image.asset(listImg,height: 50,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
                 ),
               ),
-              SizedBox(height: 30,width: 15)
+              SizedBox(height: 10,width: 15)
             ],
           ),
+        
+        
+      
+    
         
           // child: Row(
           //   children: [
@@ -296,7 +306,7 @@ class _OfferListState extends State<OfferList> {
         ),
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 1.0,
+            heightFactor: 0.6,
             child: StatefulBuilder(builder: (BuildContext context,
                 void Function(void Function()) setState) {
               return SafeArea(
@@ -337,11 +347,11 @@ class _OfferListState extends State<OfferList> {
                               ],
                             ),
                           ),
-                          SizedBox(height: Get.height * 0.04),
+                       SizedBox(height: Get.height * 0.01),
                           Container(
                               margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, left: 8)
-                                  : EdgeInsets.only(top: 8, right: 8),
+                                  ? EdgeInsets.only(top: 6, left: 8)
+                                  : EdgeInsets.only(top: 6, right: 8),
                               child: Text("category".tr,
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.grey))),
@@ -352,7 +362,7 @@ class _OfferListState extends State<OfferList> {
                                       data.offerDattaTypeCategory['data'] !=
                                           null
                                   ? Container(
-                                      height: Get.height / 10,
+                                      height: Get.height * 0.035,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: data
@@ -363,6 +373,7 @@ class _OfferListState extends State<OfferList> {
                                             return Row(
                                               children: [
                                                 Container(
+                                                  height: Get.height * 0.035,
                                                   margin: lang == 'en'
                                                       ? EdgeInsets.only(
                                                           left: 8.0)
@@ -375,8 +386,7 @@ class _OfferListState extends State<OfferList> {
                                                             index;
                                                         filteredIDCate =
                                                             data.offerDattaTypeCategory[
-                                                                    'data']
-                                                                [index]['id'];
+                                                                    'data']                                      [index]['id'];
                                                       });
                                                     },
                                                     child: Container(
@@ -394,7 +404,7 @@ class _OfferListState extends State<OfferList> {
                                                           color: bottomSheetCategory ==
                                                                   index
                                                               ? AppColors
-                                                                  .appBarBackGroundColor
+                                                                  .appCategSeleGroundColor
                                                               : Colors.white,
                                                           boxShadow: [
                                                             BoxShadow(
@@ -407,7 +417,7 @@ class _OfferListState extends State<OfferList> {
                                                           ],
                                                         ),
                                                         padding: EdgeInsets.all(
-                                                            10.0),
+                                                            4.0),
                                                         child:
                                                             data.offerDattaTypeCategory[
                                                                         'data'] !=
@@ -422,8 +432,8 @@ class _OfferListState extends State<OfferList> {
                                                                         TextStyle(
                                                                       color: bottomSheetCategory ==
                                                                               index
-                                                                          ? Colors
-                                                                              .white
+                                                                          ? AppColors
+                                                                              .appBarBackGroundColor
                                                                           : AppColors
                                                                               .appBarBackGroundColor,
                                                                       fontSize:
@@ -453,9 +463,9 @@ class _OfferListState extends State<OfferList> {
                               child: Text("condition".tr,
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.grey))),
-                          SizedBox(height: 10),
+                         // SizedBox(height: 10),
                           Container(
-                            height: Get.height * 0.05,
+                            height: Get.height * 0.035,
                             child: new ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -475,12 +485,12 @@ class _OfferListState extends State<OfferList> {
                                           ? EdgeInsets.only(left: 8)
                                           : EdgeInsets.only(right: 8),
                                       width: Get.width / 5,
-                                      height: Get.height / 2,
+                                      height: Get.height / 3,
                                       decoration: BoxDecoration(
                                           // ignore: unnecessary_null_comparison
                                           color: slctedInd != null &&
                                                   slctedInd == index
-                                              ? AppColors.appBarBackGroundColor
+                                              ? AppColors.appCategSeleGroundColor
                                               : Colors
                                                   .white, //Colors.blue[100],
                                           border: Border.all(
@@ -498,7 +508,8 @@ class _OfferListState extends State<OfferList> {
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: slctedInd == index
-                                                    ? Colors.white
+                                                    ? AppColors
+                                                        .appBarBackGroundColor
                                                     : AppColors
                                                         .appBarBackGroundColor,
                                               )),
@@ -513,11 +524,12 @@ class _OfferListState extends State<OfferList> {
                             //mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
+                                height: Get.height * 0.05,
                                 margin: lang == 'en'
                                     ? EdgeInsets.only(top: 8, left: 8)
                                     : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
+                                //height: Get.height / 18,
                                 decoration: BoxDecoration(
                                     color: Colors.grey[100],
                                     borderRadius:
@@ -534,14 +546,15 @@ class _OfferListState extends State<OfferList> {
                                     }),
                               ),
                               SizedBox(
-                                width: 30,
+                                width: 20,
                               ),
                               Container(
+                                height: Get.height * 0.05,
                                 margin: lang == 'en'
                                     ? EdgeInsets.only(top: 8, left: 8)
                                     : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
+                                //height: Get.height / 18,
                                 decoration: BoxDecoration(
                                     color: AppColors.appBarBackGroundColor,
                                     borderRadius:
@@ -584,7 +597,8 @@ class _OfferListState extends State<OfferList> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 15),
       child: Container(
-        height: Get.height,
+        height: Get.height/1.68,
+        //height: Get.height,
         child: ListView.builder(
             // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
             primary: false,
@@ -773,9 +787,10 @@ class _OfferListState extends State<OfferList> {
 
   Widget allUsers(listFavou) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10,bottom: 20),
       child: Container(
-        height: Get.height,
+        margin: EdgeInsets.only(bottom: 20),
+        height: Get.height/1.67,
         child: GridView.builder(
             // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
             primary: false,

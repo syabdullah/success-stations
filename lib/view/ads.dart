@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,8 +15,6 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/home_offer.dart';
-
 
   List<String> imgList = [];
 
@@ -131,12 +125,12 @@ class _AdsViewState extends State<AdsView> {
             color: Colors.red
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top:.0,left:10),
+            padding: const EdgeInsets.only(top:10,left:10,right: 10),
             child: Row(
               children: [
                 Container(
                   width: Get.width/1.3,
-                  child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
+                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
                     setState(() {
