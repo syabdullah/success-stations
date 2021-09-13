@@ -114,7 +114,7 @@ const Map<String, String> en = {
   "favourite": "Favourites",
   "membership": "Membership",
   "notification": "Notification",
-  "about_us": "About Us",
+  "about_us": "ABOUT US",
   "advertise_with_us": "Advertise with us",
   "privacy": "privacy",
   "user_agreement": "Usage Agreement",
