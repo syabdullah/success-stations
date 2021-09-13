@@ -7,8 +7,9 @@ const Map<String, String> en = {
   "Account_type": "Account Type : ",
   "google": "Google",
   "facebook": "Facebook",
-  "choose_language": "Choose the Language",
-  "choose_country": "Choose the Country",
+  "choose_language": "Choose Language",
+  "choose_language_drop": "CHOOSE LANGUAGE",
+  "choose_country": "Choose Country",
   "welcome_back": "Welcome Back!",
   "date_of_birth": "Date of Birth",
   "sign_continue":"Sign in to continue",
@@ -19,6 +20,7 @@ const Map<String, String> en = {
   "sign_up_text": "SIGN UP",
   "home":"Home",
   "addlocation":"Add Location",
+  "Select_your_prefered_language":"Select your prefered language",
   "user_name_placeholder": "User Name",
   "user_name": "User Name",
   "password_placeholder": "Password",
@@ -39,7 +41,7 @@ const Map<String, String> en = {
   "new_password": "New password",
   "confirm_password": "Confirm Password",
   "submit": "Submit",
-  "location":"Location",
+  "location":"Locations",
   "password_recovered": "Password Recovered",
   "password_created": "Password Created",
   "changedPassword": "Password Changed",
@@ -252,7 +254,11 @@ const Map<String, String> en = {
   'cr':'CR is Required',
   'crs':'Cr',
   'DegreeSU':"Degree",
-  'oR':'or'
+  'oR':'or',
+  'email_required':'Email Required',
+  'enter_password':'Enter a Password',
+  'pass_to_short':'Password too short',
+  'filtered_result':'FILTERED RESULTS'
 
 };
 

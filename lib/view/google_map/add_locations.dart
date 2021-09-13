@@ -65,7 +65,7 @@ Widget googleMap(){
   return Container(
     height: Get.height,
     child: PlacePicker(   
-      apiKey: "AIzaSyDS0wbOsjYPi6CaKvbs13USS5CUOc2D91c",
+      apiKey: "AIzaSyCPLXiudqcih9E93EAmcB2Bs5MF-oxcO2g",
       initialPosition: LatLng(51.507351,-0.127758),
           useCurrentLocation: true,
           usePlaceDetailSearch: true,
@@ -121,7 +121,6 @@ Widget saveButton(data) {
   var splitLngLat = lnglat.toString().split(',');
   var lng = splitLngLat[0].replaceAll('(','');
   var lat = splitLngLat[1].replaceAll(')','');
-   print("............$lng----------111${data.adrAddress}");
   var s = data!.adrAddress.replaceAll('</span>','');
   var street = s.toString().replaceAll('<span class=','');
   final f = street.toString().replaceAll('>','');
@@ -137,7 +136,6 @@ Widget saveButton(data) {
      }
      if(sp[i].contains('locality')){
        city = sp[i].replaceAll('"locality"', '');
-       print("..........LLLooooooo..----------111$city");
       var spl = city.split('"');
       city = spl[0];
      }
@@ -159,13 +157,8 @@ Widget saveButton(data) {
        if(region.contains('"postal-code"')) {
          re = region.replaceAll('"postal-code"',',');
          re = re.split(',');
-          // if(re.contains(postCode)) {
-          //   region = re.replaceAll(postCode,'');
-          //   print("............----------111$region");
-          // }
           region = re[0];
           postCode = re[1];
-          print("............$postCode-------eeeee---111$region");
        }
        
      }

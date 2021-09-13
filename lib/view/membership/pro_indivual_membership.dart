@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/controller/subscription_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:success_stations/utils/page_util.dart';
+import 'package:success_stations/view/member_ship/payment_tap.dart';
 import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
@@ -16,6 +19,7 @@ class IndividualMemeberShip extends StatefulWidget {
 class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
   bool value = true;
+  final memberShipCon = Get.put(MemberShipController());
   List<String> memberShipDatta = [
     "profile".tr,
     "my_ads".tr,
@@ -26,6 +30,13 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     "friend_requests".tr,
     "favourite".tr,
   ];
+  @override
+  void initState() {
+    super.initState();
+    var id = box.read('user_id');
+    memberShipCon.getMemberShip();
+  }
+
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
@@ -43,7 +54,6 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
             height: Get.height / 1.75,
             width: Get.width / 1.5,
             decoration: BoxDecoration(
-
               borderRadius: BorderRadius.circular(16.0),
               border: Border.all(
                 color: Colors.blue,
@@ -59,25 +69,34 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
               ],
             ),
           ),
-          FractionalTranslation(
-            translation: const Offset(0.0, -0.5),
-            child: Container(
-              height: 50,
-              width: 120,
-              decoration: BoxDecoration(
-                color: AppColors.appBarBackGroundColor,
-                borderRadius: BorderRadius.circular(10),
-                // borderRadius: Border.all()
-              ),
-              child: Center(
-                  child: Text(
-                "\$140",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              )),
-            ),
+          GetBuilder<MemberShipController>(
+            init: MemberShipController(),
+            builder: (val) {
+              return FractionalTranslation(
+                translation: const Offset(0.0, -0.5),
+                child: Container(
+                  height: 50,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    color: AppColors.appBarBackGroundColor,
+                    borderRadius: BorderRadius.circular(10),
+                    // borderRadius: Border.all()
+                  ),
+                  child: Center(
+                      child: val.result != null
+                          ? Text(
+                              statustogle == false
+                                  ? "\$ ${val.result['data']['monthly'].toString()}"
+                                  : "\$ ${val.result['data']['yearly'].toString()}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            )
+                          : Text('')),
+                ),
+              );
+            },
           ),
           // space50,
           submitButton(
@@ -125,11 +144,11 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
             ),
             Switch.adaptive(
                 activeColor: Colors.blue,
-                value: (value),
+                value: statustogle,
                 onChanged: (newValue) {
                   setState(() {
-                    // value = newValue;
-                    //toggleSwitch(value);
+                    statustogle = newValue;
+                    // toggleSwitch(value);
                   });
                 }),
             SizedBox(
@@ -189,6 +208,6 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
 }
 
 void navigateToHomeScreen() {
-  Get.to(UserInformation());
+  // Get.to(UserInformation());
   // PageUtils.pushPage(Payments());
 }

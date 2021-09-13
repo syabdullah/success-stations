@@ -32,7 +32,8 @@ class SuccessApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-   print('.,..,.l;l""dskfjrkggdfg////// $lang');
+    lang =  box.read('lang_code');
+   print('.,..,.l;l""dskfjrkggdfg//////$lang');
     return ScreenUtilInit(
       builder:()  {
         return GetMaterialApp(     

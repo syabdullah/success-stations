@@ -53,8 +53,12 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController degreeController = TextEditingController();
+  String initialCountry = 'PK';
+  PhoneNumber tttt = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
+  var myTest;
+  var countryIdGet, shortCodeAdd;
 
   final countryPut = Get.put(ContryController());
   final signUpCont = Get.put(SignUpController());
@@ -63,8 +67,11 @@ class _SignPageState extends State<StudentSignUp> {
   @override 
   void initState() {
     lang = box.read('lang_code');
-    countryPut.getCountries();
-    print(lang);
+    // countryPut.getCountries();
+    // countryIdGet = Get.arguments;
+    // myTest = countryIdGet[0].toString();
+    // tttt = PhoneNumber(isoCode: myTest);
+    print("countryIdGetcountryIdGetcountryIdGet$myTest");
     super.initState();
   }
 
@@ -418,6 +425,13 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
+        width: Get.width / 1.1,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            // color: Colors.grey[100],
+            border: Border.all(color: Color(0xFFEEEEEE)
+                // width: 5,
+                )),
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: InternationalPhoneNumberInput(
           inputDecoration: InputDecoration(
@@ -430,10 +444,11 @@ class _SignPageState extends State<StudentSignUp> {
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.outline),
-            ),
+            // enabledBorder: OutlineInputBorder(
+            //   borderSide: BorderSide(color: AppColors.outline),
+            // ),
             hintText: "Mobile",
+            hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
           ),
           onInputChanged: (PhoneNumber number) {
             print(number.phoneNumber);
@@ -456,6 +471,7 @@ class _SignPageState extends State<StudentSignUp> {
           onSaved: (PhoneNumber number) {
             print('On Saved: $number');
           },
+          initialValue: tttt,
         ));
   }
 

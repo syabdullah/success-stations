@@ -8,6 +8,7 @@ const Map<String, String> ar = {
   "google": "Google",
   "facebook": "Facebook",
   "choose_language": "اختر اللغة",
+  'choose_language_drop':"اختر اللغة",
   "choose_country": "اختر الدولة",
   "welcome_back": "مرحبا بعودتك!",
   "sign_continue":"تسجيل الدخول للمتابعة",
@@ -250,5 +251,10 @@ const Map<String, String> ar = {
   'aboutfield':'أبوت هذا السجل',
   'companyName':'اسم الشركة هذا السجل',
   'crs':'سجله',
-  'oR':'أو'
+  'oR':'أو',
+  'email_required':'البريد الإلكتروني (مطلوب',
+  'enter_password':'أدخل كلمة المرور',
+  'pass_to_short':'كلمة المرور أقصر مما يجب',
+  "Select_your_prefered_language":'حدد لغتك المفضلة'
+ 
 };

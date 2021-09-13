@@ -56,6 +56,8 @@ class _AllAddsState extends State<AllAdds> {
   var start;
   var end;
   var filterID;
+  var data ;
+  var id ;
   bool isButtonPressed = false;
   List<String> litems = [
     "old".tr,
@@ -65,8 +67,12 @@ class _AllAddsState extends State<AllAdds> {
   @override
   void initState() {
     super.initState();
+     data = Get.arguments;
+    if(data != null) {
+      controller.addedByIdAddes(data[1],null);
+      id = data[1];
+    }    
     check = true;
-
     banner.bannerController();
     controller.addedAllAds();
     catCont.getCategoryTypes();
@@ -74,7 +80,6 @@ class _AllAddsState extends State<AllAdds> {
     lang = box.read('lang_code');
     userId = box.read('user_id');
     v = '';
-    v = Get.arguments;
   }
 
   int _selectedIndex = 1;
@@ -87,8 +92,8 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // appBar: v == 'all' ?   PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)):null,
+      appBar: data != null ?   PreferredSize( preferredSize: Size.fromHeight(70.0),
+      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)):null,
       body: Column(
         children: [
           topWidget(),
@@ -800,11 +805,24 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              if (ind == 0) {
-                catID = listingCategoriesData[index]['id'];
+                print("........------------=============-----------------${data != null && id == listingCategoriesData[index]['id']}");
+               if(data != null && id == listingCategoriesData[index]['id']){
+                 print("........");
+                 catID = listingCategoriesData[index]['id'];
+                selectedIndex = index;
+                // ind = 0;
+              }else if(data == null && ind == 0){
+                id = listingCategoriesData[index]['id'];
+                 catID = listingCategoriesData[index]['id'];
                 controller.addedByIdAddes(listingCategoriesData[0]['id'], null);
+                selectedIndex = index;
+                 ++ind;
               }
-              ++ind;
+              // if (ind == 0) {
+              //   catID = listingCategoriesData[index]['id'];
+              //   controller.addedByIdAddes(listingCategoriesData[0]['id'], null);
+              // }
+              // ++ind;
               return Row(
                 children: [
                   Container(
@@ -820,17 +838,17 @@ class _AllAddsState extends State<AllAdds> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                         ind = ++ind;
                           selectedIndex = index;
-                          catID = listingCategoriesData[index]['id'];
-                          controller.addedByIdAddes(
-                              listingCategoriesData[index]['id'], null);
+                          id = listingCategoriesData[index]['id'];
+                          controller.addedByIdAddes(listingCategoriesData[index]['id'],null);
                         });
                       },
                       child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.0),
                             border: Border.all(color: Colors.blue),
-                            color: selectedIndex == index
+                            color:  selectedIndex == index && id == listingCategoriesData[index]['id']
                                 ? selectedColor
                                 : Colors.white,
                             boxShadow: [
@@ -843,19 +861,20 @@ class _AllAddsState extends State<AllAdds> {
                           ),
                           padding: EdgeInsets.all(10.0),
                           child: listingCategoriesData != null
-                              ? Text(
-                                  listingCategoriesData[index]['category']
-                                      ['en'],
-                                  style: TextStyle(
-                                    color: selectedIndex == index
-                                        ? Colors.white
-                                        : Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    fontStyle: FontStyle.normal,
-                                  ),
-                                )
-                              : Container()),
+                          ? Text(
+                              listingCategoriesData[index]['category']
+                                  ['en'],
+                              style: TextStyle(
+                                color:  selectedIndex == index && id == listingCategoriesData[index]['id']
+                                  ? Colors.white
+                                  : Colors.blue,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            )
+                          : Container()
+                      ),
                     ),
                   ),
                 ],

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,28 +15,30 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 
 import 'package:success_stations/view/auth/sign_in.dart';
- var finalIndex;
 
-  DateTime  ? dateTime;
-   var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+var finalIndex, shortCode;
 
  var lang;
-class CompanySignUp extends StatefulWidget {
+// class CompanySignUp extends StatefulWidget {
+DateTime? dateTime;
+var dateFormate =
+    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 
+class CompanySignUp extends StatefulWidget {
   final val;
   //  late String savedData;
-  
 
   CompanySignUp({this.val});
 
   _CompanySignPageState createState() => _CompanySignPageState();
 }
-class _CompanySignPageState extends State<CompanySignUp> {
-   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   late String savedData;
-   var tyming;
-   List selectedValues = [];
 
+class _CompanySignPageState extends State<CompanySignUp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String savedData;
+  var tyming;
+  var counCode, counID, hintTextCountry,selectedCity, selectedCountry, selectedRegion , hintRegionText, hintcityText;
+  List selectedValues = [];
 
   var array = [
     {
@@ -61,58 +61,49 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController nameController =  TextEditingController();
-  TextEditingController mobileController =  TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
   TextEditingController mobile1Controller = TextEditingController();
-  TextEditingController iqamaController =  TextEditingController();
-  TextEditingController crController =  TextEditingController();
-  TextEditingController comNameController =TextEditingController();
-  TextEditingController respController= TextEditingController();
+  TextEditingController iqamaController = TextEditingController();
+  TextEditingController crController = TextEditingController();
+  TextEditingController comNameController = TextEditingController();
+  TextEditingController respController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
+  PhoneNumber companyCode = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
    bool errorCheck = true;
     var type = 'Account Type';
     var serviceName,serviceId;
 
-  var valueRadio ,hintTextCountry,selectedRegion,  hintRegionText, selectedCountry, hintcityText, selectedCity; 
-  
   var v = 1;
 
-   List<GroupModel> _group = [
-    GroupModel(
-      text: "individual".tr,
-      index:1 ,
-      clr: Colors.grey
-      
-    ),
-    GroupModel(
-      text: "company".tr,
-      index:2,
-        clr: Colors.grey
-    ),
+  List<GroupModel> _group = [
+    GroupModel(text: "individual".tr, index: 1,),
+    GroupModel(text: "company".tr, index: 2,  ),
   ];
 
-  
-  GetStorage box = GetStorage();
-  @override 
+  @override
   void initState() {
     super.initState();
-     lang = box.read('lang_code');
-      errorCheck = true;
+    counCode = Get.arguments;
+    // shortCode = counCode[0].toString();
+    companyCode = PhoneNumber(isoCode: shortCode);
+    print("countryIdGetcountryIdGetcountryIdGet$shortCode");
+    errorCheck = true;
   }
-   
+
   companyUser() {
     final form = formKey.currentState;
-    if(form!.validate()){
+    if (form!.validate()) {
       form.save();
       var json = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobile1Controller.text, 
+        "mobile": mobile1Controller.text,
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -124,27 +115,28 @@ class _CompanySignPageState extends State<CompanySignUp> {
       signUpCont.companyAccountData(json);
     }
   }
+
   individualSignUp() {
     final form = formKey.currentState;
-    if(form!.validate()){
+    if (form!.validate()) {
       form.save();
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobile1Controller.text, 
+        "mobile": mobile1Controller.text,
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
-        "date_of_birth" : finalDate,
-        "user_type":  3,
+        "date_of_birth": finalDate,
+        "user_type": 3,
         'iqama_number': iqamaController.text,
         // 'service_ids[]': selectedValues
-
       };
       print("....>!!!!!!!!!!!!!!..//////..........$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final space20 = SizedBox(height: getSize(20, context));
@@ -331,13 +323,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 
   Widget fullName() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -346,20 +338,19 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText: "full_name".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) { },
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         textController: nameController,
-        validator: (value) { 
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -367,8 +358,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget eMail() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
@@ -376,13 +367,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText:"emails".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (newValue) {
-        }, 
-        onFieldSubmitted: (value) {  },
+        onChanged: (value) {},
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
         textController: emailController,
         validator: (val) {
-          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern =
+              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
             return 'enterEmail'.tr;
@@ -391,13 +382,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
             return "enterEmail".tr;
           }
           return null;
-        }, 
+        },
         errorText: '',
-        
       ),
     );
   }
-  
+
   Widget mobile() {
     return   Container(
   
@@ -451,6 +441,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               ),
       );
   }
+
   var finalDate;
   Widget companyDob() {
     // return Container(
@@ -462,10 +453,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
     //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
     //     hintColor: AppColors.inputTextColor,
     //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},  
+    //     onFieldSubmitted: (value) {},
     //     textController: dobController,
-    //     onSaved: (String? newValue) {  
-    //     }, 
+    //     onSaved: (String? newValue) {
+    //     },
     //     validator: (value) {
     //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
     //       RegExp regExp = RegExp(pattern);
@@ -475,7 +466,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     //         return 'Enter a valid birthday format is yyyy-mm-dd';
     //         }
     //         return null;
-    //       }, 
+    //       },
     //     errorText: '',
     //   ),
     // );
@@ -491,12 +482,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
           child:   GestureDetector(
           onTap: () {
           showDatePicker(
-            context: context,
-            initialDate:  DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime.now()
-          ).then((date) {
-            setState(() {               
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now())
+              .then((date) {
+            setState(() {
               dateTime = date;
               finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
               print("..................$finalDate");
@@ -510,14 +501,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {
-                
                 showDatePicker(
-                  context: context,
-                  initialDate:  DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now()
-                ).then((date) {
-                  setState(() {               
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now())
+                    .then((date) {
+                  setState(() {
                     dateTime = date;
                     finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
                     print("..................$finalDate");
@@ -530,9 +520,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
     );
   }
+
   Widget comName() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -540,22 +531,20 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText: "company".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onFieldSubmitted: (value) {},  
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
         textController: comNameController,
-        onSaved: (String? newValue) {  
-        }, 
-        validator: (value) { 
+        onSaved: (String? newValue) {},
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return " companyName".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
-          }
-          else
-          return null;
-        }, 
+          } else
+            return null;
+        },
         errorText: '',
       ),
     );
@@ -601,7 +590,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
-  
   Widget region(List dataRegion) {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
@@ -767,8 +755,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget iqama() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -776,13 +764,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText: "enter_iqama_number".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: iqamaController,
         validator: (value) {
-          String  pattern =r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if( value.length  == 0){
             return 'iqama'.tr;
@@ -792,9 +780,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           }
           else if(value.length !=13){
             return 'Mobile Number must be of 13 digits';
-          }
-          else 
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -802,8 +789,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget responsible() {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -811,12 +798,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText: "Responsible".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onChanged: (value) {},
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: respController,
-        validator: (value) {  }, 
+        validator: (value) {},
         errorText: '',
       ),
     );
@@ -876,8 +863,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
       );
   }
 
-   
-
   Widget cR() {
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20,top: 10,bottom: 10),
@@ -889,40 +874,46 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintStyle: TextStyle(fontSize: 16, color: AppColors.textInput),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
-        onSaved: (String? newValue) {  }, 
-        onFieldSubmitted: (value) {  }, 
+        onSaved: (String? newValue) {},
+        onFieldSubmitted: (value) {},
         // isObscure: true,
         textController: crController,
-        validator: (value) { 
+        validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return " crs".tr;
           } else if (!regExp.hasMatch(value)) {
             return "CR must be a-z and A-Z";
-          }
-          else
-          return null;
+          } else
+            return null;
         },
         errorText: '',
       ),
     );
   }
 
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight}) {
+  Widget submitButton(
+      {buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      fontWeight}) {
     return AppButton(
-      buttonText: buttonText, 
+      buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
       textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
       fontSize: fontSize,
     );
   }
 
   radioalert() {
-    return  Row(
+    return Row(
       children: [
         Container(
          
@@ -930,7 +921,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
         ),
         Expanded(
-          flex: 2 ,
+          flex: 2,
           child: Row(
             children: _group.map((t) => 
             Expanded(
@@ -962,7 +953,5 @@ class _CompanySignPageState extends State<CompanySignUp> {
 class GroupModel {
   String text;
   int index;
-  Color clr;
-  GroupModel({required this.text, required this.index,required this.clr});
+  GroupModel({required this.text, required this.index,});
 }
-

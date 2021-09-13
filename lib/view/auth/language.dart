@@ -14,9 +14,9 @@ import 'package:success_stations/view/i18n/app_language.dart';
 class Language extends StatefulWidget {
   _LanguagePageState createState() => _LanguagePageState();
 }
-class _LanguagePageState extends State<Language> {
 
-  allWordsCapitilize (String str) {
+class _LanguagePageState extends State<Language> {
+  allWordsCapitilize(String str) {
     return str.toLowerCase().split(' ').map((word) {
       String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
@@ -33,45 +33,55 @@ class _LanguagePageState extends State<Language> {
   void initState() {
     getLang.getLanguas();
     super.initState();
-    box.write('lang_code','en');
+    box.write('lang_code', 'ar');
+    print(".......///.....-----dosesgrudgirdfgredoig");
   }
-  
-  List<Widget> getTextWidgets(dataLanguage){
+
+  List<Widget> getTextWidgets(dataLanguage) {
     List<Widget> langua = [];
-    if( dataLanguage['data'] !=null || dataLanguage['data'].length !=null ) {
-      for(var i = 0; i < dataLanguage['data'].length; i++){
+    if (dataLanguage['data'] != null || dataLanguage['data'].length != null) {
+      for (var i = 0; i < dataLanguage['data'].length; i++) {
         langua.add(
           GestureDetector(
             child: Center(
               child: Container(
-                margin: EdgeInsets.only(left:20),
-                height: Get.height * 0.25,
-                width: Get.width/3,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 2,
-                    color: index == i ? AppColors.appBarBackGroundColor: AppColors.grey
+                  margin: EdgeInsets.only(left: 20),
+                  height: Get.height * 0.25,
+                  width: Get.width / 3,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        width: 2,
+                        color: index == i
+                            ? AppColors.appBarBackGroundColor
+                            : AppColors.grey),
                   ),
-                ),
-                child: dataLanguage['data'][i]['name'] != null ?
-                Center(
-                  child: Text(
-                  allWordsCapitilize(dataLanguage['data'][i]['name'],),  style: TextStyle(
-                      fontSize: 18, color: index == i ? AppColors.appBarBackGroundColor:  Colors.grey
-                    ),
-                  ),
-                ): Container()
-              ),
-              
+                  child: dataLanguage['data'][i]['name'] != null
+                      ? Center(
+                          child: Text(
+                            allWordsCapitilize(
+                              dataLanguage['data'][i]['name'],
+                            ),
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: index == i
+                                    ? AppColors.appBarBackGroundColor
+                                    : Colors.grey),
+                          ),
+                        )
+                      : Container()),
             ),
             onTap: () {
+              Get.to(Ccountry());
               setState(() {
                 index = i;
-                box.write('lang_id',dataLanguage['data'][i]['id']);
+                print("ONtAP INDEX.....>$index");
+                print(
+                    ".......///.....----------${dataLanguage['data'][i]['short_code']}");
+                box.write('lang_id', dataLanguage['data'][i]['id']);
                 box.write('lang_code', dataLanguage['data'][i]['short_code']);
-                LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
-                Get.to(Ccountry());
+                LocalizationServices()
+                    .changeLocale(dataLanguage['data'][i]['short_code']);
               });
             },
           ),
@@ -85,7 +95,7 @@ class _LanguagePageState extends State<Language> {
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         // children: [
          child:  Column(
             children: [
@@ -98,9 +108,8 @@ class _LanguagePageState extends State<Language> {
               space50,
               Container(
                 height: MediaQuery.of(context).size.height * 0.05,
-                child: chooseLanguage()
-              ),
-              GetBuilder<LanguageController>(
+                child: chooseLanguage()),
+            GetBuilder<LanguageController>(
                 init: LanguageController(),
                 builder:(data){
                   return  data.isLoading == true ? Container(
@@ -132,19 +141,17 @@ class _LanguagePageState extends State<Language> {
   }
 
   Widget mainLogo() {
-    return  Container(
+    return Container(
       margin: EdgeInsets.only(top: 60),
       child: Center(
-        child: Image.asset(
-          AppImages.appLogo, height: Get.height / 4.40
-        ),
+        child: Image.asset(AppImages.appLogo, height: Get.height / 4.40),
       ),
     );
   }
 
-  Widget existingAccount(){
+  Widget existingAccount() {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.toNamed('/login');
       },
       child: Container(
@@ -157,32 +164,45 @@ class _LanguagePageState extends State<Language> {
             ),
             Text("sign_in".tr, style: TextStyle(fontSize: 18 ,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
-        ), 
+        ),
       ),
     );
   }
-  
-  Widget chooseLanguage(){
+
+  Widget chooseLanguage() {
     return Container(
-      child: Text("choose_language".tr, style: TextStyle(fontSize: 23, color: AppColors.black),)
-    );
+        child: Text(
+      "choose_language".tr,
+      style: TextStyle(fontSize: 23, color: AppColors.black),
+    ));
   }
 
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
+  Widget submitButton(
+      {buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      fontWeight,
+      height,
+      width,
+      borderColor,
+      image}) {
     return AppButton(
-      buttonText: buttonText, 
+      buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
       textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
       fontSize: fontSize,
       image: image,
-      width: width,  
+      width: width,
     );
   }
-   void navigateToHomeScreen() {
+
+  void navigateToHomeScreen() {
     PageUtils.pushPage(Ccountry());
-  } 
+  }
 }
- 
