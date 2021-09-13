@@ -101,6 +101,7 @@ const Map<String, String> en = {
   "search_service": "Search Service",
   "profile": "Profile",
   "my_ads": "My Ads",
+  "my_adss": "MY ADS",
   "messeges": "Message",
   "notifications": "Notifications",
   "semester":"SEMESTER",
@@ -117,6 +118,7 @@ const Map<String, String> en = {
   "about_us": "ABOUT US",
   "advertise_with_us": "ADEVERTISE WITH US",
   "privacy": "PRIVACY",
+  "privacydr": "Privacy",
   "user_agreement": "USER AGREMENT",
   "cntact_us": "Contact Us",
   "add_a_comment": "Add a comment",
@@ -261,7 +263,8 @@ const Map<String, String> en = {
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',
   'filtered_result':'FILTERED RESULTS',
-  'payme':'You are using the free version please upgrade your package to full access'
+  'payme':'You are using the free version please upgrade your package to full access',
+  'newad':'Add New Ad'
 };
 
 

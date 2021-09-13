@@ -318,7 +318,6 @@ final adfavUser = Get.put(UserFavController());
       ),
       itemCount: userData['data'].length,
       itemBuilder: (BuildContext context, int index) {
-         print(":';';';';';';';'%%%%%%------${userData['data'][index]}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewTab(), arguments: userData['data'][index]['user_name']['id']);
