@@ -4,7 +4,7 @@ import 'package:flutter_multiselect/flutter_multiselect.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:success_stations/controller/city_controller.dart';
-import 'package:success_stations/controller/country_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/region_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
@@ -33,6 +33,7 @@ class CompanySignUp extends StatefulWidget {
 }
 
 class _CompanySignPageState extends State<CompanySignUp> {
+  final regionIdByCountry = Get.put(ContryController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String savedData;
   var tyming;
@@ -207,17 +208,17 @@ class _CompanySignPageState extends State<CompanySignUp> {
               },
             ),
             space10,
-            GetBuilder<RegionController>(
-              init: RegionController(),
+            GetBuilder<ContryController>(
+              init: ContryController(),
               builder: (val) {
-                return region(val.listDataRegion);
+                return region(val.regionListdata);
               },
             ),
             space10,
-            GetBuilder<CityController>(
-              init: CityController(),
+            GetBuilder<ContryController>(
+              init: ContryController(),
               builder: (val) {
-                return city(val.cityListData);
+                return  city(val.cityListData);
               },
             ),
             space10,
@@ -549,6 +550,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   mapCountry = val as Map;
                   hintTextCountry = mapCountry['name'];
                   selectedCountry = mapCountry['id'];
+                  regionIdByCountry.getRegion(selectedCountry);
                 });
               },
             ))));
@@ -580,6 +582,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   mapRegion = data as Map;
                   hintRegionText = mapRegion['region'];
                   selectedRegion = data['id'];
+                  regionIdByCountry.getCity(data['id']);
                 });
               },
             ))));

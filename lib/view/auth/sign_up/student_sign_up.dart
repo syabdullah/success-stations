@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
-import 'package:success_stations/controller/country_controller.dart';
-import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 DateTime? dateTime;
-var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 // var str = JSON.encode(dt, toEncodable: myEncode);
 
 class StudentSignUp extends StatefulWidget {
@@ -26,25 +23,13 @@ class StudentSignUp extends StatefulWidget {
 }
 
 class _SignPageState extends State<StudentSignUp> {
-  var selectedCountry,
-      selectCountry,
-      selectedCity,
-      selectedRegion,
-      selectedUniversity,
-      selectedCollege,
-      selectCollege,
-      mapuni,
-      mapClgSleceted,
-      hintTextCountry,
-      hintRegionText,
-      hintUniText,
-      hintcityText,
-      hintClgText;
+  final regionIdByCountry = Get.put(ContryController());
+  var selectedCountry, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
 
   late String firstName, emailSaved, mobileSaved, dobSaved;
 
   final formKey = GlobalKey<FormState>();
-
+   GetStorage box = GetStorage();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -70,6 +55,7 @@ class _SignPageState extends State<StudentSignUp> {
     myTest = countryIdGet[0].toString();
     tttt = PhoneNumber(isoCode: myTest);
     print("countryIdGetcountryIdGetcountryIdGet$myTest");
+   
     super.initState();
   }
 
@@ -151,17 +137,17 @@ class _SignPageState extends State<StudentSignUp> {
               },
             ),
             space10,
-            GetBuilder<RegionController>(
-              init: RegionController(),
+            GetBuilder<ContryController>(
+              init: ContryController(),
               builder: (val) {
-                return region(val.listDataRegion);
+                return region(val.regionListdata);
               },
             ),
             space10,
-            GetBuilder<CityController>(
-              init: CityController(),
+            GetBuilder<ContryController>(
+              init: ContryController(),
               builder: (val) {
-                return city(val.cityListData);
+                return  city(val.cityListData);
               },
             ),
             space10,
@@ -550,98 +536,118 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget country(List data) {
-    print("....<><><><><><><><><><><><>..//////......$data");
-    return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          width: Get.width * 0.9,
+          decoration: BoxDecoration(
             color: AppColors.inputColor,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
+            borderRadius: BorderRadius.circular(2.0)
+          ),
+          child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(
+              child: DropdownButton(
+                hint: Text(
                   hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: data.map((coun) {
-                return DropdownMenuItem(value: coun, child: Text(coun['name']));
-              }).toList(),
-              onChanged: (val) {
-                var mapCountry;
-                setState(() {
-                  mapCountry = val as Map;
-                  hintTextCountry = mapCountry['name'];
-                  selectedCountry = mapCountry['id'];
-                });
-              },
-            ))));
+                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                ),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(Icons.arrow_drop_down),
+                items: data.map((coun) {
+                  return DropdownMenuItem(value: coun, child: Text(coun['name']));
+                }).toList(),
+                onChanged: (val) {
+                  var mapCountry;
+                  setState(() {
+                    mapCountry = val as Map;
+                    hintTextCountry = mapCountry['name'];
+                    selectedCountry = mapCountry['id'];
+                    regionIdByCountry.getRegion(selectedCountry);
+                  });
+                },
+              )
+            )
+          )
+        ),
+      ],
+    );
   }
 
   Widget region(List dataRegion) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: dataRegion.map((reg) {
-                return DropdownMenuItem(value: reg, child: Text(reg['region']));
-              }).toList(),
-              onChanged: (data) {
-                var mapRegion;
-                setState(() {
-                  mapRegion = data as Map;
-                  hintRegionText = mapRegion['region'];
-                  selectedRegion = data['id'];
-                });
-              },
-            ))));
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+            ),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: dataRegion.map((reg) {
+              return DropdownMenuItem(
+                value: reg, child: reg['region'] !=null ? Text(reg['region'] ):Container()
+              );
+            }).toList(),
+            onChanged: (data) {
+              var mapRegion;
+              setState(() {
+                mapRegion = data as Map;
+                hintRegionText = mapRegion['region'];
+                selectedRegion = data['id'];
+                print("seleced region id........$selectedRegion");
+                regionIdByCountry.getCity(data['id']);
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget city(List citydata) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintcityText != null ? hintcityText : "city".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inputColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: citydata.map((citt) {
-                return DropdownMenuItem(value: citt, child: Text(citt['city']));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  var mapCity;
-                  mapCity = value as Map;
-                  hintcityText = mapCity['city'];
-                  selectedCity = mapCity['id'];
-                });
-              },
-            ))));
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintcityText != null ? hintcityText : "city".tr,
+              style:TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+            ),
+            dropdownColor: AppColors.inputColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: citydata.map((citt) {
+              return DropdownMenuItem(value: citt, child: Text(citt['city']));
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                var mapCity;
+                mapCity = value as Map;
+                hintcityText = mapCity['city'];
+                selectedCity = mapCity['id'];
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget university(List daattta) {
