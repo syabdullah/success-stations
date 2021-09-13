@@ -11,11 +11,15 @@ class ContryController extends GetxController {
   @override
   void onInit() { 
     isLoading = true;
+    countryListdata= [];
+    regionListdata= [];
+    cityListData =[];
     getCountries();
     super.onInit();
   }
 
   getCountries() async{
+    countryListdata= [];
     isLoading = true ;
     await countries().then((res) {
       countryData = jsonDecode(res.body);
@@ -28,6 +32,7 @@ class ContryController extends GetxController {
   }
 
   getRegion(id) async{
+    regionListdata= [];
     isLoading = true ;
     await regionGetByCountryID(id).then((res) {
       regionDataByCountry = jsonDecode(res.body);
@@ -40,10 +45,10 @@ class ContryController extends GetxController {
   }
 
   getCity(id) async{
+    cityListData= [];
     isLoading = true ;
     await cityGetByRegionID(id).then((res) {
       cityData = jsonDecode(res.body);
-      print("cityData Json decode............$cityData");
       for(int c =0; c < cityData['data'].length; c++){
         cityListData.add(cityData['data'][c]);
       }
