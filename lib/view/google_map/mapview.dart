@@ -28,15 +28,16 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 final mapCon = Get.put(LocationController());
 final adfavUser = Get.put(UserFavController());
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
-  final double _zoom = 15.0;
-  int _makrr_id_counter = 1;
+  final double _zoom = 5.0;
+  int _makrr_id_counter = 1; 
      var listtype = 'map'; 
       //  Marker _markers = [];
          List<Marker> _markers = [];
   var adtofavJson,remtofavJson;
    var route;
   var grid = AppImages.gridOf;
-  Color listIconColor = Colors.grey; 
+  Color listIconColor = Colors.blue; 
+  bool isButtonPressed = false;
   GetStorage box = GetStorage();
   bool visible = false;
     @override
@@ -52,7 +53,6 @@ final adfavUser = Get.put(UserFavController());
   _getUserLocation() async {
     position  = await GeolocatorPlatform.instance
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
     setState(() {
       _latLng =  LatLng(position.latitude, position.longitude);
       print("///.............-------.............>$_latLng");
@@ -66,9 +66,9 @@ final adfavUser = Get.put(UserFavController());
  void setMarkers(LatLng point, data) {
     final String markersId = 'marker_id_$_makrr_id_counter';
     _makrr_id_counter++;
-    print(".................-==--==-=--==-=--=-=");
       _markers.add(
-        Marker(markerId: MarkerId(markersId),
+        Marker(
+          markerId: MarkerId(markersId),
         position: point,
         onTap: () {
           setState(() {
@@ -209,14 +209,14 @@ final adfavUser = Get.put(UserFavController());
               _latLng =LatLng(val.allLoc['data']['data'][i]['long'],val.allLoc['data']['data'][i]['long']);
             }
           }
-          print("--------------------------------------$_latLng");
+          // print("--------------------------------------$_latLng");
           return  Stack(
             children: [
               listtype == 'map' ? 
               Stack(
                 children: <Widget>[
                   val.allLoc != null ? 
-                  googleMap(_latLng):Container(),
+                  googleMap(val.latLng):Container(),
                   CustomInfoWindow(
                     controller: _customInfoWindowController,
                     height: Get.height/6,
@@ -252,13 +252,19 @@ final adfavUser = Get.put(UserFavController());
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+        ),
+        
         child: Row(
           children: [
             IconButton(
+              
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
+                    isButtonPressed = !isButtonPressed;
                     listIconColor = Colors.grey;
                     grid = AppImages.grid;
                   });
@@ -269,10 +275,12 @@ final adfavUser = Get.put(UserFavController());
                 bottom: 10,
               ),
               child: IconButton(
+                color: isButtonPressed ? Colors.grey : Colors.blue,
                   onPressed: () {
                     setState(() {
                       listtype = 'map';
-                      listIconColor = AppColors.appBarBackGroundColor;
+                      isButtonPressed = !isButtonPressed;
+                      listIconColor = Colors.blue;
                       grid = AppImages.gridOf;
                     });
                   },
@@ -426,30 +434,29 @@ void handleClick(int item) {
   }
 }
 Widget googleMap(kInitialPosition){ 
+ return StatefulBuilder(builder: (context, newSetState) {
   return Container(
     height: Get.height,
     child: 
     GoogleMap(
+      mapType: MapType.normal,
       onTap: (position) {
-        setState(() {
-          
-        });
-       
       },
       onCameraMove: (position) {
         _customInfoWindowController.onCameraMove!();
       },
       onMapCreated: (GoogleMapController controller) async {
+         print("............,,.,.,.,$kInitialPosition");
         _customInfoWindowController.googleMapController = controller;
-      },
-      
+      },   
       initialCameraPosition: CameraPosition(
         target: kInitialPosition,
-        // zoom: _zoom,
+        zoom: _zoom,
       ),
       markers: _markers.toSet(),
     ),
     );
+ });
 }
 }
 

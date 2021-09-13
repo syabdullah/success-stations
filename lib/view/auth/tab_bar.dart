@@ -53,6 +53,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                           'Student',
                           style: TextStyle(
                             color: Colors.grey ,
+                            fontSize: 18
                             // controller1.index==1 ?  Colors.blue : Colors.grey
                           
                           )
@@ -60,7 +61,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                       ),
                       Tab(
                         child: Text(
-                          'company', style: TextStyle(color: Colors.grey)
+                          'Company', style: TextStyle(color: Colors.grey,fontSize: 18),
                         )
                       ),
                     ]

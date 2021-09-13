@@ -4,15 +4,9 @@ import 'package:get/get.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/controller/adwithus_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/styling/text_field.dart';
-import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/view/ads.dart';
-import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 
 class AdvertisePage extends StatefulWidget {
   AdvertiseStatePage createState() => AdvertiseStatePage();

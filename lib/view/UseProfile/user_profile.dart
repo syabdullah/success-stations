@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class UserProfile extends StatefulWidget {
@@ -15,11 +14,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   final banner = Get.put(BannerController());
   bool liked = false;
    GetStorage box = GetStorage();
+   var lang;
   var userimage;
   var id ;
   @override
   void initState() {
     super.initState();
+    lang = box.read('lang_code');
     userimage = box.read('user_image');
     //  id = Get.arguments;
     // print("../././....----------$id");
@@ -64,6 +65,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             child: Image.asset(AppImages.profileBg,fit: BoxFit.fill)
           ),
         ),
+       
         Container(
           margin: EdgeInsets.only(top:30),
           child: Row(
@@ -74,7 +76,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   Get.to(BottomTabs());
                   banner.bannerController();
                 },
-                icon: Icon(Icons.arrow_back,color: Colors.black)
+                icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
               // Center(
               //   widthFactor: 3,
@@ -90,6 +92,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           children: [
             Center(
               child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color:Colors.white,width: 3),
+                   shape: BoxShape.circle,
+                ),
                 margin: EdgeInsets.only(left:10.0,right:10.0,top:Get.height/8.5),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[100],
@@ -135,7 +141,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.only(left: 20),
+                       margin: lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +195,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                               child:Text("email".tr)
                                             ),
                                             Container(
-                                              margin: EdgeInsets.only(top:5,left: 20),
+                                              margin: lang == 'ar'? EdgeInsets.only(right:20,top:5) :EdgeInsets.only(left: 20,top:5),
                                               child: Text(userData["email"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
 
                                           ],
@@ -253,7 +259,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           Card(
             elevation: 2,
             child: Container(
-              margin: EdgeInsets.only(left:20),
+              margin: lang == 'ar'? EdgeInsets.only(right:20,top:5) :EdgeInsets.only(left: 20,top: 5),
               child: Column(
                 children: [
                   Row(
@@ -329,7 +335,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
           ),
           Card(
             child: Container(
-              padding: EdgeInsets.only(left:20),
+              padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
