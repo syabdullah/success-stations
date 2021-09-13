@@ -15,13 +15,10 @@ class AboutUs extends StatefulWidget {
 }
  
 class _AboutUsState extends State<AboutUs> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: CustomBottomBar(),
-      appBar: AppBar(title: Text('about_us'.tr),backgroundColor: AppColors.appBarBackGroundColor,),
+      appBar: AppBar(centerTitle: true,title: Text('about_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: GetBuilder<ContentManagmentController>( 
         init: ContentManagmentController(),
         builder:(val) {
