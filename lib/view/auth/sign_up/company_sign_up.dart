@@ -683,7 +683,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "enter_iqama_number".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
@@ -717,7 +717,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "Responsible".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
@@ -836,37 +836,40 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   radioalert() {
-    return Row(
-      children: [
-        Container(
-          padding:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10),
-          child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
-        ),
-        Expanded(
-          flex: 2,
-          child: Row(
-            children: _group.map((t) => 
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Radio(
-                    value: t.index,
-                    groupValue: v,
-                    activeColor: Colors.blue,
-                    onChanged: (int?value ) {
-                      setState(() {
-                        v = value!;
-                      });
-                    },
-                  ),Container(
-                  child: Text(t.text,style: TextStyle(fontSize: 16,color: Colors.grey),),)
-                ],
-              ),
-            )).toList()
+    return Container(
+      margin:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10,right: 20),
+      child: Row(
+        children: [
+          Container(
+            padding:lang == 'ar'? EdgeInsets.only(right:30) :EdgeInsets.only(left:10),
+            child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
           ),
-        ),
-      ],
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: _group.map((t) => 
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Radio(
+                      value: t.index,
+                      groupValue: v,
+                      activeColor: Colors.blue,
+                      onChanged: (int?value ) {
+                        setState(() {
+                          v = value!;
+                        });
+                      },
+                    ),Container(
+                    child: Text(t.text,style: TextStyle(fontSize: 16,color: Colors.grey),),)
+                  ],
+                ),
+              )).toList()
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -258,8 +258,8 @@ const Map<String, String> en = {
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',
-  'filtered_result':'FILTERED RESULTS'
-
+  'filtered_result':'FILTERED RESULTS',
+  'payme':'You are using the free version please upgrade your package to full access'
 };
 
 

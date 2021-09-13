@@ -193,7 +193,6 @@ class _SignPageState extends State<StudentSignUp> {
                       value: _isChecked,
                       onChanged: (value) {
                         setState(() {
-                          print("hbsdbjhsdbjshgdSjhgd on changed......>>>>>>>$value");
                           _isChecked= value!;
                           // _isChecked= true;
                         });
