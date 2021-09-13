@@ -239,6 +239,6 @@ const Map<String, String> ar = {
   'email_required':'البريد الإلكتروني (مطلوب',
   'enter_password':'أدخل كلمة المرور',
   'pass_to_short':'كلمة المرور أقصر مما يجب',
-  'filtered_result':'النتائج المصنفة'
+  "Select_your_prefered_language":'حدد لغتك المفضلة'
  
 };

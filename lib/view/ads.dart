@@ -266,7 +266,7 @@ class _AdsViewState extends State<AdsView> {
   }
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
-      // margin: EdgeInsets.symmetric(vertical:5),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -312,7 +312,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5),
+      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -349,13 +349,14 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5),
-      height: Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      height: Get.width < 400 ? Get.height/3.2 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (BuildContext context,index) {
+          print("......../././././././${data[index]['title']}");
           var doubleval = double.parse(data[index]['price']);
           var price = doubleval.toInt();
           return 
@@ -477,7 +478,7 @@ class _AdsViewState extends State<AdsView> {
                         ),
                       ),
                       Container(
-                         margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 5),
+                         margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 10),
                         child: data[index]['price'] !=null ? Text(
                           'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
                         ): Container()
