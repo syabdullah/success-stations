@@ -150,7 +150,7 @@ class AddOffersState extends State<AddOffersPage> {
     final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-      appBar:  AppBar( key: _scaffoldKey,backgroundColor:Colors.blue,title: Text( postDataEdited ==null ?'ADD OFFER':'EDIT OFFER'),centerTitle: true,),
+      appBar:  AppBar( key: _scaffoldKey,backgroundColor:AppColors.appBarBackGroundColor,title: Text( postDataEdited ==null ?'ADD OFFER':'EDIT OFFER'),centerTitle: true,),
       body: SingleChildScrollView(
         child:Form(
           key: formKey,

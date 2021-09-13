@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
@@ -30,7 +31,7 @@ class _MyLocationsState extends State<MyLocations> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-      backgroundColor:Colors.blue,title: Text('MY LOCATIONS'),centerTitle: true,
+      backgroundColor:AppColors.appBarBackGroundColor,title: Text('MY LOCATIONS'),centerTitle: true,
       leading: IconButton(onPressed: () => _scaffoldKey.currentState!.openDrawer(), icon: Icon(Icons.arrow_back_ios)),
     ),  
     
