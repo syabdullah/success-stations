@@ -74,10 +74,13 @@ Widget sAppbar(context ,icon,image,) {
       leading: 
       // Padding(
         // padding: const EdgeInsets.only(top:10.0),
-        IconButton(
-          icon: Icon(icon,
-          color: AppColors.backArrow),
-          onPressed: () => Navigator.of(context).pop(),
+        Padding(
+          padding: const EdgeInsets.only(top:15.0),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       //
       //  ),
@@ -88,7 +91,32 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-
+  Widget stringAppbars(context ,icon,string) {
+    return AppBar(
+      // automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading: 
+        Container(
+          margin: EdgeInsets.only(top:5),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+      //
+      //  ),
+      title: Container(
+        margin: EdgeInsets.only(top:10),
+        child: Center(
+          child: Text(
+            string
+          )
+        ),
+      ), 
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
   Widget stringAppbar(context ,icon,string ,searchImage,) {
     return AppBar(
       // automaticallyImplyLeading: false,
