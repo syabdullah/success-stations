@@ -16,7 +16,6 @@ class AppColors {
    static Color themecolor = Color(0xFF4AA6E);
 
   // login
-
   static Color facebook = Color(0xFF3A5CA9);
   static Color google = Color(0xFFA09D9E);
   //forrgort
