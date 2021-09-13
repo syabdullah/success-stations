@@ -257,5 +257,7 @@ const Map<String, String> ar = {
   'enter_password':'أدخل كلمة المرور',
   'pass_to_short':'كلمة المرور أقصر مما يجب',
   "Select_your_prefered_language":'حدد لغتك المفضلة',
+  'filtered_result':'النتائج المصنفة',
+ 
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
 };
