@@ -223,7 +223,7 @@ class _SignPageState extends State<SignIn> {
             child: DropdownButton(
           hint: Text(
               //lang == 'en' ? 'Englis' : 'Arabic',
-              hintTextLang != null ? hintTextLang : lang,
+              hintTextLang != null ? hintTextLang :hintTextLang==null?Container(): lang,
               style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
           dropdownColor: AppColors.inPutFieldColor,
           icon: Icon(

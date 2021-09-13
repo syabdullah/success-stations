@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
@@ -12,9 +12,7 @@ import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 
@@ -101,7 +99,7 @@ class _AllAddsState extends State<AllAdds> {
       ? PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
-          context, Icons.arrow_back_ios_new_sharp,
+          '', Icons.arrow_back_ios_new_sharp,
           'All ads', AppImages.appBarSearch
         )
       )
@@ -184,7 +182,7 @@ class _AllAddsState extends State<AllAdds> {
                 margin: lang == 'en'
                 ? EdgeInsets.only(left: 10, top: 10)
                 : EdgeInsets.only(right: 10, top: 10),
-                child: Image.asset(AppImages.plusImage, height: 24)
+                child: Image.asset(AppImages.plusImage,height: 24)
               ),
             )
           ],
@@ -195,7 +193,9 @@ class _AllAddsState extends State<AllAdds> {
           : EdgeInsets.only(right: 20),
           child: Row(
             children: [
-              IconButton(
+              CupertinoButton(
+                minSize: double.minPositive,
+                padding: EdgeInsets.zero,
                 onPressed: () {
                   setState(() {
                     listtype = 'grid';
@@ -206,10 +206,13 @@ class _AllAddsState extends State<AllAdds> {
                     grid = AppImages.grid;
                   });
                 },
-                icon: Image.asset(grid,height: 50,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
               ),
+              SizedBox(width: 5,),
               Container(
-                child: IconButton(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
@@ -220,10 +223,10 @@ class _AllAddsState extends State<AllAdds> {
                       listImg = AppImages.listing;
                     });
                   },
-                  icon: Image.asset(listImg,height: 50,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
                 ),
               ),
-              SizedBox(height: 30,width: 15)
+              SizedBox(height: 10,width: 15)
             ],
           ),
         
@@ -243,7 +246,7 @@ class _AllAddsState extends State<AllAdds> {
       ),
       builder: (context) {
         return FractionallySizedBox(
-          heightFactor: 1.0,
+          heightFactor: 0.8,
           child: StatefulBuilder(
             builder: (
               BuildContext context,void Function(void Function()) setState) {
@@ -288,8 +291,8 @@ class _AllAddsState extends State<AllAdds> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: Get.height * 0.04),
-                            Container(
+                            SizedBox(height: Get.height * 0.01),
+                              Container(
                               margin: lang == 'en'
                               ? EdgeInsets.only(top: 8, left: 8)
                               : EdgeInsets.only(top: 8, right: 8),
@@ -308,7 +311,7 @@ class _AllAddsState extends State<AllAdds> {
                                 )
                                 : data.subCatt != null && data.subCatt['data'] != null
                                   ? Container(
-                                    height: Get.height / 10,
+                                    height: Get.height * 0.035,
                                     child: ListView.builder(
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
@@ -318,6 +321,7 @@ class _AllAddsState extends State<AllAdds> {
                                         return Row(
                                           children: [
                                             Container(
+                                              height: Get.height * 0.035,
                                               margin: lang == 'en'
                                               ? EdgeInsets.only(left: 8.0)
                                               : EdgeInsets.only(right: 8.0),
@@ -333,7 +337,7 @@ class _AllAddsState extends State<AllAdds> {
                                                     borderRadius: BorderRadius.circular(5.0),
                                                     border: Border.all(color: Colors.blue),
                                                     color: filteredIndex == index
-                                                    ? AppColors.appBarBackGroundColor
+                                                    ? AppColors.appCategSeleGroundColor
                                                     : Colors.white,
                                                     boxShadow: [
                                                       BoxShadow(
@@ -343,12 +347,12 @@ class _AllAddsState extends State<AllAdds> {
                                                       ),
                                                     ],
                                                   ),
-                                                  padding: EdgeInsets.all(10.0),
+                                                  padding: EdgeInsets.all(4.0),
                                                   child: data.subCatt['data'] !=null
                                                   ? Text(data.subCatt['data'][index]['category']['en'],
                                                     style: TextStyle(
                                                       color: filteredIndex == index
-                                                      ? Colors.white
+                                                      ? AppColors.appBarBackGroundColor
                                                       : AppColors.appBarBackGroundColor,
                                                       fontSize: 12,
                                                       fontWeight: FontWeight.w400,
@@ -373,13 +377,13 @@ class _AllAddsState extends State<AllAdds> {
                               : EdgeInsets.only(top: 8, right: 8),
                               child: Text("condition".tr,
                                 style: TextStyle(
-                                  fontSize: 18, color: Colors.grey
+                                  fontSize: 15, color: Colors.grey
                                 )
                               )
                             ),
-                            SizedBox(height: 10),
+                            //SizedBox(height: 10),
                             Container(
-                              height: Get.height * 0.05,
+                              height: Get.height * 0.035,
                               child: new ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -397,12 +401,12 @@ class _AllAddsState extends State<AllAdds> {
                                       ? EdgeInsets.only(left: 8)
                                       : EdgeInsets.only(right: 8),
                                       width: Get.width / 5,
-                                      height: Get.height / 2,
+                                      height: Get.height / 3,
                                       decoration: BoxDecoration(
                                         // ignore: unnecessary_null_comparison
                                         color: _selectedIndex != null &&
                                         _selectedIndex == index
-                                        ? AppColors.appBarBackGroundColor
+                                        ? AppColors.appCategSeleGroundColor
                                         : Colors.white, border: Border.all(
                                           color: AppColors.appBarBackGroundColor,
                                           width: 1,
@@ -419,7 +423,7 @@ class _AllAddsState extends State<AllAdds> {
                                             style: TextStyle(
                                               fontSize: 15,
                                               color: _selectedIndex == index
-                                              ? Colors.white
+                                              ? AppColors.appBarBackGroundColor
                                               : AppColors.appBarBackGroundColor
                                             )
                                           ),
@@ -430,14 +434,15 @@ class _AllAddsState extends State<AllAdds> {
                                 }
                               ),
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
+                                  //height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, left: 8)
-                                  : EdgeInsets.only(top: 8, right: 8),
+                                  ? EdgeInsets.only(top: 2, left: 8)
+                                  : EdgeInsets.only(top: 2, right: 8),
                                   child: Text("price".tr,
                                     style: TextStyle(
                                       fontSize: 18, color: Colors.grey // fontWeight: FontWeight.bold,
@@ -445,12 +450,13 @@ class _AllAddsState extends State<AllAdds> {
                                   ),
                                 ),
                                 Container(
+                            //height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, left: 8)
-                                  : EdgeInsets.only(top: 8, right: 8),
+                                  ? EdgeInsets.only(top: 2, left: 8)
+                                  : EdgeInsets.only(top: 2, right: 8),
                                   child: Text("SAR 0 - SAR 10000 ",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 15,
                                       color: Colors.grey,
                                       fontWeight: FontWeight.normal
                                     )
@@ -460,14 +466,15 @@ class _AllAddsState extends State<AllAdds> {
                             ),
                             Container(
                               margin: lang == 'en'
-                              ? EdgeInsets.only(top: 8, left: 8)
-                              : EdgeInsets.only(top: 8, right: 8),
+                              ? EdgeInsets.only(top: 4, left: 8)
+                              : EdgeInsets.only(top: 4, right: 8),
                               child: RangeSlider(
                                 values: _currentRangeValues,
                                 min: 1.00,
                                 max: 10000.00,
                                 // divisions: 5,
                                 labels: RangeLabels(
+                                  
                                   _currentRangeValues.start.round().toString(),
                                   _currentRangeValues.end.round().toString(),
                                 ),
@@ -488,11 +495,12 @@ class _AllAddsState extends State<AllAdds> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Container(
+                                  height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 6, bottom: 6, left: 8)
-                                  : EdgeInsets.only(top: 6, bottom: 6, right: 8),
+                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+                                  : EdgeInsets.only(top: 8, bottom: 6, right: 8),
                                   width: Get.width / 3,
-                                  height: Get.height / 18,
+                                  //height: Get.height / 18,
                                   decoration: BoxDecoration(
                                     color: Colors.grey[100],
                                     borderRadius: BorderRadius.all(Radius.circular(5))
@@ -510,13 +518,14 @@ class _AllAddsState extends State<AllAdds> {
                                     }
                                   ),
                                 ),
-                                SizedBox(width: 30),
+                                SizedBox(width: 20),
                                 Container(
+                                  height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 6, bottom: 6, left: 8)
-                                  : EdgeInsets.only(top: 6, bottom: 6, right: 8),
+                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+                                  : EdgeInsets.only(top: 8, bottom: 6, right: 8),
                                   width: Get.width / 3,
-                                  height: Get.height / 18,
+                                  //height: Get.height / 18,
                                   decoration: BoxDecoration(
                                     color: AppColors.appBarBackGroundColor,
                                     borderRadius: BorderRadius.all(Radius.circular(5))
@@ -746,6 +755,7 @@ class _AllAddsState extends State<AllAdds> {
   var ind = 0;
   myAddGridView(dataListValue) {
     return Container(
+      margin: EdgeInsets.only(bottom:20),
       width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
@@ -780,8 +790,8 @@ class _AllAddsState extends State<AllAdds> {
                             width: Get.width < 420
                             ? Get.width / 1.4
                             : Get.width / 2.3,
-                            height: Get.height / 6.0,
-                            // height: Get.height / 8.0,
+                            //height: Get.height / 6.0,
+                             height: Get.height / 8.0,
                             child: dataListValue[index]['image'].length != 0
                             ? Image.network(
                               dataListValue[index]['image'][0]['url'],
