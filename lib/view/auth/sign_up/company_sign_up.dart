@@ -90,9 +90,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
   void initState() {
     super.initState();
     counCode = Get.arguments;
-    // shortCode = counCode[0].toString();
-    companyCode = PhoneNumber(isoCode: shortCode);
-    print("countryIdGetcountryIdGetcountryIdGet$shortCode");
     errorCheck = true;
   }
 
@@ -132,7 +129,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text,
         // 'service_ids[]': selectedValues
       };
-      print("....>!!!!!!!!!!!!!!..//////..........$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -418,10 +414,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 
               ),
                 onInputChanged: (PhoneNumber number) {
-                  print(number.phoneNumber);
                 },
                 onInputValidated: (bool value) {
-                  print(value);
                 },
                 selectorConfig: SelectorConfig(
                   selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -436,7 +430,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     TextInputType.numberWithOptions(signed: true, decimal: true),
                 inputBorder: OutlineInputBorder(),
                 onSaved: (PhoneNumber number) {
-                  print('On Saved: $number');
+                  
                 },
               ),
       );
@@ -444,49 +438,22 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   var finalDate;
   Widget companyDob() {
-    // return Container(
-    //   margin:EdgeInsets.only(left:20, right: 20),
-    //   width: Get.width * 0.9,
-    //   child: CustomTextFiled(
-    //     isObscure: false,
-    //     hintText: "date_of_birth".tr,
-    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-    //     hintColor: AppColors.inputTextColor,
-    //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},
-    //     textController: dobController,
-    //     onSaved: (String? newValue) {
-    //     },
-    //     validator: (value) {
-    //       String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-    //       RegExp regExp = RegExp(pattern);
-    //       if (value.length == 0) {
-    //         return 'Enter your DOB';
-    //         } else if (!regExp.hasMatch(value)) {
-    //         return 'Enter a valid birthday format is yyyy-mm-dd';
-    //         }
-    //         return null;
-    //       },
-    //     errorText: '',
-    //   ),
-    // );
-  return Container(
+    return Container(
       height: 55,
-          padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
-          margin: EdgeInsets.only(left: 18,right: 20,bottom: 10),
-          decoration: BoxDecoration(
-            color:AppColors.inputColor,
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppColors.outline)
-          ),
-          child:   GestureDetector(
-          onTap: () {
+        padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
+        margin: EdgeInsets.only(left: 18,right: 20,bottom: 10),
+        decoration: BoxDecoration(
+          color:AppColors.inputColor,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: AppColors.outline)
+        ),
+        child:   GestureDetector(
+        onTap: () {
           showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now())
-              .then((date) {
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now()).then((date) {
             setState(() {
               dateTime = date;
               finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
@@ -502,15 +469,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
               child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {
                 showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now())
-                    .then((date) {
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now()).then((date) {
                   setState(() {
                     dateTime = date;
                     finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                    print("..................$finalDate");
                   });
                 });
               },
@@ -711,47 +676,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         )
       )
     );
-    
-    //  Container(
-    //   alignment: Alignment.center,
-    //   padding: EdgeInsets.all(20),
-    //   child: Form(
-    //     key: _formKey,
-    //     autovalidateMode: AutovalidateMode.always,
-    //     child: Column(
-    //       children: [
-    //         MultiSelectFormField(
-    //           autovalidate: false,
-    //           chipBackGroundColor: Colors.grey[200],
-    //           chipLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-    //           dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
-    //           checkBoxActiveColor: Colors.white,
-    //           checkBoxCheckColor: Colors.green,
-    //           dialogShapeBorder: RoundedRectangleBorder(
-    //               borderRadius: BorderRadius.all(Radius.circular(12.0))),
-    //           title: Text(
-    //             "services".tr,
-    //             style: TextStyle(fontSize: 18),
-    //           ),
-    //           dataSource: allServices !=null ? allServices: '' ,
-    //           textField: 'servics_name',
-    //           valueField: 'id',
-    //           okButtonLabel: 'OK',
-    //           cancelButtonLabel: 'CANCEL',
-    //           hintWidget: Text('more'.tr,style: TextStyle(fontSize: 18),),
-    //           onSaved: (value) {
-    //             if (value == null) return;
-    //             setState(() {
-    //              selectedValues = value;
-    //             });
-    //           },
-    //         ),
-
-    //       ]
-    //     ),
-    //   )
-    // );
-     
   }
 
   Widget iqama() {
@@ -815,51 +739,51 @@ class _CompanySignPageState extends State<CompanySignUp> {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: InternationalPhoneNumberInput(
           
-                inputDecoration:   InputDecoration(
-                contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-                fillColor: AppColors.inputColor,
-                filled: true,
-                border: InputBorder.none,
-                errorBorder: OutlineInputBorder(
-                   borderSide: BorderSide(
-                    color: Colors.red
-                  ),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                   borderSide: BorderSide(
-                    color: Colors.red
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.outline
-                  ),
-                ),
-                hintText: "Mobile",
-                hintStyle: TextStyle(color: Colors.grey)
-              ),
-                onInputChanged: (PhoneNumber number) {
-                  print(number.phoneNumber);
-                },
-                onInputValidated: (bool value) {
-                  print(value);
-                },
-                selectorConfig: SelectorConfig(
-                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                ),
-                ignoreBlank: false,
-                autoValidateMode: AutovalidateMode.disabled,
-                selectorTextStyle: TextStyle(color: Colors.black),
-                // initialValue: n,
-                // textFieldController: mobileController,
-                formatInput: false,
-                keyboardType:
-                    TextInputType.numberWithOptions(signed: true, decimal: true),
-                inputBorder: OutlineInputBorder(),
-                onSaved: (PhoneNumber number) {
-                  print('On Saved: $number');
-                },
-              ),
+          inputDecoration:   InputDecoration(
+          contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+          fillColor: AppColors.inputColor,
+          filled: true,
+          border: InputBorder.none,
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+              color: Colors.red
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+              color: Colors.red
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.outline
+            ),
+          ),
+          hintText: "Mobile",
+          hintStyle: TextStyle(color: Colors.grey)
+        ),
+          onInputChanged: (PhoneNumber number) {
+            print(number.phoneNumber);
+          },
+          onInputValidated: (bool value) {
+            print(value);
+          },
+          selectorConfig: SelectorConfig(
+            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          ),
+          ignoreBlank: false,
+          autoValidateMode: AutovalidateMode.disabled,
+          selectorTextStyle: TextStyle(color: Colors.black),
+          // initialValue: n,
+          // textFieldController: mobileController,
+          formatInput: false,
+          keyboardType:
+              TextInputType.numberWithOptions(signed: true, decimal: true),
+          inputBorder: OutlineInputBorder(),
+          onSaved: (PhoneNumber number) {
+            print('On Saved: $number');
+          },
+        ),
       );
   }
 
@@ -875,8 +799,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
-        onFieldSubmitted: (value) {},
-        // isObscure: true,
+        onFieldSubmitted: (value) {}, 
         textController: crController,
         validator: (value) {
           String patttern = r'(^[a-zA-Z ]*$)';
@@ -916,7 +839,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Row(
       children: [
         Container(
-         
           padding:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10),
           child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
         ),
@@ -938,7 +860,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       });
                     },
                   ),Container(
-                    
                   child: Text(t.text,style: TextStyle(fontSize: 16,color: Colors.grey),),)
                 ],
               ),
