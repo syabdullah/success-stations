@@ -119,6 +119,7 @@ const Map<String, String> ar = {
   "search_service": "خدمة البحث",
   "profile": "الملف الشخصي",
   "my_ads": "إعلاناتي",
+  'my_adss':'إعلاناتي',
   "messeges": "إعلاناتي",
   "favourite": "المفضل",
   "membership": "عضوية",
@@ -126,6 +127,7 @@ const Map<String, String> ar = {
   "about_us": "معلومات عنا",
   "advertise_with_us": "أعلن معنا",
   "privacy": "خصوصية",
+  "privacydr": "خصوصية",
   "user_agreement": "اتفاقية المستخدم",
   "contactus": "اتصل بنا",
   "add_a_comment": "اضف تعليق",
@@ -260,4 +262,5 @@ const Map<String, String> ar = {
   'filtered_result':'النتائج المصنفة',
  
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
+  'newad':'إضافة إعلان جديد'
 };

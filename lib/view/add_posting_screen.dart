@@ -344,6 +344,9 @@ var typeId;
       width: 130.w,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: AppColors.appBarBackGroundColor
+        ),
         onPressed:  () {   // Increment activeStep, when the next button is tapped. However, check for upper bound.
           if (activeStep < upperBound && _formKey.currentState!.validate()) {
             setState(() {
@@ -947,7 +950,7 @@ Widget secondStep(){
       margin: EdgeInsets.symmetric(horizontal: 15.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-        primary: Colors.blue,
+        primary: AppColors.appBarBackGroundColor,
         textStyle: TextStyle(
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
