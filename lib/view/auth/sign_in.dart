@@ -31,11 +31,13 @@ class _SignPageState extends State<SignIn> {
   var selectedLang;
   var hintTextLang;
   GetStorage box = GetStorage();
+  var lang;
 
   @override
   void initState() {
     super.initState();
-    box.write('lang_code', 'en');
+    lang = box.read('lang');
+    print("........<><><><><><><//dekh////////\///\/\/\/......$lang");
     GoogleSignInC().singIn();
     loginCont.resultInvalid(false);
     errorCheck = true;
@@ -63,7 +65,9 @@ class _SignPageState extends State<SignIn> {
           title: GetBuilder<LanguageController>(
             init: LanguageController(),
             builder: (val) {
-              return val.languageList['data']==null?Container():language(val.languageList['data']);
+              return val.languageList['data'] == null
+                  ? Container()
+                  : language(val.languageList['data']);
             },
           ),
         ),
@@ -124,7 +128,7 @@ class _SignPageState extends State<SignIn> {
                                 bgcolor: AppColors.appBarBackGroundColor,
                                 textColor: AppColors.appBarBackGroun,
                                 buttonText: "login".tr,
-                                fontSize:20.0,
+                                fontSize: 20.0,
                                 callback: signIn),
                             Container(
                               margin: EdgeInsets.only(
@@ -139,7 +143,10 @@ class _SignPageState extends State<SignIn> {
                                     // SizedBox(
                                     //   width: 3,
                                     // ),
-                                    Text("or".tr,style: TextStyle(color: Colors.grey),),
+                                    Text(
+                                      "or".tr,
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                     SizedBox(
                                       width: 3,
                                     ),
@@ -210,12 +217,13 @@ class _SignPageState extends State<SignIn> {
   }
 
   Widget language(List data) {
-    print("....<><><><><><><><><><><><>..//////......$data");
     return ButtonTheme(
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
             child: DropdownButton(
-          hint: Text(hintTextLang != null ? hintTextLang : 'English'.tr,
+          hint: Text(
+              //lang == 'en' ? 'Englis' : 'Arabic',
+              hintTextLang != null ? hintTextLang : lang,
               style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
           dropdownColor: AppColors.inPutFieldColor,
           icon: Icon(
@@ -301,7 +309,10 @@ class _SignPageState extends State<SignIn> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Dont_have_account".tr,style: TextStyle(color: Colors.grey),),
+          Text(
+            "Dont_have_account".tr,
+            style: TextStyle(color: Colors.grey),
+          ),
           GestureDetector(
               onTap: () {
                 print("ontap itmemmm.....>!!!");
