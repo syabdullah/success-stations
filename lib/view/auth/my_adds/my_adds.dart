@@ -26,11 +26,12 @@ class _MyAddsState extends State<MyAdds> {
    final friCont = Get.put(FriendsController()); 
    final deleteAd = Get.put(AdDeletingController());
    final adStatus = Get.put(AdPostingController());
-  var listtype = 'list';
+  var listtype = 'grid';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
-  Color listIconColor = Colors.blue;
+  Color gridIconColor = AppColors.appBarBackGroundColor;
+  Color listIconColor = Colors.grey;
    bool liked = false;
   var lang;
   bool _value = true;
@@ -77,7 +78,6 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                  // print("mejmej me j mje ${val.cData}");
                 return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
                   children: [
                     Container(
@@ -144,6 +144,7 @@ class _MyAddsState extends State<MyAdds> {
                   setState(() {
                     listtype = 'grid';
                     isButtonPressed = !isButtonPressed;
+                    gridIconColor = AppColors.appBarBackGroundColor;
                     listIconColor = Colors.grey;
                     grid = AppImages.grid;
                   });             
@@ -151,7 +152,7 @@ class _MyAddsState extends State<MyAdds> {
                 icon: 
                 // Container(
                   // height: 100,
-                  Image.asset(grid),
+                  Image.asset(grid,color: gridIconColor,),
               ),
               Container(
                 margin: EdgeInsets.only(bottom:15),
@@ -159,7 +160,8 @@ class _MyAddsState extends State<MyAdds> {
                   onPressed: (){
                     setState(() {
                       listtype = 'list';
-                      listIconColor = Colors.blue;
+                      gridIconColor = Colors.grey;
+                      listIconColor = AppColors.appBarBackGroundColor;
                       grid = AppImages.gridOf;
                     });
                   },

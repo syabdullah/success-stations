@@ -85,7 +85,7 @@ class _FriendReqListState extends State<FriendReqList> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
             count == 1  ?  Container(
-              margin: EdgeInsets.only(top: 20,left: 20),
+              margin: EdgeInsets.only(top: 20,left: 20,right: 20),
               child: Text(
                 'frien_request'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
@@ -252,7 +252,7 @@ class _FriendReqListState extends State<FriendReqList> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
               i == 0 ?  Container(
-              margin: EdgeInsets.only(top: 20,left: 20,bottom: 10),
+              margin: EdgeInsets.only(top: 20,left: 20,bottom: 10, right: 20),
               child: Text(
                 "suggestion".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
@@ -309,7 +309,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         friCont.getSuggestionsList();
                       },
                       child: Container( 
-                         margin:EdgeInsets.only(right:10),
+                         margin:EdgeInsets.only(right:10,left: 10),
                         alignment: Alignment.center,
                         width: Get.width/4.2,
                         height: 35.0,
@@ -343,7 +343,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         ),
                         child:
                         Container(
-                          margin:EdgeInsets.only(left:10),
+                          margin:EdgeInsets.only(left:10,right: 10),
                           child: Text(
                             'remove'.tr,
                             style:TextStyle(

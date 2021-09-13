@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/messages/inbox_action.dart';
 
 class ChatController extends GetxController {
@@ -9,9 +10,10 @@ class ChatController extends GetxController {
   var adsCreate;
   var chat;
   var allConvo;
+  var read;
   var allChat = [];
   
-
+  GetStorage box = GetStorage();
   @override
   void onInit(){
     allChat=[];
@@ -22,19 +24,29 @@ class ChatController extends GetxController {
   createConversation(data) async{
     isLoading = true ;
     await createconvo(data).then((res) {
-      adsCreate = jsonDecode(res.body);
-      // print("//.//././.------$adsCreate");
+      adsCreate = jsonDecode(res.body);    
       if(res.statusCode == 200 || res.statusCode < 400) {
-        getChatConvo(adsCreate['data']['id'],1);
-        
+         box.write('con_id',adsCreate['data']['id']);
+        getChatConvo(adsCreate['data']['id'],1);        
       }
-      isLoading = false;
-      
+      isLoading = false;      
     });
     update();
   }
 
-  
+  readConversation(data) async{
+    isLoading = true ;
+    await readMessage(data).then((res) {
+      read = jsonDecode(res.body);    
+      print(",.........$read");
+      if(res.statusCode == 200 || res.statusCode < 400) {   
+      }
+      isLoading = false;      
+    });
+    update();
+  }
+
+
   getChatConvo(id,page) async{
     isLoading = true ;
     allChat = [];
@@ -60,8 +72,7 @@ class ChatController extends GetxController {
   getAllConvo() async{
     isLoading = true ;
     await  getAllChats().then((res) {
-      allConvo = res.body;
-      
+      allConvo = res.body;   
       if(res.statusCode == 200 || res.statusCode < 400) {
         allConvo = jsonDecode(res.body);
         // print("//.//././.-----000000----$allConvo");/

@@ -69,8 +69,7 @@ class _AdsViewState extends State<AdsView> {
     lang = box.read('lang_code');
     print(newv);
     return Stack(
-      children: [
-       
+      children: [       
         ListView(
           padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
@@ -79,7 +78,7 @@ class _AdsViewState extends State<AdsView> {
                 builder: (data){
                   imgList = [];
                   return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
                     ],
@@ -168,7 +167,7 @@ class _AdsViewState extends State<AdsView> {
           items: imgList
           .map<Widget>((item) => Container(
           child: Container(
-            margin: EdgeInsets.only(top:5),
+            // margin: EdgeInsets.only(top:5),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
@@ -183,7 +182,7 @@ class _AdsViewState extends State<AdsView> {
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.1,
+            viewportFraction: 0.9*1.2,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {

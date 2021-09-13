@@ -240,7 +240,9 @@ const Map<String, String> en = {
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',
-  'filtered_result':'FILTERED RESULTS'
+  'filtered_result':'FILTERED RESULTS',
+  'addFriend':"Add Friend",
+  "Type_your_message_here":"Type your message here"
 
 };
 

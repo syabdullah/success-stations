@@ -110,7 +110,7 @@ Widget sAppbar(context ,icon,image,) {
         ),
       ), 
       actions: [
-        string != 'CHOOSE LANGUAGE' ?
+        string != 'choose_language_drop'.tr ?
         Padding(
           padding: const EdgeInsets.only(right: 10,),
           child:  Image.asset(
