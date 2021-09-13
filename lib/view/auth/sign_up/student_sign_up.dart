@@ -203,13 +203,14 @@ class _SignPageState extends State<StudentSignUp> {
                   Text(
                     'terms'.tr, 
                     style: TextStyle( 
-                      fontSize: 12,
-                      color: Colors.grey 
+                      fontSize: 14,
+                      color: Colors.grey,
+                       fontWeight: FontWeight.bold
                     )
                   ),
                   Text(
                     "terms_condition".tr, style: TextStyle(
-                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 12, )
+                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold )
                   ),
                 ],
               ),

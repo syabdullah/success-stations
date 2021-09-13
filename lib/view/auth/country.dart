@@ -45,28 +45,33 @@ Widget featureCountryList(countryListData) {
               },
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    height: Get.height / 6.25,
-                    width: Get.width / 3.4,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: selectedIndex == index
-                              ? AppColors.appBarBackGroundColor
-                              : Colors.transparent,
-                          width: 2),
-                      shape: BoxShape.circle,
-                      image: countryListData[index]['flag'] != null
-                          ? DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(
-                                  countryListData[index]['flag']['url']))
-                          : null,
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(TabBarPage());
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20),
+                      height: Get.height / 6.25,
+                      width: Get.width / 3.4,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: selectedIndex == index
+                                ? AppColors.appBarBackGroundColor
+                                : Colors.transparent,
+                            width: 2),
+                        shape: BoxShape.circle,
+                        image: countryListData[index]['flag'] != null
+                            ? DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(
+                                    countryListData[index]['flag']['url']))
+                            : null,
+                      ),
                     ),
                   ),
                   Container(
                       child: countryListData[index]['name'] != null
-                          ? Text(countryListData[index]['name'])
+                          ? Text(countryListData[index]['name'],style: TextStyle(color: AppColors.inputTextColor),)
                           : Container())
                 ],
               ),
@@ -141,20 +146,20 @@ Widget featureCountryList(countryListData) {
       ),
     );
   }
-
-  Widget existingAccount() {
+ Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/login');
+        Get.toNamed('/login');
       },
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("have_account".tr, 
-              style: TextStyle( fontSize: 17, fontWeight: FontWeight.w300,color: Colors.grey
+              style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300,color: Colors.grey
               ),
             ),
+            Text("sign_in".tr, style: TextStyle(fontSize: 18 ,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
@@ -165,7 +170,7 @@ Widget featureCountryList(countryListData) {
     return Container(
         child: Text(
       "choose_country".tr,
-      style: TextStyle(fontSize: 23, color: AppColors.black),
+      style: TextStyle(fontSize: 23, color: AppColors.inputTextColor),
     ));
   }
 

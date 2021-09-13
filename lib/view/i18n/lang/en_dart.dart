@@ -254,7 +254,7 @@ const Map<String, String> en = {
   'cr':'CR is Required',
   'crs':'Cr',
   'DegreeSU':"Degree",
-  'oR':'or',
+  'oR':'OR',
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',

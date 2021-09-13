@@ -283,12 +283,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   Text(
                     "terms".tr, 
                     style: TextStyle(
-                      fontFamily: 'Lato', fontSize: 12, fontWeight: FontWeight.w300
+                      fontFamily: 'Lato', fontSize: 14, fontWeight: FontWeight.bold
                     )
                   ),
                   Text(
                     "terms_condition".tr, style: TextStyle(
-                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 12, )
+                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 12,  fontWeight: FontWeight.bold)
                   ),
                 ],
               ),
