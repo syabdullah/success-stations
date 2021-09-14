@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ad_delete_controller.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
-import 'package:success_stations/controller/all_category_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
@@ -40,25 +40,23 @@ class _MyAddsState extends State<MyAdds> {
   GetStorage box = GetStorage();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // controller.addedAllAds();
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
-    print("............$lang");
     userId = box.read('user_id');
   }
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
-      key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
-       ),
+      // key: _scaffoldKey,
+      // appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+      //   child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
+      //  ),
+       appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
        drawer: Theme(
         data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
+       
         ),
         child: AppDrawer(),
       ),
@@ -87,7 +85,7 @@ class _MyAddsState extends State<MyAdds> {
                   ],
                 );
               },
-            ) :GetBuilder<AddBasedController>(
+            ):GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
                 return val.cData != null && val.cData['success'] == true ?  myAddGridView(val.cData['data']): ListView(
@@ -108,45 +106,31 @@ class _MyAddsState extends State<MyAdds> {
         children: [
           Row(
             children: [
-              // InkWell(
-              //   onTap: (){ _adsfiltringheet();},
-              //   child: Container(
-              //     margin: EdgeInsets.only(left:10),
-              //     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15) ,
-              //     color: Colors.grey[200],
-              //     child: Row(
-              //       children: [
-              //         Image.asset(AppImages.filter,height: 15),
-              //         SizedBox(width:5),
-              //         Text( 
-              //           'filter'.tr,style: TextStyle(color: Colors.grey[700]),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () {
                   Get.toNamed('/adPostingScreen');
                 },
                 child: Container(
-                  margin:EdgeInsets.only(left:10),
+                  margin:EdgeInsets.only(left:10,right: 10),
                   child: Image.asset(AppImages.plusImage, height:24)
                 ),
-              )
+              ),
+              Container(
+                margin:EdgeInsets.only(left:10,right: 10),
+                child: Text("newad".tr,style: TextStyle(color: Colors.grey,fontSize:18,))),
             ],
           ),
           Row(
             children: [
               IconButton(
-               color: isButtonPressed ? Colors.blue : Colors.grey,
+               color: isButtonPressed ? AppColors.appBarBackGroundColor : Colors.grey,
                 onPressed: (){
                   setState(() {
                     listtype = 'grid';
                     isButtonPressed = !isButtonPressed;
                     gridIconColor = AppColors.appBarBackGroundColor;
                     listIconColor = Colors.grey;
-                    grid = AppImages.grid;
+                    grid = AppImages.gridOf;
                   });             
                 },
                 icon: 
@@ -167,7 +151,7 @@ class _MyAddsState extends State<MyAdds> {
                   },
                   icon: Container(
                     padding:  EdgeInsets.only(top:10),
-                    child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
+                    child: Image.asset(AppImages.listing, color: listIconColor,height: 15)
                   )
                 ),
               ),
@@ -232,7 +216,7 @@ void _adsfiltringheet() {
                         child: Center(
                           child: Text(
                             "  Books  ",softWrap: true,
-                            style:  TextStyle(fontSize: 15, color: Colors.blue)
+                            style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
                           ),
                         ),
                       ),
@@ -253,7 +237,7 @@ void _adsfiltringheet() {
                         child: Center(
                           child: Text(
                             "  Engg Books  ",softWrap: true,
-                            style:  TextStyle(fontSize: 15, color: Colors.blue)
+                            style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
                           ),
                         ),
                       ),
@@ -284,7 +268,7 @@ void _adsfiltringheet() {
                               margin: EdgeInsets.only(left:5),
                               child: Text(
                                 "New",softWrap: true,textAlign: TextAlign.center,
-                                style:  TextStyle(fontSize: 15, color: Colors.blue)
+                                style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
                               ),
                             ),
                           ),
@@ -306,7 +290,7 @@ void _adsfiltringheet() {
                           child: Center(
                             child: Text(
                               "  Old  ",softWrap: true,
-                              style:  TextStyle(fontSize: 15, color: Colors.blue)
+                              style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
                             ),
                           ),
                         ),
@@ -361,7 +345,7 @@ void _adsfiltringheet() {
                         margin: EdgeInsets.only(top:20),
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                          color: Colors.blue,
+                          color: AppColors.appBarBackGroundColor,
                           child: Container(
                             width: Get.width / 4,
                             child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
@@ -442,7 +426,41 @@ void _adsfiltringheet() {
                                     ),
                                   ),
                                 ),
-                             
+                              Row(
+                            //
+                            children: [
+                              RatingBar.builder(
+                                ignoreGestures: true,
+                                initialRating: allDataAdds[index]['rating'].toDouble(),
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 13.5,
+                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+
+                                onRatingUpdate: (rating) {
+                                  //  var ratingjson = {
+                                  //    'ads_id' : userData[index]['id'],
+                                  //    'rate': rating
+                                  //  };
+                                  //  ratingcont.ratings(ratingjson );
+                                  //  ratingcont.getratings(userData[index]['id']);
+                                },
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "(${allDataAdds[index]['rating_count'].toString()})",
+                                    style: TextStyle(fontSize: 13),
+                                  )),
+                            ],
+                          ), 
                                 Expanded(
                                   // flex : 2,
                                   child:  Row(
@@ -552,17 +570,21 @@ void _adsfiltringheet() {
                             })
                         
                         ),
-                       Switch.adaptive(
-                         activeColor: Colors.blue,
-                         value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                        setState(() {
-                          allDataAdds[index]['is_active'] == 1 ?
-                          adStatus.deactiveAd(allDataAdds[index]['id']) :
-                          adStatus.activeAd(allDataAdds[index]['id']) ;
-                          controller.addedByIdAddes(catID, userId);
-                        });
-                      print(allDataAdds[index]['is_active']);
-                      }),   
+                       Transform.scale(
+                         scale: .7,
+                         child: Switch.adaptive(
+                           
+                           activeColor: AppColors.appBarBackGroundColor,
+                           value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                          setState(() {
+                            allDataAdds[index]['is_active'] == 1 ?
+                            adStatus.deactiveAd(allDataAdds[index]['id']) :
+                            adStatus.activeAd(allDataAdds[index]['id']) ;
+                            controller.addedByIdAddes(catID, userId);
+                          });
+                                             print(allDataAdds[index]['is_active']);
+                                             }),
+                       ),   
                       ],
                     ),
                   ],
@@ -576,12 +598,18 @@ void _adsfiltringheet() {
   }
   var ind = 0 ;
   myAddGridView(dataListValue) {
+    
     return Container(
-      width: Get.width / 1.10,
+      width: Get.width,
+
       child: GridView.count(
         crossAxisCount: 2,
+        childAspectRatio: Get.width/ 
+        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),
+        
         children: List.generate(
           dataListValue.length, (index) {
+            print("pase dooooooo ${dataListValue[index]['price']}");
             return ColorFiltered(
               colorFilter: ColorFilter.mode(
                 dataListValue[index]['is_active'] == 0 ?
@@ -618,9 +646,11 @@ void _adsfiltringheet() {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: Text( dataListValue[index]['title'][lang] !=null ?
-                           dataListValue[index]['title'][lang]: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                          margin: EdgeInsets.only(left: 10,right: 10),
+                          child: Center(
+                            child: Text( dataListValue[index]['title']['en'] !=null ?
+                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                          ),
                         ),
                         // dataListValue[index]['user']['address'] == null ? Container(): 
                         // Expanded(
@@ -638,42 +668,102 @@ void _adsfiltringheet() {
                         //     ],
                         //   ),
                         // ),
+                         Container(
+                           padding: EdgeInsets.only(left:10),
+                           child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RatingBar.builder(
+                                  ignoreGestures: true,
+                                  initialRating: dataListValue[index]['rating'].toDouble(),
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 13.5,
+                                  // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+
+                                  onRatingUpdate: (rating) {
+                                    //  var ratingjson = {
+                                    //    'ads_id' : userData[index]['id'],
+                                    //    'rate': rating
+                                    //  };
+                                    //  ratingcont.ratings(ratingjson );
+                                    //  ratingcont.getratings(userData[index]['id']);
+                                  },
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      "(${dataListValue[index]['rating_count'].toString()})",
+                                      style: TextStyle(fontSize: 13),
+                                    )),
+                                     Row(
+                                    children: [
+                                  
+                              Transform.scale(
+                                scale: .7,
+                                child: Switch.adaptive(
+                                    activeColor: AppColors.appBarBackGroundColor,
+                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                  setState(() {
+                                    dataListValue[index]['is_active'] == 1 ?
+                                    adStatus.deactiveAd(dataListValue[index]['id']) :
+                                    adStatus.activeAd(dataListValue[index]['id']) ;
+                                    controller.addedByIdAddes(catID, userId);
+                                  });
+                              
+                                }),
+                              ),   
+                                    ],
+                                  ),
+                              ],
+                            ),
+                         ), 
+                         Container(
+                           padding: EdgeInsets.only(left:10,right:10),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Container(
+                                   child:
+                                   dataListValue[index]['price'] != null?
+                                    Text( 
+                                    "SAR  ${dataListValue[index]['price']}" ,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)):Container(),
+                                 ),
+                               Row(
+                                 children: [
+                                   
+                                 GestureDetector(
+                                   onTap: (){
+                                       deleteAd.adDelete(dataListValue[index]['id']);
+                                       controller.addedByIdAddes(catID, userId);
+                                   },
+                                   child: Image.asset(AppImages.delete,height: 30,)),
+                                     SizedBox(width: 3,),
+                                   GestureDetector(
+                                     onTap:(){  
+                                       Get.to(AddPostingScreen(),arguments:dataListValue[index]);
+                                     },
+                                     child: Image.asset(AppImages.edit,height: 30,))
+                                 ],
+                               ),
+                             ],
+                           ),
+                         ),
                         Expanded(
                           // flex : 2,
                           child:  Container(
                             margin: EdgeInsets.only(left:10),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Row(
-                                  children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                        deleteAd.adDelete(dataListValue[index]['id']);
-                                        controller.addedByIdAddes(catID, userId);
-                                    },
-                                    child: Image.asset(AppImages.delete,height: 30,)),
-                                  SizedBox(width: 3,),
-                                  GestureDetector(
-                                    onTap:(){
-                                      
-                                      Get.to(AddPostingScreen(),arguments:dataListValue[index]);
-                                    },
-                                    child: Image.asset(AppImages.edit,height: 30,))
-                                  
-                                  ],
-                                ),
-                              Switch.adaptive(
-                         activeColor: Colors.blue,
-                         value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                        setState(() {
-                          dataListValue[index]['is_active'] == 1 ?
-                          adStatus.deactiveAd(dataListValue[index]['id']) :
-                          adStatus.activeAd(dataListValue[index]['id']) ;
-                          controller.addedByIdAddes(catID, userId);
-                        });
-                      print(dataListValue[index]['is_active']);
-                      }),   
+                              
                               ],
                             ),
                           ),
@@ -772,8 +862,8 @@ var catID;
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.blue),
-                          color: selectedIndex == index ? selectedColor : Colors.white,
+                          border: Border.all(color:AppColors.appBarBackGroundColor),
+                          color: selectedIndex == index ?AppColors.appBarBackGroundColor : Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey,
@@ -786,7 +876,7 @@ var catID;
                         child: listingCategoriesData != null ?  Text(
                           listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white : Colors.blue,
+                            color: selectedIndex == index ? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
                         ):Container()
