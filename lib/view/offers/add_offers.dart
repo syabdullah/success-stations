@@ -314,11 +314,14 @@ class AddOffersState extends State<AddOffersPage> {
 
   Widget url() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      padding: EdgeInsets.symmetric(horizontal: 15),
+     // margin: EdgeInsets.only(left: 20, right: 20),
+      //width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-      
+      contentPadding: lang == 'en'
+              ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
+              : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
         hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
         // hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
@@ -368,6 +371,7 @@ class AddOffersState extends State<AddOffersPage> {
               hintText: "Offer Description",
               hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
               border: OutlineInputBorder(
+                
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(color: Colors.grey),
               ),

@@ -162,62 +162,15 @@ class _AllAddsState extends State<AllAdds> {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 child: Row(
-            children: [
-               Container(
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                      print(".....<><><><><><>///<><><....$listtype");
-                      lisselect = !lisselect;
-                      isButtonPressed = !isButtonPressed;
-                      //listIconColor = Colors.grey;
-                      listImg = AppImages.listing;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                  children: [
+                    Image.asset(AppImages.filter, height: 15),
+                    SizedBox(width: 5),
+                    Text(
+                      "filter".tr,
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                  ],
                 ),
-              ),
-              
-              // CupertinoButton(
-              //   minSize: double.minPositive,
-              //   padding: EdgeInsets.zero,
-              //   onPressed: () {
-              //     setState(() {
-              //       listtype = 'grid';
-              //       box.write("type", listtype);
-              //       print(".....<><><><><><>///<><><....$listtype");
-              //       isButtonPressed = !isButtonPressed;
-              //       //listIconColor = AppColors.appBarBackGroundColor;
-              //       grid = AppImages.grid;
-              //     });
-              //   },
-              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
-              // ),
-            
-              SizedBox(width: 5,),
-              Container(
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'list';
-                      print(".....<><><><><><>///<><><....$listtype");
-                      lisselect = !lisselect;
-                      isButtonPressed = !isButtonPressed;
-                      //listIconColor = Colors.grey;
-                      listImg = AppImages.listing;
-                    });
-                  },
-                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
-              ),
-              SizedBox(height: 10,width: 15)
-            ],
-          ),
         ),
             ),
             GestureDetector(
@@ -400,19 +353,12 @@ class _AllAddsState extends State<AllAdds> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(5.0),
-                                                    border: Border.all(color: Colors.blue),
+                                                    border: Border.all(color: AppColors.appBarBackGroundColor),
                                                     color: filteredIndex == index
                                                     ? AppColors.appCategSeleGroundColor
                                                     : Colors.white,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.grey,
-                                                        offset: Offset(0.0,1.0),
-                                                        blurRadius: 6.0,
-                                                      ),
-                                                    ],
                                                   ),
-                                                  padding: EdgeInsets.all(4.0),
+                                                  padding: EdgeInsets.only(left:6.0,right: 6),
                                                   child: data.subCatt['data'] !=null
                                                   ? Text(data.subCatt['data'][index]['category']['en'],
                                                     style: TextStyle(

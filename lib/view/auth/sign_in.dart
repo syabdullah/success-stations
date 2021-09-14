@@ -71,7 +71,7 @@ class _SignPageState extends State<SignIn> {
             init: LanguageController(),
             builder: (val) {
               print("......helllooooo mr........${val.languageList['data']}");
-              return val.isLoading == true && val.languageList == null
+              return  val.languageList['data'] == null
                   ? Container()
                   : language(val.languageList['data']);
             },
@@ -226,32 +226,31 @@ class _SignPageState extends State<SignIn> {
 
   Widget language(List data) {
     return ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-          hint: hintTextLang != null
-              ? Text(hintTextLang,
-                  //lang == 'en' ? 'Englis' : 'Arabic',
-                  //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor))
-              : hintTextLang == null && lang == null
-                  ? Container()
-                  : Text(lang),
-          dropdownColor: AppColors.inPutFieldColor,
-          icon: Icon(
-            Icons.expand_more_outlined,
-            color: AppColors.inputTextColor,
-          ),
-          items: data.map((coun) {
-            return DropdownMenuItem(
-              value: coun,
-              child: coun['name'] != null
-                  ? Text(
-                      coun['name'],
-                      style: TextStyle(color: AppColors.inputTextColor),
-                    )
-                  : Container(),
+      alignedDropdown: true,
+      child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+        hint: hintTextLang!=null
+        ? Text(hintTextLang,
+          //lang == 'en' ? 'Englis' : 'Arabic',
+          //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
+          style: TextStyle(fontSize: 18, color: AppColors.inputTextColor))
+        : hintTextLang == null && lang == null
+        ? Container()
+        : Text(lang),
+        dropdownColor: AppColors.inPutFieldColor,
+        icon: Icon(
+          Icons.expand_more_outlined,
+          color: AppColors.inputTextColor,
+        ),
+        items: data.map((coun) {
+          return DropdownMenuItem(
+            value: coun,
+            child: coun['name'] != null
+            ? Text(
+              coun['name'],
+              style: TextStyle(color: AppColors.inputTextColor),
+            )
+              : Container(),
             );
           }).toList(),
           onChanged: (val) {
@@ -265,7 +264,9 @@ class _SignPageState extends State<SignIn> {
               LocalizationServices().changeLocale(mapLang['short_code']);
             });
           },
-        )));
+        )
+      )
+    );
   }
 
   Widget passwordW() {

@@ -210,6 +210,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      
+      
       body: GetBuilder<LocationController>(
           init: LocationController(),
           builder: (val) {
@@ -272,68 +274,72 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: lang == 'en'?EdgeInsets.only(left: 10, top: 20):EdgeInsets.only(right: 10, top: 20),
-            // height: 60,
-            // width: 150,
+            margin: lang == 'en'
+            ?EdgeInsets.only(left: 10, top: 20)
+            :EdgeInsets.only(right: 10, top: 20),
             decoration: BoxDecoration(
-                borderRadius: lang=='en'?BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.zero,
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.zero,
-                ):BorderRadius.only(
-                  topLeft: Radius.zero,
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.circular(10.0),
-                ),
-                color: listtype == 'map'
-                    ? Colors.white
-                    : listtype == 'grid'
-                        ? AppColors.appBarBackGroundColor
-                        : Colors.white),
+              borderRadius: lang=='en'
+              ?BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.zero,
+                bottomLeft: Radius.circular(10.0),
+                bottomRight: Radius.zero,
+              )
+              :BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(10.0),
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.circular(10.0),
+              ),
+              color: listtype == 'map'
+              ? Colors.white
+              : listtype == 'grid'
+              ? AppColors.appBarBackGroundColor
+              : Colors.white
+            ),
             height: 60,
             width: 60,
             child: CupertinoButton(
-                minSize: double.minPositive,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
-                    box.write("type", listtype);
-                    print(".....<><><><><><>///<><><....$listtype");
-                    isButtonPressed = !isButtonPressed;
-                    //listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                  });
-                },
-                child: Image.asset(
-                  AppImages.gridOf,
-                  height: 45,
-                  width: 30,
-                  color: listtype=='grid'? Colors.white:Colors.grey,
-                )),
+              minSize: double.minPositive,
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                setState(() {
+                  listtype = 'grid';
+                  box.write("type", listtype);
+                  print(".....<><><><><><>///<><><....$listtype");
+                  isButtonPressed = !isButtonPressed;
+                  //listIconColor = AppColors.appBarBackGroundColor;
+                  grid = AppImages.grid;
+                });
+              },
+              child: Image.asset(
+                AppImages.gridOf,
+                height: 45,
+                width: 30,
+                color: listtype=='grid'? Colors.white:Colors.grey,
+              )
+            ),
           ),
-          //SizedBox(width: 15,),
           Container(
             margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
-                borderRadius:lang=='en'? BorderRadius.only(
-                  topLeft: Radius.zero,
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.circular(10.0),
-                ):BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.zero,
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.zero,
-                ),
-                color: listtype == 'grid'
-                    ? Colors.white
-                    : listtype == 'map'
-                        ? AppColors.appBarBackGroundColor
-                        : AppColors.appBarBackGroundColor),
+              borderRadius:lang=='en'? BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(10.0),
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.circular(10.0),
+              ):BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.zero,
+                bottomLeft: Radius.circular(10.0),
+                bottomRight: Radius.zero,
+              ),
+              color: listtype == 'grid'
+              ? Colors.white
+              : listtype == 'map'
+              ? AppColors.appBarBackGroundColor
+              : AppColors.appBarBackGroundColor
+            ),
             //color: Colors.black,
             height: 60,
             width: 60,
@@ -374,11 +380,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           mainAxisSpacing: 20,
           crossAxisCount: 2,
           childAspectRatio: Get.width /
-              (Get.height >= 800
-                  ? Get.height / 1.65
-                  : Get.height <= 800
-                      ? Get.height / 1.60
-                      : 0),
+          (Get.height >= 800
+          ? Get.height / 1.65
+          : Get.height <= 800
+          ? Get.height / 1.60
+          : 0),
         ),
         itemCount: userData['data'].length,
         itemBuilder: (BuildContext context, int index) {
@@ -400,29 +406,30 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0)),
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0)
+                      ),
                       child: Container(
-                          width: Get.width / 2.2,
-                          height: Get.height / 5.2,
-                          child: userData['data'][index]['user_name']
-                                      ['image'] !=
-                                  null
-                              ? Image.network(
-                                  userData['data'][index]['user_name']['image']
-                                      ['url'],
-                                  fit: BoxFit.fill,
-                                )
-                              : Icon(Icons.image)),
+                        width: Get.width / 2.2,
+                        height: Get.height / 5.2,
+                        child: userData['data'][index]['user_name'] ['image'] !=null
+                        ? Image.network(
+                            userData['data'][index]['user_name']['image']
+                                ['url'],
+                            fit: BoxFit.fill,
+                          )
+                        : Icon(Icons.image)
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20, top: 15),
                       child: Text(
                         userData['data'][index]['user_name']['name'].toString(),
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14
+                        ),
                       ),
                     ),
                     Row(
@@ -435,16 +442,12 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                               //  margin: EdgeInsets.only(left:20),
                               child: RatingBar.builder(
                                 ignoreGestures: true,
-                                initialRating: userData['data'][index]
-                                        ['user_name']['rating']
-                                    .toDouble(),
+                                initialRating: userData['data'][index]['user_name']['rating'].toDouble(),
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemSize: 13.5,
-                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
@@ -461,38 +464,34 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                               ),
                             ),
                             Container(
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  "(${userData['data'][index]['user_name']['rating_count'].toString()})",
-                                  style: TextStyle(fontSize: 13),
-                                )),
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(
+                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
+                                style: TextStyle(fontSize: 13),
+                              )
+                            ),
                           ],
                         ),
                         GestureDetector(
                             onTap: () {
                               adtofavJson = {
-                                'user_id': userData['data'][index]['user_name']
-                                    ['id']
+                                'user_id': userData['data'][index]['user_name']['id']
                               };
                               remtofavJson = {
-                                'user_id': userData['data'][index]['user_name']
-                                    ['id']
+                                'user_id': userData['data'][index]['user_name']['id']
                               };
-                              userData['data'][index]['user_name']
-                                          ['is_user_favourite'] ==
-                                      false
-                                  ? adfavUser.profileAdsToFav(adtofavJson)
-                                  : adfavUser.profileRemToFav(remtofavJson);
+                              userData['data'][index]['user_name']['is_user_favourite'] ==false
+                              ? adfavUser.profileAdsToFav(adtofavJson)
+                              : adfavUser.profileRemToFav(remtofavJson);
                               print(adtofavJson);
                             },
-                            child: userData['data'][index]['user_name']
-                                        ['is_user_favourite'] ==
-                                    false
-                                ? Image.asset(
-                                    AppImages.blueHeart,
-                                    height: 18,
-                                  )
-                                : Image.asset(AppImages.heart))
+                            child: userData['data'][index]['user_name']['is_user_favourite'] ==false
+                            ? Image.asset(
+                              AppImages.blueHeart,
+                              height: 18,
+                            )
+                            : Image.asset(AppImages.heart)
+                          )
                       ],
                     ),
                   ],
