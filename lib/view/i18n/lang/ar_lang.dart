@@ -105,6 +105,7 @@ const Map<String, String> ar = {
   "Telephone_no": "الهاتف لا",
   "notes": "ملاحظات",
   "previous": "السابق",
+  "previousb": "السابق",
   "save_as_draft": "حفظ كمسودة",
   "draft_ads":"مسودة الإعلانات",
   "publish": "ينشر",

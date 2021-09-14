@@ -60,7 +60,6 @@ class _AdsViewState extends State<AdsView> {
   @override
   Widget build(BuildContext context) { 
     lang = box.read('lang_code');
-    print(newv);
     return Stack(
       children: [
         ListView(

@@ -10,8 +10,6 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/store_offer_controller.dart';
-import 'package:dio/src/response.dart' as response;
-
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -58,7 +56,6 @@ class AddOffersState extends State<AddOffersPage> {
     super.initState();
     lang = box.read('lang_code');
     postDataEdited = Get.arguments;
-
     if (postDataEdited != null) {
       print("postDataEditedpostDataEditedpostDataEdited$postDataEdited");
       addedEditPosting = postDataEdited['id'];
@@ -79,7 +76,6 @@ class AddOffersState extends State<AddOffersPage> {
           ? postDataEdited['image']['file_name']
           : null;
       hintLinking = postDataEdited['listing']['title']['en'];
-      print("...id...CAT.,............$idCategory");
     }
   }
 
@@ -131,8 +127,6 @@ class AddOffersState extends State<AddOffersPage> {
                 ? imageName
                 : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
-          print(
-              "add posting screen .....................................>$formData");
           Get.find<StorePostAddesController>().storefOffersAAll(formData);
         } catch (e) {}
       }
@@ -171,9 +165,9 @@ class AddOffersState extends State<AddOffersPage> {
             child: Form(
                 key: formKey,
                 child: Column(children: [
-                  space20,
+                  space10,
                   offerTitle(),
-                  space15,
+                   space10,
                   GetBuilder<OfferCategoryController>(
                     init: OfferCategoryController(),
                     builder: (val) {
@@ -183,20 +177,20 @@ class AddOffersState extends State<AddOffersPage> {
                           : Container();
                     },
                   ),
-                  space15,
+                  space10,
                   offerDesc(),
-                  space15,
+                  space10,
                   url(),
-                  space15,
+                  space10,
                   GetBuilder<MyAddsAdedController>(
                     init: MyAddsAdedController(),
                     builder: (val) {
                       return linkAdded(val.myMyAdd);
                     },
                   ),
-                  space15,
+                  space10,
                   status(),
-                  space15,
+                  space10,
                   roundedRectBorderWidget,
                   space10,
                   submitButton(
@@ -206,7 +200,7 @@ class AddOffersState extends State<AddOffersPage> {
                     callback:
                         postDataEdited == null ? adOffersCreate : editPost,
                   ),
-                  space20,
+                  space10,
                 ]))));
   }
 
@@ -320,10 +314,11 @@ class AddOffersState extends State<AddOffersPage> {
       child: CustomTextFiled(
         isObscure: false,
       contentPadding: lang == 'en'
-              ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
-              : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
+        ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
+        : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
         hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
-        // hintColor: AppColors.inputTextColor,
+        hintText: "URL",
+        hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
         textController: urlContr,

@@ -268,13 +268,8 @@ var lang;
                               ),
                           ),
                           SizedBox(height: 10.h),
-<<<<<<< HEAD
                           CustomListTile(AppImages.aboutus, 'about_us'.tr, () => {
                            Get.to(AboutUs())
-=======
-                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
-                           Get.off(AboutUs())
->>>>>>> 13305691b9396907bcbb960b238f6d1398ae2bf1
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
                             Get.off(Privacy())
@@ -282,13 +277,8 @@ var lang;
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
                            Get.off(AdvertisePage())
                           },15.0 ),
-<<<<<<< HEAD
                           CustomListTile(AppImages.ugr, 'agr'.tr, () => {
                             Get.to(UserAgreement())
-=======
-                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
-                            Get.off(UserAgreement())
->>>>>>> 13305691b9396907bcbb960b238f6d1398ae2bf1
                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'contactus'.tr, () => {
                            Get.off(Contact())

@@ -88,6 +88,7 @@ const Map<String, String> en = {
   "Telephone_no": "Telephone No",
   "notes": "Notes",
   "previous": "previous",
+  "previousb": "PREVIOUS",
   "draft_ads":"Draft Ads",
   "save_as_draft": "Save as draft",
   "publish": "Publish",
@@ -272,7 +273,8 @@ const Map<String, String> en = {
   'my_Offer':'MY OFFERS',
   'phoner':'Phone Number is Required',
   'desc':'Decription is Required',
-  'myloc':'MY LOCATIONS'
+  'myloc':'MY LOCATIONS',
+  'url':'URL'
 };
 
 
