@@ -6,8 +6,6 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class FriendReqList extends StatefulWidget {
@@ -266,7 +264,7 @@ class _FriendReqListState extends State<FriendReqList> {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:0.0),
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.grey[100],
