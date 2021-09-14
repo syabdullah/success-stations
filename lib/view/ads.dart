@@ -128,7 +128,7 @@ class _AdsViewState extends State<AdsView> {
             child: Row(
               children: [
                 Container(
-                  width: Get.width/1.3,
+                  width: Get.width/1.2,
                   child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
@@ -157,26 +157,21 @@ class _AdsViewState extends State<AdsView> {
     }
     return imgList.length != 0 ? Column(
       children: [
-        CarouselSlider(      
+        CarouselSlider(  
+              
           items: imgList
           .map<Widget>((item) => Container(
-          child: Container(
-            margin: EdgeInsets.only(top:5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                ],
-              )
-            ),
+          child: Stack(
+            children: <Widget>[
+              Image.network(item, fit: BoxFit.cover, width: Get.width),
+            ],
           ),
         )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.1,
+            viewportFraction: 1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
