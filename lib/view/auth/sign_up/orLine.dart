@@ -16,7 +16,7 @@ class HorizontalOrLine extends StatelessWidget {
     return Row(children: <Widget>[
       Expanded(
         child: new Container(
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+            margin: const EdgeInsets.only(left: 17.0, right: 17.0),
             child: Divider(
               color: Colors.grey,
               height: height,
@@ -27,7 +27,7 @@ class HorizontalOrLine extends StatelessWidget {
 
       Expanded(
         child: new Container(
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+            margin: const EdgeInsets.only(left: 17.0, right: 17.0),
             child: Divider(
               color: Colors.grey,
               height: height,

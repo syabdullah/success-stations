@@ -102,7 +102,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         controller: nameController,
         validator: (value) {
         if (value == null || value.isEmpty) {
-            return 'Please enter some text';
+            return 'namereq'.tr;
           }
           return null;
         },
@@ -110,6 +110,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
           color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
         ),
         decoration:InputDecoration( 
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
           contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
           hintText: "nameph".tr,
           border: OutlineInputBorder(
@@ -150,7 +152,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       controller: phoneController,
       validator: (value) {
       if (value == null || value.isEmpty) {
-          return 'Please enter Phone Number';
+          return 'phoner'.tr;
         }
         return null;
       },
@@ -158,6 +160,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
       ),
       decoration:InputDecoration( 
+        focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
           contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
         hintText: "phone".tr,
         border: OutlineInputBorder(
@@ -174,12 +178,13 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     width:Get.width/1.0,
     margin:EdgeInsets.only(left:20, right: 20),
     child:  TextFormField(
+      
         maxLines: 3,
           focusNode:pin4node,
           controller: writeController,
           validator: (value) {
           if (value == null || value.isEmpty) {
-              return 'add description';
+              return 'desc'.tr;
             }
             return null;
           },
@@ -187,8 +192,11 @@ class AdvertiseStatePage extends State<AdvertisePage> {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
+            focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
             hintText: "description".tr,
             border: OutlineInputBorder(
+              
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(color: Colors.grey),
           ),

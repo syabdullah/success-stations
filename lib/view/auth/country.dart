@@ -105,7 +105,7 @@ class _CountryPageState extends State<Ccountry> {
             Container(
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: chooseLanguage()),
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             GetBuilder<ContryController>(
               init: ContryController(),
               builder: (data) {
@@ -126,8 +126,10 @@ class _CountryPageState extends State<Ccountry> {
             //   }
             //    // callback: signIn
             // ),
+            
              HorizontalOrLine(label: "oR".tr, height: 2),
-            space50,
+             SizedBox(height: 20,),
+            
            
             Container(
               child: existingAccount()

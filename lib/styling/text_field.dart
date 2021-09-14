@@ -75,7 +75,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.grey
+                      color: Colors.transparent
                     ),
                   ),
                   hintText: widget.hintText,
