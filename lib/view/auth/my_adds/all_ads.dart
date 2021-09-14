@@ -208,23 +208,6 @@ class _AllAddsState extends State<AllAdds> {
                   child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
                 ),
               ),
-              
-              // CupertinoButton(
-              //   minSize: double.minPositive,
-              //   padding: EdgeInsets.zero,
-              //   onPressed: () {
-              //     setState(() {
-              //       listtype = 'grid';
-              //       box.write("type", listtype);
-              //       print(".....<><><><><><>///<><><....$listtype");
-              //       isButtonPressed = !isButtonPressed;
-              //       //listIconColor = AppColors.appBarBackGroundColor;
-              //       grid = AppImages.grid;
-              //     });
-              //   },
-              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
-              // ),
-            
               SizedBox(width: 5,),
               Container(
                 child: CupertinoButton(

@@ -214,43 +214,43 @@ var lang;
                             Get.to(BottomTabs());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
-                            Get.to(DraftAds());
+                            Get.off(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
-                           Get.to(MyAdds());
+                           Get.off(MyAdds());
                           } ,15.0),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             // Get.toNamed('/friendProfile');
-                            Get.to(UserProfile());
+                            Get.off(UserProfile());
                           },15.0 ),
                           // CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                           //  Get.to(MyAdds());
                           // } ,15.0),
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
-                            Get.to(Inbox());
+                            Get.off(Inbox());
                           },15.0 ),
                           userType == 2 && accountType == 'Free'? Container():  accountType == 'Paid' ?
                           CustomListTile(AppImages.location, 'location'.tr, () {
-                            Get.to(MyLocations());
+                            Get.off(MyLocations());
                           },15.0 ):
                           CustomListTile(AppImages.location, 'location'.tr, () {
-                            Get.to(MyLocations());
+                            Get.off(MyLocations());
                           },15.0 ),
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
-                            Get.to(IndividualMemeberShip());
+                            Get.off(IndividualMemeberShip());
                           },15.0 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
-                            Get.to(NotificationPage())
+                            Get.off(NotificationPage())
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                           Get.to(FriendReqList());
+                           Get.off(FriendReqList());
                           } ,15.0),
                            userType == 2  && accountType == 'Free' ? Container():  userType == 3 && accountType == "Paid" ? Container(): accountType == "Free" ? Container() :
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
-                            Get.to(OffersDetail());
+                            Get.off(OffersDetail());
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
-                            Get.toNamed('/favourities')
+                            Get.offAndToNamed('/favourities')
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())
@@ -268,20 +268,30 @@ var lang;
                               ),
                           ),
                           SizedBox(height: 10.h),
+<<<<<<< HEAD
                           CustomListTile(AppImages.aboutus, 'about_us'.tr, () => {
                            Get.to(AboutUs())
+=======
+                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                           Get.off(AboutUs())
+>>>>>>> 13305691b9396907bcbb960b238f6d1398ae2bf1
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
-                            Get.to(Privacy())
+                            Get.off(Privacy())
                           },15.0 ),
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
-                           Get.to(AdvertisePage())
+                           Get.off(AdvertisePage())
                           },15.0 ),
+<<<<<<< HEAD
                           CustomListTile(AppImages.ugr, 'agr'.tr, () => {
                             Get.to(UserAgreement())
+=======
+                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
+                            Get.off(UserAgreement())
+>>>>>>> 13305691b9396907bcbb960b238f6d1398ae2bf1
                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'contactus'.tr, () => {
-                           Get.to(Contact())
+                           Get.off(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),

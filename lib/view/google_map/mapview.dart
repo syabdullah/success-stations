@@ -208,9 +208,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      
-      
+      key: _scaffoldKey, 
       body: GetBuilder<LocationController>(
           init: LocationController(),
           builder: (val) {
