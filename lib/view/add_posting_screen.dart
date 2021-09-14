@@ -968,7 +968,7 @@ Widget secondStep(){
         adpost():editpost();
         // Get.off(MyAdds());
         },
-        child: Text("publish".tr),
+        child: Text("publishb".tr),
       ),
     );
   }

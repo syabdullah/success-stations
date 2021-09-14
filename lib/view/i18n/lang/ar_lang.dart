@@ -109,6 +109,7 @@ const Map<String, String> ar = {
   "save_as_draft": "حفظ كمسودة",
   "draft_ads":"مسودة الإعلانات",
   "publish": "ينشر",
+  "publishb": "ينشر",
   "details": "تفاصيل",
   "ad_posted_at": "تم نشر الإعلان في",
   "save": "حفظ",

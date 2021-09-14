@@ -196,7 +196,7 @@ class AddOffersState extends State<AddOffersPage> {
                   submitButton(
                     bgcolor: AppColors.appBarBackGroundColor,
                     textColor: AppColors.appBarBackGroun,
-                    buttonText: "PUBLISH",
+                    buttonText: "publishb".tr,
                     callback:
                         postDataEdited == null ? adOffersCreate : editPost,
                   ),

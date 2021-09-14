@@ -92,6 +92,7 @@ const Map<String, String> en = {
   "draft_ads":"Draft Ads",
   "save_as_draft": "Save as draft",
   "publish": "Publish",
+  "publishb": "PUBLISH",
   "details": "Details",
   "ad_posted_at": "Ad Posted at",
   "save": "Save",
