@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:148001945963:android:2cf56963a96ef2db16f42e",
+        "mobilesdk_app_id": "1:148001945963:android:bb436862d72d3d8116f42e",
         "android_client_info": {
-          "package_name": "com.codility.success_stations"
+          "package_name": "com.successstations.success_stations"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "148001945963-usduncuaa44oke506h8gsbbdl3r4leuq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.codility.success_stations",
-            "certificate_hash": "a3748ffd11ab3a04ba91674faefc79a0c19cd1bb"
-          }
-        },
         {
           "client_id": "148001945963-6cp9n8k2sbc55ko53udu8blkrbctnon9.apps.googleusercontent.com",
           "client_type": 3

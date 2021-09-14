@@ -15,6 +15,7 @@ class CustomTextFiled extends StatefulWidget {
   final ValueChanged onChanged;
   final bool autoFocus;
   final  validator;
+  final contentPadding;
   CustomTextFiled(
     {
       this.hintText ='',
@@ -22,7 +23,7 @@ class CustomTextFiled extends StatefulWidget {
       required this.isObscure ,
       required this.textController,
       this.isIcon = true,
-      this.padding = const EdgeInsets.all(0),
+      this.padding = const EdgeInsets.only(left:0),
       this.hintColor = Colors.black,
       this.iconColor = Colors.black  ,
       required this.onFieldSubmitted,
@@ -31,6 +32,7 @@ class CustomTextFiled extends StatefulWidget {
       required this.validator,
       required this.onSaved,
       this.hintStyle,
+      this.contentPadding,
 
     }
   );
@@ -44,40 +46,44 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-         padding: widget.padding,
-          child: TextFormField(     
-            focusNode: FocusNode(),      
-            controller: widget.textController,
-            onFieldSubmitted: widget.onFieldSubmitted,
-            onChanged: widget.onChanged,
-            validator: widget.validator,
-            obscureText: widget.isObscure,
-            onSaved: widget.onSaved,
-            decoration: InputDecoration(
-              fillColor: AppColors.inputColor,
-              filled: true,
-              border: InputBorder.none,
-              errorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
+        Container(
+          // height:55,
+          child: Padding(
+            padding: widget.padding,
+            child: TextFormField(     
+                focusNode: FocusNode(),      
+                controller: widget.textController,
+                onFieldSubmitted: widget.onFieldSubmitted,
+                onChanged: widget.onChanged,
+                validator: widget.validator,
+                obscureText: widget.isObscure,
+                onSaved: widget.onSaved,
+                decoration: InputDecoration(
+                  contentPadding: widget.contentPadding,
+                  fillColor: AppColors.inputColor,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                     borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                     borderSide: BorderSide(
+                      color: Colors.red
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent
+                    ),
+                  ),
+                  hintText: widget.hintText,
+                  hintStyle: widget.hintStyle
                 ),
               ),
-              focusedErrorBorder: OutlineInputBorder(
-                 borderSide: BorderSide(
-                  color: Colors.red
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.outline
-                ),
-              ),
-              hintText: widget.hintText,
-              hintStyle: widget.hintStyle
             ),
           ),
-        ),
       ],
     );
   }

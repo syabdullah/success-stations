@@ -54,6 +54,7 @@ class LocalizationServices extends Translations {
       _textDirection = _rtlLanguages.contains(lang) ? TextDirection.rtl : TextDirection.ltr;
        Get.updateLocale(Locale(lang));
         print("chnggelocal..........if......$lang");
+        print("chnggelocal..........if......$langs");
         box.write('language', lang);
        
     }else{

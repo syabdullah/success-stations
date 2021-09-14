@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/contact_us_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/styling/text_field.dart';
 
 class Contact extends StatefulWidget {
   ContactPageState createState() => ContactPageState();
@@ -47,35 +43,30 @@ class ContactPageState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
-    final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: Container(
-        //  padding:EdgeInsets.only(top:8)R,
-         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'cntact_us'.tr,AppImages.appBarSearch)),
-      ),
+     appBar: AppBar(centerTitle: true,title: Text('contactus'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: [
               space50, 
-              Container(
-                margin: EdgeInsets.only(top: 60),
-                child: Center(
-                  child: Image.asset(
-                    AppImages.appLogo, height: Get.height / 4.40
-                  ),
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 60),
+              //   child: Center(
+              //     child: Image.asset(
+              //       AppImages.appLogo, height: Get.height / 4.40
+              //     ),
+              //   ),
+              // ),
               space10,
               name(),
-              space20,
+              space10,
               phoneNumber(),
-              space20,
+              space10,
               textArea(),
-              space20,
+              space10,
               submitButton(
                 bgcolor: AppColors.appBarBackGroundColor,  
                 textColor: AppColors.appBarBackGroun,
@@ -99,26 +90,28 @@ Widget name() {
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child:  TextFormField(
-      
-                  focusNode:pin2node,
-                  controller: nameController,
-                  validator: (value) {
-                  if (value == null || value.isEmpty) {
-                      return 'Please enter name';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(
-                    color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                  ),
-                  decoration:InputDecoration( 
-                    hintText: "name".tr,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.grey),
-                  ),
-                ) ,
-              ),
+        focusNode:pin2node,
+        controller: nameController,
+        validator: (value) {
+        if (value == null || value.isEmpty) {
+            return 'namereq'.tr;
+          }
+          return null;
+        },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+        ),
+        decoration:InputDecoration( 
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+         contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
+          hintText: "nameph".tr,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+    ) ,
+  ),
     );
   }
 
@@ -133,7 +126,7 @@ Widget name() {
       controller: phoneController,
       validator: (value) {
       if (value == null || value.isEmpty) {
-          return 'Please enter Phone Number';
+          return 'phoner'.tr;
         }
         return null;
       },
@@ -141,9 +134,12 @@ Widget name() {
         color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
       ),
       decoration:InputDecoration( 
+      focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
         hintText: "phone".tr,
+          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
           borderSide: BorderSide(color: Colors.grey),
       ),
     ) ,
@@ -161,7 +157,7 @@ Widget name() {
           controller: writeController,
           validator: (value) {
           if (value == null || value.isEmpty) {
-              return 'add description';
+              return 'desc'.tr;
             }
             return null;
           },
@@ -169,9 +165,11 @@ Widget name() {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
+            focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
             hintText: "description".tr,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(color: Colors.grey),
           ),
         ) ,
