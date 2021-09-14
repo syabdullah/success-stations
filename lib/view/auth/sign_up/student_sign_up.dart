@@ -433,8 +433,8 @@ class _SignPageState extends State<StudentSignUp> {
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
           ),
-          hintText: "mobile".tr,
-          hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+          hintText: "mobilee".tr,
+          hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
           print(number.phoneNumber);

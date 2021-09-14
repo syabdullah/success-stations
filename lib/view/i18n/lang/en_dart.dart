@@ -181,6 +181,7 @@ const Map<String, String> en = {
   "name": "NAME",
   "nameph": "Name",
   "mobile": "MOBILE",
+  "mobilee": "Mobile",
   "phone": "Phone",
   "accept": "Accept",
   "reject": "Reject",
