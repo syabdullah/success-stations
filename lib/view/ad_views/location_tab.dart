@@ -138,17 +138,17 @@ class _LocationTabState extends State<LocationTab> {
                               onTap: decideRouter == 'city' ? null :  () {
                                 setState((){
                                   decideRouter = 'near';
-                                  color = Colors.blue[100];
+                                  color = AppColors.appBarBackGroundColor;
                                 }); 
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left:10),
                                 child: Row(
                                   children: [
-                                    Image.asset(AppImages.nearby,height: 15,color:Colors.blue),
+                                    Image.asset(AppImages.nearby,height: 15,color:AppColors.appBarBackGroundColor),
                                     SizedBox(width: 5,),
                                     Text(
-                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: Colors.blue)
+                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
                                     ),
                                   ],
                                 ),
@@ -167,15 +167,16 @@ class _LocationTabState extends State<LocationTab> {
                                      enabled: textfeild,
                                     decoration: InputDecoration(
                                       labelText: ('City'),
+                                      labelStyle: TextStyle(color: AppColors.appBarBackGroundColor),
                                       // labelStyle: TextStyle(color: AppColors.basicColor),
-                                      prefixIcon: Icon(Icons.search),
+                                      prefixIcon: Icon(Icons.search,color: AppColors.appBarBackGroundColor,),
                                       border: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                           const Radius.circular(5.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                        borderSide: BorderSide(color: AppColors.appBarBackGroundColor)
                                       )
                                     ),
                                     onSubmitted: (val) {
@@ -205,7 +206,7 @@ class _LocationTabState extends State<LocationTab> {
                                 },
                                 child: Container(                          
                                   decoration: BoxDecoration(
-                                     color: Colors.blue[100],
+                                     color: AppColors.appBarBackGroundColor,
                                     borderRadius: BorderRadius.circular(10)
                                   ),
                                   // width: Get.width/4,
@@ -215,7 +216,7 @@ class _LocationTabState extends State<LocationTab> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [                             
                                       Container(
-                                        child: Text(item,style: TextStyle(color: Colors.blue)),
+                                        child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
                                       ),
                                       GestureDetector(
                                         onTap: (){
@@ -228,7 +229,7 @@ class _LocationTabState extends State<LocationTab> {
                                           });
                                         },
                                         child: Container(
-                                          child: Icon(Icons.clear,color: Colors.blue,size:15),
+                                          child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
                                         ),
                                       )
                                     ],
@@ -247,6 +248,7 @@ class _LocationTabState extends State<LocationTab> {
                             ),
                              SizedBox(height: 10),
                             RangeSlider(
+                              activeColor: AppColors.appBarBackGroundColor,
                               values: _currentRangeValues,
                               min: 5,
                               max: 500,
@@ -274,7 +276,7 @@ class _LocationTabState extends State<LocationTab> {
                                   color: Colors.grey[100],
                                   child: Container(
                                     width: Get.width / 4,
-                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.inputTextColor )))
+                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.appBarBackGroundColor )))
                                   ),
                                   onPressed: () {
                                     array.clear();
@@ -289,7 +291,7 @@ class _LocationTabState extends State<LocationTab> {
                                 margin: EdgeInsets.only(top:20),
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                                  color: Colors.blue,
+                                  color: AppColors.appBarBackGroundColor,
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
@@ -394,10 +396,20 @@ Widget locationList(lastLocation) {
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
-                              child: ClipRRect(
-                                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                                child:Image.asset(AppImages.location,color: Colors.blue,),
-                              ),
+                              child: 
+                              
+                               lastLocation['data'][index]['user_name'] !=null && lastLocation['data'][index]['user_name']['image'] !=null&&  lastLocation['data'][index]['user_name']['image']['url']!= null ?
+                  ClipRRect(
+                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                    child: Container(
+                      // width: Get.width/200,
+                      height: Get.height/7.5,
+                      child: lastLocation['data'][index]['user_name']['image']['url'] !=null ?
+                    Image.network(lastLocation['data'][index]['user_name']['image']['url'], fit: BoxFit.cover,): Container()
+                    ),
+                  ): Container(
+                      child: Image.asset(AppImages.location,height: 117,),
+                  ),
                             ),
                           )
                         ),
@@ -418,28 +430,38 @@ Widget locationList(lastLocation) {
                             //   ],
                             // ),
                             // SizedBox(height: 3),
-                             lastLocation['data'][index]['formated_address'] != null ?
+                             lastLocation['data'][index]['location'] != null ?
                                Container(
                                  width: Get.width/1.5,
-                                 child: Text(lastLocation['data'][index]['formated_address'],textAlign: TextAlign.left,
+                                 child: Text(lastLocation['data'][index]['location'],textAlign: TextAlign.left,
                                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
                                   ),
                                )
-                              : Container()
-                            // ,Row(
-                            //   children: [
-                            //     lastLocation['data'][index]['locality'] !=null?
-                            //   Text(lastLocation['data'][index]['locality'],
-                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
-                            //   ): Container(),
-                            //   SizedBox(width: 3,),
-                            //    lastLocation['data'][index]['country_name'] != null ?
-                            //   Text(lastLocation['data'][index]["country_name"],
-                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
-                            //   ): Container(),
-                            //   ],
-                            // ),
-                            // SizedBox(height: 8),
+                              : Container(),
+                               lastLocation['data'][index]['formated_address'] != null ?
+                               Container(
+                                 width: Get.width/1.5,
+                                 child: Text(lastLocation['data'][index]['formated_address'],textAlign: TextAlign.left,
+                                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12),
+                                  ),
+                               )
+                              : Container(),
+                              
+                            Row(
+                              children: [
+                                Text("Service: ",style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
+                                lastLocation['data'][index]['services'] !=null ?
+                              Text(lastLocation['data'][index]['services']['servics_name'],
+                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                              ): Container(),
+                              SizedBox(width: 3,),
+                              //  lastLocation['data'][index]['country_name'] != null ?
+                              // Text(lastLocation['data'][index]["country_name"],
+                              // style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                              // ): Container(),
+                              ],
+                            ),
+                            SizedBox(height: 8),
                               
                           ],
                         ),

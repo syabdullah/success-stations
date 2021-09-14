@@ -12,6 +12,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
+import 'package:success_stations/view/auth/sign_up/orLine.dart';
 
 
 var finalIndex, shortCode;
@@ -311,6 +312,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 callback:   _isChecked == true ?  v == 1 ? individualSignUp : companyUser: null 
               ),
               space20,
+            Container(
+              height: 1,
+              color:Colors.grey, 
+              ),
+            
+              space20,
               GestureDetector(
                 onTap: (){
                   Get.to(SignIn());
@@ -403,9 +410,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
         border: Border.all(color: Color(0xFFEEEEEE)
         )
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
         inputDecoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 10,bottom: 10),
           fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,
@@ -415,7 +423,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
           ),
-          hintText: "Mobile",
+          hintText: "mobile".tr,
           hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
@@ -776,9 +784,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
         border: Border.all(color: Color(0xFFEEEEEE)
         )
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
         inputDecoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left:10,bottom: 10),
           fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,
@@ -788,7 +797,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
           ),
-          hintText: "Mobile",
+          hintText: "mobile".tr,
           hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
@@ -885,7 +894,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     Radio(
                       value: t.index,
                       groupValue: v,
-                      activeColor: Colors.blue,
+                      activeColor:AppColors.appBarBackGroundColor,
                       onChanged: (int?value ) {
                         setState(() {
                           v = value!;

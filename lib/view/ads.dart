@@ -63,9 +63,9 @@ class _AdsViewState extends State<AdsView> {
     lang = box.read('lang_code');
     print(newv);
     return Stack(
-      children: [       
+      children: [
         ListView(
-          padding: EdgeInsets.symmetric(horizontal:0),
+          // padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
@@ -128,7 +128,7 @@ class _AdsViewState extends State<AdsView> {
             child: Row(
               children: [
                 Container(
-                  width: Get.width/1.3,
+                  width: Get.width/1.2,
                   child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
@@ -157,26 +157,21 @@ class _AdsViewState extends State<AdsView> {
     }
     return imgList.length != 0 ? Column(
       children: [
-        CarouselSlider(      
+        CarouselSlider(  
+              
           items: imgList
           .map<Widget>((item) => Container(
-          child: Container(
-            // margin: EdgeInsets.only(top:5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                ],
-              )
-            ),
+          child: Stack(
+            children: <Widget>[
+              Image.network(item, fit: BoxFit.cover, width: Get.width),
+            ],
           ),
         )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.2,
+            viewportFraction: 1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -343,7 +338,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.2 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

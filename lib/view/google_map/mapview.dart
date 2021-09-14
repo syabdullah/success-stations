@@ -421,7 +421,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20, top: 15),
+                      margin: EdgeInsets.only(left: 20, top: 15,right: 15),
                       child: Text(
                         userData['data'][index]['user_name']['name'].toString(),
                         style: TextStyle(
