@@ -587,6 +587,7 @@ class _AllAddsState extends State<AllAdds> {
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
+        print("....hellloooooo.....${allDataAdds[index]['city_id']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
