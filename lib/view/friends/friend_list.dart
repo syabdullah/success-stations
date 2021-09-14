@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -69,7 +70,7 @@ class _FriendListState extends State<FriendList> {
               borderRadius: BorderRadius.circular(13),
               color: Colors.grey[200],
             ),
-            margin: EdgeInsets.only(left: 10,right: 10),
+            margin: EdgeInsets.only(left: 10,right: 10,top: 20),
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             child: Row(
               children: [
@@ -84,33 +85,40 @@ class _FriendListState extends State<FriendList> {
         )),
         Row(
           children: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
+            Container(
+              margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
                     listIconColor = Colors.grey;
                     gridIconColor = AppColors.appBarBackGroundColor;
                     grid = AppImages.grid;
-                  });
-                },
-                icon: Image.asset(grid,color: gridIconColor,)),
-            Container(
-              margin: EdgeInsets.only(bottom: 15),
-              child: IconButton(
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
+              ),
+          
+            SizedBox(width: 5,),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
-                      listtype = 'list';
+                       listtype = 'list';
                       gridIconColor = Colors.grey;
                       listIconColor = AppColors.appBarBackGroundColor;
                       grid = AppImages.gridOf;
                     });
                   },
-                  icon: Icon(
-                    Icons.list,
-                    color: listIconColor,
-                    size: 45,
-                  )),
-            ),
+                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                ),
+              ),
             SizedBox(
               height: 30,
               width: 15,
