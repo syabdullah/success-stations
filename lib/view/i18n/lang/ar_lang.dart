@@ -259,6 +259,8 @@ const Map<String, String> ar = {
   'enter_password':'أدخل كلمة المرور',
   'pass_to_short':'كلمة المرور أقصر مما يجب',
   "Select_your_prefered_language":'حدد لغتك المفضلة',
+  "addFriend" : 'أضف صديق',
+  "Type_your_message_here": 'اكتب رسالتك هنا',
   'filtered_result':'النتائج المصنفة',
   
  

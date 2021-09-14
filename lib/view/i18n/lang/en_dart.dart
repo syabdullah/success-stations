@@ -263,6 +263,9 @@ const Map<String, String> en = {
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',
   'filtered_result':'FILTERED RESULTS',
+  'addFriend':"Add Friend",
+  "Type_your_message_here":"Type your message here",
+
   'payme':'You are using the free version please upgrade your package to full access',
   'newad':'Add New Ad',
   'my_Offer':'MY OFFER'
