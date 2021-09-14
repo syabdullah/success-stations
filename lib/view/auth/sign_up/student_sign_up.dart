@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
-import 'package:success_stations/controller/country_controller.dart';
-import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
@@ -17,8 +15,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 DateTime? dateTime;
-var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 // var str = JSON.encode(dt, toEncodable: myEncode);
 
 class StudentSignUp extends StatefulWidget {
@@ -26,25 +23,13 @@ class StudentSignUp extends StatefulWidget {
 }
 
 class _SignPageState extends State<StudentSignUp> {
-  var selectedCountry,
-      selectCountry,
-      selectedCity,
-      selectedRegion,
-      selectedUniversity,
-      selectedCollege,
-      selectCollege,
-      mapuni,
-      mapClgSleceted,
-      hintTextCountry,
-      hintRegionText,
-      hintUniText,
-      hintcityText,
-      hintClgText;
+  final countryPut = Get.put(ContryController());
+  var selectedCountry, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
 
   late String firstName, emailSaved, mobileSaved, dobSaved;
 
   final formKey = GlobalKey<FormState>();
-
+   GetStorage box = GetStorage();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -60,18 +45,16 @@ class _SignPageState extends State<StudentSignUp> {
   var myTest;
   var countryIdGet, shortCodeAdd;
 
-  final countryPut = Get.put(ContryController());
+ 
   final signUpCont = Get.put(SignUpController());
-  GetStorage box = GetStorage();
   var lang;
   @override 
   void initState() {
     lang = box.read('lang_code');
-    // countryPut.getCountries();
-    // countryIdGet = Get.arguments;
-    // myTest = countryIdGet[0].toString();
-    // tttt = PhoneNumber(isoCode: myTest);
-    print("countryIdGetcountryIdGetcountryIdGet$myTest");
+    countryPut.getCountries();
+    countryIdGet = Get.arguments;
+    myTest = countryIdGet[0].toString();
+    tttt = PhoneNumber(isoCode: myTest);
     super.initState();
   }
 
@@ -151,15 +134,15 @@ class _SignPageState extends State<StudentSignUp> {
                 } ,
               ),
               space10,
-              GetBuilder<RegionController>(
-                init: RegionController(),
+              GetBuilder<ContryController>(
+                init: ContryController(),
                 builder: (val){
-                  return region(val.listDataRegion);
+                  return region(val.regionListdata);
                 },
               ),
               space10,
-              GetBuilder<CityController>(
-                init: CityController(),
+              GetBuilder<ContryController>(
+                init: ContryController(),
                 builder: (val){
                   return city(val.cityListData);
                 },
@@ -425,54 +408,51 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        width: Get.width / 1.1,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            // color: Colors.grey[100],
-            border: Border.all(color: Color(0xFFEEEEEE)
-                // width: 5,
-                )),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: InternationalPhoneNumberInput(
-          inputDecoration: InputDecoration(
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            // enabledBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(color: AppColors.outline),
-            // ),
-            hintText: "Mobile",
-            hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+      width: Get.width / 1.1,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Color(0xFFEEEEEE)
+        )
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: InternationalPhoneNumberInput(
+        inputDecoration: InputDecoration(
+          fillColor: AppColors.inputColor,
+          filled: true,
+          border: InputBorder.none,
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
           ),
-          onInputChanged: (PhoneNumber number) {
-            print(number.phoneNumber);
-          },
-          onInputValidated: (bool value) {
-            print(value);
-          },
-          selectorConfig: SelectorConfig(
-            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
           ),
-          ignoreBlank: false,
-          autoValidateMode: AutovalidateMode.disabled,
-          selectorTextStyle: TextStyle(color: Colors.black),
-          // initialValue: n,
-          textFieldController: mobileController,
-          formatInput: false,
-          keyboardType:
-              TextInputType.numberWithOptions(signed: true, decimal: true),
-          inputBorder: OutlineInputBorder(),
-          onSaved: (PhoneNumber number) {
-            print('On Saved: $number');
-          },
-          initialValue: tttt,
-        ));
+          hintText: "Mobile",
+          hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        ),
+        onInputChanged: (PhoneNumber number) {
+          print(number.phoneNumber);
+        },
+        onInputValidated: (bool value) {
+          print(value);
+        },
+        selectorConfig: SelectorConfig(
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+        ),
+        ignoreBlank: false,
+        autoValidateMode: AutovalidateMode.disabled,
+        selectorTextStyle: TextStyle(color: Colors.black),
+        // initialValue: n,
+        textFieldController: mobileController,
+        formatInput: false,
+        keyboardType:
+            TextInputType.numberWithOptions(signed: true, decimal: true),
+        inputBorder: OutlineInputBorder(),
+        onSaved: (PhoneNumber number) {
+          print('On Saved: $number');
+        },
+        initialValue: tttt,
+      )
+    );
   }
 
   var finalDate;
@@ -561,48 +541,49 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget country(List data) {
-    print("....<><><><><><><><><><><><>..//////......$data");
-    return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint: Text(
-              hintTextCountry != null ? hintTextCountry : 'country'.tr, 
-              style:  TextStyle(fontSize: 16,  color: AppColors.inputTextColor )
-            ),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: data.map((coun) {
-              return DropdownMenuItem(
-                value: coun,
-                child:Text(coun['name'])
-              );
-            }).toList(),
-            onChanged: (val) {
-              var mapCountry;
-              setState(() {
-                mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'];
-                selectedCountry = mapCountry['id'];
-              });
-            },
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          width: Get.width * 0.9,
+          decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)
+          ),
+          child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                hint: Text(
+                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                ),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(Icons.arrow_drop_down),
+                items: data.map((coun) {
+                  return DropdownMenuItem(value: coun, child: Text(coun['name']));
+                }).toList(),
+                onChanged: (val) {
+                  var mapCountry;
+                  setState(() {
+                    mapCountry = val as Map;
+                    hintTextCountry = mapCountry['name'];
+                    selectedCountry = mapCountry['id'];
+                    countryPut.getRegion(selectedCountry);
+                  });
+                },
+              )
+            )
           )
-        )
-      )
+        ),
+      ],
     );
   }
 
   Widget region(List dataRegion) {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       decoration: BoxDecoration(
         color: AppColors.inputColor,
@@ -613,26 +594,23 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintRegionText !=null ?hintRegionText : "region".tr, 
-              style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)
-            
+            hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
               return DropdownMenuItem(
-                value: reg,
-                child:Text(
-                  reg['region']
-                )
+                value: reg, child: reg['region'] !=null ? Text(reg['region'] ):Container()
               );
             }).toList(),
             onChanged: (data) {
               var mapRegion;
               setState(() {
-                mapRegion = data as Map ;
+                mapRegion = data as Map;
                 hintRegionText = mapRegion['region'];
                 selectedRegion = data['id'];
+                countryPut.getCity(data['id']);
               });
             },
           )
@@ -642,8 +620,8 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget city(List citydata) {
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       decoration: BoxDecoration(
         color: AppColors.inputColor,
@@ -654,22 +632,17 @@ class _SignPageState extends State<StudentSignUp> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(
-              hintcityText !=null ? hintcityText : "city".tr, style: TextStyle(
-                fontSize: 16, color: AppColors.inputTextColor
-              )
+            hint: Text(hintcityText != null ? hintcityText : "city".tr,
+              style:TextStyle(fontSize: 18, color: AppColors.inputTextColor)
             ),
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
-              return DropdownMenuItem(
-                value: citt,
-                child:Text(citt['city'])
-              );
+              return DropdownMenuItem(value: citt, child: Text(citt['city']));
             }).toList(),
             onChanged: (value) {
               setState(() {
-                var mapCity ;
+                var mapCity;
                 mapCity = value as Map;
                 hintcityText = mapCity['city'];
                 selectedCity = mapCity['id'];

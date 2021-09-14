@@ -102,7 +102,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
               )),
           chattingList(),
           // showMessage(dataArray),
-           lang == 'en' ?
+          lang == 'en' ?
           FractionalTranslation(
               translation: Get.height > 700 
                   ? const Offset(1.5, 1.5)

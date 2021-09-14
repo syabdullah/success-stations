@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/country_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
@@ -21,7 +20,8 @@ class _CountryPageState extends State<Ccountry> {
 
   var selectedIndex;
   GetStorage box = GetStorage();
-Widget featureCountryList(countryListData) {
+  Widget featureCountryList(countryListData) {
+    print("countryv Datta/..>$countryListData");
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 4.30,
@@ -37,8 +37,8 @@ Widget featureCountryList(countryListData) {
                   print("....country based.......$selectedIndex");
                   box.write("country", selectedIndex);
                   box.write("country_id", countryListData[index]['id']);
-                  box.write(
-                      "country_code", countryListData[index]['short_code']);
+                  box.write(  "country_code", countryListData[index]['short_code']);
+                  print("country id.....${ countryListData[index]['short_code']}");
                   countrycOde = countryListData[index]['short_code'];
                   countryId = countryListData[index]['id'];
                 });
@@ -47,7 +47,7 @@ Widget featureCountryList(countryListData) {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Get.to(TabBarPage());
+                      Get.to(TabBarPage(), arguments: [countryListData[index]['short_code'], countryListData[index]['id']]);
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 20),
