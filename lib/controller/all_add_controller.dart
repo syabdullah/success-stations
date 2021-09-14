@@ -6,7 +6,7 @@ import 'package:success_stations/action/all_add_action.dart';
 
 class MyAddsController extends GetxController {
   bool isLoading = false; 
-  var addsListCategory;
+  var addsListCategory, allAddCategory;
   List addsCategoryArray= [];
   var adsD;
 
@@ -27,7 +27,7 @@ class MyAddsController extends GetxController {
     update();
   }
 
-   adsDetail(id) async{
+  adsDetail(id) async{
     isLoading = true;
     await addsDetailbyId(id).then((res){
       adsD= jsonDecode(res.body);
@@ -37,5 +37,16 @@ class MyAddsController extends GetxController {
     });
     update();
   }
+
+  addsAllCategory() async{
+    isLoading = true;
+    await addsCategory().then((res){
+      allAddCategory= jsonDecode(res.body);
+      allAddCategory = addsListCategory['data'];
+      isLoading = false;
+    });
+    update();
+  }
+  
   
 }

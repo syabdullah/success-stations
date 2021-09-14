@@ -7,6 +7,7 @@ import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
+import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -23,6 +24,7 @@ class OfferList extends StatefulWidget {
 class _OfferListState extends State<OfferList> {
   var offerid;
   final contByCatOffer = Get.put(OfferCategoryController());
+  final coCatOffer = Get.put(OfferController());
   final banner = Get.put(BannerController());
   var json;
   int slctedInd = 0;
@@ -32,6 +34,7 @@ class _OfferListState extends State<OfferList> {
 
   var lang;
   var listtype = 'grid';
+  bool allOffer = false;
   bool isButtonPressed = false;
   final offerFilterCont = Get.put(OffersFilteringController());
   final offeCont = Get.put(MyOffersDrawerController());
@@ -66,17 +69,12 @@ class _OfferListState extends State<OfferList> {
     // offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
+     contByCatOffer.myAllOffers();
+     allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
-    print("///////here /a//// $lang");
     usertype = box.read('user_type');
   }
-  // void dispose() {
-  //   offerFilterCont.offerFilter(json);
-  //   //banner.bannerController();
-  //   super.dispose();
-
-  // }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
@@ -102,42 +100,57 @@ class _OfferListState extends State<OfferList> {
           ),
           topWidget(),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           GetBuilder<OfferCategoryController>(
             init: OfferCategoryController(),
             builder: (val) {
-              return val.offerDattaTypeCategory != null &&
-                      val.offerDattaTypeCategory['data'] != null
-                  ? subOffers(val.offerDattaTypeCategory['data'])
-                  : Container();
+              return val.allOffersResp != null &&
+              val.allOffersResp['data'] != null
+              ? subOffers(val.allOffersResp['data'])
+              : Container();
             },
           ),
-          GetBuilder<OfferCategoryController>(
-              init: OfferCategoryController(),
+          SizedBox(height:20),
+          allOffer == false ? 
+          GetBuilder<OfferController>(
+            init: OfferController(),
               builder: (val) {
-                return val.iDBasedOffers != null &&
-                        val.iDBasedOffers['data'] != null &&
-                        val.iDBasedOffers['success'] == true
-                    ? listtype == 'grid'
-                        ? allUsers(val.iDBasedOffers['data'])
-                        : listUsers(val.iDBasedOffers['data'])
-                    : contByCatOffer.resultInvalid.isTrue &&
-                            val.iDBasedOffers['success'] == false
-                        ? Container(
-                            margin: EdgeInsets.only(top: Get.height / 3),
-                            child: Center(
-                              child: Text(
-                                contByCatOffer.iDBasedOffers['errors'],
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                        : Container();
-                // );
-              }),
-        ]));
+                return val.offerDataList != null && val.offerDataList['data'] != null && val.offerDataList['success'] == true
+                ? listtype == 'grid' ? allUsers(val.offerDataList['data']) : listUsers(val.offerDataList['data'])
+                : contByCatOffer.resultInvalid.isTrue && val.offerDataList['success'] == false
+                ? Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      coCatOffer.offerDataList['errors'],
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ) : Container();
+              }
+            ):
+          GetBuilder<OfferCategoryController>(
+            init: OfferCategoryController(),
+              builder: (val) {
+                return val.iDBasedOffers != null && val.iDBasedOffers['data'] != null && val.iDBasedOffers['success'] == true
+                ? listtype == 'grid' ? allUsers(val.iDBasedOffers['data']): listUsers(val.iDBasedOffers['data'])
+                : contByCatOffer.resultInvalid.isTrue && val.iDBasedOffers['success'] == false
+                ? Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      contByCatOffer.iDBasedOffers['errors'],
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ): Container();
+              }
+            ),
+          ]
+        )
+      );
   }
 
   Widget topWidget() {
@@ -330,7 +343,7 @@ class _OfferListState extends State<OfferList> {
                                             onTap: () {
                                               setState(() {
                                                 bottomSheetCategory = index;
-                                                filteredIDCate = data.offerDattaTypeCategory['data']                                      [index]['id'];
+                                                filteredIDCate = data.offerDattaTypeCategory['data'][index]['id'];
                                               });
                                             },
                                             child: Container(
@@ -605,16 +618,16 @@ class _OfferListState extends State<OfferList> {
                                       trimExpandedText: 'Show less',
                                     ),
                                   ),
-                                  // Center(
-                                  //   child: Container(
-                                  //    width: Get.width/3,
-                                  //     margin: EdgeInsets.only(top:5),
-                                  //     child: listFavou[c]['description']!=null  ?
-                                  //     Text(
-                                  //       listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
-                                  //     ):Container()
-                                  //   ),
-                                  // ),
+                                  Center(
+                                    child: Container(
+                                     width: Get.width/3,
+                                      margin: EdgeInsets.only(top:5),
+                                      child: listFavou[c]['description']!=null  ?
+                                      Text(
+                                        listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
+                                      ):Container()
+                                    ),
+                                  ),
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
                                     child: listFavou[c]['url'] != null
@@ -705,21 +718,20 @@ class _OfferListState extends State<OfferList> {
         margin: EdgeInsets.only(bottom: 20),
         height: Get.height/1.67,
         child: GridView.builder(
-            // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
-            primary: false,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: Get.width /(Get.height >= 800
-              ? Get.height / 1.65
-              : Get.height <= 800
-              ? Get.height / 1.60: 0)
-            ),
-            itemCount: listFavou.length,
-            itemBuilder: (BuildContext context, int c) {
-              return GestureDetector(
-                onTap: () {
-                  Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
-                },
+          primary: false,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: Get.width /(Get.height >= 800
+            ? Get.height / 1.65
+            : Get.height <= 800
+            ? Get.height / 1.60: 0)
+          ),
+          itemCount: listFavou.length,
+          itemBuilder: (BuildContext context, int c) {
+            return GestureDetector(
+              onTap: () {
+                Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
+              },
                 child: Column(
                   children: [
                     Container(
@@ -764,8 +776,8 @@ class _OfferListState extends State<OfferList> {
                     ),
                     Container(
                       child: Text(
-                        listFavou[c]['text_ads']['en'] != null
-                        ? listFavou[c]['text_ads']['en'].toString()
+                        listFavou[c]['text_ads'][lang] != null
+                        ? listFavou[c]['text_ads'][lang].toString()
                         : '',
                         style:TextStyle(
                           fontSize: 16, color: Colors.black
@@ -856,28 +868,112 @@ class _OfferListState extends State<OfferList> {
   //   //   }
   //   // }
   //   // return favrties;
-  // }
+ 
+   bool  selectOffer = false;
   var offerBYID;
   var ind1 = 0;
   Widget subOffers(dataListedCateOffer) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Container(
-          height: MediaQuery.of(context).size.height / 9.2,
+          height:  45,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, index) {
-              if (ind1 == 0) {
-                offerBYID = dataListedCateOffer[index]['id'];
-                print(
-                    ".........!!!!!!!!!..............offer BY ID.........$offerBYID");
-                contByCatOffer
-                    .categorrOfferByID(dataListedCateOffer[index]['id']);
-              }
               ++ind1;
-              return Row(
+              return index == 0 ?
+               Container(
+                 width: 70,
+                    margin: lang == 'en'
+                    ? EdgeInsets.only(left: 12.0)
+                    : EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                        selectedIndex = index;
+                        contByCatOffer.myAllOffers();
+                        allOffer = false;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0),
+                          border: Border.all(
+                            color: AppColors.appBarBackGroundColor),
+                          color: selectedIndex == index
+                          ? selectedColor
+                          : Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "All",
+                            style: TextStyle(
+                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              fontSize: 12,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ): 
+                // return index == 0 ?  Container(
+                //   child: GestureDetector(
+                //     onTap: (){
+                //       setState(() {
+                //         selectedIndex = index;
+                //         contByCatOffer.myAllOffers();
+                //       });
+                //     }, 
+                //     // child: Flexible(
+                //     //   flex: 2,
+                //         // widthFactor: 0.5,
+                //       //  alignment: Alignment.topCenter,r
+                //      child:  Container(
+                //        height:MediaQuery.of(context).size.height / 9.2,
+                //          width: 70,
+                      
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(20.0),
+                //           border: Border.all(
+                //             color: AppColors.appBarBackGroundColor
+                //           ),
+                //           color: selectedIndex == index ? selectedColor : Colors.white,
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: Colors.grey,
+                //               offset: Offset(0.0, 1.0),
+                //               blurRadius: 6.0,
+                //             ),
+                //           ],
+                //         ),
+                //         // padding: EdgeInsets.all(10),
+                //         child: Text(
+                //           "ALL",
+                //           style: TextStyle(
+                //             color: selectedIndex == index ? Colors.white : AppColors.appBarBackGroundColor,
+                //             fontSize: 12,
+                //             fontStyle: FontStyle.normal,
+                //           ),
+                //         ),
+                //       ),
+                //     // ),
+                //   ),
+                // ):
+              
+             
+               Row(
                 children: [
                   Container(
                     margin: lang == 'en'
@@ -886,10 +982,10 @@ class _OfferListState extends State<OfferList> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                          allOffer = true;
                           selectedIndex = index;
                           offerBYID = dataListedCateOffer[index]['id'];
-                          contByCatOffer.categorrOfferByID(
-                            dataListedCateOffer[index]['id']);
+                          contByCatOffer.categorrOfferByID(dataListedCateOffer[index]['id']);
                         });
                       },
                       child: Container(
@@ -912,9 +1008,7 @@ class _OfferListState extends State<OfferList> {
                         child: Text(
                           dataListedCateOffer[index]['category_name']['en'],
                           style: TextStyle(
-                            color: selectedIndex == index
-                            ? Colors.white
-                            : AppColors.appBarBackGroundColor,
+                            color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),

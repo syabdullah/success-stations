@@ -8,6 +8,7 @@ class OfferCategoryController extends GetxController {
   var offerDattaTypeCategory;
   var iDBasedOffers, editOffers;
   var resultInvalid = false.obs; 
+  var allOffersResp;
 
   @override
   void onInit() {
@@ -17,7 +18,6 @@ class OfferCategoryController extends GetxController {
   }
 
   categoryOfferList() async {
-    print("controller call of the Favorite list");
     isLoading = true;
     await offersCategory().then((value) {
       offerDattaTypeCategory = jsonDecode(value.body);
@@ -27,11 +27,9 @@ class OfferCategoryController extends GetxController {
   }
 
   categorrOfferByID(id) async {
-    print(".....Ctaegory OFFER loadede.....>$id");
     isLoading = true;
     await offersCategoryById(id).then((res) {
     iDBasedOffers = jsonDecode(res.body);
-      print(".....Ctaegory OFFER loadede.....>$iDBasedOffers");
     if(res.statusCode == 200 || res.statusCode <400){
       resultInvalid(false);
       isLoading = false;
@@ -58,6 +56,15 @@ class OfferCategoryController extends GetxController {
       isLoading = false;
 
     }
+    });
+    update();
+  }
+  myAllOffers() async {
+    isLoading = true;
+    await allOffers().then((value) {
+      allOffersResp = jsonDecode(value.body);
+      print("all offers responhyes..........$allOffersResp");
+      isLoading = false;
     });
     update();
   }
