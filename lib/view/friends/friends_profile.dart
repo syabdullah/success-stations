@@ -163,6 +163,7 @@ class _FriendProfileState extends State<FriendProfile>
               ),
             ),
             Container(
+           
                 margin: EdgeInsets.only(top: 10),
                 child: data['name'] != null
                     ? Text(data['name'],
@@ -353,7 +354,7 @@ class _FriendProfileState extends State<FriendProfile>
                         Expanded(
                           flex: 1,
                           child: Container(
-                            margin: EdgeInsets.only(left: 20),
+                              padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               // mainAxisAlignment: MainAxisAlignment.center,
@@ -539,7 +540,7 @@ class _FriendProfileState extends State<FriendProfile>
               Card(
                 elevation: 2,
                 child: Container(
-                  margin: EdgeInsets.only(left: 20),
+                    padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                   child: Column(
                     children: [
                       Row(
@@ -665,7 +666,7 @@ class _FriendProfileState extends State<FriendProfile>
               ),
               Card(
                 child: Container(
-                  //padding: EdgeInsets.only(left: 10),
+                    padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

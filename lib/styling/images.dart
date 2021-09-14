@@ -67,7 +67,7 @@ class AppImages {
   static String misarImage =  imagePath +  'misar.png';
   static String arabImage =  imagePath +  'arab.png';
   static String callerImage =  imagePath + 'caller.png';
-  static String plusImage = imagePath + 'plus@3x.png';
+  static String plusImage = imagePath + 'plus@2x.png';
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
   static String nearby = imagePath + 'nearby.png';
