@@ -94,7 +94,7 @@ Widget name() {
         controller: nameController,
         validator: (value) {
         if (value == null || value.isEmpty) {
-            return 'Please enter name';
+            return 'namereq'.tr;
           }
           return null;
         },
@@ -102,7 +102,9 @@ Widget name() {
           color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
         ),
         decoration:InputDecoration( 
-         contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+         contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
           hintText: "nameph".tr,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -124,7 +126,7 @@ Widget name() {
       controller: phoneController,
       validator: (value) {
       if (value == null || value.isEmpty) {
-          return 'Please enter Phone Number';
+          return 'phoner'.tr;
         }
         return null;
       },
@@ -132,8 +134,10 @@ Widget name() {
         color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
       ),
       decoration:InputDecoration( 
+      focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
         hintText: "phone".tr,
-         contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
+          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
           borderSide: BorderSide(color: Colors.grey),
@@ -153,7 +157,7 @@ Widget name() {
           controller: writeController,
           validator: (value) {
           if (value == null || value.isEmpty) {
-              return 'add description';
+              return 'desc'.tr;
             }
             return null;
           },
@@ -161,6 +165,8 @@ Widget name() {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
+            focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
             hintText: "description".tr,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),

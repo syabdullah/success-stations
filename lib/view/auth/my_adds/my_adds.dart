@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -104,6 +105,7 @@ class _MyAddsState extends State<MyAdds> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          
           Row(
             children: [
               GestureDetector(
@@ -111,37 +113,41 @@ class _MyAddsState extends State<MyAdds> {
                   Get.toNamed('/adPostingScreen');
                 },
                 child: Container(
-                  margin:EdgeInsets.only(left:10,right: 10),
+                  margin:EdgeInsets.only(left:10,right: 10,top: 20),
                   child: Image.asset(AppImages.plusImage, height:24)
                 ),
               ),
               Container(
-                margin:EdgeInsets.only(left:10,right: 10),
+                margin:EdgeInsets.only(left:10,right: 10,top: 20),
                 child: Text("newad".tr,style: TextStyle(color: Colors.grey,fontSize:18,))),
             ],
           ),
           Row(
             children: [
-              IconButton(
-               color: isButtonPressed ? AppColors.appBarBackGroundColor : Colors.grey,
-                onPressed: (){
-                  setState(() {
-                    listtype = 'grid';
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
                     isButtonPressed = !isButtonPressed;
                     gridIconColor = AppColors.appBarBackGroundColor;
                     listIconColor = Colors.grey;
                     grid = AppImages.gridOf;
-                  });             
-                },
-                icon: 
-                // Container(
-                  // height: 100,
-                  Image.asset(grid,color: gridIconColor,),
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
+              SizedBox(width: 5,),
               Container(
-                margin: EdgeInsets.only(bottom:15),
-                child: IconButton(
-                  onPressed: (){
+                 margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
                     setState(() {
                       listtype = 'list';
                       gridIconColor = Colors.grey;
@@ -149,10 +155,7 @@ class _MyAddsState extends State<MyAdds> {
                       grid = AppImages.gridOf;
                     });
                   },
-                  icon: Container(
-                    padding:  EdgeInsets.only(top:10),
-                    child: Image.asset(AppImages.listing, color: listIconColor,height: 15)
-                  )
+                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
                 ),
               ),
               SizedBox(height: 30,width: 15,)

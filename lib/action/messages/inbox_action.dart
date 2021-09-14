@@ -32,7 +32,7 @@ Future<http.Response> getAllChats() async{
   print(url);
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
-    return result;
+  return result;
 }
 
 Future<http.Response> readMessage(data) async{

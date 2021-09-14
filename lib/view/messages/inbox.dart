@@ -22,8 +22,8 @@ class _InboxState extends State<Inbox> {
   void initState() {
     super.initState();
     chatCont.getAllConvo();
+    print("-----------------------------${Get.height}");
    userId =  box.read('user_id');
-    // _controller = TabController(length: 2,vsync: this); 
   }
   Widget messageList(data,allData) {
     return Container(     
@@ -31,7 +31,8 @@ class _InboxState extends State<Inbox> {
         borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
         color: Colors.grey[200],
       ),
-      margin: Get.height > 700 &&
+      margin: Get.height < 700 ? EdgeInsets.only(top:Get.height/2.9):
+       Get.height > 700 &&
       Get.height > 800 ?  EdgeInsets.only(top:Get.height/3.5) : EdgeInsets.only(top:Get.height/3.3),
       padding: EdgeInsets.only(top:20),
       child: ListView.builder(
@@ -49,7 +50,7 @@ class _InboxState extends State<Inbox> {
     var time = DateFormat().add_jm().format(date.toLocal());
    
     return Container(
-      height: Get.height > 700 &&
+      height: Get.height < 700 ? Get.height/6: Get.height > 700 &&
       Get.height > 800 ?  Get.height/9 : Get.height/8,
       margin: EdgeInsets.only(left:10,right: 10,bottom:5),
       child: Card(
@@ -64,7 +65,6 @@ class _InboxState extends State<Inbox> {
             }else {
               box.remove('chat_image');
             }
-            // chatCont.createConversation(data['id']);
             chatCont.getChatConvo(data['pivot']['conversation_id'], 1);
             Get.to(ChattinPagePersonal(),arguments: [data['pivot']['conversation_id'],data['name']]);
           },
@@ -89,7 +89,7 @@ class _InboxState extends State<Inbox> {
                       style:TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      width: Get.width/2.0,
+                      width: Get.width/3.0,
                       child: Text(
                         dataWithMessage['last_message'] != null ? dataWithMessage['last_message'] :'',
                         maxLines: 2,

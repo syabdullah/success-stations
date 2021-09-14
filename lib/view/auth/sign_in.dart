@@ -47,7 +47,27 @@ class _SignPageState extends State<SignIn> {
     loginCont.resultInvalid(false);
     errorCheck = true;
   }
-
+// Future<bool> _onWillPop() {
+//     return showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Are you sure?'),
+//         content: Text('Do you want to exit an App'),
+//         actions: <Widget>[
+//           TextButton(
+//             onPressed: () => Navigator.of(context).pop(false),
+//             child: Text('No'),
+//           ),
+//           TextButton(
+//             onPressed: () => exit(0),
+//             /*Navigator.of(context).pop(true)*/
+//             child: Text('Yes'),
+//           ),
+//         ],
+//       ),
+//     ) ??
+//     false;
+// }
   signIn() {
     final form = formKey.currentState;
     if (form!.validate()) {
@@ -62,138 +82,145 @@ class _SignPageState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: GetBuilder<LanguageController>(
-            init: LanguageController(),
-            builder: (val) {
-              print("......helllooooo mr........${val.languageList['data']}");
-              return  val.languageList['data'] == null
-                  ? Container()
-                  : language(val.languageList['data']);
-            },
+    return WillPopScope(
+       onWillPop: () async {
+            // Action to perform on back pressed 
+            return true;
+        }, 
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: GetBuilder<LanguageController>(
+              init: LanguageController(),
+              builder: (val) {
+                return   val.languageList == null
+                    ? Container()
+                    : language(val.languageList['data']);
+              },
+            ),
           ),
-        ),
-        body: GetBuilder<LoginController>(
-            init: LoginController(),
-            builder: (val) {
-              // if(  loginCont.resultInvalid.isTrue ) {
-              //   if(errorCheck == )
-              //   errorCheck = true;
-              // }else{
-              //   print("..........------=======$errorCheck");
-              //   // errorCheck = false;
-              // }
-              return Center(
-                child: ListView(
-                  children: [
-                    Center(
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(height: Get.height / 8.0),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 20),
-                              child: Image.asset(AppImages.appLogo,
-                                  height: Get.height / 6),
-                            ),
-                            SizedBox(height: 23),
-                            eMail(),
-                            SizedBox(height: 8),
-                            passwordW(),
-                            loginCont.resultInvalid.isTrue && errorCheck == true
-                                ? Container(
-                                    child: Container(
-                                      child: Text(
-                                        loginCont.logindata['errors'],
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                            //SizedBox(height: 4),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/forgotPass');
-                              },
-                              child: Container(
-                                alignment: Alignment.bottomRight,
-                                margin: EdgeInsets.only(
-                                    bottom: 10, right: 18, top: 6),
-                                child: Text('forgot_password'.tr,
-                                    style: TextStyle(color: Colors.grey),
-                                    textAlign: TextAlign.end),
+          body: GetBuilder<LoginController>(
+              init: LoginController(),
+              builder: (val) {
+                // if(  loginCont.resultInvalid.isTrue ) {
+                //   if(errorCheck == )
+                //   errorCheck = true;
+                // }else{
+                //   print("..........------=======$errorCheck");
+                //   // errorCheck = false;
+                // }
+                return Center(
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: Get.height / 8.0),
+                              Container(
+                                margin: EdgeInsets.only(bottom: 20),
+                                child: Image.asset(AppImages.appLogo,
+                                    height: Get.height / 6),
                               ),
-                            ),
-                            submitButton(
-                                bgcolor: AppColors.appBarBackGroundColor,
-                                textColor: AppColors.appBarBackGroun,
-                                buttonText: "login".tr,
-                                fontSize: 20.0,
-                                callback: signIn),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: 10, bottom: 10, left: 20, right: 20),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // Expanded(
-                                    //     child: Divider(
-                                    //   color: Colors.black,
-                                    // )),
-                                    // SizedBox(
-                                    //   width: 3,
-                                    // ),
-                                    Text(
-                                      "or".tr,
+                              SizedBox(height: 23),
+                              eMail(),
+                              SizedBox(height: 8),
+                              passwordW(),
+                              loginCont.resultInvalid.isTrue && errorCheck == true
+                                  ? Container(
+                                      child: Container(
+                                        child: Text(
+                                          loginCont.logindata['errors'],
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                              //SizedBox(height: 4),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/forgotPass');
+                                },
+                                child: Container(
+                                  alignment: Alignment.bottomRight,
+                                  margin: EdgeInsets.only(
+                                      bottom: 10, right: 18, top: 6),
+                                  child: Text('forgot_password'.tr,
                                       style: TextStyle(color: Colors.grey),
-                                    ),
-                                    SizedBox(
-                                      width: 3,
-                                    ),
-                                    // Expanded(
-                                    //     child: Divider(
-                                    //   color: Colors.black,
-                                    // )),
-                                  ]),
-                            ),
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 10, bottom: 10),
-                            //   child: Text("or".tr),
-                            // ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                submitButton(
+                                      textAlign: TextAlign.end),
+                                ),
+                              ),
+                              submitButton(
+                                  bgcolor: AppColors.appBarBackGroundColor,
+                                  textColor: AppColors.appBarBackGroun,
+                                  buttonText: "login".tr,
+                                  fontSize: 20.0,
+                                  callback: signIn),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 10, bottom: 10, left: 20, right: 20),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      // Expanded(
+                                      //     child: Divider(
+                                      //   color: Colors.black,
+                                      // )),
+                                      // SizedBox(
+                                      //   width: 3,
+                                      // ),
+                                      Text(
+                                        "or".tr,
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      // Expanded(
+                                      //     child: Divider(
+                                      //   color: Colors.black,
+                                      // )),
+                                    ]),
+                              ),
+                              // Container(
+                              //   margin: EdgeInsets.only(top: 10, bottom: 10),
+                              //   child: Text("or".tr),
+                              // ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  submitButton(
                                     textColor: AppColors.appBarBackGroun,
                                     buttonText: AppString.facebook,
                                     callback: navigateToGoogleFaceBook,
                                     width: Get.width / 2.3,
-                                    image: AppImages.fb),
-                                SizedBox(width: 20),
-                                submitButton(
+                                    image: AppImages.fb
+                                  ),
+                                  SizedBox(width: 20),
+                                  submitButton(
                                     textColor: AppColors.google,
                                     buttonText: AppString.facebook,
                                     borderColor: AppColors.google,
                                     callback: navigateToGoogleLogin,
                                     width: Get.width / 2.3,
-                                    image: AppImages.google),
-                              ],
-                            ),
-                            bottomW()
-                          ],
+                                    image: AppImages.google
+                                  ),
+                                ],
+                              ),
+                              bottomW()
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }));
+                      )
+                    ],
+                  ),
+                );
+              })),
+    );
   }
 
   Widget eMail() {
@@ -235,7 +262,7 @@ class _SignPageState extends State<SignIn> {
           //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
           style: TextStyle(fontSize: 18, color: AppColors.inputTextColor))
         : hintTextLang == null && lang == null
-        ? Container()
+        ? Text("English")
         : Text(lang),
         dropdownColor: AppColors.inPutFieldColor,
         icon: Icon(

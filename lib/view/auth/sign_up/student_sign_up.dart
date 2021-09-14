@@ -182,6 +182,7 @@ class _SignPageState extends State<StudentSignUp> {
                       },
                     ),
                   ),
+                  
                   Text(
                     'terms'.tr, 
                     style: TextStyle( 
@@ -203,6 +204,11 @@ class _SignPageState extends State<StudentSignUp> {
                 buttonText: "sign_up_text".tr,fontSize: 16.0,
                 callback: _isChecked == true ?  createUser : null
                 // callback:  createUser
+              ),
+              space20,
+               Container(
+              height: 1,
+              color:Colors.grey, 
               ),
               space20,
               GestureDetector(
@@ -414,9 +420,10 @@ class _SignPageState extends State<StudentSignUp> {
         border: Border.all(color: Color(0xFFEEEEEE)
         )
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
         inputDecoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left:10,bottom:10),
           fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,
@@ -426,7 +433,7 @@ class _SignPageState extends State<StudentSignUp> {
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
           ),
-          hintText: "Mobile",
+          hintText: "mobile".tr,
           hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
