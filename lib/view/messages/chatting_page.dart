@@ -78,11 +78,22 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   handleMessage(data) { 
     chatCont.loadMessage(data);
   }
+  @override
+  void dispose() {
+    print("Card ---------------- -==--==---=--disposed");
+    super.dispose();
+  }
   //reviewd
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // bottomNavigationBar: textFieldDataSender(),
+    return WillPopScope(
+        onWillPop: () async {
+            socket.dispose();
+            chatCont.getAllConvo();
+            Get.back();
+            return false;
+        },
+      child: Scaffold(
       body: Stack(
         children: [
           Container(
@@ -166,6 +177,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           textFieldDataSender()
         ],
       ),
+    )
     );
   }
 
