@@ -76,7 +76,9 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   }
 
   handleMessage(data) { 
+   
     chatCont.loadMessage(data);
+     
   }
   @override
   void dispose() {
@@ -87,12 +89,16 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-            socket.dispose();
-            chatCont.getAllConvo();
-            Get.back();
-            return false;
-        },
+      onWillPop: () async {
+          socket.dispose();
+          chatCont.getAllConvo();
+          var json = {
+            'conversation_id':conversationID
+          } ;  
+          chatCont.readConversation(json);
+          Get.back();
+          return false;
+      },
       child: Scaffold(
       body: Stack(
         children: [
@@ -107,7 +113,12 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   leading: GestureDetector(
                     onTap: () {    
                       socket.dispose();
-                      chatCont.getAllConvo();
+                      
+                      var json = {
+                          'conversation_id':conversationID
+                        } ;  
+                        chatCont.readConversation(json);
+                        chatCont.getAllConvo();
                       Get.back();
                     },
                     child: Image.asset(AppImages.arrowBack)),
@@ -131,7 +142,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           FractionalTranslation(
             translation: Get.height > 700 &&
                Get.height > 800
-              ? const Offset(1.5, 1.3) : Get.height > 700 || Get.height < 800 ? const Offset(1.3, 1.0)
+              ? const Offset(1.6, 1.4) : Get.height > 700 || Get.height < 800 ? const Offset(1.3, 1.0)
               : const Offset(1.3, 0.8),
             child: CircleAvatar(
               backgroundColor: Colors.grey[400],
