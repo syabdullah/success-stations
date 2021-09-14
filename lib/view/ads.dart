@@ -64,7 +64,6 @@ class _AdsViewState extends State<AdsView> {
     print(newv);
     return Stack(
       children: [
-       
         ListView(
           // padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
