@@ -176,6 +176,7 @@ const Map<String, String> ar = {
   "nameph": "اسم",
   "date_of_birth": "تاريخ الولادة",
   "mobile": "التليفون المحمول",
+    "mobilee": "التليفون المحمول",
   "phone": "هاتف",
   "accept": "قبول",
   "reject": "رفض",
