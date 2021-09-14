@@ -26,11 +26,12 @@ class _MyAddsState extends State<MyAdds> {
    final friCont = Get.put(FriendsController()); 
    final deleteAd = Get.put(AdDeletingController());
    final adStatus = Get.put(AdPostingController());
-  var listtype = 'list';
+  var listtype = 'grid';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
-  Color selectedColor = AppColors.appBarBackGroundColor;
-  Color listIconColor = AppColors.appBarBackGroundColor;
+  Color selectedColor = Colors.blue;
+  Color gridIconColor = AppColors.appBarBackGroundColor;
+  Color listIconColor = Colors.grey;
    bool liked = false;
   var lang;
   bool _value = true;
@@ -127,6 +128,7 @@ class _MyAddsState extends State<MyAdds> {
                   setState(() {
                     listtype = 'grid';
                     isButtonPressed = !isButtonPressed;
+                    gridIconColor = AppColors.appBarBackGroundColor;
                     listIconColor = Colors.grey;
                     grid = AppImages.gridOf;
                   });             
@@ -134,7 +136,7 @@ class _MyAddsState extends State<MyAdds> {
                 icon: 
                 // Container(
                   // height: 100,
-                  Image.asset(grid,),
+                  Image.asset(grid,color: gridIconColor,),
               ),
               Container(
                 margin: EdgeInsets.only(bottom:15),
@@ -142,6 +144,7 @@ class _MyAddsState extends State<MyAdds> {
                   onPressed: (){
                     setState(() {
                       listtype = 'list';
+                      gridIconColor = Colors.grey;
                       listIconColor = AppColors.appBarBackGroundColor;
                       grid = AppImages.gridOf;
                     });

@@ -470,6 +470,9 @@ class _OfferListState extends State<OfferList> {
                               SizedBox(
                                 width: 20,
                               ),
+                              SizedBox(
+                                width: 20,
+                              ),
                               Container(
                                 height: Get.height * 0.05,
                                 margin: lang == 'en'

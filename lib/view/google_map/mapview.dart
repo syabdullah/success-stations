@@ -13,7 +13,6 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:clippy_flutter/triangle.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class CustomInfoWindowExample extends StatefulWidget {
   @override

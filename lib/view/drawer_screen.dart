@@ -280,7 +280,7 @@ var lang;
                           CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
                             Get.to(UserAgreement())
                           },12.0 ),
-                          CustomListTile(AppImages.contactus, 'cntact_us'.tr, () => {
+                          CustomListTile(AppImages.contactus, 'contactus'.tr, () => {
                            Get.to(Contact())
                           },15.0 ),
                           SizedBox(height: 10.h),

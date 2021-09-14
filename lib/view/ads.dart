@@ -72,7 +72,7 @@ class _AdsViewState extends State<AdsView> {
                 builder: (data){
                   imgList = [];
                   return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
                     ],
@@ -216,7 +216,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
            margin: EdgeInsets.only(left:10,right: 10,top: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -225,7 +225,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10,top: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -237,7 +237,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -246,7 +246,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
