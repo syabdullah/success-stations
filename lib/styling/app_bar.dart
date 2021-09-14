@@ -39,7 +39,7 @@ var userId = box.read('user_id');
       automaticallyImplyLeading: false,
       centerTitle: true,
       leading: IconButton(
-        iconSize: 20,
+        iconSize: 25,
         icon: Icon(Icons.menu,color: Colors.white),
         onPressed: () => globalKey.currentState!.openDrawer()),
       title: Padding(

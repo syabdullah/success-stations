@@ -101,6 +101,7 @@ class _OfferListState extends State<OfferList> {
           topWidget(),
           SizedBox(
             height: 20,
+            // height: 10,
           ),
           GetBuilder<OfferCategoryController>(
             init: OfferCategoryController(),
@@ -173,7 +174,7 @@ class _OfferListState extends State<OfferList> {
                   color: Colors.grey[200],
                 ),
 
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                 child: Row(
                   children: [
                     Image.asset(AppImages.filter, height: 15),
@@ -211,7 +212,6 @@ class _OfferListState extends State<OfferList> {
                   onPressed: () {
                     setState(() {
                       listtype = 'grid';
-                      print(".....<><><><><><>///<><><....$listtype");
                       lisselect = !lisselect;
                       isButtonPressed = !isButtonPressed;
                       //listIconColor = Colors.grey;
@@ -713,7 +713,7 @@ class _OfferListState extends State<OfferList> {
 
   Widget allUsers(listFavou) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10,bottom: 20),
+      padding: EdgeInsets.only(left: 20, right: 20,bottom: 20),
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
         height: Get.height/1.67,
