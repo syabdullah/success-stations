@@ -202,7 +202,7 @@ class AddOffersState extends State<AddOffersPage> {
                   submitButton(
                     bgcolor: AppColors.appBarBackGroundColor,
                     textColor: AppColors.appBarBackGroun,
-                    buttonText: "PUBLISH",
+                    buttonText: "publish".tr,
                     callback:
                         postDataEdited == null ? adOffersCreate : editPost,
                   ),
@@ -230,7 +230,7 @@ class AddOffersState extends State<AddOffersPage> {
           contentPadding: lang == 'en'
               ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
               : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-          hintText: "Offer Title",
+          hintText: "offer_title".tr,
           hintStyle: TextStyle(fontSize: 13, color: Colors.grey[700]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
@@ -368,7 +368,7 @@ class AddOffersState extends State<AddOffersPage> {
               ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
               : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
 
-              hintText: "Offer Description",
+              hintText: "offer_description".tr,
               hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
               border: OutlineInputBorder(
                 
@@ -397,7 +397,7 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                 hint: Text(
-                    hintLinking != null ? hintLinking : 'Link To Listing Adds',
+                    hintLinking != null ? hintLinking : 'link_to_listing_ads'.tr,
                     style: TextStyle(fontSize: 13, color: Colors.grey[700])),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
@@ -435,7 +435,7 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                 hint: Text(
-                    hintTextCate != null ? hintTextCate : 'Offer Category',
+                    hintTextCate != null ? hintTextCate : 'offer_category'.tr,
                     style: TextStyle(fontSize: 13, color: Colors.grey[700])),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),

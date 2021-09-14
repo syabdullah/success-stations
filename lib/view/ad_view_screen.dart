@@ -428,7 +428,7 @@ Widget mytraling(idU){
 
 Widget commentButton() {
     return Container(
-      height: 40.h,
+      height: 50.h,
       width: Get.width,
       child: ElevatedButton(
         style:  ButtonStyle(
@@ -437,7 +437,7 @@ Widget commentButton() {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
          borderRadius: BorderRadius.all(Radius.circular(5)),
-         side: BorderSide(color: Colors.blue)
+         side: BorderSide(color: AppColors.appBarBackGroundColor)
       )
     )
   ),
@@ -450,7 +450,7 @@ Widget commentButton() {
 
      },
       child: Container(
-        child: Text('add_a_comment'.tr)),
+        child: Text('add_comment'.tr,style:TextStyle(color:AppColors.appBarBackGroundColor))),
       ),
     );
   }

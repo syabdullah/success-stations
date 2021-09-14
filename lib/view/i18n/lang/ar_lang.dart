@@ -266,5 +266,11 @@ const Map<String, String> ar = {
  
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
   'newad':'إضافة إعلان جديد',
-  'my_Offer':'عرضي'
+  'my_Offer':'عرضي',
+  'offer_title':'عنوان العرض',
+  'offer_category':'فئة العرض',
+  'offer_description':'وصف العرض',
+  'url':'عنوان',
+  'link_to_listing_ads':'ارتباط إلى قائمة الإعلانات',
+  'add_comment':'أضف تعليق'
 };

@@ -232,7 +232,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   margin: EdgeInsets.only(top: 5),
                                   child: listFavou[c]['url'] != null
                                       ? Text(listFavou[c]['url'],
-                                          style: TextStyle(color: Colors.blue))
+                                          style: TextStyle(color: AppColors.appBarBackGroundColor))
                                       : Container())
                             ]),
                       ),

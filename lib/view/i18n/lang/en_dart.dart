@@ -268,7 +268,14 @@ const Map<String, String> en = {
 
   'payme':'You are using the free version please upgrade your package to full access',
   'newad':'Add New Ad',
-  'my_Offer':'MY OFFER'
+  'my_Offer':'MY OFFER',
+  'offer_title':'Offer Title',
+  'offer_category':'Offer Category',
+  'offer_description':'Offer Description',
+  'url':'Url',
+  'link_to_listing_ads':'Link To Listing Ads',
+  'add_comment':'ADD COMMENT',
+
 };
 
 

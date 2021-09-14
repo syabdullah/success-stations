@@ -107,9 +107,9 @@ class _AllAddsState extends State<AllAdds> {
       : null,
       body: Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 6),
           topWidget(),
-          SizedBox(height: 10),
+          SizedBox(height: 6),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -160,7 +160,7 @@ class _AllAddsState extends State<AllAdds> {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.grey[200],
                 ),
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Row(
                   children: [
                     Image.asset(AppImages.filter, height: 15),
@@ -264,7 +264,7 @@ class _AllAddsState extends State<AllAdds> {
       ),
       builder: (context) {
         return FractionallySizedBox(
-          heightFactor: 0.8,
+          heightFactor: 0.9,
           child: StatefulBuilder(
             builder: (
               BuildContext context,void Function(void Function()) setState) {
@@ -583,6 +583,7 @@ class _AllAddsState extends State<AllAdds> {
 
   var catID;
   Widget myAddsList(allDataAdds) {
+    print("........hellooooo...here I am......$allDataAdds");
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
@@ -688,25 +689,26 @@ class _AllAddsState extends State<AllAdds> {
                                     )
                                   ],
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.person,color: Colors.grey),
-                                      Container(
-                                        // margin:EdgeInsets.only(left:29),
-                                        child: Text(
-                                          allDataAdds[index]['contact_name'] != null
-                                          ? allDataAdds[index]['contact_name']
-                                          : '',
-                                          style: TextStyle(
-                                            color: Colors.grey[300]
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                // Expanded(
+                                //   flex: 2,
+                                //   child: Row(
+                                //     children: [
+                                //       Icon(Icons.person,color: Colors.grey),
+                                //       Container(
+                                //         // margin:EdgeInsets.only(left:29),
+                                //         child: Text(
+                                //           allDataAdds[index]['country_id'] != null
+                                //           ? allDataAdds[index]['country_id']
+                                //           : '',
+                                //           style: TextStyle(
+                                //             color: Colors.grey[300]
+                                //           ),
+                                //         ),
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
+                                
                               ],
                             ),
                           ),
@@ -767,7 +769,7 @@ class _AllAddsState extends State<AllAdds> {
   myAddGridView(dataListValue) {
     return Container(
       margin: EdgeInsets.only(bottom:20),
-      width: Get.width / 1.10,
+      width: Get.width / 1.12,
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 12,
@@ -828,17 +830,72 @@ class _AllAddsState extends State<AllAdds> {
                             ? dataListValue[index]['title']['en'].toString()
                             : '',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold
                             )
                           ),
                         ),
+                        Container(
+                          margin: EdgeInsets.only(left: 5),
+                          child: dataListValue[index]['is_rated'] ==false
+                          ? RatingBar.builder(
+                            initialRating: dataListValue[index]['rating'].toDouble(),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 22.5,
+                            itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                            onRatingUpdate: (rating) {
+                              print('rating on tap ........$rating');
+                              var ratingjson = {
+                                'ads_id': dataListValue[index]['id'],
+                                'rate': rating
+                              };
+                              print('.....................Rating data on Tap .........$ratingjson');
+                              ratingcont.ratings(ratingjson);
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                          : RatingBar.builder(
+                            initialRating: dataListValue[index]['rating'].toDouble(),
+                            ignoreGestures: true,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 22.5,
+                            itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                            onRatingUpdate: (rating) {
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                        ),
+                        // Expanded(
+                        //           flex: 2,
+                        //           child: Row(
+                        //             children: [
+                        //               Icon(Icons.person,color: Colors.grey),
+                        //               Container(
+                        //                 // margin:EdgeInsets.only(left:29),
+                        //                 child: Text(
+                        //                   allDataAdds[index]['contact_name'] != null
+                        //                   ? allDataAdds[index]['contact_name']
+                        //                   : '',
+                        //                   style: TextStyle(
+                        //                     color: Colors.grey[300]
+                        //                   ),
+                        //                 ),
+                        //               )
+                        //             ],
+                        //           ),
+                        //         ),
                         Expanded(
                           flex: 2,
                           child: Container(
                             margin: lang == 'en'
-                            ? EdgeInsets.only(left: 9)
-                            : EdgeInsets.only(right: 9),
+                            ? EdgeInsets.only(left: 5)
+                            : EdgeInsets.only(right: 5),
                             child: Row(
                               children: [
                                 Icon(Icons.person,color: Colors.grey[400]),

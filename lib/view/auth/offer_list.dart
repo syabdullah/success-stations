@@ -98,11 +98,11 @@ class _OfferListState extends State<OfferList> {
         ),
         body: ListView(children: [
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           topWidget(),
           SizedBox(
-            height: 10,
+            height: 6,
           ),
           GetBuilder<OfferCategoryController>(
             init: OfferCategoryController(),
@@ -160,7 +160,7 @@ class _OfferListState extends State<OfferList> {
                   color: Colors.grey[200],
                 ),
 
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Row(
                   children: [
                     Image.asset(AppImages.filter, height: 15),
@@ -257,7 +257,7 @@ class _OfferListState extends State<OfferList> {
         ),
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 0.6,
+            heightFactor: 0.7,
             child: StatefulBuilder(builder: (BuildContext context,
                 void Function(void Function()) setState) {
               return SafeArea(
