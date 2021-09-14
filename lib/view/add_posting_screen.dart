@@ -564,7 +564,7 @@ Widget istStep(List list,List types){
                   color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 0.0, 0),
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
                   hintText: "title".tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
@@ -636,7 +636,7 @@ Widget istStep(List list,List types){
               },
               style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
               decoration:InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
+                contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 100.0),
                 hintText: "description".tr,
                 border: OutlineInputBorder( 
                 borderRadius: BorderRadius.circular(10.0),

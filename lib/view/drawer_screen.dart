@@ -277,7 +277,7 @@ var lang;
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
                            Get.to(AdvertisePage())
                           },15.0 ),
-                          CustomListTile(AppImages.ugr, 'user_agreement'.tr, () => {
+                          CustomListTile(AppImages.ugr, 'agr'.tr, () => {
                             Get.to(UserAgreement())
                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'contactus'.tr, () => {

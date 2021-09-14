@@ -93,7 +93,7 @@ class _FriendListState extends State<FriendList> {
                     grid = AppImages.grid;
                   });
                 },
-                icon: Image.asset(grid,color: gridIconColor,)),
+                icon: Image.asset(AppImages.hehe,color: gridIconColor,height: 1000,)),
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: IconButton(

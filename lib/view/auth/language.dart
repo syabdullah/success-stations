@@ -173,7 +173,7 @@ class _LanguagePageState extends State<Language> {
     return Container(
         child: Text(
       "choose_language".tr,
-      style: TextStyle(fontSize: 23, color: AppColors.black),
+      style: TextStyle(fontSize: 23, color: AppColors.grey),
     ));
   }
 

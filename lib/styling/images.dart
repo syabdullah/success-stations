@@ -92,4 +92,5 @@ class AppImages {
   static String homeicon = imagePath + 'home.png';
   static String camera = imagePath + 'cam@3x.png';
   static String junaid = imagePath + 'junaid.jpeg';
+  static String hehe = imagePath + 'hehe.png';
 }

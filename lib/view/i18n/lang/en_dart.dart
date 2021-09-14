@@ -241,7 +241,7 @@ const Map<String, String> en = {
   'yearly':'Yearly',
   'monthly':'Monthly',
   'pro_comp':'Pro(Company)',
-  'my_offer':'My Offer',
+  'my_offer':'My Offers',
   'email_address':'Email Address',
   'first_name':'First Name',
   'last_name':'Last Name',
@@ -269,9 +269,10 @@ const Map<String, String> en = {
   "Type_your_message_here":"Type your message here",
   'payme':'You are using the free version please upgrade your package to full access',
   'newad':'Add New Ad',
-  'my_Offer':'MY OFFER',
+  'my_Offer':'MY OFFERS',
   'phoner':'Phone Number is Required',
   'desc':'Decription is Required',
+  'myloc':'MY LOCATIONS'
 };
 
 

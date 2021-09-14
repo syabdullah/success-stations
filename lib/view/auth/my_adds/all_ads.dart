@@ -45,10 +45,10 @@ class _AllAddsState extends State<AllAdds> {
   var bClicked = false;
   var grid = AppImages.gridOf;
   var listImg = AppImages.listing;
-  Color selectedColor = Colors.blue;
+  Color selectedColor = Color(0xFF2F4199);
   Color listIconColor = AppColors.appBarBackGroundColor;
   bool liked = false;
-  Color filterSelecredColor = Colors.blue;
+  Color filterSelecredColor =Color(0xFF2F4199);
   var conditionSelected;
   GetStorage box = GetStorage();
   var lang;
@@ -109,7 +109,6 @@ class _AllAddsState extends State<AllAdds> {
         children: [
           SizedBox(height: 10),
           topWidget(),
-          SizedBox(height: 10),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
@@ -160,7 +159,7 @@ class _AllAddsState extends State<AllAdds> {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.grey[200],
                 ),
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Row(
                   children: [
                     Image.asset(AppImages.filter, height: 15),
@@ -468,7 +467,7 @@ class _AllAddsState extends State<AllAdds> {
                                   child: Text("SAR 0 - SAR 10000 ",
                                     style: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.grey,
+                                      color: Color(0xFF2F4199),
                                       fontWeight: FontWeight.normal
                                     )
                                   ),
@@ -480,6 +479,7 @@ class _AllAddsState extends State<AllAdds> {
                               ? EdgeInsets.only(top: 4, left: 8)
                               : EdgeInsets.only(top: 4, right: 8),
                               child: RangeSlider(
+                                activeColor: Color(0xFF2F4199),
                                 values: _currentRangeValues,
                                 min: 1.00,
                                 max: 10000.00,
@@ -770,7 +770,7 @@ class _AllAddsState extends State<AllAdds> {
       width: Get.width / 1.10,
       child: GridView.count(
         crossAxisCount: 2,
-        mainAxisSpacing: 12,
+        mainAxisSpacing: 14,
         crossAxisSpacing: 12,
         children: List.generate(
           dataListValue.length, (index) {
@@ -802,7 +802,7 @@ class _AllAddsState extends State<AllAdds> {
                             ? Get.width / 1.4
                             : Get.width / 2.3,
                             //height: Get.height / 6.0,
-                             height: Get.height / 8.0,
+                             height: Get.height / 10.5,
                             child: dataListValue[index]['image'].length != 0
                             ? Image.network(
                               dataListValue[index]['image'][0]['url'],
@@ -828,19 +828,97 @@ class _AllAddsState extends State<AllAdds> {
                             ? dataListValue[index]['title']['en'].toString()
                             : '',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold
                             )
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            margin: lang == 'en'
-                            ? EdgeInsets.only(left: 9)
-                            : EdgeInsets.only(right: 9),
+                         Container(
+                           margin: EdgeInsets.only(left:10,right: 10),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(top: 5),
+                                        child: dataListValue[index]['is_rated'] ==false
+                                        ? RatingBar.builder(
+                                          initialRating: dataListValue[index]['rating'].toDouble(),
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            print('rating on tap ........$rating');
+                                            var ratingjson = {
+                                              'ads_id': dataListValue[index]['id'],
+                                              'rate': rating
+                                            };
+                                            print('.....................Rating data on Tap .........$ratingjson');
+                                            ratingcont.ratings(ratingjson);
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                        : RatingBar.builder(
+                                          initialRating: dataListValue[index]['rating'].toDouble(),
+                                          ignoreGestures: true,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                      ),
+                                      Container(
+                              // width: Get.width/4,
+                              // height: Get.height/5.5,
                             child: Row(
                               children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    var json = {
+                                      'ads_id': dataListValue[index]['id']
+                                    };
+                                    liked = !liked;
+                                   dataListValue[index]['is_favorite'] ==false
+                                    ? friCont.profileAdsToFav(json, userId)
+                                    : friCont.profileAdsRemove(json, userId);
+                                    controller.addedByIdAddes(catID, null);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: 5),
+                                    child: dataListValue[index]['is_favorite'] ==false
+                                    ? Image.asset(AppImages.blueHeart,height: 20)
+                                    : Image.asset(AppImages.redHeart,height: 20)
+                                  ),
+                                ),
+                                Image.asset(AppImages.call, height: 20),
+                              ],
+                            )
+                          )
+                                    ],
+                                  ),
+                         ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: lang == 'en'
+                            ? EdgeInsets.only(left: 9,right: 10)
+                            : EdgeInsets.only(right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    dataListValue[index]['price'] !=null
+                                    ? " SAR ${dataListValue[index]['price']}"
+                                    : '',
+                                    style: TextStyle(color: AppColors.appBarBackGroundColor),
+                                  ),
                                 Icon(Icons.person,color: Colors.grey[400]),
                                 Container(
                                   child: Text(
@@ -1015,7 +1093,7 @@ class _AllAddsState extends State<AllAdds> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.blue),
+                          border: Border.all(color: Color(0xFF2F4199)),
                           color: selectedIndexListing == val
                           ? selectedColor
                           : Colors.white,
@@ -1034,7 +1112,7 @@ class _AllAddsState extends State<AllAdds> {
                             style: TextStyle(
                               color: selectedIndexListing == val
                               ? Colors.white
-                              : Colors.blue,
+                              : Color(0xFF2F4199),
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.normal,

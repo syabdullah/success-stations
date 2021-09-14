@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';
-import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -49,8 +48,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
+          preferredSize: Size.fromHeight(60.0),
           child: AppBar(
+            backgroundColor:Color(0xFF2F4199) ,
             leading: GestureDetector(
                 onTap: () {
                   Get.back();
@@ -82,17 +82,17 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   },
                   child: Container(
                       margin: lang == 'en'
-                          ? EdgeInsets.only(left: 20, top: 30)
-                          : EdgeInsets.only(right: 20, top: 30),
+                          ? EdgeInsets.only(left: 20, top: 10,right: 10)
+                          : EdgeInsets.only(right: 20, top: 10,left: 10),
                       child: Image.asset(AppImages.plusImage, height: 24)),
                 ),
-                SizedBox(width: 20),
+                // SizedBox(width: 20),
                 Container(
-                    margin: EdgeInsets.only(left: 10, top: 30),
-                    child: Text("addnewoffer".tr)),
+                    margin: EdgeInsets.only(left: 0, top: 10),
+                    child: Text("addnewoffer".tr,style: TextStyle(color: Colors.grey),)),
               ],
             ),
-            SizedBox(height: 20),
+            // SizedBox(height: 20),
             GetBuilder<MyOffersDrawerController>(
               init: MyOffersDrawerController(),
               builder: (val) {
@@ -194,7 +194,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                             listFavou[c]['text_ads']['en']
                                                 .toString(),
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: Colors.grey[700],
                                                 fontWeight: FontWeight.bold),
                                           )
                                         : Container(),
@@ -232,7 +232,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   margin: EdgeInsets.only(top: 5),
                                   child: listFavou[c]['url'] != null
                                       ? Text(listFavou[c]['url'],
-                                          style: TextStyle(color: Colors.blue))
+                                          style: TextStyle(color: Color(0xFF2F4199)))
                                       : Container())
                             ]),
                       ),
@@ -259,17 +259,10 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                     ? AppColors.snackBarColor
                                     : AppColors.appBarBackGroundColor,
                               ))),
-                      Container(
+                      Expanded(
                           child: Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(AddOffersPage(), arguments: listFavou[c]);
-                            },
-                            child: Container(
-                                padding: lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
-                                child: Image.asset(AppImages.edit, height: 30)),
-                          ),
+                          
                           Container(
                               margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
                               child: GestureDetector(
@@ -280,6 +273,14 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   },
                                   child: Image.asset(AppImages.delete,
                                       height: 30))),
+                                        GestureDetector(
+                            onTap: () {
+                              Get.to(AddOffersPage(), arguments: listFavou[c]);
+                            },
+                            child: Container(
+                                padding: lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                                child: Image.asset(AppImages.edit, height: 30)),
+                          ),
                         ],
                       ))
                     ],
