@@ -66,7 +66,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
        
         ListView(
-          padding: EdgeInsets.symmetric(horizontal:0),
+          // padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
