@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
@@ -35,14 +36,8 @@ class _MyLocationsState extends State<MyLocations> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: AppColors.appBarBackGroundColor,
-        title: Text('MY LOCATIONS'),
+        title: Text('myloc'.tr),
         centerTitle: true,
-        actions: [
-          Icon(
-            Icons.search,
-            size: 40,
-          )
-        ],
         leading: IconButton(
             onPressed: () => _scaffoldKey.currentState!.openDrawer(),
             icon: Icon(Icons.arrow_back_ios)),
@@ -60,7 +55,7 @@ class _MyLocationsState extends State<MyLocations> {
                 children: [
                   Container(
                     margin: lang=='en'? EdgeInsets.only(left: 10):EdgeInsets.only(right: 10),
-                    height: 70,
+                    height: 60,
                     child: GestureDetector(
                       onTap: () {
                         Get.to(AddLocations());
@@ -68,13 +63,13 @@ class _MyLocationsState extends State<MyLocations> {
                       child: Row(
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 20, top: 30),
+                              margin: EdgeInsets.only(left: 20, top: 10),
                               child:
                                   Image.asset(AppImages.plusImage, height: 24)),
                           SizedBox(width: 10),
                           Container(
-                              margin: EdgeInsets.only(left: 20, top: 30),
-                              child: Text("addNewLocation".tr))
+                              margin: EdgeInsets.only(left: 20, top: 10),
+                              child: Text("addNewLocation".tr,style: TextStyle(color: Colors.grey,)))
                         ],
                       ),
                     ),
@@ -103,7 +98,6 @@ class _MyLocationsState extends State<MyLocations> {
   }
 
   Widget myAddsList(data) {
-    print("......................-----..$data");
     return ListView.builder(
       padding: EdgeInsets.all(5),
       itemCount: data != null ? data.length : 0,
@@ -142,20 +136,22 @@ class _MyLocationsState extends State<MyLocations> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Text(
-                          //   "Location",
-                          //   // data[index]['user_name']['name'],
-                          //   style: TextStyle(
-                          //     color: Colors.black,
-                          //     fontWeight:FontWeight.bold
-                          //   ),
-                          // ),
+                          data[index]['location'] != null ?
+                          Text(
+                            data[index]['location'],
+                            // data[index]['user_name']['name'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight:FontWeight.bold
+                            ),
+                          ):Container(),
                           SizedBox(height: 7),
                           Container(
                             width: Get.width / 3.0,
                             child:
                                 // Image.asset(AppImages.location, height:15),
                                 ReadMoreText(
+                                
                               data[index]['formated_address'] != null
                                   ? data[index]['formated_address']
                                   : '',
@@ -164,7 +160,9 @@ class _MyLocationsState extends State<MyLocations> {
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
                               textAlign: TextAlign.left,
+                              colorClickableText: AppColors.appBarBackGroundColor,
                               style: TextStyle(
+                                
                                 fontSize: 13,
                                 color: Colors.grey[400],
                               ),

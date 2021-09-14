@@ -105,9 +105,11 @@ const Map<String, String> ar = {
   "Telephone_no": "الهاتف لا",
   "notes": "ملاحظات",
   "previous": "السابق",
+  "previousb": "السابق",
   "save_as_draft": "حفظ كمسودة",
   "draft_ads":"مسودة الإعلانات",
   "publish": "ينشر",
+  "publishb": "ينشر",
   "details": "تفاصيل",
   "ad_posted_at": "تم نشر الإعلان في",
   "save": "حفظ",
@@ -268,5 +270,6 @@ const Map<String, String> ar = {
   'desc':'الوصف مطلوب',
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
   'newad':'إضافة إعلان جديد',
-  'my_Offer':'عرضي'
+  'my_Offer':'عرضي',
+  'myloc':'مواقعي'
 };

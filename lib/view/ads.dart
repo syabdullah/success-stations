@@ -13,7 +13,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
-import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 
   List<String> imgList = [];
@@ -61,7 +60,6 @@ class _AdsViewState extends State<AdsView> {
   @override
   Widget build(BuildContext context) { 
     lang = box.read('lang_code');
-    print(newv);
     return Stack(
       children: [
         ListView(
@@ -374,7 +372,7 @@ class _AdsViewState extends State<AdsView> {
                     alignment: Alignment.center,
                     child: Container(                   
                       margin: EdgeInsets.only(top:5,),
-                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold,)),
+                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
                   ),
                   
@@ -390,9 +388,7 @@ class _AdsViewState extends State<AdsView> {
                             false
                           ? RatingBar.builder(
                             initialRating:
-                                data[index]
-                                        ['rating']
-                                    .toDouble(),
+                            data[index]['rating'].toDouble(),
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

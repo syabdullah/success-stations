@@ -346,7 +346,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         padding :EdgeInsets.only(top:10), 
         isObscure: false,
         hintText: "full_name".tr,
@@ -377,7 +377,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
-         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         hintText:"emails".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
