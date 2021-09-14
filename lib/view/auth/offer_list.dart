@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -86,7 +87,7 @@ class _OfferListState extends State<OfferList> {
             ? PreferredSize(
                 preferredSize: Size.fromHeight(70.0),
                 child: appbar(
-                    _scaffoldKey, context, AppImages.appBarLogo, " ", ''))
+                    _scaffoldKey, '', AppImages.appBarLogo, " ", ''))
             : null,
         // drawer: AppDrawer(),
         drawer: Theme(
@@ -179,36 +180,40 @@ class _OfferListState extends State<OfferList> {
               child: usertype == 2 || usertype == 3
                   ? Container()
                   : Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Image.asset(AppImages.plusImage, height: 24)),
+                  margin: EdgeInsets.only(left: 10),
+                  child: Image.asset(AppImages.plusImage, height: 24,)),
             )
           ],
         ),
         Container(
           margin: lang == 'en'
-              ? EdgeInsets.only(
-                  left: 10,
-                )
-              : EdgeInsets.only(
-                  right: 20,
-                ),
-                child: Row(
+          ? EdgeInsets.only(left: 10,)
+          : EdgeInsets.only(right: 20,),
+          child: Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
-                    box.write("type", listtype);
-                    print(".....<><><><><><>///<><><....$listtype");
-                    isButtonPressed = !isButtonPressed;
-                    //listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                  });
-                },
-                icon: Image.asset(grid,height: 50,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+               Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
+            
+              SizedBox(width: 5,),
               Container(
-                child: IconButton(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
@@ -219,56 +224,12 @@ class _OfferListState extends State<OfferList> {
                       listImg = AppImages.listing;
                     });
                   },
-                  icon: Image.asset(listImg,height: 50,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
                 ),
               ),
-              SizedBox(height: 30,width: 15)
+              SizedBox(height: 10,width: 15)
             ],
           ),
-        
-          // child: Row(
-          //   children: [
-          //     IconButton(
-          //         //color: isButtonPressed ? Colors.grey : Colors.blue,
-          //         onPressed: () {
-          //           setState(() {
-          //             listtype = 'grid';
-          //             box.write("type", listtype);
-          //             print(".....<><><><><><>///<><><....$listtype");
-          //             isButtonPressed = !isButtonPressed;
-          //             listIconColor = AppColors.appBarBackGroundColor;
-          //             grid = AppImages.grid;
-          //           });
-          //         },
-          //         icon: Image.asset(
-          //           grid,
-          //           height: 40,
-          //           color: listIconColor,
-          //         )),
-          //     //SizedBox(width: 8,),
-          //     Container(
-          //       //margin: EdgeInsets.only(bottom: 20),
-          //       child: IconButton(
-          //           onPressed: () {
-          //             setState(() {
-          //               listtype = 'list';
-          //               print(".....<><><><><><>///<><><....$listtype");
-          //               lisselect = !lisselect;
-          //               isButtonPressed = !isButtonPressed;
-          //               listIconColor = Colors.grey;
-          //               listImg = AppImages.listing;
-          //             });
-          //           },
-          //           icon: Image.asset(listImg,height: 50,
-          //           color: isButtonPressed?AppColors.appBarBackGroundColor:Colors.grey,),
-          //           ),
-          //     ),
-          //     SizedBox(
-          //       height: 30,
-          //       width: 15,
-          //     )
-          //   ],
-          // ),
         
         )
       ],
@@ -296,7 +257,7 @@ class _OfferListState extends State<OfferList> {
         ),
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 1.0,
+            heightFactor: 0.6,
             child: StatefulBuilder(builder: (BuildContext context,
                 void Function(void Function()) setState) {
               return SafeArea(
@@ -306,8 +267,8 @@ class _OfferListState extends State<OfferList> {
                     curve: Curves.decelerate,
                     child: Container(
                       margin: lang == 'en'
-                          ? EdgeInsets.only(top: 10, left: 20, right: 20)
-                          : EdgeInsets.only(top: 10, left: 20, right: 20),
+                      ? EdgeInsets.only(top: 10, left: 20, right: 20)
+                      : EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: ListView(
                         //crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -318,256 +279,235 @@ class _OfferListState extends State<OfferList> {
                               children: [
                                 Container(
                                   margin: lang == 'en'
-                                      ? EdgeInsets.only(top: 8, left: 8)
-                                      : EdgeInsets.only(top: 8, right: 8),
+                                  ? EdgeInsets.only(top: 8, left: 8)
+                                  : EdgeInsets.only(top: 8, right: 8),
                                   child: Text("filter".tr,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
+                                    style: TextStyle(
+                                      fontSize: 20, color: Colors.black)),
                                 ),
                                 Container(
-                                    margin: lang == 'en'
-                                        ? EdgeInsets.only(top: 8, left: 8)
-                                        : EdgeInsets.only(top: 8, right: 8),
-                                    child: InkWell(
-                                        onTap: () => Get.back(),
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.grey,
-                                        )))
+                                  margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, left: 8)
+                                  : EdgeInsets.only(top: 8, right: 8),
+                                  child: InkWell(
+                                    onTap: () => Get.back(),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: Colors.grey,
+                                    )
+                                  )
+                                )
                               ],
                             ),
                           ),
-                          SizedBox(height: Get.height * 0.04),
+                          SizedBox(height: Get.height * 0.01),
                           Container(
-                              margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, left: 8)
-                                  : EdgeInsets.only(top: 8, right: 8),
-                              child: Text("category".tr,
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.grey))),
+                            margin: lang == 'en'
+                            ? EdgeInsets.only(top: 6, left: 8)
+                            : EdgeInsets.only(top: 6, right: 8),
+                            child: Text("category".tr,
+                              style: TextStyle(fontSize: 15, color: Colors.grey)
+                            )
+                          ),
                           GetBuilder<OfferCategoryController>(
                             init: OfferCategoryController(),
                             builder: (data) {
-                              return data.offerDattaTypeCategory != null &&
-                                      data.offerDattaTypeCategory['data'] !=
-                                          null
-                                  ? Container(
-                                      height: Get.height / 10,
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: data
-                                              .offerDattaTypeCategory['data']
-                                              .length,
-                                          itemBuilder:
-                                              (BuildContext ctxt, int index) {
-                                            return Row(
-                                              children: [
-                                                Container(
-                                                  margin: lang == 'en'
-                                                      ? EdgeInsets.only(
-                                                          left: 8.0)
-                                                      : EdgeInsets.only(
-                                                          right: 8.0),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        bottomSheetCategory =
-                                                            index;
-                                                        filteredIDCate =
-                                                            data.offerDattaTypeCategory[
-                                                                    'data']
-                                                                [index]['id'];
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          5)),
-                                                          border: Border.all(
-                                                            color: AppColors
-                                                                .appBarBackGroundColor,
-                                                          ),
-                                                          color: bottomSheetCategory ==
-                                                                  index
-                                                              ? AppColors
-                                                                  .appBarBackGroundColor
-                                                              : Colors.white,
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                              color:
-                                                                  Colors.grey,
-                                                              offset: Offset(
-                                                                  0.0, 1.0),
-                                                              blurRadius: 6.0,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        padding: EdgeInsets.all(
-                                                            10.0),
-                                                        child:
-                                                            data.offerDattaTypeCategory[
-                                                                        'data'] !=
-                                                                    null
-                                                                ? Text(
-                                                                    data.offerDattaTypeCategory['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'category_name']['en'],
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: bottomSheetCategory ==
-                                                                              index
-                                                                          ? Colors
-                                                                              .white
-                                                                          : AppColors
-                                                                              .appBarBackGroundColor,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      fontStyle:
-                                                                          FontStyle
-                                                                              .normal,
-                                                                    ),
-                                                                  )
-                                                                : Container()),
+                              return data.offerDattaTypeCategory != null && data.offerDattaTypeCategory['data'] !=null
+                              ? Container(
+                                height: Get.height * 0.035,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: data.offerDattaTypeCategory['data'].length,
+                                  itemBuilder:(BuildContext ctxt, int index) {
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          height: Get.height * 0.035,
+                                          margin: lang == 'en'
+                                          ? EdgeInsets.only(left: 8.0)
+                                          : EdgeInsets.only(right: 8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                bottomSheetCategory = index;
+                                                filteredIDCate = data.offerDattaTypeCategory['data']                                      [index]['id'];
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                  BorderRadius.all(
+                                                    Radius.circular(5)
                                                   ),
+                                                  border: Border.all(
+                                                    color: AppColors.appBarBackGroundColor,
+                                                  ),
+                                                  color: bottomSheetCategory == index
+                                                  ? AppColors
+                                                      .appCategSeleGroundColor
+                                                  : Colors.white,
                                                 ),
-                                              ],
-                                            );
-                                          }),
-                                    )
-                                  : Container();
+                                                padding: EdgeInsets.only(left:6.0,right: 6),
+                                                child: data.offerDattaTypeCategory['data'] !=null
+                                                ? Text( data.offerDattaTypeCategory['data'][index]['category_name']['en'],
+                                                  style: TextStyle(
+                                                    color: bottomSheetCategory == index
+                                                    ? AppColors
+                                                        .appBarBackGroundColor
+                                                    : AppColors.appBarBackGroundColor,
+                                                    fontSize:12,
+                                                    fontWeight:FontWeight.w400,
+                                                    fontStyle:FontStyle.normal,
+                                                  ),
+                                                )
+                                                : Container()
+                                              ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                )
+                              : Container();
                             },
                           ),
                           Container(
-                              margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, left: 8)
-                                  : EdgeInsets.only(top: 8, right: 8),
-                              child: Text("condition".tr,
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.grey))),
-                          SizedBox(height: 10),
+                            margin: lang == 'en'
+                            ? EdgeInsets.only(top: 8, left: 8)
+                            : EdgeInsets.only(top: 8, right: 8),
+                            child: Text("condition".tr,
+                            style: TextStyle(
+                              fontSize: 15, color: Colors.grey)
+                            )
+                          ),
+                         // SizedBox(height: 10),
                           Container(
-                            height: Get.height * 0.05,
+                            height: Get.height * 0.035,
                             child: new ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: itemsList.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        onSelected(index);
-                                        statusFiltered = itemsList[index];
-                                        // ignore: unnecessary_statements
-                                      });
-                                    },
-                                    child: Container(
-                                      //height: Get.height / 10,
-                                      margin: lang == 'en'
-                                          ? EdgeInsets.only(left: 8)
-                                          : EdgeInsets.only(right: 8),
-                                      width: Get.width / 5,
-                                      height: Get.height / 2,
-                                      decoration: BoxDecoration(
-                                          // ignore: unnecessary_null_comparison
-                                          color: slctedInd != null &&
-                                                  slctedInd == index
-                                              ? AppColors.appBarBackGroundColor
-                                              : Colors
-                                                  .white, //Colors.blue[100],
-                                          border: Border.all(
-                                            color:
-                                                AppColors.appBarBackGroundColor,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5))),
-                                      child: Center(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 5),
-                                          child: Text(itemsList[index],
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: slctedInd == index
-                                                    ? Colors.white
-                                                    : AppColors
-                                                        .appBarBackGroundColor,
-                                              )),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: itemsList.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      onSelected(index);
+                                      statusFiltered = itemsList[index];
+                                      // ignore: unnecessary_statements
+                                    });
+                                  },
+                                  child: Container(
+                                    //height: Get.height / 10,
+                                    margin: lang == 'en'
+                                    ? EdgeInsets.only(left: 8)
+                                    : EdgeInsets.only(right: 8),
+                                    width: Get.width / 5,
+                                    height: Get.height / 3,
+                                    decoration: BoxDecoration(
+                                      // ignore: unnecessary_null_comparison
+                                      color: slctedInd != null &&
+                                      slctedInd == index
+                                      ? AppColors.appCategSeleGroundColor
+                                      : Colors .white, //Colors.blue[100],
+                                      border: Border.all(
+                                        color: AppColors.appBarBackGroundColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5)
+                                      )
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(itemsList[index],
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: slctedInd == index
+                                            ? AppColors.appBarBackGroundColor
+                                            : AppColors.appBarBackGroundColor,
+                                          )
                                         ),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                );
+                              }
+                            ),
                           ),
                           SizedBox(height: 20),
                           Row(
                             //mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
+                                height: Get.height * 0.05,
                                 margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
+                                ? EdgeInsets.only(top: 8, left: 8)
+                                : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
+                                //height: Get.height / 18,
                                 decoration: BoxDecoration(
-                                    color: Colors.grey[100],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
+                                  color: Colors.grey[100],
+                                  borderRadius:BorderRadius.all(
+                                    Radius.circular(5)
+                                  )
+                                ),
                                 // ignore: deprecated_member_use
                                 child: GestureDetector(
-                                    child: Center(
-                                        child: Text('reset'.tr,
-                                            style: TextStyle(
-                                                color:
-                                                    AppColors.inputTextColor))),
-                                    onTap: () {
-                                      Get.back();
-                                    }),
+                                  child: Center(
+                                    child: Text('reset'.tr,
+                                      style: TextStyle(
+                                        color: AppColors.inputTextColor
+                                      )
+                                    )
+                                  ),
+                                  onTap: () {
+                                    Get.back();
+                                  }
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              SizedBox(
+                                width: 20,
                               ),
                               SizedBox(
                                 width: 30,
                               ),
                               Container(
+                                height: Get.height * 0.05,
                                 margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
+                                ? EdgeInsets.only(top: 8, left: 8)
+                                : EdgeInsets.only(top: 8, right: 8),
                                 width: Get.width / 3,
-                                height: Get.height / 18,
+                                //height: Get.height / 18,
                                 decoration: BoxDecoration(
-                                    color: AppColors.appBarBackGroundColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                // ignore: deprecated_member_use
+                                  color: AppColors.appBarBackGroundColor,
+                                  borderRadius:BorderRadius.all(Radius.circular(5))),
                                 child: GestureDetector(
-                                    // color: Colors.transparent,
-                                    // elevation: 0,
-                                    child: Center(
-                                        child: Text("apply".tr,
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                    onTap: filteredIDCate == null &&
-                                            statusFiltered == null
-                                        ? null
-                                        : () {
-                                            idSended();
-                                            listtype != 'grid'
-                                            // print(
-                                            //     "hellll....helllll.....helll.....$listtype");
-                                            // Get.to(FilteredCategory(),
-                                            //     arguments: listtype);
-                                            ? Get.off(
-                                                FilteredCategoryResult())
-                                            : Get.off(FilteredCategory());
-                                          }),
+                                  child: Center(
+                                    child: Text("apply".tr,
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      )
+                                    )
+                                  ),
+                                  onTap: filteredIDCate == null &&statusFiltered == null
+                                  ? null
+                                  : () {
+                                     idSended();
+                                    listtype != 'grid'
+                                    // print(
+                                    //     "hellll....helllll.....helll.....$listtype");
+                                    // Get.to(FilteredCategory(),
+                                    //     arguments: listtype);
+                                    ? Get.off(
+                                        FilteredCategoryResult())
+                                    : Get.off(FilteredCategory());
+                                  }
+                                ),
                               ),
                             ],
                           )
@@ -584,19 +524,8 @@ class _OfferListState extends State<OfferList> {
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 15),
       child: Container(
-        height: Get.height,
-        child: ListView.builder(
-            // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
-            primary: false,
-            // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //   crossAxisCount: 2,
-            //   childAspectRatio:Get.width /
-            //   (Get.height >= 800
-            //       ? Get.height / 1.65
-            //       : Get.height <= 800
-            //           ? Get.height / 1.60
-            //           : 0),
-            // ),
+        height: Get.height/1.68,
+        child: ListView.builder(primary: false,
             itemCount: listFavou.length,
             itemBuilder: (BuildContext context, int c) {
               return GestureDetector(
@@ -604,17 +533,16 @@ class _OfferListState extends State<OfferList> {
                   Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
                 },
                 child: Container(
-                    child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                  child: Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Center(
                               child: Container(
@@ -623,85 +551,85 @@ class _OfferListState extends State<OfferList> {
                                   padding: const EdgeInsets.all(10.0),
                                   //padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
-                                      onTap: () {
-                                        //Get.to(MyOfferDetailMain(), arguments:listFavou[c]);
-                                      },
-                                      child: listFavou[c]['image'] != null &&
-                                              listFavou[c]['image']['url'] !=
-                                                  null
-                                          ? Image.network(
-                                              listFavou[c]['image']['url'],
-                                              width: Get.width / 4,
-                                              fit: BoxFit.fill,
-                                            )
-                                          : Container(
-                                              width: Get.width / 4,
-                                              child: Icon(
-                                                Icons.image,
-                                                size: 50,
-                                              ),
-                                            )),
+                                    onTap: () {
+                                      //Get.to(MyOfferDetailMain(), arguments:listFavou[c]);
+                                    },
+                                    child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
+                                    ? Image.network(
+                                      listFavou[c]['image']['url'],
+                                      width: Get.width / 4,
+                                      fit: BoxFit.fill,
+                                    )
+                                    : Container(
+                                      width: Get.width / 4,
+                                      child: Icon(
+                                        Icons.image,
+                                        size: 50,
+                                      ),
+                                    )
+                                  ),
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          child: listFavou[c]['text_ads']
-                                                      ['en'] !=
-                                                  null
-                                              ? Text(
-                                                  listFavou[c]['text_ads']['en']
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              : Container(),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      width: Get.width / 2.5,
-                                      child: ReadMoreText(
-                                        listFavou[c]['description'] != null
-                                            ? listFavou[c]['description']['en']
-                                            : "",
-                                        style: TextStyle(
-                                            color: AppColors.inputTextColor,
-                                            fontSize: 13),
-                                        trimLines: 2,
-                                        colorClickableText:
-                                            AppColors.appBarBackGroundColor,
-                                        trimMode: TrimMode.Line,
-                                        trimCollapsedText: 'Show more',
-                                        trimExpandedText: 'Show less',
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        child: listFavou[c]['text_ads']['en'] !=null
+                                        ? Text(
+                                          listFavou[c]['text_ads']['en'].toString(),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          )
+                                        : Container(),
                                       ),
+                                    ],
+                                  ),
+                                  Container(
+                                    width: Get.width / 2.5,
+                                    child: ReadMoreText(
+                                      listFavou[c]['description'] != null
+                                      ? listFavou[c]['description']['en']
+                                      : "",
+                                      style: TextStyle(
+                                        color: AppColors.inputTextColor,
+                                        fontSize: 13
+                                      ),
+                                      trimLines: 2,
+                                      colorClickableText: AppColors.appBarBackGroundColor,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: 'Show more',
+                                      trimExpandedText: 'Show less',
                                     ),
-                                    // Center(
-                                    //   child: Container(
-                                    //    width: Get.width/3,
-                                    //     margin: EdgeInsets.only(top:5),
-                                    //     child: listFavou[c]['description']!=null  ?
-                                    //     Text(
-                                    //       listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
-                                    //     ):Container()
-                                    //   ),
-                                    // ),
-                                    Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: listFavou[c]['url'] != null
-                                            ? Text(listFavou[c]['url'],
-                                                style: TextStyle(
-                                                    color: Colors.blue))
-                                            : Container())
-                                  ]),
+                                  ),
+                                  // Center(
+                                  //   child: Container(
+                                  //    width: Get.width/3,
+                                  //     margin: EdgeInsets.only(top:5),
+                                  //     child: listFavou[c]['description']!=null  ?
+                                  //     Text(
+                                  //       listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
+                                  //     ):Container()
+                                  //   ),
+                                  // ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: listFavou[c]['url'] != null
+                                    ? Text(listFavou[c]['url'],
+                                      style: TextStyle(
+                                        color: Colors.blue
+                                      )
+                                    )
+                                    : Container()
+                                  )
+                                ]
+                              ),
                             ),
                           ],
                         ),
@@ -709,23 +637,25 @@ class _OfferListState extends State<OfferList> {
                         Column(
                           children: [
                             Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                    listFavou[c]['status'] == 1
-                                        ? "NEW"
-                                        : listFavou[c]['status'] == 0
-                                            ? "OLD"
-                                            : listFavou[c]['status'] == null
-                                                ? ''
-                                                : '',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                      color: listFavou[c]['status'] == 1
-                                          ? AppColors.snackBarColor
-                                          : AppColors.appBarBackGroundColor,
-                                    ))),
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                listFavou[c]['status'] == 1
+                                  ? "NEW"
+                                  : listFavou[c]['status'] == 0
+                                    ? "OLD"
+                                    : listFavou[c]['status'] == null
+                                    ? ''
+                                    : '',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  color: listFavou[c]['status'] == 1
+                                  ? AppColors.snackBarColor
+                                  : AppColors.appBarBackGroundColor,
+                                )
+                              )
+                            ),
                             // Container(
                             //   child: Row(
                             //     children: [
@@ -773,20 +703,19 @@ class _OfferListState extends State<OfferList> {
 
   Widget allUsers(listFavou) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10,bottom: 20),
       child: Container(
-        height: Get.height,
+        margin: EdgeInsets.only(bottom: 20),
+        height: Get.height/1.67,
         child: GridView.builder(
             // padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
             primary: false,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: Get.width /
-                  (Get.height >= 800
-                      ? Get.height / 1.65
-                      : Get.height <= 800
-                          ? Get.height / 1.60
-                          : 0),
+              childAspectRatio: Get.width /(Get.height >= 800
+              ? Get.height / 1.65
+              : Get.height <= 800
+              ? Get.height / 1.60: 0)
             ),
             itemCount: listFavou.length,
             itemBuilder: (BuildContext context, int c) {
@@ -797,51 +726,55 @@ class _OfferListState extends State<OfferList> {
                 child: Column(
                   children: [
                     Container(
-                        // margin: EdgeInsets.all(10),
-                        child: Card(
-                      elevation: 1,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
+                      child: Card(
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10),
                                 bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            child: Container(
-                              height: Get.height * 0.23,
-                              width: Get.height * 0.23,
-                              child: listFavou[c]['image'] != null &&
-                                      listFavou[c]['image']['url'] != null
-                                  ? FittedBox(
-                                      fit: BoxFit.cover,
-                                      child: Image.network(
-                                        listFavou[c]['image']['url'],
-                                      ),
-                                    )
-                                  : FittedBox(
-                                      fit: BoxFit.cover,
-                                      child: Icon(
-                                        Icons.image,
-                                        color: Colors.grey[400],
-                                      ),
-                                    ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
+                                bottomRight: Radius.circular(10)
+                              ),
+                              child: Container(
+                                height: Get.height * 0.23,
+                                width: Get.height * 0.23,
+                                child: listFavou[c]['image'] != null &&
+                                    listFavou[c]['image']['url'] != null
+                                ? FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Image.network(
+                                    listFavou[c]['image']['url'],
+                                  ),
+                                )
+                                : FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Icon(
+                                    Icons.image,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ),
                     Container(
-                        child: Text(
-                            listFavou[c]['text_ads']['en'] != null
-                                ? listFavou[c]['text_ads']['en'].toString()
-                                : '',
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.black)))
+                      child: Text(
+                        listFavou[c]['text_ads']['en'] != null
+                        ? listFavou[c]['text_ads']['en'].toString()
+                        : '',
+                        style:TextStyle(
+                          fontSize: 16, color: Colors.black
+                        )
+                      )
+                    )
                   ],
                 ),
               );
@@ -951,27 +884,25 @@ class _OfferListState extends State<OfferList> {
                 children: [
                   Container(
                     margin: lang == 'en'
-                        ? EdgeInsets.only(left: 12.0)
-                        : EdgeInsets.only(right: 12.0),
+                    ? EdgeInsets.only(left: 12.0)
+                    : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
                           offerBYID = dataListedCateOffer[index]['id'];
-                          print(
-                              ".......!!!!!!!!!!!! stState by tapping..........$offerBYID");
                           contByCatOffer.categorrOfferByID(
-                              dataListedCateOffer[index]['id']);
+                            dataListedCateOffer[index]['id']);
                         });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(
-                              color: AppColors.appBarBackGroundColor),
+                            color: AppColors.appBarBackGroundColor),
                           color: selectedIndex == index
-                              ? selectedColor
-                              : Colors.white,
+                          ? selectedColor
+                          : Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey,
@@ -985,8 +916,8 @@ class _OfferListState extends State<OfferList> {
                           dataListedCateOffer[index]['category_name']['en'],
                           style: TextStyle(
                             color: selectedIndex == index
-                                ? Colors.white
-                                : AppColors.appBarBackGroundColor,
+                            ? Colors.white
+                            : AppColors.appBarBackGroundColor,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),

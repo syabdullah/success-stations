@@ -29,11 +29,9 @@ getData() async{
 }
 
 class SuccessApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     lang =  box.read('lang_code');
-   print('.,..,.l;l""dskfjrkggdfg//////$lang');
     return ScreenUtilInit(
       builder:()  {
         return GetMaterialApp(     
@@ -47,13 +45,13 @@ class SuccessApp extends StatelessWidget {
         locale: lang != null ?  Locale(lang,''): LocalizationServices.locale,
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
-        theme:   ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,
-           fontFamily: 'STC Bold'
+        theme:   ThemeData(primaryColor: Color(0xFF2F4199),
+           fontFamily: 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199))
         ) ,
         // : ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,
         // ),
           //  home: AddOffersPage(),
-        initialRoute:  auth == null ? '/langua' : '/tabs',
+        initialRoute:  auth == null ? '/login' : '/tabs',
         // initialRoute:  '/langua' ,
 
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,

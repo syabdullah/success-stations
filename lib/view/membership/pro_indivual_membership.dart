@@ -51,7 +51,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
           headingMember(),
           space20,
           Container(
-            height: Get.height / 1.9,
+            height: Get.height / 1.75,
             width: Get.width / 1.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),

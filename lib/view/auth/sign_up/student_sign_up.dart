@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:success_stations/controller/city_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
-import 'package:success_stations/controller/country_controller.dart';
-import 'package:success_stations/controller/region_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 DateTime? dateTime;
-var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 // var str = JSON.encode(dt, toEncodable: myEncode);
 
 class StudentSignUp extends StatefulWidget {
@@ -26,25 +23,13 @@ class StudentSignUp extends StatefulWidget {
 }
 
 class _SignPageState extends State<StudentSignUp> {
-  var selectedCountry,
-      selectCountry,
-      selectedCity,
-      selectedRegion,
-      selectedUniversity,
-      selectedCollege,
-      selectCollege,
-      mapuni,
-      mapClgSleceted,
-      hintTextCountry,
-      hintRegionText,
-      hintUniText,
-      hintcityText,
-      hintClgText;
+  final countryPut = Get.put(ContryController());
+  var selectedCountry, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
 
   late String firstName, emailSaved, mobileSaved, dobSaved;
 
   final formKey = GlobalKey<FormState>();
-
+   GetStorage box = GetStorage();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -60,16 +45,16 @@ class _SignPageState extends State<StudentSignUp> {
   var myTest;
   var countryIdGet, shortCodeAdd;
 
-  final countryPut = Get.put(ContryController());
+ 
   final signUpCont = Get.put(SignUpController());
-
-  @override
+  var lang;
+  @override 
   void initState() {
+    lang = box.read('lang_code');
     countryPut.getCountries();
     countryIdGet = Get.arguments;
     myTest = countryIdGet[0].toString();
     tttt = PhoneNumber(isoCode: myTest);
-    print("countryIdGetcountryIdGetcountryIdGet$myTest");
     super.initState();
   }
 
@@ -129,118 +114,118 @@ class _SignPageState extends State<StudentSignUp> {
             //       )
             //       ):Container();
 
-            //    }),
-
-            // SizedBox(height:10),
-            space10,
-            mobile(),
-            space10,
-            semester(),
-            space10,
-            address(),
-            space10,
-            about(),
-            space10,
-            degree(),
-            space10,
-            studentdob(),
-            GetBuilder<ContryController>(
-              init: ContryController(),
-              builder: (val) {
-                return country(val.countryListdata);
-              },
-            ),
-            space10,
-            GetBuilder<RegionController>(
-              init: RegionController(),
-              builder: (val) {
-                return region(val.listDataRegion);
-              },
-            ),
-            space10,
-            GetBuilder<CityController>(
-              init: CityController(),
-              builder: (val) {
-                return city(val.cityListData);
-              },
-            ),
-            space10,
-            GetBuilder<UniversityController>(
-              init: UniversityController(),
-              builder: (val) {
-                return university(val.dataUni);
-              },
-            ),
-            space10,
-            GetBuilder<CollegeController>(
-              init: CollegeController(),
-              builder: (val) {
-                return college(val.listCollegeData);
-              },
-            ),
-            space10,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Checkbox(
-                  activeColor: Colors.blue,
-                  value: _isChecked,
-                  onChanged: (value) {
-                    setState(() {
-                      print(
-                          "hbsdbjhsdbjshgdSjhgd on changed......>>>>>>>$value");
-                      _isChecked = value!;
-                      // _isChecked= true;
-                    });
-                  },
-                ),
-                Text('terms'.tr,
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.w300)),
-                Text("terms_condition".tr,
-                    style: TextStyle(
-                        fontFamily: 'Lato',
-                        color: AppColors.appBarBackGroundColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold)),
-              ],
-            ),
-            space20,
-            submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,
-                textColor: AppColors.appBarBackGroun,
-                buttonText: "sign_up_text".tr,
-                fontSize: 18.0,
-                callback: _isChecked == true ? createUser : null
-                // callback:  createUser
-                ),
-            space20,
-            GestureDetector(
-              onTap: () {
-                Get.to(SignIn());
-              },
-              child: Row(
+              //    }),
+              
+              // SizedBox(height:10),
+              space10,
+              mobile(),
+              space10,
+              address(),
+              space10,
+              about(),
+              space10,
+              degree(),
+              space10,
+              studentdob(),
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder:(val) {
+                  return country(val.countryListdata);
+                } ,
+              ),
+              space10,
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder: (val){
+                  return region(val.regionListdata);
+                },
+              ),
+              space10,
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder: (val){
+                  return city(val.cityListData);
+                },
+              ),
+              space10,
+              GetBuilder<UniversityController>(
+                init: UniversityController(),
+                builder: (val){
+                  return university(val.dataUni);
+                },
+              ),
+              space10,
+              semester(),
+              
+              space10,
+              GetBuilder<CollegeController>(
+                init: CollegeController(),
+                builder: (val){
+                  return college(val.listCollegeData);
+                },
+              ),
+              space10,
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "have_account".tr,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
+                  Transform.scale(
+                    scale: .9,
+                    child: new Checkbox(
+                      
+                      activeColor: Colors.blue,
+                      value: _isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          _isChecked= value!;
+                          // _isChecked= true;
+                        });
+                      },
+                    ),
                   ),
                   Text(
-                    "sign_in".tr,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: AppColors.appBarBackGroundColor,
-                        fontWeight: FontWeight.bold),
+                    'terms'.tr, 
+                    style: TextStyle( 
+                      fontSize: 14,
+                      color: Colors.grey,
+                       fontWeight: FontWeight.bold
+                    )
+                  ),
+                  Text(
+                    "terms_condition".tr, style: TextStyle(
+                    fontFamily: 'Lato', color: AppColors.appBarBackGroundColor, fontSize: 14, fontWeight: FontWeight.bold )
                   ),
                 ],
               ),
-            ),
-            space20,
-          ],
+              space20,
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,  
+                textColor: AppColors.appBarBackGroun,
+                buttonText: "sign_up_text".tr,fontSize: 16.0,
+                callback: _isChecked == true ?  createUser : null
+                // callback:  createUser
+              ),
+              space20,
+              GestureDetector(
+                onTap: (){
+                  Get.to(SignIn());
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("have_account".tr,
+                      style: TextStyle( fontSize: 16, fontWeight: FontWeight.w300,color: Colors.grey
+                      ),
+                    ),
+                    Text("sign_in".tr, style: TextStyle( fontSize: 13,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+                  ],
+                ),
+              ),
+              space20,
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   Widget fullNameStudent() {
@@ -248,9 +233,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'full_name'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -260,7 +246,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Name is Required";
+            return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Name must be a-z and A-Z";
           } else
@@ -276,9 +262,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'semester'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'semestersu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -288,8 +275,9 @@ class _SignPageState extends State<StudentSignUp> {
           String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if (value.length == 0) {
-            return "semester Field Required";
-          } else if (!regExp.hasMatch(value)) {
+            return "semesterfield".tr;
+          } 
+          else if(!regExp.hasMatch(value)) {
             return "semester must be in digits";
           } else
             return null;
@@ -300,13 +288,15 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget address() {
-    return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+    return  Container(
+      
+      margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'address'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -316,7 +306,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Address field is Required";
+            return "adressField".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
           } else
@@ -332,9 +322,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'about'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'aboutsu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -344,7 +335,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "About field is Required";
+            return "aboutfield".tr;
           } else if (!regExp.hasMatch(value)) {
             return "About must be a-z and A-Z";
           } else
@@ -360,9 +351,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'degree'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'degreesu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -372,7 +364,7 @@ class _SignPageState extends State<StudentSignUp> {
           String patttern = r'(^[a-zA-Z ]*$)';
           RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
-            return "Degree field is Required";
+            return "degreeReq".tr;
           } else if (!regExp.hasMatch(value)) {
             return "Degree must be a-z and A-Z";
           } else
@@ -388,9 +380,10 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'email'.tr,
-        hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        hintText: 'emails'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (newValue) {},
@@ -400,9 +393,10 @@ class _SignPageState extends State<StudentSignUp> {
           String pattern =
               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
-          if (val.length == 0) {
-            return 'Enter An Email';
-          } else if (!regExp.hasMatch(val)) {
+          if ( val.length == 0 ){
+            return 'enterEmail'.tr;
+          }
+          else if (!regExp.hasMatch(val)) {
             return "Enter Valid Email Address";
           }
           return null;
@@ -414,54 +408,51 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        width: Get.width / 1.1,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            // color: Colors.grey[100],
-            border: Border.all(color: Color(0xFFEEEEEE)
-                // width: 5,
-                )),
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: InternationalPhoneNumberInput(
-          inputDecoration: InputDecoration(
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            // enabledBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(color: AppColors.outline),
-            // ),
-            hintText: "Mobile",
-            hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+      width: Get.width / 1.1,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Color(0xFFEEEEEE)
+        )
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: InternationalPhoneNumberInput(
+        inputDecoration: InputDecoration(
+          fillColor: AppColors.inputColor,
+          filled: true,
+          border: InputBorder.none,
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
           ),
-          onInputChanged: (PhoneNumber number) {
-            print(number.phoneNumber);
-          },
-          onInputValidated: (bool value) {
-            print(value);
-          },
-          selectorConfig: SelectorConfig(
-            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
           ),
-          ignoreBlank: false,
-          autoValidateMode: AutovalidateMode.disabled,
-          selectorTextStyle: TextStyle(color: Colors.black),
-          // initialValue: n,
-          textFieldController: mobileController,
-          formatInput: false,
-          keyboardType:
-              TextInputType.numberWithOptions(signed: true, decimal: true),
-          inputBorder: OutlineInputBorder(),
-          onSaved: (PhoneNumber number) {
-            print('On Saved: $number');
-          },
-          initialValue: tttt,
-        ));
+          hintText: "Mobile",
+          hintStyle: TextStyle(fontSize: 18, color: AppColors.inputTextColor),
+        ),
+        onInputChanged: (PhoneNumber number) {
+          print(number.phoneNumber);
+        },
+        onInputValidated: (bool value) {
+          print(value);
+        },
+        selectorConfig: SelectorConfig(
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+        ),
+        ignoreBlank: false,
+        autoValidateMode: AutovalidateMode.disabled,
+        selectorTextStyle: TextStyle(color: Colors.black),
+        // initialValue: n,
+        textFieldController: mobileController,
+        formatInput: false,
+        keyboardType:
+            TextInputType.numberWithOptions(signed: true, decimal: true),
+        inputBorder: OutlineInputBorder(),
+        onSaved: (PhoneNumber number) {
+          print('On Saved: $number');
+        },
+        initialValue: tttt,
+      )
+    );
   }
 
   var finalDate;
@@ -493,14 +484,16 @@ class _SignPageState extends State<StudentSignUp> {
     //     errorText: '',
     //   ),
     // );
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
-      margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: AppColors.outline)),
-      child: GestureDetector(
-        onTap: () {
+        return Container(
+          height: 50,
+          padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
+          margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: AppColors.outline)
+          ),
+          child:   GestureDetector(
+          onTap: () {
           showDatePicker(
                   context: context,
                   initialDate: DateTime.now(),
@@ -518,13 +511,11 @@ class _SignPageState extends State<StudentSignUp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-                // padding: EdgeInsets.only(right:100),
-                child: Text(dateTime == null ? 'Date Of Birth' : dateFormate,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.grey[500], fontSize: 18))),
+              // padding: EdgeInsets.only(right:100),
+              child: Text(dateTime == null ? 'date_of_birth'.tr : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
-              child: Icon(Icons.calendar_today),
-              onTap: () {
+              child: Icon(Icons.calendar_today,color: Colors.grey,),
+              onTap: () {               
                 showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -550,159 +541,187 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget country(List data) {
-    print("....<><><><><><><><><><><><>..//////......$data");
-    return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          width: Get.width * 0.9,
+          decoration: BoxDecoration(
             color: AppColors.inputColor,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
+            borderRadius: BorderRadius.circular(2.0)
+          ),
+          child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(
+              child: DropdownButton(
+                hint: Text(
                   hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: data.map((coun) {
-                return DropdownMenuItem(value: coun, child: Text(coun['name']));
-              }).toList(),
-              onChanged: (val) {
-                var mapCountry;
-                setState(() {
-                  mapCountry = val as Map;
-                  hintTextCountry = mapCountry['name'];
-                  selectedCountry = mapCountry['id'];
-                });
-              },
-            ))));
+                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                ),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(Icons.arrow_drop_down),
+                items: data.map((coun) {
+                  return DropdownMenuItem(value: coun, child: Text(coun['name']));
+                }).toList(),
+                onChanged: (val) {
+                  var mapCountry;
+                  setState(() {
+                    mapCountry = val as Map;
+                    hintTextCountry = mapCountry['name'];
+                    selectedCountry = mapCountry['id'];
+                    countryPut.getRegion(selectedCountry);
+                  });
+                },
+              )
+            )
+          )
+        ),
+      ],
+    );
   }
 
   Widget region(List dataRegion) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: dataRegion.map((reg) {
-                return DropdownMenuItem(value: reg, child: Text(reg['region']));
-              }).toList(),
-              onChanged: (data) {
-                var mapRegion;
-                setState(() {
-                  mapRegion = data as Map;
-                  hintRegionText = mapRegion['region'];
-                  selectedRegion = data['id'];
-                });
-              },
-            ))));
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+            ),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: dataRegion.map((reg) {
+              return DropdownMenuItem(
+                value: reg, child: reg['region'] !=null ? Text(reg['region'] ):Container()
+              );
+            }).toList(),
+            onChanged: (data) {
+              var mapRegion;
+              setState(() {
+                mapRegion = data as Map;
+                hintRegionText = mapRegion['region'];
+                selectedRegion = data['id'];
+                countryPut.getCity(data['id']);
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget city(List citydata) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintcityText != null ? hintcityText : "city".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inputColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: citydata.map((citt) {
-                return DropdownMenuItem(value: citt, child: Text(citt['city']));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  var mapCity;
-                  mapCity = value as Map;
-                  hintcityText = mapCity['city'];
-                  selectedCity = mapCity['id'];
-                });
-              },
-            ))));
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintcityText != null ? hintcityText : "city".tr,
+              style:TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+            ),
+            dropdownColor: AppColors.inputColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: citydata.map((citt) {
+              return DropdownMenuItem(value: citt, child: Text(citt['city']));
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                var mapCity;
+                mapCity = value as Map;
+                hintcityText = mapCity['city'];
+                selectedCity = mapCity['id'];
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget university(List daattta) {
-    return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintUniText != null ? hintUniText : "university".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: daattta.map((uni) {
-                return DropdownMenuItem(value: uni, child: Text(uni['name']));
-              }).toList(),
-              onChanged: (dataa) {
-                setState(() {
-                  mapuni = dataa as Map;
-                  hintUniText = mapuni['name'];
-                  selectedUniversity = dataa['id'];
-                });
-              },
-            ))));
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text(hintUniText !=null ? hintUniText: "universitysu".tr,style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: daattta.map((uni) {
+              return DropdownMenuItem(
+                value: uni,
+                child:Text(uni['name'])
+              );
+            }).toList(),
+            onChanged: (dataa) {
+              setState(() {
+                mapuni = dataa as Map;
+                hintUniText =  mapuni['name'];
+                selectedUniversity = dataa['id'];
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget college(List collegeData) {
-    return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
-        decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
-        child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-                child: DropdownButton(
-              hint: Text(hintClgText != null ? hintClgText : "college".tr,
-                  style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: collegeData.map((coll) {
-                return DropdownMenuItem(
-                    value: coll, child: Text(coll['college']));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  mapClgSleceted = value as Map;
-                  hintClgText = mapClgSleceted['college'];
-                  selectedCollege = mapClgSleceted['id'];
-                });
-              },
-            ))));
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintClgText !=null ? hintClgText: "collegesu".tr, style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: collegeData.map((coll) {
+              return DropdownMenuItem(
+                value: coll,
+                child:Text(coll['college'])
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                mapClgSleceted = value as Map;
+                hintClgText = mapClgSleceted['college'];
+                selectedCollege =  mapClgSleceted['id'];
+              });
+            },
+          )
+        )
+      )
+    );
   }
 
   Widget submitButton(

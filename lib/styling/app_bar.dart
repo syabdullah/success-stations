@@ -54,9 +54,12 @@ var userId = box.read('user_id');
           } : null,
           child: Padding(
             padding: const EdgeInsets.only(top:12.0,right: 10,),
-            child: Image.asset(
-             AppImages.appBarSearch,color: Colors.white,width: 25.w,
-            ),
+            // child: Image.asset("
+            //  AppImages.appBarSearch",color: Colors.white,width: 25.w,
+            // ),
+            // child: Image.asset(
+            //  AppImages.appBarSearch,color: Colors.white,width: 25.w,
+            // ),
           ),
         ): Container()
       ],
@@ -71,10 +74,13 @@ Widget sAppbar(context ,icon,image,) {
       leading: 
       // Padding(
         // padding: const EdgeInsets.only(top:10.0),
-        IconButton(
-          icon: Icon(icon,
-          color: AppColors.backArrow),
-          onPressed: () => Navigator.of(context).pop(),
+        Padding(
+          padding: const EdgeInsets.only(top:15.0),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       //
       //  ),
@@ -85,7 +91,32 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-
+  Widget stringAppbars(context ,icon,string) {
+    return AppBar(
+      // automaticallyImplyLeading: false,
+      centerTitle: true,
+      leading: 
+        Container(
+          margin: EdgeInsets.only(top:5),
+          child: IconButton(
+            icon: Icon(icon,
+            color: AppColors.backArrow),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+      //
+      //  ),
+      title: Container(
+        margin: EdgeInsets.only(top:10),
+        child: Center(
+          child: Text(
+            string
+          )
+        ),
+      ), 
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
   Widget stringAppbar(context ,icon,string ,searchImage,) {
     return AppBar(
       // automaticallyImplyLeading: false,
@@ -110,7 +141,7 @@ Widget sAppbar(context ,icon,image,) {
         ),
       ), 
       actions: [
-        string != 'CHOOSE LANGUAGE' ?
+        string != 'choose_language_drop'.tr ?
         Padding(
           padding: const EdgeInsets.only(right: 10,),
           child:  Image.asset(

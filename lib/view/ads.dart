@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,8 +15,6 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/home_offer.dart';
-
 
   List<String> imgList = [];
 
@@ -69,8 +63,7 @@ class _AdsViewState extends State<AdsView> {
     lang = box.read('lang_code');
     print(newv);
     return Stack(
-      children: [
-       
+      children: [       
         ListView(
           padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
@@ -79,7 +72,7 @@ class _AdsViewState extends State<AdsView> {
                 builder: (data){
                   imgList = [];
                   return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
                     ],
@@ -131,12 +124,12 @@ class _AdsViewState extends State<AdsView> {
             color: Colors.red
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top:.0,left:10),
+            padding: const EdgeInsets.only(top:10,left:10,right: 10),
             child: Row(
               children: [
                 Container(
                   width: Get.width/1.3,
-                  child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
+                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
                     setState(() {
@@ -168,7 +161,7 @@ class _AdsViewState extends State<AdsView> {
           items: imgList
           .map<Widget>((item) => Container(
           child: Container(
-            margin: EdgeInsets.only(top:5),
+            // margin: EdgeInsets.only(top:5),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
@@ -183,7 +176,7 @@ class _AdsViewState extends State<AdsView> {
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.1,
+            viewportFraction: 0.9*1.2,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -228,7 +221,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
            margin: EdgeInsets.only(left:10,right: 10,top: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -237,7 +230,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10,top: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -249,7 +242,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -258,7 +251,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],

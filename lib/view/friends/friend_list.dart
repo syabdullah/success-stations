@@ -17,9 +17,10 @@ class FriendList extends StatefulWidget {
 class _FriendListState extends State<FriendList> {
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
-  var listtype = 'list';
+  var listtype = 'grid';
   var grid = AppImages.gridOf;
-  Color listIconColor = AppColors.appBarBackGroundColor;
+  Color listIconColor = Colors.grey;
+   Color gridIconColor = AppColors.appBarBackGroundColor;
   var id;
   var selected;
   var requisterId;
@@ -42,18 +43,18 @@ class _FriendListState extends State<FriendList> {
         GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
-              return val.friendsData == null
-                  ? shimmer()
-                  : val.friendsData['data'].length == 0 ||
-                          val.friendsData == null
-                      ? Container(
-                          child: Text("nofriends".tr),
-                        )
-                      : Expanded(
-                          child: listtype == 'list'
-                              ? friendList(val.friendsData['data'])
-                              : friendGridView(val.friendsData['data']));
-            })
+            return val.friendsData == null
+            ? shimmer()
+            : val.friendsData['data'].length == 0 ||
+                val.friendsData == null
+            ? Container(
+                child: Text("nofriends".tr),
+              )
+            : Expanded(
+              child: listtype == 'list'
+              ? friendList(val.friendsData['data'])
+              : friendGridView(val.friendsData['data']));
+        })
       ],
     );
   }
@@ -68,7 +69,7 @@ class _FriendListState extends State<FriendList> {
               borderRadius: BorderRadius.circular(13),
               color: Colors.grey[200],
             ),
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: 10,right: 10),
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             child: Row(
               children: [
@@ -88,16 +89,18 @@ class _FriendListState extends State<FriendList> {
                   setState(() {
                     listtype = 'grid';
                     listIconColor = Colors.grey;
+                    gridIconColor = AppColors.appBarBackGroundColor;
                     grid = AppImages.grid;
                   });
                 },
-                icon: Image.asset(grid)),
+                icon: Image.asset(grid,color: gridIconColor,)),
             Container(
               margin: EdgeInsets.only(bottom: 15),
               child: IconButton(
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
+                      gridIconColor = Colors.grey;
                       listIconColor = AppColors.appBarBackGroundColor;
                       grid = AppImages.gridOf;
                     });
@@ -125,6 +128,7 @@ class _FriendListState extends State<FriendList> {
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
+          
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
             onTap: () {
@@ -214,12 +218,13 @@ class _FriendListState extends State<FriendList> {
                           ),
                         )
                       ),
+                       
                       Container(
                         // margin: EdgeInsets.only(left: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.location_on,color:Colors.grey,),
+                          dataa[index]['user_requisted']['address'] == null ? Container() :  Icon(Icons.location_on,color:Colors.grey,),
                             SizedBox(width: 5),
                             Container(
                               child: id == dataa[index]['requister_id']
@@ -237,7 +242,7 @@ class _FriendListState extends State<FriendList> {
                             ),
                           ],
                         ),
-                      ),
+                      ) 
                     ],
                   ),
                   Spacer(),
@@ -251,11 +256,12 @@ class _FriendListState extends State<FriendList> {
     );
   }
 
-  Widget friendGridView(data) {
+  Widget friendGridView(dataGrid) {
     var newData = [];
-    for (int i = 0; i < data.length; i++) {
-      if (data[i]['status'] == "Accepted") {
-        newData.add(data[i]);
+    for (int i = 0; i < dataGrid.length; i++) {
+      if (dataGrid[i]['status'] == "Accepted") {
+        newData.add(dataGrid[i]);
+        print(newData.length);
       }
     }
     return GridView.count(
@@ -263,21 +269,21 @@ class _FriendListState extends State<FriendList> {
         children: List.generate(
           newData.length,
           (index) {
-            return GestureDetector(
+            return  GestureDetector(
               onTap: () {
-                selected = box.write("selected", data[index]['id']);
-                requisterId = box.write("requister", data[index]['requister_id']);
+                selected = box.write("selected", newData[index]['id']);
+                requisterId = box.write("requister", newData[index]['requister_id']);
                 Get.to(FriendProfile(),
-                arguments: id != data[index]['requister_id']
-                ? [data[index]['id'],data[index]['requister_id']]
-                : [data[index]['id'],data[index]['user_requisted']['id']]);
+                arguments: id != newData[index]['requister_id']
+                ? [newData[index]['id'],newData[index]['requister_id']]
+                : [newData[index]['id'],newData[index]['user_requisted']['id']]);
               },
               child: Card(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(height: 8),
-                    id != data[index]['requister_id']
+                    id != newData[index]['requister_id']
                     ? Container(
                     margin: EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 10.0
@@ -286,12 +292,12 @@ class _FriendListState extends State<FriendList> {
                       child: CircleAvatar(
                         radius: 30.0,
                         backgroundColor: Colors.grey[100],
-                        child: data[index]['requister']['image'] !=
+                        child: newData[index]['requister']['image'] !=
                         null
                         ? ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
                           child: Image.network(
-                            data[index]['requister']['image'] ['url'],
+                            newData[index]['requister']['image'] ['url'],
                             height: 80,
                             fit: BoxFit.fill,
                           )
@@ -300,17 +306,17 @@ class _FriendListState extends State<FriendList> {
                       ),
                     ),
                   )
-                    : Container(
+                  : Container(
                     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     child: CircleAvatar(
                       radius: 30.0,
                       backgroundColor: Colors.grey[100],
-                      child: data[index]['user_requisted']['image'] != null
+                      child: newData[index]['user_requisted']['image'] != null
                       ? ClipRRect(
                           borderRadius:
                               BorderRadius.circular(50.0),
                           child: Image.network(
-                            data[index]['user_requisted']
+                            newData[index]['user_requisted']
                                 ['image']['url'],
                             height: 80,
                             fit: BoxFit.fill,
@@ -319,69 +325,70 @@ class _FriendListState extends State<FriendList> {
                       : Image.asset(AppImages.person)
                     ),
                   ),
-                    Column(
-                      children: [
-                       Container(
-                        child: id == data[index]['requister_id']
-                        ? Text(
-                          data[index]['user_requisted']['name'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        )
-                        : Text(
-                          data[index]['requister']['name'],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ),
+                  Column(
+                    children: [
                       Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: id == data[index]['requister_id']
-                        ? Text(
-                          data[index]['user_requisted']['degree'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        )
-                        : Text(
-                          data[index]['requister']['degree'],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ),
-                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.location_on,color:Colors.grey,),
-                            SizedBox(width: 5),
-                            Container(
-                              child: id == data[index]['requister_id']
-                              ? Text(
-                                data[index]['user_requisted']['address'] ?? '',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              )
-                              : Text(
-                                data[index]['requister']['address'] ?? '',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
+                      child: id == newData[index]['requister_id']
+                      ? Text(
+                        newData[index]['user_requisted']['name'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold),
+                      )
+                      : Text(
+                        newData[index]['requister']['name'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: id == newData[index]['requister_id']
+                      ? Text(
+                        newData[index]['user_requisted']['degree'] ?? '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold),
+                      )
+                      : Text(
+                        newData[index]['requister']['degree'] ??'',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        newData[index]['user_requisted']['address'] == null ? Container() : 
+                        Icon(Icons.location_on,color:Colors.grey,),
+                        SizedBox(width: 5),
+                        Container(
+                          child: id == newData[index]['requister_id']
+                          ? Text(
+                            newData[index]['user_requisted']['address'] ?? '',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold),
+                          )
+                          : Text(
+                            newData[index]['requister']['address'] ?? '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold
                             ),
-                          ],
+                          )
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
                   ],
                 ),
-              ),
-            );
-          },
-        )
-      );
-  }
+                SizedBox(height: 8),
+              ],
+            ),
+          ),
+        );
+      },
+    )
+  );
+}
 
   Widget submitButton(
       {buttonText,

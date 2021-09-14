@@ -24,6 +24,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
   void initState() {
     homeCategoryById = Get.arguments;
     lang = box.read('langs_code');
+    print("........hellloooooo.....<><><><><><><////////....$lang");
     print(".....................IF IF ID.......>$homeCategoryById");
     super.initState();
   }
@@ -34,12 +35,27 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
       key: _scaffoldKey,
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(70.0),
+      //   child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
+      //       AppImages.appBarSearch, 1),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
-            AppImages.appBarSearch, 1),
-            
+        child: AppBar(
+          title: Image.asset(
+            AppImages.appBarLogo,
+            height: 40,
+          ),
+          leading: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(Icons.arrow_back_ios_outlined)),
+          backgroundColor: AppColors.appBarBackGroundColor,
+          centerTitle: true,
+        ),
       ),
+
       drawer: Theme(
         data: Theme.of(context).copyWith(
             // canvasColor: AppColors.botomTiles
@@ -68,6 +84,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                             ),
                           )),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: Get.height / 3.3,
@@ -79,11 +96,9 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                             Container(
                                 width: MediaQuery.of(context).size.width / 1,
                                 color: AppColors.appBarBackGroundColor,
-                                padding: lang=='en'?EdgeInsets.only(
-                                    top: 10, bottom: 15, left: 25)
-                                    : EdgeInsets.only(
-                                    top: 10, bottom: 15, right: 25),
-                                     child: homeCategoryById != null &&
+                                padding: EdgeInsets.only(
+                                        top: 10, bottom: 15, right: 25,left: 20),
+                                child: homeCategoryById != null &&
                                         homeCategoryById['url'] != null
                                     ? Row(
                                         mainAxisAlignment:
@@ -108,7 +123,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                             Container(
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.only(left: 14),
-                                child: Text("DESCRIPTION:",
+                                child: Text("DESCRIPTION",
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: Colors.grey[400]))),
