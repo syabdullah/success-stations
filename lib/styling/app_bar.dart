@@ -91,6 +91,36 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
+
+Widget newAppbar(context ,text,image,) {
+    return AppBar(
+      // automaticallyImplyLeading: false,
+      // centerTitle: true,
+      leading: 
+      // Padding(
+        // padding: const EdgeInsets.only(top:10.0),
+        Padding(
+          padding: const EdgeInsets.only(top:15.0),
+          child: GestureDetector(
+            onTap: (){Get.back();},
+            child: Container(
+              padding: EdgeInsets.only(left:15,right: 5),
+              child: Text(
+               text,textAlign: TextAlign.left,style: TextStyle(decoration: TextDecoration.underline,fontSize: 16),
+               
+              ),
+            ),
+          ),
+        ),
+      //
+      //  ),
+    title: Padding(
+       padding: const EdgeInsets.only(top:10.0),
+        child: Image.asset(image, height: 40),
+      ),
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
   Widget stringAppbars(context ,icon,string) {
     return AppBar(
       // automaticallyImplyLeading: false,
