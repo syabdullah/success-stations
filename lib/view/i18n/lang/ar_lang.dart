@@ -233,6 +233,7 @@ const Map<String, String> ar = {
   'remove':'إزالة',
   'recent_notification':'الإخطار الأخير',
   'old_notification':'لإخطار القديم',
+  'agr':'تفاقية الاستخدام',
   'head_members':'يمكنك استخدام الخدمات التالية في شركة',
   'update_succe':'تحديث الاشتراك',
   'yearly':'سنوي',
@@ -255,6 +256,7 @@ const Map<String, String> ar = {
   'companyName':'اسم الشركة هذا السجل',
   'crs':'سجله',
   'oR':'أو',
+  'UGR':'اتفاقية الاستخدام',
   'email_required':'البريد الإلكتروني (مطلوب',
   'enter_password':'أدخل كلمة المرور',
   'pass_to_short':'كلمة المرور أقصر مما يجب',
@@ -262,8 +264,8 @@ const Map<String, String> ar = {
   "addFriend" : 'أضف صديق',
   "Type_your_message_here": 'اكتب رسالتك هنا',
   'filtered_result':'النتائج المصنفة',
-  
- 
+  'phoner':'الهاتف مطلوب',
+  'desc':'الوصف مطلوب',
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
   'newad':'إضافة إعلان جديد',
   'my_Offer':'عرضي'

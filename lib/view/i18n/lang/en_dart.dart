@@ -19,6 +19,7 @@ const Map<String, String> en = {
   "Dont_have_account": "Don’t have an account? ",
   "sign_up_text": "SIGN UP",
   "home":"Home",
+  'UGR':'USAGE AGREEMENT',
   "addlocation":"Add Location",
   "Select_your_prefered_language":"Select your prefered language",
   "user_name_placeholder": "User Name",
@@ -233,8 +234,9 @@ const Map<String, String> en = {
   'approve':'Approve',
   'remove':'remove',
   'recent_notification':'Recent Notification',
-  'old_notification':'Old Notification' ,
-  'head_members':'You can use following services in Pro Company',
+  'old_notification':'old_notification',
+  'agr':'Usage Agreement',
+  'head_members':"You can use following services in Pro Company",
   'update_succe':'UPDATE SUBSCRITION' ,
   'yearly':'Yearly',
   'monthly':'Monthly',
@@ -265,10 +267,11 @@ const Map<String, String> en = {
   'filtered_result':'FILTERED RESULTS',
   'addFriend':"Add Friend",
   "Type_your_message_here":"Type your message here",
-
   'payme':'You are using the free version please upgrade your package to full access',
   'newad':'Add New Ad',
-  'my_Offer':'MY OFFER'
+  'my_Offer':'MY OFFER',
+  'phoner':'Phone Number is Required',
+  'desc':'Decription is Required',
 };
 
 

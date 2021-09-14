@@ -268,7 +268,7 @@ var lang;
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                          CustomListTile(AppImages.aboutus, 'about_us'.tr, () => {
                            Get.to(AboutUs())
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {

@@ -18,7 +18,7 @@ class _UserAgreement extends State<UserAgreement> {
   Widget build(BuildContext context) {
     return Scaffold(
       // bottomNavigationBar: CustomBottomBar(),
-      appBar: AppBar(centerTitle: true,title: Text('user_agreement'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(centerTitle: true,title: Text('UGR'.tr),backgroundColor: AppColors.appBarBackGroundColor),
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {

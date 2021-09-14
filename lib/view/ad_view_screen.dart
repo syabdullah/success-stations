@@ -106,7 +106,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   previousButton(AppImages.heart,AppString.fav,Colors.grey,''),
-                  previousButton(AppImages.contact,AppString.contact,Colors.blue,val.adsD['data'])
+                  previousButton(AppImages.contact,AppString.contact,Color(0xFF2F4199),val.adsD['data'])
                 ],
               ),
               SizedBox(height: 8.h,),
@@ -432,12 +432,12 @@ Widget commentButton() {
       width: Get.width,
       child: ElevatedButton(
         style:  ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        foregroundColor: MaterialStateProperty.all<Color>(Color(0xFF2F4199)),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
          borderRadius: BorderRadius.all(Radius.circular(5)),
-         side: BorderSide(color: Colors.blue)
+         side: BorderSide(color: Color(0xFF2F4199))
       )
     )
   ),
