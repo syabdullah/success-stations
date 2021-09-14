@@ -30,7 +30,7 @@ class _DraftAdsState extends State<DraftAds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text("drafted_ads".tr),
+      appBar:AppBar(centerTitle: true,title: Text("drafted_ads".tr),
         backgroundColor: AppColors.appBarBackGroundColor,
         
       ),
