@@ -266,27 +266,32 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   Widget topWidget() {
     return Container(
       margin: lang == 'en'
-          ? EdgeInsets.only(left: 20, )
-          : EdgeInsets.only(right: 20, ),
+          ? EdgeInsets.only(left: 10, )
+          : EdgeInsets.only(right: 10, ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(left: 20, top: 20),
+            margin: lang == 'en'?EdgeInsets.only(left: 10, top: 20):EdgeInsets.only(right: 10, top: 20),
             // height: 60,
             // width: 150,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
+                borderRadius: lang=='en'?BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
                   topRight: Radius.zero,
-                  bottomLeft: Radius.circular(16.0),
+                  bottomLeft: Radius.circular(10.0),
                   bottomRight: Radius.zero,
+                ):BorderRadius.only(
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.circular(10.0),
                 ),
                 color: listtype == 'map'
-                    ? Colors.grey
+                    ? Colors.white
                     : listtype == 'grid'
                         ? AppColors.appBarBackGroundColor
-                        : Colors.grey),
+                        : Colors.white),
             height: 60,
             width: 60,
             child: CupertinoButton(
@@ -303,24 +308,29 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   });
                 },
                 child: Image.asset(
-                  grid,
+                  AppImages.gridOf,
                   height: 45,
                   width: 30,
-                  color: Colors.white,
+                  color: listtype=='grid'? Colors.white:Colors.grey,
                 )),
           ),
           //SizedBox(width: 15,),
           Container(
             margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius:lang=='en'? BorderRadius.only(
                   topLeft: Radius.zero,
-                  topRight: Radius.circular(16.0),
+                  topRight: Radius.circular(10.0),
                   bottomLeft: Radius.zero,
-                  bottomRight: Radius.circular(16.0),
+                  bottomRight: Radius.circular(10.0),
+                ):BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.zero,
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.zero,
                 ),
                 color: listtype == 'grid'
-                    ? Colors.grey
+                    ? Colors.white
                     : listtype == 'map'
                         ? AppColors.appBarBackGroundColor
                         : AppColors.appBarBackGroundColor),
@@ -342,6 +352,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               },
               child: Image.asset(
                 AppImages.map,
+                color:listtype=='map'? Colors.white:Colors.grey,height: 50,
                 //color: listtype=='grid' ?Colors.black: listtype=='grid' ?AppColors.appBarBackGroundColor :Colors.grey,
               ),
             ),

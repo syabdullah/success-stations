@@ -260,7 +260,9 @@ const Map<String, String> ar = {
   'pass_to_short':'كلمة المرور أقصر مما يجب',
   "Select_your_prefered_language":'حدد لغتك المفضلة',
   'filtered_result':'النتائج المصنفة',
+  
  
   'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
-  'newad':'إضافة إعلان جديد'
+  'newad':'إضافة إعلان جديد',
+  'my_Offer':'عرضي'
 };

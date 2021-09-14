@@ -162,18 +162,63 @@ class _AllAddsState extends State<AllAdds> {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 child: Row(
-                  children: [
-                    Image.asset(AppImages.filter, height: 15),
-                    SizedBox(width: 5),
-                    Text(
-                      "filter".tr,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                      ),
-                    )
-                  ],
+            children: [
+               Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
                 ),
               ),
+              
+              // CupertinoButton(
+              //   minSize: double.minPositive,
+              //   padding: EdgeInsets.zero,
+              //   onPressed: () {
+              //     setState(() {
+              //       listtype = 'grid';
+              //       box.write("type", listtype);
+              //       print(".....<><><><><><>///<><><....$listtype");
+              //       isButtonPressed = !isButtonPressed;
+              //       //listIconColor = AppColors.appBarBackGroundColor;
+              //       grid = AppImages.grid;
+              //     });
+              //   },
+              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+              // ),
+            
+              SizedBox(width: 5,),
+              Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'list';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                ),
+              ),
+              SizedBox(height: 10,width: 15)
+            ],
+          ),
+        ),
             ),
             GestureDetector(
               onTap: () {
@@ -194,21 +239,40 @@ class _AllAddsState extends State<AllAdds> {
           : EdgeInsets.only(right: 20),
           child: Row(
             children: [
-              CupertinoButton(
-                minSize: double.minPositive,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
-                    box.write("type", listtype);
-                    print(".....<><><><><><>///<><><....$listtype");
-                    isButtonPressed = !isButtonPressed;
-                    //listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                  });
-                },
-                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+               Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
+              
+              // CupertinoButton(
+              //   minSize: double.minPositive,
+              //   padding: EdgeInsets.zero,
+              //   onPressed: () {
+              //     setState(() {
+              //       listtype = 'grid';
+              //       box.write("type", listtype);
+              //       print(".....<><><><><><>///<><><....$listtype");
+              //       isButtonPressed = !isButtonPressed;
+              //       //listIconColor = AppColors.appBarBackGroundColor;
+              //       grid = AppImages.grid;
+              //     });
+              //   },
+              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+              // ),
+            
               SizedBox(width: 5,),
               Container(
                 child: CupertinoButton(

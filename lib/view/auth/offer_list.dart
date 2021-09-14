@@ -181,7 +181,7 @@ class _OfferListState extends State<OfferList> {
                   ? Container()
                   : Container(
                   margin: EdgeInsets.only(left: 10),
-                  child: Image.asset(AppImages.plusImage, height: 24,color: Colors.red,)),
+                  child: Image.asset(AppImages.plusImage, height: 24,)),
             )
           ],
         ),
@@ -195,21 +195,40 @@ class _OfferListState extends State<OfferList> {
                 ),
                 child: Row(
             children: [
-              CupertinoButton(
-                minSize: double.minPositive,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
-                    box.write("type", listtype);
-                    print(".....<><><><><><>///<><><....$listtype");
-                    isButtonPressed = !isButtonPressed;
-                    //listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                  });
-                },
-                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+               Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
+              
+              // CupertinoButton(
+              //   minSize: double.minPositive,
+              //   padding: EdgeInsets.zero,
+              //   onPressed: () {
+              //     setState(() {
+              //       listtype = 'grid';
+              //       box.write("type", listtype);
+              //       print(".....<><><><><><>///<><><....$listtype");
+              //       isButtonPressed = !isButtonPressed;
+              //       //listIconColor = AppColors.appBarBackGroundColor;
+              //       grid = AppImages.grid;
+              //     });
+              //   },
+              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+              // ),
+            
               SizedBox(width: 5,),
               Container(
                 child: CupertinoButton(
