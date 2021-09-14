@@ -11,6 +11,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/facebook_signIn.dart';
 import 'package:success_stations/utils/google_signIn.dart';
 import 'package:success_stations/utils/page_util.dart';
+import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
@@ -23,6 +24,8 @@ class _SignPageState extends State<SignIn> {
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController password = TextEditingController();
+  
+
   bool passwordVisible = true;
   GetStorage dataStore = GetStorage();
 
@@ -32,12 +35,14 @@ class _SignPageState extends State<SignIn> {
   var hintTextLang;
   GetStorage box = GetStorage();
   var lang;
+  var choose;
 
   @override
   void initState() {
     super.initState();
     lang = box.read('lang');
-    print("........<><><><><><><//dekh////////\///\/\/\/......$lang");
+    choose = box.read('lang_code');
+    print("........<><><><><><><//chaho/\/\/\/......$lang");
     GoogleSignInC().singIn();
     loginCont.resultInvalid(false);
     errorCheck = true;
@@ -65,7 +70,8 @@ class _SignPageState extends State<SignIn> {
           title: GetBuilder<LanguageController>(
             init: LanguageController(),
             builder: (val) {
-              return val.languageList['data'] == null
+              print("......helllooooo mr........${val.languageList['data']}");
+              return  val.languageList['data'] == null
                   ? Container()
                   : language(val.languageList['data']);
             },
@@ -201,6 +207,8 @@ class _SignPageState extends State<SignIn> {
           fontSize: 16,
           color: Colors.grey,
         ),
+        contentPadding:
+            new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
@@ -218,25 +226,31 @@ class _SignPageState extends State<SignIn> {
 
   Widget language(List data) {
     return ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-          hint: Text(
-              //lang == 'en' ? 'Englis' : 'Arabic',
-              hintTextLang != null ? hintTextLang :hintTextLang==null?Container(): lang,
-              style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
-          dropdownColor: AppColors.inPutFieldColor,
-          icon: Icon(
-            Icons.expand_more_outlined,
-            color: AppColors.inputTextColor,
-          ),
-          items: data.map((coun) {
-            return DropdownMenuItem(
-              value: coun,
-              child: Text(
-                coun['name'],
-                style: TextStyle(color: AppColors.inputTextColor),
-              ),
+      alignedDropdown: true,
+      child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+        hint: hintTextLang!=null
+        ? Text(hintTextLang,
+          //lang == 'en' ? 'Englis' : 'Arabic',
+          //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
+          style: TextStyle(fontSize: 18, color: AppColors.inputTextColor))
+        : hintTextLang == null && lang == null
+        ? Container()
+        : Text(lang),
+        dropdownColor: AppColors.inPutFieldColor,
+        icon: Icon(
+          Icons.expand_more_outlined,
+          color: AppColors.inputTextColor,
+        ),
+        items: data.map((coun) {
+          return DropdownMenuItem(
+            value: coun,
+            child: coun['name'] != null
+            ? Text(
+              coun['name'],
+              style: TextStyle(color: AppColors.inputTextColor),
+            )
+              : Container(),
             );
           }).toList(),
           onChanged: (val) {
@@ -250,7 +264,9 @@ class _SignPageState extends State<SignIn> {
               LocalizationServices().changeLocale(mapLang['short_code']);
             });
           },
-        )));
+        )
+      )
+    );
   }
 
   Widget passwordW() {

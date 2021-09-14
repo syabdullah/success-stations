@@ -12,6 +12,7 @@ import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
@@ -166,13 +167,11 @@ class _AllAddsState extends State<AllAdds> {
                     SizedBox(width: 5),
                     Text(
                       "filter".tr,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                      ),
-                    )
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
                   ],
                 ),
-              ),
+        ),
             ),
             GestureDetector(
               onTap: () {
@@ -193,21 +192,40 @@ class _AllAddsState extends State<AllAdds> {
           : EdgeInsets.only(right: 20),
           child: Row(
             children: [
-              CupertinoButton(
-                minSize: double.minPositive,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  setState(() {
-                    listtype = 'grid';
-                    box.write("type", listtype);
-                    print(".....<><><><><><>///<><><....$listtype");
-                    isButtonPressed = !isButtonPressed;
-                    //listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                  });
-                },
-                child: Image.asset(grid,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+               Container(
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                      print(".....<><><><><><>///<><><....$listtype");
+                      lisselect = !lisselect;
+                      isButtonPressed = !isButtonPressed;
+                      //listIconColor = Colors.grey;
+                      listImg = AppImages.listing;
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
+              
+              // CupertinoButton(
+              //   minSize: double.minPositive,
+              //   padding: EdgeInsets.zero,
+              //   onPressed: () {
+              //     setState(() {
+              //       listtype = 'grid';
+              //       box.write("type", listtype);
+              //       print(".....<><><><><><>///<><><....$listtype");
+              //       isButtonPressed = !isButtonPressed;
+              //       //listIconColor = AppColors.appBarBackGroundColor;
+              //       grid = AppImages.grid;
+              //     });
+              //   },
+              //   child: Image.asset(grid,height: 35,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor)
+              // ),
+            
               SizedBox(width: 5,),
               Container(
                 child: CupertinoButton(
@@ -335,19 +353,12 @@ class _AllAddsState extends State<AllAdds> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(5.0),
-                                                    border: Border.all(color: Colors.blue),
+                                                    border: Border.all(color: AppColors.appBarBackGroundColor),
                                                     color: filteredIndex == index
                                                     ? AppColors.appCategSeleGroundColor
                                                     : Colors.white,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.grey,
-                                                        offset: Offset(0.0,1.0),
-                                                        blurRadius: 6.0,
-                                                      ),
-                                                    ],
                                                   ),
-                                                  padding: EdgeInsets.all(4.0),
+                                                  padding: EdgeInsets.only(left:6.0,right: 6),
                                                   child: data.subCatt['data'] !=null
                                                   ? Text(data.subCatt['data'][index]['category']['en'],
                                                     style: TextStyle(
