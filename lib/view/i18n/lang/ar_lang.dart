@@ -119,6 +119,7 @@ const Map<String, String> ar = {
   "search_service": "خدمة البحث",
   "profile": "الملف الشخصي",
   "my_ads": "إعلاناتي",
+  'my_adss':'إعلاناتي',
   "messeges": "إعلاناتي",
   "favourite": "المفضل",
   "membership": "عضوية",
@@ -126,8 +127,9 @@ const Map<String, String> ar = {
   "about_us": "معلومات عنا",
   "advertise_with_us": "أعلن معنا",
   "privacy": "خصوصية",
+  "privacydr": "خصوصية",
   "user_agreement": "اتفاقية المستخدم",
-  "cntact_us": "اتصل بنا",
+  "contactus": "اتصل بنا",
   "add_a_comment": "اضف تعليق",
   "see_profile": "انظر الملف الشخصي",
   "reply": "الرد",
@@ -169,6 +171,7 @@ const Map<String, String> ar = {
   "follow": "يتبع",
   "address": "عنوان",
   "name": "اسم",
+  "nameph": "اسم",
   "date_of_birth": "تاريخ الولادة",
   "mobile": "التليفون المحمول",
   "phone": "هاتف",
@@ -255,6 +258,9 @@ const Map<String, String> ar = {
   'email_required':'البريد الإلكتروني (مطلوب',
   'enter_password':'أدخل كلمة المرور',
   'pass_to_short':'كلمة المرور أقصر مما يجب',
-  "Select_your_prefered_language":'حدد لغتك المفضلة'
+  "Select_your_prefered_language":'حدد لغتك المفضلة',
+  'filtered_result':'النتائج المصنفة',
  
+  'payme':'أنت تستخدم الإصدار المجاني ، يرجى ترقية الحزمة الخاصة بك إلى الوصول الكامل',
+  'newad':'إضافة إعلان جديد'
 };

@@ -21,7 +21,7 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   async:
     dependency: transitive
     description:
@@ -119,7 +119,7 @@ packages:
       name: cross_file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.1+4"
+    version: "0.3.1+5"
   crypto:
     dependency: transitive
     description:
@@ -454,7 +454,7 @@ packages:
       name: google_maps_place_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.3"
+    version: "2.1.0-nullsafety.3"
   google_maps_webservice:
     dependency: transitive
     description:
@@ -517,7 +517,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.4"
   image_picker:
     dependency: "direct main"
     description:
@@ -580,7 +580,7 @@ packages:
       name: libphonenumber
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   libphonenumber_platform_interface:
     dependency: transitive
     description:
@@ -893,7 +893,7 @@ packages:
       name: sqflite_common
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.1+1"
   stack_trace:
     dependency: transitive
     description:
@@ -1033,56 +1033,56 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.15"
+    version: "2.2.0"
   video_player_platform_interface:
     dependency: transitive
     description:
       name: video_player_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   video_player_web:
     dependency: transitive
     description:
       name: video_player_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   wakelock:
     dependency: transitive
     description:
       name: wakelock
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.3+3"
+    version: "0.5.4"
   wakelock_macos:
     dependency: transitive
     description:
       name: wakelock_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+2"
+    version: "0.1.0+3"
   wakelock_platform_interface:
     dependency: transitive
     description:
       name: wakelock_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1+2"
+    version: "0.2.1+3"
   wakelock_web:
     dependency: transitive
     description:
       name: wakelock_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0+2"
+    version: "0.2.0+3"
   wakelock_windows:
     dependency: transitive
     description:
       name: wakelock_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+1"
+    version: "0.1.0+2"
   web_socket_channel:
     dependency: "direct main"
     description:
@@ -1096,7 +1096,7 @@ packages:
       name: webview_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.12"
+    version: "2.0.13"
   win32:
     dependency: transitive
     description:

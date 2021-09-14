@@ -30,7 +30,7 @@ const Map<String, String> en = {
   "phone_email_username": "Phone Number, email or name",
   "email": "EMAIL",
   "emails":"Email",
-  "send": "Send",
+  "send": "SEND",
   "or": "OR",
   "back_to": "Back to",
   "sign_in_title": "  Sign In",
@@ -101,6 +101,7 @@ const Map<String, String> en = {
   "search_service": "Search Service",
   "profile": "Profile",
   "my_ads": "My Ads",
+  "my_adss": "MY ADS",
   "messeges": "Message",
   "notifications": "Notifications",
   "semester":"SEMESTER",
@@ -114,10 +115,11 @@ const Map<String, String> en = {
   "favourite": "Favourites",
   "membership": "Membership",
   "notification": "Notification",
-  "about_us": "About Us",
-  "advertise_with_us": "Advertise with us",
-  "privacy": "privacy",
-  "user_agreement": "Usage Agreement",
+  "about_us": "ABOUT US",
+  "advertise_with_us": "ADEVERTISE WITH US",
+  "privacy": "PRIVACY",
+  "privacydr": "Privacy",
+  "user_agreement": "USER AGREMENT",
   "cntact_us": "Contact Us",
   "add_a_comment": "Add a comment",
   "see_profile": "See Profile",
@@ -174,6 +176,7 @@ const Map<String, String> en = {
   "follow": "Follow",
   "address": "Address",
   "name": "NAME",
+  "nameph": "Name",
   "mobile": "MOBILE",
   "phone": "Phone",
   "accept": "Accept",
@@ -255,11 +258,13 @@ const Map<String, String> en = {
   'crs':'Cr',
   'DegreeSU':"Degree",
   'oR':'OR',
+  'contactus':'CONTACT US',
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
   'pass_to_short':'Password too short',
-  'filtered_result':'FILTERED RESULTS'
-
+  'filtered_result':'FILTERED RESULTS',
+  'payme':'You are using the free version please upgrade your package to full access',
+  'newad':'Add New Ad'
 };
 
 

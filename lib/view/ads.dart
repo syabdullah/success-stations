@@ -125,12 +125,12 @@ class _AdsViewState extends State<AdsView> {
             color: Colors.red
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top:.0,left:10),
+            padding: const EdgeInsets.only(top:10,left:10,right: 10),
             child: Row(
               children: [
                 Container(
                   width: Get.width/1.3,
-                  child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
+                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
                     setState(() {
