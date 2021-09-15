@@ -93,7 +93,6 @@ class _AboutTabState extends State<AboutTab> {
               GetBuilder<LastLocationController>( // specify type as Controller
                 init: LastLocationController(), // intialize with the Controller
                 builder: (value){ 
-                  print(value.lastLocation);
                   return value.isLoading == true ? Center(child: CircularProgressIndicator()):
                   value.lastLocation !=null &&   value.lastLocation['success']== true ?
                    lastLocation(value.lastLocation['data']['data'])
@@ -229,9 +228,10 @@ Widget lastAds2(offerDattaTypeCategory){
 }
  var imageGived;
 Widget lastAds(lastuserad){
+  print("Get.height ${Get.width}");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/4,
+    height: Get.height > 400 ? Get.height/3.6:Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: lastuserad.length,
@@ -349,10 +349,10 @@ Widget lastAds(lastuserad){
 
 Widget lastLocation(locLast){
   print("........... prinyted values.....$locLast");
-  
+  print("Get.height ${Get.width}");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/5,
+    height: Get.height > 400 ? Get.height/4.4:Get.height/5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: locLast.length,
