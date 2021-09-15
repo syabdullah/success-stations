@@ -1,16 +1,19 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FavouritePage extends StatefulWidget {
   _FavouritePageState createState() => _FavouritePageState();
@@ -18,11 +21,12 @@ class FavouritePage extends StatefulWidget {
 class _FavouritePageState extends State<FavouritePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
  final friCont = Get.put(FriendsController());
+ 
   final remoControllerFinal = Get.put(FriendsController());
    final fContr = Get.put (FavoriteController());
   var listingIdRemoved;
     var imageAds;
- 
+ final ratingcont = Get.put(RatingController());
   final controller = Get.put(AddBasedController());
   var listtype = 'grid';
   var selectedIndex = 0;
@@ -57,9 +61,15 @@ class _FavouritePageState extends State<FavouritePage> {
     remoControllerFinal.profileAdsRemove(reJson, null);
     
     });
-    
-    
-
+  }
+  var bye;
+  removeFvr8zGrid(){
+    setState(() {
+      var rJson = {
+      'ads_id': bye
+    };
+    remoControllerFinal.profileAdsRemove(rJson, null);
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -219,27 +229,67 @@ class _FavouritePageState extends State<FavouritePage> {
                                   ),
                                 ),
                               ): Container(),
+                               Container(
+                                        child: listFavourite[c]['listing']['is_rated'] == false
+                                        ? RatingBar.builder(
+                                          initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            print('rating on tap ........$rating');
+                                            var ratingjson = {
+                                              'ads_id': listFavourite[c]['id'],
+                                              'rate': rating
+                                            };
+                                            print('.....................Rating data on Tap .........$ratingjson');
+                                            ratingcont.ratings(ratingjson);
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                        : RatingBar.builder(
+                                          initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                                          ignoreGestures: true,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                      ),
                               listFavourite[c]['user_name']!=null ?
                               Expanded(
-                                child:  Row(
+                                child:  
+                                listFavourite[c]['user_name']['address'] !=null ?
+                                Row(
                                   children: [
                                   Icon(Icons.location_on, color:Colors.grey),
                                   Container(
-                                    child:listFavourite[c]['user_name']['address'] !=null ?  Text(
+                                    child:  Text(
                                       listFavourite[c]['user_name']['address'],
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
-                                    ): Container()
+                                    )
                                   )
                                   ],
-                                ),
-                              ): Container()
+                                ):Container()
+                              ): Container(),
+                              // Text("heheh")
+                              
                             ],
                           ),
                         ),
                       ],
                     ),
+                   
                     SizedBox(height:20),
                     Column(
                       children: [
@@ -270,10 +320,16 @@ class _FavouritePageState extends State<FavouritePage> {
                             ): Container(),
                             Container(
                               padding: EdgeInsets.only(right:15),
-                              child: Image.asset(AppImages.call, height: 20),
+                              child: GestureDetector(
+                                onTap: (){
+                                  print("hehe");
+                                   launch("tel:${listFavourite[c]['listing']['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 20)),
                             ),
                           ],
                         )
+                        
                       ],
                     ),
                   ],
@@ -290,10 +346,11 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
+    
     List<Widget> faviii = [];
     faviii.add(
       Container(
-        height:  Get.height < 420 ? Get.height /3.6 : Get.height /1.0,
+        height:  Get.height < 420 ? Get.height /3.4 : Get.height ,
         child: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
@@ -305,7 +362,7 @@ class _FavouritePageState extends State<FavouritePage> {
               }
             }
             return listFavourite[index]['listing']  !=null ? Container(
-              margin: EdgeInsets.only(left:15),
+              margin: EdgeInsets.only(left:15,right: 15),
               child:  Card(
                 elevation: 1,
                   shape: RoundedRectangleBorder(
@@ -317,40 +374,160 @@ class _FavouritePageState extends State<FavouritePage> {
                         ClipRRect(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                           child: Container(
-                            width: Get.width/0.8,
-                            height: 150,
-                            child: listFavourite[index]['listing']['image'] !=null && gridImages != null ? Image.network(gridImages):
-                            FittedBox(fit:BoxFit.contain,
-                              child: Icon(Icons.person, color: Colors.grey[400])
+                            width: Get.width/0.7,
+                            height: Get.height/10,
+                            //hehe
+                            child: listFavourite[index]['listing']['image'] !=null && gridImages != null ? 
+                            Stack(
+                             alignment:AlignmentDirectional.bottomEnd,
+                              children: [
+                                Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
+                                 listFavourite[index]['listing'] !=null ? 
+                              Container(
+                                padding: EdgeInsets.only(right: 10,bottom: 2),
+                                child: listFavourite[index]['listing']['is_favorite'] == true ?
+                                GestureDetector(
+                                  onTap: (){
+                                     bye = listFavourite[index]['listing']['id'];
+                                    removeFvr8zGrid();
+                                  },
+                                  child: Image.asset(AppImages.redHeart,height:30)
+                                ): null,
+                            ): Container(),
+                              ],
+                            ):
+                            Stack(
+                              alignment:AlignmentDirectional.bottomEnd,
+                              children: [
+                                Center(child: Icon(Icons.person, color: Colors.grey[400],size: 42,)),
+                                  listFavourite[index]['listing'] !=null ? 
+                              Container(
+                                padding: EdgeInsets.only(right: 10,bottom: 2),
+                                child: listFavourite[index]['listing']['is_favorite'] == true ?
+                                GestureDetector(
+                                  onTap: (){
+                                    bye = listFavourite[index]['listing']['id'];
+                                    removeFvr8zGrid();
+                                  },
+                                  child: Image.asset(AppImages.redHeart,height:30)
+                                ): null,
+                            ): Container(),
+                              ],
                             ) 
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: listFavourite[index]['user_name']['name']  !=null ? Text( 
-                           allWordsCapitilize(listFavourite[index]['user_name']['name'],) 
-                          ): Container()
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child:  Row(
-                            children: [
-                              Icon(Icons.location_on, color:Colors.grey),
-                              Container(
-                                child: listFavourite[index]['user_name']['address'] !=null ? Text(
-                                 allWordsCapitilize(listFavourite[index]['user_name']['address']),
-                                  style: TextStyle(
-                                    color: Colors.grey[300]
-                                  ),
-                                ):Container()
-                              )
-                            ],
+                        Center(
+                          child: Container(
+                             child: listFavourite[index]['user_name']['name']  !=null ? Text( 
+                             allWordsCapitilize(listFavourite[index]['user_name']['name'],) 
+                            ): Container()
                           ),
-                        ),                   
-                      ],
-                    ),
-                  ),
-                ):Container();
+                        ),
+                           Container(
+                             //haha
+                           margin: EdgeInsets.only(left:10,right: 10),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(top: 5),
+                                        child: listFavourite[index]['listing']['is_rated'] == false
+                                        ? RatingBar.builder(
+                                          initialRating:listFavourite[index]['user_name']['rating'].toDouble(),
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            print('rating on tap ........$rating');
+                                            var ratingjson = {
+                                              'ads_id': listFavourite[index]['id'],
+                                              'rate': rating
+                                            };
+                                            print('.....................Rating data on Tap .........$ratingjson');
+                                            ratingcont.ratings(ratingjson);
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                        : RatingBar.builder(
+                                          initialRating:listFavourite[index]['user_name']['rating'].toDouble(),
+                                          ignoreGestures: true,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 14.5,
+                                          itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                          onRatingUpdate: (rating) {
+                                            // ratingcont.getratings(allDataAdds[index]['id']);
+                                          },
+                                        )
+                                      ),
+                                //       Container(
+                                //         // width: Get.width/4,
+                                //         // height: Get.height/5.5,
+                                //         child: Row(
+                                //           children: [
+                                //             GestureDetector(
+                                //               onTap: () {
+                                //                 var json = {
+                                //                   'ads_id': dataListValue[index]['id']
+                                //                 };
+                                //                 liked = !liked;
+                                //                 dataListValue[index]['is_favorite'] ==false
+                                //                 ? friCont.profileAdsToFav(json, userId)
+                                //                 : friCont.profileAdsRemove(json, userId);
+                                //                 controller.addedByIdAddes(catID, null);
+                                //               },
+                                //               child: Container(
+                                //                 padding: EdgeInsets.only(right: 5),
+                                //                 child: dataListValue[index]['is_favorite'] ==false
+                                //                 ? Image.asset(AppImages.blueHeart,height: 20)
+                                //                 : Image.asset(AppImages.redHeart,height: 20)
+                                //               ),
+                                //             ),
+                                //             Image.asset(AppImages.call, height: 20),
+                                //     ],
+                                //   )
+                                // )
+                                        GestureDetector(
+                                          onTap: (){launch("tel:${listFavourite[index]['listing']['phone']}");},
+                                          child: Container(
+                                            padding: EdgeInsets.only(right:5),
+                                            child: Image.asset(AppImages.call, height: 20),
+                                          ),
+                                        ),
+                                          ],
+                                        ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: 
+                                   listFavourite[index]['created_by']['address'] !=null ?
+                                   Row(
+                                    children: [
+                                      Icon(Icons.location_on, color:Colors.grey),
+                                      Container(
+                                        child: Text(
+                                          allWordsCapitilize(listFavourite[index]['created_by']['address']),
+                                          style: TextStyle(
+                                            color: Colors.grey[300]
+                                          ),
+                                        )
+                                      )
+                                    ],
+                                  ):Container()
+                                ), 
+                                listFavourite[index]['listing']['price']  !=null ? 
+                                Container(
+                                  margin: EdgeInsets.only(left:10,right: 10),
+                                  child: Text("SAR ${listFavourite[index]['listing']['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
+                              ],
+                            ),
+                          ),
+                        ):Container();
               }
             )
           ),
