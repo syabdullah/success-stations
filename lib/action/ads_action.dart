@@ -21,7 +21,6 @@ Future<http.Response> getUserAds(id) async {
   return response;
 }
 Future<http.Response> addAdsFav(id) async {
-  print("...........add to favorite adds.....>$id");
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}add-to-favorites-ads");
@@ -29,7 +28,6 @@ Future<http.Response> addAdsFav(id) async {
   return response;
 }
 Future<http.Response> removeAdsFav(id) async {
-  print("......removeAdsFav........removeAdsFav.......removeAdsFav....$id");
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}remove-from-favorites");

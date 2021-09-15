@@ -69,8 +69,9 @@ class _OfferListState extends State<OfferList> {
     // offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
-     contByCatOffer.myAllOffers();
-     allOffer = false;
+    coCatOffer.offerList();
+    contByCatOffer.myAllOffers();
+    allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
     usertype = box.read('user_type');
@@ -711,8 +712,9 @@ class _OfferListState extends State<OfferList> {
     );
   }
 
-  Widget allUsers(listFavou) {
-    return Padding(
+  Widget allUsers(listFavou) {   
+   
+     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20,bottom: 20),
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
@@ -728,6 +730,7 @@ class _OfferListState extends State<OfferList> {
           ),
           itemCount: listFavou.length,
           itemBuilder: (BuildContext context, int c) {
+             print(".....!!!!!!.................${listFavou[c]['text_ads'][lang]}");
             return GestureDetector(
               onTap: () {
                 Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
@@ -776,8 +779,8 @@ class _OfferListState extends State<OfferList> {
                     ),
                     Container(
                       child: Text(
-                        listFavou[c]['text_ads'][lang] != null
-                        ? listFavou[c]['text_ads'][lang].toString()
+                        listFavou[c]['text_ads']['en'] != null
+                        ? listFavou[c]['text_ads']['en'].toString()
                         : '',
                         style:TextStyle(
                           fontSize: 16, color: Colors.black
@@ -894,25 +897,19 @@ class _OfferListState extends State<OfferList> {
                       onTap: () {
                         setState(() {
                         selectedIndex = index;
-                        contByCatOffer.myAllOffers();
+                        coCatOffer.offerList();
                         allOffer = false;
                         });
                       },
                       child: Container(
+                        margin:EdgeInsets.only(left:12),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
                           color: selectedIndex == index
                           ? selectedColor
                           : Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Center(
@@ -990,19 +987,13 @@ class _OfferListState extends State<OfferList> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
                           color: selectedIndex == index
                           ? selectedColor
                           : Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
+                          
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Text(

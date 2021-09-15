@@ -6,7 +6,6 @@ Future<http.Response> adsAll() async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}ads?change_language=ar");
-  print(".......URl of the category.........$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
@@ -14,16 +13,6 @@ Future<http.Response> addsDetailbyId(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}ads/$id?change_language=ar");
-  print(".......URl of the category.........${ApiHeaders().headersWithToken}");
-  http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
-  return response;
-}
-
-Future<http.Response> addsCategory() async {
-  await ApiHeaders().getData();
-  final Config config = Config();
-  var url = Uri.parse("${config.baseUrl}categories-having-ads");
-  print(".......URl of the category.........$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
