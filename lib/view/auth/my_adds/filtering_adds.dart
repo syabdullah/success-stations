@@ -31,6 +31,7 @@ final controller = Get.put(AddBasedController());
   var userId;
   GetStorage box = GetStorage();
   var data;
+  var splitedPrice;
   @override
   void initState() {
     // adbAsedContr.addedAllAds();
@@ -299,6 +300,8 @@ var ind = 0;
           crossAxisSpacing: 12,
           children: List.generate(filteredAdds.length, (index) {
             catID=filteredAdds[index]['id'];
+            var price = filteredAdds[index]['price'].toString();
+            splitedPrice = price.split('.');
             return Container(
                 decoration: new BoxDecoration(),
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
@@ -494,7 +497,7 @@ var ind = 0;
                           ),
                           filteredAdds[index]['price'] != null ? Container(
                             margin: EdgeInsets.only(top:10,left: 10,right: 10),
-                            child: Text(" SAR ${filteredAdds[index]['price']}",
+                            child: Text(" SAR ${splitedPrice[0]}",
                             style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 13),),
                           ):Container()
                         ],
