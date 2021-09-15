@@ -246,50 +246,50 @@ class _AdListTabState extends State<AdListTab> {
                       ],
                     ),
                     //SizedBox(height: 20),
-                    Column(
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: allDataAdds[index]['price'] !=null ?
-                               Text("SAR ${allDataAdds[index]['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),):Container()
-                        ),
-                        Container(
-                            // width: Get.width/4,
-                            // height: Get.height/5.5,
-                            child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                var json = {
-                                  'ads_id': allDataAdds[index]['id']
-                                };
-                                liked = !liked;
-                                allDataAdds[index]['is_favorite'] == false
-                                    ? friCont.profileAdsToFav(json, indId)
-                                    : friCont.profileAdsRemove(json, indId);
-          
-                                // addsController.addedByIdAddes(json, indId);
-                              },
-                              child: Container(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: allDataAdds[index]['is_favorite'] ==
-                                          false
-                                      ? Image.asset(AppImages.blueHeart,
-                                          height: 20)
-                                      : Image.asset(AppImages.redHeart,
-                                          height: 20)),
-                            ),
-                            GestureDetector(
+                    Padding(
+                      padding: const EdgeInsets.only(right:20.0,top: 20),
+                      child: Column(
+                        children: [
+                          allDataAdds[index]['price'] !=null ?
+                             Text("SAR ${allDataAdds[index]['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),):Container(),
+                          Container(
+                              // width: Get.width/4,
+                              // height: Get.height/5.5,
+                              child: Row(
+                            children: [
+                              GestureDetector(
                                 onTap: () {
-                                  print(".......................>${allDataAdds[index]['telephone']}");
-                                  launch('tel:${allDataAdds[index]['telephone']}');
+                                  var json = {
+                                    'ads_id': allDataAdds[index]['id']
+                                  };
+                                  liked = !liked;
+                                  allDataAdds[index]['is_favorite'] == false
+                                      ? friCont.profileAdsToFav(json, indId)
+                                      : friCont.profileAdsRemove(json, indId);
+          
                                   // addsController.addedByIdAddes(json, indId);
                                 },
-                                child:
-                                    Image.asset(AppImages.call, height: 20)),
-                          ],
-                        ))
-                      ],
+                                child: Container(
+                                    padding: EdgeInsets.only(right: 2),
+                                    child: allDataAdds[index]['is_favorite'] ==
+                                            false
+                                        ? Image.asset(AppImages.blueHeart,
+                                            height: 20)
+                                        : Image.asset(AppImages.redHeart,
+                                            height: 20)),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    print(".......................>${allDataAdds[index]['telephone']}");
+                                    launch('tel:${allDataAdds[index]['telephone']}');
+                                    // addsController.addedByIdAddes(json, indId);
+                                  },
+                                  child:
+                                      Image.asset(AppImages.call, height: 20)),
+                            ],
+                          ))
+                        ],
+                      ),
                     ),
                   ],
                 ),
