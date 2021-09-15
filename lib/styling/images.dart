@@ -67,7 +67,7 @@ class AppImages {
   static String misarImage =  imagePath +  'misar.png';
   static String arabImage =  imagePath +  'arab.png';
   static String callerImage =  imagePath + 'caller.png';
-  static String plusImage = imagePath + 'plus@3x.png';
+  static String plusImage = imagePath + 'plus@2x.png';
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
   static String nearby = imagePath + 'nearby.png';
@@ -79,7 +79,7 @@ class AppImages {
   static String person = imagePath + "usernqame@3x.png";
 
   //maps
-
+  static String map1= imagePath + "mapIcon.png";
   static String map= imagePath + "map.png";
   static String gridView = imagePath + 'grid.png';
   static String delete = imagePath + 'delete.png';
@@ -91,4 +91,6 @@ class AppImages {
   static String memberShip = imagePath + 'company.png';
   static String homeicon = imagePath + 'home.png';
   static String camera = imagePath + 'cam@3x.png';
+  static String junaid = imagePath + 'junaid.jpeg';
+  static String hehe = imagePath + 'hehe.png';
 }

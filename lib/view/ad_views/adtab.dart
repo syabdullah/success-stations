@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,6 +21,7 @@ class _AdListTabState extends State<AdListTab> {
   final friCont = Get.put(FriendsController());
   final controller = Get.put(AddBasedController());
   final addsController = Get.put(FriendsController());
+    final ratingcont = Get.put(RatingController());
   var id;
   var userId;
   var indId;
@@ -123,6 +125,46 @@ class _AdListTabState extends State<AdListTab> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(top: 5),
+                                      child: allDataAdds[index]['is_rated'] ==false
+                                      ? RatingBar.builder(
+                                        initialRating: allDataAdds[index]['rating'].toDouble(),
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 22.5,
+                                        itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                        onRatingUpdate: (rating) {
+                                          print('rating on tap ........$rating');
+                                          var ratingjson = {
+                                            'ads_id': allDataAdds[index]['id'],
+                                            'rate': rating
+                                          };
+                                          print('.....................Rating data on Tap .........$ratingjson');
+                                          ratingcont.ratings(ratingjson);
+                                          // ratingcont.getratings(allDataAdds[index]['id']);
+                                        },
+                                      )
+                                      : RatingBar.builder(
+                                        initialRating: allDataAdds[index]['rating'].toDouble(),
+                                        ignoreGestures: true,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 22.5,
+                                        itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                        onRatingUpdate: (rating) {
+                                          // ratingcont.getratings(allDataAdds[index]['id']);
+                                        },
+                                      )
+                                    )
+                                  ],
+                                ),
                               Padding(
                                 padding: const EdgeInsets.only(left:8.0),
                                 child: Container(
@@ -161,42 +203,42 @@ class _AdListTabState extends State<AdListTab> {
                                       style:
                                           TextStyle(color: Colors.grey[300]),
                                     ),
-                                    Container(
-                                      // margin:EdgeInsets.only(left:29),
-                                      child: Text(
-                                        allDataAdds[index]['country']
-                                                    ['name'] !=
-                                                null
-                                            ? allDataAdds[index]['country']
-                                                ['name']
-                                            : '',
-                                        style: TextStyle(
-                                            color: Colors.grey[300]),
-                                      ),
-                                    )
+                                    // Container(
+                                    //   // margin:EdgeInsets.only(left:29),
+                                    //   child: Text(
+                                    //     allDataAdds[index]['country']
+                                    //                 ['name'] !=
+                                    //             null
+                                    //         ? allDataAdds[index]['country']
+                                    //             ['name']
+                                    //         : '',
+                                    //     style: TextStyle(
+                                    //         color: Colors.grey[300]),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               ),
-                              Container(
-                                //flex: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.person, color: Colors.grey),
-                                    Container(
-                                      // margin:EdgeInsets.only(left:29),
-                                      child: Text(
-                                        allDataAdds[index]['contact_name'] !=
-                                                null
-                                            ? allDataAdds[index]
-                                                ['contact_name']
-                                            : '',
-                                        style: TextStyle(
-                                            color: Colors.grey[300]),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   //flex: 1,
+                              //   child: Row(
+                              //     children: [
+                              //       Icon(Icons.person, color: Colors.grey),
+                              //       Container(
+                              //         // margin:EdgeInsets.only(left:29),
+                              //         child: Text(
+                              //           allDataAdds[index]['contact_name'] !=
+                              //                   null
+                              //               ? allDataAdds[index]
+                              //                   ['contact_name']
+                              //               : '',
+                              //           style: TextStyle(
+                              //               color: Colors.grey[300]),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -208,12 +250,9 @@ class _AdListTabState extends State<AdListTab> {
                       children: [
                         Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: allDataAdds[index]['created_by']['image'] !=null ?
-                            CircleAvatar(
-                                backgroundColor: Colors.grey[200],
-                                backgroundImage: NetworkImage(allDataAdds[index]['created_by']['image']['url']
-                                              )
-                                              ):Icon(Icons.image)),
+                            child: allDataAdds[index]['price'] !=null ?
+                               Text("SAR ${allDataAdds[index]['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),):Container()
+                        ),
                         Container(
                             // width: Get.width/4,
                             // height: Get.height/5.5,
@@ -221,17 +260,10 @@ class _AdListTabState extends State<AdListTab> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print(".......QQQQ...QQQQ>...qqqq....$indId");
-                                print(
-                                    "....add id...${allDataAdds[index]['id']}");
-                                print(
-                                    ".......user id...!!!!...!!!....$indId");
                                 var json = {
                                   'ads_id': allDataAdds[index]['id']
                                 };
                                 liked = !liked;
-                                print(
-                                    "..................-----------$catID.........${allDataAdds[index]['is_favorite']}");
                                 allDataAdds[index]['is_favorite'] == false
                                     ? friCont.profileAdsToFav(json, indId)
                                     : friCont.profileAdsRemove(json, indId);

@@ -24,12 +24,7 @@ class ServicesController extends GetxController {
       print("!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$servicesData");
       for(int ser =0; ser < servicesData['data'].length; ser++){
         servicesListdata.add(servicesData['data'][ser]);
-        // print(".. serviocesssssss loop ....SHEHHEEHEHHE.....!!!!!!!!!!!!!!!!!!${servicesData[ser]}");
-        // for(int s = 0 ; s < servicesData[ser].length ; s++){
           print(".. servicesssssss loop .........!!!!!!!!!!!!!!!!!!$servicesListdata");
-        //   servicesListdata.add(servicesData[ser][s]);
-
-        // }
       }
       isLoading = false;
     });

@@ -17,10 +17,12 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   final putData  = Get.put(MyOffersDrawerController());
   
   var idIdId;
+  var lang;
 
   @override
   void initState() {
     idIdId = Get.arguments;
+    lang = box.read('lang_code');
     super.initState();
   }
 
@@ -59,7 +61,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       height: Get.height/3.3,
                       child: Card(
                         elevation: 2.0,
-                        margin: EdgeInsets.only(left:20,right:20),
+                        margin: lang=='en'?EdgeInsets.only(left:19,right:19):EdgeInsets.only(left:19,right:19),
                         child: Column(
                           children: [
                             Container(

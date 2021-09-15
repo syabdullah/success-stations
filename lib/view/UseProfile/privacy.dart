@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:success_stations/controller/aboutController.dart';
-import 'package:success_stations/styling/app_bar.dart';
-import 'package:success_stations/styling/images.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:flutter_html/flutter_html.dart';
 class Privacy extends StatefulWidget {
   const Privacy({ Key? key }) : super(key: key);
@@ -19,9 +18,7 @@ class _PrivacyState extends State<Privacy> {
   Widget build(BuildContext context) {
     return Scaffold(
       // bottomNavigationBar: CustomBottomBar(),
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'privacy',AppImages.appBarSearch),
-      ),
+      appBar: AppBar(centerTitle: true,title: Text('privacy'.tr),backgroundColor: AppColors.appBarBackGroundColor),
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
@@ -45,17 +42,8 @@ Widget about(data){
        Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top:50),
-            child: Image.asset(AppImages.logo,height: 150.h,),
-          ),
-          Padding(
             padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-            
-            child:Html(data: data[index]['page_text']),
-        //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
-        //     style: AppTextStyles.appTextStyle(
-        //     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-        //  ),),
+            child:Html(data: data[index]['page_text'])
         ),   
         ],
       ):Container();

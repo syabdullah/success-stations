@@ -3,10 +3,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/controller/adwithus_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
+import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
-import 'package:success_stations/styling/images.dart';
 
 class AdvertisePage extends StatefulWidget {
   AdvertiseStatePage createState() => AdvertiseStatePage();
@@ -43,7 +42,6 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       'name':nameController.text,
       'phone':phoneController.text,
       'description':writeController.text
-
     };
     adwithme.sendingAdsWithUs(json);
     print('${nameController.text}',);
@@ -55,14 +53,9 @@ class AdvertiseStatePage extends State<AdvertisePage> {
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
-    final space20 = SizedBox(height: getSize(20, context));
-    final space50 = SizedBox(height: getSize(50, context));
+    
     return Scaffold(
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),    
-       child: Container(
-        //  padding:EdgeInsets.only(top:8)R,
-         child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'advertise_with_us'.tr,AppImages.appBarSearch)),
-      ),
+      appBar:AppBar(centerTitle: true,title: Text('advertise_with_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -75,44 +68,24 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     
           }   
      ),
-              space50, 
-              // Container(
-              //   margin: EdgeInsets.only(top: 60),
-              //   child: Center(
-              //     child: Image.asset(
-              //       AppImages.appLogo, height: Get.height / 4.40
-              //     ),
-              //   ),
-              // ),
-              // space10,
-              // text(),
-              // space50,
+            
               name(),
-              space20,
+              space10,
               phoneNumber(),
-              space20,
+              space10,
               textArea(),
-              space20,
-              Container(
-                height: 50,
-                width: 300,
-                child: RaisedButton(
-                  onPressed: (){
-                    mydata();
+              space10,
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,  
+                textColor: AppColors.appBarBackGroun,
+                buttonText: "send".tr,
+                fontSize: 18.toDouble(),
+                callback: (){
+                  mydata();
                     clearTextInput();
-                  },
-                  color: AppColors.appBarBackGroundColor,
-                  textColor: Colors.white,
-                  child: Text('send'.tr),
-                ),
+                
+                }
               ),
-              // submitButton(
-              //   bgcolor: AppColors.appBarBackGroundColor,  
-              //   textColor: AppColors.appBarBackGroun,
-              //   buttonText: "send".tr,
-              //   fontSize: 18.toDouble(),
-              //   callback: mydata()
-              // ),
             ],
           ),
         ),
@@ -124,45 +97,31 @@ class AdvertiseStatePage extends State<AdvertisePage> {
        margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: TextFormField(
-                focusNode:pin2node,
-                controller: nameController,
-                validator: (value) {
-                if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-                style: TextStyle(
-                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
-                ),
-                decoration:InputDecoration( 
-                  hintText: "name".tr,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.grey),
-                ),
-              ) ,
-            ),
+        
+        focusNode:pin2node,
+        controller: nameController,
+        validator: (value) {
+        if (value == null || value.isEmpty) {
+            return 'namereq'.tr;
+          }
+          return null;
+        },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
+        ),
+        decoration:InputDecoration( 
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+          contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
+          hintText: "nameph".tr,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+      ) ,
+    ),
     );
   }
-  // Widget name() {
-  //   return Container(
-  //     margin:EdgeInsets.only(left:20, right: 20),
-  //     width: Get.width * 0.9,
-  //     child: CustomTextFiled(
-  //       isObscure: false,
-  //       hintText:"name".tr,
-  //       hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
-  //       hintColor: AppColors.textInput,
-  //       onChanged: (value) {  },
-  //       onSaved: (String? newValue) {}, 
-  //       onFieldSubmitted: (value) { },
-  //       textController: nameController,
-  //       validator: (value) => value.isEmpty ? 'Enter The Name':null,
-  //       errorText: '',
-  //     ),
-  //   );
-  // }
   Widget text(data) {
     return
   Container(
@@ -171,24 +130,17 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     itemCount:  data.length!= null ? data.length : Container(),
     // ignore: non_constant_identifier_names
     itemBuilder: (BuildContext,index) {
-      
       return 
       index == 1 ?
        Padding(
          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-         
          child:Html(data: data[index]['page_text']),
-        //     child: Text(data[index]['page_text'],textAlign: TextAlign.center,
-        //     style: AppTextStyles.appTextStyle(
-        //     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-        //  ),),
         )
         :Container();
       }
      ),
   );
- 
-  }
+ }
   Widget phoneNumber() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
@@ -200,17 +152,20 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       controller: phoneController,
       validator: (value) {
       if (value == null || value.isEmpty) {
-          return 'Please enter Phone Number';
+          return 'phoner'.tr;
         }
         return null;
       },
       style: TextStyle(
-        color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+        color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
       ),
       decoration:InputDecoration( 
+        focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+          contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
         hintText: "phone".tr,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
           borderSide: BorderSide(color: Colors.grey),
       ),
     ) ,
@@ -223,12 +178,13 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     width:Get.width/1.0,
     margin:EdgeInsets.only(left:20, right: 20),
     child:  TextFormField(
+      
         maxLines: 3,
           focusNode:pin4node,
           controller: writeController,
           validator: (value) {
           if (value == null || value.isEmpty) {
-              return 'add description';
+              return 'desc'.tr;
             }
             return null;
           },
@@ -236,13 +192,30 @@ class AdvertiseStatePage extends State<AdvertisePage> {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
+            focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
             hintText: "description".tr,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              
+              borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(color: Colors.grey),
           ),
         ) ,
       ),
   );
  }
+  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
+    return AppButton(
+      buttonText: buttonText, 
+      callback: callback,
+      bgcolor: bgcolor,
+      textColor: textColor,
+      fontFamily: fontFamily ,
+      fontWeight: fontWeight ,
+      fontSize: fontSize,    
+      // borderColor: borderColor,
+      image: image,
+      width: width,  
+    );
+  }
 }
