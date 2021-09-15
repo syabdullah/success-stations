@@ -482,8 +482,10 @@ Widget istStep(List list,List types){
                         items: types.map((coun) {
                           return DropdownMenuItem(
                             value: coun,
-                            child:
-                            Text(coun['category']['en'])
+                            child: 
+                            Text(
+                              coun['category']['en'] != null ?
+                              coun['category']['en']:" ")
                           );
                         }).toList(),
                           onChanged: (val) {
@@ -946,7 +948,7 @@ Widget secondStep(){
    Widget saveAsDraftButton() {
     return Container(
        height: 40.h,
-      width: 130.w,
+      width: 145.w,
       margin: EdgeInsets.symmetric(horizontal: 15.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

@@ -657,7 +657,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: Column(
                   children: <Widget>[
                     MultiSelectBottomSheetField(
-                      
                       initialChildSize: 0.4,
                       listType: MultiSelectListType.CHIP,
                       searchable: true,
