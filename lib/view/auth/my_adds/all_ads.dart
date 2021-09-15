@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -28,6 +29,7 @@ class _AllAddsState extends State<AllAdds> {
   RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
+  final addsGet = Get.put(MyAddsController());
   final catCont = Get.put(CategoryController());
   final friCont = Get.put(FriendsController());
   final catCobtroller = Get.put(MyListingFilterController());
@@ -41,6 +43,7 @@ class _AllAddsState extends State<AllAdds> {
   var filteredIndex = 0;
   var selectedIndexListing = 0;
   bool lisselect = false;
+   bool havingCategorybool = false;
 
   var bClicked = false;
   var grid = AppImages.gridOf;
@@ -76,12 +79,14 @@ class _AllAddsState extends State<AllAdds> {
       id = data[1];
     }
     check = true;
+    catCont.havingCategoryByAdds();
     banner.bannerController();
     controller.addedAllAds();
     catCont.getCategoryTypes();
+    addsGet.myAddsCategory();
+    havingCategorybool = false;
     catCobtroller.listingTypes();
     lang = box.read('lang_code');
-    print("<><><><><.....<><><><>.....$lang");
     userId = box.read('user_id');
     v = '';
   }
@@ -109,28 +114,36 @@ class _AllAddsState extends State<AllAdds> {
         children: [
           SizedBox(height: 10),
           topWidget(),
+          SizedBox(height: 10),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
               return data.isLoading == true
               ? CircularProgressIndicator()
-              : data.subCatt != null
-                ? addsCategoryWidget(data.subCatt['data'])
+              : data.havingAddsList != null
+                ? addsCategoryWidget(data.havingAddsList['data'])
                 : Container();
             },
           ),
+          SizedBox(height:20),
+          havingCategorybool == false ? 
           Expanded(
             child: GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
-                return val.isLoading == true || val.cData == null
-                ? Container()
-                : val.cData['data'] == null
-                  ? Container()
-                  : listtype != 'grid'
-                  ? myAddsList(val.cData['data'])
-                  : myAddGridView(
-                    val.cData['data']
+                return val.isLoading == true || val.allAdsData == null? Container()
+                : val.allAdsData['data'] == null ? Container(): listtype != 'grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']
+                );
+              },
+            )
+          ): 
+          Expanded(
+            child: GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val) {
+                return val.isLoading == true || val.cData == null? Container()
+                : val.cData['data'] == null ? Container()
+                  : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']
                   );
               },
             )
@@ -198,7 +211,6 @@ class _AllAddsState extends State<AllAdds> {
                   onPressed: () {
                     setState(() {
                       listtype = 'grid';
-                      print(".....<><><><><><>///<><><....$listtype");
                       lisselect = !lisselect;
                       isButtonPressed = !isButtonPressed;
                       //listIconColor = Colors.grey;
@@ -216,7 +228,6 @@ class _AllAddsState extends State<AllAdds> {
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
-                      print(".....<><><><><><>///<><><....$listtype");
                       lisselect = !lisselect;
                       isButtonPressed = !isButtonPressed;
                       //listIconColor = Colors.grey;
@@ -560,7 +571,6 @@ class _AllAddsState extends State<AllAdds> {
       'start': start,
       'end': end,
     };
-    print(".....output>..$json");
     filterControlller.createFilterAds(json);
   }
 
@@ -593,7 +603,7 @@ class _AllAddsState extends State<AllAdds> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: GestureDetector(
-                                  child: allDataAdds[index]['image'].length !=0
+                                  child: allDataAdds[index]['image'].length !=0  
                                   ? ClipRRect(
                                     borderRadius: BorderRadius.all(Radius.circular(10)),
                                     child: Image.network(
@@ -645,12 +655,10 @@ class _AllAddsState extends State<AllAdds> {
                                         itemSize: 22.5,
                                         itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                         onRatingUpdate: (rating) {
-                                          print('rating on tap ........$rating');
                                           var ratingjson = {
                                             'ads_id': allDataAdds[index]['id'],
                                             'rate': rating
                                           };
-                                          print('.....................Rating data on Tap .........$ratingjson');
                                           ratingcont.ratings(ratingjson);
                                           // ratingcont.getratings(allDataAdds[index]['id']);
                                         },
@@ -818,14 +826,14 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                          Container(
                            margin: EdgeInsets.only(left:10,right: 10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         margin: EdgeInsets.only(top: 5),
                                         child: dataListValue[index]['is_rated'] ==false
                                         ? RatingBar.builder(
-                                          initialRating: dataListValue[index]['rating'].toDouble(),
+                                          initialRating: dataListValue[index]['rating'].toDouble(), 
                                           minRating: 1,
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
@@ -833,12 +841,10 @@ class _AllAddsState extends State<AllAdds> {
                                           itemSize: 14.5,
                                           itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                           onRatingUpdate: (rating) {
-                                            print('rating on tap ........$rating');
                                             var ratingjson = {
                                               'ads_id': dataListValue[index]['id'],
                                               'rate': rating
                                             };
-                                            print('.....................Rating data on Tap .........$ratingjson');
                                             ratingcont.ratings(ratingjson);
                                             // ratingcont.getratings(allDataAdds[index]['id']);
                                           },
@@ -953,37 +959,68 @@ class _AllAddsState extends State<AllAdds> {
 
   void navigateToGoogleLogin() {}
 
-  Widget addsCategoryWidget(listingCategoriesData) {
+  Widget addsCategoryWidget(havingAdds) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          // margin: lang=='en'?EdgeInsets.only(left: 10):EdgeInsets.only(right: 10),
-          height: MediaQuery.of(context).size.height / 9.22,
+          height:45,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: listingCategoriesData.length,
+            itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-              print(
-                  "........------------=============-----------------${data != null && id == listingCategoriesData[index]['id']}");
-              if (data != null && id == listingCategoriesData[index]['id']) {
-                print("........");
-                catID = listingCategoriesData[index]['id'];
-                selectedIndex = index;
-                // ind = 0;
-              } else if (data == null && ind == 0) {
-                id = listingCategoriesData[index]['id'];
-                catID = listingCategoriesData[index]['id'];
-                controller.addedByIdAddes(listingCategoriesData[0]['id'], null);
-                selectedIndex = index;
-                ++ind;
-              }
-              // if (ind == 0) {
-              //   catID = listingCategoriesData[index]['id'];
-              //   controller.addedByIdAddes(listingCategoriesData[0]['id'], null);
+              
+              // if (data != null && id == havingAdds[index]['id']) {
+              //   print("........");
+              //   catID = havingAdds[index]['id'];
+              //   selectedIndex = index;
+              //   // ind = 0;
+              // } else if (data == null && ind == 0) {
+              //   id = havingAdds[index]['id'];
+              //   catID = havingAdds[index]['id'];
+              //   controller.addedByIdAddes(havingAdds[0]['id'], null);
+              //   selectedIndex = index;
+              //   ++ind;
               // }
-              // ++ind;
-              return Row(
+
+              return index == 0 ? Container(
+                width: 70,
+                    margin: lang == 'en'
+                    ? EdgeInsets.only(left: 12.0)
+                    : EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                        selectedIndex = index;
+                        addsGet.myAddsCategory();
+                        havingCategorybool = false;
+                        });
+                      },
+                      child: Container(
+                        margin:EdgeInsets.only(left:10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18.0),
+                          border: Border.all(
+                            color: AppColors.appBarBackGroundColor),
+                          color: selectedIndex == index
+                          ? selectedColor
+                          : Colors.white,
+                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "All",
+                            style: TextStyle(
+                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              fontSize: 12,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+              ):
+              Row(
                 children: [
                   Container(
                     margin: lang == 'en'
@@ -993,34 +1030,34 @@ class _AllAddsState extends State<AllAdds> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                         havingCategorybool =true;
                           ind = ++ind;
                           selectedIndex = index;
-                          id = listingCategoriesData[index]['id'];
-                          controller.addedByIdAddes(
-                              listingCategoriesData[index]['id'], null);
+                          id = havingAdds[index]['id'];
+                          controller.addedByIdAddes(havingAdds[index]['id'], null);
                         });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index &&id == listingCategoriesData[index]['id']
+                          color: selectedIndex == index &&id == havingAdds[index]['id']
                           ? AppColors.appBarBackGroundColor
                           : Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.grey,
+                          //     offset: Offset(0.0, 1.0),
+                          //     blurRadius: 6.0,
+                          //   ),
+                          // ],
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData != null
+                        child: havingAdds != null
                         ? Text(
-                            listingCategoriesData[index]['category']['en'],
+                            havingAdds[index]['category']['en'],
                             style: TextStyle(
-                              color: selectedIndex == index && id == listingCategoriesData[index]['id']
+                              color: selectedIndex == index && id == havingAdds[index]['id']
                               ? Colors.white
                               : AppColors.appBarBackGroundColor,
                               fontSize: 12,
@@ -1051,7 +1088,6 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, val) {
-              print("context Api......... .>$val");
               if (ind1 == 0) {
                 // controller.addedByIdAddes(listingCategoriesData[0]['id']);
               }

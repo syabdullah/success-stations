@@ -9,6 +9,7 @@ class CategoryController extends GetxController {
   var cateList;
   var subCat ;
   var subCatt;
+  var havingAddsList;
   List datacateg = [];
   List datacategTypes = [];
   @override
@@ -21,7 +22,7 @@ class CategoryController extends GetxController {
 
   getCategoryNames() async {
     datacateg = [];
-    await  subCategory().then((value) {
+    await subCategory().then((value) {
       isLoading = true ;
       subCat =  jsonDecode(value.body);
       datacateg = subCat['data'];
@@ -32,14 +33,26 @@ class CategoryController extends GetxController {
   update();
   }
   getCategoryTypes() async {
-    await  categoryTypes().then((value) {
+    await categoryTypes().then((value) {
       isLoading = true ;
       subCatt =  jsonDecode(value.body);
       datacategTypes = subCatt['data'];
      isLoading = false;
     });
     
-  update();
+    update();
+  }
+
+  havingCategoryByAdds() async {
+    await havingAdds().then((value) {
+      isLoading = true ;
+      havingAddsList =  jsonDecode(value.body);
+      print("adddsssssssss having.....$havingAddsList");
+      // datacategTypes = subCatt['data'];
+     isLoading = false;
+    });
+    
+    update();
   }
 }
 
