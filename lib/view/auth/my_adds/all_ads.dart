@@ -13,7 +13,6 @@ import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
@@ -38,7 +37,6 @@ class _AllAddsState extends State<AllAdds> {
   var userId;
   var myrate;
   late double valueData;
-  bool _value = false;
   var selectedIndex = 0;
   var filteredIndex = 0;
   var selectedIndexListing = 0;
@@ -106,7 +104,7 @@ class _AllAddsState extends State<AllAdds> {
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
           '', Icons.arrow_back_ios_new_sharp,
-          'All ads', AppImages.appBarSearch
+          'All  Ads', AppImages.appBarSearch
         )
       )
       : null,
@@ -755,6 +753,7 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   var ind = 0;
+  var splitedPrice;
   myAddGridView(dataListValue) {
     return Container(
       margin: EdgeInsets.only(bottom:20),
@@ -765,6 +764,8 @@ class _AllAddsState extends State<AllAdds> {
         crossAxisSpacing: 12,
         children: List.generate(
           dataListValue.length, (index) {
+            var price = dataListValue[index]['price'].toString();
+            splitedPrice = price.split('.');
             return GestureDetector(
               onTap: () {
                 Get.to(AdViewScreen(), arguments: dataListValue[index]['id']);
@@ -904,7 +905,7 @@ class _AllAddsState extends State<AllAdds> {
                               children: [
                                 Text(
                                     dataListValue[index]['price'] !=null
-                                    ? " SAR ${dataListValue[index]['price']}"
+                                    ? " SAR ${splitedPrice[0]}"
                                     : '',
                                     style: TextStyle(color: AppColors.appBarBackGroundColor),
                                   ),

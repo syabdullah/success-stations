@@ -528,14 +528,14 @@ Widget istStep(List list,List types){
                           // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['type'][lang])
+                            child:Text(coun!['type']['en'])
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type'][lang];
+                            selectedtype = adsubCategory['type']['en'];
                             print(selectedtype);
                              typeId =adsubCategory['id'];
                              print(typeId);
