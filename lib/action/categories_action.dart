@@ -34,3 +34,10 @@ Future <http.Response> havingAdds() async {
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }
+Future <http.Response> myaddsHaving() async {
+  await ApiHeaders().getData();
+  final Config config = Config();
+  var url = Uri.parse("${config.baseUrl}categories-my-ads");
+  http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
+  return response;
+}
