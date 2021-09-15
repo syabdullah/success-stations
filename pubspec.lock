@@ -602,8 +602,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-<<<<<<< HEAD
-=======
   multi_select_flutter:
     dependency: "direct main"
     description:
@@ -611,7 +609,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
->>>>>>> b789bce058c84a6b67242a29bbbfc95aa01c5afc
   multiselect_formfield:
     dependency: "direct main"
     description:
