@@ -959,12 +959,7 @@ class _AllAddsState extends State<AllAdds> {
                            
                             Row(
                               children: [
-                                Text(
-                                    dataListValue[index]['price'] !=null
-                                    ? " SAR ${splitedPrice[0]}"
-                                    : '',
-                                    style: TextStyle(color: AppColors.appBarBackGroundColor),
-                                  ),
+                                
                                 Icon(Icons.person,color: Colors.grey[400]),
                                 Container(
                               child: Text(
@@ -976,12 +971,18 @@ class _AllAddsState extends State<AllAdds> {
                             )
                               ],
                             ),
-                             Text(
-                                dataListValue[index]['price'] !=null
-                                ? " SAR ${dataListValue[index]['price']}"
-                                : '',
-                                style: TextStyle(color: AppColors.appBarBackGroundColor),
-                              ),
+                            //  Text(
+                            //     dataListValue[index]['price'] !=null
+                            //     ? " SAR ${dataListValue[index]['price']}"
+                            //     : '',
+                            //     style: TextStyle(color: AppColors.appBarBackGroundColor),
+                            //   ),
+                            Text(
+                              dataListValue[index]['price'] !=null
+                              ? " SAR ${splitedPrice[0]}"
+                              : '',
+                              style: TextStyle(color: AppColors.appBarBackGroundColor),
+                                  ),
                           ],
                         ),
                       ),
