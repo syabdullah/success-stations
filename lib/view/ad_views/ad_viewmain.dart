@@ -30,7 +30,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
   }    
   
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'about'.tr),
+    Tab(text: 'aboutsu'.tr),
     Tab(text: 'offer'.tr),
     Tab(text: 'location'.tr),
     Tab(text: 'ads'.tr),
@@ -64,6 +64,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
               children: [
                 SizedBox(height: 50.h),
                 TabBar(
+                indicatorColor: Color(0xFF2F4199),
                 labelColor: AppColors.appBarBackGroundColor,
                 unselectedLabelColor: AppColors.inputTextColor,
                 tabs: myTabs,

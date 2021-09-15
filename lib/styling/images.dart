@@ -18,7 +18,7 @@ class AppImages {
   //Drawer Images
   static String handshake = imagePath + 'handshake.png';
   static String userProfile = imagePath + 'user.png';
-  static String adwithus = imagePath + 'adwithus.png';
+  static String adwithus = imagePath + 'ad with us@3x.png';
   static String aboutus = imagePath + 'aboutus.png';
   static String privacy = imagePath + 'privacy.png';
   static String message = imagePath + 'message.png';
@@ -39,6 +39,7 @@ class AppImages {
   //about us logo
 
   static String logo = imagePath + 'logo.png';
+  static String language = imagePath + 'Union 5.png';
   
   //addviewscreen
   static String profile = imagePath + 'profile.png';
@@ -66,7 +67,7 @@ class AppImages {
   static String misarImage =  imagePath +  'misar.png';
   static String arabImage =  imagePath +  'arab.png';
   static String callerImage =  imagePath + 'caller.png';
-  static String plusImage = imagePath + 'plus@3x.png';
+  static String plusImage = imagePath + 'plus@2x.png';
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
   static String nearby = imagePath + 'nearby.png';
@@ -78,7 +79,7 @@ class AppImages {
   static String person = imagePath + "usernqame@3x.png";
 
   //maps
-
+  static String map1= imagePath + "mapIcon.png";
   static String map= imagePath + "map.png";
   static String gridView = imagePath + 'grid.png';
   static String delete = imagePath + 'delete.png';
@@ -88,4 +89,8 @@ class AppImages {
   static String locationimg  = imagePath +'location.png';
   //membership
   static String memberShip = imagePath + 'company.png';
+  static String homeicon = imagePath + 'home.png';
+  static String camera = imagePath + 'cam@3x.png';
+  static String junaid = imagePath + 'junaid.jpeg';
+  static String hehe = imagePath + 'hehe.png';
 }

@@ -344,6 +344,9 @@ var typeId;
       width: 130.w,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: AppColors.appBarBackGroundColor
+        ),
         onPressed:  () {   // Increment activeStep, when the next button is tapped. However, check for upper bound.
           if (activeStep < upperBound && _formKey.currentState!.validate()) {
             setState(() {
@@ -375,42 +378,45 @@ var typeId;
             });
           } 
         },
-        child: Text('previous'.tr),
+        child: Text('previousb'.tr),
       ),
     );
   }
 
   /// Returns the header wrapping the header text.
   Widget header() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        activeStep == 0 ?
-        Text("announce_new".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
-          ) 
-         ):
-        Text("announce_new".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey
-            )
+    return Padding(
+      padding: const EdgeInsets.only(left:10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          activeStep == 0 ?
+          Text("announce_new".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor
+            ) 
+           ):
+          Text("announce_new".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey
+              )
+            ),
+          activeStep == 1 ?
+          Text("contact_information".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+          ):
+          Text("contact_information".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
           ),
-        activeStep == 1 ?
-        Text("contact_information".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
-        ):
-        Text("contact_information".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
-        ),
-        activeStep == 2 ?
-        Text("review_publish".tr,textAlign: TextAlign.center,
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
-        ):
-        Text("review_publish".tr,textAlign: TextAlign.center, 
-          style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
-        ),
-      ],
+          activeStep == 2 ?
+          Text("review_publish".tr,textAlign: TextAlign.center,
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.appBarBackGroundColor)
+          ):
+          Text("review_publish".tr,textAlign: TextAlign.center, 
+            style: AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)
+          ),
+        ],
+      ),
     );
   }
 
@@ -451,7 +457,7 @@ Widget istStep(List list,List types){
               SizedBox(height: 5.h,),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
-                padding: const EdgeInsets.all(3.0),
+                padding: const EdgeInsets.all(2.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey,width: 1),
                   borderRadius: BorderRadius.all(
@@ -464,14 +470,16 @@ Widget istStep(List list,List types){
                     width: Get.width,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                        hint: Text(
-                          selectedCategory != null ? selectedCategory : "categories".tr, 
-                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        hint: Container(
+                            
+                          child: Text(
+                            selectedCategory != null ? selectedCategory : "categories".tr, 
+                            style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                          ),
                         ),
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: types.map((coun) {
-                          
                           return DropdownMenuItem(
                             value: coun,
                             child:Text(coun['category']['en'])
@@ -493,10 +501,11 @@ Widget istStep(List list,List types){
                   )
                 )
               ),    
+           
             SizedBox(height: 5.h,),
             Container(
                 margin: const EdgeInsets.symmetric(horizontal:15.0),
-                padding: const EdgeInsets.all(3.0),
+                padding: const EdgeInsets.all(1.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey,width: 1),
                   borderRadius: BorderRadius.all(
@@ -543,7 +552,7 @@ Widget istStep(List list,List types){
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
-                maxLength:30,
+                maxLength:20,
                 controller: titleController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -555,7 +564,9 @@ Widget istStep(List list,List types){
                   color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
                   hintText: "title".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                     borderSide: BorderSide(color: Colors.grey),
@@ -599,7 +610,7 @@ Widget istStep(List list,List types){
                            
                             selectedStatus = value;
 
-                            value == 'New' ? selectedStatus = '1' : selectedStatus = '0' ;
+                            value == 'New'.tr ? selectedStatus = '1' : selectedStatus = '0' ;
                            
                             
                           });
@@ -624,10 +635,11 @@ Widget istStep(List list,List types){
                 }
                 return null;
               },
-              style: TextStyle(color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold),
+              style: TextStyle(color:Colors.grey[400],fontSize: 18,fontWeight: FontWeight.bold),
               decoration:InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 100.0),
+                contentPadding: EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 100.0),
                 hintText: "description".tr,
+                hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
                 border: OutlineInputBorder( 
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(color: Colors.grey),
@@ -652,7 +664,9 @@ Widget istStep(List list,List types){
                   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
                 ),
                 decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.only(left:15,right: 10,top:15),
                   hintText: "price".tr,
+                  hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(color: Colors.grey),
@@ -702,6 +716,7 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          contentPadding: EdgeInsets.only(left:10,right: 10),
           isObscure: false,
           hintText: "full_name".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
@@ -729,6 +744,7 @@ Widget secondStep(){
                   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
                 ),
                 decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.only(left:10,right: 10),
                   hintText: "mobile_no".tr,
                   hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
                   fillColor: AppColors.inputColor,
@@ -773,6 +789,7 @@ Widget secondStep(){
                   color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
                 ),
                 decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.only(left:10,right: 10),
                   hintText:  "Telephone_no".tr,
                   hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
                   fillColor: AppColors.inputColor,
@@ -812,8 +829,9 @@ Widget secondStep(){
         margin:EdgeInsets.symmetric(horizontal: 20),
         width: Get.width * 0.9,
         child: CustomTextFiled(
+          contentPadding: EdgeInsets.only(left:10,right: 10),
           isObscure: false,
-          hintText: "email".tr,
+          hintText: "emails".tr,
           hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
           hintColor: AppColors.inputTextColor,
           onChanged: (value) {  },
@@ -940,7 +958,7 @@ Widget secondStep(){
       margin: EdgeInsets.symmetric(horizontal: 15.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-        primary: Colors.blue,
+        primary: AppColors.appBarBackGroundColor,
         textStyle: TextStyle(
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
@@ -950,7 +968,7 @@ Widget secondStep(){
         adpost():editpost();
         // Get.off(MyAdds());
         },
-        child: Text("publish".tr),
+        child: Text("publishb".tr),
       ),
     );
   }

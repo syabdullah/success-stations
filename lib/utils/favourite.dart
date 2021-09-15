@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,13 +24,14 @@ class _FavouritePageState extends State<FavouritePage> {
     var imageAds;
  
   final controller = Get.put(AddBasedController());
-  var listtype = 'list';
+  var listtype = 'grid';
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
   var id, imageUploaded, fvrtListId;
   Color selectedColor = Colors.blue;
-  Color listIconColor = Colors.grey;
+  Color listIconColor = Colors.blue;
   GetStorage box = GetStorage();
+  bool isButtonPressed = false;
 
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -104,32 +106,66 @@ class _FavouritePageState extends State<FavouritePage> {
       children: [
         Row(
           children: [
-            IconButton(
-              onPressed: (){
-                setState(() {
-                  listtype = 'grid';
+            Container(
+              margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                      listtype = 'grid';
+                  isButtonPressed = !isButtonPressed;
                   listIconColor = Colors.grey;
                   grid = AppImages.grid;
-                });             
-              },
-              icon: Image.asset(grid),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom:15),
-              child: IconButton(
-                onPressed: (){
-                  setState(() {
-                    listtype = 'list';
-                    listIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.gridOf;
-                  });
-                },
-                icon: Container(
-                  padding: EdgeInsets.only(top:10),
-                  child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
-                )
+                    });
+                  },
+                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                ),
               ),
-            ),
+            // IconButton(
+            //   color: isButtonPressed ? Colors.blue : Colors.grey,
+            //   onPressed: (){
+            //     setState(() {
+            //       listtype = 'grid';
+            //       isButtonPressed = !isButtonPressed;
+            //       listIconColor = Colors.grey;
+            //       grid = AppImages.grid;
+            //     });             
+            //   },
+            //   icon: Image.asset(grid),
+            // ),
+            SizedBox(width: 5,),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: CupertinoButton(
+                  minSize: double.minPositive,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    setState(() {
+                        listtype = 'list';
+                    listIconColor = Colors.blue;
+                    grid = AppImages.gridOf;
+                    });
+                  },
+                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                ),
+              ),
+            // Container(
+            //   margin: EdgeInsets.only(bottom:15),
+            //   child: IconButton(
+            //     onPressed: (){
+            //       setState(() {
+            //         listtype = 'list';
+            //         listIconColor = Colors.blue;
+            //         grid = AppImages.gridOf;
+            //       });
+            //     },
+            //     icon: Container(
+            //       padding: EdgeInsets.only(top:10),
+            //       child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
+            //     )
+            //   ),
+            // ),
             SizedBox(height: 30,width: 15,)
           ],
         )
@@ -281,9 +317,9 @@ class _FavouritePageState extends State<FavouritePage> {
                         ClipRRect(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                           child: Container(
-                            width: Get.width/1.0,
-                            height: Get.height/5.2,
-                            child: listFavourite[index]['listing']['image'] !=null ? Image.network(gridImages):
+                            width: Get.width/0.8,
+                            height: 150,
+                            child: listFavourite[index]['listing']['image'] !=null && gridImages != null ? Image.network(gridImages):
                             FittedBox(fit:BoxFit.contain,
                               child: Icon(Icons.person, color: Colors.grey[400])
                             ) 

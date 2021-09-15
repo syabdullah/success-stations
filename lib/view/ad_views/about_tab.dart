@@ -62,8 +62,8 @@ class _AboutTabState extends State<AboutTab> {
              } // value is an instance of Controller.
           ),
             // detail(),
-             Text("${'lastads'.tr}:",
-                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
+             Text("${'lastads'.tr}",
+                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.black),
               ),
             GetBuilder<LastAdsController>(
               init: LastAdsController(),
@@ -73,8 +73,8 @@ class _AboutTabState extends State<AboutTab> {
                 lastAds(value.lastuserads['data']): Center(child: CircularProgressIndicator());
               }),
               
-             Text("${'lastoffers'.tr}:",
-                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.inputTextColor),
+             Text("${'lastoffers'.tr}",
+                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.black),
               ),
                GetBuilder<UserOfferController>( // specify type as Controller
                 init: UserOfferController(), // intialize with the Controller
@@ -87,16 +87,15 @@ class _AboutTabState extends State<AboutTab> {
                 }
                   ),
           //  SizedBox(height: 10,),
-             Text("${'lastlocation'.tr}:",
-                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.inputTextColor),
+             Text("${'lastlocation'.tr}",
+                style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.black),
               ),
               GetBuilder<LastLocationController>( // specify type as Controller
                 init: LastLocationController(), // intialize with the Controller
                 builder: (value){ 
-                  print(value.lastLocation);
                   return value.isLoading == true ? Center(child: CircularProgressIndicator()):
                   value.lastLocation !=null &&   value.lastLocation['success']== true ?
-                   lastLocations(value.lastLocation['data'])
+                   lastLocation(value.lastLocation['data']['data'])
                    :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
                    Container(
                      child:Text(lastLoc.lastLocation['errors'])):Container();
@@ -229,9 +228,10 @@ Widget lastAds2(offerDattaTypeCategory){
 }
  var imageGived;
 Widget lastAds(lastuserad){
+  print("Get.height ${Get.width}");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/4,
+    height: Get.height > 400 ? Get.height/3.6:Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: lastuserad.length,
@@ -246,9 +246,7 @@ Widget lastAds(lastuserad){
         
         return GestureDetector(
           onTap: (){
-          
             Get.to(AdViewScreen(),arguments:lastuserad[index]["id"]);
-              print(lastuserad[index]["id"]);
           },
           child: Card(
             elevation: 3,
@@ -258,68 +256,146 @@ Widget lastAds(lastuserad){
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                lastuserad[index]["image"] != null ?
-                ClipRRect(
-                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                  child: Container(
-                    width: Get.width/2.3,
-                    height: Get.height/7.5,
-                    child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
-                  ),
-                ): Container(
-                  width: Get.width/2,
-                  child: Icon(Icons.image,size: Get.height/6,)),
-                lastuserad[index]['title'] != null ?
-               Container(
-                margin: EdgeInsets.only(left:10,top: 2),
-                child: Text(lastuserad[index]['title']['en'].toString(),
-                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),
-                ),
+                Column(
+                  children: [
+                    lastuserad[index]["image"] != null ?
+                    ClipRRect(
+                     borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                      child: Container(
+                        width: Get.width/2.3,
+                        height: Get.height/7.5,
+                        child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
+                      ),
+                    ): Container(
+                      width: Get.width/2,
+                      child: Icon(Icons.image,size: Get.height/6,)),
+                      lastuserad[index]['title'] != null ?
+                 Text(lastuserad[index]['title']['en'].toString(),
+                 style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                ):Container(),
+                  ],
+                ),
               SizedBox(height: 5,),
-              Container(
-                margin: EdgeInsets.only(left:9,),
-                width: Get.width/2.6,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [
-                      Image.asset(AppImages.location,height: 17,),
-                      SizedBox(width: 3,),
-                      lastuserad[index]['city'] != null ?
-                      Text(lastuserad[index]['city']['city'],
-                        style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                       ): Container()
-                     ]
-                  ),
-               lastuserad[index]['price']!= null ?
-                  Text("SAR ${lastuserad[index]['price']}",
-                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                  ): Container()
-                ],
+               Container(
+                  margin: EdgeInsets.only(left: 10,right: 10),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      RatingBar.builder(
+                        ignoreGestures: true,
+                        initialRating: lastuserad[index]['rating'].toDouble(),
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemSize: 13.5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          //  var ratingjson = {
+                          //    'ads_id' : userData[index]['id'],
+                          //    'rate': rating
+                          //  };
+                          //  ratingcont.ratings(ratingjson );
+                          //  ratingcont.getratings(userData[index]['id']);
+                        },
+                      ),
+                        Container(
+                            margin: EdgeInsets.only(left: 5,right: 5),
+                            child: Text(
+                              "(${lastuserad[index]['rating_count'].toString()})",
+                              style: TextStyle(fontSize: 13),
+                            )),
+                              ],
+                            ),
+               ), 
+                          Container(
+                            margin: EdgeInsets.only(left: 10,right: 10),
+                            child: lastuserad[index]['price']!= null ?
+                              Text("SAR ${lastuserad[index]['price']}",
+                                style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 10,),
+                              ): Container(),
+                          ),
+                        Container(
+                          margin: EdgeInsets.only(left:9,right: 10),
+                          width: Get.width/2.6,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(children: [
+                                Image.asset(AppImages.location,height: 17,),
+                                SizedBox(width: 3,),
+                                lastuserad[index]['city'] != null ?
+                                Text(lastuserad[index]['city']['city'],
+                                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
+                                  ): Container()
+                                ]
+                            ),
+                          
+                          ],
+                        ),
               ),
-              ),
-              SizedBox(height: 6,),
-              Container(
-                margin: EdgeInsets.only(left:10),
-                width: Get.width/3,
-                child: Row(
-                  children: [
-                    Row(children: [
-                      Image.asset(AppImages.userProfile,height: 16,),
-                      SizedBox(width: 4,),
-                     lastuserad[index]['contact_name'] != null ?
-                      Text(lastuserad[index]['contact_name'],
-                      style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                      ): Container()
-                    ]
-                  ),
-                ],
-              ),
-             ),
+              
            ],
                ),
              ),
+        );
+    }
+   ),
+ );
+}
+
+Widget lastLocation(locLast){
+  print("........... prinyted values.....$locLast");
+  print("Get.height ${Get.width}");
+  return Container(
+    margin: EdgeInsets.symmetric(vertical:10),
+    height: Get.height > 400 ? Get.height/4.4:Get.height/5,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: locLast.length,
+      // ignore: non_constant_identifier_names
+      itemBuilder: (BuildContext,index) {
+        
+        return GestureDetector(
+          onTap: (){
+          },
+          child: Container(
+            width: Get.width/2,
+            child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                 
+                  locLast[index]['user_name'] !=null && locLast[index]['user_name']['image'] !=null&&  locLast[index]['user_name']['image']['url']!= null ?
+                  ClipRRect(
+                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                    child: Container(
+                      // width: Get.width/200,
+                      height: Get.height/7.5,
+                      child: locLast[index]['user_name']['image']['url'] !=null ?
+                    Image.network(locLast[index]['user_name']['image']['url'], fit: BoxFit.cover,): Container()
+                    ),
+                  ): Container(
+                      child: ClipRRect(
+                         borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+                        child: Image.asset(AppImages.junaid,height: 117,fit: BoxFit.cover,width: Get.width,)),
+                  ),
+                   Container(
+                     margin: EdgeInsets.only(left:10,right: 10,top: 10),
+                     child: locLast[index]['user_name'] != null ?
+                     Text(locLast[index]['location'],
+                       style: TextStyle(color: Colors.grey),) : Container()),
+                ]
+                 ),
+               ),
+          ),
         );
     }
    ),
@@ -406,24 +482,6 @@ Widget lastLocations(lastLocation){
                  )
                ],
              ),
-             
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-                 
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       children: [
-                 
-            //       SizedBox(width: 2,),
-            //       lastLocation[index]['location'] != null ?
-            //       Text(lastLocation[index]['location'],
-            //         style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 14),
-            //        ): Container(),
-            //        Spacer(flex:2),
-                
-            //      ]
-            //     ),
             //     
                
           ),

@@ -6,8 +6,6 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class FriendReqList extends StatefulWidget {
@@ -85,7 +83,7 @@ class _FriendReqListState extends State<FriendReqList> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
             count == 1  ?  Container(
-              margin: EdgeInsets.only(top: 20,left: 20),
+              margin: EdgeInsets.only(top: 20,left: 20,right: 20),
               child: Text(
                 'frien_request'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
@@ -162,7 +160,7 @@ class _FriendReqListState extends State<FriendReqList> {
                     ): 
                     GestureDetector(
                       onTap: (){ 
-                        friCont.deleteFriend(data[i]['id']);
+                        friCont.deleteFriend(data[i]['id'],'');
                       },
                       child: Container( 
                          margin:EdgeInsets.only(right:10),
@@ -252,7 +250,7 @@ class _FriendReqListState extends State<FriendReqList> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
               i == 0 ?  Container(
-              margin: EdgeInsets.only(top: 20,left: 20,bottom: 10),
+              margin: EdgeInsets.only(top: 20,left: 20,bottom: 10, right: 20),
               child: Text(
                 "suggestion".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
@@ -266,7 +264,7 @@ class _FriendReqListState extends State<FriendReqList> {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                      margin: EdgeInsets.symmetric(vertical:10.0,horizontal:0.0),
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.grey[100],
@@ -309,7 +307,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         friCont.getSuggestionsList();
                       },
                       child: Container( 
-                         margin:EdgeInsets.only(right:10),
+                         margin:EdgeInsets.only(right:10,left: 10),
                         alignment: Alignment.center,
                         width: Get.width/4.2,
                         height: 35.0,
@@ -330,7 +328,7 @@ class _FriendReqListState extends State<FriendReqList> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: (){friCont.deleteFriend(data[i]['id']);},
+                      onTap: (){friCont.deleteFriend(data[i]['id'],'');},
                       child: Container( 
                         alignment: Alignment.center,
                         width: Get.width/4.2,
@@ -343,7 +341,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         ),
                         child:
                         Container(
-                          margin:EdgeInsets.only(left:10),
+                          margin:EdgeInsets.only(left:10,right: 10),
                           child: Text(
                             'remove'.tr,
                             style:TextStyle(

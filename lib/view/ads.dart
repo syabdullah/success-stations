@@ -1,22 +1,19 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
+import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/auth/my_adds/category_ads.dart';
-import 'package:success_stations/view/home_offer.dart';
-
+import 'package:success_stations/view/auth/my_adds/all_ads.dart';
+import 'package:success_stations/view/auth/offer_list.dart';
 
   List<String> imgList = [];
 
@@ -28,13 +25,14 @@ class _AdsViewState extends State<AdsView> {
   final CarouselController _controller = CarouselController();
     final catCont = Get.put(CategoryController());
      final addescontrollRefresh = Get.put(MyAddsController());
+     final ratingcont = Get.put(RatingController());
 
-    allWordsCapitilize (String str) {
-    return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-      return word[0].toUpperCase() + leftText;
-    }).join(' ');
-  }
+  //   allWordsCapitilize (String str) {
+  //   return str.toLowerCase().split(' ').map((word) {
+  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+  //     return word[0].toUpperCase() + leftText;
+  //   }).join(' ');
+  // }
   
   final banner = Get.put(BannerController());
   var userType;
@@ -61,20 +59,18 @@ class _AdsViewState extends State<AdsView> {
   }
   @override
   Widget build(BuildContext context) { 
-    print(newv);
+    lang = box.read('lang_code');
     return Stack(
       children: [
-       
         ListView(
-          padding: EdgeInsets.symmetric(horizontal:20),
-          children: [
-             
+          // padding: EdgeInsets.symmetric(horizontal:0),
+          children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
                 builder: (data){
                   imgList = [];
                   return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
                     ],
@@ -84,14 +80,15 @@ class _AdsViewState extends State<AdsView> {
              GetBuilder<CategoryController>(
               init: CategoryController(),
               builder: (dat){
-                return  advertisingList(Get.height/5.5,Get.width/4,Get.width < 420 ? Get.height/7.0: Get.height/7.5,dat.datacateg);
+                return  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
+                  return data.isLoading == false &&  data.addsCategoryArray.length != 0  ?  featuredAdsList(                  
+                    data.addsCategoryArray) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),
@@ -99,7 +96,7 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null ? 
-                   offerList(Get.height/4.5,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
                 }),
           ],
         ),
@@ -113,76 +110,66 @@ class _AdsViewState extends State<AdsView> {
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal:10.0),
       child: Visibility(
-                visible: isVisible,
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
+        visible: isVisible,
+        maintainSize: true,
+        maintainAnimation: true,
+        maintainState: true,
         child: Container(
-                margin: EdgeInsets.only(top:5),
-                height: Get.height/10,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  color: Colors.red
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top:.0,left:10),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: Get.width/1.3,
-                        child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            isVisible = false;
-                            
-                          });
-                          box.write('upgrade', isVisible);
-                          newv = box.read('upgrade');
-                          print(newv);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 30,left:10),
-                          child: Icon(Icons.close,color: Colors.white,)),
-                      )
-                    ],
-                  ),
-                ),
-      
-              ),
+          margin: EdgeInsets.only(top:5),
+          height: Get.height/10,
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: Colors.red
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top:10,left:10,right: 10),
+            child: Row(
+              children: [
+                Container(
+                  width: Get.width/1.2,
+                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
+                GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      isVisible = false;
+                      
+                    });
+                    box.write('upgrade', isVisible);
+                    newv = box.read('upgrade');
+                    print(newv);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 30,left:10),
+                    child: Icon(Icons.close,color: Colors.white,)),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
-
   }
   Widget carosalImage(data) { 
-    // if(banner != null){
-      for(int i=0; i < data.length; i++) {
-        imgList.add(data[i]['image']['url']);
-      }
-    print(imgList);
+    for(int i=0; i < data.length; i++) {
+      imgList.add(data[i]['image']['url']);
+    }
     return imgList.length != 0 ? Column(
       children: [
-        CarouselSlider(
-          
+        CarouselSlider(  
+              
           items: imgList
           .map<Widget>((item) => Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                ],
-              )
-            ),
+          child: Stack(
+            children: <Widget>[
+              Image.network(item, fit: BoxFit.cover, width: Get.width),
+            ],
           ),
         )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.1,
+            viewportFraction: 1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -226,16 +213,17 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
+           margin: EdgeInsets.only(left:10,right: 10,top: 10),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
           onTap: () {
-            Get.to(HomeAllFeature());
+            Get.to(OfferList(),arguments: 100);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+            margin: EdgeInsets.only(right:10,left: 10,top: 10),
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -246,16 +234,17 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey),
+          margin: EdgeInsets.only(left:10,right: 10),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
           onTap: () {
-            Get.to(CatAdds());
+            Get.to(AllAdds(),arguments: ['cat',1]);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey))
+            margin: EdgeInsets.only(right:10,left: 10),
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -263,20 +252,20 @@ class _AdsViewState extends State<AdsView> {
   }
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: data.length,
+        itemCount: data != null ?  data.length : 0,
         itemBuilder: (BuildContext context,index) {
           return Column(
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.to(CatAdds(),arguments:data[index]['id']);
+                  Get.to(AllAdds(),arguments:['cat',data[index]['id']]);
                 },
                 child: Card(
-                  elevation: 3,
+                  elevation: 5,
                   shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -294,7 +283,12 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['category'][lang] != null || data[index]['category'] != null ? data[index]['category']['en']:'',style: TextStyle(color: AppColors.grey)),
+                width: imageW,
+                child: Center(
+                  child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : '',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: AppColors.grey)),
+                ),
               )
             ],
           );
@@ -304,7 +298,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
+      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -313,7 +307,7 @@ class _AdsViewState extends State<AdsView> {
           return Column(
             children: [
               Card(
-                elevation: 3,
+                elevation: 5,
                 shape:  RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -330,7 +324,7 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['text_ads']['en'] != null ? data[index]['text_ads']['en']:'',style: TextStyle(color: AppColors.grey)),
+                child: Text(data[index]['text_ads'][lang] != null ? data[index]['text_ads'][lang]:'',style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
@@ -341,89 +335,153 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:15),
-      height: Get.width < 420 ? Get.height/3.2: Get.height/4.0,
+      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (BuildContext context,index) {
+          print("......../././././././${data[index]['title']}");
+          var doubleval = double.parse(data[index]['price']);
+          var price = doubleval.toInt();
           return 
           GestureDetector(
             onTap: () {
               Get.to(AdViewScreen(),arguments:data[index]['id']);
             },
             child: Card(
-              elevation: 1,
+              elevation: 3,
               shape:  RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                     child: Container(
-                      width: Get.width < 420 ? Get.width/2.3: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.0:  Get.height/7.5,
+                      width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
+                      height: Get.width < 420 ? Get.height/7.0:  Get.height/9.5,
                       child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
                         child: Icon(Icons.image,size: 50,),
                       )
-                      //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top:5,left: 5),
-                    child: Text(data[index]['title'][lang] != null ? allWordsCapitilize(data[index]['title'][lang]):'',style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                    width: Get.width/2.3,
-                    child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:6,left: 5),
-                              child: Image.asset(AppImages.location,height: 15, color:Colors.grey[600],)
-                            ),
-                        
-                         Container(
-                              margin: EdgeInsets.only(top:6,left:5),
-                              child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
-                              ): Container()
-                            ),
-                        // SizedBox(width:2),
-                       
-                         ],
-                        ),
-                         
-                      ],
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(                   
+                      margin: EdgeInsets.only(top:5,),
+                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
-                  ), 
+                  ),
                   
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [   
+                       Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top:5),
-                        child: Icon(Icons.person,color:Colors.grey[600]),
-                      ),
-                      SizedBox(width:5),
-                      Container(
-                        margin: EdgeInsets.only(top:6, left: Get.height*0.000),
-                        child: Text(allWordsCapitilize(data[index]['contact_name']),style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
-                      ),
+                          margin: lang == 'ar' ?  EdgeInsets.only(top:5,right: 5):  EdgeInsets.only(top:5,left: 5),
+                          child: data[index]
+                          ['is_rated'] ==
+                            false
+                          ? RatingBar.builder(
+                            initialRating:
+                            data[index]['rating'].toDouble(),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 18.0,
+                            itemBuilder: (context, _) =>
+                                Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              print(
+                                  'rating on tap ........$rating');
+                              var ratingjson = {
+                                'ads_id':
+                                    data[index]
+                                        ['id'],
+                                'rate': rating
+                              };
+                              print(
+                                  '.....................Rating data on Tap .........$ratingjson');
+                              ratingcont
+                                  .ratings(ratingjson);
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                        : RatingBar.builder(
+                            initialRating:
+                            data[index]['rating'].toDouble(),
+                            ignoreGestures: true,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 22.5,
+                            itemBuilder: (context, _) =>
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            onRatingUpdate: (rating) {
+                              // ratingcont.getratings(allDataAdds[index]['id']);
+                            },
+                          )
+                      )
                     ],
-                    
+                  ),                  
+                      Container(
+                        margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 5),
+                        width: Get.width/2.3,
+                        child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Image.asset(AppImages.location,height: 13, color:Colors.grey[600],)
+                                ),                        
+                                Container(
+                                  width: Get.width/4.9,
+                                  margin: EdgeInsets.only(left:5),
+                                  child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
+                                  style: TextStyle(fontSize: 13,color:Colors.grey[600])
+                                  ): Container()
+                                ),
+                                
+                              ],
+                            ),                         
+                          ],
+                        ),
+                      ),
+                      Container(
+                         margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 10),
+                        child: data[index]['price'] !=null ? Text(
+                          'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
+                        ): Container()
+                      ),                 
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       margin: EdgeInsets.only(),
+                      //       child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
+                      //     ),
+                      //     SizedBox(width:5),
+                      //     Container(
+                      //       margin: EdgeInsets.only( left: Get.height*0.000),
+                      //       child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
+                      //     ),
+                      //   ],                      
+                      // ),                                
+                    ],
                   ),
-                  Container(
-                          margin: EdgeInsets.only(top:6,left:6),
-                          child: data[index]['price'] !=null ? Text(
-                           'SAR:${data[index]['price']}',style: TextStyle(fontSize: 13),
-                          ): Container()
-                        ),               
                 ],
               ),
             ),

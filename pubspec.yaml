@@ -46,11 +46,10 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   google_maps_flutter: ^2.0.6
   shimmer: ^2.0.0
-  firebase_crashlytics: ^2.1.1
-  firebase_core: ^1.4.0
+  firebase_crashlytics: 
   url_launcher: ^6.0.9
-  # multi_select_flutter: ^4.0.0
   multiselect_formfield: 
+  multi_select_flutter: ^4.0.0
   flutter_multiselect: 
   flutter_form_builder: ^6.0.1 
   google_maps_place_picker: ^2.0.0-nullsafety.3
@@ -68,20 +67,23 @@ dependencies:
   web_socket_channel: ^2.1.0
   flutter_switch: ^0.3.2
   # go_sell_sdk_flutter: ^2.0.7
+  intl_phone_field: ^2.0.1
+  intl_phone_number_input: ^0.7.0+2
+  socket_io_client: ^2.0.0-beta.4-nullsafety.0
+  google_fonts_arabic: ^1.1.7
 
   
   
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-  generate: true 
   
 
   # The following line ensures that the Material Icons font is
