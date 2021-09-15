@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,10 +13,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
-import 'package:success_stations/view/auth/my_adds/category_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
-import 'package:success_stations/view/home_offer.dart';
-
 
   List<String> imgList = [];
 
@@ -67,19 +60,17 @@ class _AdsViewState extends State<AdsView> {
   @override
   Widget build(BuildContext context) { 
     lang = box.read('lang_code');
-    print(newv);
     return Stack(
       children: [
-       
         ListView(
-          padding: EdgeInsets.symmetric(horizontal:0),
+          // padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
                 builder: (data){
                   imgList = [];
                   return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                  Center(heightFactor: 2, child: CircularProgressIndicator()):  Column(
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
                     ],
@@ -131,12 +122,12 @@ class _AdsViewState extends State<AdsView> {
             color: Colors.red
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top:.0,left:10),
+            padding: const EdgeInsets.only(top:10,left:10,right: 10),
             child: Row(
               children: [
                 Container(
-                  width: Get.width/1.3,
-                  child: Text("You are using the free version please upgrade your package to full access",style: TextStyle(color: Colors.white),)),
+                  width: Get.width/1.2,
+                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
                 GestureDetector(
                   onTap: (){
                     setState(() {
@@ -164,26 +155,21 @@ class _AdsViewState extends State<AdsView> {
     }
     return imgList.length != 0 ? Column(
       children: [
-        CarouselSlider(      
+        CarouselSlider(  
+              
           items: imgList
           .map<Widget>((item) => Container(
-          child: Container(
-            margin: EdgeInsets.only(top:5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                ],
-              )
-            ),
+          child: Stack(
+            children: <Widget>[
+              Image.network(item, fit: BoxFit.cover, width: Get.width),
+            ],
           ),
         )).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
             reverse: false,
-            viewportFraction: 0.9*1.1,
+            viewportFraction: 1,
             aspectRatio: 1.8,
             onPageChanged: (index, reason) {
               setState(() {
@@ -228,7 +214,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
            margin: EdgeInsets.only(left:10,right: 10,top: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -237,7 +223,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10,top: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -249,7 +235,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[800]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -258,7 +244,7 @@ class _AdsViewState extends State<AdsView> {
           },
           child: Container(
             margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[800]))
+            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
       ],
@@ -350,7 +336,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.2 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -386,7 +372,7 @@ class _AdsViewState extends State<AdsView> {
                     alignment: Alignment.center,
                     child: Container(                   
                       margin: EdgeInsets.only(top:5,),
-                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold,)),
+                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
                   ),
                   
@@ -402,9 +388,7 @@ class _AdsViewState extends State<AdsView> {
                             false
                           ? RatingBar.builder(
                             initialRating:
-                                data[index]
-                                        ['rating']
-                                    .toDouble(),
+                            data[index]['rating'].toDouble(),
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

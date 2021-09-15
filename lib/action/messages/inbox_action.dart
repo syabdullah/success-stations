@@ -32,5 +32,15 @@ Future<http.Response> getAllChats() async{
   print(url);
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
+  return result;
+}
+
+Future<http.Response> readMessage(data) async{
+  final Config conf = Config();
+  await ApiHeaders().getData();
+  var url = Uri.parse("${conf.baseUrl}read-message");
+  final result = await http.post(
+    url,body: jsonEncode(data),headers: ApiHeaders().headersWithToken);
+    // print("-------------------------$result");
     return result;
 }

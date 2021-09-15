@@ -6,6 +6,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
 class OfferController extends GetxController {
   bool isLoading = false; 
   var offerDataList, myofferListDrawer;
+  var resultInvalid = false.obs; 
 
   @override
   void onInit(){
@@ -18,8 +19,16 @@ class OfferController extends GetxController {
     isLoading = true;
     await allOffers().then((value) {
       offerDataList = jsonDecode(value.body);
-      print("....!!!!!...!!!!...!!!!!.....1111..........$offerDataList");
-      if(offerDataList['message'] == 'Unauthenticated.'){
+      if(value.statusCode == 200 || value.statusCode <400){
+        resultInvalid(false);
+        isLoading = false;
+      }
+      else if(offerDataList['success'] == false){
+      resultInvalid(true);
+      isLoading = false;
+
+    }
+    if(offerDataList['message'] == 'Unauthenticated.'){
        Get.offAll(SignIn());
       }
       isLoading = false;

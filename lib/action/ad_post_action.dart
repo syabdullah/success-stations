@@ -15,7 +15,6 @@ Future<http.Response> adPosting(dataa) async{
 }
 
 Future<http.Response> commentPosting(data) async{
-  print("pi actionalkdnasdklnaskdl    ---------  $data");
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}comments");
   final result = await http.post(url,body: json.encode(data),headers: ApiHeaders().headersWithToken,);  

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/country_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
 class Ccountry extends StatefulWidget {
@@ -19,6 +21,7 @@ class _CountryPageState extends State<Ccountry> {
   var selectedIndex;
   GetStorage box = GetStorage();
   Widget featureCountryList(countryListData) {
+    print("countryv Datta/..>$countryListData");
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 4.30,
@@ -31,40 +34,44 @@ class _CountryPageState extends State<Ccountry> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
-
                   print("....country based.......$selectedIndex");
                   box.write("country", selectedIndex);
                   box.write("country_id", countryListData[index]['id']);
-                  box.write(
-                      "country_code", countryListData[index]['short_code']);
+                  box.write(  "country_code", countryListData[index]['short_code']);
+                  print("country id.....${ countryListData[index]['short_code']}");
                   countrycOde = countryListData[index]['short_code'];
                   countryId = countryListData[index]['id'];
                 });
               },
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    height: Get.height / 6.25,
-                    width: Get.width / 3.4,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: selectedIndex == index
-                              ? AppColors.appBarBackGroundColor
-                              : AppColors.grey,
-                          width: 5),
-                      shape: BoxShape.circle,
-                      image: countryListData[index]['flag'] != null
-                          ? DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(
-                                  countryListData[index]['flag']['url']))
-                          : null,
+                  GestureDetector(
+                    onTap: (){
+                      Get.to(TabBarPage(), arguments: [countryListData[index]['short_code'], countryListData[index]['id']]);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20),
+                      height: Get.height / 6.25,
+                      width: Get.width / 3.4,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: selectedIndex == index
+                                ? AppColors.appBarBackGroundColor
+                                : Colors.transparent,
+                            width: 2),
+                        shape: BoxShape.circle,
+                        image: countryListData[index]['flag'] != null
+                            ? DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(
+                                    countryListData[index]['flag']['url']))
+                            : null,
+                      ),
                     ),
                   ),
                   Container(
                       child: countryListData[index]['name'] != null
-                          ? Text(countryListData[index]['name'])
+                          ? Text(countryListData[index]['name'],style: TextStyle(color: AppColors.inputTextColor),)
                           : Container())
                 ],
               ),
@@ -78,16 +85,27 @@ class _CountryPageState extends State<Ccountry> {
     final space50 = SizedBox(height: getSize(50, context));
     final space100 = SizedBox(height: getSize(100, context));
     return Scaffold(
-      body: SingleChildScrollView(
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: EdgeInsets.all(20),
+          child: GestureDetector(
+            onTap: (){Get.back();},
+            child: Text("previous".tr,style: TextStyle(decoration: TextDecoration.underline,fontSize: 18,fontWeight: FontWeight.bold),)),
+        ),
+      ),
+      body:SingleChildScrollView(
         child: Column(
           children: [
-            space50,
-            mainLogo(),
-            SizedBox(height: 40),
+            space50, 
+            space50, 
+            space50, 
+            space50, 
+            // mainLogo(),
+            SizedBox(height:40),
             Container(
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: chooseLanguage()),
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             GetBuilder<ContryController>(
               init: ContryController(),
               builder: (data) {
@@ -98,24 +116,24 @@ class _CountryPageState extends State<Ccountry> {
                     : featureCountryList(data.countryListdata);
               },
             ),
-            submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,
-                textColor: AppColors.appBarBackGroun,
-                buttonText: "next".tr,
-                fontSize: 18.toDouble(),
-                callback: () {
-                  // Get.off(
-                  //   TabBarPage(),
-                  //   arguments: (countrycOde, countryId)
-                  // );
-                  Get.to(TabBarPage(), arguments: [countrycOde, countryId]);
-                  print("country id.......countrycOde.....$countrycOde");
-                  print("country id.......ountrt ID.....$countryId");
-                }
-                // callback: signIn
-                ),
-            space100,
-            Container(child: existingAccount()),
+            // submitButton(
+            //   bgcolor: AppColors.appBarBackGroundColor,  
+            //   textColor: AppColors.appBarBackGroun,
+            //   buttonText: "next".tr,
+            //   fontSize: 18.toDouble(),
+            //   callback: (){
+            //     Get.off(TabBarPage());
+            //   }
+            //    // callback: signIn
+            // ),
+            
+             HorizontalOrLine(label: "oR".tr, height: 2),
+             SizedBox(height: 20,),
+            
+           
+            Container(
+              child: existingAccount()
+            ),
           ],
         ),
       ),
@@ -130,27 +148,20 @@ class _CountryPageState extends State<Ccountry> {
       ),
     );
   }
-
-  Widget existingAccount() {
+ Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/login');
+        Get.toNamed('/login');
       },
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "have_account".tr,
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w300),
+            Text("have_account".tr, 
+              style: TextStyle( fontSize: 18, fontWeight: FontWeight.w300,color: Colors.grey
+              ),
             ),
-            Text(
-              "sign_in".tr,
-              style: TextStyle(
-                  fontSize: 17,
-                  color: AppColors.appBarBackGroundColor,
-                  fontWeight: FontWeight.bold),
-            ),
+            Text("sign_in".tr, style: TextStyle(fontSize: 18 ,  color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
           ],
         ),
       ),
@@ -161,7 +172,7 @@ class _CountryPageState extends State<Ccountry> {
     return Container(
         child: Text(
       "choose_country".tr,
-      style: TextStyle(fontSize: 23, color: AppColors.black),
+      style: TextStyle(fontSize: 23, color: AppColors.inputTextColor),
     ));
   }
 
