@@ -643,7 +643,7 @@ void _adsfiltringheet() {
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),
+        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.85 :0),
         
         children: List.generate(
           dataListValue.length, (index) {
@@ -655,7 +655,7 @@ void _adsfiltringheet() {
                 Colors.white:Colors.transparent, BlendMode.softLight),
               child: Container(
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-                margin: EdgeInsets.only(left:15),
+                margin: EdgeInsets.only(left:5,right: 10),
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                 child:  GestureDetector(
                   onTap: () {
@@ -688,7 +688,7 @@ void _adsfiltringheet() {
                           margin: EdgeInsets.only(left: 10,right: 10),
                           child: Center(
                             child: Text( dataListValue[index]['title']['en'] !=null ?
-                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                           ),
                         ),
                         // dataListValue[index]['user']['address'] == null ? Container(): 
@@ -737,45 +737,12 @@ void _adsfiltringheet() {
                                   },
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(left: 5),
+                                    // margin: EdgeInsets.only(left: 5),
                                     child: Text(
                                       "(${dataListValue[index]['rating_count'].toString()})",
-                                      style: TextStyle(fontSize: 13),
+                                      style: TextStyle(fontSize: 10),
                                     )),
-                                     Row(
-                                    children: [
-                                  
-                              Transform.scale(
-                                scale: .7,
-                                child: Switch.adaptive(
-                                    activeColor: AppColors.appBarBackGroundColor,
-                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                  setState(() {
-                                    dataListValue[index]['is_active'] == 1 ?
-                                    adStatus.deactiveAd(dataListValue[index]['id']) :
-                                    adStatus.activeAd(dataListValue[index]['id']) ;
-                                    controller.addedByIdAddes(catID, userId);
-                                  });
-                              
-                                }),
-                              ),   
-                                    ],
-                                  ),
-                              ],
-                            ),
-                         ), 
-                         Container(
-                           padding: EdgeInsets.only(left:10,right:10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Container(
-                                   child:
-                                   dataListValue[index]['price'] != null?
-                                    Text( 
-                                    "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
-                                 ),
-                               Row(
+                                    Row(
                                  children: [
                                    
                                  GestureDetector(
@@ -792,6 +759,36 @@ void _adsfiltringheet() {
                                      child: Image.asset(AppImages.edit,height: 30,))
                                  ],
                                ),
+                                  
+                              ],
+                            ),
+                         ), 
+                         Container(
+                          
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                   child:
+                                   dataListValue[index]['price'] != null?
+                                    Text( 
+                                    "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
+                                 ),
+                               Transform.scale(
+                                scale: .7,
+                                child: Switch.adaptive(
+                                    activeColor: AppColors.appBarBackGroundColor,
+                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                  setState(() {
+                                    dataListValue[index]['is_active'] == 1 ?
+                                    adStatus.deactiveAd(dataListValue[index]['id']) :
+                                    adStatus.activeAd(dataListValue[index]['id']) ;
+                                    controller.addedByIdAddes(catID, userId);
+                                  });
+                              
+                                }),
+                              ),   
                              ],
                            ),
                          ),
