@@ -214,7 +214,7 @@ var lang;
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
                             Get.off(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
@@ -253,7 +253,6 @@ var lang;
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             // Get.offAndToNamed('/favourities')
                             Get.off(FavouritePage())
-                           
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())
