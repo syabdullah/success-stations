@@ -23,7 +23,6 @@ class  AdPostingController extends GetxController {
      isLoading(true);
      await adPosting(dataa).then((res) {    
       var data = jsonDecode(res.body);
-    
       print(res.statusCode);
         print(data);
       if(res.statusCode == 200 || res.statusCode < 400){
@@ -115,40 +114,5 @@ class  AdPostingController extends GetxController {
      });
      update();
    }
-    activeAd(dataa) async {
-     print("..........'''''$dataa");
-     isLoading(true);
-     await adActive(dataa).then((res) {    
-      var adact = jsonDecode(res.body);
-    
-      print(res.statusCode);
-        print(adact);
-      // if(res.statusCode == 200 || res.statusCode < 400){
-      
-    
-      //   Get.snackbar("Ad Active",'',backgroundColor: AppColors.appBarBackGroundColor);
-      //   isLoading(false);      
-      // } if(res.statusCode >=  400){
-      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
-      // }
-     });
-     update();
-   }
-    deactiveAd(dataa) async {
-     print("..........'''''$dataa");
-     isLoading(true);
-     await adDeActive(dataa).then((res) {    
-      var addct = jsonDecode(res.body);
-      print(res.statusCode);
-        print(addct);
-      // if(res.statusCode == 200 || res.statusCode < 400){
-       
-      //   Get.snackbar("Ads Deactive ",'',backgroundColor: AppColors.appBarBackGroundColor);
-      //   isLoading(false);      
-      // } if(res.statusCode >=  400){
-      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
-      // }
-     });
-     update();
-   }
+   
 }

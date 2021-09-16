@@ -77,7 +77,7 @@ var typeId;
     
     if(editData != null ) {
       adID = editData['id'];
-      print("......a......$adID");
+      print("......a......${editData['type']}");
       titleController = TextEditingController(text: editData['title'][lang]);
       selectedStatus =  editData['status'];
       descController =  TextEditingController(text: editData['description'][lang]);
@@ -88,7 +88,7 @@ var typeId;
       selectedCategory = editData['category']['category'][lang];
       subtypeId = editData['category_id'];
       typeId = editData['type_id'];
-      selectedtype = editData['type']['type']['en'];
+      selectedtype = editData['type'] == null ? 'Select Type' : editData['type']['type'][lang];
       emailController = TextEditingController(text: editData['contact_email']);
       telePhoneController = TextEditingController(text: editData['telephone']);
       mobileNoController = TextEditingController(text: editData['phone']);
