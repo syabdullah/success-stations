@@ -644,7 +644,11 @@ void _adsfiltringheet() {
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
+<<<<<<< HEAD
         (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
+=======
+        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.85 :0),
+>>>>>>> 6a109c21687436a1dc2498af2163b860865903e4
         
         children: List.generate(
           dataListValue.length, (index) {
