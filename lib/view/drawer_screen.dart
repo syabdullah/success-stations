@@ -251,8 +251,12 @@ var lang;
                             Get.off(OffersDetail());
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
+<<<<<<< HEAD
+                          Get.to(FavouritePage())
+=======
                             // Get.offAndToNamed('/favourities')
                             Get.off(FavouritePage())
+>>>>>>> 38bae868521c5fb02bacd9e8ef41cb1c679fb2e8
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())
