@@ -214,7 +214,7 @@ class _FriendProfileState extends State<FriendProfile>
         FractionalTranslation(
           translation: langg == 'en'
               ? const Offset(0.5, -0.5)
-              : const Offset(-0.5, -0.5),
+              : const Offset(0.5, -0.5),
           child: Container(
             child: GestureDetector(
               onTap: () {
@@ -265,7 +265,7 @@ class _FriendProfileState extends State<FriendProfile>
         FractionalTranslation(
           translation: langg == 'en'
               ? const Offset(0.7, -0.5)
-              : const Offset(-0.7, -0.5),
+              : const Offset(0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: () {
