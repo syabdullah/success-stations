@@ -75,7 +75,6 @@ class _MyAddsState extends State<MyAdds> {
               : Container();
             },
           ),    
-          SizedBox(height:20),
           categorybool == false ? 
             Expanded(
               child: GetBuilder<AddBasedController>(
@@ -154,7 +153,7 @@ class _MyAddsState extends State<MyAdds> {
               ),
               Container(
                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                child: Text("newad".tr,style: TextStyle(color: Colors.grey,fontSize:18,))),
+                child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
             ],
           ),
           Row(
@@ -435,7 +434,9 @@ void _adsfiltringheet() {
                               const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                 child:  allDataAdds[index]['media'].length != 0 ?
-                                Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,)) :
                                 Container(
                                   width: Get.width/4,
                                    child: Icon(Icons.image,size: 50,),
@@ -640,7 +641,8 @@ void _adsfiltringheet() {
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),        
+        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
+        
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -651,7 +653,7 @@ void _adsfiltringheet() {
                 Colors.white:Colors.transparent, BlendMode.softLight),
                 child: Container(
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-                margin: EdgeInsets.only(left:15),
+                margin: EdgeInsets.only(left:5,right: 10),
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                 child:  GestureDetector(
                   onTap: () {
@@ -684,27 +686,11 @@ void _adsfiltringheet() {
                           margin: EdgeInsets.only(left: 10,right: 10),
                           child: Center(
                             child: Text( dataListValue[index]['title']['en'] !=null ?
-                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                           ),
-                        ),
-                        // dataListValue[index]['user']['address'] == null ? Container(): 
-                        // Expanded(
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        ), 
                          Container(
-                           padding: EdgeInsets.only(left:10),
+                          //  padding: EdgeInsets.only(left:10),
                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -716,7 +702,6 @@ void _adsfiltringheet() {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 13.5,
-                                  // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
 
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
@@ -724,20 +709,46 @@ void _adsfiltringheet() {
                                   ),
 
                                   onRatingUpdate: (rating) {
-                                    //  var ratingjson = {
-                                    //    'ads_id' : userData[index]['id'],
-                                    //    'rate': rating
-                                    //  };
-                                    //  ratingcont.ratings(ratingjson );
-                                    //  ratingcont.getratings(userData[index]['id']);
                                   },
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(left: 5),
                                   child: Text(
                                     "(${dataListValue[index]['rating_count'].toString()})",
                                     style: TextStyle(fontSize: 13),
                                   )
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  child: Row(
+                                   children: [                                  
+                                   GestureDetector(
+                                     onTap: (){
+                                         deleteAd.adDelete(dataListValue[index]['id']);
+                                         controller.addedByIdAddes(catID, userId);
+                                     },
+                                     child: Image.asset(AppImages.delete,height: 30,)),
+                                       SizedBox(width: 3,),
+                                     GestureDetector(
+                                       onTap:(){  
+                                         Get.to(AddPostingScreen(),arguments:dataListValue[index]);
+                                       },
+                                       child: Image.asset(AppImages.edit,height: 30,))
+                                   ],
+                               ),
+                                ),
+                              ],
+                            ),
+                         ), 
+                         Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child:
+                                  dataListValue[index]['price'] != null?
+                                  Text( 
+                                  "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
                                 ),
                                 Row(
                                   children: [
@@ -761,37 +772,6 @@ void _adsfiltringheet() {
                               ],
                             ),
                          ), 
-                         Container(
-                           padding: EdgeInsets.only(left:10,right:10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Container(
-                                   child:
-                                   dataListValue[index]['price'] != null?
-                                    Text( 
-                                    "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
-                                 ),
-                               Row(
-                                 children: [
-                                   
-                                 GestureDetector(
-                                   onTap: (){
-                                       deleteAd.adDelete(dataListValue[index]['id']);
-                                       controller.addedByIdAddes(catID, userId);
-                                   },
-                                   child: Image.asset(AppImages.delete,height: 30,)),
-                                     SizedBox(width: 3,),
-                                   GestureDetector(
-                                     onTap:(){  
-                                       Get.to(AddPostingScreen(),arguments:dataListValue[index]);
-                                     },
-                                     child: Image.asset(AppImages.edit,height: 30,))
-                                 ],
-                               ),
-                             ],
-                           ),
-                         ),
                         Expanded(
                           // flex : 2,
                           child:  Container(
@@ -804,39 +784,6 @@ void _adsfiltringheet() {
                             ),
                           ),
                         ),
-                        
-                        // dataListValue[index]['user']['address'] == null ? Container(): 
-                        // Expanded(
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

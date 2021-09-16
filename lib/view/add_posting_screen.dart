@@ -83,7 +83,6 @@ var typeId;
       descController =  TextEditingController(text: editData['description'][lang]);
       editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;     
       imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
-      //  print(".....EEEEE-----$imageName");
       priceController = TextEditingController(text: editData['price']);
       fullNameController = TextEditingController(text: editData['contact_name']);
       selectedCategory = editData['category']['category'][lang];
