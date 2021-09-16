@@ -318,13 +318,13 @@ class _AllAddsState extends State<AllAdds> {
                                 ? Container(
                                   height: Get.height / 10,
                                 )
-                                : data.subCatt != null && data.subCatt['data'] != null
+                                : data.havingAddsList != null && data.havingAddsList['data'] != null
                                   ? Container(
                                     height: Get.height * 0.035,
                                     child: ListView.builder(
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: data.subCatt['data'].length,
+                                      itemCount: data.havingAddsList['data'].length,
                                       itemBuilder: (
                                         BuildContext ctxt,int index) {
                                         return Row(
@@ -338,7 +338,7 @@ class _AllAddsState extends State<AllAdds> {
                                                 onTap: () {
                                                   setState(() {
                                                     filteredIndex = index;
-                                                    catFilteredID = data.subCatt['data'][index]['id'];
+                                                    catFilteredID = data.havingAddsList['data'][index]['id'];
                                                   });
                                                 },
                                                 child: Container(
@@ -350,8 +350,8 @@ class _AllAddsState extends State<AllAdds> {
                                                     : Colors.white,
                                                   ),
                                                   padding: EdgeInsets.only(left:6.0,right: 6),
-                                                  child: data.subCatt['data'] !=null
-                                                  ? Text(data.subCatt['data'][index]['category']['en'],
+                                                  child: data.havingAddsList['data'] !=null
+                                                  ? Text(data.havingAddsList['data'][index]['category']['en'],
                                                     style: TextStyle(
                                                       color: filteredIndex == index
                                                       ? AppColors.appBarBackGroundColor
