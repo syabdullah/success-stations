@@ -76,7 +76,6 @@ class _MyAddsState extends State<MyAdds> {
               : Container();
             },
           ),    
-          SizedBox(height:20),
           categorybool == false ? 
             Expanded(
               child: GetBuilder<MyAddsAdedController>(
@@ -157,7 +156,7 @@ class _MyAddsState extends State<MyAdds> {
               ),
               Container(
                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                child: Text("newad".tr,style: TextStyle(color: Colors.grey,fontSize:18,))),
+                child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
             ],
           ),
           Row(
@@ -438,7 +437,9 @@ void _adsfiltringheet() {
                               const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                 child:  allDataAdds[index]['media'].length != 0 ?
-                                Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,)) :
                                 Container(
                                   width: Get.width/4,
                                    child: Icon(Icons.image,size: 50,),
@@ -643,7 +644,7 @@ void _adsfiltringheet() {
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.85 :0),
+        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
         
         children: List.generate(
           dataListValue.length, (index) {
