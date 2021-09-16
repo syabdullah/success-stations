@@ -224,7 +224,7 @@ const Map<String, String> en = {
   'memberShip':'You can use following services in Pro Company',
   'general':'General',
   'message':'Message',
-  'drafted_ads':'Drafted Ads',
+  'drafted_ads':'DRAFTED ADS',
   'pr':'pr',
   'noOfferyet':"No Offer Yet!",
   'NoAdsYet':"NoAdsYet",

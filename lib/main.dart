@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 var auth;
@@ -34,8 +36,7 @@ class SuccessApp extends StatelessWidget {
     print("auth....................$auth");
     lang =  box.read('lang_code');
     return ScreenUtilInit(
-      builder:()  {
-        
+      builder:()  {       
         return GetMaterialApp(     
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
@@ -50,13 +51,10 @@ class SuccessApp extends StatelessWidget {
         theme:   ThemeData(primaryColor: Color(0xFF2F4199),
            fontFamily: 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199))
         ) ,
-        // : ThemeData(primaryColor: Color(0xFF1C1719), accentColor: Colors.black,
-        // ),
-          //  home: AddOffersPage(),
-        initialRoute:  auth == null ? '/login' : '/tabs',
+         home:  auth == null ? SignIn() : BottomTabs(),
+        // initialRoute:  auth == null ? '/login' : '/tabs',
         // initialRoute:  '/langua' ,
-
-        onGenerateRoute: SuccessStationRoutes.successStationRoutes,
+        // onGenerateRoute: SuccessStationRoutes.successStationRoutes,
         // home: NotificationPage(),
       );}
       //  designSize: const Size(360, 640),
