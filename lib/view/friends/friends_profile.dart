@@ -214,7 +214,7 @@ class _FriendProfileState extends State<FriendProfile>
         FractionalTranslation(
           translation: langg == 'en'
               ? const Offset(0.5, -0.5)
-              : const Offset(0.5, -0.5),
+              : const Offset(-0.6, -0.5),
           child: Container(
             child: GestureDetector(
               onTap: () {
@@ -264,8 +264,8 @@ class _FriendProfileState extends State<FriendProfile>
         ),
         FractionalTranslation(
           translation: langg == 'en'
-              ? const Offset(0.7, -0.5)
-              : const Offset(0.7, -0.5),
+              ? const Offset(0.8, -0.5)
+              : const Offset(-0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: () {
@@ -673,8 +673,9 @@ class _FriendProfileState extends State<FriendProfile>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
+                          // margin:Get.width,
+                            // margin: EdgeInsets.symmetric(
+                            //     horizontal: 10, vertical: 10),
                             child: Text("about".tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
