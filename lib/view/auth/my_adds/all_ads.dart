@@ -722,17 +722,17 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    liked = !liked;
+                                    // liked = !liked;
                                     allDataAdds[index]['is_favorite'] ==false
                                     ? friCont.profileAdsToFav(json, userId)
                                     : friCont.profileAdsRemove(json, userId);
-                                    controller.addedByIdAddes(catID, null);
+                                    controller.addedByIdAddes(allDataAdds[index]['category_id'], null);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 5),
                                     child: allDataAdds[index]['is_favorite'] ==false
-                                    ? Image.asset(AppImages.blueHeart,height: 25)
-                                    : Image.asset(AppImages.redHeart,height: 25)
+                                    ? Image.asset(AppImages.blueHeart,height: 30)
+                                    : Image.asset(AppImages.redHeart,height: 30)
                                   ),
                                 ),
                                 Image.asset(AppImages.call, height: 25),
@@ -756,16 +756,15 @@ class _AllAddsState extends State<AllAdds> {
   var splitedPrice;
   myAddGridView(dataListValue) {
     return Container(
-      margin: EdgeInsets.only(bottom:20),
+      // margin: EdgeInsets.only(bottom:20),
       width: Get.width / 1.10,
       // height: Get.height *100,
       child: GridView.count(
         crossAxisCount: 2,
-        mainAxisSpacing: 50,
+        // mainAxisSpacing: 50,
         crossAxisSpacing: 12,
         children: List.generate(
           dataListValue.length, (index) {
-            print("cIOD,......>${dataListValue[index]['category_id']}");
             var price = dataListValue[index]['price'].toString();
             splitedPrice = price.split('.');
             return GestureDetector(
@@ -808,10 +807,9 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  print(".....@json..... $json");
-                                  // liked = !liked;
                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
-                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                 controller.addedAllAds();
+                                 controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(right: 5),
@@ -834,10 +832,12 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  print(" json id ...>$json");
                                   // liked = !liked;
-                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId); controller.addedByIdAddes(dataListValue[index]['category_id'], null);
-                                  print("catttt id ......$catID")    ;                            },
+                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId);
+                                  controller.addedAllAds(); 
+                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                                     
+                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(right: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
@@ -890,12 +890,10 @@ class _AllAddsState extends State<AllAdds> {
                                       itemSize: 14.5,
                                       itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                       onRatingUpdate: (rating) {
-                                        print('rating on tap ........$rating');
                                         var ratingjson = {
                                           'ads_id': dataListValue[index]['id'],
                                           'rate': rating
                                         };
-                                        print('.....................Rating data on Tap .........$ratingjson');
                                         ratingcont.ratings(ratingjson);
                                         // ratingcont.getratings(allDataAdds[index]['id']);
                                       },
@@ -1054,9 +1052,10 @@ class _AllAddsState extends State<AllAdds> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                        havingCategorybool = false;
                         selectedIndex = index;
                         addsGet.myAddsCategory();
-                        havingCategorybool = false;
+                       
                         });
                       },
                       child: Container(
@@ -1098,6 +1097,7 @@ class _AllAddsState extends State<AllAdds> {
                           selectedIndex = index;
                           id = havingAdds[index]['id'];
                           controller.addedByIdAddes(havingAdds[index]['id'], null);
+                          // addsGet.myAddsCategory();
                         });
                       },
                       child: Container(
