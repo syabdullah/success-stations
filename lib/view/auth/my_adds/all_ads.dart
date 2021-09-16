@@ -765,6 +765,7 @@ class _AllAddsState extends State<AllAdds> {
         crossAxisSpacing: 12,
         children: List.generate(
           dataListValue.length, (index) {
+            print("cIOD,......>${dataListValue[index]['category_id']}");
             var price = dataListValue[index]['price'].toString();
             splitedPrice = price.split('.');
             return GestureDetector(
@@ -807,17 +808,16 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  liked = !liked;
-                                 dataListValue[index]['is_favorite'] ==false
-                                  ? friCont.profileAdsToFav(json, userId)
-                                  : friCont.profileAdsRemove(json, userId);
-                                  controller.addedByIdAddes(catID, null);
+                                  print(".....@json..... $json");
+                                  // liked = !liked;
+                                 dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
+                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(right: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 20)
-                                  : Image.asset(AppImages.redHeart,height: 20)
+                                  ? Image.asset(AppImages.blueHeart,height: 30)
+                                  : Image.asset(AppImages.redHeart,height: 30)
                                 ),
                               ),
                             ),
@@ -834,17 +834,15 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  liked = !liked;
-                                 dataListValue[index]['is_favorite'] ==false
-                                  ? friCont.profileAdsToFav(json, userId)
-                                  : friCont.profileAdsRemove(json, userId);
-                                  controller.addedByIdAddes(catID, null);
-                                },
+                                  print(" json id ...>$json");
+                                  // liked = !liked;
+                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId); controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                  print("catttt id ......$catID")    ;                            },
                                 child: Container(
                                   padding: EdgeInsets.only(right: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 20)
-                                  : Image.asset(AppImages.redHeart,height: 20)
+                                  ? Image.asset(AppImages.blueHeart,height: 30)
+                                  : Image.asset(AppImages.redHeart,height: 30)
                                 ),
                               ),
                             ),
