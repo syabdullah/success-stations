@@ -6,6 +6,7 @@ class MyAddsAdedController extends GetxController {
   bool isLoading = false; 
   List myMyAdd = [];
   var addsGet, uploadImageOfAdd;
+  var resultInvalid = false.obs; 
 
   @override
   void onInit(){
@@ -19,11 +20,19 @@ class MyAddsAdedController extends GetxController {
     myMyAdd = [];
     isLoading = true;
     await addsFvrtMyAdds().then((value) {
-       addsGet= jsonDecode(value.body);
-      // print("json decode response of offer.......>$addsGet");
-      for(int c =0; c < addsGet['data'].length; c++){
-        myMyAdd.add(addsGet['data'][c]);
+      addsGet= jsonDecode(value.body);
+      if(value.statusCode == 200 || value.statusCode < 400){
+        resultInvalid(false);
+        isLoading = false;
       }
+      else if(addsGet['success'] == false){
+        resultInvalid(true);
+        isLoading = false;
+
+       }
+      // for(int c =0; c < addsGet['data'].length; c++){
+      //   myMyAdd.add(addsGet['data'][c]);
+      // }
       isLoading = false;
     });
     update();

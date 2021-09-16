@@ -6,9 +6,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ad_delete_controller.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/styling/app_bar.dart';
+import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -21,27 +22,33 @@ class MyAdds extends StatefulWidget {
 }
 class _MyAddsState extends State<MyAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final controllerCat = Get.put(CategoryController());
    final friCont = Get.put(FriendsController()); 
    final deleteAd = Get.put(AdDeletingController());
    final adStatus = Get.put(AdPostingController());
+   final drawAdds = Get.put(MyAddsController());
+    final myaddedDr = Get.put(MyAddsAdedController());
   var listtype = 'grid';
   var selectedIndex = 0;
+  bool categorybool = false; 
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
   Color gridIconColor = AppColors.appBarBackGroundColor;
   Color listIconColor = Colors.grey;
    bool liked = false;
   var lang;
-  bool _value = true;
   var userId;
    bool isButtonPressed = false;
   GetStorage box = GetStorage();
   @override
   void initState() {
     super.initState();
+    controllerCat.addsdrawerHavinng();
+    myaddedDr.addesMyListFv();
+    drawAdds.myAddsCategory();
+  
+    categorybool = false;
     controllerCat.getCategoryNames();
     lang = box.read('lang_code');
     userId = box.read('user_id');
@@ -50,11 +57,7 @@ class _MyAddsState extends State<MyAdds> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      // key: _scaffoldKey,
-      // appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-      //   child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
-      //  ),
-       appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
        drawer: Theme(
         data: Theme.of(context).copyWith(
        
@@ -64,39 +67,74 @@ class _MyAddsState extends State<MyAdds> {
       body: Column(
         children: [
           topWidget(),
+          SizedBox(height: 10),
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): addsCategoryWidget(data.datacateg);
+              return data.isLoading == true ? CircularProgressIndicator(): 
+              data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
+              : Container();
             },
-          ),           
-          Expanded(
-            child: 
-            
-            listtype == 'list' ?
-              GetBuilder<AddBasedController>(
+          ),    
+          SizedBox(height:20),
+          categorybool == false ? 
+            Expanded(
+              child: GetBuilder<MyAddsAdedController>(
+              init: MyAddsAdedController(),
+              builder: (val) {
+                return val.addsGet !=null && val.addsGet['data'] !=null && val.addsGet['success'] == true ? 
+                listtype == 'list' ? myAddsList(val.addsGet['data']): myAddGridView(val.addsGet['data']):
+                myaddedDr.resultInvalid.isTrue && val.addsGet['data'] == false ?
+                Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      myaddedDr.addsGet['errors'],
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ): Container();
+
+              }
+            )
+           ):  
+            Expanded(
+              child: GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
-                return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: Get.height/4),
-                      child: Center(child: Text("No ads yet",style: TextStyle(fontWeight: FontWeight.bold),)),
-                    ),
-                  ],
-                );
-              },
-            ):GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val){
-                return val.cData != null && val.cData['success'] == true ?  myAddGridView(val.cData['data']): ListView(
-                  children: [
-                    Container(),
-                  ],
-                );
-              },
-              )
-          ),
+                  return val.isLoading == true || val.cData == null? Container()
+                   : val.cData['data'] == null ? Container()
+                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']
+                  );
+                },
+              ),
+             )
+          // Expanded(
+          //   child:
+          //    listtype == 'list' ?
+          //     GetBuilder<AddBasedController>(
+          //       init: AddBasedController(),
+          //       builder: (val){
+          //       return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
+          //         children: [
+          //           Container(
+          //             margin: EdgeInsets.symmetric(vertical: Get.height/4),
+          //             child: Center(child: Text("No ads yet",style: TextStyle(fontWeight: FontWeight.bold),)),
+          //           ),
+          //         ],
+          //       );
+          //     },
+          //   ):GetBuilder<AddBasedController>(
+          //     init: AddBasedController(),
+          //     builder: (val){
+          //       return val.cData != null && val.cData['success'] == true ?  myAddGridView(val.cData['data']): ListView(
+          //         children: [
+          //           Container(),
+          //         ],
+          //       );
+          //     },
+          //     )
+          // ),
         ],
       ),
     );
@@ -377,8 +415,6 @@ void _adsfiltringheet() {
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
-        
-        print("type...... ${allDataAdds[index]['category_id']}");
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(),arguments: allDataAdds[index]['id']);
@@ -576,17 +612,15 @@ void _adsfiltringheet() {
                        Transform.scale(
                          scale: .7,
                          child: Switch.adaptive(
-                           
                            activeColor: AppColors.appBarBackGroundColor,
                            value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                          setState(() {
-                            allDataAdds[index]['is_active'] == 1 ?
-                            adStatus.deactiveAd(allDataAdds[index]['id']) :
-                            adStatus.activeAd(allDataAdds[index]['id']) ;
-                            controller.addedByIdAddes(catID, userId);
-                          });
-                                             print(allDataAdds[index]['is_active']);
-                                             }),
+                            setState(() {
+                              allDataAdds[index]['is_active'] == 1 ?
+                              adStatus.deactiveAd(allDataAdds[index]['id']) :
+                              adStatus.activeAd(allDataAdds[index]['id']) ;
+                              controller.addedByIdAddes(catID, userId);
+                            });
+                           }),
                        ),   
                       ],
                     ),
@@ -600,6 +634,7 @@ void _adsfiltringheet() {
     );
   }
   var ind = 0 ;
+  var myAddssplitedPrice;
   myAddGridView(dataListValue) {
     
     return Container(
@@ -612,7 +647,8 @@ void _adsfiltringheet() {
         
         children: List.generate(
           dataListValue.length, (index) {
-            print("pase dooooooo ${dataListValue[index]['price']}");
+            var price = dataListValue[index]['price'].toString();
+            myAddssplitedPrice = price.split('.');
             return ColorFiltered(
               colorFilter: ColorFilter.mode(
                 dataListValue[index]['is_active'] == 0 ?
@@ -737,7 +773,7 @@ void _adsfiltringheet() {
                                    child:
                                    dataListValue[index]['price'] != null?
                                     Text( 
-                                    "SAR  ${dataListValue[index]['price']}" ,style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)):Container(),
+                                    "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
                                  ),
                                Row(
                                  children: [
@@ -838,24 +874,62 @@ var catID;
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height:MediaQuery.of(context).size.height/ 9.22,
+          height: 50,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              if(ind == 0){
-                print("...................PPPPPPPPP,.....");
-                catID =  listingCategoriesData[index]['id'];
-                controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
-              }
+              // if(ind == 0){
+              //   catID =  listingCategoriesData[index]['id'];
+              //   controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
+              // }
               ind = ++ind;
-              return Row(
+              return index == 0 ? Container(
+                width: 70,
+                  // margin: lang == 'en'
+                  //   ? EdgeInsets.only(left: 12.0)
+                  //   : EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                        selectedIndex = index;
+                         myaddedDr.addesMyListFv();
+                        categorybool = false;
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left:12),
+                        decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(
+                            color: AppColors.appBarBackGroundColor
+                          ),
+                          color: selectedIndex == index
+                          ? AppColors.appBarBackGroundColor
+                          : Colors.white,
+                        ),
+                        padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "All",
+                            style: TextStyle(
+                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              fontSize: 12,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+              ):
+              Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
+                          categorybool = true;
                           // ind = ++ind;
                           catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
@@ -867,13 +941,6 @@ var catID;
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color:AppColors.appBarBackGroundColor),
                           color: selectedIndex == index ?AppColors.appBarBackGroundColor : Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0),
-                              blurRadius: 6.0,
-                            ),
-                          ],
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
