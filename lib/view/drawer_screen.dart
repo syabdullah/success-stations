@@ -214,7 +214,7 @@ var lang;
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
                             Get.off(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
@@ -251,12 +251,9 @@ var lang;
                             Get.off(OffersDetail());
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
-<<<<<<< HEAD
-                          Get.to(FavouritePage())
-=======
                             // Get.offAndToNamed('/favourities')
                             Get.off(FavouritePage())
->>>>>>> 38bae868521c5fb02bacd9e8ef41cb1c679fb2e8
+                           
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())
