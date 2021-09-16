@@ -358,6 +358,7 @@ class _FavouritePageState extends State<FavouritePage> {
        Container(
           height: Get.height/1,
           child: GridView.count(
+            reverse: true,
           crossAxisCount: 2,
           children: List.generate(
             newData.length, 
