@@ -36,6 +36,7 @@ class _FavouritePageState extends State<FavouritePage> {
   Color listIconColor = Colors.blue;
   GetStorage box = GetStorage();
   bool isButtonPressed = false;
+  var lang;
 
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
@@ -48,7 +49,7 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     super.initState(); 
     fContr.favoriteList();
-
+ lang = box.read('lang_code');
     id = box.read('user_id');
   }
 
@@ -87,6 +88,7 @@ class _FavouritePageState extends State<FavouritePage> {
         child: Column(
           children: [
             topWidget(), 
+            SizedBox(height: 20,),
             GetBuilder<FavoriteController>(
               init: FavoriteController(),
               builder: (val) {
@@ -114,70 +116,47 @@ class _FavouritePageState extends State<FavouritePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Row(
-          children: [
-            Container(
-              // margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                  isButtonPressed = !isButtonPressed;
-                  listIconColor = Colors.grey;
-                  grid = AppImages.grid;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                ),
-              ),
-            // IconButton(
-            //   color: isButtonPressed ? Colors.blue : Colors.grey,
-            //   onPressed: (){
-            //     setState(() {
-            //       listtype = 'grid';
-            //       isButtonPressed = !isButtonPressed;
-            //       listIconColor = Colors.grey;
-            //       grid = AppImages.grid;
-            //     });             
-            //   },
-            //   icon: Image.asset(grid),
-            // ),
-            SizedBox(width: 5,),
+        Container(
+          
+          child: Row(
+            children: [
               Container(
-                // margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  // minSize: double.minPositive,
-                  // padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                        listtype = 'list';
-                    listIconColor = Colors.blue;
-                    grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
+                 margin: EdgeInsets.only(top: 20,),
+                  child: CupertinoButton(
+                    minSize: double.minPositive,
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      setState(() {
+                        listtype = 'grid';
+                        isButtonPressed = !isButtonPressed;
+                        listIconColor = Colors.grey;
+                        grid = AppImages.grid;
+                      });
+                    },
+                    child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                  ),
               ),
-            // Container(
-            //   margin: EdgeInsets.only(bottom:15),
-            //   child: IconButton(
-            //     onPressed: (){
-            //       setState(() {
-            //         listtype = 'list';
-            //         listIconColor = Colors.blue;
-            //         grid = AppImages.gridOf;
-            //       });
-            //     },
-            //     icon: Container(
-            //       padding: EdgeInsets.only(top:10),
-            //       child: Image.asset(AppImages.listing, color: listIconColor,height: 20)
-            //     )
-            //   ),
-            // ),
-            // SizedBox(height: 30,width: 15,)
-          ],
+              SizedBox(width: 5,),
+                Container(
+                   margin: lang == 'en'
+                  ? EdgeInsets.only(top: 20,right: 10)
+                  : EdgeInsets.only(top: 20,left: 10),
+                          // margin: EdgeInsets.only(top: 20),
+                  child: CupertinoButton(
+                    minSize: double.minPositive,
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      setState(() {
+                          listtype = 'list';
+                      listIconColor = Colors.blue;
+                      grid = AppImages.gridOf;
+                      });
+                    },
+                    child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+                  ),
+                ),
+            ],
+          ),
         )
       ],
     );
@@ -195,6 +174,7 @@ class _FavouritePageState extends State<FavouritePage> {
           favrties.add(
             Card(
               child: Container(
+                
                 height: 100,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,30 +326,30 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
+    
     var newData = [];
     for (int i = 0; i < listFavourite.length; i++) {
-      newData.add(listFavourite[i]);
-      print(newData.length);
-      
+      if(listFavourite[i] !=null && listFavourite[i]['listing'] !=null ){
+      newData.add(listFavourite[i]); 
+      }   
     }
-    
     List<Widget> faviii = [];
     faviii.add(
        Container(
+         margin: EdgeInsets.only(top: 10),
           height: Get.height/1,
           child: GridView.count(
-            reverse: true,
           crossAxisCount: 2,
           children: List.generate(
             newData.length, 
-            (index) {
-              if(newData[index] !=null && newData[index]['listing'] !=null ){
+            (index) {             
+              if(newData[index]['listing'] !=null && newData[index]['listing']['image'] != null ){
                 for(int c =0; c < newData[index]['listing']['image'].length; c++){
                   gridImages= newData[index]['listing']['image'][c]['url'];
                 }
               }
-              return newData[index]['listing']  !=null ? Container(
-                margin: EdgeInsets.only(left:15,right: 15),
+              return  Container(
+                margin: EdgeInsets.only(left:5,right: 5),
                 child:  Card(
                   elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -381,10 +361,10 @@ class _FavouritePageState extends State<FavouritePage> {
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                             child: Container(
-                              width: Get.width/0.7,
+                              // width: Get.width/0.7,
                               height: Get.height/10,
                               //hehe
-                              child: newData[index]['listing']['image'] !=null && gridImages != null ? 
+                              child: newData[index]['listing'] !=null && gridImages != null ? 
                               Stack(
                                alignment:AlignmentDirectional.bottomEnd,
                                 children: [
@@ -436,6 +416,7 @@ class _FavouritePageState extends State<FavouritePage> {
                              child: Row(
                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
+                                        newData[index]['listing']  !=null ?
                                         Container(
                                           margin: EdgeInsets.only(top: 5),
                                           child: newData[index]['listing']['is_rated'] == false
@@ -471,7 +452,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                               // ratingcont.getratings(allDataAdds[index]['id']);
                                             },
                                           )
-                                        ),
+                                        ):Container(),
                                   //       Container(
                                   //         // width: Get.width/4,
                                   //         // height: Get.height/5.5,
@@ -527,14 +508,14 @@ class _FavouritePageState extends State<FavouritePage> {
                                       ],
                                     ):Container()
                                   ), 
-                                  newData[index]['listing']['price']  !=null ? 
+                                  newData[index]['listing']  !=null ? 
                                   Container(
                                     margin: EdgeInsets.only(left:10,right: 10),
-                                    child: Text("SAR ${newData[index]['listing']['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
+                                    child: Text("SAR ${newData[index]['listing']['price'] ?? ''}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
                                 ],
                               ),
                             ),
-                          ):Container();
+                          );
                 }
               )
             ),
