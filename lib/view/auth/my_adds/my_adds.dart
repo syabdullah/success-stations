@@ -45,7 +45,7 @@ class _MyAddsState extends State<MyAdds> {
   void initState() {
     super.initState();
     controllerCat.addsdrawerHavinng();
-    myaddedDr.addesMyListFv();
+    controller.addesMyListAll();
     drawAdds.myAddsCategory();
   
     categorybool = false;
@@ -55,7 +55,6 @@ class _MyAddsState extends State<MyAdds> {
   }
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
        drawer: Theme(
@@ -79,22 +78,21 @@ class _MyAddsState extends State<MyAdds> {
           SizedBox(height:20),
           categorybool == false ? 
             Expanded(
-              child: GetBuilder<MyAddsAdedController>(
-              init: MyAddsAdedController(),
+              child: GetBuilder<AddBasedController>(
+              init: AddBasedController(),
               builder: (val) {
-                return val.addsGet !=null && val.addsGet['data'] !=null && val.addsGet['success'] == true ? 
-                listtype == 'list' ? myAddsList(val.addsGet['data']): myAddGridView(val.addsGet['data']):
-                myaddedDr.resultInvalid.isTrue && val.addsGet['data'] == false ?
+                return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
+                listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
+                myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
                 Container(
                   margin: EdgeInsets.only(top: Get.height / 3),
                   child: Center(
                     child: Text(
-                      myaddedDr.addsGet['errors'],
+                      val.myALLAdd['errors'],
                       style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ): Container();
-
               }
             )
            ):  
@@ -104,7 +102,7 @@ class _MyAddsState extends State<MyAdds> {
                 builder: (val){
                   return val.isLoading == true || val.cData == null? Container()
                    : val.cData['data'] == null ? Container()
-                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']
+                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']
                   );
                 },
               ),
@@ -142,8 +140,7 @@ class _MyAddsState extends State<MyAdds> {
     Widget topWidget() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          
+        children: [         
           Row(
             children: [
               GestureDetector(
@@ -614,12 +611,13 @@ void _adsfiltringheet() {
                          child: Switch.adaptive(
                            activeColor: AppColors.appBarBackGroundColor,
                            value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                            setState(() {
+                            // setState(() {
                               allDataAdds[index]['is_active'] == 1 ?
-                              adStatus.deactiveAd(allDataAdds[index]['id']) :
-                              adStatus.activeAd(allDataAdds[index]['id']) ;
+                              controller.deactiveAd(allDataAdds[index]['id']) :
+                              controller.activeAd(allDataAdds[index]['id']) ;
+                              controller.addesMyListAll();
                               controller.addedByIdAddes(catID, userId);
-                            });
+                            // });
                            }),
                        ),   
                       ],
@@ -635,16 +633,14 @@ void _adsfiltringheet() {
   }
   var ind = 0 ;
   var myAddssplitedPrice;
-  myAddGridView(dataListValue) {
-    
+  myAddGridView(dataListValue) {   
+    print("aAAAAA____++++++++------AAAAA---$dataListValue");
     return Container(
       width: Get.width,
-
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),
-        
+        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),        
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -653,7 +649,7 @@ void _adsfiltringheet() {
               colorFilter: ColorFilter.mode(
                 dataListValue[index]['is_active'] == 0 ?
                 Colors.white:Colors.transparent, BlendMode.softLight),
-              child: Container(
+                child: Container(
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
                 margin: EdgeInsets.only(left:15),
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
@@ -737,30 +733,31 @@ void _adsfiltringheet() {
                                   },
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      "(${dataListValue[index]['rating_count'].toString()})",
-                                      style: TextStyle(fontSize: 13),
-                                    )),
-                                     Row(
-                                    children: [
-                                  
-                              Transform.scale(
-                                scale: .7,
-                                child: Switch.adaptive(
-                                    activeColor: AppColors.appBarBackGroundColor,
-                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                  setState(() {
-                                    dataListValue[index]['is_active'] == 1 ?
-                                    adStatus.deactiveAd(dataListValue[index]['id']) :
-                                    adStatus.activeAd(dataListValue[index]['id']) ;
-                                    controller.addedByIdAddes(catID, userId);
-                                  });
-                              
-                                }),
-                              ),   
-                                    ],
-                                  ),
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "(${dataListValue[index]['rating_count'].toString()})",
+                                    style: TextStyle(fontSize: 13),
+                                  )
+                                ),
+                                Row(
+                                  children: [
+                                    Transform.scale(
+                                      scale: .7,
+                                      child: Switch.adaptive(
+                                          activeColor: AppColors.appBarBackGroundColor,
+                                          value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                        // setState(() {
+                                          dataListValue[index]['is_active'] == 1 ?
+                                          controller.deactiveAd(dataListValue[index]['id']) :
+                                          controller.activeAd(dataListValue[index]['id']) ;
+                                          controller.addesMyListAll();
+                                          controller.addedByIdAddes(catID, userId);
+                                        // });
+                                    
+                                      }),
+                                    ),   
+                                  ],
+                                ),
                               ],
                             ),
                          ), 

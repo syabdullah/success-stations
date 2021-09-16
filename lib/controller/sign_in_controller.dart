@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/sign_in_action.dart';
 import 'package:success_stations/action/social_register.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 class LoginController extends GetxController {
   GetStorage box = GetStorage();
@@ -40,7 +41,7 @@ class LoginController extends GetxController {
         // print('.........................................................${Box.read(city_id);}');
         resultInvalid(false);
         isLoading(false);
-        Get.offAllNamed('/tabs');
+        Get.off(BottomTabs());
       } else if (logindata['success'] == false) {
         resultInvalid(true);
         isLoading(false);
@@ -66,7 +67,7 @@ class LoginController extends GetxController {
        
         resultInvalid(false);
         isLoading(false);
-        Get.offAllNamed('/tabs');
+        Get.off(BottomTabs());
       } else if (logindata['message'] == 'The given data was invalid.') {
         resultInvalid(true);
         isLoading(false);
@@ -86,7 +87,7 @@ class LoginController extends GetxController {
         box.remove("name");
         box.remove("user_id");
         box.remove("email");
-        Get.offAllNamed('/login');
+        Get.off(SignIn());
         print("...............$logindata");
         resultInvalid(false);
         isLoading(false);

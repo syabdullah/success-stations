@@ -98,7 +98,7 @@ class SuccessStationRoutes {
         case draweer:
         return MaterialPageRoute(builder: (_) => AppDrawer());
       default:
-        return MaterialPageRoute(builder: (_) => SignIn());
+        return MaterialPageRoute(builder: (_) => BottomTabs());
     }
   }
 }
