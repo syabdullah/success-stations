@@ -663,7 +663,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       initialChildSize: 0.4,
                       listType: MultiSelectListType.CHIP,
                       searchable: true,
-                      buttonText: Text("Services"),
+                      buttonText: Text("Services", style: TextStyle(color:Colors.grey),),
                       items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
                       onConfirm: (values) {
                         var valLoop = values ;
