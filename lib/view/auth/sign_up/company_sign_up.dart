@@ -12,7 +12,6 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/auth/sign_up/orLine.dart';
 
 
 var finalIndex, shortCode;
@@ -36,7 +35,6 @@ class CompanySignUp extends StatefulWidget {
 class _CompanySignPageState extends State<CompanySignUp> {
   var serText, serId;
   final regionIdByCountry = Get.put(ContryController());
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String savedData;
   var tyming;
   var counCode, counID, hintTextCountry,selectedCity, selectedCountry, selectedRegion , hintRegionText, hintcityText;
@@ -61,7 +59,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
       "value": 4,
     }
   ];
-  final _multiSelectKey = GlobalKey<FormFieldState>();
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();

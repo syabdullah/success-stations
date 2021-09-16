@@ -253,6 +253,7 @@ var lang;
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             // Get.offAndToNamed('/favourities')
                             Get.off(FavouritePage())
+                           
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())

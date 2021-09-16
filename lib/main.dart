@@ -48,8 +48,10 @@ class SuccessApp extends StatelessWidget {
         locale: lang != null ?  Locale(lang,''): LocalizationServices.locale,
         fallbackLocale: LocalizationServices.fallbackLocale,
         translations: LocalizationServices(),
-        theme:   ThemeData(primaryColor: Color(0xFF2F4199),
-           fontFamily: 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199))
+        theme:   ThemeData(
+           primaryColor: Color(0xFF2F4199),
+           fontFamily: 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
+            textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199))
         ) ,
          home:  auth == null ? SignIn() : BottomTabs(),
         // initialRoute:  auth == null ? '/login' : '/tabs',
