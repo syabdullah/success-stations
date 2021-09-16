@@ -346,7 +346,6 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
-    print(Get.height);
     var newData = [];
     for (int i = 0; i < listFavourite.length; i++) {
       newData.add(listFavourite[i]);
@@ -357,7 +356,7 @@ class _FavouritePageState extends State<FavouritePage> {
     List<Widget> faviii = [];
     faviii.add(
        Container(
-         height:Get.height/1,
+          height: Get.height/1,
           child: GridView.count(
             reverse: true,
           crossAxisCount: 2,
