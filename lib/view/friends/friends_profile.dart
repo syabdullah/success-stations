@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
-import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
@@ -713,10 +712,11 @@ class _FriendProfileState extends State<FriendProfile>
                 onTap: () {},
                 child: Container(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          width: 80,
+                          // pad: EdgeInsets.only(left:20,right: 30),
+                          width: langg == 'en' ? Get.width/3.3 : Get.width/3.5,
                           margin: EdgeInsets.symmetric(
                               vertical: 6.0, horizontal: 10.0),
                           child: ClipRRect(
@@ -787,28 +787,27 @@ class _FriendProfileState extends State<FriendProfile>
                           ),
                         ],
                       ),
-                      Align(
-                        widthFactor: Get.width < 400 ? 2.2 : 3.0,
-                        alignment: Alignment.topRight,
-                        child: Column(
-                          children: [
-                            image != null
-                                ? CircleAvatar(
-                                    backgroundImage: NetworkImage(image),
-                                    radius: 20.0,
-                                  )
-                                : CircleAvatar(
-                                    backgroundColor: Colors.grey,
-                                    radius: 20.0,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 20,
-                                      color: Colors.black,
-                                    )),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
+                      Column(
+                        children: [
+                          image != null
+                              ? CircleAvatar(
+                                  backgroundImage: NetworkImage(image),
+                                  radius: 20.0,
+                                )
+                              : CircleAvatar(
+                                  backgroundColor: Colors.grey,
+                                  radius: 20.0,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 20,
+                                    color: Colors.black,
+                                  )),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left:20,right: 30),
+                            child: Row(
                               children: [
                                 GestureDetector(
                                     onTap: () {
@@ -841,9 +840,9 @@ class _FriendProfileState extends State<FriendProfile>
                                       height: 20,
                                     ))
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       )
                     ],
                   ),
