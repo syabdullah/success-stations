@@ -16,6 +16,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
+import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/UseProfile/privacy.dart';
 import 'package:success_stations/view/UseProfile/user_agreement.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
@@ -250,7 +251,8 @@ var lang;
                             Get.off(OffersDetail());
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
-                            Get.offAndToNamed('/favourities')
+                            // Get.offAndToNamed('/favourities')
+                            Get.off(FavouritePage())
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())

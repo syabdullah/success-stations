@@ -5,13 +5,12 @@ import 'package:success_stations/action/ads_filtering_action.dart';
 import 'package:success_stations/action/all_add_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
 import 'package:success_stations/action/my_adds/my_add_action.dart';
-import 'package:success_stations/styling/colors.dart';
 
 class AddBasedController extends GetxController {
   bool isLoading = false; 
   var cData;
   var allAdsData;
-var resultInvalid = false.obs;
+  var resultInvalid = false.obs;
   List catBaslistData = [];
   var adsFilterCreate;
   var myALLAdd;
@@ -26,6 +25,7 @@ var resultInvalid = false.obs;
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);   
+      print("c data Response.......$cData");
       isLoading = false;
     });
     update();

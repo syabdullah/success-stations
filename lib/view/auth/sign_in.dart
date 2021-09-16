@@ -11,7 +11,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/facebook_signIn.dart';
 import 'package:success_stations/utils/google_signIn.dart';
 import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/utils/skalton.dart';
+import 'package:success_stations/view/auth/language.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
@@ -336,7 +336,7 @@ class _SignPageState extends State<SignIn> {
           GestureDetector(
               onTap: () {
                 print("ontap itmemmm.....>!!!");
-                Get.toNamed('/langua');
+                Get.to(Language());
               },
               child: Text(
                 'sign_up_text'.tr,

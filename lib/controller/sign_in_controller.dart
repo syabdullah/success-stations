@@ -16,16 +16,11 @@ class LoginController extends GetxController {
   var resultInvalid = false.obs;
   RxBool isLoading = false.obs;
   loginUserdata(data) async {
-    print("........//////=======-------------");
     isLoading(true);
     await simplelogin(data).then((res) {
       logindata = jsonDecode(res.body);
-      print("..........@@@@@@@@@.....@@@>>>>>>.......$logindata");
-      print("..././///////////.................${res.body}");
       if (res.statusCode == 200 || res.statusCode < 400) {
         box.write('access_token', logindata['data']['token']);
-        print(
-            "..././///////////${logindata['data']['token']}.................${res.body}");
         box.write('email', logindata['data']['user']['email']);
         box.write('address', logindata['data']['user']['address']);
         box.write('name', logindata['data']['user']['name']);
@@ -37,8 +32,6 @@ class LoginController extends GetxController {
         box.write('region_id', logindata['data']['user']['region_id']);
         box.write('user_type', logindata['data']['user_type']);
         box.write('account_type', logindata['data']['user']['account_type']);
-
-        // print('.........................................................${Box.read(city_id);}');
         resultInvalid(false);
         isLoading(false);
         Get.off(BottomTabs());
