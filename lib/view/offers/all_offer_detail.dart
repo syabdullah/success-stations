@@ -1,4 +1,3 @@
-import 'package:clippy_flutter/trapezoid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';

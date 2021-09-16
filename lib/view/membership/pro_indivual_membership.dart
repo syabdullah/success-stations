@@ -6,10 +6,6 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/view/member_ship/payment_tap.dart';
-import 'package:success_stations/view/membership/userOrderInformation.dart';
 
 class IndividualMemeberShip extends StatefulWidget {
   @override
@@ -33,13 +29,11 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   @override
   void initState() {
     super.initState();
-    var id = box.read('user_id');
     memberShipCon.getMemberShip();
   }
 
   @override
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
     final space20 = SizedBox(height: getSize(20, context));
     return Scaffold(
       appBar: PreferredSize(

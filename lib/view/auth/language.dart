@@ -34,7 +34,6 @@ class _LanguagePageState extends State<Language> {
     getLang.getLanguas();
     super.initState();
     box.write('lang_code', 'ar');
-    print(".......///.....-----dosesgrudgirdfgredoig");
   }
 
   List<Widget> getTextWidgets(dataLanguage) {

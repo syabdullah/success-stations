@@ -412,6 +412,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
+        cursorColor: AppColors.appBarBackGroundColor,
+        focusNode: FocusNode(),
+        // autoFocus: true,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 10,bottom: 10),
           fillColor: AppColors.inputColor,
@@ -441,8 +444,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         // initialValue: n,
         textFieldController: mobileNUmberController,
         formatInput: false,
-        keyboardType:
-            TextInputType.numberWithOptions(signed: true, decimal: true),
+        keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
           print('On Saved: $number');
@@ -506,7 +508,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "company".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
@@ -549,7 +551,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coun) {
-              return DropdownMenuItem(value: coun, child: Text(coun['name']));
+              return DropdownMenuItem(
+                value: coun, child: Text(coun['name']!= null ?coun['name']:''));
             }).toList(),
             onChanged: (val) {
               var mapCountry;
@@ -558,6 +561,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 hintTextCountry = mapCountry['name'];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
+                hintRegionText = 'Region';
+                hintcityText =  'City';
               });
             },
           )
@@ -644,8 +649,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
 
   Widget services(List serviceName){
-    print("Builder calling .,...$serviceName");
     return Container(
+      margin: EdgeInsets.only(left:2),
         width: Get.width/1.1,
                 decoration: BoxDecoration(
                   color: AppColors.inPutFieldColor,
@@ -655,12 +660,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   ),
                 ),
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     MultiSelectBottomSheetField(
                       initialChildSize: 0.4,
                       listType: MultiSelectListType.CHIP,
                       searchable: true,
-                      buttonText: Text("Services"),
+                      buttonText: Text("services".tr, style: TextStyle(color:Colors.grey, fontSize: 17 )),
                       items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
                       onConfirm: (values) {
                         var valLoop = values ;
@@ -785,6 +791,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
+        focusNode: FocusNode(),
+        cursorColor: AppColors.appBarBackGroundColor,
+        autoFocus: false,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left:10,bottom: 10),
           fillColor: AppColors.inputColor,
@@ -830,10 +839,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20,top: 10,bottom: 10),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "crs".tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.textInput),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},

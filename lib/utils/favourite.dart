@@ -95,7 +95,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   : myAddGridView(val.fvr8DataList['data']) ,
                 ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
                 Container(
-                  margin: EdgeInsets.only(top: Get.height/ 4),
+                  // margin: EdgeInsets.only(top: Get.height/ 4),
                   child: Center(
                     child: Text(
                     fContr.fvr8DataList['errors'], style:TextStyle(fontSize: 25)),
@@ -117,7 +117,7 @@ class _FavouritePageState extends State<FavouritePage> {
         Row(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 20),
+              // margin: EdgeInsets.only(top: 20),
                 child: CupertinoButton(
                   minSize: double.minPositive,
                   padding: EdgeInsets.zero,
@@ -146,10 +146,10 @@ class _FavouritePageState extends State<FavouritePage> {
             // ),
             SizedBox(width: 5,),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                // margin: EdgeInsets.only(top: 20),
                 child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
+                  // minSize: double.minPositive,
+                  // padding: EdgeInsets.zero,
                   onPressed: () {
                     setState(() {
                         listtype = 'list';
@@ -176,7 +176,7 @@ class _FavouritePageState extends State<FavouritePage> {
             //     )
             //   ),
             // ),
-            SizedBox(height: 30,width: 15,)
+            // SizedBox(height: 30,width: 15,)
           ],
         )
       ],
@@ -346,192 +346,199 @@ class _FavouritePageState extends State<FavouritePage> {
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
+    var newData = [];
+    for (int i = 0; i < listFavourite.length; i++) {
+      newData.add(listFavourite[i]);
+      print(newData.length);
+      
+    }
     
     List<Widget> faviii = [];
     faviii.add(
-      Container(
-        height:  Get.height < 420 ? Get.height /3.4 : Get.height ,
-        child: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(
-          listFavourite.length, 
-          (index) {
-            if(listFavourite[index] !=null && listFavourite[index]['listing'] !=null ){
-              for(int c =0; c < listFavourite[index]['listing']['image'].length; c++){
-                gridImages= listFavourite[index]['listing']['image'][c]['url'];
+       Container(
+          height: Get.height/1,
+          child: GridView.count(
+            reverse: true,
+          crossAxisCount: 2,
+          children: List.generate(
+            newData.length, 
+            (index) {
+              if(newData[index] !=null && newData[index]['listing'] !=null ){
+                for(int c =0; c < newData[index]['listing']['image'].length; c++){
+                  gridImages= newData[index]['listing']['image'][c]['url'];
+                }
               }
-            }
-            return listFavourite[index]['listing']  !=null ? Container(
-              margin: EdgeInsets.only(left:15,right: 15),
-              child:  Card(
-                elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          child: Container(
-                            width: Get.width/0.7,
-                            height: Get.height/10,
-                            //hehe
-                            child: listFavourite[index]['listing']['image'] !=null && gridImages != null ? 
-                            Stack(
-                             alignment:AlignmentDirectional.bottomEnd,
-                              children: [
-                                Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
-                                 listFavourite[index]['listing'] !=null ? 
-                              Container(
-                                padding: EdgeInsets.only(right: 10,bottom: 2),
-                                child: listFavourite[index]['listing']['is_favorite'] == true ?
-                                GestureDetector(
-                                  onTap: (){
-                                     bye = listFavourite[index]['listing']['id'];
-                                    removeFvr8zGrid();
-                                  },
-                                  child: Image.asset(AppImages.redHeart,height:30)
-                                ): null,
-                            ): Container(),
-                              ],
-                            ):
-                            Stack(
-                              alignment:AlignmentDirectional.bottomEnd,
-                              children: [
-                                Center(child: Icon(Icons.person, color: Colors.grey[400],size: 42,)),
-                                  listFavourite[index]['listing'] !=null ? 
-                              Container(
-                                padding: EdgeInsets.only(right: 10,bottom: 2),
-                                child: listFavourite[index]['listing']['is_favorite'] == true ?
-                                GestureDetector(
-                                  onTap: (){
-                                    bye = listFavourite[index]['listing']['id'];
-                                    removeFvr8zGrid();
-                                  },
-                                  child: Image.asset(AppImages.redHeart,height:30)
-                                ): null,
-                            ): Container(),
-                              ],
-                            ) 
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                             child: listFavourite[index]['user_name']['name']  !=null ? Text( 
-                             allWordsCapitilize(listFavourite[index]['user_name']['name'],) 
-                            ): Container()
-                          ),
-                        ),
-                           Container(
-                             //haha
-                           margin: EdgeInsets.only(left:10,right: 10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: listFavourite[index]['listing']['is_rated'] == false
-                                        ? RatingBar.builder(
-                                          initialRating:listFavourite[index]['user_name']['rating'].toDouble(),
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 14.5,
-                                          itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                                          onRatingUpdate: (rating) {
-                                            print('rating on tap ........$rating');
-                                            var ratingjson = {
-                                              'ads_id': listFavourite[index]['id'],
-                                              'rate': rating
-                                            };
-                                            print('.....................Rating data on Tap .........$ratingjson');
-                                            ratingcont.ratings(ratingjson);
-                                            // ratingcont.getratings(allDataAdds[index]['id']);
-                                          },
-                                        )
-                                        : RatingBar.builder(
-                                          initialRating:listFavourite[index]['user_name']['rating'].toDouble(),
-                                          ignoreGestures: true,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 14.5,
-                                          itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                                          onRatingUpdate: (rating) {
-                                            // ratingcont.getratings(allDataAdds[index]['id']);
-                                          },
-                                        )
-                                      ),
-                                //       Container(
-                                //         // width: Get.width/4,
-                                //         // height: Get.height/5.5,
-                                //         child: Row(
-                                //           children: [
-                                //             GestureDetector(
-                                //               onTap: () {
-                                //                 var json = {
-                                //                   'ads_id': dataListValue[index]['id']
-                                //                 };
-                                //                 liked = !liked;
-                                //                 dataListValue[index]['is_favorite'] ==false
-                                //                 ? friCont.profileAdsToFav(json, userId)
-                                //                 : friCont.profileAdsRemove(json, userId);
-                                //                 controller.addedByIdAddes(catID, null);
-                                //               },
-                                //               child: Container(
-                                //                 padding: EdgeInsets.only(right: 5),
-                                //                 child: dataListValue[index]['is_favorite'] ==false
-                                //                 ? Image.asset(AppImages.blueHeart,height: 20)
-                                //                 : Image.asset(AppImages.redHeart,height: 20)
-                                //               ),
-                                //             ),
-                                //             Image.asset(AppImages.call, height: 20),
-                                //     ],
-                                //   )
-                                // )
-                                        GestureDetector(
-                                          onTap: (){launch("tel:${listFavourite[index]['listing']['phone']}");},
-                                          child: Container(
-                                            padding: EdgeInsets.only(right:5),
-                                            child: Image.asset(AppImages.call, height: 20),
-                                          ),
-                                        ),
-                                          ],
-                                        ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: 
-                                   listFavourite[index]['created_by']['address'] !=null ?
-                                   Row(
-                                    children: [
-                                      Icon(Icons.location_on, color:Colors.grey),
-                                      Container(
-                                        child: Text(
-                                          allWordsCapitilize(listFavourite[index]['created_by']['address']),
-                                          style: TextStyle(
-                                            color: Colors.grey[300]
-                                          ),
-                                        )
-                                      )
-                                    ],
-                                  ):Container()
-                                ), 
-                                listFavourite[index]['listing']['price']  !=null ? 
+              return newData[index]['listing']  !=null ? Container(
+                margin: EdgeInsets.only(left:15,right: 15),
+                child:  Card(
+                  elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                            child: Container(
+                              width: Get.width/0.7,
+                              height: Get.height/10,
+                              //hehe
+                              child: newData[index]['listing']['image'] !=null && gridImages != null ? 
+                              Stack(
+                               alignment:AlignmentDirectional.bottomEnd,
+                                children: [
+                                  Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
+                                   newData[index]['listing'] !=null ? 
                                 Container(
-                                  margin: EdgeInsets.only(left:10,right: 10),
-                                  child: Text("SAR ${listFavourite[index]['listing']['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
-                              ],
+                                  padding: EdgeInsets.only(right: 10,bottom: 2),
+                                  child: newData[index]['listing']['is_favorite'] == true ?
+                                  GestureDetector(
+                                    onTap: (){
+                                       bye = newData[index]['listing']['id'];
+                                      removeFvr8zGrid();
+                                    },
+                                    child: Image.asset(AppImages.redHeart,height:30)
+                                  ): null,
+                              ): Container(),
+                                ],
+                              ):
+                              Stack(
+                                alignment:AlignmentDirectional.bottomEnd,
+                                children: [
+                                  Center(child: Icon(Icons.person, color: Colors.grey[400],size: 42,)),
+                                    newData[index]['listing'] !=null ? 
+                                Container(
+                                  padding: EdgeInsets.only(right: 10,bottom: 2),
+                                  child: newData[index]['listing']['is_favorite'] == true ?
+                                  GestureDetector(
+                                    onTap: (){
+                                      bye = newData[index]['listing']['id'];
+                                      removeFvr8zGrid();
+                                    },
+                                    child: Image.asset(AppImages.redHeart,height:30)
+                                  ): null,
+                              ): Container(),
+                                ],
+                              ) 
                             ),
                           ),
-                        ):Container();
-              }
-            )
+                          Center(
+                            child: Container(
+                               child: newData[index]['user_name']['name']  !=null ? Text( 
+                               allWordsCapitilize(newData[index]['user_name']['name'],) 
+                              ): Container()
+                            ),
+                          ),
+                             Container(
+                               //haha
+                             margin: EdgeInsets.only(left:10,right: 10),
+                             child: Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: newData[index]['listing']['is_rated'] == false
+                                          ? RatingBar.builder(
+                                            initialRating:newData[index]['user_name']['rating'].toDouble(),
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemSize: 14.5,
+                                            itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                            onRatingUpdate: (rating) {
+                                              print('rating on tap ........$rating');
+                                              var ratingjson = {
+                                                'ads_id': newData[index]['id'],
+                                                'rate': rating
+                                              };
+                                              print('.....................Rating data on Tap .........$ratingjson');
+                                              ratingcont.ratings(ratingjson);
+                                              // ratingcont.getratings(allDataAdds[index]['id']);
+                                            },
+                                          )
+                                          : RatingBar.builder(
+                                            initialRating:newData[index]['user_name']['rating'].toDouble(),
+                                            ignoreGestures: true,
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemSize: 14.5,
+                                            itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                            onRatingUpdate: (rating) {
+                                              // ratingcont.getratings(allDataAdds[index]['id']);
+                                            },
+                                          )
+                                        ),
+                                  //       Container(
+                                  //         // width: Get.width/4,
+                                  //         // height: Get.height/5.5,
+                                  //         child: Row(
+                                  //           children: [
+                                  //             GestureDetector(
+                                  //               onTap: () {
+                                  //                 var json = {
+                                  //                   'ads_id': dataListValue[index]['id']
+                                  //                 };
+                                  //                 liked = !liked;
+                                  //                 dataListValue[index]['is_favorite'] ==false
+                                  //                 ? friCont.profileAdsToFav(json, userId)
+                                  //                 : friCont.profileAdsRemove(json, userId);
+                                  //                 controller.addedByIdAddes(catID, null);
+                                  //               },
+                                  //               child: Container(
+                                  //                 padding: EdgeInsets.only(right: 5),
+                                  //                 child: dataListValue[index]['is_favorite'] ==false
+                                  //                 ? Image.asset(AppImages.blueHeart,height: 20)
+                                  //                 : Image.asset(AppImages.redHeart,height: 20)
+                                  //               ),
+                                  //             ),
+                                  //             Image.asset(AppImages.call, height: 20),
+                                  //     ],
+                                  //   )
+                                  // )
+                                          GestureDetector(
+                                            onTap: (){launch("tel:${newData[index]['listing']['phone']}");},
+                                            child: Container(
+                                              padding: EdgeInsets.only(right:5),
+                                              child: Image.asset(AppImages.call, height: 20),
+                                            ),
+                                          ),
+                                            ],
+                                          ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: 
+                                     newData[index]['created_by']['address'] !=null ?
+                                     Row(
+                                      children: [
+                                        Icon(Icons.location_on, color:Colors.grey),
+                                        Container(
+                                          child: Text(
+                                            allWordsCapitilize(newData[index]['created_by']['address']),
+                                            style: TextStyle(
+                                              color: Colors.grey[300]
+                                            ),
+                                          )
+                                        )
+                                      ],
+                                    ):Container()
+                                  ), 
+                                  newData[index]['listing']['price']  !=null ? 
+                                  Container(
+                                    margin: EdgeInsets.only(left:10,right: 10),
+                                    child: Text("SAR ${newData[index]['listing']['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
+                                ],
+                              ),
+                            ),
+                          ):Container();
+                }
+              )
+            ),
           ),
-        )
       );
       return faviii;
     }

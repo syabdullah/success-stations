@@ -158,15 +158,11 @@ final controller = Get.put(AddBasedController());
                                               color: Colors.amber,
                                             ),
                                             onRatingUpdate: (rating) {
-                                              print(
-                                                  'rating on tap ........$rating');
                                               var ratingjson = {
                                                 'ads_id': filteredAdds[index]
                                                     ['id'],
                                                 'rate': rating
                                               };
-                                              print(
-                                                  '.....................Rating data on Tap .........$ratingjson');
                                               ratingFilteringController
                                                   .ratings(ratingjson);
                                             },
