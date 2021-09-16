@@ -7,6 +7,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
@@ -83,7 +84,6 @@ class _CountryPageState extends State<Ccountry> {
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
-    final space100 = SizedBox(height: getSize(100, context));
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Container(
@@ -151,7 +151,7 @@ class _CountryPageState extends State<Ccountry> {
  Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/login');
+        Get.to(SignIn());
       },
       child: Container(
         child: Row(

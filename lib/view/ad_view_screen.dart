@@ -155,7 +155,7 @@ Widget titleStep(data) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    data['title']!= null ?
+                    data['title']['en']!= null ?
                     Text(data['title']['en'],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),):Container(),
                    
                   ],

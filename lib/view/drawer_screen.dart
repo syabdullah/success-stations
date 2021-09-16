@@ -214,7 +214,7 @@ var lang;
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
                             Get.off(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
