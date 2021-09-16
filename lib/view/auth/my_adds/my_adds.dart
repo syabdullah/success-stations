@@ -645,7 +645,6 @@ void _adsfiltringheet() {
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
         (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
-        
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
