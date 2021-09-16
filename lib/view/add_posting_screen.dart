@@ -446,7 +446,7 @@ var typeId;
   //   }
 
 Widget istStep(List list,List types){
-  // print("......,,,,,..-----$types");
+  print("......,,,,,..-----$types");
   return  Form(
     key: _formKey,
     child: Column(
@@ -482,7 +482,10 @@ Widget istStep(List list,List types){
                         items: types.map((coun) {
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun['category']['en'])
+                            child: 
+                            Text(
+                              coun['category']['en'] != null ?
+                              coun['category']['en']:" ")
                           );
                         }).toList(),
                           onChanged: (val) {
@@ -711,139 +714,109 @@ Widget secondStep(){
     key: _formKey,
     child:Column(
       children: [
-      SizedBox(height:10.h),
-      Container(
-        margin:EdgeInsets.symmetric(horizontal: 20),
-        width: Get.width * 0.9,
-        child: CustomTextFiled(
-          contentPadding: EdgeInsets.only(left:10,right: 10),
-          isObscure: false,
-          hintText: "full_name".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
-          onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          // isObscure: true,
-          textController: fullNameController ,
-          validator: (value) {  
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-          },
-          errorText: 'Please Enter Full Name',  
-        ),
-        ),
-        SizedBox(height:10.h),
-        Container(
-        margin:EdgeInsets.symmetric(horizontal: 20),
-        width: Get.width * 0.9,
-        child: TextFormField(
-          keyboardType: TextInputType.number,
-          style: TextStyle(
-                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+      SizedBox(height: 5.h,),
+           Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                controller: fullNameController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'enterSomeText'.tr;
+                }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
-                  contentPadding: EdgeInsets.only(left:10,right: 10),
-                  hintText: "mobile_no".tr,
-                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-                  fillColor: AppColors.inputColor,
-                  filled: true,
-                  border: InputBorder.none,
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColors.outline
-                    ),
-                  ),
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                  hintText: "full_name".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
               ) ,
-          onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          // isObscure: true,
-          controller: mobileNoController ,
-          validator: (value) {  
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-          },
-          // errorText: 'Please Enter Full Name',  
-        ),
-        ),
-        SizedBox(height:10.h),
-        Container(
-        margin:EdgeInsets.symmetric(horizontal: 20),
-        width: Get.width * 0.9,
-        child:TextFormField(
-          keyboardType: TextInputType.number,
-          style: TextStyle(
-                  color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
+            ),
+           ),
+           SizedBox(height: 5.h,),
+      SizedBox(height: 5.h,),
+           Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                controller: mobileNoController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'enterSomeText'.tr;
+                }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 13,
                 ),
                 decoration:InputDecoration( 
-                  contentPadding: EdgeInsets.only(left:10,right: 10),
-                  hintText:  "Telephone_no".tr,
-                  hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-                  fillColor: AppColors.inputColor,
-                  filled: true,
-                  border: InputBorder.none,
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColors.outline
-                    ),
-                  ),
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                  hintText: "mobile_number".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
               ) ,
-          onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          // isObscure: true,
-          controller: telePhoneController ,
-          validator: (value) {  
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-          },
-          // errorText: 'Please Enter Full Name',  
-        ),
-        ),
-        SizedBox(height:10.h),
-        Container(
-        margin:EdgeInsets.symmetric(horizontal: 20),
-        width: Get.width * 0.9,
-        child: CustomTextFiled(
-          contentPadding: EdgeInsets.only(left:10,right: 10),
-          isObscure: false,
-          hintText: "emails".tr,
-          hintStyle: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-          hintColor: AppColors.inputTextColor,
-          onChanged: (value) {  },
-          onSaved: (String? newValue) {  }, 
-          onFieldSubmitted: (value) {  }, 
-          // isObscure: true,
-          textController: emailController ,
-          validator: (value) => value == '' ?  'Email Required' :  !value.contains('@') || !value.contains('.')  ? 'Enter valid Email':null,
-          errorText: 'Please Enter Full Name',  
-        ),
-        ),
-        SizedBox(height:15.h),
+            ),
+           ),
+           SizedBox(height: 5.h,),
+           Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                controller:  telePhoneController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'enterSomeText'.tr;
+                }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 13,
+                ),
+                decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                  hintText: "telephone_numbers".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
+              ) ,
+            ),
+           ),
+           SizedBox(height: 5.h,),
+           SizedBox(height: 5.h,),
+           Container(
+              padding: EdgeInsets.symmetric(horizontal:15),
+              child: TextFormField(
+                controller: emailController,
+                validator: (value) {
+                if (value == null || value.isEmpty) {
+                    return 'enterSomeText'.tr;
+                }
+                  return null;
+                },
+                style: TextStyle(
+                  color:AppColors.inputTextColor,fontSize: 13,
+                ),
+                decoration:InputDecoration( 
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                  hintText: "emails".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                ),
+              ) ,
+            ),
+           ),
+           SizedBox(height: 5.h,),
       ],
     ) ,
     );
@@ -975,7 +948,7 @@ Widget secondStep(){
    Widget saveAsDraftButton() {
     return Container(
        height: 40.h,
-      width: 130.w,
+      width: 145.w,
       margin: EdgeInsets.symmetric(horizontal: 15.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

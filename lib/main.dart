@@ -31,9 +31,11 @@ getData() async{
 class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("auth....................$auth");
     lang =  box.read('lang_code');
     return ScreenUtilInit(
       builder:()  {
+        
         return GetMaterialApp(     
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',

@@ -134,8 +134,9 @@ Widget titleStep(data) {
       children: [
         data['image'].length != 0 ? 
         Container(
-          // height: Get.height/4,
-          child: Image.network(data['image'][0]['url'],fit: BoxFit.cover,
+        height: 200,
+          width: Get.width,
+          child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,
           // width:  double.infinity
         )
       ):
@@ -147,37 +148,40 @@ Widget titleStep(data) {
         
         Card(
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: lang=='en'?EdgeInsets.only(left:30,top:20,right: 20):EdgeInsets.only(right:30,top:20,left: 20),
+                margin: lang=='en'?EdgeInsets.only(left:30,top:5,right: 20):EdgeInsets.only(right:30,top:5,left: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     data['title']!= null ?
                     Text(data['title']['en'],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),):Container(),
-                   data['price'] !=null ?  Text('SAR ${reviewPagePrice[0]}',style: TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor),): Container()
+                   
                   ],
                 ),
               ),
               Container(
-                margin:lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
+                padding: EdgeInsets.only(left:30,right: 30,),
+                child: data['price'] !=null ?  Text('SAR ${reviewPagePrice[0]}',style: TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor),): Container()),
+              Container(
+                margin:lang=='en'? EdgeInsets.only(left:30,bottom: 10):EdgeInsets.only(right:30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   
                   children: [
                     Container(
                      // margin: lang=='en'? EdgeInsets.only(left:60,bottom: 3):EdgeInsets.only(right:60,bottom: 3),
-                       
+                      
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 30,),
-                          Text('city'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 20,),
+                          Text('city0'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 8.h),
                           Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                          SizedBox(height: 15.h,),
-                           Text("add_number".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 11.h,),
+                           Text("city2".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
@@ -194,14 +198,14 @@ Widget titleStep(data) {
                          crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 30,),
-                          Text("type".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          Text("city1".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                          SizedBox(height: 15.h,),
-                           Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 10.h,),
+                           Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(data['status'] == 0 ? 'old'.tr: 'new'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                          SizedBox(height: 15.h),
+                          SizedBox(height: 23.h),
                           
                         ],
                         ),
@@ -222,7 +226,7 @@ Widget titleStep(data) {
           children: [
             Container(
             margin: lang=='en'?EdgeInsets.only(left:10):EdgeInsets.only(left:10),  
-            child: Text("details".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
+            child: Text("city4".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
             SizedBox(height:5.h),
             Html(data: htmldata)
             // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
@@ -285,7 +289,16 @@ Widget titleStep(data) {
         ),
     ),
       ),
-  )
+  ),
+Container(
+  margin: EdgeInsets.only(left: 20,right: 20),
+  child:   Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+          Text("adpostedat".tr,style: TextStyle(color: Colors.grey[700]),),
+    ],
+  ),
+),
     ],
    );
 }
@@ -431,6 +444,7 @@ Widget mytraling(idU){
 
 Widget commentButton() {
     return Container(
+       padding: const EdgeInsets.symmetric(horizontal:15.0),
       height: 40.h,
       width: Get.width,
       child: ElevatedButton(
@@ -490,29 +504,32 @@ Widget commentButton() {
   }
 
 Widget commentInput(){
-  return  TextFormField(
-    maxLines: 4,
-    textAlignVertical: TextAlignVertical.top,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter some text';
-      }
-      return null;
-    },
-    onChanged: (val) {
-      setState((){
-        comment = val;
-      });
-    },
-    style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
-    decoration:InputDecoration(
-      contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 80.0):EdgeInsets.fromLTRB(0.0, 20.0, 10.0, 80.0),
-      hintText: "write_comment_here".tr,
-      border: OutlineInputBorder( 
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: BorderSide(color: AppColors.inputTextColor),
-      ),
-    ) ,
+  return  Padding(
+    padding: const EdgeInsets.symmetric(horizontal:15.0),
+    child: TextFormField(
+      maxLines: 4,
+      textAlignVertical: TextAlignVertical.top,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
+      onChanged: (val) {
+        setState((){
+          comment = val;
+        });
+      },
+      style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
+      decoration:InputDecoration(
+        contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0):EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 80.0),
+        hintText: "write_comment_here".tr,
+        border: OutlineInputBorder( 
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: AppColors.inputTextColor),
+        ),
+      ) ,
+    ),
   );
 }
 

@@ -42,32 +42,10 @@ class _SignPageState extends State<SignIn> {
     super.initState();
     lang = box.read('lang');
     choose = box.read('lang_code');
-    print("........<><><><><><><//chaho/\/\/\/......$lang");
     GoogleSignInC().singIn();
     loginCont.resultInvalid(false);
     errorCheck = true;
   }
-// Future<bool> _onWillPop() {
-//     return showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text('Are you sure?'),
-//         content: Text('Do you want to exit an App'),
-//         actions: <Widget>[
-//           TextButton(
-//             onPressed: () => Navigator.of(context).pop(false),
-//             child: Text('No'),
-//           ),
-//           TextButton(
-//             onPressed: () => exit(0),
-//             /*Navigator.of(context).pop(true)*/
-//             child: Text('Yes'),
-//           ),
-//         ],
-//       ),
-//     ) ??
-//     false;
-// }
   signIn() {
     final form = formKey.currentState;
     if (form!.validate()) {
@@ -83,10 +61,8 @@ class _SignPageState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-            // Action to perform on back pressed 
-            return true;
-        }, 
+      onWillPop: () async => true,
+       
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
