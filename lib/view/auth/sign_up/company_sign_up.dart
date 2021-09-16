@@ -549,7 +549,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coun) {
-              return DropdownMenuItem(value: coun, child: Text(coun['name']));
+              return DropdownMenuItem(
+                value: coun, child: Text(coun['name']!= null ?coun['name']:''));
             }).toList(),
             onChanged: (val) {
               var mapCountry;
@@ -558,6 +559,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 hintTextCountry = mapCountry['name'];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
+                hintRegionText = 'Region';
+                hintcityText =  'City';
               });
             },
           )

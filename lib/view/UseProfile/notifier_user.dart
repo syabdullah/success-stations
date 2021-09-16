@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class NotifierUser extends StatefulWidget {

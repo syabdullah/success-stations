@@ -470,7 +470,6 @@ Widget istStep(List list,List types){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Container(
-                            
                           child: Text(
                             selectedCategory != null ? selectedCategory : "categories".tr, 
                             style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
