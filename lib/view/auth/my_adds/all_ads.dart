@@ -152,7 +152,6 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   Widget topWidget() {
-    var list;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1093,6 +1092,7 @@ class _AllAddsState extends State<AllAdds> {
                           textAllcheck = true;
                           id = havingAdds[index]['id'];
                           controller.addedByIdAddes(havingAdds[index]['id'], null);
+                          // addsGet.myAddsCategory();
                         });
                       },
                       child: Container(

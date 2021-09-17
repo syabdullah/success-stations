@@ -9,7 +9,6 @@ class MemberShipController extends GetxController {
   getMemberShip() async{
     await subscriptionAction().then((value) {
        result = jsonDecode(value.body);
-      print("Print result....$result");
     });
   }
 }

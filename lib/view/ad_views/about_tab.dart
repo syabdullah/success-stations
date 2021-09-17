@@ -25,25 +25,13 @@ class _AboutTabState extends State<AboutTab> {
 @override
   void initState() {
     id = Get.arguments;
-    print(id);
     userProfile.getUseradProfile(id);
     lastads.userOfferList(id);
     userOffers.userOfferList(id);
     lastLoc.userlocationList(id);
     super.initState();
   }    
-  // @override
-  // void dispose() {
-  //  id = Get.arguments;
-  //   print(id);
-  //   userProfile.getUseradProfile(id);
-  //   lastads.userOfferList(id);
-  //   userOffers.userOfferList(id);
-  //   lastLoc.userlocationList(id);
-  //   super.dispose();
-
-  // }
-  
+ 
   int offer = 0;
   @override
   Widget build(BuildContext context) {
@@ -58,7 +46,7 @@ class _AboutTabState extends State<AboutTab> {
              return 
              value.userData2 != null ?
              detail(value.userData2['data']):Center(child: CircularProgressIndicator());
-            //  allUsers(value.userData['data']): Center(child: CircularProgressIndicator());
+            //  
              } // value is an instance of Controller.
           ),
             // detail(),
@@ -79,14 +67,11 @@ class _AboutTabState extends State<AboutTab> {
                GetBuilder<UserOfferController>( // specify type as Controller
                 init: UserOfferController(), // intialize with the Controller
                 builder: (value){ 
-                  print(value.offerDattaTypeCategory);
-                  
                   return 
                   value.offerDattaTypeCategory != null ?
                   lastAds2(value.offerDattaTypeCategory['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
                 }
                   ),
-          //  SizedBox(height: 10,),
              Text("${'lastlocation'.tr}",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.black),
               ),
@@ -228,7 +213,6 @@ Widget lastAds2(offerDattaTypeCategory){
 }
  var imageGived;
 Widget lastAds(lastuserad){
-  print("Get.height ${Get.width}");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height > 400 ? Get.height/3.6:Get.height/4,
@@ -348,8 +332,6 @@ Widget lastAds(lastuserad){
 }
 
 Widget lastLocation(locLast){
-  print("........... prinyted values.....$locLast");
-  print("Get.height ${Get.width}");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height > 400 ? Get.height/4.4:Get.height/5,

@@ -41,7 +41,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
     user_image = box.read('user_image');
     adId = Get.arguments;
     aboutadID =Get.arguments;
-    print(aboutadID);
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
     
@@ -54,7 +53,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
       'comment': comment,
       'user_name_id':id
     };
-    print(json);
     adpostingController.commentPost(json);
   }
   @override
@@ -228,11 +226,7 @@ Widget titleStep(data) {
             Container(
             margin: lang=='en'?EdgeInsets.only(left:10):EdgeInsets.only(left:10),  
             child: Text("city4".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
-            // SizedBox(height:5.h),
             Html(data: htmldata)
-            // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
-            // textAlign: TextAlign.justify,
-            // style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
           ],
         ),
        ),
@@ -252,9 +246,6 @@ Widget titleStep(data) {
                 backgroundImage: NetworkImage(data['created_by']['image']['url']
                 )
               ):Icon(Icons.image)) 
-          // Image.asset(
-          //   AppImages.profile,
-          // ),
         ),
       
       Padding(
@@ -283,7 +274,6 @@ Widget titleStep(data) {
       GestureDetector(
         onTap: () {
           Get.to(FriendProfile(),arguments: ["ads",data['created_by']['id']]);
-          print(data['created_by']['id']);
         },
         child: Text("${"see_profile".tr} >",style:
         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
@@ -303,59 +293,6 @@ Container(
     ],
    );
 }
-// Widget listTileRow(data){
-
-//   return data == null ? 
-//       Container(
-//         child: Text("No Detail"),
-//        ) :ListTile(
-//       title: Row(
-//       children: [
-//         CircleAvatar(
-//         backgroundColor: Colors.white54,
-//         radius: 30.0,
-//         child: ClipRRect(
-//           borderRadius: BorderRadius.circular(50.0),
-//           child: user_image != null ? 
-//           Image.network(user_image['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
-//           // Image.asset(
-//           //   AppImages.profile,
-//           // ),
-//         )
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.only(left:8.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Container(
-//               width: Get.width/3.5,
-//               child: Text(myName.toString(),style:
-//                 AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
-//                 ),
-//               ),
-//             ),
-//             Text("Owner",style:
-//             AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
-//             ),
-//           ),
-//          ],
-//         ),
-//       )
-//      ],
-//     ),
-//     trailing: 
-//       GestureDetector(
-//         onTap: () {
-//           Get.to(UserProfile());
-//         },
-//         child: Text("${"see_profile".tr} >",style:
-//         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
-//         ),
-//     ),
-//       ),
-//   );
-// }
 
 Widget listTileRow2(data) {
   return Container(

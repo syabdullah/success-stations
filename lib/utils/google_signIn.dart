@@ -28,10 +28,8 @@ class GoogleSignInC {
 
   Future<void> handleSignIn() async {
    final login =  Get.put(LoginController());
-    print("..........................");
     try {
       await googleSignIn.signIn().then((value) {
-        print(value);
         var json = {
            "email" : value!.email,
            'name' : value.displayName,
@@ -39,21 +37,13 @@ class GoogleSignInC {
         };
         login.loginSocial(json);
         value.authentication.then((googleKey){
-          // dataStore.write("access_token", googleKey.accessToken);
-          // dataStore.write("id_token", googleKey.idToken);
-              print(googleKey);
-              print(googleKey.idToken);
               if(googleKey.accessToken != null) {
-                // Get.toNamed('/tabs');
               }
-              // print(googleSignIn.currentUser.displayName);
         }).catchError((err){
         });
       } 
       );
-      // Get.to(StudentSignUp());
     } catch (error) {
-      print(error);
     }
   }
 

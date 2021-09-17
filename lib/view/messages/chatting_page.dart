@@ -62,7 +62,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           "room": "convo-$conversationID",
           "username": "user-$userId"
         });
-          socket.onDisconnect((_) => print('disconnect-----========----'));
       }
       catch (e) {
       print(e.toString());
@@ -82,7 +81,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   }
   @override
   void dispose() {
-    print("Card ---------------- -==--==---=--disposed");
     super.dispose();
   }
   //reviewd

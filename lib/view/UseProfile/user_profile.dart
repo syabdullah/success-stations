@@ -22,24 +22,17 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     super.initState();
     lang = box.read('lang_code');
     userimage = box.read('user_image');
-    //  id = Get.arguments;
-    // print("../././....----------$id");
-    // friCont.friendDetails(id);
-    // friCont.profileAds(id);
-    // _controller = TabController(length: 2,vsync: this);
+   
   }
   @override
   bool get wantKeepAlive => true;
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    print(Get.width);
-    print(Get.height);
     return Scaffold(
       body: GetBuilder<UserProfileController>(
         init: UserProfileController(),
         builder:(val) {
-          print(val.userData);
           return
           val.userData!= null ? Column(
             children: [

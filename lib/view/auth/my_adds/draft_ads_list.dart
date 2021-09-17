@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/user_drafted_controller.dart';
-import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class DraftAds extends StatefulWidget {
@@ -41,12 +38,9 @@ class _DraftAdsState extends State<DraftAds> {
           icon:
           Icon(Icons.arrow_back_ios_new)
         ),
-        // automaticallyImplyLeading: true,
-        
       ),
         body: GetBuilder<DraftAdsController>( // specify type as Controller
-          init: DraftAdsController(), // intialize with the Controller
-          // print(getData.userData);
+          init: DraftAdsController(), // 
           builder: (value) { 
            return value.isLoading == true ?  Center(child: CircularProgressIndicator()): value.userData['success'] == true ? draftedlist(value.userData['data']) : value.userData['success'] == false ? Container(
              child: Center(child: Text(value.userData['errors'],style: TextStyle(fontWeight: FontWeight.bold),)),
@@ -62,7 +56,6 @@ Widget draftedlist(allDataAdds){
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
           onTap: () {
-            // Get.to(AddPostingScreen(), arguments: allDataAdds[index]);
           },
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -112,25 +105,7 @@ Widget draftedlist(allDataAdds){
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              // Expanded(
-                              //   flex : 2,
-                              //   child:  Row(
-                              //     children: [
-                              //       Icon(Icons.location_on, color:Colors.grey),
-                              //       Container(
-                              //         margin:EdgeInsets.only(left:29),
-                              //         child: Text(
-                              //           allDataAdds[index]['user']['address']!=null ? allDataAdds[index]['user']['address']: '',
-                              //           style: TextStyle(
-                              //             color: Colors.grey[300]
-                              //           ),
-                              //         ),
-                              //       )
-                              //     ],
-                              //   ),
-                                        // ),
                              
-                                
                               Expanded(
                                 flex: 2,
                                 child: Row(
@@ -138,7 +113,6 @@ Widget draftedlist(allDataAdds){
                                     Icon(Icons.person, color: Colors.grey),
                                     Container(
                                       width: Get.width/4,
-                                      // margin:EdgeInsets.only(left:29),
                                       child: Text(
                                         allDataAdds[index]['contact_name'] != null
                                             ? allDataAdds[index]['contact_name']
@@ -164,7 +138,6 @@ Widget draftedlist(allDataAdds){
                         color : AppColors.appBarBackGroundColor,
                         height: 30,
                         width: Get.width/4,
-                        // margin: EdgeInsets.only(right: ),
                         child: Center(child: Text("publish".tr,style: TextStyle(color: Colors.white),)),
                       ),
                     )

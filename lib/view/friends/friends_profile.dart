@@ -37,19 +37,13 @@ class _FriendProfileState extends State<FriendProfile>
     requister = box.read("requister");
     langg = box.read('lang_code');
     dtaaa = Get.arguments;
-    // if(dtaaa[0] == 'ads') {
-    //   notifyid = dtaaa[1];
-    // }else
-    // adID = dtaaa[1];
     id = dtaaa[1];
-    print("../././...here the id.----------$id");
     friCont.friendDetails(id);
     friCont.profileAds(id);
   }
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
-    print(Get.width);
 
     return DefaultTabController(
       length: 2,
@@ -84,9 +78,7 @@ class _FriendProfileState extends State<FriendProfile>
 
   var image;
   Widget profileDetail(data) {
-    //print("....Countries.......${data['country']}");
     var country = data['country'];
-    print("..........---------${data['media']}DAATTAAA.....${data['image']}");
     if (data['image'] != null) {
       image = data['image']['url'];
       box.write('chat_image', image);
@@ -268,7 +260,6 @@ class _FriendProfileState extends State<FriendProfile>
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
             onTap: () {
-              print("././......$id");
               chatCont.createConversation(id);
               Get.to(ChattinPagePersonal(), arguments: [0, name['name']]);
               // Get.find<ChatController>().createConversation(id);
@@ -703,7 +694,6 @@ class _FriendProfileState extends State<FriendProfile>
   }
 
   Widget ads(adsData) {
-    // print("hhjgdhjagdhj...hjsdhjasgdhj......$adsData");
     return ListView.builder(
       itemCount: adsData != null ? adsData.length : 0,
       itemBuilder: (BuildContext context, index) {
@@ -715,7 +705,6 @@ class _FriendProfileState extends State<FriendProfile>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          // pad: EdgeInsets.only(left:20,right: 30),
                           width: langg == 'en' ? Get.width/3.3 : Get.width/3.5,
                           margin: EdgeInsets.symmetric(
                               vertical: 6.0, horizontal: 10.0),

@@ -17,15 +17,9 @@ class UserOfferController extends GetxController {
   }
 
   userOfferList(id) async{
-    print("controller call of the Favorite list");
     isLoading = true;
     await userOffers(id).then((value) {
-      print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
       offerDattaTypeCategory = jsonDecode(value.body);
-      print("hehehhehehhehehehheheheheh $offerDattaTypeCategory");
-      // for(int c =0; c < offerDattaTypeCategory['data'].length; c++){
-      //   offeredList.add(offerDattaTypeCategory['data'][c]);
-      // }
       isLoading = false;
     });
     update();
@@ -34,12 +28,8 @@ class UserOfferController extends GetxController {
     isLoading = true;
     await deleteOfferAction(data).then((res) {
        deleteOffer = jsonDecode(res.body);
-       print(deleteOffer);
-        print(res.statusCode);
       if(res.statusCode < 400){
         cont.drawerMyOffer();
-        // Get.off(NotificationPage());
-    // allNoti();
         isLoading=false;
       } if(res.statusCode > 400){
           Get.snackbar(deleteOffer['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);

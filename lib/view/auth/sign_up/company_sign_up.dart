@@ -97,7 +97,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
     lang = box.read('lang_code');
     print("lang of the country code..........$lang");
     counCode = Get.arguments;
-    print("..... councode.............$counCode");
     inputValuePhone = counCode[0].toString();
     companyCode = PhoneNumber(isoCode: inputValuePhone);
     errorCheck = true;
@@ -119,7 +118,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'company_name':comNameController.text,
         'service_ids[]': selectedAnimals2
       };
-      print("compamny servicesa... json ...$json");
       signUpCont.companyAccountData(json);
     }
   }
@@ -140,7 +138,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text,
         'service_ids[]': selectedAnimals2
       };
-       print("compamny servicesa... json ...$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -250,26 +247,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               radioalert(),
               v == 2 ? 
-            
                comName()
-              
               :space10,
               v == 2 ?
               cR():
-              // space10,
               v == 1 ? 
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
                     iqama(),
-                    // space10,
-              //       GetBuilder<ServicesController>(
-              //   init: ServicesController(),
-              //   builder: (val){
-              //     return services(val.servicesListdata);
-              //   },
-              // ),
                   ],
                 )): 
               space10,
@@ -432,10 +419,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
         },
         onInputValidated: (bool value) {
-          print(value);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -449,7 +434,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print('On Saved: $number');
         },
         initialValue: companyCode,
       )
@@ -692,46 +676,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         },
                       ),
                     ),
-                    // selectedAnimals2 == null || selectedAnimals2.isEmpty
-                    //     ? Container(
-                    //         padding: EdgeInsets.all(10),
-                    //         alignment: Alignment.centerLeft,
-                    //         child: Text(
-                    //           "None selected",
-                    //           style: TextStyle(color: Colors.black54),
-                    //         ))
-                    //     : Container(),
-      
-          // MultiSelectBottomSheetField(
-            
-          //   // initialChildSize: 0.7,
-          //   listType: MultiSelectListType.CHIP,
-          //   searchable: true,
-          //   decoration: BoxDecoration(
-          //     color: AppColors.inputColor,
-          //     border: Border.all(
-          //       color: AppColors.inputTextColor
-          //     )
-          //   ),
-          //   buttonText: Text("Services"),
-          //   items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
-          //   onConfirm: (e) {
-           
-          //     // print(",msxmxm,xmxm,samxsm,xslkxcjmdkjcdskcmjs${ e[0]['id']}");
-              
-              
-          //   },
-          //   chipDisplay: MultiSelectChipDisplay(
-          //     onTap: (value) {
-               
-               
-          //       setState(() {
-          //         selectedAnimals2.remove(value);
-          //       });
-          //     },
-          //   ),
-          // ),
-                
+                  
       ] ));
   }
 
@@ -817,10 +762,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
         },
         onInputValidated: (bool value) {
-          print(value);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -835,7 +778,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
             TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print('On Saved: $number');
         },
         initialValue: companyCode,
       )

@@ -220,14 +220,11 @@ class _FavouritePageState extends State<FavouritePage> {
                                           itemSize: 14.5,
                                           itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                           onRatingUpdate: (rating) {
-                                            print('rating on tap ........$rating');
                                             var ratingjson = {
                                               'ads_id': listFavourite[c]['id'],
                                               'rate': rating
                                             };
-                                            print('.....................Rating data on Tap .........$ratingjson');
                                             ratingcont.ratings(ratingjson);
-                                            // ratingcont.getratings(allDataAdds[index]['id']);
                                           },
                                         )
                                         : RatingBar.builder(
@@ -240,7 +237,6 @@ class _FavouritePageState extends State<FavouritePage> {
                                           itemSize: 14.5,
                                           itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
                                           onRatingUpdate: (rating) {
-                                            // ratingcont.getratings(allDataAdds[index]['id']);
                                           },
                                         )
                                       ),
@@ -262,7 +258,6 @@ class _FavouritePageState extends State<FavouritePage> {
                                   ],
                                 ):Container()
                               ): Container(),
-                              // Text("heheh")
                               
                             ],
                           ),
@@ -273,18 +268,6 @@ class _FavouritePageState extends State<FavouritePage> {
                     SizedBox(height:20),
                     Column(
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 10, right: 10),
-                        //   child: ClipOval(
-                        //     child: listFavourite[c]['user_name'] !=null && listFavourite[c]['user_name']['image'] !=null ?Image.network(
-                        //       listFavourite[c]['user_name']['image'],
-                        //       width: 50,
-                        //       height: 50,
-                        //       fit: BoxFit.cover,
-                                  
-                        //     ):CircleAvatar(backgroundColor:Colors.grey[100])
-                        //   )
-                        // ),
                         SizedBox(height:30),
                         Row(
                           children: [
@@ -302,7 +285,6 @@ class _FavouritePageState extends State<FavouritePage> {
                               padding: EdgeInsets.only(right:15),
                               child: GestureDetector(
                                 onTap: (){
-                                  print("hehe");
                                    launch("tel:${listFavourite[c]['listing']['phone']}");
                                 },
                                 child: Image.asset(AppImages.call, height: 20)),
@@ -429,12 +411,10 @@ class _FavouritePageState extends State<FavouritePage> {
                                             itemSize: 14.5,
                                             itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                             onRatingUpdate: (rating) {
-                                              print('rating on tap ........$rating');
                                               var ratingjson = {
                                                 'ads_id': newData[index]['id'],
                                                 'rate': rating
                                               };
-                                              print('.....................Rating data on Tap .........$ratingjson');
                                               ratingcont.ratings(ratingjson);
                                               // ratingcont.getratings(allDataAdds[index]['id']);
                                             },
@@ -449,37 +429,10 @@ class _FavouritePageState extends State<FavouritePage> {
                                             itemSize: 14.5,
                                             itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
                                             onRatingUpdate: (rating) {
-                                              // ratingcont.getratings(allDataAdds[index]['id']);
                                             },
                                           )
                                         ):Container(),
-                                  //       Container(
-                                  //         // width: Get.width/4,
-                                  //         // height: Get.height/5.5,
-                                  //         child: Row(
-                                  //           children: [
-                                  //             GestureDetector(
-                                  //               onTap: () {
-                                  //                 var json = {
-                                  //                   'ads_id': dataListValue[index]['id']
-                                  //                 };
-                                  //                 liked = !liked;
-                                  //                 dataListValue[index]['is_favorite'] ==false
-                                  //                 ? friCont.profileAdsToFav(json, userId)
-                                  //                 : friCont.profileAdsRemove(json, userId);
-                                  //                 controller.addedByIdAddes(catID, null);
-                                  //               },
-                                  //               child: Container(
-                                  //                 padding: EdgeInsets.only(right: 5),
-                                  //                 child: dataListValue[index]['is_favorite'] ==false
-                                  //                 ? Image.asset(AppImages.blueHeart,height: 20)
-                                  //                 : Image.asset(AppImages.redHeart,height: 20)
-                                  //               ),
-                                  //             ),
-                                  //             Image.asset(AppImages.call, height: 20),
-                                  //     ],
-                                  //   )
-                                  // )
+                                 
                                           GestureDetector(
                                             onTap: (){launch("tel:${newData[index]['listing']['phone']}");},
                                             child: Container(
@@ -544,7 +497,6 @@ class _FavouritePageState extends State<FavouritePage> {
   }
 
   Widget addsCategoryWidget(listingCategoriesData){
-    print("my adds Page.......................,,,,,,,...$listingCategoriesData");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -565,7 +517,6 @@ class _FavouritePageState extends State<FavouritePage> {
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
                       onTap: () {
-                        print("rrrrrrrrrrrr redixxx${listingCategoriesData[index]['id']}");
                         setState(() {
                           ind = ++ind;
                           selectedIndex = index;

@@ -22,7 +22,6 @@ class _CountryPageState extends State<Ccountry> {
   var selectedIndex;
   GetStorage box = GetStorage();
   Widget featureCountryList(countryListData) {
-    print("countryv Datta/..>$countryListData");
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 4.30,
@@ -35,11 +34,9 @@ class _CountryPageState extends State<Ccountry> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
-                  print("....country based.......$selectedIndex");
                   box.write("country", selectedIndex);
                   box.write("country_id", countryListData[index]['id']);
                   box.write(  "country_code", countryListData[index]['short_code']);
-                  print("country id.....${ countryListData[index]['short_code']}");
                   countrycOde = countryListData[index]['short_code'];
                   countryId = countryListData[index]['id'];
                 });
