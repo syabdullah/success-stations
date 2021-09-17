@@ -27,15 +27,4 @@ class RatingController extends GetxController {
     });
     update();
   }
-
-
-  //  getratings(data) async {
-  //   isLoading(true);
-  //   await getRating(data).then((value){
-  //   getRate = jsonDecode(value.body);
-  //   print(" .......... .... .... .....GET API OF rating.. .........  ...... $getRate");
-  //   isLoading(false);
-  //   });
-  //   update();
-  // }
 }

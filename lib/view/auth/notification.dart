@@ -36,22 +36,10 @@ class _NotificationPageState extends State<NotificationPage> {
       body:SafeArea(
         child: ListView(
           children:[
-          //  GetBuilder<NotificationController>( // specify type as Controller
-          //         init: NotificationController(), // intialize with the Controller
-          //         builder: (value){ 
-          //           print(value.recentNotifications);
-          //           return 
-          //           value.recentNotifications != null ?
-          //           recentNotifications(value.recentNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
-          //         }
-          //           ),
-          //           SizedBox(height: 10,),
-                   
+        
                   GetBuilder<NotificationController>( // specify type as Controller
                   init: NotificationController(), // intialize with the Controller
                   builder: (value){ 
-                    print(value.allNotifications);
-                    
                     return 
                     value.allNotifications != null ?
                     fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
@@ -150,7 +138,6 @@ var idd;
                                           GestureDetector(
                                         onTap: () {
                                           controller.deleteNotificationController(data[index]['id']);
-                                          print(data[index]['id']);
                                         },
                                           child: Icon(Icons.cancel, color: Colors.grey,))
                                       ],
@@ -163,7 +150,6 @@ var idd;
                                   GestureDetector(
                                     onTap: (){
                                       Get.to(NotifierUser(),arguments:data[index]['notifier']['id'] );
-                                      print(data[index]['notifier']['id']);
                                     },
                                     child: CircleAvatar(
                                     radius: 30,

@@ -268,7 +268,6 @@ class _FriendListState extends State<FriendList> {
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
         newData.add(dataGrid[i]);
-        print(newData.length);
       }
     }
     return GridView.count(

@@ -75,9 +75,6 @@ class _LanguagePageState extends State<Language> {
               Get.to(Ccountry());
               setState(() {
                 index = i;
-                print("ONtAP INDEX.....>$index");
-                print(
-                    ".......///.....----------${dataLanguage['data'][i]['short_code']}");
                 box.write('lang_id', dataLanguage['data'][i]['id']);
                 box.write('lang_code', dataLanguage['data'][i]['short_code']);
                 LocalizationServices()

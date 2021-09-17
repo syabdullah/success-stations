@@ -38,7 +38,6 @@ final controller = Get.put(AddBasedController());
     data = Get.arguments;
     controller.addedAllAds();
     lang = box.read('lang_code');
-    print("...<><><><><><///<><><><>///.....$data");
     super.initState();
   }
 
@@ -288,8 +287,6 @@ var ind = 0;
  Widget draftedGridlist(filteredAdds) {
     return Container(
       margin: lang=='en'? EdgeInsets.only(left:20,right: 20,top: 10): EdgeInsets.only(left:20,right: 20,top: 10),
-      //width: Get.width ,
-      //width: Get.width / 1.10,
       child: GridView.count(
           crossAxisCount: 2,
           mainAxisSpacing: 12,
@@ -301,8 +298,6 @@ var ind = 0;
             return Container(
                 decoration: new BoxDecoration(),
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
-                //margin: EdgeInsets.only(left: 10),
-                // height: Get.height < 420 ? Get.height / 3.7 : Get.height / 9.0,
                 child: GestureDetector(
                   onTap: (){
             Get.to(AdViewScreen(), arguments: filteredAdds[index]['id']);
@@ -326,7 +321,6 @@ var ind = 0;
                                     ? Get.width / 1.4
                                     : Get.width / 2.3,
                                 height: Get.height / 12.0,
-                                //height: Get.height / 8.0,
                                 child: filteredAdds[index]['image'].length != 0
                                     ? Stack(
                          alignment:AlignmentDirectional.bottomEnd,
@@ -347,7 +341,6 @@ var ind = 0;
                                   ? frindCont.profileAdsToFav(json, userId)
                                   : frindCont.profileAdsRemove(json, userId);
                               adbAsedContr.addedByIdAddes( filteredAdds[index]['id'], null);
-                              print(json);
                             },
                             child: Container(
                                 padding: EdgeInsets.only(right: 5),
@@ -427,12 +420,10 @@ var ind = 0;
                                     itemSize: 14,
                                     itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                     onRatingUpdate: (rating) {
-                                      print('rating on tap ........$rating');
                                       var ratingjson = {
                                         'ads_id': filteredAdds[index]['id'],
                                         'rate': rating
                                       };
-                                      print('.....................Rating data on Tap .........$ratingjson');
                                       ratingcont.ratings(ratingjson);
                                       // ratingcont.getratings(allDataAdds[index]['id']);
                                     },
@@ -457,8 +448,6 @@ var ind = 0;
                               filteredAdds[index]['phone']!= null ?
                               GestureDetector(
                                 onTap: (){
-                                  print("hehe");
-                                   launch("tel:${filteredAdds[index]['phone']}");
                                 },
                                 child: Image.asset(AppImages.call, height: 20)):Container()
                             ),

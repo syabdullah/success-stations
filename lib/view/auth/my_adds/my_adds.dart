@@ -353,7 +353,6 @@ void _adsfiltringheet() {
                       ),
                       onChanged: (values) {
                         setState(() {
-                          print("start : ${values.start}, end: ${values.end}");
                           _currentRangeValues = values;
                         });
                       },
@@ -474,20 +473,12 @@ void _adsfiltringheet() {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemSize: 13.5,
-                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
 
                                 onRatingUpdate: (rating) {
-                                  //  var ratingjson = {
-                                  //    'ads_id' : userData[index]['id'],
-                                  //    'rate': rating
-                                  //  };
-                                  //  ratingcont.ratings(ratingjson );
-                                  //  ratingcont.getratings(userData[index]['id']);
                                 },
                               ),
                               Container(
@@ -521,24 +512,6 @@ void _adsfiltringheet() {
                                     ],
                                   ),
                                 ),
-                                // SizedBox(height: 8),
-                                  // Expanded(
-                                  //   flex:3,
-                                  //   child: Container(
-                                  //     margin: EdgeInsets.only(left:10),
-                                  //     child: Row(
-                                  //       children: [
-                                  //         Icon(Icons.person, color:Colors.grey),
-                                  //         Text(
-                                  //           allDataAdds[index]['user']['name'],
-                                  //           style: TextStyle(
-                                  //             color: Colors.grey[300]
-                                  //           ),
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
                               ],
                             ),
                           ),
@@ -553,26 +526,6 @@ void _adsfiltringheet() {
                           child: 
                           Row(
                             children: [
-                              // GestureDetector(
-                              //   onTap: (){
-                              //     Get.to(AddPostingScreen(),arguments:allDataAdds[index] );
-                              //   },
-                              //   child: CircleAvatar(
-                              //     radius: 10,
-                              //     backgroundColor: Colors.red,
-                              //     child: Icon(Icons.edit,color: Colors.white,)),
-                              // ),
-                              //   SizedBox(width: 3,),
-                              // CircleAvatar(
-                              //   backgroundColor: Colors.grey[200],
-                              //   child: GestureDetector(
-                              //     onTap: (){
-                              //     deleteAd.adDelete(allDataAdds[index]['id']);
-                              //     controller.addedByIdAddes(allDataAdds[index]['id'],allDataAdds[index]['category_id']);
-                              //     },
-                              //     child: Icon(Icons.person))
-                              //   ),
-                                
                             ],
                           ) 
                         ),
@@ -591,14 +544,11 @@ void _adsfiltringheet() {
                                       var json = {
                                           'ads_id' : allDataAdds[index]['id']
                                         };
-                                        // setState(() {
                                           liked = !liked;
-                                        // });
                                         allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
                                         controller.addedByIdAddes(catID, userId);
                                     },
                                     child: Container(
-                                      // padding: EdgeInsets.only(right:5),
                                       child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
                                     ),
                                   ),
@@ -613,13 +563,11 @@ void _adsfiltringheet() {
                          child: Switch.adaptive(
                            activeColor: AppColors.appBarBackGroundColor,
                            value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                            // setState(() {
                               allDataAdds[index]['is_active'] == 1 ?
                               controller.deactiveAd(allDataAdds[index]['id']) :
                               controller.activeAd(allDataAdds[index]['id']) ;
                               controller.addesMyListAll();
                               controller.addedByIdAddes(catID, userId);
-                            // });
                            }),
                        ),   
                       ],
@@ -636,7 +584,6 @@ void _adsfiltringheet() {
   var ind = 0 ;
   var myAddssplitedPrice;
   myAddGridView(dataListValue) {   
-    print("aAAAAA____++++++++------AAAAA---$dataListValue");
     return Container(
       width: Get.width,
       child: GridView.count(
@@ -680,7 +627,6 @@ void _adsfiltringheet() {
                                     width: Get.width/4,
                                     child: Icon(Icons.image,size: 50,),
                                   )
-                            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
@@ -691,7 +637,6 @@ void _adsfiltringheet() {
                           ),
                         ), 
                          Container(
-                          //  padding: EdgeInsets.only(left:10),
                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -703,12 +648,10 @@ void _adsfiltringheet() {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 13.5,
-
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-
                                   onRatingUpdate: (rating) {
                                   },
                                 ),
@@ -827,16 +770,9 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              // if(ind == 0){
-              //   catID =  listingCategoriesData[index]['id'];
-              //   controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
-              // }
               ind = ++ind;
               return index == 0 ? Container(
                 width: 70,
-                  // margin: lang == 'en'
-                  //   ? EdgeInsets.only(left: 12.0)
-                  //   : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -878,7 +814,6 @@ var catID;
                       onTap: () {
                         setState(() {
                           categorybool = true;
-                          // ind = ++ind;
                           catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);

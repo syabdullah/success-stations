@@ -25,7 +25,6 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);   
-      print("c data Response.......$cData");
       isLoading = false;
     });
     update();
@@ -47,7 +46,6 @@ class AddBasedController extends GetxController {
       isLoading = true;
       await addsFvrtMyAdds().then((value) {
         myALLAdd= jsonDecode(value.body);
-        print("................>>>#........................fikl................$myALLAdd");
         if(value.statusCode == 200 || value.statusCode < 400){
           resultInvalid(false);
           isLoading = false;
@@ -76,29 +74,21 @@ class AddBasedController extends GetxController {
           resultInvalid(true);
           isLoading = false;
       }
-      // isLoading=false;
     });
     update();
   }
 
    activeAd(dataa) async {
-     print("..........'''''$dataa");
      isLoading = true;
      await adActive(dataa).then((res) {    
       var adact = jsonDecode(res.body);
-    
-      print(res.statusCode);
-        print(adact);
      });
      update();
    }
     deactiveAd(dataa) async {
-     print("..........'''''$dataa");
      isLoading = true;
      await adDeActive(dataa).then((res) {    
       var addct = jsonDecode(res.body);
-      print(res.statusCode);
-        print(addct);
      });
      update();
    }

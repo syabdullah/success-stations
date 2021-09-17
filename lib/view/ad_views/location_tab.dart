@@ -41,7 +41,6 @@ class _LocationTabState extends State<LocationTab> {
           userId = box.read('user_id');
         id = Get.arguments;
         lastLoc.userlocationList(id);
-        print(id);
         super.initState();
       }   
   void _getUserLocation() async {
@@ -66,7 +65,6 @@ class _LocationTabState extends State<LocationTab> {
              GetBuilder<LocationController>( // specify type as Controller
                   init: LocationController(), // intialize with the Controller
                   builder: (value){ 
-                    print("'s'sd's'dss;;f;ldsf'sdf-----${value.lastLocation}");
                     return value.isLoading == true ? Center(child: CircularProgressIndicator()):
                     value.lastLocation !=null &&   value.lastLocation['success']== true ?
                      locationList(value.lastLocation['data'])
@@ -185,7 +183,6 @@ class _LocationTabState extends State<LocationTab> {
                                         decideRouter = 'city';
                                         array.add(val);
                                         cityArray.add('city[]=$val');
-                                        print("on saved ---- $cityArray");
                                       });                          
                                     },
                                   ),
@@ -259,7 +256,6 @@ class _LocationTabState extends State<LocationTab> {
                               ),
                               onChanged: (values) {
                                 setState(() {
-                                  print("start : ${values.start}, end: ${values.end}");
                                   end = values.start;
                                   _currentRangeValues = values;
                                 });
@@ -282,7 +278,6 @@ class _LocationTabState extends State<LocationTab> {
                                     array.clear();
                                     cityArray.clear();
                                      Get.back();
-                                     print("..,.,.,.........---======");
                                     lastLoc.userlocationList(id);
                                   }
                                 ),                        
@@ -302,7 +297,6 @@ class _LocationTabState extends State<LocationTab> {
                                      var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
                                         lastLoc.getUSerLocationByCity(cityFinalData,id);
                                   }else if(decideRouter == 'near'){
-                                    print("...///././././..");
                                          lastLoc.getUserLocationNearBy(id,end, position.latitude, position.longitude);
                                         //  Get.to(CustomInfoWindowExample(),arguments: [decideRouter,end, position.latitude, position.longitude]);
                                       }
@@ -363,8 +357,6 @@ class _LocationTabState extends State<LocationTab> {
 }
 
 Widget locationList(lastLocation) {
-    // double c_width = MediaQuery.of(context).size.width*0.8;
-    print("..................>$lastLocation");
     return lastLocation['data'].length == 0 ? Center(
       child: Container(
         margin: EdgeInsets.only(top:85),
@@ -379,7 +371,6 @@ Widget locationList(lastLocation) {
         // ignore: non_constant_identifier_names
         itemBuilder: (BuildContext,index) {
         
-          print("${lastLocation['data'][index]['location']}");
           return Card(
             child: Container(
               height: 100,
@@ -420,16 +411,7 @@ Widget locationList(lastLocation) {
                           crossAxisAlignment:CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Row(
-                            //   children: [
-                              
-                            //      lastLocation['data'][index]['location'] != null ?
-                            //    Text(lastLocation['data'][index]['location'],overflow: TextOverflow.clip,maxLines: 6,
-                            //   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
-                            //  ): Container(),
-                            //   ],
-                            // ),
-                            // SizedBox(height: 3),
+                           
                              lastLocation['data'][index]['location'] != null ?
                                Container(
                                  width: Get.width/1.5,
@@ -455,10 +437,7 @@ Widget locationList(lastLocation) {
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
                               ): Container(),
                               SizedBox(width: 3,),
-                              //  lastLocation['data'][index]['country_name'] != null ?
-                              // Text(lastLocation['data'][index]["country_name"],
-                              // style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
-                              // ): Container(),
+                             
                               ],
                             ),
                             SizedBox(height: 8),

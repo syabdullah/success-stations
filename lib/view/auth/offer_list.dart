@@ -231,7 +231,6 @@ class _OfferListState extends State<OfferList> {
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
-                      print(".....<><><><><><>///<><><....$listtype");
                       lisselect = !lisselect;
                       isButtonPressed = !isButtonPressed;
                       //listIconColor = Colors.grey;
@@ -255,8 +254,6 @@ class _OfferListState extends State<OfferList> {
       'type': filteredIDCate,
       'status': statusFiltered == 'New' ? 1 : 0,
     };
-    print(
-        "Sended Data.......!!!!!!!!!CREATEDFILTEREDJSON................$createFilterjson");
     offerFilterCont.offerFilter(createFilterjson);
   }
 
@@ -510,10 +507,6 @@ class _OfferListState extends State<OfferList> {
                                   : () {
                                      idSended();
                                     listtype != 'grid'
-                                    // print(
-                                    //     "hellll....helllll.....helll.....$listtype");
-                                    // Get.to(FilteredCategory(),
-                                    //     arguments: listtype);
                                     ? Get.off(
                                         FilteredCategoryResult())
                                     : Get.off(FilteredCategory());
@@ -667,45 +660,14 @@ class _OfferListState extends State<OfferList> {
                                 )
                               )
                             ),
-                            // Container(
-                            //   child: Row(
-                            //     children: [
-                            //       GestureDetector(
-                            //         onTap: (){
-                            //           Get.to(AddOffersPage(), arguments: listFavou[c]);
-
-                            //         },
-                            //         child: Container(
-                            //           padding: EdgeInsets.only(right: 10),
-                            //           child:  Image.asset(AppImages.edit, height: 30)
-                            //         ),
-                            //       ),
-                            //       Container(
-                            //         margin: EdgeInsets.only(right: 10),
-                            //         child: GestureDetector(
-                            //           onTap: (){
-                            //             print(listFavou[c]['id']);
-                            //             //delete.deleteOfferController( listFavou[c]['id']);
-                            //           },
-                            //           child: Image.asset(AppImages.delete, height: 30))
-                            //       ),
-                            //     ],
-                            //   )
-                            // )
+                           
                           ],
                         ),
                       ],
                     ),
                   ),
                 )),
-                // Container(
-                //   child: Text(
-                //     listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-                //     style:TextStyle(fontSize: 16, color: Colors.black)
-                //   )
-                // )
-                //   ],
-                // ),
+                
               );
             }),
       ),
@@ -730,7 +692,6 @@ class _OfferListState extends State<OfferList> {
           ),
           itemCount: listFavou.length,
           itemBuilder: (BuildContext context, int c) {
-             print(".....!!!!!!.................${listFavou[c]['text_ads'][lang]}");
             return GestureDetector(
               onTap: () {
                 Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
