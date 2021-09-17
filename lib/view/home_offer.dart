@@ -68,7 +68,6 @@ class _HomePageStateFeature extends State<HomeAllFeature> {
   }
 
   List<Widget> myAddGridView(listFavou) {
-    print(".........listFavou.......!!!!!......!!!!.......${listFavou.length}");
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
@@ -134,7 +133,6 @@ class _HomePageStateFeature extends State<HomeAllFeature> {
   }
 
   Widget headingUpsell(List dataListedCateOffer) {
-    print("....!!!!...qqq..qqq...qqq.....$dataListedCateOffer");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

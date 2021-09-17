@@ -23,8 +23,6 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
   void initState() {
     homeCategoryById = Get.arguments;
     lang = box.read('langs_code');
-    print("........hellloooooo.....<><><><><><><////////....$lang");
-    print(".....................IF IF ID.......>$homeCategoryById");
     super.initState();
   }
 

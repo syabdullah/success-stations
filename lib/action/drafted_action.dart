@@ -16,8 +16,6 @@ Future<http.Response> draftAdsAction() async {
 
 
 Future<http.Response> draftAdsPublished(id) async {
-
-  GetStorage box = GetStorage();
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}publish-ad/$id");

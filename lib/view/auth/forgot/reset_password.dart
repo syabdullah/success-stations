@@ -36,7 +36,6 @@ void requiredPassword(){
         'password_confirmation' : confirmPasswordControlller.text
       };
       resetPasss.passwordreset(json);
-      print(json);
     }
   }
   

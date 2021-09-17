@@ -81,13 +81,6 @@ class _SignPageState extends State<SignIn> {
           body: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (val) {
-                // if(  loginCont.resultInvalid.isTrue ) {
-                //   if(errorCheck == )
-                //   errorCheck = true;
-                // }else{
-                //   print("..........------=======$errorCheck");
-                //   // errorCheck = false;
-                // }
                 return Center(
                   child: ListView(
                     children: [
@@ -157,16 +150,10 @@ class _SignPageState extends State<SignIn> {
                                       SizedBox(
                                         width: 3,
                                       ),
-                                      // Expanded(
-                                      //     child: Divider(
-                                      //   color: Colors.black,
-                                      // )),
+                                      
                                     ]),
                               ),
-                              // Container(
-                              //   margin: EdgeInsets.only(top: 10, bottom: 10),
-                              //   child: Text("or".tr),
-                              // ),
+                              
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -235,8 +222,7 @@ class _SignPageState extends State<SignIn> {
           child: DropdownButton(
         hint: hintTextLang!=null
         ? Text(hintTextLang,
-          //lang == 'en' ? 'Englis' : 'Arabic',
-          //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
+         
           style: TextStyle(fontSize: 18, color: AppColors.inputTextColor))
         : hintTextLang == null && lang == null
         ? Text("English")
@@ -335,7 +321,6 @@ class _SignPageState extends State<SignIn> {
           ),
           GestureDetector(
               onTap: () {
-                print("ontap itmemmm.....>!!!");
                 Get.to(Language());
               },
               child: Text(

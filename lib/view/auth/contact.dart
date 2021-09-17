@@ -37,7 +37,6 @@ class ContactPageState extends State<Contact> {
         'description': writeController.text,
       };
       contactwithme.contactWithUs(json);
-       print('${nameController.text}',);
   }
   }
   @override

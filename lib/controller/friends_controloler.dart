@@ -45,7 +45,6 @@ class FriendsController extends GetxController {
     isLoading = true;
     await allFriends().then((res) {
       friendsData = jsonDecode(res.body);
-      print("...............$friendsData");
       isLoading = false;
     }).catchError((e) {
       return e;
@@ -57,7 +56,6 @@ class FriendsController extends GetxController {
     isLoading = true;
     await approveFriends(id).then((res) {
       if (res.statusCode == 200 || res.statusCode < 401) getFriendsList();
-      // friendsData = jsonDecode(res.body);
       isLoading = false;
     }).catchError((e) {
       return e;
@@ -68,8 +66,6 @@ class FriendsController extends GetxController {
   rejFriend(id) async {
     isLoading = true;
     await rejectFriends(id).then((res) {
-      // friendsData = jsonDecode(res.body);
-      print(res.body);
       if (res.statusCode == 200 || res.statusCode < 401) getFriendsList();
 
       isLoading = false;
@@ -101,8 +97,7 @@ class FriendsController extends GetxController {
     isLoading = true;
     await delFriendReq(id).then((res) {
       getFriendsList();
-      getSuggestionsList();
-      print(res.body);  
+      getSuggestionsList(); 
        if(pro == 'pro') {
          Get.back();
        }
@@ -129,7 +124,6 @@ class FriendsController extends GetxController {
     isLoading = true;
     await getUserAds(id).then((res) {
       userAds = jsonDecode(res.body);
-      print("......here the reo.....!!!!!!...!!!!>.......$userAds");
       isLoading = false;
     });
     update();
@@ -138,12 +132,10 @@ class FriendsController extends GetxController {
   profileAdsToFav(id, userId) async {
     isLoading = true;
     await addAdsFav(id).then((res) {
-      addAd = jsonDecode(res.body); 
-      print("addAd ......... favourite message ........$addAd");    
+      addAd = jsonDecode(res.body);   
       if(addAd['success'] == true) {
         if(userId != null)
         profileAds(userId);
-        //SnackBarWidget().showToast("", addAd['message']); 
       }
       isLoading = false;
     });
@@ -157,7 +149,6 @@ class FriendsController extends GetxController {
       if (removeAds['success'] == true) {
         if (userId != null) profileAds(userId);
         repetedCon.favoriteList();
-        //SnackBarWidget().showToast("", removeAds['message']);
       }
       isLoading = false;
     });

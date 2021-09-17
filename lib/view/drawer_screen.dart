@@ -71,16 +71,11 @@ var lang;
     accountType = box.read('account_type');
     lang = box.read('lang_code');
    
-    print("////////a//// -----------$lang");
     banner.bannerController();
     
   }
 
-  // box.write('lang_id',dataLanguage['data'][i]['id']);
-  //               box.write('lang_code', dataLanguage['data'][i]['short_code']);
-  //               LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
-
-
+ 
   Future getImage() async { 
     await ApiHeaders().getData();
     pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
@@ -92,7 +87,7 @@ var lang;
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
-        print('No image selected.');
+      
       }
     });
       try {
@@ -112,8 +107,7 @@ var lang;
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
     lang = box.read('lang_code');
-    print(".....................>....$image");
-    print("${Get.height}");
+   
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -313,7 +307,6 @@ var lang;
   
   @override
   Widget build(BuildContext context) {
-     print("////////a//// $lang");
     return InkWell(
       splashColor: Colors.grey,
       onTap:() => onTap(),

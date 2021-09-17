@@ -8,6 +8,5 @@ Future<http.Response> aboutAction() async {
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}content-pages");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
-  print('/////////////////////$response');
   return response;
 }

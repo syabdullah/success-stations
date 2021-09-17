@@ -37,11 +37,9 @@ class OfferController extends GetxController {
   }
 
   drawerMyOffer() async{
-    print("offer list Api ....................... ");
     isLoading = true;
     await myOffers().then((value) {
       myofferListDrawer = jsonDecode(value.body);
-      print("1----------2-------------3---------------------4---------------------$myofferListDrawer");
       isLoading = false;
     });
     update();

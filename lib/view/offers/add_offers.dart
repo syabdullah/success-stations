@@ -57,7 +57,6 @@ class AddOffersState extends State<AddOffersPage> {
     lang = box.read('lang_code');
     postDataEdited = Get.arguments;
     if (postDataEdited != null) {
-      print("postDataEditedpostDataEditedpostDataEdited$postDataEdited");
       addedEditPosting = postDataEdited['id'];
       hintTextCate = postDataEdited['category']['category_name']['en'];
       idCategory = postDataEdited['category']['id'];
@@ -94,7 +93,6 @@ class AddOffersState extends State<AddOffersPage> {
         image = pickedFile!.path;
         fileName = pickedFile!.path.split('/').last;
       } else {
-        print('No image selected.');
       }
     });
     try {
@@ -105,8 +103,6 @@ class AddOffersState extends State<AddOffersPage> {
       Get.find<StorePostAddesController>().uploadMyAdd(formData);
       addedOfferImage =
           Get.find<StorePostAddesController>().uploadImageOfAdd['name'];
-
-      print(".......UPload image$addedOfferImage");
     } catch (e) {}
   }
 

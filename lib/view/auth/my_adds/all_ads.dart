@@ -1030,20 +1030,7 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-              
-              // if (data != null && id == havingAdds[index]['id']) {
-              //   print("........");
-              //   catID = havingAdds[index]['id'];
-              //   selectedIndex = index;
-              //   // ind = 0;
-              // } else if (data == null && ind == 0) {
-              //   id = havingAdds[index]['id'];
-              //   catID = havingAdds[index]['id'];
-              //   controller.addedByIdAddes(havingAdds[0]['id'], null);
-              //   selectedIndex = index;
-              //   ++ind;
-              // }
-
+            
               return index == 0 ? Container(
                 width: 70,
                     margin: lang == 'en'

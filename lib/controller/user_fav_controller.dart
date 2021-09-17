@@ -15,14 +15,10 @@ class UserFavController extends GetxController{
     isLoading = true;
     await  userfav(id).then((res) {
       addtofav = jsonDecode(res.body);
-     
-      print(res.statusCode);
       if(res.statusCode < 400){
-        // Get.snackbar('', 'user add to fav sucessfully');
         loc.getAllLocationToDB();
       }
       if(res.statusCode > 400){
-        // Get.snackbar("","unSucessfully ");
       }
       isLoading = false;
     });
@@ -32,14 +28,10 @@ class UserFavController extends GetxController{
     isLoading = true;
     await  remuserfav(id).then((res) {
       remToFav = jsonDecode(res.body);
-     
-      print(res.statusCode);
       if(res.statusCode < 400){
-        // Get.snackbar('', 'user add to fav sucessfully');
         loc.getAllLocationToDB();
       }
       if(res.statusCode > 400){
-        // Get.snackbar("","unSucessfully ");
       }
       isLoading = false;
     });
