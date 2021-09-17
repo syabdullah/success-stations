@@ -87,8 +87,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false &&  data.addsCategoryArray.length != 0  ?  featuredAdsList(                  
-                    data.addsCategoryArray) : Container();
+                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),
@@ -108,7 +107,7 @@ class _AdsViewState extends State<AdsView> {
 
   Widget upgradeBnner (){
     return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal:10.0),
+      padding: const EdgeInsets.symmetric(horizontal:4.0),
       child: Visibility(
         visible: isVisible,
         maintainSize: true,
