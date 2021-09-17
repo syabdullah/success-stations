@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
@@ -76,6 +77,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
   PhoneNumber companyCode = PhoneNumber(isoCode: '');
+  GetStorage box = GetStorage();
   var inputValuePhone ;
   bool _isChecked = false;
    bool errorCheck = true;
@@ -92,6 +94,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   @override
   void initState() {
     super.initState();
+    lang = box.read('lang_code');
+    print("lang of the country code..........$lang");
     counCode = Get.arguments;
     inputValuePhone = counCode[0].toString();
     companyCode = PhoneNumber(isoCode: inputValuePhone);
@@ -199,7 +203,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
-                  return country(val.countryListdata);
+                  return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
+                  Container();
                 } ,
               ),
               space10,
@@ -514,6 +519,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget country(List data) {
+    
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
@@ -533,13 +539,17 @@ class _CompanySignPageState extends State<CompanySignUp> {
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coun) {
               return DropdownMenuItem(
-                value: coun, child: Text(coun['name']!= null ?coun['name']:''));
+                value: coun, 
+                child: coun['name'] !=null ?  Text(
+                  coun['name']['en']
+                ): Container()
+              );
             }).toList(),
             onChanged: (val) {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'];
+                hintTextCountry = mapCountry['name']['en'];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';

@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/user_drafted_controller.dart';
-import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class DraftAds extends StatefulWidget {

@@ -25,6 +25,7 @@ GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
   lang = await box.read('lang_code');
+  print("lang  code oon  main page ....%$lang");
   box.write('upgrade', true);
 
 }

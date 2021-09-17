@@ -557,13 +557,17 @@ class _SignPageState extends State<StudentSignUp> {
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
-                  return DropdownMenuItem(value: coun, child: Text(coun['name']));
+                  return DropdownMenuItem(value: coun, 
+                  child:  coun['name'] !=null ?  Text(
+                    coun['name'][lang]
+                  ): Container()
+                );
                 }).toList(),
                 onChanged: (val) {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'];
+                    hintTextCountry = mapCountry['name'][lang];
                     selectedCountry = mapCountry['id'];
                     countryPut.getRegion(selectedCountry);
                   });

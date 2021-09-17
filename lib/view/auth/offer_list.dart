@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,6 +37,7 @@ class _OfferListState extends State<OfferList> {
   var lang;
   var listtype = 'grid';
   bool allOffer = false;
+  bool allTextOpr = false;
   bool isButtonPressed = false;
   final offerFilterCont = Get.put(OffersFilteringController());
   final offeCont = Get.put(MyOffersDrawerController());
@@ -59,7 +62,6 @@ class _OfferListState extends State<OfferList> {
     "old".tr,
     "New".tr,
   ];
-
   GetStorage box = GetStorage();
 
   var cardHeight;
@@ -81,38 +83,29 @@ class _OfferListState extends State<OfferList> {
     cardwidth = MediaQuery.of(context).size.width / 3.3;
     cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: offerid != null
-            ? PreferredSize(
-                preferredSize: Size.fromHeight(70.0),
-                child: appbar(
-                    _scaffoldKey, '', AppImages.appBarLogo, " ", ''))
-            : null,
-        // drawer: AppDrawer(),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-              // canvasColor: AppColors.botomTiles
-              ),
-          child: AppDrawer(),
+      key: _scaffoldKey,
+      appBar: offerid != null
+      ? PreferredSize(preferredSize: Size.fromHeight(70.0),
+        child: appbar(  _scaffoldKey, '', AppImages.appBarLogo, " ", '')
+      )
+      : null,
+      drawer: Theme(
+        data: Theme.of(context).copyWith( ),
+        child: AppDrawer(),
+      ),
+      body: ListView(children: [
+        SizedBox(height: 10),
+        topWidget(),
+        SizedBox(height: 20),
+        GetBuilder<OfferCategoryController>(
+          init: OfferCategoryController(),
+          builder: (val) {
+            return val.allOffersResp != null &&
+            val.allOffersResp['data'] != null
+            ? subOffers(val.allOffersResp['data'])
+            : Container();
+          },
         ),
-        body: ListView(children: [
-          SizedBox(
-            height: 10,
-          ),
-          topWidget(),
-          SizedBox(
-            height: 20,
-            // height: 10,
-          ),
-          GetBuilder<OfferCategoryController>(
-            init: OfferCategoryController(),
-            builder: (val) {
-              return val.allOffersResp != null &&
-              val.allOffersResp['data'] != null
-              ? subOffers(val.allOffersResp['data'])
-              : Container();
-            },
-          ),
           SizedBox(height:20),
           allOffer == false ? 
           GetBuilder<OfferController>(
@@ -132,7 +125,7 @@ class _OfferListState extends State<OfferList> {
                 ) : Container();
               }
             ):
-          GetBuilder<OfferCategoryController>(
+            GetBuilder<OfferCategoryController>(
             init: OfferCategoryController(),
               builder: (val) {
                 return val.iDBasedOffers != null && val.iDBasedOffers['data'] != null && val.iDBasedOffers['success'] == true
@@ -143,8 +136,7 @@ class _OfferListState extends State<OfferList> {
                   child: Center(
                     child: Text(
                       contByCatOffer.iDBasedOffers['errors'],
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ): Container();
@@ -153,7 +145,7 @@ class _OfferListState extends State<OfferList> {
           ]
         )
       );
-  }
+    }
 
   Widget topWidget() {
     return Row(
@@ -281,7 +273,6 @@ class _OfferListState extends State<OfferList> {
                       ? EdgeInsets.only(top: 10, left: 20, right: 20)
                       : EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: ListView(
-                        //crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.only(top: 10),
@@ -675,8 +666,7 @@ class _OfferListState extends State<OfferList> {
   }
 
   Widget allUsers(listFavou) {   
-   
-     return Padding(
+    return Padding(
       padding: EdgeInsets.only(left: 20, right: 20,bottom: 20),
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
@@ -686,7 +676,7 @@ class _OfferListState extends State<OfferList> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: Get.width /(Get.height >= 800
-            ? Get.height / 1.65
+            ? Get.height / 1.60
             : Get.height <= 800
             ? Get.height / 1.60: 0)
           ),
@@ -755,92 +745,18 @@ class _OfferListState extends State<OfferList> {
       ),
     );
   }
-
-  //  myAddGridView(listFavou) {
-  //   // List<Widget> favrties = [];
-  //   // if (listFavou != null || listFavou.length != null) {
-  //   //   for (int c = 0; c < listFavou.length; c++) {
-  //       // favrties.add(
-  //         // SingleChildScrollView(
-  //           Container(
-  //             // width: Get.width / 1.10,
-  //             height: Get.height / 3.3,
-  //             child: GridView.builder(
-  //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //                 crossAxisSpacing: 10,
-  //                 mainAxisSpacing: 20,
-  //                 crossAxisCount: 2,
-  //                 childAspectRatio: 1.0
-  //                 ),
-  //               // crossAxisCount: 2,
-  //                itemCount: listFavou.length,
-  //               itemBuilder: (BuildContext context, int c) {
-  //                 return Column(
-  //                   children: [
-  //                     Container(
-  //                       margin: EdgeInsets.all(10),
-  //                       child: Card(
-  //                         elevation: 1,
-  //                         shape: RoundedRectangleBorder(
-  //                           borderRadius: BorderRadius.circular(15.0),
-  //                         ),
-  //                         child: Column(
-  //                           crossAxisAlignment: CrossAxisAlignment.start,
-  //                           children: [
-  //                             ClipRRect(
-  //                               borderRadius: BorderRadius.only(
-  //                                 topLeft: Radius.circular(10),
-  //                                 topRight: Radius.circular(10),
-  //                                 bottomLeft: Radius.circular(10),
-  //                                 bottomRight: Radius.circular(10)
-  //                               ),
-  //                               child: Container(
-  //                                 height: Get.height * 0.18,
-  //                                 width: Get.height * 0.18,
-  //                                 child: listFavou[c]['image_ads'] != null &&listFavou[c]['image_ads']['url'] != null
-  //                                 ? FittedBox(
-  //                                   fit: BoxFit.cover,
-  //                                   child: Image.network(
-  //                                     listFavou[c]['image_ads']['url'],
-  //                                   ),
-  //                                 ): FittedBox(
-  //                                   fit: BoxFit.cover,
-  //                                   child: Icon(
-  //                                     Icons.image,
-  //                                     color: Colors.grey[400],
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             )
-  //                           ],
-  //                         ),
-  //                       )
-  //                     ),
-  //                     Container(
-  //                       child: Text(
-  //                         listFavou[c]['text_ads']['en'] != null? listFavou[c]['text_ads']['en'].toString(): '',
-  //                         style:TextStyle(fontSize: 13, color: Colors.black)
-  //                       )
-  //                     )
-  //                   ],
-  //                 );
-  //               })
-  //             );
-  //           // ),
-  //         // )
-  //       // );
-  //   //   }
-  //   // }
-  //   // return favrties;
  
-   bool  selectOffer = false;
+  bool selectAllOffer = false;
   var offerBYID;
   var ind1 = 0;
+  var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;
+
   Widget subOffers(dataListedCateOffer) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
         Container(
           height:  45,
           child: ListView.builder(
@@ -848,18 +764,29 @@ class _OfferListState extends State<OfferList> {
             itemCount: dataListedCateOffer.length,
             itemBuilder: (context, index) {
               ++ind1;
-              return index == 0 ?
-               Container(
-                 width: 70,
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              return Row(
+                children: [
+                  allCheck == false ? 
+                  Container(
+                    width: 70,
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
                     : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                        selectedIndex = index;
-                        coCatOffer.offerList();
-                        allOffer = false;
+                          // selectAllOffer = true;
+                          textAllcheck = false;
+                          allOffer = false;
+                          selectedIndex = index;
+                          allColor = AppColors.appBarBackGroundColor;
+                          coCatOffer.offerList();
+                          
                         });
                       },
                       child: Container(
@@ -868,16 +795,14 @@ class _OfferListState extends State<OfferList> {
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index
-                          ? selectedColor
-                          : Colors.white,
+                          color: allColor
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
                             "All",
                             style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                               fontSize: 12,
                               fontStyle: FontStyle.normal,
                             ),
@@ -885,54 +810,7 @@ class _OfferListState extends State<OfferList> {
                         ),
                       ),
                     ),
-                  ): 
-                // return index == 0 ?  Container(
-                //   child: GestureDetector(
-                //     onTap: (){
-                //       setState(() {
-                //         selectedIndex = index;
-                //         contByCatOffer.myAllOffers();
-                //       });
-                //     }, 
-                //     // child: Flexible(
-                //     //   flex: 2,
-                //         // widthFactor: 0.5,
-                //       //  alignment: Alignment.topCenter,r
-                //      child:  Container(
-                //        height:MediaQuery.of(context).size.height / 9.2,
-                //          width: 70,
-                      
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(20.0),
-                //           border: Border.all(
-                //             color: AppColors.appBarBackGroundColor
-                //           ),
-                //           color: selectedIndex == index ? selectedColor : Colors.white,
-                //           boxShadow: [
-                //             BoxShadow(
-                //               color: Colors.grey,
-                //               offset: Offset(0.0, 1.0),
-                //               blurRadius: 6.0,
-                //             ),
-                //           ],
-                //         ),
-                //         // padding: EdgeInsets.all(10),
-                //         child: Text(
-                //           "ALL",
-                //           style: TextStyle(
-                //             color: selectedIndex == index ? Colors.white : AppColors.appBarBackGroundColor,
-                //             fontSize: 12,
-                //             fontStyle: FontStyle.normal,
-                //           ),
-                //         ),
-                //       ),
-                //     // ),
-                //   ),
-                // ):
-              
-             
-               Row(
-                children: [
+                  ): Container(),
                   Container(
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
@@ -942,6 +820,8 @@ class _OfferListState extends State<OfferList> {
                         setState(() {
                           allOffer = true;
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           offerBYID = dataListedCateOffer[index]['id'];
                           contByCatOffer.categorrOfferByID(dataListedCateOffer[index]['id']);
                         });
@@ -951,16 +831,15 @@ class _OfferListState extends State<OfferList> {
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index
-                          ? selectedColor
+                          color: selectedIndex == index&& textAllcheck == true 
+                          ? AppColors.appBarBackGroundColor
                           : Colors.white,
-                          
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           dataListedCateOffer[index]['category_name']['en'],
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                            color: selectedIndex == index && textAllcheck == true ? Colors.white  : AppColors.appBarBackGroundColor,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),
@@ -969,7 +848,7 @@ class _OfferListState extends State<OfferList> {
                     ),
                   ),
                 ],
-              );
+              ); 
             },
           ),
         )

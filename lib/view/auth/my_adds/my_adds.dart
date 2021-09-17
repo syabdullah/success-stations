@@ -759,7 +759,10 @@ void _adsfiltringheet() {
   }
   void navigateToGoogleLogin() {
   }
-var catID;
+  var catID;
+ var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;  
   Widget addsCategoryWidget(listingCategoriesData){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -770,43 +773,55 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              ind = ++ind;
-              return index == 0 ? Container(
-                width: 70,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                        selectedIndex = index;
-                         myaddedDr.addesMyListFv();
-                        categorybool = false;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left:12),
-                        decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: AppColors.appBarBackGroundColor
-                          ),
-                          color: selectedIndex == index
-                          ? AppColors.appBarBackGroundColor
-                          : Colors.white,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            "All",
-                            style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
-                              fontSize: 12,
-                              fontStyle: FontStyle.normal,
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              // ind = ++ind;
+              return  Row(
+                children: [
+                   allCheck == false ? 
+                  Container(
+                    width: 70,
+                      // margin: lang == 'en'
+                      //   ? EdgeInsets.only(left: 12.0)
+                      //   : EdgeInsets.only(right: 12.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              textAllcheck = false;
+                              selectedIndex = index;
+                              allColor = AppColors.appBarBackGroundColor;
+                            // selectedIndex = index;
+                             myaddedDr.addesMyListFv();
+                            categorybool = false;
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left:12),
+                            decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(20.0),
+                              border: Border.all(
+                                color: AppColors.appBarBackGroundColor
+                              ),
+                              color: allColor,
+                            ),
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Text(
+                                "All",
+                                style: TextStyle(
+                                  color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-              ):
-              Row(
+                  ):Container(),
+                   Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
@@ -816,6 +831,8 @@ var catID;
                           categorybool = true;
                           catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
                       },
@@ -823,13 +840,13 @@ var catID;
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color:AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index ?AppColors.appBarBackGroundColor : Colors.white,
+                          color: selectedIndex == index && textAllcheck == true ?AppColors.appBarBackGroundColor : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
                           listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white :AppColors.appBarBackGroundColor,
+                            color: selectedIndex == index  &&textAllcheck == true? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
                         ):Container()
@@ -837,7 +854,10 @@ var catID;
                     ),
                   ),
                 ],
+              )
+                ],
               );
+             
             },
           ),
         )

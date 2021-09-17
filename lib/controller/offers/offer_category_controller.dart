@@ -77,4 +77,14 @@ class OfferCategoryController extends GetxController {
     });
     update();
   }
+
+  // myoffersHavingAdds() async {
+  //   isLoading = true;
+  //   await offerMyOffers().then((value) {
+  //     drawerMyHavingAdds = jsonDecode(value.body);
+  //     print("all offers responhyes..........$drawerMyHavingAdds");
+  //     isLoading = false;
+  //   });
+  //   update();
+  // }
 }
