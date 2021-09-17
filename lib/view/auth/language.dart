@@ -8,6 +8,7 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
+import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
@@ -34,7 +35,6 @@ class _LanguagePageState extends State<Language> {
     getLang.getLanguas();
     super.initState();
     box.write('lang_code', 'ar');
-    print(".......///.....-----dosesgrudgirdfgredoig");
   }
 
   List<Widget> getTextWidgets(dataLanguage) {
@@ -72,7 +72,7 @@ class _LanguagePageState extends State<Language> {
                       : Container()),
             ),
             onTap: () {
-              Get.to(Ccountry());
+              Get.toNamed('/Country');
               setState(() {
                 index = i;
                 print("ONtAP INDEX.....>$index");
@@ -152,7 +152,7 @@ class _LanguagePageState extends State<Language> {
   Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/login');
+       Get.toNamed('/login');
       },
       child: Container(
         child: Row(

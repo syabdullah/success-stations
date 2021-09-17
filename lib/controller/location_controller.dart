@@ -32,7 +32,7 @@ class LocationController extends GetxController {
         res = jsonDecode(value.body);
         print("..................>$res");
         //  getMyLocationToDB();
-         Get.to(MyLocations());
+         Get.toNamed('/location');
         isLoading = false;
          Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
        
@@ -50,7 +50,7 @@ editLocationToDB(id,data) async{
         editLoc = jsonDecode(value.body);
         print("..................scdsbhjdsvjvhf-------->$editLoc");
         //  getMyLocationToDB();
-         Get.to(MyLocations());
+         Get.toNamed('location');
         isLoading = false;
          Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
       }

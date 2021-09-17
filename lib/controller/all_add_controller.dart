@@ -21,8 +21,7 @@ class MyAddsController extends GetxController {
     isLoading = true;
     await adsAll().then((res){
       addsListCategory= jsonDecode(res.body);
-      print("my adds category.....$addsListCategory");
-      addsCategoryArray = addsListCategory['data'];
+      // addsCategoryArray = addsListCategory['data'];
       isLoading = false;
     });
     update();

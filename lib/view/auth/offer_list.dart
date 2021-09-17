@@ -326,12 +326,12 @@ class _OfferListState extends State<OfferList> {
                           GetBuilder<OfferCategoryController>(
                             init: OfferCategoryController(),
                             builder: (data) {
-                              return data.offerDattaTypeCategory != null && data.offerDattaTypeCategory['data'] !=null
+                              return data.allOffersResp != null && data.allOffersResp['data'] !=null
                               ? Container(
                                 height: Get.height * 0.035,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: data.offerDattaTypeCategory['data'].length,
+                                  itemCount: data.allOffersResp['data'].length,
                                   itemBuilder:(BuildContext ctxt, int index) {
                                     return Row(
                                       children: [
@@ -344,7 +344,7 @@ class _OfferListState extends State<OfferList> {
                                             onTap: () {
                                               setState(() {
                                                 bottomSheetCategory = index;
-                                                filteredIDCate = data.offerDattaTypeCategory['data'][index]['id'];
+                                                filteredIDCate = data.allOffersResp['data'][index]['id'];
                                               });
                                             },
                                             child: Container(
@@ -362,8 +362,8 @@ class _OfferListState extends State<OfferList> {
                                                   : Colors.white,
                                                 ),
                                                 padding: EdgeInsets.only(left:6.0,right: 6),
-                                                child: data.offerDattaTypeCategory['data'] !=null
-                                                ? Text( data.offerDattaTypeCategory['data'][index]['category_name']['en'],
+                                                child: data.allOffersResp['data'] !=null
+                                                ? Text( data.allOffersResp['data'][index]['category_name']['en'],
                                                   style: TextStyle(
                                                     color: bottomSheetCategory == index
                                                     ? AppColors

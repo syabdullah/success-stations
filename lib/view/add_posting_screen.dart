@@ -74,22 +74,20 @@ var typeId;
     crid = box.read('country_id');
     lang = box.read('lang_code');
     editData = Get.arguments;
-    
+    print("...///....---- $editData");
     if(editData != null ) {
       adID = editData['id'];
-      print("......a......$adID");
       titleController = TextEditingController(text: editData['title'][lang]);
       selectedStatus =  editData['status'];
       descController =  TextEditingController(text: editData['description'][lang]);
       editImage = editData['image'].length != 0 ? editData['image'][0]['url']: null;     
       imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
-      //  print(".....EEEEE-----$imageName");
       priceController = TextEditingController(text: editData['price']);
       fullNameController = TextEditingController(text: editData['contact_name']);
-      selectedCategory = editData['category']['category'][lang];
+      selectedCategory = editData['category'] != null  ?  editData['category']['category'][lang] : 'Select category' ;
       subtypeId = editData['category_id'];
       typeId = editData['type_id'];
-      selectedtype = editData['type']['type']['en'];
+      selectedtype = editData['type'] == null ? 'Select Type' : editData['type']['type'][lang];
       emailController = TextEditingController(text: editData['contact_email']);
       telePhoneController = TextEditingController(text: editData['telephone']);
       mobileNoController = TextEditingController(text: editData['phone']);
@@ -123,22 +121,22 @@ var typeId;
    adpost() async{ 
      var json = {
        'category_id' : subtypeId,
-              'status': selectedStatus,
-              'description': descController.text,
-              'price': priceController.text,
-              'contact_name': fullNameController.text,
-              'phone': mobileNoController.text,
-              'telephone': telePhoneController.text,
-              'title':titleController.text,
-              'created_by': id.toString(),
-              'contact_email': emailController.text,
-              'country_id': crid.toString(),
-              'city_id':cid.toString(),
-              'region_id': rid.toString(),
-              'is_active' : 1,
-              'type_id': typeId,
-              'is_published':1,
-              "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
+        'status': selectedStatus,
+        'description': descController.text,
+        'price': priceController.text,
+        'contact_name': fullNameController.text,
+        'phone': mobileNoController.text,
+        'telephone': telePhoneController.text,
+        'title':titleController.text,
+        'created_by': id.toString(),
+        'contact_email': emailController.text,
+        'country_id': crid.toString(),
+        'city_id':cid.toString(),
+        'region_id': rid.toString(),
+        'is_active' : 1,
+        'type_id': typeId,
+        'is_published':1,
+        "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
      Get.find<AdPostingController>().finalAdPosting(json);
     //  if(pickedFile != null) {
@@ -170,22 +168,22 @@ var typeId;
   editpost() async{ 
      var json = {
        'category_id' : subtypeId,
-              'status': selectedStatus,
-              'description': descController.text,
-              'price': priceController.text,
-              'contact_name': fullNameController.text,
-              'phone': mobileNoController.text,
-              'telephone': telePhoneController.text,
-              'title':titleController.text,
-              // 'created_by': id.toString(),
-              'email': emailController.text,
-              'country_id': crid.toString(),
-              'city_id':cid.toString(),
-              'region_id': rid.toString(),
-              'is_active' : 1,
-              'type_id': typeId,
-              'is_published':1,
-              "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
+        'status': selectedStatus,
+        'description': descController.text,
+        'price': priceController.text,
+        'contact_name': fullNameController.text,
+        'phone': mobileNoController.text,
+        'telephone': telePhoneController.text,
+        'title':titleController.text,
+        // 'created_by': id.toString(),
+        'email': emailController.text,
+        'country_id': crid.toString(),
+        'city_id':cid.toString(),
+        'region_id': rid.toString(),
+        'is_active' : 1,
+        'type_id': typeId,
+        'is_published':1,
+        "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
      print("...............$json");
      Get.find<AdPostingController>().finalAdEditing(json,adID);
@@ -216,12 +214,11 @@ var typeId;
   
   }
    addraft() async{
-     print(",.,.,.,.RRRR${fullNameController.text}");
-     print(",.,.,.,.RRRR----${mobileNoController.text}");
      if(pickedFile != null) {
         try {
           dio.FormData formData = dio.FormData.fromMap({            
              'category_id' : subtypeId,
+             'type_id' : typeId,
               'status': selectedStatus,
               'description': descController.text,
               'price': priceController.text,
@@ -471,7 +468,6 @@ Widget istStep(List list,List types){
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         hint: Container(
-                            
                           child: Text(
                             selectedCategory != null ? selectedCategory : "categories".tr, 
                             style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)

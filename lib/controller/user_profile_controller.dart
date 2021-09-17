@@ -9,6 +9,7 @@ class UserProfileController extends GetxController {
   bool isLoading = false; 
   var userData;
   var userData2;
+  var proupdate;
   GetStorage box = GetStorage();
     @override
   void onInit(){
@@ -19,33 +20,31 @@ class UserProfileController extends GetxController {
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
      getUserProfile();
   }
   getUserProfile() async{
     isLoading = true ;
     await userProfileAction().then((res) {
-      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
-      userData = jsonDecode(res.body);
-      // box.write('user_image',userData['data']['image']);
-    
+      userData = jsonDecode(res.body);   
       isLoading = false;
-      print("////////////////////////////////    $userData");
     });
     update();
   }
-getUseradProfile(id) async{
-    isLoading = true ;
-    await userProfiletabAction(id).then((res) {
-      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
-      userData2 = jsonDecode(res.body);
-      // box.write('user_image',userData['data']['image']);
-    
-      isLoading = false;
-      // print("////////////////////////////////    $userData");
-    });
-    update();
+  getUseradProfile(id) async{
+      isLoading = true ;
+      await userProfiletabAction(id).then((res) {
+        userData2 = jsonDecode(res.body);
+        isLoading = false;
+      });
+      update();
   }
 
+  updateProfile(data) async{
+     await userProfileUpdate(data).then((res) {
+        proupdate = jsonDecode(res.body);
+        isLoading = false;
+      });
+      update();
+  }
 }

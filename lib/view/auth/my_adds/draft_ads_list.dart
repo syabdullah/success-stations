@@ -7,6 +7,7 @@ import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 
 class DraftAds extends StatefulWidget {
   const DraftAds({ Key? key }) : super(key: key);
@@ -30,8 +31,17 @@ class _DraftAdsState extends State<DraftAds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(centerTitle: true,title: Text("drafted_ads".tr),
+      appBar:AppBar(
+        centerTitle: true,title: Text("drafted_ads".tr),
         backgroundColor: AppColors.appBarBackGroundColor,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon:
+          Icon(Icons.arrow_back_ios_new)
+        ),
+        // automaticallyImplyLeading: true,
         
       ),
         body: GetBuilder<DraftAdsController>( // specify type as Controller

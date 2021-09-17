@@ -7,6 +7,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:success_stations/view/friends/friends_profile.dart';
 
 class FriendReqList extends StatefulWidget {
   _FriendReqListState createState() => _FriendReqListState();
@@ -257,7 +258,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                Get.toNamed('/friendProfile' ,arguments: data[i]['id'] );
+                Get.to(FriendProfile() ,arguments: data[i]['id'] );
               },
               child: Card(
                 child: Row(

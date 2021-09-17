@@ -47,7 +47,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize(
+       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: AppBar(
             backgroundColor:Color(0xFF2F4199) ,

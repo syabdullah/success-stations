@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class NotifierUser extends StatefulWidget {
@@ -76,7 +75,7 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
               IconButton(
                 onPressed:() {
                   
-                  Get.to(BottomTabs());
+                  Get.toNamed('/tabs');
                   banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.black)

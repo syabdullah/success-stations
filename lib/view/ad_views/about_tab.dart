@@ -246,7 +246,7 @@ Widget lastAds(lastuserad){
         
         return GestureDetector(
           onTap: (){
-            Get.to(AdViewScreen(),arguments:lastuserad[index]["id"]);
+            Get.toNamed('/adviewScreen',arguments:lastuserad[index]["id"]);
           },
           child: Card(
             elevation: 3,

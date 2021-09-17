@@ -66,7 +66,7 @@ class _InboxState extends State<Inbox> {
               box.remove('chat_image');
             }
             chatCont.getChatConvo(data['pivot']['conversation_id'], 1);
-            Get.to(ChattinPagePersonal(),arguments: [data['pivot']['conversation_id'],data['name']]);
+            Get.toNamed('/chat',arguments: [data['pivot']['conversation_id'],data['name']]);
           },
           title: 
           Row(
@@ -199,7 +199,7 @@ Widget recentChat(data){
                     AppBar(
                       leading:GestureDetector(
                         onTap: (){
-                          Get.off(BottomTabs());
+                          Get.back();
                         },
                         child: Image.asset(AppImages.arrowBack)
                       ),
