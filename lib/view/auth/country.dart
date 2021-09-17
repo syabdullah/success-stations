@@ -69,7 +69,7 @@ class _CountryPageState extends State<Ccountry> {
                   ),
                   Container(
                       child: countryListData[index]['name'] != null
-                          ? Text(countryListData[index]['name'],style: TextStyle(color: AppColors.inputTextColor),)
+                          ? Text(countryListData[index]['name']['en'],style: TextStyle(color: AppColors.inputTextColor),)
                           : Container())
                 ],
               ),

@@ -520,7 +520,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget country(List data) {
     
-    print("value sof the data .......$data");
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
@@ -541,8 +540,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
             items: data.map((coun) {
               return DropdownMenuItem(
                 value: coun, 
-                child:  coun['name'] !=null ?  Text(
-                  coun['name'][lang]
+                child: coun['name'] !=null ?  Text(
+                  coun['name']['en']
                 ): Container()
               );
             }).toList(),
@@ -550,7 +549,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'][lang];
+                hintTextCountry = mapCountry['name']['en'];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';
