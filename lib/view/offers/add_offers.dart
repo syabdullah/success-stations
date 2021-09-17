@@ -151,8 +151,6 @@ class AddOffersState extends State<AddOffersPage> {
 
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(50, context));
-    final space15 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
         appBar: AppBar(

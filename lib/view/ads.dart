@@ -87,8 +87,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false &&  data.addsCategoryArray.length != 0  ?  featuredAdsList(                  
-                    data.addsCategoryArray) : Container();
+                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),
@@ -108,7 +107,7 @@ class _AdsViewState extends State<AdsView> {
 
   Widget upgradeBnner (){
     return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal:10.0),
+      padding: const EdgeInsets.symmetric(horizontal:4.0),
       child: Visibility(
         visible: isVisible,
         maintainSize: true,
@@ -336,7 +335,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

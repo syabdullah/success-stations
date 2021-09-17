@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
@@ -12,7 +13,6 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/auth/sign_up/orLine.dart';
 
 
 var finalIndex, shortCode;
@@ -36,7 +36,6 @@ class CompanySignUp extends StatefulWidget {
 class _CompanySignPageState extends State<CompanySignUp> {
   var serText, serId;
   final regionIdByCountry = Get.put(ContryController());
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String savedData;
   var tyming;
   var counCode, counID, hintTextCountry,selectedCity, selectedCountry, selectedRegion , hintRegionText, hintcityText;
@@ -61,7 +60,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
       "value": 4,
     }
   ];
-  final _multiSelectKey = GlobalKey<FormFieldState>();
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -79,6 +77,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
   PhoneNumber companyCode = PhoneNumber(isoCode: '');
+  GetStorage box = GetStorage();
   var inputValuePhone ;
   bool _isChecked = false;
    bool errorCheck = true;
@@ -95,6 +94,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   @override
   void initState() {
     super.initState();
+    lang = box.read('lang_code');
+    print("lang of the country code..........$lang");
     counCode = Get.arguments;
     print("..... councode.............$counCode");
     inputValuePhone = counCode[0].toString();
@@ -205,7 +206,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
-                  return country(val.countryListdata);
+                  return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
+                  Container();
                 } ,
               ),
               space10,
@@ -412,6 +414,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
+        cursorColor: AppColors.appBarBackGroundColor,
+        focusNode: FocusNode(),
+        // autoFocus: true,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 10,bottom: 10),
           fillColor: AppColors.inputColor,
@@ -441,8 +446,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         // initialValue: n,
         textFieldController: mobileNUmberController,
         formatInput: false,
-        keyboardType:
-            TextInputType.numberWithOptions(signed: true, decimal: true),
+        keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
           print('On Saved: $number');
@@ -506,7 +510,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "company".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
@@ -531,6 +535,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget country(List data) {
+    
+    print("value sof the data .......$data");
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
@@ -549,15 +555,22 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coun) {
-              return DropdownMenuItem(value: coun, child: Text(coun['name']));
+              return DropdownMenuItem(
+                value: coun, 
+                child:  coun['name'] !=null ?  Text(
+                  coun['name'][lang]
+                ): Container()
+              );
             }).toList(),
             onChanged: (val) {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'];
+                hintTextCountry = mapCountry['name'][lang];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
+                hintRegionText = 'Region';
+                hintcityText =  'City';
               });
             },
           )
@@ -644,8 +657,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
 
   Widget services(List serviceName){
-    print("Builder calling .,...$serviceName");
     return Container(
+      margin: EdgeInsets.only(left:2),
         width: Get.width/1.1,
                 decoration: BoxDecoration(
                   color: AppColors.inPutFieldColor,
@@ -655,12 +668,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   ),
                 ),
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     MultiSelectBottomSheetField(
                       initialChildSize: 0.4,
                       listType: MultiSelectListType.CHIP,
                       searchable: true,
-                      buttonText: Text("Services"),
+                      buttonText: Text("services".tr, style: TextStyle(color:Colors.grey, fontSize: 17 )),
                       items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
                       onConfirm: (values) {
                         var valLoop = values ;
@@ -785,6 +799,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
+        focusNode: FocusNode(),
+        cursorColor: AppColors.appBarBackGroundColor,
+        autoFocus: false,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left:10,bottom: 10),
           fillColor: AppColors.inputColor,
@@ -830,10 +847,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
       margin:EdgeInsets.only(left:20, right: 20,top: 10,bottom: 10),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         isObscure: false,
         hintText: "crs".tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.textInput),
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},

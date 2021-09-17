@@ -91,7 +91,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
             SizedBox(height: 5.h,),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
-              child: Text(val.adsD != null ? "${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
+              child: Text(val.adsD != null ? "   ${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
@@ -155,7 +155,7 @@ Widget titleStep(data) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    data['title']!= null ?
+                    data['title']['en']!= null ?
                     Text(data['title']['en'],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),):Container(),
                    
                   ],
@@ -165,7 +165,7 @@ Widget titleStep(data) {
                 padding: EdgeInsets.only(left:30,right: 30,),
                 child: data['price'] !=null ?  Text('SAR ${reviewPagePrice[0]}',style: TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor),): Container()),
               Container(
-                margin:lang=='en'? EdgeInsets.only(left:30,bottom: 10):EdgeInsets.only(right:30),
+                margin:lang=='en'? EdgeInsets.only(left:30,bottom: 10):EdgeInsets.only(left:30,right:30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   
@@ -193,7 +193,8 @@ Widget titleStep(data) {
                       ),
                     ),
                      Container(
-                       margin: lang=='en'? EdgeInsets.only(left:60,):EdgeInsets.only(right:60,),
+                      //  margin: lang=='en'? EdgeInsets.only(left:60,ri):EdgeInsets.only(right:60,left: 60),
+                      margin: EdgeInsets.only(left:60,right: 60),
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -218,7 +219,7 @@ Widget titleStep(data) {
         ),
       Card(
         child:Container(
-          margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
+          margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(left:30,right:30),
         // child:Padding(
         // padding: lang=='en'? EdgeInsets.only(left:20,top: 15): EdgeInsets.only(left:20,top: 15),
         child: Column(
@@ -227,7 +228,7 @@ Widget titleStep(data) {
             Container(
             margin: lang=='en'?EdgeInsets.only(left:10):EdgeInsets.only(left:10),  
             child: Text("city4".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
-            SizedBox(height:5.h),
+            // SizedBox(height:5.h),
             Html(data: htmldata)
             // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
             // textAlign: TextAlign.justify,
@@ -522,7 +523,7 @@ Widget commentInput(){
       },
       style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
       decoration:InputDecoration(
-        contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0):EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 80.0),
+        contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0):EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 80.0),
         hintText: "write_comment_here".tr,
         border: OutlineInputBorder( 
           borderRadius: BorderRadius.circular(10.0),
