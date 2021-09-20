@@ -89,7 +89,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
             SizedBox(height: 5.h,),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
-              child: Text(val.adsD != null ? "   ${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
+              child: Text(val.adsD != null ? "   ${val.adsD['data']['listing_comments'].length} helloPeople".tr :'',
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
@@ -100,8 +100,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                previousButton(AppImages.heart,AppString.fav,Colors.grey,''),
-                previousButton(AppImages.contact,AppString.contact,Color(0xFF2F4199),val.adsD['data'])
+                previousButton(AppImages.heart,"favC".tr,Colors.grey,''),
+                previousButton(AppImages.contact,'contactC'.tr,Color(0xFF2F4199),val.adsD['data'])
               ],
             ),
             SizedBox(height: 8.h,),
@@ -365,7 +365,7 @@ Widget mytraling(idU){
           children: [
             Image.asset(AppImages.flag),
             SizedBox(width: 4.w,),
-            Text(AppString.report,
+            Text('report'.tr,
               style:AppTextStyles.appTextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey,
              )
            )       

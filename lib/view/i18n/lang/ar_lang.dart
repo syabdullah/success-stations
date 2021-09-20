@@ -281,5 +281,9 @@ const Map<String, String> ar = {
   "city2":"رقم الاعلان ",
   "city3":"الحالة",
   "city4":"وصف الاعلان",
-  "adpostedat":"منشور من طرف"
+  "adpostedat":"منشور من طرف",
+  "helloPeople":"علق الناس على هذا الإعلان",
+  'report':'أبلغ عن'
+  'contactC'"اتصل",
+  'favC':'المفضلة'
 };
