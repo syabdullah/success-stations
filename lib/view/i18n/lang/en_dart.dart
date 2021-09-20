@@ -130,6 +130,7 @@ const Map<String, String> en = {
   "see_profile": "See Profile",
   "reply": "Reply",
   "type": "Type",
+  'report':'Report',
   "ad_number": "Ad Number",
   "status": "Status",
   "section": "Section",
@@ -264,6 +265,8 @@ const Map<String, String> en = {
   'crs':'Cr',
   'DegreeSU':"Degree",
   'oR':'OR',
+  'contactC'"CONTACT"
+  'favC':'FAVOURITES',
   'contactus':'CONTACT US',
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
@@ -284,7 +287,8 @@ const Map<String, String> en = {
   "city2":"PHONE NUMBER",
   "city3":"STATUS",
   "city4":"DETAILS",
-  "adpostedat":"Ad Posted at"
+  "adpostedat":"Ad Posted at",
+  "helloPeople":"People Commented on this ad."
 };
 
 

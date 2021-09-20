@@ -351,7 +351,7 @@ class _AllAddsState extends State<AllAdds> {
                                                   ),
                                                   padding: EdgeInsets.only(left:6.0,right: 6),
                                                   child: data.havingAddsList['data'] !=null
-                                                  ? Text(data.havingAddsList['data'][index]['category']['en'],
+                                                  ? Text(data.havingAddsList['data'][index]['category'][lang],
                                                     style: TextStyle(
                                                       color: filteredIndex == index
                                                       ? AppColors.appBarBackGroundColor
@@ -713,6 +713,7 @@ class _AllAddsState extends State<AllAdds> {
                             )
                           ),
                           Container(
+                            margin: EdgeInsets.only(right: 5,left: 5),
                               // width: Get.width/4,
                               // height: Get.height/5.5,
                             child: Row(
@@ -729,13 +730,13 @@ class _AllAddsState extends State<AllAdds> {
                                     controller.addedByIdAddes(allDataAdds[index]['category_id'], null);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(right: 5,left: 5),
                                     child: allDataAdds[index]['is_favorite'] ==false
                                     ? Image.asset(AppImages.blueHeart,height: 30)
                                     : Image.asset(AppImages.redHeart,height: 30)
                                   ),
                                 ),
-                                Image.asset(AppImages.call, height: 25),
+                                Image.asset(AppImages.call, height: 30),
                               ],
                             )
                           )
@@ -756,6 +757,7 @@ class _AllAddsState extends State<AllAdds> {
   var splitedPrice;
   myAddGridView(dataListValue) {
     return Container(
+      // height: Get.height/100,
       // margin: EdgeInsets.only(bottom:20),
       width: Get.width / 1.10,
       // height: Get.height *100,
@@ -812,7 +814,7 @@ class _AllAddsState extends State<AllAdds> {
                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(right: 2,left: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
                                   ? Image.asset(AppImages.blueHeart,height: 30)
                                   : Image.asset(AppImages.redHeart,height: 30)
@@ -839,7 +841,7 @@ class _AllAddsState extends State<AllAdds> {
                                                      
                                  },
                                 child: Container(
-                                  padding: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(right: 5,left: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
                                   ? Image.asset(AppImages.blueHeart,height: 30)
                                   : Image.asset(AppImages.redHeart,height: 30)
@@ -913,28 +915,10 @@ class _AllAddsState extends State<AllAdds> {
                                     )
                                   ),
                                   Container(
-                          // width: Get.width/4,
-                          // height: Get.height/5.5,
+                         
                         child: Row(
                           children: [
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     var json = {
-                            //       'ads_id': dataListValue[index]['id']
-                            //     };
-                            //     liked = !liked;
-                            //    dataListValue[index]['is_favorite'] ==false
-                            //     ? friCont.profileAdsToFav(json, userId)
-                            //     : friCont.profileAdsRemove(json, userId);
-                            //     controller.addedByIdAddes(catID, null);
-                            //   },
-                            //   child: Container(
-                            //     padding: EdgeInsets.only(right: 5),
-                            //     child: dataListValue[index]['is_favorite'] ==false
-                            //     ? Image.asset(AppImages.blueHeart,height: 20)
-                            //     : Image.asset(AppImages.redHeart,height: 20)
-                            //   ),
-                            // ),
+                           
                             Image.asset(AppImages.call, height: 20),
                           ],
                         )
@@ -979,10 +963,12 @@ class _AllAddsState extends State<AllAdds> {
                               : '',
                               style: TextStyle(color: AppColors.appBarBackGroundColor),
                                   ),
+                                  // SizedBox(height: 10,)
                           ],
                         ),
                       ),
                     ),
+                  
                   ],
                 ),
               ),
@@ -1067,7 +1053,7 @@ class _AllAddsState extends State<AllAdds> {
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            "All",
+                            "all".tr,
                             style: TextStyle(
                               color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                               fontSize: 12,
@@ -1107,7 +1093,7 @@ class _AllAddsState extends State<AllAdds> {
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
                         ? Text(
-                            havingAdds[index]['category']['en'],
+                            havingAdds[index]['category'][lang],
                             style: TextStyle(
                               color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                               ? Colors.white
