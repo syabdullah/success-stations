@@ -15,7 +15,7 @@ var otp;
       otp = jsonDecode(response.body);
       
       if(response.statusCode < 400){
-        Get.to(ResetPassword());
+        Get.toNamed('/resetPass');
       }
       if(response.statusCode > 400){
         Get.snackbar("","Enter valid Verification Code",backgroundColor: Colors.blue);

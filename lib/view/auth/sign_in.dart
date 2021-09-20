@@ -321,7 +321,7 @@ class _SignPageState extends State<SignIn> {
           ),
           GestureDetector(
               onTap: () {
-                Get.to(Language());
+                Get.toNamed('/langua');
               },
               child: Text(
                 'sign_up_text'.tr,

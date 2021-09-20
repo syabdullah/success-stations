@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
@@ -41,7 +42,7 @@ class SuccessApp extends StatelessWidget {
         title: 'SuccessStation Codility',
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         locale: lang != null ?  Locale(lang,''): LocalizationServices.locale,
@@ -53,6 +54,8 @@ class SuccessApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199))
         ) ,
          home:  auth == null ? SignIn() : BottomTabs(),
+        initialRoute:  auth == null ? '/login' : '/tabs',
+        onGenerateRoute: SuccessStationRoutes.successStationRoutes,
       );}
     );
   }

@@ -87,7 +87,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.addsCategoryArray.length != 0  ?  featuredAdsList(data.addsCategoryArray) : Container();
+                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),

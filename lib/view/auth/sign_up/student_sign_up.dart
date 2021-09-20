@@ -211,7 +211,7 @@ class _SignPageState extends State<StudentSignUp> {
               space20,
               GestureDetector(
                 onTap: (){
-                  Get.to(SignIn());
+                  Get.toNamed('/login');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

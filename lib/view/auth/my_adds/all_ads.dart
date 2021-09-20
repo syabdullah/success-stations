@@ -104,7 +104,7 @@ class _AllAddsState extends State<AllAdds> {
       ? PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
-          '', Icons.arrow_back_ios_new_sharp,
+          context, Icons.arrow_back_ios_new_sharp,
           'All  Ads', AppImages.appBarSearch
         )
       )
@@ -117,11 +117,8 @@ class _AllAddsState extends State<AllAdds> {
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-              ? CircularProgressIndicator()
-              : data.havingAddsList != null
-                ? addsCategoryWidget(data.havingAddsList['data'])
-                : Container();
+              return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
+              Container();
             },
           ),
           SizedBox(height:20),
@@ -185,7 +182,7 @@ class _AllAddsState extends State<AllAdds> {
             ),
             GestureDetector(
               onTap: () {
-               Get.to(AddPostingScreen());
+                Get.to(AddPostingScreen());
               },
               child: Container(
                 margin: lang == 'en'
@@ -1018,6 +1015,7 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
+              print("lang printed all ads. ${havingAdds[index]['category'][lang]}");
               if(index != 0 ) {
                 allCheck = true;
               }else {
@@ -1092,8 +1090,8 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
-                        ? Text(
-                            havingAdds[index]['category'][lang],
+                        ? Text( havingAdds[index]['category'][lang] == 'en' || havingAdds[index]['category'][lang] == 'ar'? 
+                            havingAdds[index]['category'][lang] :  havingAdds[index]['category']['en'],
                             style: TextStyle(
                               color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                               ? Colors.white

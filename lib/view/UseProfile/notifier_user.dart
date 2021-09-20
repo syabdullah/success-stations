@@ -67,7 +67,7 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
               IconButton(
                 onPressed:() {
                   
-                  Get.to(BottomTabs());
+                  Get.toNamed('/tabs');
                   banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.black)

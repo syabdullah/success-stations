@@ -55,6 +55,7 @@ class _AppDrawerState extends State<AppDrawer> {
     final banner = Get.put(BannerController());
     final getLang = Get.put(LanguageController());
 var lang;
+    var uploadedImage;
   @override
   void dispose() {
     banner.bannerController();
@@ -82,24 +83,27 @@ var lang;
    
     setState(() {
       if (pickedFile != null) {
-        imageP = pickedFile!.path;    
-        
+        imageP = pickedFile!.path;           
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
       
       }
     });
-      try {
-          dio.FormData formData = dio.FormData.fromMap({          
-            "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
-          });
-         
-          Get.find<AdPostingController>().uploadAdImage(formData); 
-          Get.find<UserProfileController>().getUserProfile();
-        } catch (e) {
+    try {
+        dio.FormData formData = dio.FormData.fromMap({          
+          "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+        });     
+        Get.find<AdPostingController>().uploadAdImage(formData); 
+        uploadedImage  = Get.find<AdPostingController>().adUpload['name'];
 
-        }
+        Get.find<UserProfileController>().getUserProfile();
+      } catch (e) {
+      }
+      var json = {
+        'image':uploadedImage
+      };
+       Get.find<UserProfileController>().updateProfile(json); 
   }
 
   @override
@@ -206,54 +210,47 @@ var lang;
                           ),
                           SizedBox(height: 10,),
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
-                            Get.to(BottomTabs());
+                            Get.toNamed('/tabs');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
-                            Get.off(DraftAds());
+                            Get.toNamed('/myDraft');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
-                           Get.off(MyAdds());
+                            Get.toNamed('/myAddsPage');
                           } ,15.0),
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
-                            // Get.toNamed('/friendProfile');
-                            Get.off(UserProfile());
+                            Get.toNamed('/userProfile');
                           },15.0 ),
-                          // CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
-                          //  Get.to(MyAdds());
-                          // } ,15.0),
                           CustomListTile(AppImages.message, 'messeges'.tr, () {
-                            Get.off(Inbox());
+                            Get.toNamed('/inbox');
                           },15.0 ),
                           userType == 2 && accountType == 'Free'? Container():  accountType == 'Paid' ?
                           CustomListTile(AppImages.location, 'location'.tr, () {
-                            Get.off(MyLocations());
+                            Get.toNamed('/location');
                           },15.0 ):
                           CustomListTile(AppImages.location, 'location'.tr, () {
-                            Get.off(MyLocations());
+                            Get.toNamed('/location');
                           },15.0 ),
                           CustomListTile(AppImages.membership, 'membership'.tr, () {
-                            Get.off(IndividualMemeberShip());
+                            Get.to(IndividualMemeberShip());
                           },15.0 ),
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
-                            Get.off(NotificationPage())
+                            Get.toNamed('/notification')
                           },15.0 ),
                           CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                           Get.off(FriendReqList());
+                           Get.toNamed('/friReq');
                           } ,15.0),
                            userType == 2  && accountType == 'Free' ? Container():  userType == 3 && accountType == "Paid" ? Container(): accountType == "Free" ? Container() :
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
-                            Get.off(OffersDetail());
+                            Get.toNamed('/offerPage');
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
-                            // Get.offAndToNamed('/favourities')
-                            Get.off(FavouritePage())
+                            Get.toNamed('/favourities')
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
-                            Get.to(ChooseLanguage())
+                            Get.toNamed('/chooseLang')
                           },15.0 ), 
-                          // SizedBox(height: 8.h),
                           Divider(),
-                          // SizedBox(height: 20.h),
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
                             child: Text(
@@ -264,20 +261,20 @@ var lang;
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'about_us'.tr, () => {
-                           Get.to(AboutUs())
+                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                           Get.toNamed('/aboutUs')
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {
-                            Get.off(Privacy())
+                            Get.toNamed('/privacy')
                           },15.0 ),
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
-                           Get.off(AdvertisePage())
+                           Get.toNamed('/advertisement')
                           },15.0 ),
                           CustomListTile(AppImages.ugr, 'agr'.tr, () => {
-                            Get.to(UserAgreement())
+                            Get.toNamed('/userAgrement') 
                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'contactus'.tr, () => {
-                           Get.off(Contact())
+                           Get.toNamed('/contact')
                           },15.0 ),
                           SizedBox(height: 10.h),
                           Divider(),
