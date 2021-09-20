@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:success_stations/action/ad_delete_action.dart';
 import 'package:success_stations/action/ad_post_action.dart';
 import 'package:success_stations/action/ads_filtering_action.dart';
 import 'package:success_stations/action/all_add_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
 import 'package:success_stations/action/my_adds/my_add_action.dart';
+import 'package:success_stations/styling/colors.dart';
 
 class AddBasedController extends GetxController {
   bool isLoading = false; 
@@ -25,7 +27,6 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);   
-      print("c data Response.......$cData");
       isLoading = false;
     });
     update();
@@ -35,7 +36,8 @@ class AddBasedController extends GetxController {
   addedAllAds() async{
     isLoading = true ;
     await adsAll().then((res) {
-      allAdsData = jsonDecode(res.body);      
+      allAdsData = jsonDecode(res.body);
+       
       isLoading = false;
     });
     update();
@@ -45,9 +47,9 @@ class AddBasedController extends GetxController {
     addesMyListAll() async{
       isLoading = true;
       await addsFvrtMyAdds().then((value) {
-        myALLAdd= jsonDecode(value.body);
-        print("................>>>#........................fikl................$myALLAdd");
+       
         if(value.statusCode == 200 || value.statusCode < 400){
+           myALLAdd= jsonDecode(value.body);
           resultInvalid(false);
           isLoading = false;
         }
@@ -60,7 +62,23 @@ class AddBasedController extends GetxController {
       });
       update();
   }
-
+adDelete(dataa) async {
+     isLoading = true;
+     await adDeleting(dataa).then((res) {    
+      var data = jsonDecode(res.body);  
+      print(res.statusCode);
+      print(data);
+      if(res.statusCode == 200 || res.statusCode < 400){
+      addesMyListAll();
+       addesMyListAll();
+        Get.snackbar("Ad successfully deleted",'',backgroundColor: AppColors.appBarBackGroundColor);
+      isLoading = false;      
+      } if(res.statusCode >=  400){
+          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
+      }
+     });
+     update();
+   }
 
   createFilterAds(data) async {
     isLoading = true;
@@ -75,29 +93,21 @@ class AddBasedController extends GetxController {
           resultInvalid(true);
           isLoading = false;
       }
-      // isLoading=false;
     });
     update();
   }
 
    activeAd(dataa) async {
-     print("..........'''''$dataa");
      isLoading = true;
      await adActive(dataa).then((res) {    
       var adact = jsonDecode(res.body);
-    
-      print(res.statusCode);
-        print(adact);
      });
      update();
    }
     deactiveAd(dataa) async {
-     print("..........'''''$dataa");
      isLoading = true;
      await adDeActive(dataa).then((res) {    
       var addct = jsonDecode(res.body);
-      print(res.statusCode);
-        print(addct);
      });
      update();
    }

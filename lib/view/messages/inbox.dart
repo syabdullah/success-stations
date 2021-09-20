@@ -22,7 +22,6 @@ class _InboxState extends State<Inbox> {
   void initState() {
     super.initState();
     chatCont.getAllConvo();
-    print("-----------------------------${Get.height}");
    userId =  box.read('user_id');
   }
   Widget messageList(data,allData) {
@@ -66,7 +65,7 @@ class _InboxState extends State<Inbox> {
               box.remove('chat_image');
             }
             chatCont.getChatConvo(data['pivot']['conversation_id'], 1);
-            Get.toNamed('/chat',arguments: [data['pivot']['conversation_id'],data['name']]);
+            Get.to(ChattinPagePersonal(),arguments: [data['pivot']['conversation_id'],data['name']]);
           },
           title: 
           Row(

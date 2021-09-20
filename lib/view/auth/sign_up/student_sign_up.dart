@@ -78,15 +78,13 @@ class _SignPageState extends State<StudentSignUp> {
         'about': aboutController.text,
         'degree': degreeController.text
       };
-      print(
-          "hxsahkjkjhsxahgjxhsgaxdiuljhxbkjaxn ksamnckjsabc,mnxsbckhjd,bafiouqrefioewq$json");
+      
       signUpCont.createAccountData(json);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("signUpCont.signup['errors']['email']signUpCont.signup['errors']['email']signUpCont.signup['message']['email']${signUpCont.signup['message']}");
     final space20 = SizedBox(height: getSize(20, context));
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
@@ -437,10 +435,8 @@ class _SignPageState extends State<StudentSignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
         },
         onInputValidated: (bool value) {
-          print(value);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -455,7 +451,6 @@ class _SignPageState extends State<StudentSignUp> {
             TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print('On Saved: $number');
         },
         initialValue: tttt,
       )
@@ -510,7 +505,6 @@ class _SignPageState extends State<StudentSignUp> {
             setState(() {
               dateTime = date;
               finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-              print("..................$finalDate");
             });
           });
         },
@@ -518,7 +512,6 @@ class _SignPageState extends State<StudentSignUp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              // padding: EdgeInsets.only(right:100),
               child: Text(dateTime == null ? 'date_of_birth'.tr : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey,),
@@ -532,15 +525,10 @@ class _SignPageState extends State<StudentSignUp> {
                   setState(() {
                     dateTime = date;
                     finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                    print("..................$finalDate");
                   });
                 });
               },
             ),
-            // CupertinoDatePicker(
-            //   mode: ,
-            //   onDateTimeChanged: onDateTimeChanged
-            //   )
           ],
         ),
       ),
@@ -569,13 +557,17 @@ class _SignPageState extends State<StudentSignUp> {
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
-                  return DropdownMenuItem(value: coun, child: Text(coun['name']));
+                  return DropdownMenuItem(value: coun, 
+                  child:  coun['name'] !=null ?  Text(
+                    coun['name'][lang]
+                  ): Container()
+                );
                 }).toList(),
                 onChanged: (val) {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'];
+                    hintTextCountry = mapCountry['name'][lang];
                     selectedCountry = mapCountry['id'];
                     countryPut.getRegion(selectedCountry);
                   });

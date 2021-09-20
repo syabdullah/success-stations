@@ -64,7 +64,6 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await allOffers().then((value) {
       allOffersResp = jsonDecode(value.body);
-      print("all offers responhyes..........$allOffersResp");
       isLoading = false;
     });
     update();
@@ -74,7 +73,6 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await offerMyOffers().then((value) {
       drawerMyHavingAdds = jsonDecode(value.body);
-      print("all offers responhyes..........$drawerMyHavingAdds");
       isLoading = false;
     });
     update();

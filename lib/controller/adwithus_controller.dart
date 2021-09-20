@@ -13,7 +13,6 @@ var responses;
     await adwithusAction(data).then((response){
       ad = jsonDecode(response.body);
        responses= response.statusCode;
-      print(response.statusCode);
       if(response.statusCode < 400){
          Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
        

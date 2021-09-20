@@ -4,7 +4,6 @@ import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
 
 Future<http.Response> saveLocation(data) async{
-  print("PPPPPPPP-----$data");
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}locations");
   final result = await http.post(
@@ -47,7 +46,6 @@ Future<http.Response> getAllLocation() async{
 Future<http.Response> getNearByLocation(id,dis,lat,long) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}user-location/$id?distance=$dis&lat=$lat&lon=$long");
-  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
@@ -56,7 +54,6 @@ Future<http.Response> getNearByLocation(id,dis,lat,long) async{
 Future<http.Response> getAllNearByLocation(dis,lat,long) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}locationS?distance=$dis&lat=$lat&lon=$long");
-  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
@@ -65,7 +62,6 @@ Future<http.Response> getAllNearByLocation(dis,lat,long) async{
 Future<http.Response> getCityLocation(city,id) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}user-location/$id?$city");
-  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
@@ -74,7 +70,6 @@ Future<http.Response> getCityLocation(city,id) async{
 Future<http.Response> getAllCityLocation(city) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}locations?$city");
-  print("....................................>$url");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;

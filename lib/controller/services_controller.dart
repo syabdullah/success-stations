@@ -19,12 +19,8 @@ class ServicesController extends GetxController {
     isLoading = true ;
     await services().then((res) {
       servicesData = jsonDecode(res.body);
-      // data = Map<String, dynamic>.from(jsonDecode(res.body));
-      // servicesData = data["data"];
-      print("!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$servicesData");
-      for(int ser =0; ser < servicesData['data'].length; ser++){
+       for(int ser =0; ser < servicesData['data'].length; ser++){
         servicesListdata.add(servicesData['data'][ser]);
-          print(".. servicesssssss loop .........!!!!!!!!!!!!!!!!!!$servicesListdata");
       }
       isLoading = false;
     });

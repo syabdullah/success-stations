@@ -71,9 +71,12 @@ var lang;
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
     lang = box.read('lang_code');
+   
     banner.bannerController();
     
   }
+
+ 
   Future getImage() async { 
     await ApiHeaders().getData();
     pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
@@ -84,7 +87,7 @@ var lang;
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
-        print('No image selected.');
+      
       }
     });
     try {
@@ -108,6 +111,7 @@ var lang;
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
     lang = box.read('lang_code');
+   
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),

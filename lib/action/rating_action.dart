@@ -18,7 +18,6 @@ Future<http.Response> getRating(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}rating/$id");
-  print('   my      $url');
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

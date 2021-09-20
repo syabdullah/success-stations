@@ -24,7 +24,6 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
 @override
   void initState() {
     id = Get.arguments;
-    print(id);
     userProfile.getUseradProfile(id);
     super.initState();
   }    

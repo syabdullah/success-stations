@@ -153,7 +153,6 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   Widget topWidget() {
-    var list;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1020,43 +1019,41 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   void navigateToGoogleLogin() {}
-
+  var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;
   Widget addsCategoryWidget(havingAdds) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height:45,
+          height: 40,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-              
-              // if (data != null && id == havingAdds[index]['id']) {
-              //   print("........");
-              //   catID = havingAdds[index]['id'];
-              //   selectedIndex = index;
-              //   // ind = 0;
-              // } else if (data == null && ind == 0) {
-              //   id = havingAdds[index]['id'];
-              //   catID = havingAdds[index]['id'];
-              //   controller.addedByIdAddes(havingAdds[0]['id'], null);
-              //   selectedIndex = index;
-              //   ++ind;
-              // }
-
-              return index == 0 ? Container(
-                width: 70,
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              return 
+              Row(
+                children: [
+                  allCheck == false ? 
+                  Container(
+                    width: 70,
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
                     : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                        havingCategorybool = false;
-                        selectedIndex = index;
-                        addsGet.myAddsCategory();
-                       
+                          havingCategorybool = false;
+                          textAllcheck = false;
+                          selectedIndex = index;
+                          allColor = AppColors.appBarBackGroundColor;
+                          addsGet.myAddsCategory();                      
                         });
                       },
                       child: Container(
@@ -1065,16 +1062,14 @@ class _AllAddsState extends State<AllAdds> {
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index
-                          ? selectedColor
-                          : Colors.white,
+                          color: allColor,
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
                             "All",
                             style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                               fontSize: 12,
                               fontStyle: FontStyle.normal,
                             ),
@@ -1082,9 +1077,7 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                       ),
                     ),
-              ):
-              Row(
-                children: [
+                  ):Container(),
                   Container(
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
@@ -1096,6 +1089,8 @@ class _AllAddsState extends State<AllAdds> {
                          havingCategorybool =true;
                           ind = ++ind;
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           id = havingAdds[index]['id'];
                           controller.addedByIdAddes(havingAdds[index]['id'], null);
                           // addsGet.myAddsCategory();
@@ -1105,23 +1100,16 @@ class _AllAddsState extends State<AllAdds> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index &&id == havingAdds[index]['id']
+                          color: selectedIndex == index &&id == havingAdds[index]['id'] && textAllcheck == true
                           ? AppColors.appBarBackGroundColor
                           : Colors.white,
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.grey,
-                          //     offset: Offset(0.0, 1.0),
-                          //     blurRadius: 6.0,
-                          //   ),
-                          // ],
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
                         ? Text(
                             havingAdds[index]['category']['en'],
                             style: TextStyle(
-                              color: selectedIndex == index && id == havingAdds[index]['id']
+                              color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                               ? Colors.white
                               : AppColors.appBarBackGroundColor,
                               fontSize: 12,

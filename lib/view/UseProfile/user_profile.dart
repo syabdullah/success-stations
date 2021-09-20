@@ -22,18 +22,16 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     super.initState();
     lang = box.read('lang_code');
     userimage = box.read('user_image');
+   
   }
   @override
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
-    print(Get.width);
-    print(Get.height);
     return Scaffold(
       body: GetBuilder<UserProfileController>(
         init: UserProfileController(),
         builder:(val) {
-          print(val.userData);
           return
           val.userData!= null ? Column(
             children: [
@@ -131,6 +129,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                          margin: lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("name".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                              userData["name"] != null ?

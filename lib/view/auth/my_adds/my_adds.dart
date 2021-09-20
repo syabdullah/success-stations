@@ -80,6 +80,7 @@ class _MyAddsState extends State<MyAdds> {
               child: GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
+                print("...................-------");
                 return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
                 listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
                 myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
@@ -327,7 +328,6 @@ void _adsfiltringheet() {
                       ),
                       onChanged: (values) {
                         setState(() {
-                          print("start : ${values.start}, end: ${values.end}");
                           _currentRangeValues = values;
                         });
                       },
@@ -448,20 +448,12 @@ void _adsfiltringheet() {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemSize: 13.5,
-                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
 
                                 onRatingUpdate: (rating) {
-                                  //  var ratingjson = {
-                                  //    'ads_id' : userData[index]['id'],
-                                  //    'rate': rating
-                                  //  };
-                                  //  ratingcont.ratings(ratingjson );
-                                  //  ratingcont.getratings(userData[index]['id']);
                                 },
                               ),
                               Container(
@@ -478,12 +470,12 @@ void _adsfiltringheet() {
                                     children: [
                                     GestureDetector(
                                       onTap: (){
-                                         deleteAd.adDelete(allDataAdds[index]['id']);
-                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
+                                         controller.adDelete(allDataAdds[index]['id']);
                                          controller.addesMyListAll();
                                           controller.addesMyListAll();
+                                           controller.addedByIdAddes(catID, userId);
                                           controller.addedByIdAddes(catID, userId);
-                                          controller.addedByIdAddes(catID, userId);
+                                         
                                       },
                                       child: Image.asset(AppImages.delete,height: 30,)),
                                     SizedBox(width: 3,),
@@ -497,24 +489,6 @@ void _adsfiltringheet() {
                                     ],
                                   ),
                                 ),
-                                // SizedBox(height: 8),
-                                  // Expanded(
-                                  //   flex:3,
-                                  //   child: Container(
-                                  //     margin: EdgeInsets.only(left:10),
-                                  //     child: Row(
-                                  //       children: [
-                                  //         Icon(Icons.person, color:Colors.grey),
-                                  //         Text(
-                                  //           allDataAdds[index]['user']['name'],
-                                  //           style: TextStyle(
-                                  //             color: Colors.grey[300]
-                                  //           ),
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
                               ],
                             ),
                           ),
@@ -529,61 +503,38 @@ void _adsfiltringheet() {
                           child: 
                           Row(
                             children: [
-                              // GestureDetector(
-                              //   onTap: (){
-                              //     Get.to(AddPostingScreen(),arguments:allDataAdds[index] );
-                              //   },
-                              //   child: CircleAvatar(
-                              //     radius: 10,
-                              //     backgroundColor: Colors.red,
-                              //     child: Icon(Icons.edit,color: Colors.white,)),
-                              // ),
-                              //   SizedBox(width: 3,),
-                              // CircleAvatar(
-                              //   backgroundColor: Colors.grey[200],
-                              //   child: GestureDetector(
-                              //     onTap: (){
-                              //     deleteAd.adDelete(allDataAdds[index]['id']);
-                              //     controller.addedByIdAddes(allDataAdds[index]['id'],allDataAdds[index]['category_id']);
-                              //     },
-                              //     child: Icon(Icons.person))
-                              //   ),
-                                
                             ],
                           ) 
                         ),
                         
-                        Container(
-                          child:
-                          GetBuilder<FriendsController>(
-                            init: FriendsController(),
-                            builder: (val){
-                              return
-                              Row(
-                                children: [ 
+                        // Container(
+                        //   child:
+                        //   GetBuilder<FriendsController>(
+                        //     init: FriendsController(),
+                        //     builder: (val){
+                        //       return
+                        //       Row(
+                        //         children: [ 
                                   
-                                  GestureDetector(
-                                    onTap: () {
-                                      var json = {
-                                          'ads_id' : allDataAdds[index]['id']
-                                        };
-                                        // setState(() {
-                                          liked = !liked;
-                                        // });
-                                        allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                                        controller.addedByIdAddes(catID, userId);
-                                    },
-                                    child: Container(
-                                      // padding: EdgeInsets.only(right:5),
-                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
-                                    ),
-                                  ),
+                        //           GestureDetector(
+                        //             onTap: () {
+                        //               var json = {
+                        //                   'ads_id' : allDataAdds[index]['id']
+                        //                 };
+                        //                   liked = !liked;
+                        //                 allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                        //                 controller.addedByIdAddes(catID, userId);
+                        //             },
+                        //             child: Container(
+                        //               child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                        //             ),
+                        //           ),
                                 
-                                ],
-                              );
-                            })
+                        //         ],
+                        //       );
+                        //     })
                         
-                        ),
+                        // ),
                        Transform.scale(
                          scale: .7,
                          child: Switch.adaptive(
@@ -611,8 +562,7 @@ void _adsfiltringheet() {
   }
   var ind = 0 ;
   var myAddssplitedPrice;
-  myAddGridView(dataListValue) {   
-    print("aAAAAA____++++++++------AAAAA---");
+  myAddGridView(dataListValue) { 
     return Container(
       width: Get.width,
       child: GridView.count(
@@ -656,14 +606,16 @@ void _adsfiltringheet() {
                                     width: Get.width/4,
                                     child: Icon(Icons.image,size: 50,),
                                   )
-                            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10,right: 10),
                           child: Center(
-                            child: Text( dataListValue[index]['title']['en'] !=null ?
-                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                            child: Text(
+                               dataListValue[index]['title']['en'] !=null ?
+                              dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                               maxLines:1,),
                           ),
                         ), 
                          Container(
@@ -679,12 +631,10 @@ void _adsfiltringheet() {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 13.5,
-
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-
                                   onRatingUpdate: (rating) {
                                   },
                                 ),
@@ -700,11 +650,15 @@ void _adsfiltringheet() {
                                    children: [                                  
                                    GestureDetector(
                                      onTap: (){
-                                         deleteAd.adDelete(dataListValue[index]['id']);
+                                        controller.adDelete(dataListValue[index]['id']);
+                                        // if(categorybool == false) {
+                                         controller.addesMyListAll();
                                           controller.addesMyListAll();
-                                           controller.addesMyListAll();
-                                          controller.addedByIdAddes(catID, userId);
+                                          
+                                        //  }else{
                                            controller.addedByIdAddes(catID, userId);
+                                          controller.addedByIdAddes(catID, userId);
+                                        //  }
                                          
                                      },
                                      child: Image.asset(AppImages.delete,height: 30,)),
@@ -793,7 +747,10 @@ void _adsfiltringheet() {
   }
   void navigateToGoogleLogin() {
   }
-var catID;
+  var catID;
+ var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;  
   Widget addsCategoryWidget(listingCategoriesData){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -804,50 +761,56 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              // if(ind == 0){
-              //   catID =  listingCategoriesData[index]['id'];
-              //   controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
-              // }
-              ind = ++ind;
-              return index == 0 ? Container(
-                width: 70,
-                  // margin: lang == 'en'
-                  //   ? EdgeInsets.only(left: 12.0)
-                  //   : EdgeInsets.only(right: 12.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                        selectedIndex = index;
-                         myaddedDr.addesMyListFv();
-                        categorybool = false;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left:12),
-                        decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: AppColors.appBarBackGroundColor
-                          ),
-                          color: selectedIndex == index
-                          ? AppColors.appBarBackGroundColor
-                          : Colors.white,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            "All",
-                            style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
-                              fontSize: 12,
-                              fontStyle: FontStyle.normal,
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              // ind = ++ind;
+              return  Row(
+                children: [
+                   allCheck == false ? 
+                  Container(
+                    width: 70,
+                      // margin: lang == 'en'
+                      //   ? EdgeInsets.only(left: 12.0)
+                      //   : EdgeInsets.only(right: 12.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              textAllcheck = false;
+                              selectedIndex = index;
+                              categorybool = false;
+                              allColor = AppColors.appBarBackGroundColor;
+                            // selectedIndex = index;
+                             myaddedDr.addesMyListFv();
+                            categorybool = false;
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left:12),
+                            decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(20.0),
+                              border: Border.all(
+                                color: AppColors.appBarBackGroundColor
+                              ),
+                              color: allColor,
+                            ),
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Text(
+                                "All",
+                                style: TextStyle(
+                                  color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-              ):
-              Row(
+                  ):Container(),
+                   Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
@@ -855,9 +818,10 @@ var catID;
                       onTap: () {
                         setState(() {
                           categorybool = true;
-                          // ind = ++ind;
                           catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
                       },
@@ -865,13 +829,13 @@ var catID;
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color:AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index ?AppColors.appBarBackGroundColor : Colors.white,
+                          color: selectedIndex == index && textAllcheck == true ?AppColors.appBarBackGroundColor : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
                           listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white :AppColors.appBarBackGroundColor,
+                            color: selectedIndex == index  &&textAllcheck == true? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
                         ):Container()
@@ -879,7 +843,10 @@ var catID;
                     ),
                   ),
                 ],
+              )
+                ],
               );
+             
             },
           ),
         )

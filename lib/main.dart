@@ -26,6 +26,7 @@ GetStorage box = GetStorage();
 getData() async{
   auth = await box.read('access_token');
   lang = await box.read('lang_code');
+  print("lang  code oon  main page ....%$lang");
   box.write('upgrade', true);
 
 }
@@ -33,7 +34,6 @@ getData() async{
 class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("auth....................$auth");
     lang =  box.read('lang_code');
     return ScreenUtilInit(
       builder:()  {       
@@ -57,7 +57,6 @@ class SuccessApp extends StatelessWidget {
         initialRoute:  auth == null ? '/login' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
       );}
-      //  designSize: const Size(360, 640),
     );
   }
 }

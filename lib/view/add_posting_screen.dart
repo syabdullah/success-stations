@@ -84,7 +84,7 @@ var typeId;
       imageName =  editData['image'].length != 0 ?  editData['image'][0]['file_name']: null;
       priceController = TextEditingController(text: editData['price']);
       fullNameController = TextEditingController(text: editData['contact_name']);
-      selectedCategory = editData['category'] != null  ?  editData['category']['category'][lang] : 'Select category' ;
+      selectedCategory = editData['category'] != null  ?  editData['category']['category'][lang] : '' ;
       subtypeId = editData['category_id'];
       typeId = editData['type_id'];
       selectedtype = editData['type'] == null ? 'Select Type' : editData['type']['type'][lang];

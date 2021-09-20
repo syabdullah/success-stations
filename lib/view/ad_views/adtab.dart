@@ -38,7 +38,6 @@ class _AdListTabState extends State<AdListTab> {
     userId = box.read('user_id');
     indId = box.read('selectedUser');
     friCont.profileAds(id);
-    print(" User Ads $id");
     
     indId = Get.arguments;
        super.initState();
@@ -49,7 +48,6 @@ class _AdListTabState extends State<AdListTab> {
       body: GetBuilder<FriendsController>(
         init: FriendsController(),
         builder: (val) {
-          //print("....here in buider.......${val.userAds['id]}"),
           return val.isLoading == true
               ? Center(child: CircularProgressIndicator())
               : val.userAds != null && val.userAds['data'] != null
@@ -62,7 +60,6 @@ class _AdListTabState extends State<AdListTab> {
 
   var catID;
   Widget adList(allDataAdds) {
-    print("........WWWWWW...WWW........$id");
     return Container(
       height: Get.height,
       child: ListView.builder(
@@ -70,11 +67,9 @@ class _AdListTabState extends State<AdListTab> {
         
         itemCount: allDataAdds.length,
         itemBuilder: (BuildContext context, index) {
-          print(
-              "........-------=ratingggggggggg=====---------......${allDataAdds[index]['id']}");
           return GestureDetector(
             onTap: allDataAdds[index]['id'] != null ?
-            ()=> Get.toNamed('/adviewScreen', arguments: allDataAdds[index]['id']): null,
+            ()=> Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']): null,
             child: Card(
               child: Container(
                 height: 100,
@@ -139,14 +134,11 @@ class _AdListTabState extends State<AdListTab> {
                                         itemSize: 22.5,
                                         itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                         onRatingUpdate: (rating) {
-                                          print('rating on tap ........$rating');
                                           var ratingjson = {
                                             'ads_id': allDataAdds[index]['id'],
                                             'rate': rating
                                           };
-                                          print('.....................Rating data on Tap .........$ratingjson');
                                           ratingcont.ratings(ratingjson);
-                                          // ratingcont.getratings(allDataAdds[index]['id']);
                                         },
                                       )
                                       : RatingBar.builder(
@@ -267,7 +259,6 @@ class _AdListTabState extends State<AdListTab> {
                                       ? friCont.profileAdsToFav(json, indId)
                                       : friCont.profileAdsRemove(json, indId);
           
-                                  // addsController.addedByIdAddes(json, indId);
                                 },
                                 child: Container(
                                     padding: EdgeInsets.only(right: 2),
@@ -280,9 +271,7 @@ class _AdListTabState extends State<AdListTab> {
                               ),
                               GestureDetector(
                                   onTap: () {
-                                    print(".......................>${allDataAdds[index]['telephone']}");
                                     launch('tel:${allDataAdds[index]['telephone']}');
-                                    // addsController.addedByIdAddes(json, indId);
                                   },
                                   child:
                                       Image.asset(AppImages.call, height: 20)),

@@ -10,7 +10,6 @@ class MyOffersDrawerController extends GetxController {
   bool isLoading = false;
 
   drawerMyOffer() async{
-    print("offer list Api ....................... ");
     isLoading = true;
     await myOffers().then((res) {
       myofferListDrawer = jsonDecode(res.body);

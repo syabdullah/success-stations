@@ -14,9 +14,7 @@ var phoneEr;
     isLoading = true;
     await contactAction(data).then((response){
       ad = jsonDecode(response.body);
-      print("..........................$ad");
       responses= response.statusCode;
-      print(response.statusCode);
       if(response.statusCode < 400){
         Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.blue);
         // Get.off(AdsView());

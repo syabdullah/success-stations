@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
@@ -76,6 +77,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final signUpCont = Get.put(SignUpController());
   final formKey = GlobalKey<FormState>();
   PhoneNumber companyCode = PhoneNumber(isoCode: '');
+  GetStorage box = GetStorage();
   var inputValuePhone ;
   bool _isChecked = false;
    bool errorCheck = true;
@@ -92,8 +94,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
   @override
   void initState() {
     super.initState();
+    lang = box.read('lang_code');
+    print("lang of the country code..........$lang");
     counCode = Get.arguments;
-    print("..... councode.............$counCode");
+    print("printed value of country code.......$counCode");
     inputValuePhone = counCode[0].toString();
     companyCode = PhoneNumber(isoCode: inputValuePhone);
     errorCheck = true;
@@ -115,7 +119,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'company_name':comNameController.text,
         'service_ids[]': selectedAnimals2
       };
-      print("compamny servicesa... json ...$json");
       signUpCont.companyAccountData(json);
     }
   }
@@ -136,7 +139,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text,
         'service_ids[]': selectedAnimals2
       };
-       print("compamny servicesa... json ...$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -202,7 +204,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
-                  return country(val.countryListdata);
+                  return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
+                  Container();
                 } ,
               ),
               space10,
@@ -245,26 +248,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               radioalert(),
               v == 2 ? 
-            
                comName()
-              
               :space10,
               v == 2 ?
               cR():
-              // space10,
               v == 1 ? 
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
                     iqama(),
-                    // space10,
-              //       GetBuilder<ServicesController>(
-              //   init: ServicesController(),
-              //   builder: (val){
-              //     return services(val.servicesListdata);
-              //   },
-              // ),
                   ],
                 )): 
               space10,
@@ -427,10 +420,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
         },
         onInputValidated: (bool value) {
-          print(value);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -444,7 +435,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print('On Saved: $number');
         },
         initialValue: companyCode,
       )
@@ -530,6 +520,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget country(List data) {
+    
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
@@ -549,13 +540,17 @@ class _CompanySignPageState extends State<CompanySignUp> {
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coun) {
               return DropdownMenuItem(
-                value: coun, child: Text(coun['name']!= null ?coun['name']:''));
+                value: coun, 
+                child: coun['name'] !=null ?  Text(
+                  coun['name']['en']
+                ): Container()
+              );
             }).toList(),
             onChanged: (val) {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'];
+                hintTextCountry = mapCountry['name']['en'];
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';
@@ -681,46 +676,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         },
                       ),
                     ),
-                    // selectedAnimals2 == null || selectedAnimals2.isEmpty
-                    //     ? Container(
-                    //         padding: EdgeInsets.all(10),
-                    //         alignment: Alignment.centerLeft,
-                    //         child: Text(
-                    //           "None selected",
-                    //           style: TextStyle(color: Colors.black54),
-                    //         ))
-                    //     : Container(),
-      
-          // MultiSelectBottomSheetField(
-            
-          //   // initialChildSize: 0.7,
-          //   listType: MultiSelectListType.CHIP,
-          //   searchable: true,
-          //   decoration: BoxDecoration(
-          //     color: AppColors.inputColor,
-          //     border: Border.all(
-          //       color: AppColors.inputTextColor
-          //     )
-          //   ),
-          //   buttonText: Text("Services"),
-          //   items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
-          //   onConfirm: (e) {
-           
-          //     // print(",msxmxm,xmxm,samxsm,xslkxcjmdkjcdskcmjs${ e[0]['id']}");
-              
-              
-          //   },
-          //   chipDisplay: MultiSelectChipDisplay(
-          //     onTap: (value) {
-               
-               
-          //       setState(() {
-          //         selectedAnimals2.remove(value);
-          //       });
-          //     },
-          //   ),
-          // ),
-                
+                  
       ] ));
   }
 
@@ -806,10 +762,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
-          print(number.phoneNumber);
         },
         onInputValidated: (bool value) {
-          print(value);
         },
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -824,7 +778,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
             TextInputType.numberWithOptions(signed: true, decimal: true),
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print('On Saved: $number');
         },
         initialValue: companyCode,
       )

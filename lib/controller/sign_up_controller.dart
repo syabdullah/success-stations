@@ -15,7 +15,6 @@ class SignUpController extends GetxController{
     await createAccount(data).then((res){
       if(res.statusCode == 200 || res.statusCode < 400){
         signup = jsonDecode(res.body);
-        print("................$signup");
         isLoading = false; 
         Get.toNamed('/login');
         SnackBarWidget().showToast("",signup['message'] );

@@ -135,7 +135,6 @@ class _AdsViewState extends State<AdsView> {
                     });
                     box.write('upgrade', isVisible);
                     newv = box.read('upgrade');
-                    print(newv);
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 30,left:10),
@@ -335,7 +334,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.2 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -398,19 +397,16 @@ class _AdsViewState extends State<AdsView> {
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
-                              print(
-                                  'rating on tap ........$rating');
+                             
                               var ratingjson = {
                                 'ads_id':
                                     data[index]
                                         ['id'],
                                 'rate': rating
                               };
-                              print(
-                                  '.....................Rating data on Tap .........$ratingjson');
+                             
                               ratingcont
                                   .ratings(ratingjson);
-                              // ratingcont.getratings(allDataAdds[index]['id']);
                             },
                           )
                         : RatingBar.builder(
@@ -465,19 +461,7 @@ class _AdsViewState extends State<AdsView> {
                           'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
                         ): Container()
                       ),                 
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       margin: EdgeInsets.only(),
-                      //       child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
-                      //     ),
-                      //     SizedBox(width:5),
-                      //     Container(
-                      //       margin: EdgeInsets.only( left: Get.height*0.000),
-                      //       child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
-                      //     ),
-                      //   ],                      
-                      // ),                                
+                                          
                     ],
                   ),
                 ],

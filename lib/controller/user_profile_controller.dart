@@ -26,18 +26,20 @@ class UserProfileController extends GetxController {
   getUserProfile() async{
     isLoading = true ;
     await userProfileAction().then((res) {
-      userData = jsonDecode(res.body);   
+      userData = jsonDecode(res.body);
+    
       isLoading = false;
     });
     update();
   }
-  getUseradProfile(id) async{
-      isLoading = true ;
-      await userProfiletabAction(id).then((res) {
-        userData2 = jsonDecode(res.body);
-        isLoading = false;
-      });
-      update();
+getUseradProfile(id) async{
+    isLoading = true ;
+    await userProfiletabAction(id).then((res) {
+      userData2 = jsonDecode(res.body);
+    
+      isLoading = false;
+    });
+    update();
   }
 
   updateProfile(data) async{

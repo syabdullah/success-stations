@@ -11,7 +11,6 @@ Future<http.Response> createconvo(data) async{
   var url = Uri.parse("${conf.baseUrl}chats/$data");
   final result = await http.post(
     url,headers: ApiHeaders().headersWithToken);
-    // print("-------------------------$result");
     return result;
 }
 
@@ -19,7 +18,6 @@ Future<http.Response> getconvo(data,page) async{
   await ApiHeaders().getData();
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}chats/$data/messages/?page=$page");
-  print(url);
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
@@ -29,7 +27,6 @@ Future<http.Response> getAllChats() async{
   await ApiHeaders().getData();
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}chats/my?page=1");
-  print(url);
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
   return result;
@@ -41,6 +38,5 @@ Future<http.Response> readMessage(data) async{
   var url = Uri.parse("${conf.baseUrl}read-message");
   final result = await http.post(
     url,body: jsonEncode(data),headers: ApiHeaders().headersWithToken);
-    // print("-------------------------$result");
     return result;
 }

@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/action/location_action/last_location_action.dart';
 import 'package:success_stations/action/location_action/save_location.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 
 class LocationController extends GetxController {
@@ -13,7 +12,7 @@ class LocationController extends GetxController {
   var locData;
   var allLoc;
   var editLoc;
-    List offeredList = [];
+  List offeredList = [];
   var lastLocation;
    var resultInvalid = false.obs;
    var latLng;
@@ -24,15 +23,11 @@ class LocationController extends GetxController {
   }
 
   saveLocationToDB(data) async{
-      print("..................>$data");
-    print("controller call of the Favorite list");
     isLoading = true;
     await saveLocation(data).then((value) {
       if(value.statusCode == 200 || value.statusCode < 400){
         res = jsonDecode(value.body);
-        print("..................>$res");
-        //  getMyLocationToDB();
-         Get.toNamed('/location');
+         Get.to(MyLocations());
         isLoading = false;
          Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
        
@@ -45,12 +40,9 @@ class LocationController extends GetxController {
 editLocationToDB(id,data) async{
     isLoading = true;
     await editLocation(id,data).then((value) {
-      print("..................scdsbhjdsvjvhf-------->${value.body}");
       if(value.statusCode == 200 || value.statusCode < 400){
         editLoc = jsonDecode(value.body);
-        print("..................scdsbhjdsvjvhf-------->$editLoc");
-        //  getMyLocationToDB();
-         Get.toNamed('location');
+         Get.to(MyLocations());
         isLoading = false;
          Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
       }
@@ -63,7 +55,6 @@ deleteLocationToDB(id,userId) async {
     await deleteLocation(id).then((value) {
       if(value.statusCode == 200 || value.statusCode < 400){
         var del = jsonDecode(value.body);
-         print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$del");
         isLoading = false;
         getMyLocationToDB(userId);
          Get.snackbar("Location deleted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
@@ -73,12 +64,9 @@ deleteLocationToDB(id,userId) async {
   }
 
   getMyLocationToDB(id) async{
-    print("controller call of the Favorite list");
     isLoading = true;
     await getMyLocation(id).then((value) {
-      print(",,,,,,,,,,,,,,,,,,,Offer data lisr.................$value");
       locData = jsonDecode(value.body);
-      print("json decode response of offer.......>$res");
       isLoading = false;
       
     });
@@ -86,7 +74,6 @@ deleteLocationToDB(id,userId) async {
   }
   getAllLocationToDB() async{
      allLoc = null;
-    print("controller call of the Favorite list");
     isLoading = true;
     await getAllLocation().then((value) {
       allLoc = jsonDecode(value.body);
@@ -95,7 +82,6 @@ deleteLocationToDB(id,userId) async {
               latLng =LatLng(allLoc['data']['data'][i]['long'],allLoc['data']['data'][i]['long']);
             }
           }
-      print("json decode response of offer.......>$allLoc");
       isLoading = false;
     });
     update();
@@ -117,7 +103,6 @@ deleteLocationToDB(id,userId) async {
     await getAllCityLocation(city).then((value) {
       allLoc = jsonDecode(value.body);
       isLoading = false;
-      print("json decode response of offer.......>$allLoc");
     });
     update();
    }
@@ -127,7 +112,6 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
      allLoc = null;
     await getNearByLocation(id,dis,lat,long).then((value) {
-      // allLoc = jsonDecode(value.body);
       lastLocation = jsonDecode(value.body);
       isLoading = false;
     });
@@ -137,21 +121,15 @@ deleteLocationToDB(id,userId) async {
    getUSerLocationByCity(city,id) async {
     isLoading = true;
     await getCityLocation(city,id).then((value) {
-      // allLoc = jsonDecode(value.body);
       lastLocation = jsonDecode(value.body);
       isLoading = false;
-      print("json decode response of offer.......>$allLoc");
     });
     update();
    }
   userlocationList(id) async{
-    print("controller call of the Favorite list");
     isLoading = true;
     await lastLocatin(id).then((value) {
-      print("Last Locations $value");
       lastLocation = jsonDecode(value.body);
-      print("Last Locations $lastLocation");
-      // isLoading = false;
       if (value.statusCode == 200 || value.statusCode < 400) {
         resultInvalid(false);
         isLoading = false;

@@ -13,7 +13,7 @@ var otp;
     isLoading = true;
     await otpGenerateAction(data).then((response){
       otp = jsonDecode(response.body);
-      print(response.statusCode);
+      
       if(response.statusCode < 400){
         Get.toNamed('/resetPass');
       }

@@ -17,15 +17,7 @@ class BannerController extends GetxController {
     isLoading = true;
     await bannerAction().then((value){
     bannerData = jsonDecode(value.body);
-    // print(bannerData);
     isLoading = false;
-    // if(bannerData['data'] !=null || bannerData['data'].length !=null  ){
-    //     for(int c =0; c <bannerData['data'].length; c++ ){
-    //     bannerArray.add(bannerData['data'][c]);
-    //   }
-    // }
-    // print(bannerData);
-
     });
     update();
   }

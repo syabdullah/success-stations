@@ -15,7 +15,6 @@ Future<http.Response> offersCategoryById(id) async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url =  Uri.parse("${config.baseUrl}category-offer/$id");
-  print("url of the beased api .....offerrrr Category...........>>>>>$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

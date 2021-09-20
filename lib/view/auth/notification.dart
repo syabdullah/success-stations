@@ -29,15 +29,15 @@ class _NotificationPageState extends State<NotificationPage> {
       body:SafeArea(
         child: ListView(
           children:[
-            GetBuilder<NotificationController>( // specify type as Controller
-              init: NotificationController(), // intialize with the Controller
-              builder: (value){ 
-                print(value.allNotifications);               
-                return 
-                value.allNotifications != null ?
-                fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
-              }
-            ),
+        
+                  GetBuilder<NotificationController>( // specify type as Controller
+                  init: NotificationController(), // intialize with the Controller
+                  builder: (value){ 
+                    return 
+                    value.allNotifications != null ?
+                    fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+                  }
+                    ),
           ],
         ),
       ),

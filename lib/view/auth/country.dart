@@ -7,8 +7,8 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 
@@ -23,7 +23,6 @@ class _CountryPageState extends State<Ccountry> {
   var selectedIndex;
   GetStorage box = GetStorage();
   Widget featureCountryList(countryListData) {
-    print("countryv Datta/..>$countryListData");
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 4.30,
@@ -36,11 +35,9 @@ class _CountryPageState extends State<Ccountry> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
-                  print("....country based.......$selectedIndex");
                   box.write("country", selectedIndex);
                   box.write("country_id", countryListData[index]['id']);
                   box.write(  "country_code", countryListData[index]['short_code']);
-                  print("country id.....${ countryListData[index]['short_code']}");
                   countrycOde = countryListData[index]['short_code'];
                   countryId = countryListData[index]['id'];
                 });
@@ -49,7 +46,7 @@ class _CountryPageState extends State<Ccountry> {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Get.toNamed('/signUp', arguments: [countryListData[index]['short_code'], countryListData[index]['id']]);
+                      Get.to(TabBarPage(), arguments: [countryListData[index]['short_code'], countryListData[index]['id']]);
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 20),
@@ -73,7 +70,7 @@ class _CountryPageState extends State<Ccountry> {
                   ),
                   Container(
                       child: countryListData[index]['name'] != null
-                          ? Text(countryListData[index]['name'],style: TextStyle(color: AppColors.inputTextColor),)
+                          ? Text(countryListData[index]['name']['en'],style: TextStyle(color: AppColors.inputTextColor),)
                           : Container())
                 ],
               ),
@@ -152,7 +149,7 @@ class _CountryPageState extends State<Ccountry> {
  Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/login');
+        Get.to(SignIn());
       },
       child: Container(
         child: Row(

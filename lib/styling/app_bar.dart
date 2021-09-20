@@ -201,13 +201,9 @@ Widget newAppbar(context ,text,image,) {
     var start;
   var end;
   filtrationModel(context) async {
-    //  print('..........-------${position.longitude}');
     var size = MediaQuery.of(context).size;
-    print(size);
    showModalBottomSheet(  
      isScrollControlled: true,
-    // useRootNavigator: true,
-    // enableDrag: true,
      context: context,   
      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -313,7 +309,6 @@ Widget newAppbar(context ,text,image,) {
                                       decideRouter = 'city';
                                       array.add(val);
                                       cityArray.add('city[]=$val');
-                                      print("on saved ---- $cityArray");
                                     });                          
                                   },
                                 ),
@@ -354,8 +349,7 @@ Widget newAppbar(context ,text,image,) {
                                              array.remove(item);
                                             cityArray.removeAt(ind);
                                            
-                                        });
-                                        print(cityArray);                                 
+                                        });                              
                                       },
                                       child: Container(
                                         child: Icon(Icons.clear,color: Colors.blue,size:15),

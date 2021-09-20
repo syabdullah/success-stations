@@ -19,12 +19,9 @@ class  AdPostingController extends GetxController {
   var adact,addct;
    RxBool isLoading = false.obs;
    finalAdPosting(dataa) async {
-     print("..........'''''$dataa");
      isLoading(true);
      await adPosting(dataa).then((res) {    
       var data = jsonDecode(res.body);
-      print(res.statusCode);
-        print(data);
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body); 
         Get.off(MyAdds());
@@ -37,12 +34,9 @@ class  AdPostingController extends GetxController {
      update();
    }
   finalAdEditing(dataa,adID) async {
-     print("..........'''''$adID");
      isLoading(true);
      await editAdPosting(dataa,adID).then((res) {    
       var editAd = jsonDecode(res.body);
-      print(res.statusCode);
-        print(editAd);
       if(res.statusCode == 200 || res.statusCode < 400){
         Get.off(MyAdds());
         Get.snackbar("Ads successfully updated",'',backgroundColor: AppColors.appBarBackGroundColor);
@@ -56,7 +50,6 @@ class  AdPostingController extends GetxController {
     finalAdDrafting(data) async {
       await ApiHeaders().getData();
       final Config conf = Config();
-        print("object----------------------${ApiHeaders().headersWithToken}");
       String url =conf.baseUrl + "ads";
       Dio dio = Dio();
         response.Response result =
@@ -75,16 +68,12 @@ class  AdPostingController extends GetxController {
     uploadAdImage(data) async {
       await ApiHeaders().getData();
       final Config conf = Config();
-      print(ApiHeaders().headersWithToken);
       String url =conf.baseUrl + "ads/media";
       Dio dio = Dio();
         response.Response result =
         await dio.post(url, data: data,options:Options(headers: ApiHeaders().headersWithToken));
-       adUpload = result.data;
-       
-      // if(result.data['success'] == true){
-      //   //  isLoading = true;
-      // } 
+      adUpload = result.data;
+      
     update();
   }
 
@@ -92,8 +81,6 @@ class  AdPostingController extends GetxController {
      isLoading(true);
      await commentPosting(data).then((res) {    
        postComment = jsonDecode(res.body);
-      print(postComment);
-      print(res.statusCode);
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body);
         isLoading(false);
