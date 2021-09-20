@@ -1,6 +1,4 @@
  import 'dart:convert';
-
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';

@@ -41,7 +41,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
     user_image = box.read('user_image');
     adId = Get.arguments;
     aboutadID =Get.arguments;
-    print(aboutadID);
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
     
@@ -54,7 +53,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
       'comment': comment,
       'user_name_id':id
     };
-    print(json);
     adpostingController.commentPost(json);
   }
   @override
@@ -91,7 +89,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
             SizedBox(height: 5.h,),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
-              child: Text(val.adsD != null ? "${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
+              child: Text(val.adsD != null ? "   ${val.adsD['data']['listing_comments'].length} People Commented on this ad." :'',
                 style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                 ),
               ),
@@ -155,7 +153,7 @@ Widget titleStep(data) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    data['title']!= null ?
+                    data['title']['en']!= null ?
                     Text(data['title']['en'],style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),):Container(),
                    
                   ],
@@ -165,7 +163,7 @@ Widget titleStep(data) {
                 padding: EdgeInsets.only(left:30,right: 30,),
                 child: data['price'] !=null ?  Text('SAR ${reviewPagePrice[0]}',style: TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor),): Container()),
               Container(
-                margin:lang=='en'? EdgeInsets.only(left:30,bottom: 10):EdgeInsets.only(right:30),
+                margin:lang=='en'? EdgeInsets.only(left:30,bottom: 10):EdgeInsets.only(left:30,right:30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   
@@ -193,7 +191,8 @@ Widget titleStep(data) {
                       ),
                     ),
                      Container(
-                       margin: lang=='en'? EdgeInsets.only(left:60,):EdgeInsets.only(right:60,),
+                      //  margin: lang=='en'? EdgeInsets.only(left:60,ri):EdgeInsets.only(right:60,left: 60),
+                      margin: EdgeInsets.only(left:60,right: 60),
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -218,7 +217,7 @@ Widget titleStep(data) {
         ),
       Card(
         child:Container(
-          margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
+          margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(left:30,right:30),
         // child:Padding(
         // padding: lang=='en'? EdgeInsets.only(left:20,top: 15): EdgeInsets.only(left:20,top: 15),
         child: Column(
@@ -227,11 +226,7 @@ Widget titleStep(data) {
             Container(
             margin: lang=='en'?EdgeInsets.only(left:10):EdgeInsets.only(left:10),  
             child: Text("city4".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),)),
-            SizedBox(height:5.h),
             Html(data: htmldata)
-            // Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
-            // textAlign: TextAlign.justify,
-            // style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)
           ],
         ),
        ),
@@ -251,9 +246,6 @@ Widget titleStep(data) {
                 backgroundImage: NetworkImage(data['created_by']['image']['url']
                 )
               ):Icon(Icons.image)) 
-          // Image.asset(
-          //   AppImages.profile,
-          // ),
         ),
       
       Padding(
@@ -282,7 +274,6 @@ Widget titleStep(data) {
       GestureDetector(
         onTap: () {
           Get.to(FriendProfile(),arguments: ["ads",data['created_by']['id']]);
-          print(data['created_by']['id']);
         },
         child: Text("${"see_profile".tr} >",style:
         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
@@ -302,59 +293,6 @@ Container(
     ],
    );
 }
-// Widget listTileRow(data){
-
-//   return data == null ? 
-//       Container(
-//         child: Text("No Detail"),
-//        ) :ListTile(
-//       title: Row(
-//       children: [
-//         CircleAvatar(
-//         backgroundColor: Colors.white54,
-//         radius: 30.0,
-//         child: ClipRRect(
-//           borderRadius: BorderRadius.circular(50.0),
-//           child: user_image != null ? 
-//           Image.network(user_image['url']) : Image.asset(AppImages.person,color: Colors.grey[400])
-//           // Image.asset(
-//           //   AppImages.profile,
-//           // ),
-//         )
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.only(left:8.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Container(
-//               width: Get.width/3.5,
-//               child: Text(myName.toString(),style:
-//                 AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
-//                 ),
-//               ),
-//             ),
-//             Text("Owner",style:
-//             AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey,
-//             ),
-//           ),
-//          ],
-//         ),
-//       )
-//      ],
-//     ),
-//     trailing: 
-//       GestureDetector(
-//         onTap: () {
-//           Get.to(UserProfile());
-//         },
-//         child: Text("${"see_profile".tr} >",style:
-//         AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor,
-//         ),
-//     ),
-//       ),
-//   );
-// }
 
 Widget listTileRow2(data) {
   return Container(
@@ -522,7 +460,7 @@ Widget commentInput(){
       },
       style: TextStyle(color:AppColors.inputTextColor,fontSize: 15.h,fontWeight: FontWeight.bold),
       decoration:InputDecoration(
-        contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0):EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 80.0),
+        contentPadding: lang=='en'?EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0):EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 80.0),
         hintText: "write_comment_here".tr,
         border: OutlineInputBorder( 
           borderRadius: BorderRadius.circular(10.0),

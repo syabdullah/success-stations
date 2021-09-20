@@ -44,7 +44,6 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       'description':writeController.text
     };
     adwithme.sendingAdsWithUs(json);
-    print('${nameController.text}',);
   }
   }
   

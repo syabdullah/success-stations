@@ -19,10 +19,8 @@ class DraftAdsController extends GetxController {
   getDraftedAds() async{
     isLoading = true ;
     await draftAdsAction().then((res) {
-      // print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData = jsonDecode(res.body);
       isLoading = false;
-      print("////////////////////////////////    $userData");
     });
     update();
   }
@@ -30,13 +28,11 @@ class DraftAdsController extends GetxController {
    getDraftedAdsOublished(id) async{
     isLoading = true ;
     await draftAdsPublished(id).then((res) {
-      // print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userDataP = jsonDecode(res.body);
       if(res.statusCode == 200 || res.statusCode < 400) {
       getDraftedAds();
       isLoading = false;
         Get.snackbar(userDataP['message'],'',backgroundColor: AppColors.appBarBackGroundColor);
-      print("////////////////////////////////    $userDataP");
       }
     });
     update();

@@ -15,31 +15,21 @@ class FaceBookSignIn {
    var email;
     Future<Null> login() async {
       final login =  Get.put(LoginController());
-      print("FaceBook.........");
       final res = await fb.logIn(permissions: [
         FacebookPermission.publicProfile,
         FacebookPermission.email,
       ]);
-      print("FaceBook.........$res");
       switch (res.status) {
         case FacebookLoginStatus.success:
-
-          print('Access token: ${res.accessToken!.token}');
-          // var accessToken = res.accessToken!.token.split(":");
           if(res.accessToken != null ) {
             dataStore.write("access_token",res.accessToken!.token);
-            // Get.toNamed('/home');
           }
-          // Get profile data
           final profile = await fb.getUserProfile();
           print('Hello, ${profile!.name}! You ID: ${profile.userId}');
           id = profile.userId;
           name = profile.name;
-          // Get user profile image url
           final imageUrl = await fb.getProfileImageUrl(width: 100);
           print('Your profile image: $imageUrl');
-
-          // Get email (since we request email permission)
            email = await fb.getUserEmail();
           // But user can decline permission
           if (email != null)
@@ -57,7 +47,6 @@ class FaceBookSignIn {
           break;
         case FacebookLoginStatus.error:
           // Log in failed
-          print('Error while log in: ${res.error}');
            break;
       }
 

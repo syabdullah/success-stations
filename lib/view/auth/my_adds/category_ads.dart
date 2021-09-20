@@ -329,8 +329,7 @@ class _CatAddsState extends State<CatAdds> {
                         ),
                         onChanged: (values) {
                           setState(() {
-                            print(
-                                "start : ${values.start}, end: ${values.end}");
+                           
                             _currentRangeValues = values;
                           });
                         },
@@ -370,8 +369,7 @@ class _CatAddsState extends State<CatAdds> {
                                   
                                   applyFiltering();
                                   Get.to(AllAdds());
-                                  // Navigator.pushNamed(context, '/login');
-                                  // Get.to(SignIn());
+                                 
                                 }),
                           ),
                         ],
@@ -397,8 +395,7 @@ class _CatAddsState extends State<CatAdds> {
     return ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
-        print(
-            "........-------======---------......${allDataAdds[index]['image'].length}");
+       
         return GestureDetector(
           onTap: () {
             Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
@@ -480,24 +477,7 @@ class _CatAddsState extends State<CatAdds> {
                                 ],
                               ),
                             ),
-                            // SizedBox(height: 8),
-                            // Expanded(
-                            //   flex:3,
-                            //   child: Container(
-                            //     margin: EdgeInsets.only(left:10),
-                            //     child: Row(
-                            //       children: [
-                            //         Icon(Icons.person, color:Colors.grey),
-                            //         Text(
-                            //           allDataAdds[index]['user']['name'],
-                            //           style: TextStyle(
-                            //             color: Colors.grey[300]
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
+                            
                           ],
                         ),
                       ),
@@ -513,8 +493,7 @@ class _CatAddsState extends State<CatAdds> {
                               backgroundColor: Colors.grey[200],
                               child: Icon(Icons.person))),
                       Container(
-                        // width: Get.width/4,
-                        // height: Get.height/5.5,
+                        
                         child: GetBuilder<FriendsController>(
                           init: FriendsController(),
                           builder: (val) {
@@ -563,14 +542,12 @@ class _CatAddsState extends State<CatAdds> {
 
   var ind = 0;
   myAddGridView(dataListValue) {
-    print(
-        "datalist value...................data list value..... $dataListValue");
+  
     return Container(
       width: Get.width / 1.10,
       child: GridView.count(
           crossAxisCount: 2,
           children: List.generate(dataListValue.length, (index) {
-            print(" data of the gridfdddddddd laYOUTTTTTT.....$index");
             return Container(
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width / 7,
                 margin: EdgeInsets.only(left: 15),

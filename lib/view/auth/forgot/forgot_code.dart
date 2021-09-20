@@ -79,7 +79,6 @@ class _ForgotCodeState extends State<ForgotCode> {
         'otp' : data
       };
       getCode.generateOtp(json);
-      print(json);
     }
   }
   Widget otpTextfield(controller,focusNode,onchange){
@@ -90,9 +89,7 @@ class _ForgotCodeState extends State<ForgotCode> {
           
           focusNode: focusNode,
           validator: (value) {
-            // if(value!.isEmpty){
-            //   Get.snackbar('Enter OTP Code and click Next', '',backgroundColor: Colors.blue);
-            // }
+           
           } ,
           controller: controller,
           obscureText: true,

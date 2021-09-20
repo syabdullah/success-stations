@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 
 class NotifierUser extends StatefulWidget {
@@ -26,24 +25,16 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
     adID = Get.arguments;
     userimage = box.read('user_image');
     dataUser.getUseradProfile(notifyid);
-    //  id = Get.arguments;
-    // print("../././....----------$id");
-    // friCont.friendDetails(id);
-    // friCont.profileAds(id);
-    // _controller = TabController(length: 2,vsync: this); 
   }
   @override
   bool get wantKeepAlive => true;
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    print(Get.width);
-    print(Get.height);
     return Scaffold(
       body: GetBuilder<UserProfileController>( 
         init: UserProfileController(),
         builder:(val) {
-          print(val.userData2);
           return 
           val.userData!= null ? Column(
             children: [
@@ -81,12 +72,6 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.black)
               ),
-              // Center(
-              //   widthFactor: 3,
-              //   child: Container(
-              //     child: Text("JUNAID",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
-              //   ),
-              // )
             ],
           ),
         ),

@@ -19,31 +19,24 @@ class UserProfileController extends GetxController {
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
      getUserProfile();
   }
   getUserProfile() async{
     isLoading = true ;
     await userProfileAction().then((res) {
-      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData = jsonDecode(res.body);
-      // box.write('user_image',userData['data']['image']);
     
       isLoading = false;
-      print("////////////////////////////////    $userData");
     });
     update();
   }
 getUseradProfile(id) async{
     isLoading = true ;
     await userProfiletabAction(id).then((res) {
-      print(">>>>>>>>>>>>>!!!!!!!!!!!!!!!!$res");
       userData2 = jsonDecode(res.body);
-      // box.write('user_image',userData['data']['image']);
     
       isLoading = false;
-      // print("////////////////////////////////    $userData");
     });
     update();
   }

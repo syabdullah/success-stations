@@ -20,12 +20,9 @@ class NotificationController extends GetxController {
   }
 
   allNoti() async{
-    print("controller call of the Favorite list");
     isLoading = true;
     await allNotification().then((value) {
-      print("all notifications $value");
       allNotifications = jsonDecode(value.body);
-      print("hehehhehehhehehehheheheheh $allNotifications");
       isLoading = false;
     });
     update();
@@ -34,8 +31,6 @@ class NotificationController extends GetxController {
     isLoading = true;
     await deleteNotificationAction(data).then((res) {
        deleteNotification = jsonDecode(res.body);
-       print(deleteNotification);
-        print(res.statusCode);
       if(res.statusCode < 400){
         // Get.off(NotificationPage());
     allNoti();

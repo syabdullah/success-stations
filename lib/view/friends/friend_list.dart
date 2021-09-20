@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -269,7 +268,6 @@ class _FriendListState extends State<FriendList> {
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
         newData.add(dataGrid[i]);
-        print(newData.length);
       }
     }
     return GridView.count(

@@ -47,7 +47,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize(
+       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: AppBar(
             backgroundColor:Color(0xFF2F4199) ,
@@ -125,13 +125,11 @@ class _MyOffersDetailState extends State<OffersDetail> {
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
-        // print(" ID GET IT ${listFavou[c]['id']}");
         favrties.add(Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: Card(
             child: Container(
               height: 120,
-              //height: Get.height/6.5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -267,7 +265,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
                               child: GestureDetector(
                                   onTap: () {
-                                    print(listFavou[c]['id']);
                                     delete.deleteOfferController(
                                         listFavou[c]['id']);
                                   },

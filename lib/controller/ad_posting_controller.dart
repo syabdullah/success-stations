@@ -19,13 +19,9 @@ class  AdPostingController extends GetxController {
   var adact,addct;
    RxBool isLoading = false.obs;
    finalAdPosting(dataa) async {
-     print("..........'''''$dataa");
      isLoading(true);
      await adPosting(dataa).then((res) {    
       var data = jsonDecode(res.body);
-    
-      print(res.statusCode);
-        print(data);
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body); 
         Get.off(MyAdds());
@@ -38,14 +34,10 @@ class  AdPostingController extends GetxController {
      update();
    }
   finalAdEditing(dataa,adID) async {
-     print("..........'''''$adID");
      isLoading(true);
      await editAdPosting(dataa,adID).then((res) {    
       var editAd = jsonDecode(res.body);
-      print(res.statusCode);
-        print(editAd);
       if(res.statusCode == 200 || res.statusCode < 400){
-        // editAd = jsonDecode(res.body); 
         Get.off(MyAdds());
         Get.snackbar("Ads successfully updated",'',backgroundColor: AppColors.appBarBackGroundColor);
         isLoading(false);      
@@ -58,15 +50,12 @@ class  AdPostingController extends GetxController {
     finalAdDrafting(data) async {
       await ApiHeaders().getData();
       final Config conf = Config();
-        print("object----------------------${ApiHeaders().headersWithToken}");
       String url =conf.baseUrl + "ads";
       Dio dio = Dio();
         response.Response result =
         await dio.post(url, data: data,options:Options(
           followRedirects: false,
           headers: ApiHeaders().headersWithToken));
-    // await updateProfile(data).then((res) {
-       print("object----------------------$result");
       adpost = result.data;
       if(result.data['success'] == true){
          isLoading(true);
@@ -79,21 +68,14 @@ class  AdPostingController extends GetxController {
 
 
     uploadAdImage(data) async {
-      print("______))))))))))");
       await ApiHeaders().getData();
       final Config conf = Config();
-      print(ApiHeaders().headersWithToken);
       String url =conf.baseUrl + "ads/media";
       Dio dio = Dio();
         response.Response result =
         await dio.post(url, data: data,options:Options(headers: ApiHeaders().headersWithToken));
-       print("object...........${result.data}");
-    // await updateProfile(data).then((res) {
       adUpload = result.data;
-       
-      // if(result.data['success'] == true){
-      //   //  isLoading = true;
-      // } 
+      
     update();
   }
 
@@ -101,54 +83,14 @@ class  AdPostingController extends GetxController {
      isLoading(true);
      await commentPosting(data).then((res) {    
        postComment = jsonDecode(res.body);
-      print(postComment);
-      print(res.statusCode);
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body);
         isLoading(false);
-        //  Get.snackbar("Add Posted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
-       
-        
       } if(res.statusCode >=  400){
           Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
       }
      });
      update();
    }
-    activeAd(dataa) async {
-     print("..........'''''$dataa");
-     isLoading(true);
-     await adActive(dataa).then((res) {    
-      var adact = jsonDecode(res.body);
-    
-      print(res.statusCode);
-        print(adact);
-      // if(res.statusCode == 200 || res.statusCode < 400){
-      
-    
-      //   Get.snackbar("Ad Active",'',backgroundColor: AppColors.appBarBackGroundColor);
-      //   isLoading(false);      
-      // } if(res.statusCode >=  400){
-      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
-      // }
-     });
-     update();
-   }
-    deactiveAd(dataa) async {
-     print("..........'''''$dataa");
-     isLoading(true);
-     await adDeActive(dataa).then((res) {    
-      var addct = jsonDecode(res.body);
-      print(res.statusCode);
-        print(addct);
-      // if(res.statusCode == 200 || res.statusCode < 400){
-       
-      //   Get.snackbar("Ads Deactive ",'',backgroundColor: AppColors.appBarBackGroundColor);
-      //   isLoading(false);      
-      // } if(res.statusCode >=  400){
-      //     Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
-      // }
-     });
-     update();
-   }
+   
 }

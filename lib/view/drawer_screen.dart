@@ -16,6 +16,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
+import 'package:success_stations/utils/favourite.dart';
 import 'package:success_stations/view/UseProfile/privacy.dart';
 import 'package:success_stations/view/UseProfile/user_agreement.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
@@ -70,16 +71,11 @@ var lang;
     accountType = box.read('account_type');
     lang = box.read('lang_code');
    
-    print("////////a//// -----------$lang");
     banner.bannerController();
     
   }
 
-  // box.write('lang_id',dataLanguage['data'][i]['id']);
-  //               box.write('lang_code', dataLanguage['data'][i]['short_code']);
-  //               LocalizationServices().changeLocale(dataLanguage['data'][i]['short_code']);
-
-
+ 
   Future getImage() async { 
     await ApiHeaders().getData();
     pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
@@ -91,7 +87,7 @@ var lang;
         box.write("user_image_local", imageP);
         fileName = pickedFile!.path.split('/').last;  
       } else {
-        print('No image selected.');
+      
       }
     });
       try {
@@ -111,8 +107,7 @@ var lang;
     imageP = box.read('user_image_local').toString();
     image = box.read('user_image');
     lang = box.read('lang_code');
-    print(".....................>....$image");
-    print("${Get.height}");
+   
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
@@ -213,7 +208,7 @@ var lang;
                           CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.to(BottomTabs());
                           },15.0 ),
-                          CustomListTile(AppImages.ma, 'drafted_ads'.tr, ()  {
+                          CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
                             Get.off(DraftAds());
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
@@ -250,7 +245,8 @@ var lang;
                             Get.off(OffersDetail());
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
-                            Get.offAndToNamed('/favourities')
+                            // Get.offAndToNamed('/favourities')
+                            Get.off(FavouritePage())
                           },15.0 ), 
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.to(ChooseLanguage())
@@ -311,7 +307,6 @@ var lang;
   
   @override
   Widget build(BuildContext context) {
-     print("////////a//// $lang");
     return InkWell(
       splashColor: Colors.grey,
       onTap:() => onTap(),

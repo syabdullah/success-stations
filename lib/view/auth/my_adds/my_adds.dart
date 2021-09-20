@@ -45,7 +45,7 @@ class _MyAddsState extends State<MyAdds> {
   void initState() {
     super.initState();
     controllerCat.addsdrawerHavinng();
-    myaddedDr.addesMyListFv();
+    controller.addesMyListAll();
     drawAdds.myAddsCategory();
   
     categorybool = false;
@@ -55,7 +55,6 @@ class _MyAddsState extends State<MyAdds> {
   }
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
        drawer: Theme(
@@ -76,25 +75,23 @@ class _MyAddsState extends State<MyAdds> {
               : Container();
             },
           ),    
-          SizedBox(height:20),
           categorybool == false ? 
             Expanded(
-              child: GetBuilder<MyAddsAdedController>(
-              init: MyAddsAdedController(),
+              child: GetBuilder<AddBasedController>(
+              init: AddBasedController(),
               builder: (val) {
-                return val.addsGet !=null && val.addsGet['data'] !=null && val.addsGet['success'] == true ? 
-                listtype == 'list' ? myAddsList(val.addsGet['data']): myAddGridView(val.addsGet['data']):
-                myaddedDr.resultInvalid.isTrue && val.addsGet['data'] == false ?
+                return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
+                listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
+                myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
                 Container(
                   margin: EdgeInsets.only(top: Get.height / 3),
                   child: Center(
                     child: Text(
-                      myaddedDr.addsGet['errors'],
+                      val.myALLAdd['errors'],
                       style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ): Container();
-
               }
             )
            ):  
@@ -104,7 +101,7 @@ class _MyAddsState extends State<MyAdds> {
                 builder: (val){
                   return val.isLoading == true || val.cData == null? Container()
                    : val.cData['data'] == null ? Container()
-                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']
+                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']
                   );
                 },
               ),
@@ -142,8 +139,7 @@ class _MyAddsState extends State<MyAdds> {
     Widget topWidget() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          
+        children: [         
           Row(
             children: [
               GestureDetector(
@@ -157,7 +153,7 @@ class _MyAddsState extends State<MyAdds> {
               ),
               Container(
                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                child: Text("newad".tr,style: TextStyle(color: Colors.grey,fontSize:18,))),
+                child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
             ],
           ),
           Row(
@@ -357,7 +353,6 @@ void _adsfiltringheet() {
                       ),
                       onChanged: (values) {
                         setState(() {
-                          print("start : ${values.start}, end: ${values.end}");
                           _currentRangeValues = values;
                         });
                       },
@@ -438,7 +433,9 @@ void _adsfiltringheet() {
                               const EdgeInsets.all(10.0),
                               child: GestureDetector(
                                 child:  allDataAdds[index]['media'].length != 0 ?
-                                Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,) :
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(allDataAdds[index]['media'][0]['url'],fit: BoxFit.fill,width: Get.width/4,height: Get.height/4,)) :
                                 Container(
                                   width: Get.width/4,
                                    child: Icon(Icons.image,size: 50,),
@@ -476,20 +473,12 @@ void _adsfiltringheet() {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemSize: 13.5,
-                                // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
 
                                 onRatingUpdate: (rating) {
-                                  //  var ratingjson = {
-                                  //    'ads_id' : userData[index]['id'],
-                                  //    'rate': rating
-                                  //  };
-                                  //  ratingcont.ratings(ratingjson );
-                                  //  ratingcont.getratings(userData[index]['id']);
                                 },
                               ),
                               Container(
@@ -508,7 +497,8 @@ void _adsfiltringheet() {
                                       onTap: (){
                                          deleteAd.adDelete(allDataAdds[index]['id']);
                                          Get.find<AddBasedController>().addedByIdAddes(catID, userId);
-                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
+                                         controller.addesMyListAll();
+                                          controller.addedByIdAddes(catID, userId);
                                       },
                                       child: Image.asset(AppImages.delete,height: 30,)),
                                     SizedBox(width: 3,),
@@ -522,24 +512,6 @@ void _adsfiltringheet() {
                                     ],
                                   ),
                                 ),
-                                // SizedBox(height: 8),
-                                  // Expanded(
-                                  //   flex:3,
-                                  //   child: Container(
-                                  //     margin: EdgeInsets.only(left:10),
-                                  //     child: Row(
-                                  //       children: [
-                                  //         Icon(Icons.person, color:Colors.grey),
-                                  //         Text(
-                                  //           allDataAdds[index]['user']['name'],
-                                  //           style: TextStyle(
-                                  //             color: Colors.grey[300]
-                                  //           ),
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
                               ],
                             ),
                           ),
@@ -554,26 +526,6 @@ void _adsfiltringheet() {
                           child: 
                           Row(
                             children: [
-                              // GestureDetector(
-                              //   onTap: (){
-                              //     Get.to(AddPostingScreen(),arguments:allDataAdds[index] );
-                              //   },
-                              //   child: CircleAvatar(
-                              //     radius: 10,
-                              //     backgroundColor: Colors.red,
-                              //     child: Icon(Icons.edit,color: Colors.white,)),
-                              // ),
-                              //   SizedBox(width: 3,),
-                              // CircleAvatar(
-                              //   backgroundColor: Colors.grey[200],
-                              //   child: GestureDetector(
-                              //     onTap: (){
-                              //     deleteAd.adDelete(allDataAdds[index]['id']);
-                              //     controller.addedByIdAddes(allDataAdds[index]['id'],allDataAdds[index]['category_id']);
-                              //     },
-                              //     child: Icon(Icons.person))
-                              //   ),
-                                
                             ],
                           ) 
                         ),
@@ -592,14 +544,11 @@ void _adsfiltringheet() {
                                       var json = {
                                           'ads_id' : allDataAdds[index]['id']
                                         };
-                                        // setState(() {
                                           liked = !liked;
-                                        // });
                                         allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
                                         controller.addedByIdAddes(catID, userId);
                                     },
                                     child: Container(
-                                      // padding: EdgeInsets.only(right:5),
                                       child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
                                     ),
                                   ),
@@ -614,12 +563,11 @@ void _adsfiltringheet() {
                          child: Switch.adaptive(
                            activeColor: AppColors.appBarBackGroundColor,
                            value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                            setState(() {
                               allDataAdds[index]['is_active'] == 1 ?
-                              adStatus.deactiveAd(allDataAdds[index]['id']) :
-                              adStatus.activeAd(allDataAdds[index]['id']) ;
+                              controller.deactiveAd(allDataAdds[index]['id']) :
+                              controller.activeAd(allDataAdds[index]['id']) ;
+                              controller.addesMyListAll();
                               controller.addedByIdAddes(catID, userId);
-                            });
                            }),
                        ),   
                       ],
@@ -635,15 +583,13 @@ void _adsfiltringheet() {
   }
   var ind = 0 ;
   var myAddssplitedPrice;
-  myAddGridView(dataListValue) {
-    
+  myAddGridView(dataListValue) {   
     return Container(
       width: Get.width,
-
       child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.80 :Get.height <= 800 ? Get.height/ 1.80 :0),
+        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
         
         children: List.generate(
           dataListValue.length, (index) {
@@ -653,9 +599,9 @@ void _adsfiltringheet() {
               colorFilter: ColorFilter.mode(
                 dataListValue[index]['is_active'] == 0 ?
                 Colors.white:Colors.transparent, BlendMode.softLight),
-              child: Container(
+                child: Container(
                 width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-                margin: EdgeInsets.only(left:15),
+                margin: EdgeInsets.only(left:5,right: 10),
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                 child:  GestureDetector(
                   onTap: () {
@@ -681,34 +627,16 @@ void _adsfiltringheet() {
                                     width: Get.width/4,
                                     child: Icon(Icons.image,size: 50,),
                                   )
-                            // Image.asset(AppImages.profileBg,fit: BoxFit.fill)
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 10,right: 10),
                           child: Center(
                             child: Text( dataListValue[index]['title']['en'] !=null ?
-                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold)),
+                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
                           ),
-                        ),
-                        // dataListValue[index]['user']['address'] == null ? Container(): 
-                        // Expanded(
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        ), 
                          Container(
-                           padding: EdgeInsets.only(left:10),
                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -720,81 +648,77 @@ void _adsfiltringheet() {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 13.5,
-                                  // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-
                                   onRatingUpdate: (rating) {
-                                    //  var ratingjson = {
-                                    //    'ads_id' : userData[index]['id'],
-                                    //    'rate': rating
-                                    //  };
-                                    //  ratingcont.ratings(ratingjson );
-                                    //  ratingcont.getratings(userData[index]['id']);
                                   },
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      "(${dataListValue[index]['rating_count'].toString()})",
-                                      style: TextStyle(fontSize: 13),
-                                    )),
-                                     Row(
-                                    children: [
-                                  
-                              Transform.scale(
-                                scale: .7,
-                                child: Switch.adaptive(
-                                    activeColor: AppColors.appBarBackGroundColor,
-                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                  setState(() {
-                                    dataListValue[index]['is_active'] == 1 ?
-                                    adStatus.deactiveAd(dataListValue[index]['id']) :
-                                    adStatus.activeAd(dataListValue[index]['id']) ;
-                                    controller.addedByIdAddes(catID, userId);
-                                  });
-                              
-                                }),
-                              ),   
-                                    ],
-                                  ),
+                                  child: Text(
+                                    "(${dataListValue[index]['rating_count'].toString()})",
+                                    style: TextStyle(fontSize: 13),
+                                  )
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  child: Row(
+                                   children: [                                  
+                                   GestureDetector(
+                                     onTap: (){
+                                         deleteAd.adDelete(dataListValue[index]['id']);
+                                          controller.addesMyListAll();
+                                           controller.addesMyListAll();
+                                          controller.addedByIdAddes(catID, userId);
+                                         
+                                     },
+                                     child: Image.asset(AppImages.delete,height: 30,)),
+                                       SizedBox(width: 3,),
+                                     GestureDetector(
+                                       onTap:(){  
+                                         Get.to(AddPostingScreen(),arguments:dataListValue[index]);
+                                       },
+                                       child: Image.asset(AppImages.edit,height: 30,))
+                                   ],
+                               ),
+                                ),
                               ],
                             ),
                          ), 
                          Container(
-                           padding: EdgeInsets.only(left:10,right:10),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Container(
-                                   child:
-                                   dataListValue[index]['price'] != null?
-                                    Text( 
-                                    "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
-                                 ),
-                               Row(
-                                 children: [
-                                   
-                                 GestureDetector(
-                                   onTap: (){
-                                       deleteAd.adDelete(dataListValue[index]['id']);
-                                       controller.addedByIdAddes(catID, userId);
-                                   },
-                                   child: Image.asset(AppImages.delete,height: 30,)),
-                                     SizedBox(width: 3,),
-                                   GestureDetector(
-                                     onTap:(){  
-                                       Get.to(AddPostingScreen(),arguments:dataListValue[index]);
-                                     },
-                                     child: Image.asset(AppImages.edit,height: 30,))
-                                 ],
-                               ),
-                             ],
-                           ),
-                         ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  child:
+                                  dataListValue[index]['price'] != null?
+                                  Text( 
+                                  "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
+                                ),
+                                Row(
+                                  children: [
+                                    Transform.scale(
+                                      scale: .7,
+                                      child: Switch.adaptive(
+                                          activeColor: AppColors.appBarBackGroundColor,
+                                          value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                        // setState(() {
+                                          dataListValue[index]['is_active'] == 1 ?
+                                          controller.deactiveAd(dataListValue[index]['id']) :
+                                          controller.activeAd(dataListValue[index]['id']) ;
+                                          controller.addesMyListAll();
+                                          controller.addedByIdAddes(catID, userId);
+                                        // });
+                                    
+                                      }),
+                                    ),   
+                                  ],
+                                ),
+                              ],
+                            ),
+                         ), 
                         Expanded(
                           // flex : 2,
                           child:  Container(
@@ -807,39 +731,6 @@ void _adsfiltringheet() {
                             ),
                           ),
                         ),
-                        
-                        // dataListValue[index]['user']['address'] == null ? Container(): 
-                        // Expanded(
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.location_on, color:Colors.grey),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['address']!=null ? dataListValue[index]['user']['address']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        // Expanded(
-                        //   flex : 2,
-                        //   child:  Row(
-                        //     children: [
-                        //       Icon(Icons.person, color:Colors.grey[400],),
-                        //       Container(
-                        //         child: Text(
-                        //           dataListValue[index]['user']['name']!=null ? dataListValue[index]['user']['name']: '',
-                        //           style: TextStyle(
-                        //             color: Colors.grey[300]
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -868,7 +759,10 @@ void _adsfiltringheet() {
   }
   void navigateToGoogleLogin() {
   }
-var catID;
+  var catID;
+ var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;  
   Widget addsCategoryWidget(listingCategoriesData){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -879,50 +773,55 @@ var catID;
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
             itemBuilder: (context, index) {
-              // if(ind == 0){
-              //   catID =  listingCategoriesData[index]['id'];
-              //   controller.addedByIdAddes(listingCategoriesData[0]['id'],userId);
-              // }
-              ind = ++ind;
-              return index == 0 ? Container(
-                width: 70,
-                  // margin: lang == 'en'
-                  //   ? EdgeInsets.only(left: 12.0)
-                  //   : EdgeInsets.only(right: 12.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                        selectedIndex = index;
-                         myaddedDr.addesMyListFv();
-                        categorybool = false;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left:12),
-                        decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: AppColors.appBarBackGroundColor
-                          ),
-                          color: selectedIndex == index
-                          ? AppColors.appBarBackGroundColor
-                          : Colors.white,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            "All",
-                            style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
-                              fontSize: 12,
-                              fontStyle: FontStyle.normal,
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              // ind = ++ind;
+              return  Row(
+                children: [
+                   allCheck == false ? 
+                  Container(
+                    width: 70,
+                      // margin: lang == 'en'
+                      //   ? EdgeInsets.only(left: 12.0)
+                      //   : EdgeInsets.only(right: 12.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              textAllcheck = false;
+                              selectedIndex = index;
+                              allColor = AppColors.appBarBackGroundColor;
+                            // selectedIndex = index;
+                             myaddedDr.addesMyListFv();
+                            categorybool = false;
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left:12),
+                            decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(20.0),
+                              border: Border.all(
+                                color: AppColors.appBarBackGroundColor
+                              ),
+                              color: allColor,
+                            ),
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Text(
+                                "All",
+                                style: TextStyle(
+                                  color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
+                                  fontSize: 12,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-              ):
-              Row(
+                  ):Container(),
+                   Row(
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
@@ -930,9 +829,10 @@ var catID;
                       onTap: () {
                         setState(() {
                           categorybool = true;
-                          // ind = ++ind;
                           catID =  listingCategoriesData[index]['id'];
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           controller.addedByIdAddes(listingCategoriesData[index]['id'],userId);
                         });
                       },
@@ -940,13 +840,13 @@ var catID;
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(color:AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index ?AppColors.appBarBackGroundColor : Colors.white,
+                          color: selectedIndex == index && textAllcheck == true ?AppColors.appBarBackGroundColor : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: listingCategoriesData != null ?  Text(
                           listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
                           style: TextStyle(
-                            color: selectedIndex == index ? Colors.white :AppColors.appBarBackGroundColor,
+                            color: selectedIndex == index  &&textAllcheck == true? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
                         ):Container()
@@ -954,7 +854,10 @@ var catID;
                     ),
                   ),
                 ],
+              )
+                ],
               );
+             
             },
           ),
         )
