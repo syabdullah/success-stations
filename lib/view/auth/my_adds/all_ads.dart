@@ -17,6 +17,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
 
@@ -706,13 +707,11 @@ class _AllAddsState extends State<AllAdds> {
                             padding: const EdgeInsets.all(10.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.grey[200],
-                              child: Icon(Icons.person)
+                              child: Icon(Icons.person, color: AppColors.appBarBackGroundColor,)
                             )
                           ),
                           Container(
                             margin: EdgeInsets.only(right: 5,left: 5),
-                              // width: Get.width/4,
-                              // height: Get.height/5.5,
                             child: Row(
                               children: [
                                 GestureDetector(
@@ -720,20 +719,30 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    // liked = !liked;
                                     allDataAdds[index]['is_favorite'] ==false
                                     ? friCont.profileAdsToFav(json, userId)
                                     : friCont.profileAdsRemove(json, userId);
+                                    controller.addedAllAds();
                                     controller.addedByIdAddes(allDataAdds[index]['category_id'], null);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 5,left: 5),
                                     child: allDataAdds[index]['is_favorite'] ==false
-                                    ? Image.asset(AppImages.blueHeart,height: 30)
-                                    : Image.asset(AppImages.redHeart,height: 30)
+                                    ? Image.asset(AppImages.blueHeart,height: 25)
+                                    : Image.asset(AppImages.redHeart,height: 25)
                                   ),
                                 ),
-                                Image.asset(AppImages.call, height: 25),
+                              Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: 
+                              allDataAdds[index]['phone'] !=null ? GestureDetector(
+                                onTap: (){
+                                   launch("tel:${allDataAdds[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)): Container()
+                              )
+                                
+                                // Image.asset(AppImages.call, height: 25),
                               ],
                             )
                           )
@@ -806,7 +815,8 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                 dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
+                                 dataListValue[index]['is_favorite'] ==false ? 
+                                 friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
                                  controller.addedAllAds();
                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
@@ -915,8 +925,17 @@ class _AllAddsState extends State<AllAdds> {
                          
                         child: Row(
                           children: [
+                            dataListValue[index]['phone'] !=null ? 
+                            Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: GestureDetector(
+                                onTap: (){
+                                   launch("tel:${dataListValue[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)),
+                            ):Container()
                            
-                            Image.asset(AppImages.call, height: 25),
+                            // Image.asset(AppImages.call, height: 25),
                           ],
                         )
                       )
