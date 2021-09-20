@@ -144,7 +144,7 @@ class _MyAddsState extends State<MyAdds> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/adPostingScreen');
+                 Get.to(AddPostingScreen());
                 },
                 child: Container(
                   margin:EdgeInsets.only(left:10,right: 10,top: 20),

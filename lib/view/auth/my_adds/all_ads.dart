@@ -15,6 +15,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 
 bool check = true;
@@ -184,7 +185,7 @@ class _AllAddsState extends State<AllAdds> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed('/adPostingScreen');
+               Get.to(AddPostingScreen());
               },
               child: Container(
                 margin: lang == 'en'
@@ -813,7 +814,7 @@ class _AllAddsState extends State<AllAdds> {
                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(right: 5,left: 5),
+                                  padding: EdgeInsets.only(right: 2,left: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
                                   ? Image.asset(AppImages.blueHeart,height: 30)
                                   : Image.asset(AppImages.redHeart,height: 30)
