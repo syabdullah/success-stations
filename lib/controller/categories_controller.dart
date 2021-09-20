@@ -47,6 +47,7 @@ class CategoryController extends GetxController {
     await havingAdds().then((value) {
       isLoading = true ;
       havingAddsList =  jsonDecode(value.body);
+      print("habingdfashdfjs....$havingAddsList");
      isLoading = false;
     });
     

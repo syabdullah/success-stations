@@ -183,15 +183,25 @@ class _FavouritePageState extends State<FavouritePage> {
                       children: [
                         Center(
                           child: Container(
-                            height: Get.height/2,
-                            width: Get.width/4,
-                            child: listFavourite[c]['listing']['image'] !=null && imageAds !=null ?   Image.network(
-                             imageAds
-                              
-                            ):FittedBox(fit:BoxFit.contain,
-                              child: Icon(Icons.person, color: Colors.grey[400])
-                            )
-                          ),
+                              height: Get.height / 4,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  child: listFavourite[c]['listing']['image'] !=null &&  imageAds !=null 
+                                  ? ClipRRect(
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    child: Image.network(
+                                     imageAds,
+                                      width: Get.width / 4,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                  : FittedBox(fit:BoxFit.contain,
+                                  child: Icon(Icons.person, color: Colors.grey[400])
+                                )
+                                ),
+                              )
+                            ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
