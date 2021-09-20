@@ -185,7 +185,7 @@ class _FriendProfileState extends State<FriendProfile>
                     SizedBox(width: 5),
                     Container(
                       margin: EdgeInsets.only(top: 6),
-                      child: Text(country['name'],
+                      child: Text(country['name']['en'],
                           style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
