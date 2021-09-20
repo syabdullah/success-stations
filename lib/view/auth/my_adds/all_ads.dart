@@ -104,7 +104,7 @@ class _AllAddsState extends State<AllAdds> {
       ? PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
-          '', Icons.arrow_back_ios_new_sharp,
+          context, Icons.arrow_back_ios_new_sharp,
           'All  Ads', AppImages.appBarSearch
         )
       )
@@ -185,7 +185,7 @@ class _AllAddsState extends State<AllAdds> {
             ),
             GestureDetector(
               onTap: () {
-               Get.to(AddPostingScreen());
+                Get.to(AddPostingScreen());
               },
               child: Container(
                 margin: lang == 'en'

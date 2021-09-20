@@ -229,8 +229,8 @@ class _FriendProfileState extends State<FriendProfile>
                 decoration: BoxDecoration(
                   color: AppColors.appBarBackGroundColor,
                   borderRadius: BorderRadius.circular(50)),
-                child: name['is_user_friend'].length == 0 ||
-                name['is_user_friend'] == null
+                child:
+                name['is_user_friend'] == null || name['is_user_friend'].length == null
                 ? Center(
                   child: Text(
                     "addFriend".tr,
@@ -671,7 +671,7 @@ class _FriendProfileState extends State<FriendProfile>
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey))),
                         data["about"] != null
-                            ? Container(
+                            ? Container(width: Get.width,
                                 margin: EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
                                 child: Text(data["about"],
@@ -750,7 +750,7 @@ class _FriendProfileState extends State<FriendProfile>
                                     Text(","),
                                     adsData[index]['country'] != null
                                         ? Text(
-                                            adsData[index]['country']['name'])
+                                            adsData[index]['country']['name']['en'])
                                         : Text(""),
                                   ],
                                 ),

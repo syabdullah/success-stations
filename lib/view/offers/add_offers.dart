@@ -74,7 +74,7 @@ class AddOffersState extends State<AddOffersPage> {
       imageName = postDataEdited['image'] != null
           ? postDataEdited['image']['file_name']
           : null;
-      hintLinking = postDataEdited['listing']['title']['en'];
+      hintLinking =postDataEdited['listing']!=null ? postDataEdited['listing']['title']['en']:'Ads Listing';
     }
   }
 
@@ -179,7 +179,7 @@ class AddOffersState extends State<AddOffersPage> {
                   GetBuilder<MyAddsAdedController>(
                     init: MyAddsAdedController(),
                     builder: (val) {
-                      return linkAdded(val.myMyAdd);
+                      return val.addsGet != null && val.addsGet['data'] != null ?  linkAdded(val.addsGet['data']) : Container();
                     },
                   ),
                   space10,

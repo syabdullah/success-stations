@@ -97,6 +97,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     lang = box.read('lang_code');
     print("lang of the country code..........$lang");
     counCode = Get.arguments;
+    print("printed value of country code.......$counCode");
     inputValuePhone = counCode[0].toString();
     companyCode = PhoneNumber(isoCode: inputValuePhone);
     errorCheck = true;
@@ -309,7 +310,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space20,
               GestureDetector(
                 onTap: (){
-                  Get.to(SignIn());
+                  Get.toNamed('/login');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

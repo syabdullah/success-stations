@@ -80,6 +80,7 @@ class _MyAddsState extends State<MyAdds> {
               child: GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
+                print("...................-------");
                 return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
                 listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
                 myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
@@ -106,32 +107,6 @@ class _MyAddsState extends State<MyAdds> {
                 },
               ),
              )
-          // Expanded(
-          //   child:
-          //    listtype == 'list' ?
-          //     GetBuilder<AddBasedController>(
-          //       init: AddBasedController(),
-          //       builder: (val){
-          //       return val.cData != null && val.cData['success'] == true  ?  myAddsList(val.cData['data']) : ListView(
-          //         children: [
-          //           Container(
-          //             margin: EdgeInsets.symmetric(vertical: Get.height/4),
-          //             child: Center(child: Text("No ads yet",style: TextStyle(fontWeight: FontWeight.bold),)),
-          //           ),
-          //         ],
-          //       );
-          //     },
-          //   ):GetBuilder<AddBasedController>(
-          //     init: AddBasedController(),
-          //     builder: (val){
-          //       return val.cData != null && val.cData['success'] == true ?  myAddGridView(val.cData['data']): ListView(
-          //         children: [
-          //           Container(),
-          //         ],
-          //       );
-          //     },
-          //     )
-          // ),
         ],
       ),
     );
@@ -144,7 +119,7 @@ class _MyAddsState extends State<MyAdds> {
             children: [
               GestureDetector(
                 onTap: () {
-                 Get.to(AddPostingScreen());
+                  Get.to(AddPostingScreen());
                 },
                 child: Container(
                   margin:EdgeInsets.only(left:10,right: 10,top: 20),
@@ -495,10 +470,12 @@ void _adsfiltringheet() {
                                     children: [
                                     GestureDetector(
                                       onTap: (){
-                                         deleteAd.adDelete(allDataAdds[index]['id']);
-                                         Get.find<AddBasedController>().addedByIdAddes(catID, userId);
+                                         controller.adDelete(allDataAdds[index]['id']);
                                          controller.addesMyListAll();
+                                          controller.addesMyListAll();
+                                           controller.addedByIdAddes(catID, userId);
                                           controller.addedByIdAddes(catID, userId);
+                                         
                                       },
                                       child: Image.asset(AppImages.delete,height: 30,)),
                                     SizedBox(width: 3,),
@@ -530,44 +507,46 @@ void _adsfiltringheet() {
                           ) 
                         ),
                         
-                        Container(
-                          child:
-                          GetBuilder<FriendsController>(
-                            init: FriendsController(),
-                            builder: (val){
-                              return
-                              Row(
-                                children: [ 
+                        // Container(
+                        //   child:
+                        //   GetBuilder<FriendsController>(
+                        //     init: FriendsController(),
+                        //     builder: (val){
+                        //       return
+                        //       Row(
+                        //         children: [ 
                                   
-                                  GestureDetector(
-                                    onTap: () {
-                                      var json = {
-                                          'ads_id' : allDataAdds[index]['id']
-                                        };
-                                          liked = !liked;
-                                        allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                                        controller.addedByIdAddes(catID, userId);
-                                    },
-                                    child: Container(
-                                      child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
-                                    ),
-                                  ),
+                        //           GestureDetector(
+                        //             onTap: () {
+                        //               var json = {
+                        //                   'ads_id' : allDataAdds[index]['id']
+                        //                 };
+                        //                   liked = !liked;
+                        //                 allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
+                        //                 controller.addedByIdAddes(catID, userId);
+                        //             },
+                        //             child: Container(
+                        //               child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
+                        //             ),
+                        //           ),
                                 
-                                ],
-                              );
-                            })
+                        //         ],
+                        //       );
+                        //     })
                         
-                        ),
+                        // ),
                        Transform.scale(
                          scale: .7,
                          child: Switch.adaptive(
                            activeColor: AppColors.appBarBackGroundColor,
                            value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                            // setState(() {
                               allDataAdds[index]['is_active'] == 1 ?
                               controller.deactiveAd(allDataAdds[index]['id']) :
                               controller.activeAd(allDataAdds[index]['id']) ;
                               controller.addesMyListAll();
                               controller.addedByIdAddes(catID, userId);
+                            // });
                            }),
                        ),   
                       ],
@@ -583,7 +562,7 @@ void _adsfiltringheet() {
   }
   var ind = 0 ;
   var myAddssplitedPrice;
-  myAddGridView(dataListValue) {   
+  myAddGridView(dataListValue) { 
     return Container(
       width: Get.width,
       child: GridView.count(
@@ -632,11 +611,15 @@ void _adsfiltringheet() {
                         Container(
                           margin: EdgeInsets.only(left: 10,right: 10),
                           child: Center(
-                            child: Text( dataListValue[index]['title']['en'] !=null ?
-                             dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                            child: Text(
+                               dataListValue[index]['title']['en'] !=null ?
+                              dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                               maxLines:1,),
                           ),
                         ), 
                          Container(
+                          //  padding: EdgeInsets.only(left:10),
                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -667,10 +650,15 @@ void _adsfiltringheet() {
                                    children: [                                  
                                    GestureDetector(
                                      onTap: (){
-                                         deleteAd.adDelete(dataListValue[index]['id']);
+                                        controller.adDelete(dataListValue[index]['id']);
+                                        // if(categorybool == false) {
+                                         controller.addesMyListAll();
                                           controller.addesMyListAll();
-                                           controller.addesMyListAll();
+                                          
+                                        //  }else{
+                                           controller.addedByIdAddes(catID, userId);
                                           controller.addedByIdAddes(catID, userId);
+                                        //  }
                                          
                                      },
                                      child: Image.asset(AppImages.delete,height: 30,)),
@@ -792,6 +780,7 @@ void _adsfiltringheet() {
                             setState(() {
                               textAllcheck = false;
                               selectedIndex = index;
+                              categorybool = false;
                               allColor = AppColors.appBarBackGroundColor;
                             // selectedIndex = index;
                              myaddedDr.addesMyListFv();

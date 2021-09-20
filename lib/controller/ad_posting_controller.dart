@@ -59,14 +59,12 @@ class  AdPostingController extends GetxController {
       adpost = result.data;
       if(result.data['success'] == true){
          isLoading(true);
-         Get.to(DraftAds());
+         Get.toNamed('/myDraft');
          Get.snackbar("Ad Drafted Successfully",'',backgroundColor: AppColors.appBarBackGroundColor);
          
       } 
     update();
   }
-
-
     uploadAdImage(data) async {
       await ApiHeaders().getData();
       final Config conf = Config();

@@ -44,10 +44,11 @@ class LoginController extends GetxController {
   }
 
   loginSocial(data) async {
-    
     isLoading(true);
+     print("jhdvvjkgjgkhdsakdsavasdjvbvdsajjsdbjhsfd-------$data");
     await socialLogin(data).then((res) {
       logindata = jsonDecode(res.body);
+      
       if (res.statusCode == 200 || res.statusCode < 400) {
         box.write('access_token', logindata['data']['token']);
         box.write('email', logindata['data']['user']['email']);
@@ -56,6 +57,7 @@ class LoginController extends GetxController {
        
         resultInvalid(false);
         isLoading(false);
+        print("jhdvvjkgjgkhdsakdsavasdjvbvdsajjsdbjhsfd-------");
         Get.off(BottomTabs());
       } else if (logindata['message'] == 'The given data was invalid.') {
         resultInvalid(true);

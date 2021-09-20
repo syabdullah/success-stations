@@ -18,7 +18,7 @@ class ForgetPasswordController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400){
         email = jsonDecode(res.body);
         isLoading(false);
-       Get.to(ForgotCode());
+       Get.toNamed('/forgotCode');
         
       } if(res.statusCode >=  412){
           Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.appBarBackGroundColor);

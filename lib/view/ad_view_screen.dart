@@ -76,6 +76,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
          child: GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
+           
           return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) :   val.adsD== null ? Container(
           child: Center(child: Text("no_detail_here!".tr),),
           ): Column(
@@ -312,9 +313,9 @@ Widget listTileRow2(data) {
                 radius: 30.0,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50.0),
-                  child: data[index]['media'] != null ? 
+                  child: data[index]['user_name']['image'] != null ? 
                   Image.network(
-                    data[index]['media']['url']
+                    data[index]['user_name']['image']['url']
                   ):Image.asset(AppImages.person)
                 )
               ),
