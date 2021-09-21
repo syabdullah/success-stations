@@ -104,7 +104,7 @@ class _AllAddsState extends State<AllAdds> {
       ? PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
-          '', Icons.arrow_back_ios_new_sharp,
+          context, Icons.arrow_back_ios_new_sharp,
           'All  Ads', AppImages.appBarSearch
         )
       )
@@ -1018,6 +1018,7 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
+             
               if(index != 0 ) {
                 allCheck = true;
               }else {
@@ -1092,7 +1093,8 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
-                        ? Text(
+                        ? 
+                          Text(
                             havingAdds[index]['category'][lang],
                             style: TextStyle(
                               color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true

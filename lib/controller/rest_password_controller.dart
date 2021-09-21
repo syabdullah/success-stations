@@ -48,7 +48,7 @@ class ResetPassWordController extends GetxController {
                                 child: Center(child: Text("login".tr, style: TextStyle(color: AppColors.appBarBackGroundColor )))
                               ),
                               onPressed: () {
-                                 Get.to(SignIn());
+                                Get.toNamed('/login');
                               }
                             ),
                           ),

@@ -198,7 +198,7 @@ Widget recentChat(data){
                     AppBar(
                       leading:GestureDetector(
                         onTap: (){
-                          Get.off(BottomTabs());
+                          Get.back();
                         },
                         child: Image.asset(AppImages.arrowBack)
                       ),

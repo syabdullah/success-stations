@@ -296,7 +296,7 @@ Widget saveButton(data) {
                               ],
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 15),
+                              margin: EdgeInsets.symmetric(vertical: 10),
                               child: Form(
                                 key: formKey,
                                 child: Container(
@@ -373,7 +373,7 @@ Widget saveButton(data) {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.all(Radius.circular(12)),
                                   child: Container(
-                                    height: Get.height/5.0,
+                                    height: Get.height/7.0,
                                     width: Get.width/1.1,
                                     child: Center(
                                       child: GestureDetector(

@@ -35,6 +35,7 @@ class GoogleSignInC {
            'name' : value.displayName,
            'provider_id' : value.id
         };
+        print("..//.//./...------------");
         login.loginSocial(json);
         value.authentication.then((googleKey){
               if(googleKey.accessToken != null) {

@@ -27,7 +27,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<UserProfileController>(
@@ -50,7 +49,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     return Stack(
       children: [
         Container(
-          // color: Colors.grey,
           height: Get.height/2.5,
           width: Get.width,
           child: ClipRRect(
@@ -65,18 +63,12 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
             children: [
               IconButton(
                 onPressed:() {
-
-                  Get.to(BottomTabs());
+                  // Get.toNamed('/tabs');
+                  Get.back();
                   banner.bannerController();
                 },
                 icon: Icon(Icons.arrow_back,color: Colors.white)
               ),
-              // Center(
-              //   widthFactor: 3,
-              //   child: Container(
-              //     child: Text("JUNAID",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold),),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -130,7 +122,6 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
               child: Column(
                 children: [
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
                         flex: 1,
@@ -334,6 +325,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
+                      width:Get.width,
                       margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
                       child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
                     ),

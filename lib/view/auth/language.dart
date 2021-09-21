@@ -72,7 +72,7 @@ class _LanguagePageState extends State<Language> {
                       : Container()),
             ),
             onTap: () {
-              Get.to(Ccountry());
+              Get.toNamed('/Country');
               setState(() {
                 index = i;
                 box.write('lang_id', dataLanguage['data'][i]['id']);
