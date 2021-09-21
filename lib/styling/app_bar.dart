@@ -10,9 +10,6 @@ import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/styling/string.dart';
-import 'package:success_stations/view/google_map/mapview.dart';
-import 'package:success_stations/view/offers/my_offers.dart';
 
 final mapCon = Get.put(LocationController());
 final formKey = new GlobalKey<FormState>();
@@ -34,7 +31,7 @@ var userId = box.read('user_id');
       currentPostion = LatLng(position.latitude, position.longitude);
     // });
   }
- Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,index) {
+  Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image,searchImage,index) {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
