@@ -80,7 +80,7 @@ class _AdsViewState extends State<AdsView> {
              GetBuilder<CategoryController>(
               init: CategoryController(),
               builder: (dat){
-                return  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                return  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
@@ -95,7 +95,7 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null ? 
-                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): Container();
                 }),
           ],
         ),
@@ -186,7 +186,7 @@ class _AdsViewState extends State<AdsView> {
               child: Container(
                 width: 20.0,
                 height: 4.0,
-                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: (Theme.of(context).brightness == Brightness.dark
@@ -211,7 +211,7 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-           margin: EdgeInsets.only(left:10,right: 10,top: 10),
+           margin: EdgeInsets.only(left:10,right: 10,),
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
@@ -220,7 +220,7 @@ class _AdsViewState extends State<AdsView> {
             Get.to(OfferList(),arguments: 100);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10,left: 10,top: 10),
+            margin: EdgeInsets.only(right:10,left: 10),
             child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
@@ -296,7 +296,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -321,7 +321,16 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['text_ads'][lang] != null ? data[index]['text_ads'][lang]:'',style: TextStyle(color: AppColors.grey)),
+                width: 100,
+                child: Text(
+                  
+                  data[index]['text_ads'][lang] != null ?
+                 data[index]['text_ads'][lang]:'',
+                // overflow: TextOverflow.2,
+                 overflow: TextOverflow.ellipsis,
+                //  maxLines: 3,
+                //  softWrap: false,
+                 style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
@@ -332,7 +341,7 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

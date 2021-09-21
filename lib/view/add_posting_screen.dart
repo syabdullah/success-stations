@@ -860,7 +860,7 @@ Widget secondStep(){
                           // SizedBox(height: 7.h),
                           // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
-                          Text("Category",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          Text("category".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
@@ -880,7 +880,7 @@ Widget secondStep(){
                             // SizedBox(height: 7.h),
                             // Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             // SizedBox(height: 15.h,),
-                            Text("Name",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            Text("Name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                              SizedBox(height: 5.h),
                            Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
@@ -903,7 +903,7 @@ Widget secondStep(){
         width: Get.width,
         child: Card(
           child:Padding(
-          padding: const EdgeInsets.only(top:15,left:50),
+          padding: const EdgeInsets.only(top:15,left:50,right: 50),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

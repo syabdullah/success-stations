@@ -202,6 +202,7 @@ class AddOffersState extends State<AddOffersPage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
+        maxLength: 20,
         focusNode: FocusNode(),
         controller: titleController,
         validator: (value) {
