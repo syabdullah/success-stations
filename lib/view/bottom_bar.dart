@@ -45,7 +45,7 @@ class _BottomTabsState extends State<BottomTabs> {
    
     OfferList(),
     FriendList(),
-     AdsView(),
+    AdsView(),
     AllAdds(),
     CustomInfoWindowExample(),
   ];

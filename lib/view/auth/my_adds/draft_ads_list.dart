@@ -50,7 +50,7 @@ class _DraftAdsState extends State<DraftAds> {
   }
 
 Widget draftedlist(allDataAdds){
-    print(allDataAdds);
+    print(allDataAdds[2]);
     return 
      allDataAdds.length == 0 ? Center(child: Text("NoAdsYet".tr,style: TextStyle(fontSize: 20),)) :
     ListView.builder(
@@ -102,8 +102,8 @@ Widget draftedlist(allDataAdds){
                               Container(
                                 child: 
                                 Text(
-                                  allDataAdds[index]['title'][lang] == 'en' ||  allDataAdds[index]['title'][lang] != 'ar' ?
-                                  allDataAdds[index]['title']['en']: '',
+                                  allDataAdds[index]['title'][lang] != null  ?
+                                  allDataAdds[index]['title'][lang]: allDataAdds[index]['title'][lang] == null ? allDataAdds[index]['title']['en']: '',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),

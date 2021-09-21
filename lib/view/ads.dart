@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -15,37 +15,26 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 
-  List<String> imgList = [];
+List<String> imgList = [];
 
 class AdsView extends StatefulWidget {
   _AdsViewState createState() => _AdsViewState();
 }
+
 class _AdsViewState extends State<AdsView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-    final catCont = Get.put(CategoryController());
-     final addescontrollRefresh = Get.put(MyAddsController());
-     final ratingcont = Get.put(RatingController());
-
-  //   allWordsCapitilize (String str) {
-  //   return str.toLowerCase().split(' ').map((word) {
-  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-  //     return word[0].toUpperCase() + leftText;
-  //   }).join(' ');
-  // }
-  
+  final catCont = Get.put(CategoryController());
+  final addescontrollRefresh = Get.put(MyAddsController());
+  final ratingcont = Get.put(RatingController());
   final banner = Get.put(BannerController());
   var userType;
   GetStorage box = GetStorage();
-  var lang;
-  var address;
-    var isVisible = true ;
-   var  newv; 
-   var accounType;
-   @override
+  var lang ,address, newv, accounType; var isVisible = true ;
+
+  @override
   void initState() {
     super.initState();
-    
     isVisible = box.read('upgrade');
     catCont.getCategoryNames();
     addescontrollRefresh.myAddsCategory();
@@ -54,16 +43,16 @@ class _AdsViewState extends State<AdsView> {
     lang = box.read('lang_code');
     address = box.read('address');
     newv = box.read('updare');
-     userType = box.read('user_type');
-     accounType = box.read('account_type');
+    userType = box.read('user_type');
+    accounType = box.read('account_type');
   }
+
   @override
   Widget build(BuildContext context) { 
     lang = box.read('lang_code');
     return Stack(
       children: [
         ListView(
-          // padding: EdgeInsets.symmetric(horizontal:0),
           children: [            
               GetBuilder<BannerController>(
                 init: BannerController(),
@@ -99,8 +88,7 @@ class _AdsViewState extends State<AdsView> {
                 }),
           ],
         ),
-      //  userType== 2 &&  accounType == 'free'  ? upgradeBnner() : Container()
-      userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
+        userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
       ],
     );
   }
@@ -126,19 +114,24 @@ class _AdsViewState extends State<AdsView> {
               children: [
                 Container(
                   width: Get.width/1.2,
-                  child: Text("payme".tr,style: TextStyle(color: Colors.white),)),
+                  child: Text(
+                    "payme".tr,style: TextStyle(color: Colors.white),
+                  )
+                ),
                 GestureDetector(
                   onTap: (){
                     setState(() {
                       isVisible = false;
-                      
                     });
                     box.write('upgrade', isVisible);
                     newv = box.read('upgrade');
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 30,left:10),
-                    child: Icon(Icons.close,color: Colors.white,)),
+                    child: Icon(
+                      Icons.close,color: Colors.white,
+                    )
+                  ),
                 )
               ],
             ),
@@ -147,22 +140,24 @@ class _AdsViewState extends State<AdsView> {
       ),
     );
   }
+
   Widget carosalImage(data) { 
     for(int i=0; i < data.length; i++) {
       imgList.add(data[i]['image']['url']);
     }
     return imgList.length != 0 ? Column(
       children: [
-        CarouselSlider(  
-              
+        CarouselSlider(
           items: imgList
-          .map<Widget>((item) => Container(
-          child: Stack(
-            children: <Widget>[
-              Image.network(item, fit: BoxFit.cover, width: Get.width),
-            ],
-          ),
-        )).toList(),
+          .map<Widget>((item) => 
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Image.network(item, fit: BoxFit.cover,),
+                ],
+              ),
+            )
+          ).toList(),
           carouselController: _controller,
           options: CarouselOptions(
             enableInfiniteScroll: false,
@@ -177,7 +172,9 @@ class _AdsViewState extends State<AdsView> {
           ),
         ),
         imgList.length == 0 ? 
-        Container(child: Text("No Image added yet!"),):
+        Container(
+          child: Text("No Image added yet!"),
+        ):
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: imgList.asMap().entries.map((entry) {
@@ -190,10 +187,12 @@ class _AdsViewState extends State<AdsView> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: (Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : AppColors.appBarBackGroundColor)
-                      .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                  ? Colors.white
+                  : AppColors.appBarBackGroundColor)
+                  .withOpacity(_current == entry.key ? 0.9 : 0.4
+                )
               ),
+            ),
             );
           }).toList(),
         ),
@@ -377,7 +376,7 @@ class _AdsViewState extends State<AdsView> {
                     alignment: Alignment.center,
                     child: Container(                   
                       margin: EdgeInsets.only(top:5,),
-                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
+                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]: data[index]['title']['ar'] == null  ? data[index]['title']['en']:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
                   ),
                   
