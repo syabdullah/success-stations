@@ -72,6 +72,7 @@ dependencies:
   socket_io_client: ^2.0.0-beta.4-nullsafety.0
   google_fonts_arabic: ^1.1.7
   double_back_to_close_app: ^1.2.0
+  flutter_datetime_picker: ^1.5.1
 
   
   

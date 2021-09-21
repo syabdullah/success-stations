@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -273,7 +274,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       borderRadius: BorderRadius.circular(60)
                     ),
                     child: Checkbox(
-                      activeColor: Colors.blue,
+                      activeColor:AppColors.appBarBackGroundColor,
                       value: _isChecked,
                       onChanged: (value) {
                         setState(() {
@@ -454,34 +455,76 @@ class _CompanySignPageState extends State<CompanySignUp> {
       ),
       child: GestureDetector(
         onTap: () {
-          showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1900),
-            lastDate: DateTime.now()).then((date) {
-            setState(() {
-              dateTime = date;
-              finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-            });
-          });
+          DatePicker.showDatePicker(context,
+            showTitleActions: true,
+            minTime: DateTime(1900, 3, 5),
+            maxTime: DateTime.now(),
+            theme: DatePickerTheme(
+              headerColor:AppColors.appBarBackGroundColor,
+              backgroundColor: Colors.white,
+              itemStyle: TextStyle(
+                color: AppColors.appBarBackGroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+              ),
+              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
+              cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
+            ),
+            onChanged: (date) {
+              print('change $date in time zone ' +
+              date.timeZoneOffset.inHours.toString());
+            }, 
+            onConfirm: (date) {
+              setState(() {
+                dateTime = date;
+                print('confirm...sheeee $dateTime');
+                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
+                
+              });
+              
+            },    
+            currentTime: DateTime.now(), locale: LocaleType.en
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'date_of_birth'.tr : dateFormate, style: TextStyle(color: Colors.grey[500],fontSize: 17)),
+            Text(dateTime == null ? 'date_of_birth'.tr : finalDate, style: TextStyle(color: Colors.grey[500],fontSize: 17)),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now()).then((date) {
-                  setState(() {
-                    dateTime = date;
-                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                  });
-                });
+                DatePicker.showDatePicker(context,
+            showTitleActions: true,
+            minTime: DateTime(1900, 3, 5),
+            maxTime: DateTime.now(),
+            theme: DatePickerTheme(
+              headerColor:AppColors.appBarBackGroundColor,
+              backgroundColor: Colors.white,
+              itemStyle: TextStyle(
+                color: AppColors.appBarBackGroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+              ),
+              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
+              cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
+            ),
+            onChanged: (date) {
+              print('change $date in time zone ' +
+              date.timeZoneOffset.inHours.toString());
+            }, 
+            onConfirm: (date) {
+              setState(() {
+                dateTime = date;
+                print('confirm...sheeee $dateTime');
+                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
+                
+              });
+              
+            },    
+            currentTime: DateTime.now(), locale: LocaleType.en
+          );
               },
             )
           ],

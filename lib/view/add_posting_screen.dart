@@ -819,7 +819,6 @@ Widget secondStep(){
   } 
   
   Widget thirdStep(){
-    print("IN THIRD STEP FILE NAME ---- $editImage");
     return Column(
       children: [
         fileName != null ?
@@ -835,7 +834,7 @@ Widget secondStep(){
                     children: [
                       Text(titleController.text,style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),),
                       Text("SAR ${priceController.text}",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                    ],
+                    ], 
                   ),
                 ),
               ),
@@ -850,7 +849,7 @@ Widget secondStep(){
                         children: [
                           // SizedBox(height: 15.h,),
                           SizedBox(height: 15.h,),
-                          Text('Tilte'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          Text('title'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           // SizedBox(height: 10.h),
@@ -880,7 +879,7 @@ Widget secondStep(){
                             // SizedBox(height: 7.h),
                             // Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             // SizedBox(height: 15.h,),
-                            Text("Name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            Text("name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                              SizedBox(height: 5.h),
                            Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),

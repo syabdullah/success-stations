@@ -152,7 +152,7 @@ class AddOffersState extends State<AddOffersPage> {
         appBar: AppBar(
           key: _scaffoldKey,
           backgroundColor: AppColors.appBarBackGroundColor,
-          title: Text(postDataEdited == null ? 'ADD OFFER' : 'EDIT OFFER'),
+          title: Text(postDataEdited == null ? 'addOffer'.tr : 'edit offer'.tr),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -207,7 +207,7 @@ class AddOffersState extends State<AddOffersPage> {
         controller: titleController,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Title field required';
+            return 'titleField'.tr;
           }
           return null;
         },
@@ -219,7 +219,7 @@ class AddOffersState extends State<AddOffersPage> {
           contentPadding: lang == 'en'
               ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
               : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-          hintText: "Offer Title",
+          hintText: "offer title".tr,
           hintStyle: TextStyle(fontSize: 13, color: Colors.grey[700]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
@@ -270,42 +270,9 @@ class AddOffersState extends State<AddOffersPage> {
               )),
             )));
   }
-
-  // Widget url() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(horizontal:15),
-  //     child: TextFormField(
-  //       focusNode: FocusNode(),
-  //       controller: urlContr,
-  //       validator: (val) {
-  //         String pattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)'
-
-  //          ;
-  //         RegExp regExp = RegExp(pattern);
-  //         if ( val == null || val.isEmpty ){
-  //           return 'URL field is Required';
-  //         }
-  //         else if (!regExp.hasMatch(val)) {
-  //           return "Enter Valid URL";
-  //         }
-  //         return null;
-  //       },
-  //       decoration:InputDecoration(
-  //         hintText: "URL",hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
-  //         border: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(10.0),
-  //           borderSide: BorderSide(color: Colors.grey),
-  //         ),
-  //       ) ,
-  //     ),
-  //   );
-  // }
-
   Widget url() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
-     // margin: EdgeInsets.only(left: 20, right: 20),
-      //width: Get.width * 0.9,
       child: CustomTextFiled(
         isObscure: false,
       contentPadding: lang == 'en'
@@ -323,9 +290,9 @@ class AddOffersState extends State<AddOffersPage> {
               r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)';
           RegExp regExp = RegExp(pattern);
           if (val == null || val.isEmpty) {
-            return 'URL field is Required';
+            return 'urlField'.tr;
           } else if (!regExp.hasMatch(val)) {
-            return "Enter Valid URL";
+            return 'validUrl'.tr;
           }
           return null;
         },
@@ -349,7 +316,7 @@ class AddOffersState extends State<AddOffersPage> {
             controller: descriptionController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Description field required';
+                return 'fieldReq'.tr;
               }
               return null;
             },
@@ -358,7 +325,7 @@ class AddOffersState extends State<AddOffersPage> {
               ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
               : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
 
-              hintText: "Offer Description",
+              hintText: "Offer description".tr,
               hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
               border: OutlineInputBorder(
                 
@@ -387,7 +354,7 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                 hint: Text(
-                    hintLinking != null ? hintLinking : 'Link To Listing Adds',
+                    hintLinking != null ? hintLinking : 'link to listing add'.tr,
                     style: TextStyle(fontSize: 13, color: Colors.grey[700])),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
@@ -425,7 +392,7 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                 hint: Text(
-                    hintTextCate != null ? hintTextCate : 'Offer Category',
+                    hintTextCate != null ? hintTextCate : 'offer category'.tr,
                     style: TextStyle(fontSize: 13, color: Colors.grey[700])),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
