@@ -17,6 +17,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
 
@@ -117,11 +118,8 @@ class _AllAddsState extends State<AllAdds> {
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-              ? CircularProgressIndicator()
-              : data.havingAddsList != null
-                ? addsCategoryWidget(data.havingAddsList['data'])
-                : Container();
+              return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
+              Container();
             },
           ),
           SizedBox(height:20),
@@ -709,13 +707,11 @@ class _AllAddsState extends State<AllAdds> {
                             padding: const EdgeInsets.all(10.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.grey[200],
-                              child: Icon(Icons.person)
+                              child: Icon(Icons.person, color: AppColors.appBarBackGroundColor,)
                             )
                           ),
                           Container(
                             margin: EdgeInsets.only(right: 5,left: 5),
-                              // width: Get.width/4,
-                              // height: Get.height/5.5,
                             child: Row(
                               children: [
                                 GestureDetector(
@@ -723,20 +719,30 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    // liked = !liked;
                                     allDataAdds[index]['is_favorite'] ==false
                                     ? friCont.profileAdsToFav(json, userId)
                                     : friCont.profileAdsRemove(json, userId);
+                                    controller.addedAllAds();
                                     controller.addedByIdAddes(allDataAdds[index]['category_id'], null);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 5,left: 5),
                                     child: allDataAdds[index]['is_favorite'] ==false
-                                    ? Image.asset(AppImages.blueHeart,height: 30)
-                                    : Image.asset(AppImages.redHeart,height: 30)
+                                    ? Image.asset(AppImages.blueHeart,height: 25)
+                                    : Image.asset(AppImages.redHeart,height: 25)
                                   ),
                                 ),
-                                Image.asset(AppImages.call, height: 30),
+                              Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: 
+                              allDataAdds[index]['phone'] !=null ? GestureDetector(
+                                onTap: (){
+                                   launch("tel:${allDataAdds[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)): Container()
+                              )
+                                
+                                // Image.asset(AppImages.call, height: 25),
                               ],
                             )
                           )
@@ -809,7 +815,8 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                 dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
+                                 dataListValue[index]['is_favorite'] ==false ? 
+                                 friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
                                  controller.addedAllAds();
                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
@@ -918,8 +925,17 @@ class _AllAddsState extends State<AllAdds> {
                          
                         child: Row(
                           children: [
+                            dataListValue[index]['phone'] !=null ? 
+                            Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: GestureDetector(
+                                onTap: (){
+                                   launch("tel:${dataListValue[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)),
+                            ):Container()
                            
-                            Image.asset(AppImages.call, height: 20),
+                            // Image.asset(AppImages.call, height: 25),
                           ],
                         )
                       )
@@ -1018,7 +1034,7 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-             
+              print("lang printed all ads. ${havingAdds[index]['category'][lang]}");
               if(index != 0 ) {
                 allCheck = true;
               }else {
@@ -1093,9 +1109,8 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
-                        ? 
-                          Text(
-                            havingAdds[index]['category'][lang],
+                        ? Text( havingAdds[index]['category'][lang] == 'en' || havingAdds[index]['category'][lang] == 'ar'? 
+                            havingAdds[index]['category'][lang] :  havingAdds[index]['category']['en'],
                             style: TextStyle(
                               color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                               ? Colors.white
