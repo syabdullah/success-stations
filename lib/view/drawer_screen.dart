@@ -1,8 +1,10 @@
-import 'dart:io';
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
@@ -16,25 +18,8 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/utils/favourite.dart';
-import 'package:success_stations/view/UseProfile/privacy.dart';
-import 'package:success_stations/view/UseProfile/user_agreement.dart';
-import 'package:success_stations/view/UseProfile/user_profile.dart';
-import 'package:success_stations/view/about_us.dart';
-import 'package:success_stations/view/auth/advertise.dart';
-import 'package:success_stations/view/auth/choose_language.dart';
-import 'package:success_stations/view/auth/contact.dart';
-import 'package:success_stations/view/auth/my_adds/draft_ads_list.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
-import 'package:success_stations/view/auth/notification.dart';
-import 'package:success_stations/view/bottom_bar.dart';
-import 'package:success_stations/view/friends/friend_request.dart';
-import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/membership/pro_indivual_membership.dart';
-import 'package:success_stations/view/messages/inbox.dart';
-import 'package:success_stations/view/offers/my_offers.dart';
-import 'package:google_fonts_arabic/google_fonts_arabic.dart';
-import 'package:dio/dio.dart' as dio;
+
 
 class AppDrawer extends StatefulWidget {
  const AppDrawer({ Key? key }) : super(key: key);
@@ -47,22 +32,23 @@ class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
   var image;
   GetStorage box = GetStorage();
-    final ImagePicker _picker = ImagePicker();  
-    XFile? pickedFile;
-    var imageP;
-    var fileName;
-    var userType,accountType;
-    final banner = Get.put(BannerController());
-    final getLang = Get.put(LanguageController());
-var lang;
-    var uploadedImage;
+  final ImagePicker _picker = ImagePicker();  
+  XFile? pickedFile;
+  var imageP;
+  var fileName;
+  var userType,accountType;
+  final banner = Get.put(BannerController());
+  final getLang = Get.put(LanguageController());
+  var lang;
+  var uploadedImage;
+
   @override
   void dispose() {
     banner.bannerController();
     super.dispose();
-
   }
-   @override
+
+  @override
   void initState() {
     super.initState();
     getLang.getLanguas();
@@ -71,7 +57,6 @@ var lang;
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
     lang = box.read('lang_code');
-   
     banner.bannerController();
     
   }

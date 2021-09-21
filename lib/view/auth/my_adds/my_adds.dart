@@ -74,13 +74,13 @@ class _MyAddsState extends State<MyAdds> {
               data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
               : Container();
             },
-          ),    
+          ), 
+          SizedBox(height: 10),   
           categorybool == false ? 
             Expanded(
               child: GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
-                print("...................-------");
                 return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
                 listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
                 myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
@@ -152,7 +152,7 @@ class _MyAddsState extends State<MyAdds> {
               ),
               SizedBox(width: 5,),
               Container(
-                 margin: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: 20),
                 child: CupertinoButton(
                   minSize: double.minPositive,
                   padding: EdgeInsets.zero,
@@ -394,8 +394,9 @@ void _adsfiltringheet() {
                 allDataAdds[index]['is_active'] == 0 ?
                 Colors.white:Colors.transparent, BlendMode.softLight),
               child: Card(
-              child: Container(
-                height: 100,
+                
+                child: Container(
+                 height: 100,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -424,7 +425,7 @@ void _adsfiltringheet() {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
-                            child: Column(
+                           child:  Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
@@ -495,62 +496,34 @@ void _adsfiltringheet() {
                         // ),
                       ],
                     ),
-                    SizedBox(height:10),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: 
-                          Row(
-                            children: [
-                            ],
-                          ) 
-                        ),
-                        
-                        // Container(
-                        //   child:
-                        //   GetBuilder<FriendsController>(
-                        //     init: FriendsController(),
-                        //     builder: (val){
-                        //       return
-                        //       Row(
-                        //         children: [ 
-                                  
-                        //           GestureDetector(
-                        //             onTap: () {
-                        //               var json = {
-                        //                   'ads_id' : allDataAdds[index]['id']
-                        //                 };
-                        //                   liked = !liked;
-                        //                 allDataAdds[index]['is_favorite'] == false ?  friCont.profileAdsToFav(json,userId) : friCont.profileAdsRemove(json, userId);
-                        //                 controller.addedByIdAddes(catID, userId);
-                        //             },
-                        //             child: Container(
-                        //               child: allDataAdds[index]['is_favorite'] == false ? Image.asset(AppImages.blueHeart,height: 25,): Image.asset(AppImages.redHeart,height:30)
-                        //             ),
-                        //           ),
-                                
-                        //         ],
-                        //       );
-                        //     })
-                        
+                    // SizedBox(height:10),
+                    // Column(
+                    //   children: [
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10.0),
+                        //   child: 
+                        //   Row(
+                        //     children: [
+                        //     ],
+                        //   ) 
                         // ),
-                       Transform.scale(
-                         scale: .7,
-                         child: Switch.adaptive(
-                           activeColor: AppColors.appBarBackGroundColor,
-                           value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                            // setState(() {
-                              allDataAdds[index]['is_active'] == 1 ?
-                              controller.deactiveAd(allDataAdds[index]['id']) :
-                              controller.activeAd(allDataAdds[index]['id']) ;
-                              controller.addesMyListAll();
-                              controller.addedByIdAddes(catID, userId);
-                            // });
-                           }),
-                       ),   
-                      ],
-                    ),
+                        
+                    //     Transform.scale(
+                    //      scale: .7,
+                    //      child: Switch.adaptive(
+                    //        activeColor: AppColors.appBarBackGroundColor,
+                    //        value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                    //         // setState(() {
+                    //           allDataAdds[index]['is_active'] == 1 ?
+                    //           controller.deactiveAd(allDataAdds[index]['id']) :
+                    //           controller.activeAd(allDataAdds[index]['id']) ;
+                    //           controller.addesMyListAll();
+                    //           controller.addedByIdAddes(catID, userId);
+                    //         // });
+                    //        }),
+                    //    ),   
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -564,11 +537,13 @@ void _adsfiltringheet() {
   var myAddssplitedPrice;
   myAddGridView(dataListValue) { 
     return Container(
-      width: Get.width,
+      // width: double.infinity,
       child: GridView.count(
+        // mainAxisSpacing : 6.0,
+        crossAxisSpacing: 0.2,
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.85 :0),
+        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.75 :0),
         
         children: List.generate(
           dataListValue.length, (index) {
@@ -579,8 +554,8 @@ void _adsfiltringheet() {
                 dataListValue[index]['is_active'] == 0 ?
                 Colors.white:Colors.transparent, BlendMode.softLight),
                 child: Container(
-                width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-                margin: EdgeInsets.only(left:5,right: 10),
+                // width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
+                // margin: EdgeInsets.only(left:2,right: 5),
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                 child:  GestureDetector(
                   onTap: () {
@@ -618,68 +593,74 @@ void _adsfiltringheet() {
                                maxLines:1,),
                           ),
                         ), 
-                         Container(
-                          //  padding: EdgeInsets.only(left:10),
-                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RatingBar.builder(
-                                  ignoreGestures: true,
-                                  initialRating: dataListValue[index]['rating'].toDouble(),
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 13.5,
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  onRatingUpdate: (rating) {
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    RatingBar.builder(
+                                      ignoreGestures: true,
+                                      initialRating: dataListValue[index]['rating'].toDouble(),
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 13.5,
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                      },
+                                    ),
+                                    Container(
+                                      margin:EdgeInsets.only(top:3),
+                                      child: Text(
+                                        "(${dataListValue[index]['rating_count'].toString()})",
+                                        style: TextStyle(fontSize: 13),
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: Row(
+                              children: [                                  
+                              GestureDetector(
+                                onTap: (){
+                                  controller.adDelete(dataListValue[index]['id']);
+                                  // if(categorybool == false) {
+                                    controller.addesMyListAll();
+                                    controller.addesMyListAll();
+                                    
+                                  //  }else{
+                                      controller.addedByIdAddes(catID, userId);
+                                    controller.addedByIdAddes(catID, userId);
+                                  //  }
+                                    
+                                },
+                                child: Image.asset(AppImages.delete,height: 30,)),
+                                  SizedBox(width: 3,),
+                                  GestureDetector(
+                                  onTap:(){  
+                                    Get.to(AddPostingScreen(),arguments:dataListValue[index]);
                                   },
-                                ),
-                                Container(
-                                  child: Text(
-                                    "(${dataListValue[index]['rating_count'].toString()})",
-                                    style: TextStyle(fontSize: 13),
-                                  )
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: Row(
-                                   children: [                                  
-                                   GestureDetector(
-                                     onTap: (){
-                                        controller.adDelete(dataListValue[index]['id']);
-                                        // if(categorybool == false) {
-                                         controller.addesMyListAll();
-                                          controller.addesMyListAll();
-                                          
-                                        //  }else{
-                                           controller.addedByIdAddes(catID, userId);
-                                          controller.addedByIdAddes(catID, userId);
-                                        //  }
-                                         
-                                     },
-                                     child: Image.asset(AppImages.delete,height: 30,)),
-                                       SizedBox(width: 3,),
-                                     GestureDetector(
-                                       onTap:(){  
-                                         Get.to(AddPostingScreen(),arguments:dataListValue[index]);
-                                       },
-                                       child: Image.asset(AppImages.edit,height: 30,))
-                                   ],
-                               ),
-                                ),
+                                  child: Image.asset(AppImages.edit,height: 30,))
                               ],
                             ),
-                         ), 
-                         Container(
+                          ),
+                        ],
+                      ), 
+                        
+                          Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(left: 15,right: 15),
+                                  padding: EdgeInsets.only(left: 15,right: 15,),
                                   child:
                                   dataListValue[index]['price'] != null?
                                   Text( 
@@ -687,38 +668,40 @@ void _adsfiltringheet() {
                                 ),
                                 Row(
                                   children: [
-                                    Transform.scale(
-                                      scale: .7,
-                                      child: Switch.adaptive(
-                                          activeColor: AppColors.appBarBackGroundColor,
-                                          value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                        // setState(() {
-                                          dataListValue[index]['is_active'] == 1 ?
-                                          controller.deactiveAd(dataListValue[index]['id']) :
-                                          controller.activeAd(dataListValue[index]['id']) ;
-                                          controller.addesMyListAll();
-                                          controller.addedByIdAddes(catID, userId);
-                                        // });
-                                    
-                                      }),
+                                    Container(
+                                      child: Transform.scale(
+                                        scale: .7,
+                                        child: Switch.adaptive(
+                                            activeColor: AppColors.appBarBackGroundColor,
+                                            value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                          // setState(() {
+                                            dataListValue[index]['is_active'] == 1 ?
+                                            controller.deactiveAd(dataListValue[index]['id']) :
+                                            controller.activeAd(dataListValue[index]['id']) ;
+                                            controller.addesMyListAll();
+                                            controller.addedByIdAddes(catID, userId);
+                                          // });
+                                      
+                                        }),
+                                      ),
                                     ),   
                                   ],
                                 ),
                               ],
                             ),
                          ), 
-                        Expanded(
-                          // flex : 2,
-                          child:  Container(
-                            margin: EdgeInsets.only(left:10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
+                        // Expanded(
+                        //   // flex : 2,
+                        //   child:  Container(
+                        //     margin: EdgeInsets.only(left:10),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.end,
+                        //       children: [
                               
-                              ],
-                            ),
-                          ),
-                        ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -747,7 +730,7 @@ void _adsfiltringheet() {
   }
   void navigateToGoogleLogin() {
   }
-  var catID;
+var catID;
  var allCheck = false;
  Color allColor = AppColors.appBarBackGroundColor;
  bool textAllcheck = false;  
@@ -756,7 +739,7 @@ void _adsfiltringheet() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 50,
+          height: 40,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: listingCategoriesData.length,
@@ -799,7 +782,7 @@ void _adsfiltringheet() {
                             padding: EdgeInsets.all(10.0),
                             child: Center(
                               child: Text(
-                                "All",
+                                "all".tr,
                                 style: TextStyle(
                                   color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                                   fontSize: 12,
@@ -832,8 +815,8 @@ void _adsfiltringheet() {
                           color: selectedIndex == index && textAllcheck == true ?AppColors.appBarBackGroundColor : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData != null ?  Text(
-                          listingCategoriesData[index]['category']['en'] != null ? listingCategoriesData[index]['category']['en']:'',
+                        child: listingCategoriesData != null && listingCategoriesData[index]['category'] !=null && listingCategoriesData[index]['category'][lang] !=null ?  Text(
+                          listingCategoriesData[index]['category'][lang],
                           style: TextStyle(
                             color: selectedIndex == index  &&textAllcheck == true? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 

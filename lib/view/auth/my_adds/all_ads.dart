@@ -1108,16 +1108,15 @@ class _AllAddsState extends State<AllAdds> {
                           : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: havingAdds != null
-                        ? Text( havingAdds[index]['category'][lang] == 'en' || havingAdds[index]['category'][lang] == 'ar'? 
-                            havingAdds[index]['category'][lang] :  havingAdds[index]['category']['en'],
-                            style: TextStyle(
-                              color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
-                              ? Colors.white
-                              : AppColors.appBarBackGroundColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
+                        child: havingAdds != null  &&  havingAdds[index]['category'] !=null && havingAdds[index]['category'][lang] !=null 
+                        ? Text( havingAdds[index]['category'][lang],
+                          style: TextStyle(
+                            color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
+                            ? Colors.white
+                            : AppColors.appBarBackGroundColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
                             ),
                           )
                         : Container()),
