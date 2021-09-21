@@ -183,7 +183,7 @@ class _AllAddsState extends State<AllAdds> {
             ),
             GestureDetector(
               onTap: () {
-                Get.to(AddPostingScreen());
+               Get.to(AddPostingScreen());
               },
               child: Container(
                 margin: lang == 'en'

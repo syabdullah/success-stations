@@ -16,24 +16,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/utils/favourite.dart';
-import 'package:success_stations/view/UseProfile/privacy.dart';
-import 'package:success_stations/view/UseProfile/user_agreement.dart';
-import 'package:success_stations/view/UseProfile/user_profile.dart';
-import 'package:success_stations/view/about_us.dart';
-import 'package:success_stations/view/auth/advertise.dart';
-import 'package:success_stations/view/auth/choose_language.dart';
-import 'package:success_stations/view/auth/contact.dart';
-import 'package:success_stations/view/auth/my_adds/draft_ads_list.dart';
-import 'package:success_stations/view/auth/my_adds/my_adds.dart';
-import 'package:success_stations/view/auth/notification.dart';
-import 'package:success_stations/view/bottom_bar.dart';
-import 'package:success_stations/view/friends/friend_request.dart';
-import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/membership/pro_indivual_membership.dart';
-import 'package:success_stations/view/messages/inbox.dart';
-import 'package:success_stations/view/offers/my_offers.dart';
-import 'package:google_fonts_arabic/google_fonts_arabic.dart';
 import 'package:dio/dio.dart' as dio;
 
 class AppDrawer extends StatefulWidget {
@@ -123,7 +106,7 @@ var lang;
                       color: AppColors.appBarBackGroundColor,
                       width: Get.width,
                       height: Get.height/4,
-                      padding: lang == 'ar' ? EdgeInsets.only(right: 10,top: 20): EdgeInsets.only(left: 10,top: 20),
+                      padding: lang == 'ar' ? EdgeInsets.only(top: 20): EdgeInsets.only(top: 20),
                       child: GestureDetector(
                         onTap: () {
                         },
@@ -136,58 +119,65 @@ var lang;
                                onTap:() { 
                                 getImage();
                               },
-                              child: Center(
-                                child: Row(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          // margin:EdgeInsets.only(left: 10),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(width: 3,color: Colors.white),
-                                              shape: BoxShape.circle,),
-                                            child: CircleAvatar(
-                                            backgroundColor: Colors.grey[200],
-                                            radius: 60.0,
-                                            child:ClipRRect(
-                                              borderRadius: BorderRadius.circular(60.0),
-                                              child:                                       
-                                              imageP.toString() != 'null' || imageP == null ?
-                                                Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
-                                                image.toString() == 'null' || image == null ? 
-                                              Image.asset(AppImages.person,color: Colors.grey[400]) : 
-                                              Image.network(
-                                                image['url'],
-                                                fit: BoxFit.fill,
-                                                height: Get.height/6,width: Get.width/3.0,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            // margin:EdgeInsets.only(left: 10),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 3,color: Colors.white),
+                                                shape: BoxShape.circle,),
+                                              child: CircleAvatar(
+                                              backgroundColor: Colors.grey[200],
+                                              radius: 40.0,
+                                              child:ClipRRect(
+                                                borderRadius: BorderRadius.circular(60.0),
+                                                child:                                       
+                                                imageP.toString() != 'null' || imageP == null ?
+                                                  Image.file(File(imageP),fit: BoxFit.cover,height: Get.height/5,width: Get.width/3.3,):
+                                                  image.toString() == 'null' || image == null ? 
+                                                Image.asset(AppImages.person,color: Colors.grey[400]) : 
+                                                Image.network(
+                                                  image['url'],
+                                                  fit: BoxFit.fill,
+                                                  height: Get.height/6,width: Get.width/3.0,
+                                                )
                                               )
-                                            )
+                                            ),
                                           ),
-                                        ),
-                                        FractionalTranslation(
-                                          translation :  lang == 'ar' ? const Offset(-0.7, 2.0): const Offset(1.0, 2.0),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              getImage();
-                                            },
-                                            icon: Image.asset(AppImages.camera,height: 40,)
+                                          FractionalTranslation(
+                                            translation :  lang == 'ar' ? const Offset(-.4, 1.333): const Offset(0.4, 1.333),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                getImage();
+                                              },
+                                              icon: Image.asset(AppImages.camera,height: 30,)
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      ),
+                                    
+                                    ],
+                                  ),
                                     Container(
-                                      margin: EdgeInsets.only(left: 20,right: 20,top: 50),
-                                      width: Get.width/3.5,
-                                      child: Text(
-                                        box.read('name'),
-                                        style:AppTextStyles.appTextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white
-                                        ),
+                                    margin: EdgeInsets.only(top: 20,),
+                                    child: Text(
+                                      box.read('name'),
+                                      overflow: TextOverflow.ellipsis,
+                                      style:AppTextStyles.appTextStyle(
+                                        fontSize: 16, fontWeight: FontWeight.bold, color:Colors.white
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),  
+                                ],
                               ),
+                              
                             ),                            
                           ],
                         ),
@@ -195,7 +185,7 @@ var lang;
                     ),
                    
                     Padding(
-                      padding: lang == 'en' ?  const EdgeInsets.only(top:20.0): const EdgeInsets.only(top:20.0,right: 10),
+                      padding: lang == 'en' ?  const EdgeInsets.only(top:00.0): const EdgeInsets.only(top:00.0,right: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
