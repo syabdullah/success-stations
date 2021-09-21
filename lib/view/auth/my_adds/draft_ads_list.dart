@@ -50,7 +50,10 @@ class _DraftAdsState extends State<DraftAds> {
   }
 
 Widget draftedlist(allDataAdds){
-    return ListView.builder(
+    print(allDataAdds[2]);
+    return 
+     allDataAdds.length == 0 ? Center(child: Text("NoAdsYet".tr,style: TextStyle(fontSize: 20),)) :
+    ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
@@ -97,13 +100,14 @@ Widget draftedlist(allDataAdds){
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                child: Text(
-                                  allDataAdds[index]['title'][lang].toString(),
+                                child: 
+                                Text(
+                                  allDataAdds[index]['title'][lang] != null  ?
+                                  allDataAdds[index]['title'][lang]: allDataAdds[index]['title'][lang] == null ? allDataAdds[index]['title']['en']: '',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              ),),
                              
                               Expanded(
                                 flex: 2,
@@ -133,7 +137,7 @@ Widget draftedlist(allDataAdds){
                         getData.getDraftedAdsOublished(allDataAdds[index]['id']);
                       },
                       child: Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(right: 10,left: 10),
                         color : AppColors.appBarBackGroundColor,
                         height: 30,
                         width: Get.width/4,

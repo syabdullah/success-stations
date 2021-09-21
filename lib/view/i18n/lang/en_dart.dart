@@ -240,7 +240,7 @@ const Map<String, String> en = {
   'drafted_ads':'DRAFTED ADS',
   'pr':'pr',
   'noOfferyet':"No Offer Yet!",
-  'NoAdsYet':"NoAdsYet",
+  'NoAdsYet':"No Ads Yet",
   'no_detail_here':'NO Detail Here !',
   'add_number':'Phone Number',
   'owner':'owner',
