@@ -13,6 +13,9 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
+// ignore: unused_import
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 
 DateTime? dateTime;
 var dateFormate = DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
@@ -23,6 +26,7 @@ class StudentSignUp extends StatefulWidget {
 }
 
 class _SignPageState extends State<StudentSignUp> {
+    var finalDate;
   final countryPut = Get.put(ContryController());
   var selectedCountry, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
 
@@ -43,7 +47,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   bool _isChecked = false;
   var myTest;
-  var countryIdGet, shortCodeAdd;
+  var countryIdGet, shortCodeAdd,confirmDate;
 
  
   final signUpCont = Get.put(SignUpController());
@@ -78,6 +82,7 @@ class _SignPageState extends State<StudentSignUp> {
         'about': aboutController.text,
         'degree': degreeController.text
       };
+      print("json of the user data .....$json");
       
       signUpCont.createAccountData(json);
     }
@@ -169,8 +174,7 @@ class _SignPageState extends State<StudentSignUp> {
                   Transform.scale(
                     scale: .9,
                     child: new Checkbox(
-                      
-                      activeColor: Colors.blue,
+                      activeColor: AppColors.appBarBackGroundColor,
                       value: _isChecked,
                       onChanged: (value) {
                         setState(() {
@@ -293,7 +297,6 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget address() {
     return  Container(
-      
       margin:EdgeInsets.only(left:20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
@@ -420,6 +423,7 @@ class _SignPageState extends State<StudentSignUp> {
       ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
+        focusNode: FocusNode(),
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left:10,bottom:10),
           fillColor: AppColors.inputColor,
@@ -457,76 +461,89 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
-  var finalDate;
-  Widget studentdob() {
-    // return  Container(
-    //   margin:EdgeInsets.only(left:20, right: 20),
-    //   width: Get.width * 0.9,
-    //   child: CustomTextFiled(
-    //     isObscure: false,
-    //     hintText: "yymmdd".tr,
-    //     hintStyle: TextStyle(fontSize: 13, color: AppColors.inputTextColor),
-    //     hintColor: AppColors.inputTextColor,
-    //     onChanged: (value) {  },
-    //     onFieldSubmitted: (value) {},
-    //     textController: dobController,
-    //     onSaved: (String? newValue) {
-    //     },
-    //     validator: (value) {
-    //     String pattern = (r'^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$');
-    //     RegExp regExp = RegExp(pattern);
-    //       if (value.length == 0) {
-    //         return 'Please enter your birthday';
-    //         } else if (!regExp.hasMatch(value)) {
-    //         return 'Please enter a valid birthday format is yyyy-mm-dd';
-    //         }
-    //         return null;
-    //       },
 
-    //     errorText: '',
-    //   ),
-    // );
-        return Container(
-          height: 50,
-          padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
-          margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppColors.outline)
-          ),
-          child:   GestureDetector(
-          onTap: () {
-          showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now())
-              .then((date) {
-            setState(() {
-              dateTime = date;
-              finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-            });
-          });
+  Widget studentdob() {
+    return Container(
+      height: 50,
+      padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
+      margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: AppColors.outline)
+      ),
+      child: GestureDetector(
+        onTap: () {
+          DatePicker.showDatePicker(context,
+            showTitleActions: true,
+            minTime: DateTime(1900, 3, 5),
+            maxTime: DateTime.now(),
+            theme: DatePickerTheme(
+              headerColor:AppColors.appBarBackGroundColor,
+              backgroundColor: Colors.white,
+              itemStyle: TextStyle(
+                color: AppColors.appBarBackGroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+              ),
+              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
+              // cancelStyle: TextStyle(color:Colors.white, fontSize: 16),
+            ),
+            onChanged: (date) {
+              print('change $date in time zone ' +
+              date.timeZoneOffset.inHours.toString());
+            }, 
+            onConfirm: (date) {
+              setState(() {
+                dateTime = date;
+                print('confirm...sheeee $dateTime');
+                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
+                
+              });
+              
+            },    
+            currentTime: DateTime.now(), locale: LocaleType.en
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              child: Text(dateTime == null ? 'date_of_birth'.tr : dateFormate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
+              child:  Text(dateTime == null ? 'date_of_birth'.tr : finalDate ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey,),
-              onTap: () {               
-                showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now())
-                    .then((date) {
-                  setState(() {
-                    dateTime = date;
-                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                  });
-                });
+               onTap: () {               
+                DatePicker.showDatePicker(context,
+                  showTitleActions: true,
+                  minTime: DateTime(1900, 3, 5),
+                  maxTime: DateTime.now(),
+                  theme: DatePickerTheme(
+                    headerColor:AppColors.appBarBackGroundColor,
+                    backgroundColor: Colors.white,
+                    itemStyle: TextStyle(
+                      color: AppColors.appBarBackGroundColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                    doneStyle: TextStyle(color:Colors.white, fontSize: 16),
+                    cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
+                  ),
+                  onChanged: (date) {
+                    print('change $date in time zone ' +
+                    date.timeZoneOffset.inHours.toString());
+                  }, 
+                  onConfirm: (date) {
+                    setState(() {
+                      dateTime = date;
+                      print('confirm...sheeee $dateTime');
+                       finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                       print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
+                      
+                    });
+                    
+                  },    
+                  currentTime: DateTime.now(), locale: LocaleType.en
+                );
               },
             ),
           ],

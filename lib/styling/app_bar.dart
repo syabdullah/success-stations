@@ -35,10 +35,13 @@ var userId = box.read('user_id');
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: IconButton(
-        iconSize: 25,
-        icon: Icon(Icons.menu,color: Colors.white),
-        onPressed: () => globalKey.currentState!.openDrawer()),
+      leading: Container(
+        margin:EdgeInsets.only(top:12),
+        child: IconButton(
+          iconSize: 28,
+          icon: Icon(Icons.menu,color: Colors.white),
+          onPressed: () => globalKey.currentState!.openDrawer()),
+      ),
       title: Padding(
        padding: const EdgeInsets.only(top:10.0),
         child: Image.asset(image, height: 40),

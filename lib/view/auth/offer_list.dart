@@ -800,7 +800,7 @@ class _OfferListState extends State<OfferList> {
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            "All",
+                            "all".tr,
                             style: TextStyle(
                               color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                               fontSize: 12,
@@ -837,7 +837,11 @@ class _OfferListState extends State<OfferList> {
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          dataListedCateOffer[index]['category_name']['en'],
+                          dataListedCateOffer[index]['category_name'][lang] !=null ? 
+                             dataListedCateOffer[index]['category_name'][lang]:
+                             dataListedCateOffer[index]['category_name'][lang] ==null ? 
+                              dataListedCateOffer[index]['category_name']['en']:''
+                             ,
                           style: TextStyle(
                             color: selectedIndex == index && textAllcheck == true ? Colors.white  : AppColors.appBarBackGroundColor,
                             fontSize: 12,
