@@ -15,7 +15,9 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
 
@@ -103,7 +105,7 @@ class _AllAddsState extends State<AllAdds> {
       ? PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: stringAppbar(
-          '', Icons.arrow_back_ios_new_sharp,
+          context, Icons.arrow_back_ios_new_sharp,
           'All  Ads', AppImages.appBarSearch
         )
       )
@@ -116,11 +118,8 @@ class _AllAddsState extends State<AllAdds> {
           GetBuilder<CategoryController>(
             init: CategoryController(),
             builder: (data) {
-              return data.isLoading == true
-              ? CircularProgressIndicator()
-              : data.havingAddsList != null
-                ? addsCategoryWidget(data.havingAddsList['data'])
-                : Container();
+              return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
+              Container();
             },
           ),
           SizedBox(height:20),
@@ -152,7 +151,6 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   Widget topWidget() {
-    var list;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -185,7 +183,7 @@ class _AllAddsState extends State<AllAdds> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed('/adPostingScreen');
+                Get.to(AddPostingScreen());
               },
               child: Container(
                 margin: lang == 'en'
@@ -318,13 +316,13 @@ class _AllAddsState extends State<AllAdds> {
                                 ? Container(
                                   height: Get.height / 10,
                                 )
-                                : data.subCatt != null && data.subCatt['data'] != null
+                                : data.havingAddsList != null && data.havingAddsList['data'] != null
                                   ? Container(
                                     height: Get.height * 0.035,
                                     child: ListView.builder(
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: data.subCatt['data'].length,
+                                      itemCount: data.havingAddsList['data'].length,
                                       itemBuilder: (
                                         BuildContext ctxt,int index) {
                                         return Row(
@@ -338,7 +336,7 @@ class _AllAddsState extends State<AllAdds> {
                                                 onTap: () {
                                                   setState(() {
                                                     filteredIndex = index;
-                                                    catFilteredID = data.subCatt['data'][index]['id'];
+                                                    catFilteredID = data.havingAddsList['data'][index]['id'];
                                                   });
                                                 },
                                                 child: Container(
@@ -350,8 +348,8 @@ class _AllAddsState extends State<AllAdds> {
                                                     : Colors.white,
                                                   ),
                                                   padding: EdgeInsets.only(left:6.0,right: 6),
-                                                  child: data.subCatt['data'] !=null
-                                                  ? Text(data.subCatt['data'][index]['category']['en'],
+                                                  child: data.havingAddsList['data'] !=null
+                                                  ? Text(data.havingAddsList['data'][index]['category'][lang],
                                                     style: TextStyle(
                                                       color: filteredIndex == index
                                                       ? AppColors.appBarBackGroundColor
@@ -709,12 +707,11 @@ class _AllAddsState extends State<AllAdds> {
                             padding: const EdgeInsets.all(10.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.grey[200],
-                              child: Icon(Icons.person)
+                              child: Icon(Icons.person, color: AppColors.appBarBackGroundColor,)
                             )
                           ),
                           Container(
-                              // width: Get.width/4,
-                              // height: Get.height/5.5,
+                            margin: EdgeInsets.only(right: 5,left: 5),
                             child: Row(
                               children: [
                                 GestureDetector(
@@ -722,20 +719,30 @@ class _AllAddsState extends State<AllAdds> {
                                     var json = {
                                       'ads_id': allDataAdds[index]['id']
                                     };
-                                    liked = !liked;
                                     allDataAdds[index]['is_favorite'] ==false
                                     ? friCont.profileAdsToFav(json, userId)
                                     : friCont.profileAdsRemove(json, userId);
-                                    controller.addedByIdAddes(catID, null);
+                                    controller.addedAllAds();
+                                    controller.addedByIdAddes(allDataAdds[index]['category_id'], null);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.only(right: 5,left: 5),
                                     child: allDataAdds[index]['is_favorite'] ==false
                                     ? Image.asset(AppImages.blueHeart,height: 25)
                                     : Image.asset(AppImages.redHeart,height: 25)
                                   ),
                                 ),
-                                Image.asset(AppImages.call, height: 25),
+                              Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: 
+                              allDataAdds[index]['phone'] !=null ? GestureDetector(
+                                onTap: (){
+                                   launch("tel:${allDataAdds[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)): Container()
+                              )
+                                
+                                // Image.asset(AppImages.call, height: 25),
                               ],
                             )
                           )
@@ -756,12 +763,13 @@ class _AllAddsState extends State<AllAdds> {
   var splitedPrice;
   myAddGridView(dataListValue) {
     return Container(
-      margin: EdgeInsets.only(bottom:20),
+      // height: Get.height/100,
+      // margin: EdgeInsets.only(bottom:20),
       width: Get.width / 1.10,
       // height: Get.height *100,
       child: GridView.count(
         crossAxisCount: 2,
-        mainAxisSpacing: 50,
+        // mainAxisSpacing: 50,
         crossAxisSpacing: 12,
         children: List.generate(
           dataListValue.length, (index) {
@@ -807,17 +815,16 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  liked = !liked;
-                                 dataListValue[index]['is_favorite'] ==false
-                                  ? friCont.profileAdsToFav(json, userId)
-                                  : friCont.profileAdsRemove(json, userId);
-                                  controller.addedByIdAddes(catID, null);
+                                 dataListValue[index]['is_favorite'] ==false ? 
+                                 friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
+                                 controller.addedAllAds();
+                                 controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(right: 2,left: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 20)
-                                  : Image.asset(AppImages.redHeart,height: 20)
+                                  ? Image.asset(AppImages.blueHeart,height: 30)
+                                  : Image.asset(AppImages.redHeart,height: 30)
                                 ),
                               ),
                             ),
@@ -834,17 +841,17 @@ class _AllAddsState extends State<AllAdds> {
                                   var json = {
                                     'ads_id': dataListValue[index]['id']
                                   };
-                                  liked = !liked;
-                                 dataListValue[index]['is_favorite'] ==false
-                                  ? friCont.profileAdsToFav(json, userId)
-                                  : friCont.profileAdsRemove(json, userId);
-                                  controller.addedByIdAddes(catID, null);
-                                },
+                                  // liked = !liked;
+                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId);
+                                  controller.addedAllAds(); 
+                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                                     
+                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(right: 5),
+                                  padding: EdgeInsets.only(right: 5,left: 5),
                                   child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 20)
-                                  : Image.asset(AppImages.redHeart,height: 20)
+                                  ? Image.asset(AppImages.blueHeart,height: 30)
+                                  : Image.asset(AppImages.redHeart,height: 30)
                                 ),
                               ),
                             ),
@@ -892,12 +899,10 @@ class _AllAddsState extends State<AllAdds> {
                                       itemSize: 14.5,
                                       itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
                                       onRatingUpdate: (rating) {
-                                        print('rating on tap ........$rating');
                                         var ratingjson = {
                                           'ads_id': dataListValue[index]['id'],
                                           'rate': rating
                                         };
-                                        print('.....................Rating data on Tap .........$ratingjson');
                                         ratingcont.ratings(ratingjson);
                                         // ratingcont.getratings(allDataAdds[index]['id']);
                                       },
@@ -917,29 +922,20 @@ class _AllAddsState extends State<AllAdds> {
                                     )
                                   ),
                                   Container(
-                          // width: Get.width/4,
-                          // height: Get.height/5.5,
+                         
                         child: Row(
                           children: [
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     var json = {
-                            //       'ads_id': dataListValue[index]['id']
-                            //     };
-                            //     liked = !liked;
-                            //    dataListValue[index]['is_favorite'] ==false
-                            //     ? friCont.profileAdsToFav(json, userId)
-                            //     : friCont.profileAdsRemove(json, userId);
-                            //     controller.addedByIdAddes(catID, null);
-                            //   },
-                            //   child: Container(
-                            //     padding: EdgeInsets.only(right: 5),
-                            //     child: dataListValue[index]['is_favorite'] ==false
-                            //     ? Image.asset(AppImages.blueHeart,height: 20)
-                            //     : Image.asset(AppImages.redHeart,height: 20)
-                            //   ),
-                            // ),
-                            Image.asset(AppImages.call, height: 20),
+                            dataListValue[index]['phone'] !=null ? 
+                            Container(
+                              // padding: EdgeInsets.only(right:15),
+                              child: GestureDetector(
+                                onTap: (){
+                                   launch("tel:${dataListValue[index]['phone']}");
+                                },
+                                child: Image.asset(AppImages.call, height: 25)),
+                            ):Container()
+                           
+                            // Image.asset(AppImages.call, height: 25),
                           ],
                         )
                       )
@@ -983,10 +979,12 @@ class _AllAddsState extends State<AllAdds> {
                               : '',
                               style: TextStyle(color: AppColors.appBarBackGroundColor),
                                   ),
+                                  // SizedBox(height: 10,)
                           ],
                         ),
                       ),
                     ),
+                  
                   ],
                 ),
               ),
@@ -1023,42 +1021,42 @@ class _AllAddsState extends State<AllAdds> {
   }
 
   void navigateToGoogleLogin() {}
-
+  var allCheck = false;
+ Color allColor = AppColors.appBarBackGroundColor;
+ bool textAllcheck = false;
   Widget addsCategoryWidget(havingAdds) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height:45,
+          height: 40,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-              
-              // if (data != null && id == havingAdds[index]['id']) {
-              //   print("........");
-              //   catID = havingAdds[index]['id'];
-              //   selectedIndex = index;
-              //   // ind = 0;
-              // } else if (data == null && ind == 0) {
-              //   id = havingAdds[index]['id'];
-              //   catID = havingAdds[index]['id'];
-              //   controller.addedByIdAddes(havingAdds[0]['id'], null);
-              //   selectedIndex = index;
-              //   ++ind;
-              // }
-
-              return index == 0 ? Container(
-                width: 70,
+              print("lang printed all ads. ${havingAdds[index]['category'][lang]}");
+              if(index != 0 ) {
+                allCheck = true;
+              }else {
+                allCheck = false;
+              }
+              return 
+              Row(
+                children: [
+                  allCheck == false ? 
+                  Container(
+                    width: 70,
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
                     : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                        selectedIndex = index;
-                        addsGet.myAddsCategory();
-                        havingCategorybool = false;
+                          havingCategorybool = false;
+                          textAllcheck = false;
+                          selectedIndex = index;
+                          allColor = AppColors.appBarBackGroundColor;
+                          addsGet.myAddsCategory();                      
                         });
                       },
                       child: Container(
@@ -1067,16 +1065,14 @@ class _AllAddsState extends State<AllAdds> {
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index
-                          ? selectedColor
-                          : Colors.white,
+                          color: allColor,
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            "All",
+                            "all".tr,
                             style: TextStyle(
-                              color: selectedIndex == index ? Colors.white  : AppColors.appBarBackGroundColor,
+                              color: textAllcheck == false ?  Colors.white  : AppColors.appBarBackGroundColor,
                               fontSize: 12,
                               fontStyle: FontStyle.normal,
                             ),
@@ -1084,9 +1080,7 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                       ),
                     ),
-              ):
-              Row(
-                children: [
+                  ):Container(),
                   Container(
                     margin: lang == 'en'
                     ? EdgeInsets.only(left: 12.0)
@@ -1098,31 +1092,27 @@ class _AllAddsState extends State<AllAdds> {
                          havingCategorybool =true;
                           ind = ++ind;
                           selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
                           id = havingAdds[index]['id'];
                           controller.addedByIdAddes(havingAdds[index]['id'], null);
+                          // addsGet.myAddsCategory();
                         });
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                           border: Border.all(color: AppColors.appBarBackGroundColor),
-                          color: selectedIndex == index &&id == havingAdds[index]['id']
+                          color: selectedIndex == index &&id == havingAdds[index]['id'] && textAllcheck == true
                           ? AppColors.appBarBackGroundColor
                           : Colors.white,
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.grey,
-                          //     offset: Offset(0.0, 1.0),
-                          //     blurRadius: 6.0,
-                          //   ),
-                          // ],
                         ),
                         padding: EdgeInsets.all(10.0),
                         child: havingAdds != null
-                        ? Text(
-                            havingAdds[index]['category']['en'],
+                        ? Text( havingAdds[index]['category'][lang] == 'en' || havingAdds[index]['category'][lang] == 'ar'? 
+                            havingAdds[index]['category'][lang] :  havingAdds[index]['category']['en'],
                             style: TextStyle(
-                              color: selectedIndex == index && id == havingAdds[index]['id']
+                              color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                               ? Colors.white
                               : AppColors.appBarBackGroundColor,
                               fontSize: 12,

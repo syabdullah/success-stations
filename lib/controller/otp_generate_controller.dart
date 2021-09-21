@@ -13,9 +13,9 @@ var otp;
     isLoading = true;
     await otpGenerateAction(data).then((response){
       otp = jsonDecode(response.body);
-      print(response.statusCode);
+      
       if(response.statusCode < 400){
-        Get.to(ResetPassword());
+        Get.toNamed('/resetPass');
       }
       if(response.statusCode > 400){
         Get.snackbar("","Enter valid Verification Code",backgroundColor: Colors.blue);

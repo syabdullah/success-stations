@@ -9,6 +9,7 @@ class OfferCategoryController extends GetxController {
   var iDBasedOffers, editOffers;
   var resultInvalid = false.obs; 
   var allOffersResp;
+  var drawerMyHavingAdds;
 
   @override
   void onInit() {
@@ -63,7 +64,15 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await allOffers().then((value) {
       allOffersResp = jsonDecode(value.body);
-      print("all offers responhyes..........$allOffersResp");
+      isLoading = false;
+    });
+    update();
+  }
+
+  myoffersHavingAdds() async {
+    isLoading = true;
+    await offerMyOffers().then((value) {
+      drawerMyHavingAdds = jsonDecode(value.body);
       isLoading = false;
     });
     update();

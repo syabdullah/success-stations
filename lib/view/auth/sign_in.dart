@@ -11,7 +11,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/facebook_signIn.dart';
 import 'package:success_stations/utils/google_signIn.dart';
 import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/utils/skalton.dart';
+import 'package:success_stations/view/auth/language.dart';
 import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
@@ -60,10 +60,11 @@ class _SignPageState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => true,
-       
-      child: Scaffold(
+    return
+     WillPopScope(
+      onWillPop: () async => true,      
+      child:
+       Scaffold(
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -80,13 +81,6 @@ class _SignPageState extends State<SignIn> {
           body: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (val) {
-                // if(  loginCont.resultInvalid.isTrue ) {
-                //   if(errorCheck == )
-                //   errorCheck = true;
-                // }else{
-                //   print("..........------=======$errorCheck");
-                //   // errorCheck = false;
-                // }
                 return Center(
                   child: ListView(
                     children: [
@@ -156,16 +150,10 @@ class _SignPageState extends State<SignIn> {
                                       SizedBox(
                                         width: 3,
                                       ),
-                                      // Expanded(
-                                      //     child: Divider(
-                                      //   color: Colors.black,
-                                      // )),
+                                      
                                     ]),
                               ),
-                              // Container(
-                              //   margin: EdgeInsets.only(top: 10, bottom: 10),
-                              //   child: Text("or".tr),
-                              // ),
+                              
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -234,8 +222,7 @@ class _SignPageState extends State<SignIn> {
           child: DropdownButton(
         hint: hintTextLang!=null
         ? Text(hintTextLang,
-          //lang == 'en' ? 'Englis' : 'Arabic',
-          //hintTextLang != null ?hintTextLang: lang!=null?lang:shimmer(),
+         
           style: TextStyle(fontSize: 18, color: AppColors.inputTextColor))
         : hintTextLang == null && lang == null
         ? Text("English")
@@ -334,7 +321,6 @@ class _SignPageState extends State<SignIn> {
           ),
           GestureDetector(
               onTap: () {
-                print("ontap itmemmm.....>!!!");
                 Get.toNamed('/langua');
               },
               child: Text(

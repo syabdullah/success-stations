@@ -7,8 +7,6 @@ import 'package:success_stations/view/i18n/lang/en_dart.dart';
 
 
 class LocalizationServices extends Translations {
-  
-  // See http://en.wikipedia.org/wiki/Right-to-left
   static const List<String> _rtlLanguages = <String>[
     'ar', // Arabic
     'fa', // Farsi
@@ -47,23 +45,16 @@ class LocalizationServices extends Translations {
     'en': en,
   };
   void changeLocale(String lang) {
-    print("chnggelocal................$lang");
     if(lang.length == 2) {
      
       _getLangFromLocal(Locale(lang));
       _textDirection = _rtlLanguages.contains(lang) ? TextDirection.rtl : TextDirection.ltr;
        Get.updateLocale(Locale(lang));
-        print("chnggelocal..........if......$lang");
-        print("chnggelocal..........if......$langs");
         box.write('language', lang);
        
     }else{
       _textDirection = _rtlLanguages.contains(lang) ? TextDirection.rtl : TextDirection.ltr;
-      print("jksdhjdshdshdkhjsjhahdhdsa$_textDirection");
       Get.updateLocale(locale);
-       print("chnggelocal.......else.........$lang");
-       
-      
     }
   }
   _getLangFromLocal(loc) {

@@ -55,7 +55,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       _latLng = LatLng(position.latitude, position.longitude);
-      print("///.............-------.............>$_latLng");
     });
   }
 
@@ -83,7 +82,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   child: GestureDetector(
                     onTap: () {
                       Get.to(AdViewTab(), arguments: data['user_name']['id']);
-                      print(data['user_name']['id']);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -139,7 +137,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                           color: Colors.amber,
                                         ),
                                         onRatingUpdate: (rating) {
-                                          print(rating);
                                         },
                                       ),
                                     ),
@@ -224,7 +221,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       val.allLoc['data']['data'][i]['long']);
                 }
               }
-            // print("--------------------------------------$_latLng");
             return Stack(
               children: [
                 listtype == 'map'
@@ -303,9 +299,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                 setState(() {
                   listtype = 'grid';
                   box.write("type", listtype);
-                  print(".....<><><><><><>///<><><....$listtype");
                   isButtonPressed = !isButtonPressed;
-                  //listIconColor = AppColors.appBarBackGroundColor;
                   grid = AppImages.grid;
                 });
               },
@@ -346,18 +340,13 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               onPressed: () {
                 setState(() {
                   listtype = 'map';
-                  print(".....<><><><><><>///<><><....$listtype");
-                  //lisselect = !lisselect;
                   isButtonPressed = !isButtonPressed;
-                  //listIconColor = Colors.grey;
-                  //listImg = AppImages.listing;
                 });
               },
               child: Image.asset(
                 AppImages.map,
                 color:listtype=='map'? Colors.white:Colors.grey,height: 50,
-                //color: listtype=='grid' ?Colors.black: listtype=='grid' ?AppColors.appBarBackGroundColor :Colors.grey,
-              ),
+                   ),
             ),
           ),
           SizedBox(height: 10, width: 15)
@@ -367,11 +356,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   }
 
   Widget allUsers(userData) {
-    print(":';';';';';';';'%%%%%%------${userData['data'].length}");
     return GridView.builder(
         padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
         primary: false,
-        // padding: const EdgeInsets.all(0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 10,
           mainAxisSpacing: 20,
@@ -385,12 +372,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData['data'].length,
         itemBuilder: (BuildContext context, int index) {
-          print(":';';';';';';';'%%%%%%------${userData['data'][index]}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
                   arguments: userData['data'][index]['user_name']['id']);
-              //var cc=userData[index]['id']);
             },
             child: Card(
               elevation: 3,
@@ -480,7 +465,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                               userData['data'][index]['user_name']['is_user_favourite'] ==false
                               ? adfavUser.profileAdsToFav(adtofavJson)
                               : adfavUser.profileRemToFav(remtofavJson);
-                              print(adtofavJson);
                             },
                             child: userData['data'][index]['user_name']['is_user_favourite'] ==false
                             ? Image.asset(
@@ -519,7 +503,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             _customInfoWindowController.onCameraMove!();
           },
           onMapCreated: (GoogleMapController controller) async {
-            print("............,,.,.,.,$kInitialPosition");
             _customInfoWindowController.googleMapController = controller;
           },
           initialCameraPosition: CameraPosition(
@@ -566,7 +549,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           
 //         // ),
 //         onTap: () {
-//           print(".././/././");
 //           setState(() {
 //           _customInfoWindowController.addInfoWindow!(
 //             Column(
@@ -670,7 +652,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 //   }
 //   @override
 //   Widget build(BuildContext context) {
-//     print(Get.height);
 //     return
 //     //  Scaffold(
 //     //   body:
@@ -760,7 +741,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 //                 //     color: Colors.amber,
 //                 //   ),
 //                 //   onRatingUpdate: (rating) {
-//                 //     print(rating);
 //                 //   },
 //                 // ),
 //                 // SizedBox(width: 2,),
@@ -828,7 +808,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 // //                       color: Colors.amber,
 // //                     ),
 // //                     onRatingUpdate: (rating) {
-// //                       print(rating);
 // //                     },
 // //                   ),
 // //                   SizedBox(width: 2,),

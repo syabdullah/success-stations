@@ -9,7 +9,6 @@ Future<http.Response> allNotification() async {
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}notification");
   final result =await http.get(url,headers: ApiHeaders().headersWithToken);  
-  print(result);
   return result;
 }
 

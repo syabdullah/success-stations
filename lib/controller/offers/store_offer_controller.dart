@@ -29,7 +29,6 @@ class StorePostAddesController extends GetxController {
     isLoading(true);
     await ApiHeaders().getData();
     final Config conf = Config();
-      print("store offer createdddd/....${ApiHeaders().headersWithToken}");
         String url =conf.baseUrl + "offers";
         Dio dio = Dio();
         response.Response result = await dio.post(url, data: data,options:Options( followRedirects: false,
@@ -70,13 +69,11 @@ class StorePostAddesController extends GetxController {
   uploadMyAdd(data) async {
     await ApiHeaders().getData();
     final Config conf = Config();
-    print(ApiHeaders().headersWithToken);
     String url =conf.baseUrl + "offers/media";
     Dio dio = Dio();
     response.Response result =
     await dio.post(url, data: data,options:Options(headers: ApiHeaders().headersWithToken));
     uploadImageOfAdd = result.data;
-    print("object...........${result.data}"); 
     update();
   }
 }

@@ -7,6 +7,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:success_stations/view/friends/friends_profile.dart';
 
 class FriendReqList extends StatefulWidget {
   _FriendReqListState createState() => _FriendReqListState();
@@ -22,7 +23,6 @@ class _FriendReqListState extends State<FriendReqList> {
     friCont.getFriendsList();
     friCont.getSuggestionsList();
     id = box.read('user_id');
-    print("...............$id");
   }
 
   @override
@@ -76,7 +76,6 @@ class _FriendReqListState extends State<FriendReqList> {
      if(data != null)
      for(int i= 0; i< data.length; i++) {  
        if(data[i]['requister'] != null && data[i]['status'] == null) {
-         print("....................//////.------....${data[i]['requisted']}");
          ++count;
         req.add(
           Column(
@@ -187,7 +186,6 @@ class _FriendReqListState extends State<FriendReqList> {
                     data[i]['requister']['id'] != id ?
                     GestureDetector(
                       onTap: (){
-                        print("------------${data[i]['id']}");
                         friCont.rejFriend(data[i]['id']);
                         },
                       child: Container( 
@@ -257,7 +255,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ):Container(),
              GestureDetector(
               onTap: (){
-                Get.toNamed('/friendProfile' ,arguments: data[i]['id'] );
+                Get.to(FriendProfile() ,arguments: ['',data[i]['id']] );
               },
               child: Card(
                 child: Row(
@@ -280,29 +278,14 @@ class _FriendReqListState extends State<FriendReqList> {
                            width: Get.width/4,
                           child: Text(data[i]['name'],style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
-                        // Container(
-                        //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                        // ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Image.asset(AppImages.location,height: 15,),
-                        //     SizedBox(width:5),
-                        //     Container(
-                        //       // child: Text(data[i]['user_requisted']['city']['city']),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                     Spacer(),
                     GestureDetector(
                       onTap: (){ 
                         var json = {
-                          // 'requister_id' : id,
                           'friend_send_request_to' : data[i]['id']
                         };
-                        print("......./////$json");
                         friCont.sendFriend(json);
                         friCont.getSuggestionsList();
                       },

@@ -22,7 +22,6 @@ class _InboxState extends State<Inbox> {
   void initState() {
     super.initState();
     chatCont.getAllConvo();
-    print("-----------------------------${Get.height}");
    userId =  box.read('user_id');
   }
   Widget messageList(data,allData) {
@@ -199,7 +198,7 @@ Widget recentChat(data){
                     AppBar(
                       leading:GestureDetector(
                         onTap: (){
-                          Get.off(BottomTabs());
+                          Get.back();
                         },
                         child: Image.asset(AppImages.arrowBack)
                       ),

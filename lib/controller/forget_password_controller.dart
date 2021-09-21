@@ -14,14 +14,11 @@ class ForgetPasswordController extends GetxController {
    RxBool isLoading = false.obs;
    forgetPassword(data) async {
      isLoading(true);
-     await passwordForget(data).then((res) {    
-      // email = jsonDecode(res.body);
-      print(res);
-      print(res.statusCode);
+     await passwordForget(data).then((res) { 
       if(res.statusCode == 200 || res.statusCode < 400){
         email = jsonDecode(res.body);
         isLoading(false);
-       Get.to(ForgotCode());
+       Get.toNamed('/forgotCode');
         
       } if(res.statusCode >=  412){
           Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.appBarBackGroundColor);

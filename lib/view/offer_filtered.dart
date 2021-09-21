@@ -74,7 +74,6 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
 
   var catAddID;
   Widget draftedlist(filteredAdds) {
-    print("..............<><><><><><><><><//////......$filteredAdds");
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: ListView.builder(

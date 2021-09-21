@@ -26,7 +26,7 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
     box.write('lang_id',mapCountry['id']);
     box.write('lang_code', mapCountry['short_code']);
     LocalizationServices().changeLocale(mapCountry['short_code']);
-    Get.to(BottomTabs());
+    Get.toNamed('/tabs');
   }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,8 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
           bgcolor: AppColors.appBarBackGroundColor,
           textColor: AppColors.appBarBackGroun,
           buttonText: "save".tr,
-          callback: save),
+          callback: save
+        ),
         ],
      )
 
@@ -89,7 +90,6 @@ var mapCountry;
               setState(() {
                 mapCountry = val as Map;
                 hintTextLang = mapCountry['name'];
-                print("..........-==-=-=-=-=-=-..//././...-==-=-${mapCountry['short_code']}");
                
               });
             },

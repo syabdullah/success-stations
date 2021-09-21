@@ -326,7 +326,6 @@ class _UserInformationState extends State<UserInformation> {
   //           dropdownColor: AppColors.inputColor,
   //           icon: Icon(Icons.arrow_drop_down),
   //           items: citydata.map((citt) {
-  //             // print(',,,,!!<<!<!<!<!<!<,,,,,,,cityDatat.....$citt');
   //             return DropdownMenuItem(
   //               value: citt,
   //               child:Text(citt['city'])

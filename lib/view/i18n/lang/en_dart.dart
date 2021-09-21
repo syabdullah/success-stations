@@ -62,6 +62,8 @@ const Map<String, String> en = {
   "university": "UNIVERSITY",
   "universitysu": "University",
   "welcome": "Welcome!",
+  "services": "Services",
+  "draftt":"Drafts",
   "degree":"DEGREE",
   "degreesu":"Degree",
   "yymmdd":"YYYY-MM-DD",
@@ -106,7 +108,7 @@ const Map<String, String> en = {
   "my_ads": "My Ads",
   "my_adss": "MY ADS",
   "messeges": "Message",
-  "notifications": "Notifications",
+  "notifications": "NOTIFICATIONS",
   "semester":"SEMESTER",
   "semestersu":"Semester",
   "advertisingCategories":"Advertising Categories",
@@ -128,6 +130,7 @@ const Map<String, String> en = {
   "see_profile": "See Profile",
   "reply": "Reply",
   "type": "Type",
+  'report':'Report',
   "ad_number": "Ad Number",
   "status": "Status",
   "section": "Section",
@@ -159,7 +162,6 @@ const Map<String, String> en = {
   "writeHere":"Write Here",
   "offer": "Offers",
   "friends": "Friends",
-  "services": "Services",
   "google_maps": "Google Maps", 
   "telephone_numbers": "Telephone No",
   "information": "Information",
@@ -224,7 +226,7 @@ const Map<String, String> en = {
   'memberShip':'You can use following services in Pro Company',
   'general':'General',
   'message':'Message',
-  'drafted_ads':'Drafted Ads',
+  'drafted_ads':'DRAFTED ADS',
   'pr':'pr',
   'noOfferyet':"No Offer Yet!",
   'NoAdsYet':"NoAdsYet",
@@ -263,6 +265,8 @@ const Map<String, String> en = {
   'crs':'Cr',
   'DegreeSU':"Degree",
   'oR':'OR',
+  'contactC'"CONTACT"
+  'favC':'FAVOURITES',
   'contactus':'CONTACT US',
   'email_required':'Email Required',
   'enter_password':'Enter a Password',
@@ -283,7 +287,8 @@ const Map<String, String> en = {
   "city2":"PHONE NUMBER",
   "city3":"STATUS",
   "city4":"DETAILS",
-  "adpostedat":"Ad Posted at"
+  "adpostedat":"Ad Posted at",
+  "helloPeople":"People Commented on this ad."
 };
 
 

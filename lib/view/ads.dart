@@ -87,8 +87,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false &&  data.addsCategoryArray.length != 0  ?  featuredAdsList(                  
-                    data.addsCategoryArray) : Container();
+                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
                 }
               ),
                 text('specialofer'.tr,"all".tr),
@@ -108,7 +107,7 @@ class _AdsViewState extends State<AdsView> {
 
   Widget upgradeBnner (){
     return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal:10.0),
+      padding: const EdgeInsets.symmetric(horizontal:4.0),
       child: Visibility(
         visible: isVisible,
         maintainSize: true,
@@ -136,7 +135,6 @@ class _AdsViewState extends State<AdsView> {
                     });
                     box.write('upgrade', isVisible);
                     newv = box.read('upgrade');
-                    print(newv);
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 30,left:10),
@@ -319,7 +317,6 @@ class _AdsViewState extends State<AdsView> {
                     child:data[index]['media'].length != 0 && data[index]['media'][0]['url'] != null ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
                        child: Icon(Icons.image,size: 50,),
                     )
-                    //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                   ),
                 ),
               ),
@@ -336,13 +333,12 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.6: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (BuildContext context,index) {
-          print("......../././././././${data[index]['title']}");
           var doubleval = double.parse(data[index]['price']);
           var price = doubleval.toInt();
           return 
@@ -400,19 +396,16 @@ class _AdsViewState extends State<AdsView> {
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
-                              print(
-                                  'rating on tap ........$rating');
+                             
                               var ratingjson = {
                                 'ads_id':
                                     data[index]
                                         ['id'],
                                 'rate': rating
                               };
-                              print(
-                                  '.....................Rating data on Tap .........$ratingjson');
+                             
                               ratingcont
                                   .ratings(ratingjson);
-                              // ratingcont.getratings(allDataAdds[index]['id']);
                             },
                           )
                         : RatingBar.builder(
@@ -467,19 +460,7 @@ class _AdsViewState extends State<AdsView> {
                           'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
                         ): Container()
                       ),                 
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       margin: EdgeInsets.only(),
-                      //       child: Icon(Icons.person,color:Colors.grey[600],size: 20,),
-                      //     ),
-                      //     SizedBox(width:5),
-                      //     Container(
-                      //       margin: EdgeInsets.only( left: Get.height*0.000),
-                      //       child: Text(data[index]['contact_name'],style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.w400)),
-                      //     ),
-                      //   ],                      
-                      // ),                                
+                                          
                     ],
                   ),
                 ],

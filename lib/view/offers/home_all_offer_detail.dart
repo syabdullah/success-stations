@@ -1,4 +1,4 @@
-import 'package:clippy_flutter/trapezoid.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/offers/my_offer_controller.dart';
@@ -6,7 +6,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class HomeAllOfferDEtailPage extends StatefulWidget {
@@ -24,8 +23,6 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
   void initState() {
     homeCategoryById = Get.arguments;
     lang = box.read('langs_code');
-    print("........hellloooooo.....<><><><><><><////////....$lang");
-    print(".....................IF IF ID.......>$homeCategoryById");
     super.initState();
   }
 

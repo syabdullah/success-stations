@@ -18,7 +18,6 @@ class _AdOffersState extends State<AdOffers> {
 @override
   void initState() {
     id = Get.arguments;
-    print(id);
     userProfile.getUseradProfile(id);
     userOffers.userOfferList(id);
     super.initState();
@@ -29,7 +28,6 @@ class _AdOffersState extends State<AdOffers> {
     GetBuilder<UserOfferController>( // specify type as Controller
   init: UserOfferController(), // intialize with the Controller
   builder: (value){ 
-    print(value.offerDattaTypeCategory);
     
     return 
     value.offerDattaTypeCategory != null ?
