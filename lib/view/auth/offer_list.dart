@@ -31,6 +31,7 @@ class _OfferListState extends State<OfferList> {
   var json;
   int slctedInd = 0;
   onSelected(int index) {
+    
     setState(() => slctedInd = index);
   }
 
@@ -79,9 +80,10 @@ class _OfferListState extends State<OfferList> {
     usertype = box.read('user_type');
   }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
   Widget build(BuildContext context) {
-    cardwidth = MediaQuery.of(context).size.width / 3.3;
-    cardHeight = MediaQuery.of(context).size.height / 3.6;
+    // cardwidth = MediaQuery.of(context).size.width / 3.3;
+    // cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
       key: _scaffoldKey,
       appBar: offerid != null
@@ -97,7 +99,7 @@ class _OfferListState extends State<OfferList> {
         children: [
         SizedBox(height: 10),
         topWidget(),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         GetBuilder<OfferCategoryController>(
           init: OfferCategoryController(),
           builder: (val) {
@@ -114,7 +116,7 @@ class _OfferListState extends State<OfferList> {
               builder: (val) {
                 return val.offerDataList != null && val.offerDataList['data'] != null && val.offerDataList['success'] == true
                 ? listtype == 'grid' ? allUsers(val.offerDataList['data']) : listUsers(val.offerDataList['data'])
-                : contByCatOffer.resultInvalid.isTrue && val.offerDataList['success'] == false
+                : coCatOffer.resultInvalid.isTrue && val.offerDataList['success'] == false
                 ? Container(
                   margin: EdgeInsets.only(top: Get.height / 3),
                   child: Center(
@@ -517,12 +519,12 @@ class _OfferListState extends State<OfferList> {
   }
 
   Widget listUsers(listFavou) {
+    print("list view length...~${listFavou.length}");
     return Padding(
       padding: EdgeInsets.only(left: 10, right: 15),
       child: Container(
-        height: Get.height/1.68,
+        // height: Get.height/1.68,
         child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
             itemCount: listFavou.length,
             itemBuilder: (BuildContext context, int c) {
@@ -668,25 +670,22 @@ class _OfferListState extends State<OfferList> {
     );
   }
 
-  Widget allUsers(listFavou) {   
-    return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20,bottom: 20),
-      child: Container(
-        margin: EdgeInsets.only(bottom: 20),
-        height: Get.height/1.67,
-        child: GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
+  Widget allUsers(listFavou) {
+    return Container(
+        // height: Get.height,
+        child: GridView.count(
           shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: Get.width /(Get.height >= 800
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+           crossAxisSpacing: 12,
+            childAspectRatio:
+            Get.width /(Get.height >= 800
             ? Get.height / 1.60
             : Get.height <= 800
-            ? Get.height / 1.60: 0)
-          ),
-          itemCount: listFavou.length,
-          itemBuilder: (BuildContext context, int c) {
-            return GestureDetector(
+            ? Get.height / 1.60: 0),
+            children: List.generate(
+              listFavou.length, (c){
+             return GestureDetector(
               onTap: () {
                 Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
               },
@@ -745,8 +744,8 @@ class _OfferListState extends State<OfferList> {
                   ],
                 ),
               );
-            }),
-      ),
+        }))
+      
     );
   }
  
@@ -758,7 +757,6 @@ class _OfferListState extends State<OfferList> {
  bool textAllcheck = false;
 
   Widget subOffers(dataListedCateOffer) {
-    print("..xsa.xsax.sa.s.s.a..${dataListedCateOffer.length}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

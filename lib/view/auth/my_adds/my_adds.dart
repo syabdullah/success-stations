@@ -93,8 +93,7 @@ class _MyAddsState extends State<MyAdds> {
               ),
             ): Container();
           }
-        )
-        : GetBuilder<AddBasedController>(
+        ) : GetBuilder<AddBasedController>(
           init: AddBasedController(),
           builder: (val){
             return val.isLoading == true || val.cData == null? Container()
@@ -379,6 +378,7 @@ void _adsfiltringheet() {
 }
   var deleteAdJson;
   Widget myAddsList(allDataAdds) {
+    print("my all data ....... list view builder.....$allDataAdds");
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -537,7 +537,6 @@ void _adsfiltringheet() {
   myAddGridView(dataListValue) { 
     return Container(
       child: GridView.count(
-        // reverse: true,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 0.2,

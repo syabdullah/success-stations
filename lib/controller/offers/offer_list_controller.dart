@@ -19,7 +19,9 @@ class OfferController extends GetxController {
     isLoading = true;
     await allOffers().then((value) {
       offerDataList = jsonDecode(value.body);
+      print("........ offer Datta List...$offerDataList");
       if(value.statusCode == 200 || value.statusCode <400){
+        // offerDataList = jsonDecode(value.body);
         resultInvalid(false);
         isLoading = false;
       }
@@ -28,10 +30,10 @@ class OfferController extends GetxController {
       isLoading = false;
 
     }
-    if(offerDataList['message'] == 'Unauthenticated.'){
-       Get.offAll(SignIn());
-      }
-      isLoading = false;
+    // if(offerDataList['message'] == 'Unauthenticated.'){
+    //    Get.offAll(SignIn());
+    //   }
+    //   isLoading = false;
     });
     update();
   }
