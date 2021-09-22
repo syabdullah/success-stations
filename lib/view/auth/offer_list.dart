@@ -93,7 +93,8 @@ class _OfferListState extends State<OfferList> {
         data: Theme.of(context).copyWith( ),
         child: AppDrawer(),
       ),
-      body: ListView(children: [
+      body: ListView(
+        children: [
         SizedBox(height: 10),
         topWidget(),
         SizedBox(height: 20),
@@ -520,7 +521,9 @@ class _OfferListState extends State<OfferList> {
       padding: EdgeInsets.only(left: 10, right: 15),
       child: Container(
         height: Get.height/1.68,
-        child: ListView.builder(primary: false,
+        child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
             itemCount: listFavou.length,
             itemBuilder: (BuildContext context, int c) {
               return GestureDetector(
@@ -672,7 +675,8 @@ class _OfferListState extends State<OfferList> {
         margin: EdgeInsets.only(bottom: 20),
         height: Get.height/1.67,
         child: GridView.builder(
-          primary: false,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: Get.width /(Get.height >= 800
@@ -754,6 +758,7 @@ class _OfferListState extends State<OfferList> {
  bool textAllcheck = false;
 
   Widget subOffers(dataListedCateOffer) {
+    print("..xsa.xsax.sa.s.s.a..${dataListedCateOffer.length}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
