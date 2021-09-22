@@ -110,7 +110,7 @@ class _AllAddsState extends State<AllAdds> {
         )
       )
       : null,
-      body: Column(
+      body:  ListView(
         children: [
           SizedBox(height: 10),
           topWidget(),
@@ -124,8 +124,9 @@ class _AllAddsState extends State<AllAdds> {
           ),
           SizedBox(height:20),
           havingCategorybool == false ? 
-          Expanded(
-            child: GetBuilder<AddBasedController>(
+          // Expanded(
+          //   child: 
+            GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
                 return val.isLoading == true || val.allAdsData == null? Container()
@@ -133,9 +134,11 @@ class _AllAddsState extends State<AllAdds> {
                 );
               },
             )
-          ): 
-          Expanded(
-            child: GetBuilder<AddBasedController>(
+          // )
+          : 
+          // Expanded(
+          //   child: 
+            GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val) {
                 return val.isLoading == true || val.cData == null? Container()
@@ -144,7 +147,7 @@ class _AllAddsState extends State<AllAdds> {
                   );
               },
             )
-          )
+          // )
         ],
       ),
     );
@@ -573,6 +576,8 @@ class _AllAddsState extends State<AllAdds> {
   var catID;
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
@@ -768,6 +773,8 @@ class _AllAddsState extends State<AllAdds> {
       width: Get.width / 1.10,
       // height: Get.height *100,
       child: GridView.count(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
         // mainAxisSpacing: 50,
         crossAxisSpacing: 12,
