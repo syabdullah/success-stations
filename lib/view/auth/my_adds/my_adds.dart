@@ -815,13 +815,13 @@ var catID;
                           color: selectedIndex == index && textAllcheck == true ?AppColors.appBarBackGroundColor : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: listingCategoriesData != null && listingCategoriesData[index]['category'] !=null && listingCategoriesData[index]['category'][lang] !=null ?  Text(
-                          listingCategoriesData[index]['category'][lang],
+                        child: Text(
+                          listingCategoriesData[index]['category'][lang] !=null ? listingCategoriesData[index]['category'][lang]:listingCategoriesData[index]['category'][lang] == null ?listingCategoriesData[index]['category']['en']:''  ,
                           style: TextStyle(
                             color: selectedIndex == index  &&textAllcheck == true? Colors.white :AppColors.appBarBackGroundColor,
                             fontSize: 12, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal, 
                           ),
-                        ):Container()
+                        )
                       ),
                     ),
                   ),

@@ -41,16 +41,30 @@ class _DraftAdsState extends State<DraftAds> {
         body: GetBuilder<DraftAdsController>( // specify type as Controller
           init: DraftAdsController(), // 
           builder: (value) { 
-           return value.isLoading == true ?  Center(child: CircularProgressIndicator()): value.userData['success'] == true ? draftedlist(value.userData['data']) : value.userData['success'] == false ? Container(
-             child: Center(child: Text(value.userData['errors'],style: TextStyle(fontWeight: FontWeight.bold),)),
-           ) : Center(child: CircularProgressIndicator());
-           }
+          //  return value.isLoading == true ?  Center(child: CircularProgressIndicator()): value.userData['success'] == true ? draftedlist(value.userData['data']) : value.userData['success'] == false ? Container(
+          //    child: Center(child: Text(value.userData['errors'],style: TextStyle(fontWeight: FontWeight.bold),)),
+          //  ) : Center(child: CircularProgressIndicator());
+        return value.userData !=null &&  value.userData['data'] !=null && value.userData['success']  == true ? 
+         draftedlist(value.userData['data']): getData.resultInvalid.isTrue && value.userData['success'] == false ? 
+         Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      getData.userData['errors'],
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ) : Container();
+
+        }
           )
         );
   }
 
 Widget draftedlist(allDataAdds){
-    return ListView.builder(
+    return 
+     allDataAdds.length == 0 ? Center(child: Text("NoAdsYet".tr,style: TextStyle(fontSize: 20),)) :
+    ListView.builder(
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
@@ -97,13 +111,14 @@ Widget draftedlist(allDataAdds){
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                child: Text(
-                                  allDataAdds[index]['title'][lang].toString(),
+                                child: 
+                                Text(
+                                  allDataAdds[index]['title'][lang] != null  ?
+                                  allDataAdds[index]['title'][lang]: allDataAdds[index]['title'][lang] == null ? allDataAdds[index]['title']['en']: '',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              ),),
                              
                               Expanded(
                                 flex: 2,
@@ -133,7 +148,7 @@ Widget draftedlist(allDataAdds){
                         getData.getDraftedAdsOublished(allDataAdds[index]['id']);
                       },
                       child: Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(right: 10,left: 10),
                         color : AppColors.appBarBackGroundColor,
                         height: 30,
                         width: Get.width/4,

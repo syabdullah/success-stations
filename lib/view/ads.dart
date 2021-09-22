@@ -54,40 +54,38 @@ class _AdsViewState extends State<AdsView> {
       children: [
         ListView(
           children: [            
-            GetBuilder<BannerController>(
-              init: BannerController(),
-              builder: (data){
-                imgList = [];
-                return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
-                Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
-                  children: [
-                    carosalImage(data.bannerData['data']),
-                  ],
-                );
-              }
-            ),
-            featureTextAdded("advertisingCategories".tr,"all".tr),
-            GetBuilder<CategoryController>(
-            init: CategoryController(),
-            builder: (dat){
-              return  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
-              }
-            ),
-            featureTextAdded("FeaturedAds".tr,"all".tr), 
-            GetBuilder<MyAddsController>(
-              init: MyAddsController(),
-              builder: (data){ 
-                return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
-              }
-            ),
-            text('specialofer'.tr,"all".tr),
-            GetBuilder<OfferController>(
-              init: OfferController(),
-              builder: (data){
-                return data.offerDataList != null ? 
-                offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.5: Get.height/6.2,data.offerDataList['data']): Container();
-              }
-            ),
+              GetBuilder<BannerController>(
+                init: BannerController(),
+                builder: (data){
+                  imgList = [];
+                  return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
+                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
+                    children: [
+                      carosalImage(data.bannerData['data']),
+                    ],
+                  );
+                }),
+             featureTextAdded("advertisingCategories".tr,"all".tr),
+             GetBuilder<CategoryController>(
+              init: CategoryController(),
+              builder: (dat){
+                return  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                }
+              ),
+             featureTextAdded("FeaturedAds".tr,"all".tr), 
+              GetBuilder<MyAddsController>(
+                init: MyAddsController(),
+                builder: (data){ 
+                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
+                }
+              ),
+                text('specialofer'.tr,"all".tr),
+                GetBuilder<OfferController>(
+                init: OfferController(),
+                builder: (data){
+                  return data.offerDataList != null ? 
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): Container();
+                }),
           ],
         ),
         userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
@@ -183,9 +181,9 @@ class _AdsViewState extends State<AdsView> {
             return GestureDetector(
               onTap: () => _controller.animateToPage(entry.key),
               child: Container(
-                width: 30.0,
-                height: 0.5,
-                margin: EdgeInsets.symmetric( vertical:4.0, horizontal: 4.0),
+                width: 20.0,
+                height: 4.0,
+                margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: (Theme.of(context).brightness == Brightness.dark
@@ -212,7 +210,7 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-           margin: EdgeInsets.only(left:10,right: 10,top: 10),
+           margin: EdgeInsets.only(left:10,right: 10,),
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
           )
         ),
@@ -221,7 +219,7 @@ class _AdsViewState extends State<AdsView> {
             Get.to(OfferList(),arguments: 100);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10,left: 10,top: 10),
+            margin: EdgeInsets.only(right:10,left: 10),
             child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
           ),
         )
@@ -297,7 +295,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -322,7 +320,16 @@ class _AdsViewState extends State<AdsView> {
                 ),
               ),
               Container(
-                child: Text(data[index]['text_ads'][lang] != null ? data[index]['text_ads'][lang]:'',style: TextStyle(color: AppColors.grey)),
+                width: 100,
+                child: Text(
+                  
+                  data[index]['text_ads'][lang] != null ?
+                 data[index]['text_ads'][lang]:'',
+                // overflow: TextOverflow.2,
+                 overflow: TextOverflow.ellipsis,
+                //  maxLines: 3,
+                //  softWrap: false,
+                 style: TextStyle(color: AppColors.grey)),
               )
             ],
           );
@@ -333,7 +340,7 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical:5,horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7),
       height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -369,7 +376,7 @@ class _AdsViewState extends State<AdsView> {
                     alignment: Alignment.center,
                     child: Container(                   
                       margin: EdgeInsets.only(top:5,),
-                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
+                      child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]: data[index]['title']['ar'] == null  ? data[index]['title']['en']:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
                   ),
                   
