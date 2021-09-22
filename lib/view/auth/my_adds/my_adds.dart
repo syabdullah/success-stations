@@ -58,12 +58,11 @@ class _MyAddsState extends State<MyAdds> {
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
        drawer: Theme(
-        data: Theme.of(context).copyWith(
-       
+        data: Theme.of(context).copyWith(       
         ),
         child: AppDrawer(),
       ),
-      body: Column(
+      body: ListView(
         children: [
           topWidget(),
           SizedBox(height: 10),
@@ -75,39 +74,37 @@ class _MyAddsState extends State<MyAdds> {
               : Container();
             },
           ), 
-          SizedBox(height: 10),   
+        //   SizedBox(height: 10),   
           categorybool == false ? 
-            Expanded(
-              child: GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val) {
-                return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
-                listtype == 'list' ? myAddsList(val.myALLAdd['data']): myAddGridView(val.myALLAdd['data']):
-                myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
-                Container(
-                  margin: EdgeInsets.only(top: Get.height / 3),
-                  child: Center(
-                    child: Text(
-                      val.myALLAdd['errors'],
-                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ): Container();
-              }
-            )
-           ):  
-            Expanded(
-              child: GetBuilder<AddBasedController>(
-                init: AddBasedController(),
-                builder: (val){
-                  return val.isLoading == true || val.cData == null? Container()
-                   : val.cData['data'] == null ? Container()
-                    : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(val.cData['data']
-                  );
-                },
+          GetBuilder<AddBasedController>(
+          init: AddBasedController(),
+          builder: (val) {
+            return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
+            listtype == 'list' ? myAddsList(val.myALLAdd['data']): 
+            myAddGridView(val.myALLAdd['data'])
+            : myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
+            Container(
+              margin: EdgeInsets.only(top: Get.height / 3),
+              child: Center(
+                child: Text(
+                  val.myALLAdd['errors'],
+                  style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-             )
-        ],
+            ): Container();
+          }
+        )
+        : GetBuilder<AddBasedController>(
+          init: AddBasedController(),
+          builder: (val){
+            return val.isLoading == true || val.cData == null? Container()
+              : val.cData['data'] == null ? Container()
+              : listtype != 'grid' ? myAddsList(val.cData['data']) : 
+                myAddGridView(val.cData['data']
+            );
+          },
+        ),
+      ],
       ),
     );
   }
@@ -383,6 +380,8 @@ void _adsfiltringheet() {
   var deleteAdJson;
   Widget myAddsList(allDataAdds) {
     return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context,index) {
         return GestureDetector(
@@ -537,9 +536,10 @@ void _adsfiltringheet() {
   var myAddssplitedPrice;
   myAddGridView(dataListValue) { 
     return Container(
-      // width: double.infinity,
       child: GridView.count(
-        // mainAxisSpacing : 6.0,
+        // reverse: true,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 0.2,
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 

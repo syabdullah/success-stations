@@ -174,8 +174,7 @@ class _FavouritePageState extends State<FavouritePage> {
           favrties.add(
             Card(
               child: Container(
-                
-                height: 100,
+                 height: 100,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -312,9 +311,9 @@ class _FavouritePageState extends State<FavouritePage> {
         }
       }
     }
-    // }
     return favrties;
   }
+  
   var ind = 0 ;
   var gridImages;
   List<Widget> myAddGridView(listFavourite) {
