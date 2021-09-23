@@ -9,7 +9,6 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
@@ -74,7 +73,6 @@ var typeId;
     crid = box.read('country_id');
     lang = box.read('lang_code');
     editData = Get.arguments;
-    print("...///....---- $editData");
     if(editData != null ) {
       adID = editData['id'];
       titleController = TextEditingController(text: editData['title'][lang]);
@@ -109,6 +107,7 @@ var typeId;
       }
     });
     try {
+      imageName = null ;
       dio.FormData formData = dio.FormData.fromMap({          
         "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
       });
@@ -289,7 +288,7 @@ var typeId;
           builder:(val) {
             // print("...................JJ ${val.datacateg}");
             return 
-             activeStep == 0 ? istStep(val.datacateg,val.datacategTypes) :
+             activeStep == 0 ? istStep(val.subCat['data'],val.datacategTypes) :
              activeStep == 1 ? secondStep() : 
              activeStep ==2 ?  thirdStep() : Container();
             
@@ -480,15 +479,14 @@ Widget istStep(List list,List types){
                             value: coun,
                             child: 
                             Text(
-                              coun['category']['en'] != null ?
-                              coun['category']['en']:" ")
+                              coun['category'][lang] != null ?  coun['category'][lang] : coun['category'][lang] ==null ?   coun['category']['en']:'' )
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adCategory;
                           setState(() {
                             adCategory = val as Map;
-                            selectedCategory = adCategory['category']['en'];
+                            selectedCategory = adCategory['category'][lang] !=null ? adCategory['category'][lang] :adCategory['category'][lang] == null ? adCategory['category']['en'] :'' ;
                             subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
@@ -527,14 +525,16 @@ Widget istStep(List list,List types){
                           // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
-                            child:Text(coun!['type']['en'])
+                            child:Text(
+                             coun!['type'][lang] !=null ? coun!['type'][lang] : coun!['type'][lang] == null ? coun!['type']['en']:''
+                            )
                           );
                         }).toList(),
                           onChanged: (val) {
                           var adsubCategory;
                           setState(() {
                             adsubCategory = val as Map;
-                            selectedtype = adsubCategory['type']['en'];
+                            selectedtype = adsubCategory['type'][lang] !=null ?  adsubCategory['type'][lang] : adsubCategory['type'][lang]== null ?  adsubCategory['type']['en']:'';
                             print(selectedtype);
                              typeId =adsubCategory['id'];
                              print(typeId);

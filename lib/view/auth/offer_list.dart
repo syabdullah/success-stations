@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/banner_controller.dart';
-import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
-import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -40,8 +38,7 @@ class _OfferListState extends State<OfferList> {
   bool allOffer = false;
   bool allTextOpr = false;
   bool isButtonPressed = false;
-  final offerFilterCont = Get.put(OffersFilteringController());
-  final offeCont = Get.put(MyOffersDrawerController());
+  final offerFilterCont = Get.put(OfferCategoryController());
   var selectedIndex = 0;
   bool lisselect = false;
   var id;
@@ -69,7 +66,6 @@ class _OfferListState extends State<OfferList> {
   var cardwidth;
   @override
   void initState() {
-    // offerFilterCont.offerFilter(json);
     banner.bannerController();
     super.initState();
     coCatOffer.offerList();
@@ -348,19 +344,20 @@ class _OfferListState extends State<OfferList> {
                                                   : Colors.white,
                                                 ),
                                                 padding: EdgeInsets.only(left:6.0,right: 6),
-                                                child: data.allOffersResp['data'] !=null
-                                                ? Text( data.allOffersResp['data'][index]['category_name']['en'],
+                                                child: 
+                                                Text(  
+                                                  data.allOffersResp['data'][index]['category_name'][lang]!=null ?  data.allOffersResp['data'][index]['category_name'][lang]:
+                                                  data.allOffersResp['data'][index]['category_name'][lang] ==null ?  data.allOffersResp['data'][index]['category_name']['en']:'' ,
                                                   style: TextStyle(
                                                     color: bottomSheetCategory == index
-                                                    ? AppColors
-                                                        .appBarBackGroundColor
+                                                    ? AppColors.appBarBackGroundColor
                                                     : AppColors.appBarBackGroundColor,
                                                     fontSize:12,
                                                     fontWeight:FontWeight.w400,
                                                     fontStyle:FontStyle.normal,
                                                   ),
                                                 )
-                                                : Container()
+                                               
                                               ),
                                           ),
                                         ),

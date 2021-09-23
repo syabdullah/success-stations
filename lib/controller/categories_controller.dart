@@ -10,12 +10,12 @@ class CategoryController extends GetxController {
   var subCat ;
   var subCatt;
   var havingAddsList, myHavingAdds;
-  List datacateg = [];
+  var datacateg = [];
   List datacategTypes = [];
   @override
   void onInit(){
     isLoading = true;
-    // datacateg = [];
+    datacateg = [];
     super.onInit();
     // getCategoryNames();
   }

@@ -293,7 +293,8 @@ const Map<String, String> ar = {
   "city4":"وصف الاعلان",
   "adpostedat":"منشور من طرف",
   "helloPeople":"علق الناس على هذا الإعلان",
-  'report':'أبلغ عن'
-  'contactC'"اتصل",
-  'favC':'المفضلة'
+  'report':'أبلغ عن',
+  'contactC':'اتصل',
+  'favC':'المفضلة',
+  "allAds": "جميع الاعلانات"
 };

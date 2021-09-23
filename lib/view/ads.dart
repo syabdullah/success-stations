@@ -58,7 +58,7 @@ class _AdsViewState extends State<AdsView> {
                 init: BannerController(),
                 builder: (data){
                   imgList = [];
-                  return data.bannerData == null || data.bannerData['message'] == "Unauthenticated." ? 
+                  return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
                   Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                     children: [
                       carosalImage(data.bannerData['data']),
@@ -282,7 +282,7 @@ class _AdsViewState extends State<AdsView> {
               Container(
                 width: imageW,
                 child: Center(
-                  child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : '',
+                  child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: AppColors.grey)),
                 ),
@@ -324,7 +324,7 @@ class _AdsViewState extends State<AdsView> {
                 width: 100,
                 child: Text(
                   data[index]['text_ads'][lang] != null ?
-                  data[index]['text_ads'][lang] :  data[index]['text_ads'][lang]  == null ?  data[index]['text_ads']['en']:'',
+                  data[index]['text_ads'][lang].toString():  data[index]['text_ads'][lang]  == null ?  data[index]['text_ads']['en'].toString():'',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: AppColors.grey)
                 ),

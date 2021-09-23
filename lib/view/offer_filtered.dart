@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
-import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/controller/offers/offer_filtering_controller.dart';
+import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/controller/user_drafted_controller.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -17,7 +16,7 @@ class FilteredCategoryResult extends StatefulWidget {
 
 class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
   final getData = Get.put(DraftAdsController());
-  final adContr = Get.put(OffersFilteringController());
+  final adContr = Get.put(OfferCategoryController());
   final frindCont = Get.put(FriendsController());
   //   allWordsCapitilize (String str) {
   //   return str.toLowerCase().split(' ').map((word) {
@@ -52,8 +51,8 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
           backgroundColor: AppColors.appBarBackGroundColor,
           centerTitle: true,
         ),
-        body: GetBuilder<OffersFilteringController>(
-            init: OffersFilteringController(),
+        body: GetBuilder<OfferCategoryController>(
+            init: OfferCategoryController(),
             builder: (value) {
               return value.isLoading == true
                   ? Container()

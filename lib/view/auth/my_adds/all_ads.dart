@@ -14,6 +14,7 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
@@ -101,12 +102,19 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: data != null
-      ? PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: stringAppbar(
-          context, Icons.arrow_back_ios_new_sharp,
-          'All  Ads', AppImages.appBarSearch
+      appBar: data != null?
+       AppBar(
+        leading:GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+          child: Image.asset(AppImages.arrowBack)
+        ),
+        elevation: 0,
+        backgroundColor: AppColors.appBarBackGroundColor,
+        centerTitle: true,
+        title:Text('allAds'.tr,
+          style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
         )
       )
       : null,
@@ -351,8 +359,9 @@ class _AllAddsState extends State<AllAdds> {
                                                     : Colors.white,
                                                   ),
                                                   padding: EdgeInsets.only(left:6.0,right: 6),
-                                                  child: data.havingAddsList['data'] !=null
-                                                  ? Text(data.havingAddsList['data'][index]['category'][lang],
+                                                  child:
+                                                   Text(data.havingAddsList['data'][index]['category'][lang] !=null ? data.havingAddsList['data'][index]['category'][lang].toString():
+                                                    data.havingAddsList['data'][index]['category'][lang] == null ? data.havingAddsList['data'][index]['category']['en'].toString():'',
                                                     style: TextStyle(
                                                       color: filteredIndex == index
                                                       ? AppColors.appBarBackGroundColor
@@ -362,7 +371,7 @@ class _AllAddsState extends State<AllAdds> {
                                                       fontStyle: FontStyle.normal,
                                                     ),
                                                   )
-                                                  : Container()
+                                                  
                                                 ),
                                               ),
                                             ),
@@ -1114,8 +1123,8 @@ class _AllAddsState extends State<AllAdds> {
                           : Colors.white,
                         ),
                         padding: EdgeInsets.all(10.0),
-                        child: havingAdds != null  &&  havingAdds[index]['category'] !=null && havingAdds[index]['category'][lang] !=null 
-                        ? Text( havingAdds[index]['category'][lang],
+                        child: 
+                         Text( havingAdds[index]['category'][lang] !=null ? havingAdds[index]['category'][lang]: havingAdds[index]['category'][lang] == null ?havingAdds[index]['category']['en']:'' ,
                           style: TextStyle(
                             color: selectedIndex == index && id == havingAdds[index]['id'] && textAllcheck == true
                             ? Colors.white
@@ -1125,7 +1134,7 @@ class _AllAddsState extends State<AllAdds> {
                             fontStyle: FontStyle.normal,
                             ),
                           )
-                        : Container()),
+                        ),
                     ),
                   ),
                 ],
