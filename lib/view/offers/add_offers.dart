@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get_storage/get_storage.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:success_stations/controller/ad_posting_controller.dart';
-import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/store_offer_controller.dart';
@@ -16,74 +14,58 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:dio/dio.dart' as dio;
-// import 'package:validators/validators.dart';
+
 
 class AddOffersPage extends StatefulWidget {
   AddOffersState createState() => AddOffersState();
 }
 
 class AddOffersState extends State<AddOffersPage> {
-  final catogoryController = Get.put(CategoryController());
-  final adpostingController = Get.put(AdPostingController());
-  final addpostedControllerPut = Get.put(StorePostAddesController());
+
 
   int activeStep = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int upperBound = 3;
   List list = [];
   List type = [];
-  var selectedtype;
-  var selectedCategory, hintLinkingId;
-  var subtypeId;
-  var statusSelected, imageName;
-  var postDataEdited, addedEditPosting, edittImage;
+  var subtypeId,  statusSelected, imageName,selectedtype, postDataEdited, 
+  addedEditPosting, edittImage,  uiStatus, hintTextCate, hintLinking, 
+  idCategory, lang, selectedCategory, hintLinkingId, createdJson , fileName, addedOfferImage;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int upperBound = 3;
   final formKey = GlobalKey<FormState>();
-  var uiStatus, hintTextCate, hintLinking, idCategory;
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
-  TextEditingController statusCont = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController urlContr = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController mobileNoController = TextEditingController();
-  TextEditingController telePhoneController = TextEditingController();
-  TextEditingController textAddsController = TextEditingController();
-  TextEditingController statusController = TextEditingController();
-  var lang;
+  final editDataController = Get.put(StorePostAddesController());
+  // final bbb = Get.find<StorePostAddesController>();
+  
   @override
   void initState() {
     super.initState();
     lang = box.read('lang_code');
     postDataEdited = Get.arguments;
+    print("posted asdssss,,,,,,,...$postDataEdited");
     if (postDataEdited != null) {
       addedEditPosting = postDataEdited['id'];
       hintTextCate = postDataEdited['category']['category_name']['en'];
       idCategory = postDataEdited['category']['id'];
-      descriptionController =
-          TextEditingController(text: postDataEdited['description']['en']);
-      titleController =
-          TextEditingController(text: postDataEdited['text_ads']['en']);
+      descriptionController =TextEditingController(text: postDataEdited['description']['en']);
+      titleController =  TextEditingController(text: postDataEdited['text_ads']['en']);
       urlContr = TextEditingController(text: postDataEdited['url']);
       hintLinkingId = postDataEdited['link_to_listings'];
-      statusSelected =
-          TextEditingController(text: postDataEdited['status'].toString());
-      edittImage = postDataEdited['image'] != null
-          ? postDataEdited['image']['url']
-          : null;
-      imageName = postDataEdited['image'] != null
-          ? postDataEdited['image']['file_name']
-          : null;
+      statusSelected =  TextEditingController(text: postDataEdited['status'].toString());
+      edittImage = postDataEdited['image'] != null  ? postDataEdited['image']['url'] : null;
+      imageName = postDataEdited['image'] != null ? postDataEdited['image']['file_name'] : null;
       hintLinking =postDataEdited['listing']!=null ? postDataEdited['listing']['title']['en']:'Ads Listing';
     }
   }
 
-  var createdJson;
+ 
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
   XFile? pickedFile;
   late String image;
-  var fileName, addedOfferImage;
+ 
 
   Future getImage() async {
     await ApiHeaders().getData();
@@ -96,6 +78,7 @@ class AddOffersState extends State<AddOffersPage> {
       }
     });
     try {
+      imageName = null;
       dio.FormData formData = dio.FormData.fromMap({
         "file": await dio.MultipartFile.fromFile(pickedFile!.path,
             filename: fileName),
@@ -119,9 +102,7 @@ class AddOffersState extends State<AddOffersPage> {
             'url': urlContr.text,
             'listing_id': hintLinkingId,
             'status': statusSelected,
-            'image': imageName != null
-                ? imageName
-                : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
+            'image': imageName != null ? imageName : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
           Get.find<StorePostAddesController>().storefOffersAAll(formData);
         } catch (e) {}
@@ -136,66 +117,66 @@ class AddOffersState extends State<AddOffersPage> {
       'text_ads': titleController.text,
       'url': urlContr.text,
       'listing_id': hintLinkingId,
-      'status': statusSelected,
-      'image': imageName != null
-          ? imageName
-          : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
+      'status': statusSelected.text,
+      'image': imageName != null? imageName  : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
     };
-    Get.find<StorePostAddesController>()
-        .editOffersCategory(json, addedEditPosting);
+    print("json of the data efite eeeeee offer...${Get.find<StorePostAddesController>().uploadImageOfAdd['name']}");
+   editDataController.editOffersCategory(json, addedEditPosting);
+  //  Get.put(()=>StorePostAddesController().editOffersCategory(json, addedEditPosting));
   }
 
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
-        appBar: AppBar(
-          key: _scaffoldKey,
-          backgroundColor: AppColors.appBarBackGroundColor,
-          title: Text(postDataEdited == null ? 'addOffer'.tr : 'edit offer'.tr),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-            child: Form(
-                key: formKey,
-                child: Column(children: [
-                  space10,
-                  offerTitle(),
-                   space10,
-                  GetBuilder<OfferCategoryController>(
-                    init: OfferCategoryController(),
-                    builder: (val) {
-                      return val.offerDattaTypeCategory != null &&
-                              val.offerDattaTypeCategory['data'] != null
-                          ? addsOffers(val.offerDattaTypeCategory['data'])
-                          : Container();
-                    },
-                  ),
-                  space10,
-                  offerDesc(),
-                  space10,
-                  url(),
-                  space10,
-                  GetBuilder<MyAddsAdedController>(
-                    init: MyAddsAdedController(),
-                    builder: (val) {
-                      return val.addsGet != null && val.addsGet['data'] != null ?  linkAdded(val.addsGet['data']) : Container();
-                    },
-                  ),
-                  space10,
-                  status(),
-                  space10,
-                  roundedRectBorderWidget,
-                  space10,
-                  submitButton(
-                    bgcolor: AppColors.appBarBackGroundColor,
-                    textColor: AppColors.appBarBackGroun,
-                    buttonText: "publishb".tr,
-                    callback:
-                        postDataEdited == null ? adOffersCreate : editPost,
-                  ),
-                  space10,
-                ]))));
+      appBar: AppBar(
+        key: _scaffoldKey,
+        backgroundColor: AppColors.appBarBackGroundColor,
+        title: Text(postDataEdited == null ? 'addOffer'.tr : 'edit offer'.tr),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              space10,
+              offerTitle(),
+              space10,
+              GetBuilder<OfferCategoryController>(
+                init: OfferCategoryController(),
+                builder: (val) {
+                  return val.offerDattaTypeCategory != null && val.offerDattaTypeCategory['data'] != null ? addsOffers(val.offerDattaTypeCategory['data'])  : Container();
+                },
+              ),
+              space10,
+              offerDesc(),
+              space10,
+              url(),
+              space10,
+              GetBuilder<MyAddsAdedController>(
+                init: MyAddsAdedController(),
+                builder: (val) {
+                  return val.addsGet != null && val.addsGet['data'] != null ?linkAdded(val.addsGet['data']) : Container();
+                },
+              ),
+              space10,
+              status(),
+              space10,
+              roundedRectBorderWidget,
+              space10,
+              submitButton(
+                bgcolor: AppColors.appBarBackGroundColor,
+                textColor: AppColors.appBarBackGroun,
+                buttonText: "publishb".tr,
+                callback:postDataEdited == null ? adOffersCreate : editPost,
+              ),
+              space10,
+            ]
+          )
+        )
+      )
+    );
   }
 
   Widget offerTitle() {
@@ -398,14 +379,20 @@ class AddOffersState extends State<AddOffersPage> {
                 icon: Icon(Icons.arrow_drop_down),
                 items: dataListedCateOffer.map((countee) {
                   return DropdownMenuItem(
-                      value: countee,
-                      child: Text(countee['category_name']['en']));
+                    value: countee,
+                    child: Text(  
+                      countee['category_name'][lang] != null ?  
+                      countee['category_name'][lang].toString() : 
+                      countee['category_name'][lang] == null ?
+                      countee['category_name']['en'].toString():'',
+                    )
+                  );
                 }).toList(),
                 onChanged: (value) {
                   var mappCatrgory;
                   setState(() {
                     mappCatrgory = value as Map;
-                    hintTextCate = mappCatrgory['category_name']['en'];
+                    hintTextCate = mappCatrgory['category_name'][lang]!=null ?  mappCatrgory['category_name'][lang].toString() : mappCatrgory['category_name'][lang]==null ? mappCatrgory['category_name']['en'].toString():'' ;
                     idCategory = mappCatrgory['id'];
                   });
                 },

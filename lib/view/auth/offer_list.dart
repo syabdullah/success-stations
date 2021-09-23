@@ -82,8 +82,6 @@ class _OfferListState extends State<OfferList> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    // cardwidth = MediaQuery.of(context).size.width / 3.3;
-    // cardHeight = MediaQuery.of(context).size.height / 3.6;
     return Scaffold(
       key: _scaffoldKey,
       appBar: offerid != null
@@ -104,8 +102,7 @@ class _OfferListState extends State<OfferList> {
           init: OfferCategoryController(),
           builder: (val) {
             return val.allOffersResp != null &&
-            val.allOffersResp['data'] != null
-            ? subOffers(val.allOffersResp['data'])
+            val.allOffersResp['data'] != null? subOffers(val.allOffersResp['data'])
             : Container();
           },
         ),
@@ -161,10 +158,7 @@ class _OfferListState extends State<OfferList> {
                 filteringCategory();
               },
               child: Container(
-                margin: lang == 'en'
-                    ? EdgeInsets.only(left: 15, top: 8)
-                    : EdgeInsets.only(right: 15, top: 8),
-                //width: 30,
+                margin: lang == 'en' ? EdgeInsets.only(left: 15, top: 8) : EdgeInsets.only(right: 15, top: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.grey[200],
@@ -188,10 +182,11 @@ class _OfferListState extends State<OfferList> {
                 Get.to(AddOffersPage());
               },
               child: usertype == 2 || usertype == 3
-                  ? Container()
-                  : Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Image.asset(AppImages.plusImage, height: 24,)),
+                ? Container()
+                : Container(
+                  margin: lang == 'en' ? EdgeInsets.only(left: 15, top: 8) : EdgeInsets.only(right: 15, top: 8),
+                // margin: EdgeInsets.only(left: 10),
+                child: Image.asset(AppImages.plusImage, height: 24,)),
             )
           ],
         ),
@@ -214,7 +209,7 @@ class _OfferListState extends State<OfferList> {
                       listImg = AppImages.listing;
                     });
                   },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+                  child: Image.asset(AppImages.gridOf,height: 25, width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
                 ),
               ),
             
@@ -519,12 +514,10 @@ class _OfferListState extends State<OfferList> {
   }
 
   Widget listUsers(listFavou) {
-    print("list view length...~${listFavou.length}");
-    return Padding(
-      padding: EdgeInsets.only(left: 10, right: 15),
-      child: Container(
+    return  Container(
         // height: Get.height/1.68,
         child: ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
             itemCount: listFavou.length,
             itemBuilder: (BuildContext context, int c) {
@@ -666,7 +659,7 @@ class _OfferListState extends State<OfferList> {
                 
               );
             }),
-      ),
+    
     );
   }
 
@@ -841,10 +834,9 @@ class _OfferListState extends State<OfferList> {
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           dataListedCateOffer[index]['category_name'][lang] !=null ? 
-                             dataListedCateOffer[index]['category_name'][lang]:
-                             dataListedCateOffer[index]['category_name'][lang] ==null ? 
-                              dataListedCateOffer[index]['category_name']['en']:''
-                             ,
+                            dataListedCateOffer[index]['category_name'][lang]:
+                            dataListedCateOffer[index]['category_name'][lang] ==null ? 
+                            dataListedCateOffer[index]['category_name']['en']:'',
                           style: TextStyle(
                             color: selectedIndex == index && textAllcheck == true ? Colors.white  : AppColors.appBarBackGroundColor,
                             fontSize: 12,
