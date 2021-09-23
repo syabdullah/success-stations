@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:success_stations/controller/offers/my_offer_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
@@ -13,7 +12,6 @@ class MyOfferDetailMain extends StatefulWidget {
 }
 class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final putData  = Get.put(MyOffersDrawerController());
   
   var idIdId;
   var lang;

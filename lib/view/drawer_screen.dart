@@ -56,6 +56,8 @@ class _AppDrawerState extends State<AppDrawer> {
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
     lang = box.read('lang_code');
+    box.read('name');
+    print("box .read najme ........${ box.read('name')}");
     banner.bannerController();
     
   }
@@ -169,7 +171,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                     Container(
                                     margin: EdgeInsets.only(top: 20,),
                                     child: Text(
-                                      box.read('name'),
+                                      box.read('name') !=null ?box.read('name') :'' ,
                                       overflow: TextOverflow.ellipsis,
                                       style:AppTextStyles.appTextStyle(
                                         fontSize: 16, fontWeight: FontWeight.bold, color:Colors.white

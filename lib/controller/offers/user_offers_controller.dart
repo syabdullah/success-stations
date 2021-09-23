@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:success_stations/action/offers/user_offer_action.dart';
-import 'package:success_stations/controller/offers/my_offer_controller.dart';
+import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 
 class UserOfferController extends GetxController {
@@ -9,7 +9,7 @@ class UserOfferController extends GetxController {
   List offeredList = [];
   var offerDattaTypeCategory;
   var deleteOffer;
-  final cont = Get.put(MyOffersDrawerController());
+  final cont = Get.put(OfferCategoryController());
   @override
   void onInit(){
     isLoading = true;

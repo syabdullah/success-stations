@@ -61,27 +61,27 @@ class _FriendListState extends State<FriendList> {
 
   Widget topWidget() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        GestureDetector(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(13),
-              color: Colors.grey[200],
-            ),
-            margin: EdgeInsets.only(left: 10,right: 10,top: 20),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            child: Row(
-              children: [
-                Image.asset(AppImages.filter, height: 15),
-                SizedBox(width: 5),
-                Text(
-                  "filter".tr,
-                  style: TextStyle(color: Colors.grey[700]),
-                )
-              ],
-          ),
-        )),
+        // GestureDetector(
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(13),
+        //       color: Colors.grey[200],
+        //     ),
+        //     margin: EdgeInsets.only(left: 10,right: 10,top: 20),
+        //     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        //     child: Row(
+        //       children: [
+        //         Image.asset(AppImages.filter, height: 15),
+        //         SizedBox(width: 5),
+        //         Text(
+        //           "filter".tr,
+        //           style: TextStyle(color: Colors.grey[700]),
+        //         )
+        //       ],
+        //   ),
+        // )),
         Row(
           children: [
             Container(

@@ -276,7 +276,7 @@ const Map<String, String> en = {
   'crs':'Cr',
   'DegreeSU':"Degree",
   'oR':'OR',
-  'contactC'"CONTACT"
+  'contactC':'CONTACT',
   'favC':'FAVOURITES',
   'contactus':'CONTACT US',
   'email_required':'Email Required',
@@ -299,7 +299,9 @@ const Map<String, String> en = {
   "city3":"STATUS",
   "city4":"DETAILS",
   "adpostedat":"Ad Posted at",
-  "helloPeople":"People Commented on this ad."
+  "helloPeople":"People Commented on this ad.",
+  "allAds": "All Ads"
+
 };
 
 

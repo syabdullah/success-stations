@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/offers/offer_category_action.dart';
-import 'package:success_stations/controller/offers/my_offer_controller.dart';
+import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
@@ -12,7 +12,7 @@ import 'package:dio/src/response.dart' as response;
 import 'package:success_stations/view/offers/my_offers.dart';
 
 class StorePostAddesController extends GetxController {
-  final myofferlistin=  Get.put(MyOffersDrawerController());
+  final myofferlistin=  Get.put(OfferCategoryController());
    bool isLoadingd = false; 
   var  storedOfferCreated , uploadImageOfAdd;
   RxBool isLoading = false.obs;
