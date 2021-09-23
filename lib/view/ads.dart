@@ -79,7 +79,7 @@ class _AdsViewState extends State<AdsView> {
                   return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
                 }
               ),
-                text('specialofer'.tr,"all".tr),
+              text('specialofer'.tr,"all".tr),
                 GetBuilder<OfferController>(
                 init: OfferController(),
                 builder: (data){
@@ -294,6 +294,7 @@ class _AdsViewState extends State<AdsView> {
     );
   }
   offerList(conHeight,imageW,imageH,data) {
+    print("special offer of ads page ....$data");
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
@@ -322,14 +323,11 @@ class _AdsViewState extends State<AdsView> {
               Container(
                 width: 100,
                 child: Text(
-                  
                   data[index]['text_ads'][lang] != null ?
-                 data[index]['text_ads'][lang]:'',
-                // overflow: TextOverflow.2,
-                 overflow: TextOverflow.ellipsis,
-                //  maxLines: 3,
-                //  softWrap: false,
-                 style: TextStyle(color: AppColors.grey)),
+                  data[index]['text_ads'][lang] :  data[index]['text_ads'][lang]  == null ?  data[index]['text_ads']['en']:'',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: AppColors.grey)
+                ),
               )
             ],
           );
