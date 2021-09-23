@@ -294,6 +294,7 @@ class _AdsViewState extends State<AdsView> {
     );
   }
   offerList(conHeight,imageW,imageH,data) {
+    print("special offer of ads page ....$data");
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7),
       height: conHeight,
