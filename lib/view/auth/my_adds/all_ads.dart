@@ -1041,7 +1041,6 @@ class _AllAddsState extends State<AllAdds> {
             scrollDirection: Axis.horizontal,
             itemCount: havingAdds.length,
             itemBuilder: (context, index) {
-              print("lang printed all ads. ${havingAdds[index]['category'][lang]}");
               if(index != 0 ) {
                 allCheck = true;
               }else {
