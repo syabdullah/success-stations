@@ -191,13 +191,11 @@ Widget saveButton(data) {
          re = re.split(',');
           region = re[0];
           postCode = re[1];
-       }
-       
+       }       
      }
      if(sp[i].contains('country-name')){
        countryName = sp[i].replaceAll('"country-name"', '');
-     }
-   
+     }   
    }
   
   //  var streetAdr = 

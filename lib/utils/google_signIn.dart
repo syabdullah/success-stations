@@ -17,7 +17,6 @@ class GoogleSignInC {
    
   singIn() {
     googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
-
       currentUser = account;
       // if (_currentUser != null) {
       //   _handleGetContact(_currentUser!);
