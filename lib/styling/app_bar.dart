@@ -57,9 +57,9 @@ var userId = box.read('user_id');
             // child: Image.asset("
             //  AppImages.appBarSearch",color: Colors.white,width: 25.w,
             // ),
-            // child: Image.asset(
-            //  AppImages.appBarSearch,color: Colors.white,width: 25.w,
-            // ),
+            child: Image.asset(
+             AppImages.appBarSearch,color: Colors.white,width: 25.w,
+            ),
           ),
         ): Container()
       ],
@@ -259,7 +259,7 @@ Widget newAppbar(context ,text,image,) {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  child: Icon(Icons.location_on,color:Colors.blue),
+                                  child: Icon(Icons.location_on,color:AppColors.appBarBackGroundColor),
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -270,7 +270,7 @@ Widget newAppbar(context ,text,image,) {
                                      _getUserLocation();
                                   },
                                   child: Container(
-                                    child: Text("Nearby".tr,style: TextStyle(color: Colors.blue)),
+                                    child: Text("Nearby".tr,style: TextStyle(color: AppColors.appBarBackGroundColor)),
                                   ),
                                 )
                               ],
@@ -339,7 +339,7 @@ Widget newAppbar(context ,text,image,) {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [                             
                                     Container(
-                                      child: Text(item,style: TextStyle(color: Colors.blue)),
+                                      child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
                                     ),
                                     GestureDetector(
                                       onTap: (){
@@ -352,7 +352,7 @@ Widget newAppbar(context ,text,image,) {
                                         });                              
                                       },
                                       child: Container(
-                                        child: Icon(Icons.clear,color: Colors.blue,size:15),
+                                        child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
                                       ),
                                     )
                                   ],
@@ -379,6 +379,7 @@ Widget newAppbar(context ,text,image,) {
                             ),
                           Container(
                             child: RangeSlider(
+                              activeColor: AppColors.appBarBackGroundColor,
                               values: _currentRangeValues,
                               min: 5.00,
                               max: 500.00,
@@ -428,7 +429,7 @@ Widget newAppbar(context ,text,image,) {
                               ),
                               Container(
                                 child: RaisedButton(
-                                  color: Colors.blue,
+                                  color:AppColors.appBarBackGroundColor,
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(
