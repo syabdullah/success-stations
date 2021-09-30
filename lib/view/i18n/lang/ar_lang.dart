@@ -296,5 +296,6 @@ const Map<String, String> ar = {
   'report':'أبلغ عن',
   'contactC':'اتصل',
   'favC':'المفضلة',
-  "allAds": "جميع الاعلانات"
+  "allAds":"جميع الاعلانات",
+  "callme":"اتصل بنا الآن"
 };

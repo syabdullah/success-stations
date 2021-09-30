@@ -777,55 +777,45 @@ class _AllAddsState extends State<AllAdds> {
   var splitedPrice;
   myAddGridView(dataListValue) {
     return Container(
-      // height: Get.height/100,
-      // margin: EdgeInsets.only(bottom:20),
+      padding: EdgeInsets.only(left:10,right:10),
       width: Get.width / 1.10,
-      // height: Get.height *100,
       child: GridView.count(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
-        // mainAxisSpacing: 50,
-        crossAxisSpacing: 12,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 5,
+        childAspectRatio: (
+           lang == 'en' ?Get.width / 1.10 / Get.height / 0.47:Get.width / 1.10 / Get.height / 0.49),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
             splitedPrice = price.split('.');
-            return GestureDetector(
-              onTap: () {
-                Get.to(AdViewScreen(), arguments: dataListValue[index]['id']);
-              },
-              child: Card(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)
-                      ),
-                      child: Container(
+            return  Container(
+              height: Get.height,
+              decoration: BoxDecoration(
+                // borderRadius:BorderRadius.circular(3),
+                border: Border.all(color: Colors.black)
+              ),
+              child: Column(
+                children: [
+                   Container(
                         width: Get.width < 420
                         ? Get.width / 1.4
                         : Get.width / 2.3,
-                        //height: Get.height / 6.0,
-                         height: Get.height /12.0,
+                         height: Get.height /8.0,
                         child: dataListValue[index]['image'].length != 0
                         ? Stack(
-                         alignment:AlignmentDirectional.bottomEnd,
+                         alignment:AlignmentDirectional.topStart,
                           children: [
                             Image.network(
                               dataListValue[index]['image'][0]['url'],
                               width: Get.width,
-                              // height: 1--,
-                              fit: BoxFit.cover
+                              height: 100,
+                              fit: BoxFit.fill
                             ),
                             Container(
-                               padding: EdgeInsets.only(right: 10,bottom: 10),
+                               padding: EdgeInsets.only(right: 5,left: 5,top: 5),
                               child: GestureDetector(
                                 onTap: () {
                                   var json = {
@@ -847,7 +837,7 @@ class _AllAddsState extends State<AllAdds> {
                           ],
                         )
                         : Stack(
-                         alignment:AlignmentDirectional.bottomEnd,
+                         alignment:AlignmentDirectional.topStart,
                           children: [
                            
                             Container(
@@ -872,22 +862,53 @@ class _AllAddsState extends State<AllAdds> {
                               ),
                             ),
                              Positioned(
-                               right: 20,
-                               left: 15,
-                               child: Icon(
-                                 Icons.image,
-                                 size: 50,
-                               ),
+                              //  right: 20,
+                              //  left: 15,
+                              child: Container(),
                              ),
                           ],
                         )
                       ),
-                    ),
-                    Container(
+                     Container(
+                       margin: EdgeInsets.only(left:10,right: 10),
+                       child: Container(
+                         child: dataListValue[index]['is_rated'] ==false
+                         ? RatingBar.builder(
+                           initialRating: dataListValue[index]['rating'].toDouble(),
+                           minRating: 1,
+                           direction: Axis.horizontal,
+                           allowHalfRating: true,
+                           itemCount: 5,
+                           itemSize: 14.5,
+                           itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                           onRatingUpdate: (rating) {
+                             var ratingjson = {
+                               'ads_id': dataListValue[index]['id'],
+                               'rate': rating
+                             };
+                             ratingcont.ratings(ratingjson);
+                             // ratingcont.getratings(allDataAdds[index]['id']);
+                           },
+                         )
+                         : RatingBar.builder(
+                           initialRating: dataListValue[index]['rating'].toDouble(),
+                           ignoreGestures: true,
+                           minRating: 1,
+                           direction: Axis.horizontal,
+                           allowHalfRating: true,
+                           itemCount: 5,
+                           itemSize: 14.5,
+                           itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                           onRatingUpdate: (rating) {
+                             // ratingcont.getratings(allDataAdds[index]['id']);
+                           },
+                         )
+                       ),
+                     ),
+                      Container(
                       alignment: lang == 'en'
                       ? Alignment.center
                       : Alignment.center,
-                      //margin: lang=='en'?EdgeInsets.only(left: 50):EdgeInsets.only(right: 50),
                       child: Text(
                         dataListValue[index]['title'] != null
                         ? dataListValue[index]['title']['en'].toString()
@@ -898,113 +919,110 @@ class _AllAddsState extends State<AllAdds> {
                         )
                       ),
                     ),
-                     Container(
-                       margin: EdgeInsets.only(left:10,right: 10),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5),
-                                    child: dataListValue[index]['is_rated'] ==false
-                                    ? RatingBar.builder(
-                                      initialRating: dataListValue[index]['rating'].toDouble(),
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 14.5,
-                                      itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                                      onRatingUpdate: (rating) {
-                                        var ratingjson = {
-                                          'ads_id': dataListValue[index]['id'],
-                                          'rate': rating
-                                        };
-                                        ratingcont.ratings(ratingjson);
-                                        // ratingcont.getratings(allDataAdds[index]['id']);
-                                      },
-                                    )
-                                    : RatingBar.builder(
-                                      initialRating: dataListValue[index]['rating'].toDouble(),
-                                      ignoreGestures: true,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 14.5,
-                                      itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                                      onRatingUpdate: (rating) {
-                                        // ratingcont.getratings(allDataAdds[index]['id']);
-                                      },
-                                    )
-                                  ),
-                                  Container(
-                         
-                        child: Row(
-                          children: [
-                            dataListValue[index]['phone'] !=null ? 
-                            Container(
-                              // padding: EdgeInsets.only(right:15),
-                              child: GestureDetector(
-                                onTap: (){
-                                   launch("tel:${dataListValue[index]['phone']}");
-                                },
-                                child: Image.asset(AppImages.call, height: 25)),
-                            ):Container()
-                           
-                            // Image.asset(AppImages.call, height: 25),
-                          ],
-                        )
-                      )
-                                ],
-                              ),
-                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        
-                        margin: lang == 'en'
-                        ? EdgeInsets.only(left: 9,right: 10)
-                        : EdgeInsets.only(right: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                           
-                            Row(
-                              children: [
-                                
-                                Icon(Icons.person,color: Colors.grey[400]),
-                                Container(
-                              child: Text(
-                                dataListValue[index]['contact_name'] !=null
-                                ? dataListValue[index]['contact_name']
-                                : '',
-                                style: TextStyle(color: Colors.grey[300]),
-                              ),
-                            )
-                              ],
-                            ),
-                            //  Text(
-                            //     dataListValue[index]['price'] !=null
-                            //     ? " SAR ${dataListValue[index]['price']}"
-                            //     : '',
-                            //     style: TextStyle(color: AppColors.appBarBackGroundColor),
-                            //   ),
-                            Text(
-                              dataListValue[index]['price'] !=null
-                              ? " SAR ${splitedPrice[0]}"
-                              : '',
-                              style: TextStyle(color: AppColors.appBarBackGroundColor),
-                                  ),
-                                  // SizedBox(height: 10,)
-                          ],
-                        ),
-                      ),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Text(
+                           dataListValue[index]['price'] !=null
+                           ? "${splitedPrice[0]}"
+                           : '',
+                           style: TextStyle(color: AppColors.appBarBackGroundColor),
                     ),
-                  
-                  ],
-                ),
-              ),
-            );
+                     Text(
+                       ' SAR',
+                       style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 7),
+                    ),
+                       ],
+                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Stack(
+                          alignment:AlignmentDirectional.topStart,
+                         children: [
+                            Positioned(
+                              left: 10,
+                              top:2.5,
+                              child: Image.asset(AppImages.newuser,height: 20,),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left:28,right: 5),
+                              width:55,
+                              // height: 25,
+                              decoration: BoxDecoration(
+                                // border: Border.all(),
+                                // borderRadius: BorderRadius.circular(4),
+                              border: Border(
+                                  top:BorderSide(color: Colors.black,width:1.5, ) ,
+                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
+                                  left: BorderSide(color: Colors.grey,width: 0.3),
+                                  bottom: BorderSide(color: Colors.black,width:1.5,)
+                                ),
+                             
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.only(left:5,right: 5),
+                              child: Text(
+                                dataListValue[index]['contact_name'],
+                                overflow: TextOverflow.ellipsis,
+                                )),
+                            )
+                         ],
+                       ),
+                         GestureDetector(
+                           onTap: (){
+                             launch("tel:${dataListValue[index]['phone']}");
+                           },
+                           child: Container(
+                             margin: EdgeInsets.only(left:5,right: 5),
+                             child: Row(
+                               children: [
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 63,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.newphoneColor,
+                                     borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                       :BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
+                                 ),
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 20,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                       :
+                                       BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
+                                 ),
+                               ],
+                             ),
+                           ),
+                         )
+                     
+                      ],
+                    )
+                  ]  
+                ));
           }
         )
       ),

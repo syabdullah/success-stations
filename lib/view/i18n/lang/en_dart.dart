@@ -79,7 +79,7 @@ const Map<String, String> en = {
   "urlField":"URL field is Required",
   "validUrl":"Enter Valid URL",
   "titleField":"Title field required",
-
+  "callme":"CALL US NOW",
   "sign_up_desc": "Please provide following details for your new account",
   "sign_up_btn_text": "Sign Up",
   "already_login_text": "Already have an account?",
