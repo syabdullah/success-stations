@@ -93,4 +93,9 @@ class AppImages {
   static String camera = imagePath + 'cam@3x.png';
   static String junaid = imagePath + 'junaid.jpeg';
   static String hehe = imagePath + 'hehe.png';
+
+  // new des
+  static String newuser = imagePath + 'newuser.png';
+  static String newcall = imagePath + 'newcall.png';
+
 }
