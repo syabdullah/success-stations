@@ -49,7 +49,7 @@ class _FriendListState extends State<FriendList> {
                 val.friendsData == null
             ? Container(
                 child: Text("nofriends".tr),
-              )
+            )
             : Expanded(
               child: listtype == 'list'
               ? friendList(val.friendsData['data'])
@@ -264,6 +264,7 @@ class _FriendListState extends State<FriendList> {
   }
 
   Widget friendGridView(dataGrid) {
+    // print(dataGrid);
     var newData = [];
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
@@ -275,6 +276,7 @@ class _FriendListState extends State<FriendList> {
         children: List.generate(
           newData.length,
           (index) {
+            print(newData[index]['user_requisted']);
             return  GestureDetector(
               onTap: () {
                 selected = box.write("selected", newData[index]['id']);

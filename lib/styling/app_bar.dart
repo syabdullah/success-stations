@@ -36,11 +36,12 @@ var userId = box.read('user_id');
       automaticallyImplyLeading: false,
       centerTitle: true,
       leading: Container(
-        margin:EdgeInsets.only(top:12),
+        margin:EdgeInsets.only(top:2),
         child: IconButton(
           iconSize: 28,
-          icon: Icon(Icons.menu,color: Colors.white),
-          onPressed: () => globalKey.currentState!.openDrawer()),
+          icon: Image.asset(AppImages.menuBurger,height: 20,),
+          onPressed: () => globalKey.currentState!.openDrawer()
+        ),
       ),
       title: Padding(
        padding: const EdgeInsets.only(top:10.0),
