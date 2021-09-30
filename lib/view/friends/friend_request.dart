@@ -6,6 +6,7 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 
@@ -37,6 +38,7 @@ class _FriendReqListState extends State<FriendReqList> {
           ),
           child: AppDrawer(),
         ),
+        // bottomNavigationBar: BottomTabs(),
        body: ListView(
          children: [
            GetBuilder<FriendsController>(

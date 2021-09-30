@@ -35,6 +35,7 @@ class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     lang =  box.read('lang_code');
+    print("PRINTED LANGUAGE FROM MAIN ------------$lang");
     return ScreenUtilInit(
       builder:()  {       
         return GetMaterialApp(     
@@ -50,7 +51,7 @@ class SuccessApp extends StatelessWidget {
         translations: LocalizationServices(),
         theme:   ThemeData(
            primaryColor: Color(0xFF2F4199),
-           fontFamily: 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
+           fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
             textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199))
         ) ,
          home:  auth == null ? SignIn() : BottomTabs(),
