@@ -193,10 +193,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(height: 30,),
                           Text("city1".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
+                          data['type'] != null ?
                           Text(
-                           data['type']['type'][lang] != null ? data['type']['type'][lang].toString() :data['type']['type'][lang] ==null ? data['type']['type']['en']:'',
+                           data['type']['type'][lang]!= null ? data['type']['type'][lang].toString() : data['type']['type'][lang] ==null ? data['type']['type']['en']:'',
                             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
-                          ),
+                          ):Container(),
                           SizedBox(height: 10.h,),
                           Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),

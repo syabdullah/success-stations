@@ -74,7 +74,7 @@ class _MyAddsState extends State<MyAdds> {
               : Container();
             },
           ), 
-        //   SizedBox(height: 10),   
+          SizedBox(height: 15),   
           categorybool == false ? 
           GetBuilder<AddBasedController>(
           init: AddBasedController(),
@@ -437,6 +437,7 @@ void _adsfiltringheet() {
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 5,),
                               Row(
                             //
                             children: [
@@ -495,34 +496,7 @@ void _adsfiltringheet() {
                         // ),
                       ],
                     ),
-                    // SizedBox(height:10),
-                    // Column(
-                    //   children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10.0),
-                        //   child: 
-                        //   Row(
-                        //     children: [
-                        //     ],
-                        //   ) 
-                        // ),
-                        
-                    //     Transform.scale(
-                    //      scale: .7,
-                    //      child: Switch.adaptive(
-                    //        activeColor: AppColors.appBarBackGroundColor,
-                    //        value:allDataAdds[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                    //         // setState(() {
-                    //           allDataAdds[index]['is_active'] == 1 ?
-                    //           controller.deactiveAd(allDataAdds[index]['id']) :
-                    //           controller.activeAd(allDataAdds[index]['id']) ;
-                    //           controller.addesMyListAll();
-                    //           controller.addedByIdAddes(catID, userId);
-                    //         // });
-                    //        }),
-                    //    ),   
-                    //   ],
-                    // ),
+                   
                   ],
                 ),
               ),
@@ -536,14 +510,15 @@ void _adsfiltringheet() {
   var myAddssplitedPrice;
   myAddGridView(dataListValue) { 
     return Container(
+      padding: EdgeInsets.only(left:10,right:10),
       child: GridView.count(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        crossAxisSpacing: 0.2,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        (Get.height >= 800 ? Get.height/ 1.9 :Get.height <= 800 ? Get.height/ 1.75 :0),
-        
+        ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.75 :0),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -553,156 +528,176 @@ void _adsfiltringheet() {
                 dataListValue[index]['is_active'] == 0 ?
                 Colors.white:Colors.transparent, BlendMode.softLight),
                 child: Container(
-                // width: Get.width < 420 ? Get.width / 7.0 : Get.width /7,
-                // margin: EdgeInsets.only(left:2,right: 5),
+                decoration: BoxDecoration(
+                border: Border.all(color: Colors.black)
+                ), 
                 height: Get.height < 420 ? Get.height/3.6: Get.height/8.0,
                 child:  GestureDetector(
                   onTap: () {
                     Get.to(AdViewScreen(),arguments: dataListValue[index]['id']);
                   },
-                  child: Card(
-                    
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          child: Container(
-                            width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                            height: Get.height /8.0,
-                            child: dataListValue[index]['media'].length != 0 ?
-                                  Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill) :
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                        height: Get.height /8.0,
+                        child: dataListValue[index]['media'].length != 0 ?
+                              Stack(
+                                alignment:AlignmentDirectional.topEnd,
+                                children: [
                                   Container(
-                                    width: Get.width/4,
-                                    child: Icon(Icons.image,size: 50,),
-                                  )
-                          ),
+                                     width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                                       height: Get.height /8.0,
+                                    child: Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill)),
+                                     Transform.scale(
+                                    scale: .7,
+                                    child: Switch.adaptive(
+                                        activeColor: AppColors.appBarBackGroundColor,
+                                        value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                      // setState(() {
+                                        dataListValue[index]['is_active'] == 1 ?
+                                        controller.deactiveAd(dataListValue[index]['id']) :
+                                        controller.activeAd(dataListValue[index]['id']) ;
+                                        controller.addesMyListAll();
+                                        controller.addedByIdAddes(catID, userId);
+                                      // });
+                                  
+                                    }),
+                                  ),   
+                                ],
+                              ) :
+                              Container(
+                                width: Get.width/4,
+                                child: Stack(
+                                   alignment:AlignmentDirectional.topEnd,
+                                  children: [
+                                    Center(
+                                      child: Icon(Icons.image,size: 50,)),
+                                     Transform.scale(
+                                    scale: .7,
+                                    child: Switch.adaptive(
+                                        activeColor: AppColors.appBarBackGroundColor,
+                                        value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                      // setState(() {
+                                        dataListValue[index]['is_active'] == 1 ?
+                                        controller.deactiveAd(dataListValue[index]['id']) :
+                                        controller.activeAd(dataListValue[index]['id']) ;
+                                        controller.addesMyListAll();
+                                        controller.addedByIdAddes(catID, userId);
+                                      // });
+                                  
+                                    }),
+                                  ),   
+                                  ],
+                                ),
+                              )
+                      ),
+                       Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating: dataListValue[index]['rating'].toDouble(),
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 13.5,
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                    },
+                                  ),
+                                  Container(
+                                    margin:EdgeInsets.only(top:3),
+                                    child: Text(
+                                      "(${dataListValue[index]['rating_count'].toString()})",
+                                      style: TextStyle(fontSize: 13),
+                                    )
+                                  ),
+                                ],
+                              ),
+                            ),
+                       
+                      ],
+                    ), 
+                      Container(
+                        margin: EdgeInsets.only(left: 10,right: 10),
+                        child: Center(
+                          child: Text(
+                             dataListValue[index]['title']['en'] !=null ?
+                            dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                             maxLines:1,),
                         ),
+                      ), 
+                       SizedBox(height: 10),
                         Container(
-                          margin: EdgeInsets.only(left: 10,right: 10),
-                          child: Center(
-                            child: Text(
-                               dataListValue[index]['title']['en'] !=null ?
-                              dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-                              overflow: TextOverflow.ellipsis,
-                               maxLines:1,),
-                          ),
-                        ), 
-                          Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    RatingBar.builder(
-                                      ignoreGestures: true,
-                                      initialRating: dataListValue[index]['rating'].toDouble(),
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 13.5,
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                      },
-                                    ),
-                                    Container(
-                                      margin:EdgeInsets.only(top:3),
-                                      child: Text(
-                                        "(${dataListValue[index]['rating_count'].toString()})",
-                                        style: TextStyle(fontSize: 13),
-                                      )
-                                    ),
-                                  ],
-                                ),
+                                padding: EdgeInsets.only(left: 15,right: 15,),
+                                child:
+                                dataListValue[index]['price'] != null?
+                                Text( 
+                                "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
                               ),
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Row(
-                              children: [                                  
-                              GestureDetector(
-                                onTap: (){
-                                  controller.adDelete(dataListValue[index]['id']);
-                                  // if(categorybool == false) {
-                                    controller.addesMyListAll();
-                                    controller.addesMyListAll();
-                                    
-                                  //  }else{
-                                      controller.addedByIdAddes(catID, userId);
+                              Row(
+                                children: [
+                                   Container(
+                          margin: EdgeInsets.only(right: 10),
+                          child: Row(
+                            children: [                                  
+                            GestureDetector(
+                              onTap: (){
+                                controller.adDelete(dataListValue[index]['id']);
+                                // if(categorybool == false) {
+                                  controller.addesMyListAll();
+                                  controller.addesMyListAll();
+                                  
+                                //  }else{
                                     controller.addedByIdAddes(catID, userId);
-                                  //  }
-                                    
+                                  controller.addedByIdAddes(catID, userId);
+                                //  }
+                                  
+                              },
+                              child: Image.asset(AppImages.delete,height: 30,)),
+                                SizedBox(width: 3,),
+                                GestureDetector(
+                                onTap:(){  
+                                  Get.to(AddPostingScreen(),arguments:dataListValue[index]);
                                 },
-                                child: Image.asset(AppImages.delete,height: 30,)),
-                                  SizedBox(width: 3,),
-                                  GestureDetector(
-                                  onTap:(){  
-                                    Get.to(AddPostingScreen(),arguments:dataListValue[index]);
-                                  },
-                                  child: Image.asset(AppImages.edit,height: 30,))
-                              ],
-                            ),
+                                child: Image.asset(AppImages.edit,height: 30,))
+                            ],
                           ),
-                        ],
-                      ), 
-                        
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 15,right: 15,),
-                                  child:
-                                  dataListValue[index]['price'] != null?
-                                  Text( 
-                                  "SAR ${myAddssplitedPrice[0]}" ,style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)):Container(),
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Transform.scale(
-                                        scale: .7,
-                                        child: Switch.adaptive(
-                                            activeColor: AppColors.appBarBackGroundColor,
-                                            value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                          // setState(() {
-                                            dataListValue[index]['is_active'] == 1 ?
-                                            controller.deactiveAd(dataListValue[index]['id']) :
-                                            controller.activeAd(dataListValue[index]['id']) ;
-                                            controller.addesMyListAll();
-                                            controller.addedByIdAddes(catID, userId);
-                                          // });
-                                      
-                                        }),
-                                      ),
-                                    ),   
-                                  ],
-                                ),
-                              ],
-                            ),
-                         ), 
-                        // Expanded(
-                        //   // flex : 2,
-                        //   child:  Container(
-                        //     margin: EdgeInsets.only(left:10),
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.end,
-                        //       children: [
-                              
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                        ),
+                                  
+                                ],
+                              ),
+                            ],
+                          ),
+                       ), 
+                      // Expanded(
+                      //   // flex : 2,
+                      //   child:  Container(
+                      //     margin: EdgeInsets.only(left:10),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.end,
+                      //       children: [
+                            
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
                   ),
                 )
               ),
