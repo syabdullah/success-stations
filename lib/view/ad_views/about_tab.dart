@@ -10,6 +10,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
@@ -335,7 +336,7 @@ var imageGived;
 Widget lastAds(lastuserad){
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height > 400 ? Get.height/3.6:Get.height/4,
+    height: Get.height > 400 ? Get.height/3.9:Get.height/4,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: lastuserad.length,
@@ -365,21 +366,16 @@ Widget lastAds(lastuserad){
                     ClipRRect(
                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
                       child: Container(
-                        width: Get.width/2.3,
+                        width: Get.width/2,
                         height: Get.height/7.5,
-                        child: lastuserad[index]["image"]!= null && imageGived != null ?Image.network(imageGived,fit: BoxFit.cover,) : Container()
+                        child: lastuserad[index]["image"]!= null && imageGived != null ?
+                        Image.network(imageGived,fit: BoxFit.cover,) : Container()
                       ),
                     ): Container(
                       width: Get.width/2,
                       child: Icon(Icons.image,size: Get.height/6,)),
-                     
-                    Text(lastuserad[index]['title'][lang]!=null ? lastuserad[index]['title'][lang].toString() : lastuserad[index]['title'][lang] == null ? lastuserad[index]['title']['en']:'',
-                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-                  )
-                  ],
-                ),
-              SizedBox(height: 5,),
-               Container(
+
+                    Container(
                   margin: EdgeInsets.only(left: 10,right: 10),
                  child: Row(
                    mainAxisAlignment: MainAxisAlignment.start,
@@ -414,37 +410,112 @@ Widget lastAds(lastuserad){
                               ],
                             ),
                ), 
-                          Container(
-                            margin: EdgeInsets.only(left: 10,right: 10),
-                            child: lastuserad[index]['price']!= null ?
-                              Text("SAR ${lastuserad[index]['price']}",
-                                style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 10,),
-                              ): Container(),
-                          ),
-                        Container(
-                          margin: EdgeInsets.only(left:9,right: 10),
-                          width: Get.width/2.6,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(children: [
-                                Image.asset(AppImages.location,height: 17,),
-                                SizedBox(width: 3,),
-                                lastuserad[index]['city'] != null ?
-                                Text(lastuserad[index]['city']['city'],
-                                  style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),
-                                  ): Container()
-                                ]
-                            ),
-                          
+
+                    Text(lastuserad[index]['title'][lang]!=null ? lastuserad[index]['title'][lang].toString() : lastuserad[index]['title'][lang] == null ? lastuserad[index]['title']['en']:'',
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                  ),
+                        Row(
+                          children: [
+                            Container(
+                                child: lastuserad[index]['price']!= null ?
+                                  Text("${lastuserad[index]['price']}",
+                                    style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 10,),
+                                  ): Container(),
+                              ),
+                              SizedBox(width: 5),
+                               Text("SAR ",
+                                style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 8,),)
                           ],
                         ),
-              ),
+                       Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Stack(
+                          alignment:AlignmentDirectional.topStart,
+                         children: [
+                            Positioned(
+                              left: 10,
+                              top:2.5,
+                              child: Image.asset(AppImages.newuser,height: 20,),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left:28,right: 5),
+                              width:55,
+                              // height: 25,
+                              decoration: BoxDecoration(
+                                // border: Border.all(),
+                                // borderRadius: BorderRadius.circular(4),
+                              border: Border(
+                                  top:BorderSide(color: Colors.black,width:1.5, ) ,
+                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
+                                  left: BorderSide(color: Colors.grey,width: 0.3),
+                                  bottom: BorderSide(color: Colors.black,width:1.5,)
+                                ),
+                             
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.only(left:5,right: 5),
+                              child: Text(
+                                lastuserad[index]['created_by']['name'],
+                                overflow: TextOverflow.ellipsis,
+                                )),
+                            )
+                         ],
+                       ),
+                         GestureDetector(
+                           onTap: (){
+                             launch("tel:${lastuserad[index]['created_by']['phone']}");
+                           },
+                           child: Container(
+                             margin: EdgeInsets.only(left:5,right: 5),
+                             child: Row(
+                               children: [
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 63,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.newphoneColor,
+                                     borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                       :BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
+                                 ),
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 20,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                       :
+                                       BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
+                                 ),
+                               ],
+                             )))
+                  ],
+                ),
               
            ],
                ),
-             ),
-        );
+              ]),
+        ));
     }
    ),
  );
