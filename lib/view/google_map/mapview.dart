@@ -144,7 +144,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       margin:
                                           EdgeInsets.only(top: 10, left: 10),
                                       child: Text(
-                                        "(${data['user_name']['rating_count'].toString()})",
+                                        "${data['user_name']['rating_count'].toString()}",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
@@ -207,62 +207,59 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     return Scaffold(
       key: _scaffoldKey, 
       body: GetBuilder<LocationController>(
-          init: LocationController(),
-          builder: (val) {
-            _markers.clear();
-            if (val.allLoc != null)
-              for (int i = 0; i < val.allLoc['data']['data'].length; i++) {
-                if (val.allLoc['data']['data'][i]['location'] != null) {
-                  setMarkers(
-                      LatLng(val.allLoc['data']['data'][i]['long'],
-                          val.allLoc['data']['data'][i]['long']),
-                      val.allLoc['data']['data'][i]);
-                  _latLng = LatLng(val.allLoc['data']['data'][i]['long'],
-                      val.allLoc['data']['data'][i]['long']);
-                }
+        init: LocationController(),
+        builder: (val) { 
+          _markers.clear();
+          if (val.allLoc != null)
+          for (int i = 0; i < val.allLoc['data']['data'].length; i++) {
+            if (val.allLoc['data']['data'][i]['location'] != null) {
+              setMarkers(
+                LatLng(val.allLoc['data']['data'][i]['long'],
+                val.allLoc['data']['data'][i]['long']),
+                val.allLoc['data']['data'][i]);
+                _latLng = LatLng(val.allLoc['data']['data'][i]['long'],
+                val.allLoc['data']['data'][i]['long']);
               }
+            }
             return Stack(
               children: [
                 listtype == 'map'
-                    ? Stack(
-                        children: <Widget>[
-                          val.allLoc != null
-                              ? googleMap(val.latLng)
-                              : Container(),
-                          CustomInfoWindow(
-                            controller: _customInfoWindowController,
-                            height: Get.height / 6,
-                            width: Get.width / 1.2,
-                            offset: 50,
-                          ),
-                        ],
-                      )
-                    : GetBuilder<LocationController>(
-                        // specify type as Controller
-                        init:
-                            LocationController(), // intialize with the Controller
-                        builder: (value) {
-                          return value.allLoc != null
-                              ? allUsers(value.allLoc['data'])
-                              : Center(child: CircularProgressIndicator());
-                        } // value is an instance of Controller.
-                        ),
-                Container(
-                  child: Row(
-                    children: [topWidget()],
-                  ),
+                ? Stack(
+                  children: <Widget>[
+                    val.allLoc != null
+                    ? googleMap(val.latLng)
+                    : Container(),
+                    CustomInfoWindow(
+                      controller: _customInfoWindowController,
+                      height: Get.height / 6,
+                      width: Get.width / 1.2,
+                      offset: 50,
+                    ),
+                  ],
                 )
-              ],
-            );
-          }),
+                : GetBuilder<LocationController>(
+                  init:  LocationController(),
+                  builder: (value) {
+                    return value.allLoc != null
+                    ? allUsers(value.allLoc['data'])
+                    : Center(child: CircularProgressIndicator());
+                  } 
+                ),
+              Container(
+                child: Row(
+                  children: [topWidget()],
+                ),
+              )
+            ],
+          );
+        }
+      ),
     );
   }
 
   Widget topWidget() {
     return Container(
-      margin: lang == 'en'
-          ? EdgeInsets.only(left: 10, )
-          : EdgeInsets.only(right: 10, ),
+      margin: lang == 'en' ? EdgeInsets.only(left: 10, ) : EdgeInsets.only(right: 10, ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -394,34 +391,36 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       child: Container(
                         width: Get.width / 2.2,
                         height: Get.height / 5.2,
-                        child: userData['data'][index]['user_name'] ['image'] !=null
-                        ? Image.network(
-                            userData['data'][index]['user_name']['image']
-                                ['url'],
+                        child: userData['data'][index]['user_name'] !=null && userData['data'][index]['user_name']['image'] !=null && userData['data'][index]['user_name']['image']['url'] !=null ? 
+                        Image.network( userData['data'][index]['user_name']['image']['url'],
                             fit: BoxFit.fill,
                           )
-                        : Icon(Icons.image)
+                        :
+                        FittedBox(
+                          fit:BoxFit.contain,
+                          child: Icon(Icons.person, color: Colors.grey[400])
+                        )
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20, top: 15,right: 15),
-                      child: Text(
+                      child: userData['data'][index]['user_name']!=null &&  userData['data'][index]['user_name']['name'] !=null ? 
+                      Text(
                         userData['data'][index]['user_name']['name'].toString(),
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 14
                         ),
-                      ),
+                      ):Container()
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
-                          //
                           children: [
+                            userData['data'][index]['user_name']!=null ? 
                             Container(
-                              //  margin: EdgeInsets.only(left:20),
                               child: RatingBar.builder(
                                 ignoreGestures: true,
                                 initialRating: userData['data'][index]['user_name']['rating'].toDouble(),
@@ -434,45 +433,37 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
-
-                                onRatingUpdate: (rating) {
-                                  //  var ratingjson = {
-                                  //    'ads_id' : userData[index]['id'],
-                                  //    'rate': rating
-                                  //  };
-                                  //  ratingcont.ratings(ratingjson );
-                                  //  ratingcont.getratings(userData[index]['id']);
-                                },
+                                 onRatingUpdate: (rating) {},
                               ),
-                            ),
+                            ):Container(),
+                            userData['data'][index]['user_name']!=null ? 
                             Container(
                               margin: EdgeInsets.only(left: 5),
                               child: Text(
-                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
+                                "${userData['data'][index]['user_name']['rating_count'].toString()}",
                                 style: TextStyle(fontSize: 13),
                               )
-                            ),
+                            ):Container()
                           ],
                         ),
                         GestureDetector(
-                            onTap: () {
-                              adtofavJson = {
-                                'user_id': userData['data'][index]['user_name']['id']
-                              };
-                              remtofavJson = {
-                                'user_id': userData['data'][index]['user_name']['id']
-                              };
-                              userData['data'][index]['user_name']['is_user_favourite'] ==false
-                              ? adfavUser.profileAdsToFav(adtofavJson)
-                              : adfavUser.profileRemToFav(remtofavJson);
-                            },
-                            child: userData['data'][index]['user_name']['is_user_favourite'] ==false
-                            ? Image.asset(
-                              AppImages.blueHeart,
-                              height: 18,
-                            )
-                            : Image.asset(AppImages.heart)
+                          onTap: () {
+                            adtofavJson = {
+                              'user_id': userData['data'][index]['user_name']['id']
+                            };
+                            remtofavJson = {
+                              'user_id': userData['data'][index]['user_name']['id']
+                            };
+                            userData['data'][index]['user_name']['is_user_favourite'] ==false
+                            ? adfavUser.profileAdsToFav(adtofavJson)
+                            : adfavUser.profileRemToFav(remtofavJson);
+                          },
+                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['user_name']['is_user_favourite'] == false
+                          ? Image.asset(
+                            AppImages.blueHeart, height: 18,
                           )
+                          : Image.asset(AppImages.heart)
+                        )
                       ],
                     ),
                   ],
@@ -480,7 +471,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               ),
             ),
           );
-        });
+        }
+      );
   }
 
   void handleClick(int item) {
