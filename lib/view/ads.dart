@@ -69,8 +69,8 @@ class _AdsViewState extends State<AdsView> {
              featureTextAdded("advertisingCategories".tr,"all".tr),
              GetBuilder<CategoryController>(
               init: CategoryController(),
-              builder: (dat){
-                return  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                builder: (dat){
+                  return  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
@@ -143,10 +143,11 @@ class _AdsViewState extends State<AdsView> {
   }
 
   Widget carosalImage(data) { 
+    if(data != null)
     for(int i=0; i < data.length; i++) {
       imgList.add(data[i]['image']['url']);
     }
-    return imgList.length != 0 ? Column(
+    return  imgList.length != 0 ? Column(
       children: [
         CarouselSlider(
           items: imgList
@@ -184,7 +185,7 @@ class _AdsViewState extends State<AdsView> {
               child: Container(
                 width: 20.0,
                 height: 4.0,
-                margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+                margin: EdgeInsets.symmetric( horizontal: 4.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: (Theme.of(context).brightness == Brightness.dark
@@ -202,7 +203,7 @@ class _AdsViewState extends State<AdsView> {
     Container(
       height: Get.height/4.5,
       margin: EdgeInsets.all(20),
-      child: Text("No Banners Here!"),
+      // child: Text("No Banners Here!"),
     );  
   }
 
@@ -212,7 +213,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
            margin: EdgeInsets.only(left:10,right: 10,),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -233,7 +234,7 @@ class _AdsViewState extends State<AdsView> {
       children: [
         Container(
           margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,color: Colors.grey[700]),
+          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.grey[700]),
           )
         ),
         GestureDetector(
@@ -345,7 +346,7 @@ class _AdsViewState extends State<AdsView> {
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7),
-      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.4: Get.height/4.0,
+      height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.5: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
