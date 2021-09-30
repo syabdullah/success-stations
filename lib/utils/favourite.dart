@@ -316,6 +316,7 @@ class _FavouritePageState extends State<FavouritePage> {
   
   var ind = 0 ;
   var gridImages;
+   var splitedPrice;
   List<Widget> myAddGridView(listFavourite) {
     
     var newData = [];
@@ -331,69 +332,99 @@ class _FavouritePageState extends State<FavouritePage> {
           height: Get.height/1,
           child: GridView.count(
           crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+          childAspectRatio: (
+           lang == 'en' ?Get.width / 1.10 / Get.height / 0.52:Get.width / 1.10 / Get.height / 0.55),
           children: List.generate(
             newData.length, 
-            (index) {             
+            (index) { 
+               var price = newData[index]['listing']['price'].toString();
+                splitedPrice = price.split('.');            
               if(newData[index]['listing'] !=null && newData[index]['listing']['image'] != null ){
                 for(int c =0; c < newData[index]['listing']['image'].length; c++){
                   gridImages= newData[index]['listing']['image'][c]['url'];
                 }
               }
-              return  Container(
-                margin: EdgeInsets.only(left:5,right: 5),
-                child:  Card(
-                  elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                            child: Container(
-                              // width: Get.width/0.7,
-                              height: Get.height/10,
-                              //hehe
-                              child: newData[index]['listing'] !=null && gridImages != null ? 
-                              Stack(
-                               alignment:AlignmentDirectional.bottomEnd,
-                                children: [
-                                  Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
-                                   newData[index]['listing'] !=null ? 
-                                Container(
-                                  padding: EdgeInsets.only(right: 10,bottom: 2),
-                                  child: newData[index]['listing']['is_favorite'] == true ?
-                                  GestureDetector(
-                                    onTap: (){
-                                       bye = newData[index]['listing']['id'];
-                                      removeFvr8zGrid();
-                                    },
-                                    child: Image.asset(AppImages.redHeart,height:30)
-                                  ): null,
-                              ): Container(),
-                                ],
-                              ):
-                              Stack(
-                                alignment:AlignmentDirectional.bottomEnd,
-                                children: [
-                                  Center(child: Icon(Icons.person, color: Colors.grey[400],size: 42,)),
-                                    newData[index]['listing'] !=null ? 
-                                Container(
-                                  padding: EdgeInsets.only(right: 10,bottom: 2),
-                                  child: newData[index]['listing']['is_favorite'] == true ?
-                                  GestureDetector(
-                                    onTap: (){
-                                      bye = newData[index]['listing']['id'];
-                                      removeFvr8zGrid();
-                                    },
-                                    child: Image.asset(AppImages.redHeart,height:30)
-                                  ): null,
-                              ): Container(),
-                                ],
-                              ) 
-                            ),
+              return Container(
+                height: Get.height,
+                decoration: BoxDecoration(
+                // borderRadius:BorderRadius.circular(3),
+                border: Border.all(color: Colors.black)
+                ), 
+                child: Column(
+                  children: [
+                  newData[index]['listing'] !=null && gridImages != null ? 
+                          Stack(
+                          alignment:AlignmentDirectional.topStart,
+                            children: [
+                              Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
+                              newData[index]['listing'] !=null ? 
+                            Container(
+                              padding: EdgeInsets.only(right: 10,bottom: 2),
+                              child: newData[index]['listing']['is_favorite'] == true ?
+                              GestureDetector(
+                                onTap: (){
+                                  bye = newData[index]['listing']['id'];
+                                  removeFvr8zGrid();
+                                },
+                                child: Image.asset(AppImages.redHeart,height:30)
+                              ): null,
+                          ): Container(),
+                            ],
+                          ):
+                          Stack(
+                            alignment:AlignmentDirectional.topStart,
+                            children: [
+                                Image.asset(AppImages.bgImage,height: 130,width: Get.width,fit: BoxFit.cover,),
+                                newData[index]['listing'] !=null ? 
+                            Container(
+                              padding: EdgeInsets.only(right: 10,bottom: 2),
+                              child: newData[index]['listing']['is_favorite'] == true ?
+                              GestureDetector(
+                                onTap: (){
+                                  bye = newData[index]['listing']['id'];
+                                  removeFvr8zGrid();
+                                },
+                                child: Image.asset(AppImages.redHeart,height:30)
+                              ): null,
+                          ): Container(),
+                            ],
                           ),
+                          newData[index]['listing']  !=null ?
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: newData[index]['listing']['is_rated'] == false
+                            ? RatingBar.builder(
+                              initialRating:newData[index]['user_name']['rating'].toDouble(),
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 14.5,
+                              itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                              onRatingUpdate: (rating) {
+                                var ratingjson = {
+                                  'ads_id': newData[index]['id'],
+                                  'rate': rating
+                                };
+                                ratingcont.ratings(ratingjson);
+                                // ratingcont.getratings(allDataAdds[index]['id']);
+                              },
+                            )
+                            : RatingBar.builder(
+                              initialRating:newData[index]['user_name']['rating'].toDouble(),
+                              ignoreGestures: true,
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 14.5,
+                              itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                              onRatingUpdate: (rating) {
+                              },
+                            )
+                          ):Container(),
                           Center(
                             child: Container(
                                child: newData[index]['user_name']['name']  !=null ? Text( 
@@ -401,83 +432,111 @@ class _FavouritePageState extends State<FavouritePage> {
                               ): Container()
                             ),
                           ),
-                             Container(
-                               //haha
-                             margin: EdgeInsets.only(left:10,right: 10),
-                             child: Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        newData[index]['listing']  !=null ?
-                                        Container(
-                                          margin: EdgeInsets.only(top: 5),
-                                          child: newData[index]['listing']['is_rated'] == false
-                                          ? RatingBar.builder(
-                                            initialRating:newData[index]['user_name']['rating'].toDouble(),
-                                            minRating: 1,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemSize: 14.5,
-                                            itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                                            onRatingUpdate: (rating) {
-                                              var ratingjson = {
-                                                'ads_id': newData[index]['id'],
-                                                'rate': rating
-                                              };
-                                              ratingcont.ratings(ratingjson);
-                                              // ratingcont.getratings(allDataAdds[index]['id']);
-                                            },
-                                          )
-                                          : RatingBar.builder(
-                                            initialRating:newData[index]['user_name']['rating'].toDouble(),
-                                            ignoreGestures: true,
-                                            minRating: 1,
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemSize: 14.5,
-                                            itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                                            onRatingUpdate: (rating) {
-                                            },
-                                          )
-                                        ):Container(),
-                                 
-                                          GestureDetector(
-                                            onTap: (){launch("tel:${newData[index]['listing']['phone']}");},
-                                            child: Container(
-                                              padding: EdgeInsets.only(right:5),
-                                              child: Image.asset(AppImages.call, height: 20),
-                                            ),
-                                          ),
-                                            ],
-                                          ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: 
-                                     newData[index]['created_by']['address'] !=null ?
-                                     Row(
-                                      children: [
-                                        Icon(Icons.location_on, color:Colors.grey),
-                                        Container(
-                                          child: Text(
-                                            allWordsCapitilize(newData[index]['created_by']['address']),
-                                            style: TextStyle(
-                                              color: Colors.grey[300]
-                                            ),
-                                          )
-                                        )
-                                      ],
-                                    ):Container()
-                                  ), 
-                                  newData[index]['listing']  !=null ? 
-                                  Container(
-                                    margin: EdgeInsets.only(left:10,right: 10),
-                                    child: Text("SAR ${newData[index]['listing']['price'] ?? ''}",style: TextStyle(color: AppColors.appBarBackGroundColor),)):Container()                 
-                                ],
-                              ),
+                         Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Text(
+                           newData[index]['listing']['price'] !=null
+                           ? "${splitedPrice[0]}"
+                           : '',
+                           style: TextStyle(color: AppColors.appBarBackGroundColor),
+                    ),
+                     Text(
+                       ' SAR',
+                       style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 7),
+                    ),
+                    ],
+                  ),         
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Stack(
+                          alignment:AlignmentDirectional.topStart,
+                         children: [
+                            Positioned(
+                              left: 10,
+                              top:2.5,
+                              child: Image.asset(AppImages.newuser,height: 20,),
                             ),
-                          );
+                            Container(
+                              margin: EdgeInsets.only(left:28,right: 5),
+                              width:55,
+                              // height: 25,
+                              decoration: BoxDecoration(
+                                // border: Border.all(),
+                                // borderRadius: BorderRadius.circular(4),
+                              border: Border(
+                                  top:BorderSide(color: Colors.black,width:1.5, ) ,
+                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
+                                  left: BorderSide(color: Colors.grey,width: 0.3),
+                                  bottom: BorderSide(color: Colors.black,width:1.5,)
+                                ),
+                             
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.only(left:5,right: 5),
+                              child: Text(
+                                newData[index]['created_by']['name'],
+                                overflow: TextOverflow.ellipsis,
+                                )),
+                            )
+                         ],
+                       ),
+                         GestureDetector(
+                           onTap: (){
+                             launch("tel:${newData[index]['created_by']['phone']}");
+                           },
+                           child: Container(
+                             margin: EdgeInsets.only(left:5,right: 5),
+                             child: Row(
+                               children: [
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 63,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.newphoneColor,
+                                     borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                       :BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
+                                 ),
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 20,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                       :
+                                       BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
+                                 ),
+                               ],
+                             ),
+                           ),
+                         )
+                     
+                      ],
+                    )
+                ]
+                ),
+                   );    
                 }
               )
             ),
