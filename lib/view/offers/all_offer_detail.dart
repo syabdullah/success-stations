@@ -19,6 +19,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   @override
   void initState() {
     idIdId = Get.arguments;
+    print("id by get ids...........$idIdId");
     lang = box.read('lang_code');
     super.initState();
   }

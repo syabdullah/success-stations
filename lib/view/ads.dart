@@ -14,6 +14,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
+import 'package:success_stations/view/offers/all_offer_detail.dart';
 
 List<String> imgList = [];
 
@@ -311,12 +312,18 @@ class _AdsViewState extends State<AdsView> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: imageW,
-                    height: imageH,
-                    child:data[index]['media'].length != 0 && data[index]['media'][0]['url'] != null ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
-                       child: Icon(Icons.image,size: 50,),
-                    )
+                  child: GestureDetector(
+                    onTap: (){
+                     Get.to(MyOfferDetailMain(), arguments: data[index]);
+                    },
+
+                    child: Container(
+                      width: imageW,
+                      height: imageH,
+                      child:data[index]['media'].length != 0 && data[index]['media'][0]['url'] != null ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
+                         child: Icon(Icons.image,size: 50,),
+                      )
+                    ),
                   ),
                 ),
               ),
