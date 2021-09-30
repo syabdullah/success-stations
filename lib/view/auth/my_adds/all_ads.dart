@@ -979,7 +979,7 @@ class _AllAddsState extends State<AllAdds> {
                                children: [
                                  Container(
                                   margin: EdgeInsets.only(),
-                                  width: 60,
+                                  width: 63,
                                   height: 25,
                                   decoration: BoxDecoration(
                                     color: AppColors.newphoneColor,
