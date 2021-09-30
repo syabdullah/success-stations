@@ -121,9 +121,11 @@ flutter:
     - family: STC Bold
       fonts:
         - asset: assets/fonts/stc.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+        
   #         style: italic
-  #   - family: Trajan Pro
+    - family: Poppins Regular
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
   # fonts:
   #   -  assets/fonts/stc.ttf
        
