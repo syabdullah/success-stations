@@ -20,6 +20,7 @@ class UserOfferController extends GetxController {
     isLoading = true;
     await userOffers(id).then((value) {
       offerDattaTypeCategory = jsonDecode(value.body);
+      print("category offres ... datasfaahbSVXHAVX.,....$offerDattaTypeCategory");
       isLoading = false;
     });
     update();
