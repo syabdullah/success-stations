@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:success_stations/controller/aboutController.dart';
@@ -18,7 +19,11 @@ class _PrivacyState extends State<Privacy> {
   Widget build(BuildContext context) {
     return Scaffold(
       // bottomNavigationBar: CustomBottomBar(),
-      appBar: AppBar(centerTitle: true,title: Text('privacy'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back)),
+        centerTitle: true,title: Text('privacy'.tr),backgroundColor: AppColors.appBarBackGroundColor),
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
