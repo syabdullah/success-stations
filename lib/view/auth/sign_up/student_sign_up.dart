@@ -12,7 +12,6 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/text_field.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
 // ignore: unused_import
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -251,14 +250,10 @@ class _SignPageState extends State<StudentSignUp> {
         textController: nameController,
         onSaved: (newValue) {},
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "namereq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "Name must be a-z and A-Z";
-          } else
-            return null;
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -279,16 +274,11 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: semesterController,
         onSaved: (newValue) {},
-        validator: (value) {
-          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
-          RegExp regExp = RegExp(pattern);
-          if (value.length == 0) {
-            return "semesterfield".tr;
-          } 
-          else if(!regExp.hasMatch(value)) {
-            return "semester must be in digits";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -310,14 +300,10 @@ class _SignPageState extends State<StudentSignUp> {
         textController: addressController,
         onSaved: (newValue) {},
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "adressField".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "About must be a-z and A-Z";
-          } else
-            return null;
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -338,15 +324,11 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: aboutController,
         onSaved: (newValue) {},
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "aboutfield".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "About must be a-z and A-Z";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -367,15 +349,11 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: degreeController,
         onSaved: (newValue) {},
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "degreeReq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "Degree must be a-z and A-Z";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -425,7 +403,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: InternationalPhoneNumberInput(
         focusNode: FocusNode(),
         inputDecoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left:10,bottom:10),
+          contentPadding: EdgeInsets.only(left:10,bottom:10,right: 10),
           fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,

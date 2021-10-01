@@ -13,6 +13,7 @@ class SignUpController extends GetxController{
   createAccountData(data) async{
     isLoading = true;
     await createAccount(data).then((res){
+      print("/// ${res.body}");
       if(res.statusCode == 200 || res.statusCode < 400){
         signup = jsonDecode(res.body);
         isLoading = false; 
