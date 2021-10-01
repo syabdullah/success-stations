@@ -176,7 +176,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(height: 20,),
                           Text('city0'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
-                          Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          Text(data['city'] != null ? data['city']['city'].toString() : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 11.h,),
                            Text("city2".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),

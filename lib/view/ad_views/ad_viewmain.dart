@@ -29,8 +29,8 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
   
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'aboutsu'.tr),
-    Tab(text: 'offer'.tr),
-    Tab(text: 'location'.tr),
+    Tab(text: 'offerTab'.tr),
+    Tab(text: 'locationTab'.tr),
     Tab(text: 'ads'.tr),
   ];
 

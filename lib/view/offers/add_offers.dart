@@ -188,9 +188,9 @@ class AddOffersState extends State<AddOffersPage> {
           fontSize: 13,
         ),
         decoration: InputDecoration(
-          contentPadding: lang == 'en'
-          ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
-          : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+          // contentPadding: lang == 'en'
+          // ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
+          // : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
           hintText: "offer title".tr,
           hintStyle: TextStyle(fontSize: 13, color: Colors.grey[700]),
           border: OutlineInputBorder(
@@ -247,20 +247,13 @@ class AddOffersState extends State<AddOffersPage> {
   }
 
   Widget url() {
-    return Container(
+    return
+    Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
-      child: CustomTextFiled(
-        isObscure: false,
-        contentPadding: lang == 'en'
-        ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
-        : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
-        hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
-        hintText: "URL",
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: urlContr,
-        onSaved: (newValue) {},
+      child: TextFormField(
+        maxLength: 20,
+        focusNode: FocusNode(),
+        controller: urlContr,
         validator: (val) {
           String pattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)';
           RegExp regExp = RegExp(pattern);
@@ -271,9 +264,24 @@ class AddOffersState extends State<AddOffersPage> {
           }
           return null;
         },
-        errorText: '',
+        style: TextStyle(
+          color: AppColors.inputTextColor,
+          fontSize: 13,
+        ),
+        decoration: InputDecoration(
+          // contentPadding: lang == 'en'
+          // ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
+          // : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+          hintText: "URL".tr,
+          hintStyle: TextStyle(fontSize: 13, color: Colors.grey[700]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+        ),
       ),
     );
+   
   }
 
   Widget offerDesc() {
@@ -296,9 +304,9 @@ class AddOffersState extends State<AddOffersPage> {
               return null;
             },
             decoration: InputDecoration(
-              contentPadding: lang == 'en'
-              ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
-              : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
+              // contentPadding: lang == 'en'
+              // ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
+              // : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
               hintText: "Offer description".tr,
               hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
               border: OutlineInputBorder(

@@ -220,7 +220,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                           child: Row(
                             children: [
                               Container(
-                                margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                                margin:  lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                 child: GestureDetector(
                                   onTap: () {
                                     delete.deleteOfferController(listFavou[c]['id']);
@@ -233,7 +233,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   Get.to(AddOffersPage(), arguments: listFavou[c]);
                                 },
                                 child: Container(
-                                  padding: lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                                  margin: EdgeInsets.only(right: 10),
+                                  padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                   child: Image.asset(AppImages.edit, height: 30)
                                 ),
                               ),
