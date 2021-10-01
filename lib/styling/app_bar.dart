@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +20,11 @@ var currentPostion;
 var position;
 var decideRouter;
 var array = [] ;
+var namearray = [] ;
 var color = Colors.grey[100];
 bool textfeild = true;
+var selectedService;
+var  service_id;
 GetStorage box = GetStorage();
 var cityArray = [];
 var userId = box.read('user_id');
@@ -201,6 +205,8 @@ Widget newAppbar(context ,text,image,) {
     RangeValues _currentRangeValues = const RangeValues(5, 500);
     var start;
   var end;
+  var locationName;
+  var service;
   filtrationModel(context) async {
     var size = MediaQuery.of(context).size;
    showModalBottomSheet(  
@@ -281,88 +287,166 @@ Widget newAppbar(context ,text,image,) {
                             margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                             child: Form(
                               key: formKey,
-                              child: Container(
-                                // padding: EdgeInsets.only(
-                                //   bottom: MediaQuery.of(context).viewInsets.vertical),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabled: textfeild,
-                                    labelText: ('city'.tr),
-                                    // labelStyle: TextStyle(color: AppColors.basicColor),
-                                    prefixIcon: Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderRadius: const BorderRadius.all(
-                                        const Radius.circular(5.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        enabled: textfeild,
+                                        labelText: ('city'.tr),
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(5.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                        )
                                       ),
+                                      onTap: (){
+                                        // setState((){
+                                          
+                                        // });
+                                      },
+                                      onSubmitted: (val) {
+                                         formKey.currentState!.save();
+                                        setState((){
+                                          decideRouter = 'city';
+                                          array.add(val);
+                                          cityArray.add('city[]=$val');
+                                        });                          
+                                      },
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Theme.of(context).primaryColor)
-                                    )
                                   ),
-                                  onTap: (){
-                                    // setState((){
-                                      
-                                    // });
-                                  },
-                                  onSubmitted: (val) {
-                                     formKey.currentState!.save();
-                                    setState((){
-                                      decideRouter = 'city';
-                                      array.add(val);
-                                      cityArray.add('city[]=$val');
-                                    });                          
-                                  },
-                                ),
+                                   Container(
+                                     margin: EdgeInsets.only(top: 10),
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        enabled: textfeild,
+                                        labelText: ('locationName'.tr),
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(5.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                        )
+                                      ),
+                                      onTap: (){
+                                      },
+                                      onSubmitted: (val) {
+                                        formKey.currentState!.save();
+                                        setState((){
+                                          decideRouter = 'name';
+                                          namearray.add(val);
+                                          cityArray.length == 0  ?
+                                          locationName = 'name=$val':
+                                          locationName  = '&name=$val';
+                                        });                        
+                                      },
+                                    ),
+                                  ),
+                                  GetBuilder<ServicesController>( // specify type as Controller
+                                    init: ServicesController(), // 
+                                    builder: (value) {
+                                      return Container(
+                                        margin: EdgeInsets.only(top:10),
+                                        padding: const EdgeInsets.all(4.0),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey,width: 1),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0) //                 <--- border radius here
+                                            ),
+                                        ),
+                                        child:  ButtonTheme(
+                                          alignedDropdown: true,
+                                          child: Container(
+                                            width: Get.width,
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                hint: Text(
+                                                  selectedService != null ? selectedService : 'selectService'.tr, 
+                                                  style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                                                ),
+                                                dropdownColor: AppColors.inPutFieldColor,
+                                                icon: Icon(Icons.arrow_drop_down),
+                                                items: value.servicesListdata.map((coun) {
+                                                  return DropdownMenuItem(
+                                                    value: coun,
+                                                    child:Text(coun['servics_name'])
+                                                  );
+                                                }).toList(),
+                                                onChanged: (val) {
+                                                  var adsubCategory;
+                                                  setState(() {
+                                                    decideRouter = 'name';
+                                                    adsubCategory = val as Map;
+                                                    selectedService = adsubCategory['servics_name'];
+                                                    service_id = adsubCategory['id'];
+                                                    locationName != null  ?
+                                                    locationName = '$locationName&service_id=$service_id':
+                                                    locationName = 'service_id=$service_id';
+                                                  });
+                                                },
+                                              )
+                                            ),
+                                          )
+                                        )
+                                      );
+                                    }
+                                  ),
+                                ],
                               ),
                             )
                           ),
-                          Container(
-                            height: 50,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                            for(var item in array) 
-                            GestureDetector(
-                              onTap: () {
-                                setState((){
-                                  decideRouter = 'nearby';
-                                });
-                              },
-                              child: Container(                          
-                                decoration: BoxDecoration(
-                                   color: Colors.blue[100],
-                                  borderRadius: BorderRadius.circular(20)
-                                ),
-                                // width: Get.width/4,
-                               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                                margin: EdgeInsets.only(top: 10,left: 30),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [                             
-                                    Container(
-                                      child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
-                                    ),
-                                    GestureDetector(
-                                      onTap: (){
-                                        setState((){
-                                            var ind = 1;
-                                            ind = array.indexOf(item);
-                                             array.remove(item);
-                                            cityArray.removeAt(ind);
+                          // Container(
+                          //   height: 50,
+                          //   child: ListView(
+                          //     scrollDirection: Axis.horizontal,
+                          //     children: [
+                          //   for(var item in array) 
+                          //   GestureDetector(
+                          //     onTap: () {
+                          //       setState((){
+                          //         decideRouter = 'nearby';
+                          //       });
+                          //     },
+                          //     child: Container(                          
+                          //       decoration: BoxDecoration(
+                          //          color: Colors.blue[100],
+                          //         borderRadius: BorderRadius.circular(20)
+                          //       ),
+                          //       // width: Get.width/4,
+                          //      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                          //       margin: EdgeInsets.only(top: 10,left: 30),
+                          //       child: Row(
+                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //         children: [                             
+                          //           Container(
+                          //             child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
+                          //           ),
+                          //           GestureDetector(
+                          //             onTap: (){
+                          //               setState((){
+                          //                   var ind = 1;
+                          //                   ind = array.indexOf(item);
+                          //                    array.remove(item);
+                          //                   cityArray.removeAt(ind);
                                            
-                                        });                              
-                                      },
-                                      child: Container(
-                                        child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                              ]
-                            ),
-                          ),
+                          //               });                              
+                          //             },
+                          //             child: Container(
+                          //               child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
+                          //             ),
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          //     ]
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 20,
                           ),
@@ -422,6 +506,7 @@ Widget newAppbar(context ,text,image,) {
                                   onPressed: () {
                                     array.clear();
                                     cityArray.clear();
+                                    locationName = null;
                                     Get.back();
                                     Get.find<LocationController>().getAllLocationToDB();
                                     // Get.to(SignIn());
@@ -440,10 +525,16 @@ Widget newAppbar(context ,text,image,) {
                                     )
                                   ),
                                   onPressed: (){
-                                    if(decideRouter == 'city') {
-                                   var cityFinal = cityArray.toString();
-                                   var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
-                                       Get.find<LocationController>().getAllLocationByCity(cityFinalData);
+                                    var cityFinalData;
+                                    if(decideRouter == 'city' || decideRouter == 'name' ) {
+                                      print("==/=/==/=/==//=====---------$locationName");
+                                      if(cityArray.length != 0) {
+                                        var cityFinal = cityArray.toString();
+                                        cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
+                                      }else {
+                                        cityFinalData = null;
+                                      }
+                                      Get.find<LocationController>().getAllLocationByCity(cityFinalData,locationName);
                                     }else if(decideRouter == 'near'){
                                       Get.find<LocationController>().getAllLocationNearBy(end, position.latitude, position.longitude);
                                     }

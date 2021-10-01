@@ -297,5 +297,7 @@ const Map<String, String> ar = {
   'contactC':'اتصل',
   'favC':'المفضلة',
   "allAds":"جميع الاعلانات",
-  "callme":"اتصل بنا الآن"
+  "callme":"اتصل بنا الآن",
+  "selectService":"حدد الخدمة",
+  "locationName":"اسم الموقع"
 };

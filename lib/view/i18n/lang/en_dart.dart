@@ -291,6 +291,7 @@ const Map<String, String> en = {
   'phoner':'Phone Number is Required',
   'desc':'Decription is Required',
   'myloc':'MY LOCATIONS',
+  'locationName':"Location Name",
   'url':'URL',
   "enterSomeText": 'Please enter some text',
   "city0":"CITY",
@@ -300,7 +301,8 @@ const Map<String, String> en = {
   "city4":"DETAILS",
   "adpostedat":"Ad Posted at",
   "helloPeople":"People Commented on this ad.",
-  "allAds": "All Ads"
+  "allAds": "All Ads",
+  "selectService":"Select Service"
 
 };
 
