@@ -263,7 +263,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr, () => {
                            Get.toNamed('/advertisement')
                           },15.0 ),
-                          CustomListTile(AppImages.ugr, 'agr'.tr, () => {
+                          CustomListTile(AppImages.ugr, 'UGR'.tr, () => {
                             Get.toNamed('/userAgrement') 
                           },12.0 ),
                           CustomListTile(AppImages.contactus, 'contactus'.tr, () => {

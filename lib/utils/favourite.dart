@@ -91,11 +91,12 @@ class _FavouritePageState extends State<FavouritePage> {
           return  SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 20,),
                 GetBuilder<FavoriteController>(
                   init: FavoriteController(),
                   builder: (val) {
-                    return val.isLoading == true  ? CircularProgressIndicator(): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
+                    return val.isLoading == true  ? Center(
+                      child: CircularProgressIndicator()
+                    ): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
                       children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data'])
                       : myAddGridView(val.fvr8DataList['data']) ,
                     ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
@@ -335,14 +336,14 @@ class _FavouritePageState extends State<FavouritePage> {
     faviii.add(
        Container(
          padding: EdgeInsets.symmetric(horizontal:5),
-         margin: EdgeInsets.only(top: 10),
+         margin: EdgeInsets.only(top: 5),
           height: Get.height/1,
           child: GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 5,
           mainAxisSpacing: 5,
           childAspectRatio: (
-           lang == 'en' ?Get.width / 1.10 / Get.height / 0.52:Get.width / 1.10 / Get.height / 0.55),
+           lang == 'en' ?Get.width / 1.01 / Get.height / 0.62:Get.width / 1.10 / Get.height / 0.55),
           children: List.generate(
             newData.length, 
             (index) { 
@@ -469,10 +470,7 @@ class _FavouritePageState extends State<FavouritePage> {
                             Container(
                               margin: EdgeInsets.only(left:28,right: 5),
                               width:55,
-                              // height: 25,
                               decoration: BoxDecoration(
-                                // border: Border.all(),
-                                // borderRadius: BorderRadius.circular(4),
                               border: Border(
                                   top:BorderSide(color: Colors.black,width:1.5, ) ,
                                   right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,

@@ -107,10 +107,12 @@ Widget draftedlist(allDataAdds){
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
+                                width: Get.width/4,
                                 child: 
                                 Text(
                                   allDataAdds[index]['title'][lang] != null  ?
                                   allDataAdds[index]['title'][lang]: allDataAdds[index]['title'][lang] == null ? allDataAdds[index]['title']['en']: '',
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),

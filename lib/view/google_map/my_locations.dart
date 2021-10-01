@@ -34,12 +34,26 @@ class _MyLocationsState extends State<MyLocations> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        leadingWidth: 76,
         backgroundColor: AppColors.appBarBackGroundColor,
         title: Text('myloc'.tr),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-          icon: Icon(Icons.arrow_back_ios)
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IconButton(
+              onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+              icon: Icon(Icons.arrow_back,)
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(AddLocations());
+              },
+              child: Container(
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:24)
+              ),
+            ),
+          ]
         ),
       ),
       drawer: Theme(
@@ -53,28 +67,6 @@ class _MyLocationsState extends State<MyLocations> {
             width: Get.width,
             child: Column(
               children: [
-                Container(
-                  margin: lang=='en'? EdgeInsets.only(left: 10):EdgeInsets.only(right: 10),
-                  height: 60,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.to(AddLocations());
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 20, top: 10),
-                          child:Image.asset(AppImages.plusImage, height: 24)
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          margin: EdgeInsets.only(left: 20, top: 10),
-                          child: Text("addNewLocation".tr,style: TextStyle(color: Colors.grey,))
-                        )
-                      ],
-                    ),
-                  ),
-                ),
                 GetBuilder<LocationController>(
                   init: LocationController(),
                   builder: (val) {
@@ -105,7 +97,7 @@ class _MyLocationsState extends State<MyLocations> {
     return ListView.builder(
       padding: EdgeInsets.all(5),
       itemCount: data != null ? data.length : 0,
-      itemBuilder: (BuildContext, index) {
+      itemBuilder: (BuildContext context, index) {
         return Card(
           child: Container(
             child: Row(

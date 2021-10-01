@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
+import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -20,6 +22,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
   final putData = Get.put(OfferCategoryController());
   bool errorCheck = true;
   final delete = Get.put(UserOfferController());
+  GetStorage box =GetStorage();
   var lang;
   @override
   void initState() {
@@ -38,54 +41,44 @@ class _MyOffersDetailState extends State<OffersDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor:Color(0xFF2F4199) ,
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Icon(
-              Icons.chevron_left,
-              size: 40,
-            )
-          ),
-          centerTitle: true,
-          title: Text('my_Offer'.tr),
-        )
+      appBar: AppBar(
+        leadingWidth: 76,
+        backgroundColor: AppColors.appBarBackGroundColor,
+        title: Text('my_Offer'.tr),
+        centerTitle: true,
+        leading: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IconButton(
+              onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+              icon: Icon(Icons.arrow_back,)
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.to(AddOffersPage());
+              },
+              child: Container(
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:24)
+              ),
+            ),
+          ]
+        ),
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(),
         child: AppDrawer(),
       ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.off(AddOffersPage());
-                  },
-                  child: Container(
-                    margin: lang == 'en' ? EdgeInsets.only(left: 20, top: 10,right: 10)  : EdgeInsets.only(right: 20, top: 10,left: 10),
-                    child: Image.asset(AppImages.plusImage,color: AppColors.appBarBackGroundColor,  height: 24)
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 0, top: 10),
-                  child: Text(
-                    "addnewoffer".tr,style: TextStyle(color: Colors.grey),
-                  )
-                ),
-              ],
-            ),
             GetBuilder<OfferCategoryController>(
               init: OfferCategoryController(),
               builder: (val) {
-                return val.isLoading == true  ? CircularProgressIndicator() : val.myofferListDrawer != null && val.myofferListDrawer['data'] != null
+                return val.isLoading == true  ? Center(
+                  child: CircularProgressIndicator()
+                )
+                  : val.myofferListDrawer != null && val.myofferListDrawer['data'] != null
                 ? Column(
                   children: allOffersWidget(val.myofferListDrawer['data'])
                 )
@@ -113,7 +106,6 @@ class _MyOffersDetailState extends State<OffersDetail> {
       for (int c = 0; c < listFavou.length; c++) {
         favrties.add(
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
             child: Card(
               child: Container(
                 height: 120,
@@ -159,14 +151,17 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               Row(
                                 children: [
                                   Container(
-                                    child: listFavou[c]['text_ads']['en'] != null
-                                    ? Text(
-                                      listFavou[c]['text_ads']['en'].toString(),
-                                      style: TextStyle(
+                                    child: 
+                                    Text(
+                                      listFavou[c]['text_ads'][lang]!=null ? 
+                                      listFavou[c]['text_ads'][lang].toString():
+                                      listFavou[c]['text_ads'][lang]==null?
+                                      listFavou[c]['text_ads']['en'].toString():'',
+                                       style: TextStyle(
                                         color: Colors.grey[700],
                                         fontWeight: FontWeight.bold
                                       ),
-                                    ): Container(),
+                                    )
                                   ),
                                 ],
                               ),
@@ -220,7 +215,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                           child: Row(
                             children: [
                               Container(
-                                margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                                margin:  lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                 child: GestureDetector(
                                   onTap: () {
                                     delete.deleteOfferController(listFavou[c]['id']);
@@ -233,7 +228,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   Get.to(AddOffersPage(), arguments: listFavou[c]);
                                 },
                                 child: Container(
-                                  padding: lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                                  margin: EdgeInsets.only(right: 10),
+                                  padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                   child: Image.asset(AppImages.edit, height: 30)
                                 ),
                               ),

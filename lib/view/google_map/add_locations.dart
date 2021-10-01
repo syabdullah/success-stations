@@ -11,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:success_stations/styling/images.dart';
@@ -70,7 +69,6 @@ class _AddLocationsState extends State<AddLocations> {
       selectedService = dataPage['services'] != null ?   dataPage['services']['servics_name']: null;
       service_id = dataPage['service_id'];
       editImage = dataPage['image'] != null ? dataPage['image']['url']: null;
-      print("..///././../........$dataPage");
       adrr = dataPage['formated_address'];
       street = dataPage['street_address'];
       placeId = dataPage['place'];
@@ -97,7 +95,6 @@ class _AddLocationsState extends State<AddLocations> {
   
   @override
   Widget build(BuildContext context) {
-    //  _showModal();
     return Scaffold(
       body:SafeArea(
         child: Stack(
@@ -125,8 +122,6 @@ class _AddLocationsState extends State<AddLocations> {
         useCurrentLocation: true,
         usePlaceDetailSearch: true,
         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-          // print("...............................${state.}");
-          
           if(state != SearchingState.Searching )
           adrr = selectedPlace!.formattedAddress;
           _modalBottomSheetMenu(adrr , selectedPlace);
@@ -137,8 +132,7 @@ class _AddLocationsState extends State<AddLocations> {
     ); 
   }
   Widget saveButton(data) {
-   
-   final f;
+  final f;
   if(data != null) {
   lnglat =  data!.geometry!.location;
   placeId = data.placeId;
@@ -316,14 +310,15 @@ class _AddLocationsState extends State<AddLocations> {
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10),
                               child: Form(
-                                // key: formKey,
                                 child: Container(
                                   child: TextField(
                                     controller: fullNameController,
                                     style: TextStyle(color: AppColors.inputTextColor),
                                     decoration: InputDecoration(
+                                      isDense: true,                      // Added this
+                                      contentPadding: EdgeInsets.all(12),
                                       labelText: ('Location Name'),
-                                      labelStyle: TextStyle(color: AppColors.inputTextColor),
+                                      labelStyle: TextStyle(color: AppColors.inputTextColor, fontSize: 14),
                                       border: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                           const Radius.circular(5.0),
@@ -344,7 +339,8 @@ class _AddLocationsState extends State<AddLocations> {
                               init: ServicesController(), // 
                               builder: (value) {
                                 return Container(
-                                  padding: const EdgeInsets.all(4.0),
+                                  //  margin: EdgeInsets.only(top:10),
+                                  padding: const EdgeInsets.only(top: 2),
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.grey,width: 1),
                                     borderRadius: BorderRadius.all(
@@ -354,12 +350,13 @@ class _AddLocationsState extends State<AddLocations> {
                                   child:  ButtonTheme(
                                     alignedDropdown: true,
                                     child: Container(
+                                     
                                       width: Get.width,
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton(
                                           hint: Text(
                                             selectedService != null ? selectedService : 'selectService'.tr, 
-                                            style: TextStyle(fontSize: 13,color: AppColors.inputTextColor)
+                                            style: TextStyle(color: AppColors.inputTextColor, fontSize: 14)
                                           ),
                                           dropdownColor: AppColors.inPutFieldColor,
                                           icon: Icon(Icons.arrow_drop_down),

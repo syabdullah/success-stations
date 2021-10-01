@@ -16,7 +16,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
@@ -77,7 +76,7 @@ class _AllAddsState extends State<AllAdds> {
           onTap: (){
             Get.back();
           },
-          child: Image.asset(AppImages.arrowBack)
+          child: Icon(Icons.arrow_back)
         ),
         elevation: 0,
         backgroundColor: AppColors.appBarBackGroundColor,

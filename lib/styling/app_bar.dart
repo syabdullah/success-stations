@@ -163,6 +163,62 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
   );
 }
 
+Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
+  return AppBar(
+    automaticallyImplyLeading: false,
+    centerTitle: true,
+    leadingWidth: 89,
+    leading: GestureDetector(
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              margin: EdgeInsets.only(left:10, top:5),
+              child: Icon(Icons.arrow_back,
+                color: Colors.white, size: 25
+              ),
+            ),
+          ),
+        ],
+      )
+    ),
+    
+    title: Padding(
+      padding: const EdgeInsets.only(top:5.0),
+      child: Text("my_adss".tr)
+    ), 
+    actions: [
+      Container(
+        margin:EdgeInsets.only(right:20, top:5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: (){
+                gridingData.listingGrid('list');
+              },
+              child: Container(
+                margin:EdgeInsets.only(right:5),
+                child: Image.asset(AppImages.listingImage, height:22)
+              )
+            ),
+            GestureDetector(
+              onTap: (){
+                gridingData.listingGrid('grid');
+              },
+              child: Container(
+                child: Image.asset(AppImages.gridListing ,height:22)
+              ),
+            )
+          ],
+        ),
+      ),
+    ],
+    backgroundColor: AppColors.appBarBackGroundColor,
+  );
+}
+
 Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
   return AppBar(
     automaticallyImplyLeading: false,
@@ -234,7 +290,7 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
 
 
 Widget sAppbar(context ,icon,image,) {
-    return AppBar(
+  return AppBar(
       centerTitle: true,
       leading:  Padding(
         padding: const EdgeInsets.only(top:15.0),
@@ -252,7 +308,7 @@ Widget sAppbar(context ,icon,image,) {
     );
   }
 
-  Widget newAppbar(context ,text,image) {
+  Widget newAppbar(context ,icon,image) {
     return AppBar(
       leading: Padding(
         padding: const EdgeInsets.only(top:15.0),
@@ -261,7 +317,7 @@ Widget sAppbar(context ,icon,image,) {
           child: Container(
             padding: EdgeInsets.only(left:15,right: 5),
             child: Text(
-              text,textAlign: TextAlign.left,style: TextStyle(decoration: TextDecoration.underline,fontSize: 16),
+              icon,textAlign: TextAlign.left,style: TextStyle(decoration: TextDecoration.underline,fontSize: 16),
               
             ),
           ),
@@ -288,7 +344,7 @@ Widget sAppbar(context ,icon,image,) {
           ),
         ),
       title: Container(
-        margin: EdgeInsets.only(top:10),
+        margin: EdgeInsets.only(top:5, right:Get.width/6.4),
         child: Center(
           child: Text(
             string
@@ -297,11 +353,11 @@ Widget sAppbar(context ,icon,image,) {
       ), 
       actions: [
         string != 'choose_language_drop'.tr ?
-        Padding(
-          padding: const EdgeInsets.only(right: 10,),
-          child:  Image.asset(
+        // Padding(
+          // padding: const EdgeInsets.only(: 10,),
+           Image.asset(
            AppImages.appBarSearch,color: Colors.white,width: 25.w,
-          ),
+          // ),
         ): Container()
       ],
       backgroundColor: AppColors.appBarBackGroundColor,
@@ -411,7 +467,7 @@ Widget sAppbar(context ,icon,image,) {
                                     child: TextField(
                                       decoration: InputDecoration(
                                         isDense: true,                      // Added this
-                                       contentPadding: EdgeInsets.all(12),  
+                                        contentPadding: EdgeInsets.all(12),  
                                         enabled: textfeild,
                                         hintStyle: TextStyle(color: AppColors.inputTextColor, fontSize: 13),
                                         labelStyle:TextStyle(color: AppColors.inputTextColor, fontSize: 13),

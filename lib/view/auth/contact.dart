@@ -50,15 +50,6 @@ class ContactPageState extends State<Contact> {
           key: formKey,
           child: Column(
             children: [
-              space50, 
-              // Container(
-              //   margin: EdgeInsets.only(top: 60),
-              //   child: Center(
-              //     child: Image.asset(
-              //       AppImages.appLogo, height: Get.height / 4.40
-              //     ),
-              //   ),
-              // ),
               space10,
               name(),
               space10,
@@ -105,6 +96,7 @@ Widget name() {
            borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
           hintText: "nameph".tr,
+          hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: Colors.grey),
@@ -134,8 +126,9 @@ Widget name() {
       ),
       decoration:InputDecoration( 
       focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+        borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
         hintText: "phone".tr,
+        hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
           contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
@@ -149,7 +142,7 @@ Widget name() {
   Widget textArea() {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
+      // width: Get.width * 0.9,
       child:  TextFormField(
           maxLines: 3,
           focusNode:pin4node,
@@ -164,9 +157,11 @@ Widget name() {
             color:AppColors.inputTextColor,fontSize: 18,fontWeight: FontWeight.bold
           ),
           decoration:InputDecoration( 
+            contentPadding: EdgeInsets.only(bottom:10, left:10),
             focusedBorder: OutlineInputBorder(
            borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
             hintText: "description".tr,
+            hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
               borderSide: BorderSide(color: Colors.grey),
