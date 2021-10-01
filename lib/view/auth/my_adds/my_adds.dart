@@ -7,21 +7,23 @@ import 'package:success_stations/controller/ad_delete_controller.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
 }
 class _MyAddsState extends State<MyAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final controllerCat = Get.put(CategoryController());
    final friCont = Get.put(FriendsController()); 
@@ -56,119 +58,121 @@ class _MyAddsState extends State<MyAdds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
-       drawer: Theme(
-        data: Theme.of(context).copyWith(       
-        ),
-        child: AppDrawer(),
+      key: _scaffoldKey,
+      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
+        child: myAdds(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
       ),
-      body: ListView(
-        children: [
-          topWidget(),
-          SizedBox(height: 10),
-          GetBuilder<CategoryController>(
-            init: CategoryController(),
-            builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): 
-              data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
-              : Container();
-            },
-          ), 
-          SizedBox(height: 15),   
-          categorybool == false ? 
-          GetBuilder<AddBasedController>(
-          init: AddBasedController(),
-          builder: (val) {
-            return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
-            listtype == 'list' ? myAddsList(val.myALLAdd['data']): 
-            myAddGridView(val.myALLAdd['data'])
-            : myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
-            Container(
-              margin: EdgeInsets.only(top: Get.height / 3),
-              child: Center(
-                child: Text(
-                  val.myALLAdd['errors'],
-                  style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ): Container();
-          }
-        ) : GetBuilder<AddBasedController>(
-          init: AddBasedController(),
-          builder: (val){
-            return val.isLoading == true || val.cData == null? Container()
-              : val.cData['data'] == null ? Container()
-              : listtype != 'grid' ? myAddsList(val.cData['data']) : 
-                myAddGridView(val.cData['data']
-            );
-          },
-        ),
-      ],
+      body: GetBuilder<GridListCategory>(
+        init: GridListCategory(),
+        builder: (valuee){
+          return  ListView(
+            children: [
+              SizedBox(height: 10),
+              GetBuilder<CategoryController>(
+                init: CategoryController(),
+                builder: (data){
+                  return data.isLoading == true ? CircularProgressIndicator(): 
+                  data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
+                  : Container();
+                },
+              ), 
+              SizedBox(height: 10),   
+              categorybool == false ? 
+              GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val) {
+                return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
+                valuee.dataType == 'list' ? myAddsList(val.myALLAdd['data']): 
+                myAddGridView(val.myALLAdd['data'])
+                : myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
+                Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      val.myALLAdd['errors'],
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ): Container();
+              }
+            ) : GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val){
+                return val.isLoading == true || val.cData == null? Container()
+                  : val.cData['data'] == null ? Container()
+                  : valuee.dataType != 'grid' ? myAddsList(val.cData['data']) : 
+                    myAddGridView(val.cData['data']
+                );
+              },
+            ),
+          ],
+          );
+        }
       ),
     );
   }
-    Widget topWidget() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [         
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                 Get.to(AddPostingScreen());
-                },
-                child: Container(
-                  margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                  child: Image.asset(AppImages.plusImage, height:24)
-                ),
-              ),
-              Container(
-                margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
-            ],
-          ),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                    isButtonPressed = !isButtonPressed;
-                    gridIconColor = AppColors.appBarBackGroundColor;
-                    listIconColor = Colors.grey;
-                    grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                ),
-              ),
-              SizedBox(width: 5,),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'list';
-                      gridIconColor = Colors.grey;
-                      listIconColor = AppColors.appBarBackGroundColor;
-                      grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
-              ),
-              SizedBox(height: 30,width: 15,)
-            ],
-          )
-        ],
-      );
-    }
+  // Widget topWidget() {
+  //     return Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [         
+  //         Row(
+  //           children: [
+  //             GestureDetector(
+  //               onTap: () {
+  //                Get.to(AddPostingScreen());
+  //               },
+  //               child: Container(
+  //                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
+  //                 child: Image.asset(AppImages.plusImage, color: AppColors.appBarBackGroundColor, height:24)
+  //               ),
+  //             ),
+  //             Container(
+  //               margin:EdgeInsets.only(left:10,right: 10,top: 20),
+  //               child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
+  //           ],
+  //         ),
+  //         Row(
+  //           children: [
+  //             Container(
+  //               margin: EdgeInsets.only(top: 20),
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'grid';
+  //                   isButtonPressed = !isButtonPressed;
+  //                   gridIconColor = AppColors.appBarBackGroundColor;
+  //                   listIconColor = Colors.grey;
+  //                   grid = AppImages.gridOf;
+  //                   });
+  //                 },
+  //                 child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+  //               ),
+  //             ),
+  //             SizedBox(width: 5,),
+  //             Container(
+  //               margin: EdgeInsets.only(top: 20),
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'list';
+  //                     gridIconColor = Colors.grey;
+  //                     listIconColor = AppColors.appBarBackGroundColor;
+  //                     grid = AppImages.gridOf;
+  //                   });
+  //                 },
+  //                 child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+  //               ),
+  //             ),
+  //             SizedBox(height: 30,width: 15,)
+  //           ],
+  //         )
+  //       ],
+  //     );
+  //   }
   
 void _adsfiltringheet() {
     showModalBottomSheet<void>(
@@ -518,7 +522,7 @@ void _adsfiltringheet() {
         mainAxisSpacing: 5,
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.75 :0),
+        ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.90 :0),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -543,30 +547,30 @@ void _adsfiltringheet() {
                         width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                         height: Get.height /8.0,
                         child: dataListValue[index]['media'].length != 0 ?
-                              Stack(
-                                alignment:AlignmentDirectional.topEnd,
-                                children: [
-                                  Container(
-                                     width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                                       height: Get.height /8.0,
-                                    child: Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill)),
-                                     Transform.scale(
-                                    scale: .7,
-                                    child: Switch.adaptive(
-                                        activeColor: AppColors.appBarBackGroundColor,
-                                        value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                      // setState(() {
-                                        dataListValue[index]['is_active'] == 1 ?
-                                        controller.deactiveAd(dataListValue[index]['id']) :
-                                        controller.activeAd(dataListValue[index]['id']) ;
-                                        controller.addesMyListAll();
-                                        controller.addedByIdAddes(catID, userId);
-                                      // });
-                                  
-                                    }),
-                                  ),   
-                                ],
-                              ) :
+                          Stack(
+                            alignment:AlignmentDirectional.topEnd,
+                            children: [
+                              Container(
+                                  width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                                    height: Get.height /8.0,
+                                child: Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill)),
+                                  Transform.scale(
+                                scale: .7,
+                                child: Switch.adaptive(
+                                    activeColor: AppColors.appBarBackGroundColor,
+                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                  // setState(() {
+                                    dataListValue[index]['is_active'] == 1 ?
+                                    controller.deactiveAd(dataListValue[index]['id']) :
+                                    controller.activeAd(dataListValue[index]['id']) ;
+                                    controller.addesMyListAll();
+                                    controller.addedByIdAddes(catID, userId);
+                                  // });
+                              
+                                }),
+                              ),   
+                            ],
+                          ) :
                               Container(
                                 width: Get.width/4,
                                 child: Stack(

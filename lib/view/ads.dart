@@ -56,17 +56,18 @@ class _AdsViewState extends State<AdsView> {
       children: [
         ListView(
           children: [            
-              GetBuilder<BannerController>(
-                init: BannerController(),
-                builder: (data){
-                  imgList = [];
-                  return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
-                  Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
-                    children: [
-                      carosalImage(data.bannerData['data']),
-                    ],
-                  );
-                }),
+            GetBuilder<BannerController>(
+              init: BannerController(),
+              builder: (data){
+                imgList = [];
+                return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
+                Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
+                  children: [
+                    carosalImage(data.bannerData['data']),
+                  ],
+                );
+              }
+            ),
              featureTextAdded("advertisingCategories".tr,"all".tr),
              GetBuilder<CategoryController>(
               init: CategoryController(),

@@ -42,25 +42,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
   var counCode, counID, hintTextCountry,selectedCity, selectedCountry, selectedRegion , hintRegionText, hintcityText;
   List selectedValues = [];
   var servID;
-
-  var array = [
-    {
-      "display": "Australia",
-      "value": 1,
-    },
-    {
-      "display": "Canada",
-      "value": 2,
-    },
-    {
-      "display": "India",
-      "value": 3,
-    },
-    {
-      "display": "United States",
-      "value": 4,
-    }
-  ];
   TextEditingController fulNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -467,18 +448,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
               cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
             ),
             onChanged: (date) {
-              print('change $date in time zone ' +
-              date.timeZoneOffset.inHours.toString());
             }, 
             onConfirm: (date) {
               setState(() {
                 dateTime = date;
-                print('confirm...sheeee $dateTime');
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
-                
+                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
               });
-              
             },    
             currentTime: DateTime.now(), locale: LocaleType.en
           );
@@ -486,7 +461,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'date_of_birth'.tr : finalDate, style: TextStyle(color: Colors.grey[500],fontSize: 17)),
+            Text(dateTime == null ? 'date_of_birth'.tr : finalDate.toString(), style: TextStyle(color: Colors.grey[500],fontSize: 17)),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {
@@ -514,7 +489,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 dateTime = date;
                 print('confirm...sheeee $dateTime');
                   finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
                 
               });
               

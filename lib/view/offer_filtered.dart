@@ -18,24 +18,12 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
   final getData = Get.put(DraftAdsController());
   final adContr = Get.put(OfferCategoryController());
   final frindCont = Get.put(FriendsController());
-  //   allWordsCapitilize (String str) {
-  //   return str.toLowerCase().split(' ').map((word) {
-  //     String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
-  //     return word[0].toUpperCase() + leftText;
-  //   }).join(' ');
-  // }
 
   final ratingFilteringController = Get.put(RatingController());
   var lang;
   bool liked = false;
   var userId;
   GetStorage box = GetStorage();
-  @override
-  // void initState() {
-  //   // adContr.addedAllAds();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

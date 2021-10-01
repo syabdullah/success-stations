@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
@@ -18,7 +19,6 @@ class FriendList extends StatefulWidget {
 class _FriendListState extends State<FriendList> {
   final friCont = Get.put(FriendsController());
   GetStorage box = GetStorage();
-  var listtype = 'grid';
   var grid = AppImages.gridOf;
   Color listIconColor = Colors.grey;
    Color gridIconColor = AppColors.appBarBackGroundColor;
@@ -55,138 +55,28 @@ class _FriendListState extends State<FriendList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        topWidget(),
-        GetBuilder<FriendsController>(
-            init: FriendsController(),
-            builder: (val) {
-            return 
-            val.friendsData == null 
-            ? shimmer() :  val.friendsData['success'] == false ?
-             Container(
-               height: Get.height/1.8,
-                child: Center(child: Text("nofriends".tr)))
-            : val.friendsData['data'].length == 0 ||
-                val.friendsData == null || val.friendsData['success'] == false
-            ? Container(
-                child: Text("nofriends".tr),
-            )
-            : Expanded(
-              child: listtype == 'list'
-              ? friendList(val.friendsData['data'])
-              : friendGridView(val.friendsData['data']));
-        })
-      ],
-    );
-  }
- bmsheet(){
-    return Container(
-        height: Get.height/1.3,
-        width: Get.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
-        )
-      ),
-      child: ListView(
-        children: [
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              margin: lang == 'en'
-              ? EdgeInsets.only(top: 8, left: 8)
-              : EdgeInsets.only(top: 8, right: 8),
-              child: Text("filter".tr,
-                style: TextStyle(
-                  fontSize: 20, color: Colors.black
-                )
-              ),
-            ),
-          ),
-          
-          SizedBox(height: 10,),
-          name(),
-          SizedBox(height: 10,),
-          city(),
-          SizedBox(height: 10,),
-          degree(),
-          SizedBox(height: 10,),
-          semester(),
-          SizedBox(height: 20,),
-          buttons()
-        ]    
-      ),
-    );
-  }
-  Widget topWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        // GestureDetector(
-        //   child: Container(
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(13),
-        //       color: Colors.grey[200],
-        //     ),
-        //     margin: EdgeInsets.only(left: 10,right: 10,top: 20),
-        //     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        //     child: Row(
-        //       children: [
-        //         Image.asset(AppImages.filter, height: 15),
-        //         SizedBox(width: 5),
-        //         Text(
-        //           "filter".tr,
-        //           style: TextStyle(color: Colors.grey[700]),
-        //         )
-        //       ],
-        //   ),
-        // )),
-        Row(
+    return GetBuilder<GridListCategory>(
+      init: GridListCategory(),
+      builder: (valuee){
+        return Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                    listIconColor = Colors.grey;
-                    gridIconColor = AppColors.appBarBackGroundColor;
-                    grid = AppImages.grid;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                ),
-              ),
-          
-            SizedBox(width: 5,),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                       listtype = 'list';
-                      gridIconColor = Colors.grey;
-                      listIconColor = AppColors.appBarBackGroundColor;
-                      grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
-              ),
-            SizedBox(
-              height: 30,
-              width: 15,
+            GetBuilder<FriendsController>(
+              init: FriendsController(),
+              builder: (val) {
+                return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0 || val.friendsData == null
+                ? Container(
+                  child: Text("nofriends".tr),
+                )
+                : Expanded(
+                  child: valuee.dataType == 'list'
+                  ? friendList(val.friendsData['data'])
+                  : friendGridView(val.friendsData['data'])
+                );
+              }
             )
           ],
-        )
-      ],
+        );
+      }
     );
   }
 

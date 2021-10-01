@@ -30,54 +30,47 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
     final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
       key: _scaffoldKey,
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(70.0),
-      //   child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
-      //       AppImages.appBarSearch, 1),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: Size.fromHeight(60.0),
         child: AppBar(
           title: Image.asset(
             AppImages.appBarLogo,
             height: 40,
           ),
           leading: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(Icons.arrow_back_ios_outlined)),
-          backgroundColor: AppColors.appBarBackGroundColor,
-          centerTitle: true,
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(Icons.arrow_back)),
+            backgroundColor: AppColors.appBarBackGroundColor,
+            centerTitle: true,
         ),
       ),
 
       drawer: Theme(
-        data: Theme.of(context).copyWith(
-            // canvasColor: AppColors.botomTiles
-            ),
+        data: Theme.of(context).copyWith( ),
         child: AppDrawer(),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
+            // SizedBox(height: 20),
             Container(
-                child: Column(
-              children: [
-                Container(
-                    width: Get.width / 1.1,
-                    child: homeCategoryById != null &&
-                            homeCategoryById['image'] != null &&
-                            homeCategoryById['image']['url'] != null
-                        ? Image.network(homeCategoryById['image']['url'],
-                            height: Get.height / 2, fit: BoxFit.fitHeight)
-                        : Container(
-                            child: Icon(
-                              Icons.image,
-                              size: 50,
-                            ),
-                          )),
+              child: Column(
+                children: [
+                  Container(
+                    child: homeCategoryById != null && homeCategoryById['image'] != null && homeCategoryById['image']['url'] != null
+                      ? Image.network(homeCategoryById['image']['url'],
+                        height: Get.height / 2, fit: BoxFit.fitHeight
+                      )
+                      : Container(
+                        child: Icon(
+                          Icons.image,
+                          size: 50,
+                        ),
+                      )
+                    ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -85,14 +78,13 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                       height: Get.height / 3.3,
                       child: Card(
                         elevation: 2.0,
-                        margin: EdgeInsets.only(left: 20, right: 20),
+                        // margin: EdgeInsets.only(left: 20, right: 20),
                         child: Column(
                           children: [
                             Container(
                                 width: MediaQuery.of(context).size.width / 1,
                                 color: AppColors.appBarBackGroundColor,
-                                padding: EdgeInsets.only(
-                                        top: 10, bottom: 15, right: 25,left: 20),
+                                padding: EdgeInsets.only( top: 10, bottom: 15, right: 25,left: 20),
                                 child: homeCategoryById != null &&
                                         homeCategoryById['url'] != null
                                     ? Row(

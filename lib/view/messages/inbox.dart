@@ -7,7 +7,6 @@ import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
 import 'dart:ui' as ui;
 
@@ -202,7 +201,7 @@ Widget recentChat(data){
                         onTap: (){
                           Get.back();
                         },
-                        child: Image.asset(AppImages.arrowBack)
+                        child: Icon(Icons.arrow_back)
                       ),
                       elevation: 0,
                       backgroundColor: AppColors.appBarBackGroundColor,

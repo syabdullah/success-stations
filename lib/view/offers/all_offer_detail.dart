@@ -19,7 +19,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   @override
   void initState() {
     idIdId = Get.arguments;
-    print("id by get ids...........$idIdId");
     lang = box.read('lang_code');
     super.initState();
   }
@@ -42,12 +41,11 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height:20),
+            // SizedBox(height:20),
             Container(
               child: Column(
               children: [
                 Container(
-                  width: Get.width/1.1,
                   child:  idIdId !=null && idIdId['image'] !=null && idIdId['image']['url'] !=null ? 
                   Image.network(idIdId['image']['url'], height:Get.height/2, fit:BoxFit.fitHeight ):Container(
                     child: Icon(Icons.image,size: 50,),
@@ -59,11 +57,10 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       height: Get.height/3.3,
                       child: Card(
                         elevation: 2.0,
-                        margin: lang=='en'?EdgeInsets.only(left:19,right:19):EdgeInsets.only(left:19,right:19),
+                        // margin: lang=='en'?EdgeInsets.only(left:19,right:19):EdgeInsets.only(left:19,right:19),
                         child: Column(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width/1,
                               color: AppColors.appBarBackGroundColor,
                               padding: EdgeInsets.only(top:10,bottom:15,left: 15),
                               child: idIdId !=null && idIdId['url'] !=null ?
