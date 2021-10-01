@@ -863,7 +863,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         });
                       },
                     ),Container(
-                    child: Text(t.text,style: TextStyle(fontSize: 16,color: Colors.grey),),)
+                    child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
                   ],
                 ),
               )).toList()

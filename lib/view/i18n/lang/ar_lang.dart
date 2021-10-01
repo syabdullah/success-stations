@@ -302,5 +302,7 @@ const Map<String, String> ar = {
   "allAds":"جميع الاعلانات",
   "callme":"اتصل بنا الآن",
   "selectService":"حدد الخدمة",
-  "locationName":"اسم الموقع"
+  "locationName":"اسم الموقع",
+  "digitSemester":"الفصل الدراسي بالأرقام فقط",
+  "viewprofile": "الملف الشخصي"
 };
