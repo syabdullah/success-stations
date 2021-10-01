@@ -15,6 +15,7 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 List<String> imgList = [];
 
@@ -371,108 +372,177 @@ class _AdsViewState extends State<AdsView> {
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                     child: Container(
                       width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.0:  Get.height/9.5,
+                      height: Get.width < 420 ? Get.height/7.2:  Get.height/9.5,
                       child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
                         child: Icon(Icons.image,size: 50,),
                       )
                     ),
                   ),
-                  Align(
+                 
+                  
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [   
+                       Container(
+                           margin: lang == 'ar' ?  EdgeInsets.only(top:5,right: 5):  EdgeInsets.only(top:5,left: 5),
+                           child: data[index]
+                           ['is_rated'] == false
+                           ? RatingBar.builder(
+                             initialRating:
+                             data[index]['rating'].toDouble(),
+                             minRating: 1,
+                             direction: Axis.horizontal,
+                             allowHalfRating: true,
+                             itemCount: 5,
+                             itemSize: 18.0,
+                             itemBuilder: (context, _) =>
+                                 Icon(
+                               Icons.star,
+                               color: Colors.amber,
+                             ),
+                             onRatingUpdate: (rating) {
+                              
+                               var ratingjson = {
+                                 'ads_id':
+                                     data[index]
+                                         ['id'],
+                                 'rate': rating
+                               };
+                              
+                               ratingcont
+                                   .ratings(ratingjson);
+                             },
+                           )
+                         : RatingBar.builder(
+                             initialRating:
+                             data[index]['rating'].toDouble(),
+                             ignoreGestures: true,
+                             minRating: 1,
+                             direction: Axis.horizontal,
+                             allowHalfRating: true,
+                             itemCount: 5,
+                             itemSize: 22.5,
+                             itemBuilder: (context, _) =>
+                             Icon(
+                               Icons.star,
+                               color: Colors.amber,
+                             ),
+                             onRatingUpdate: (rating) {
+                               // ratingcont.getratings(allDataAdds[index]['id']);
+                             },
+                           )
+                       ),       
+                        Align(
                     alignment: Alignment.center,
                     child: Container(                   
                       margin: EdgeInsets.only(top:5,),
                       child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]: data[index]['title']['ar'] == null  ? data[index]['title']['en']:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
                     ),
-                  ),
-                  
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [   
-                       Row(
-                    children: [
-                      Container(
-                          margin: lang == 'ar' ?  EdgeInsets.only(top:5,right: 5):  EdgeInsets.only(top:5,left: 5),
-                          child: data[index]
-                          ['is_rated'] ==
-                            false
-                          ? RatingBar.builder(
-                            initialRating:
-                            data[index]['rating'].toDouble(),
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemSize: 18.0,
-                            itemBuilder: (context, _) =>
-                                Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            onRatingUpdate: (rating) {
+                  ),         
+                   Row(
+                     children: [
+                       Container(
                              
-                              var ratingjson = {
-                                'ads_id':
-                                    data[index]
-                                        ['id'],
-                                'rate': rating
-                              };
+                            child: data[index]['price'] !=null ? Text(
+                              '$price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
+                            ): Container()
+                          ),
+                           Container(
                              
-                              ratingcont
-                                  .ratings(ratingjson);
-                            },
-                          )
-                        : RatingBar.builder(
-                            initialRating:
-                            data[index]['rating'].toDouble(),
-                            ignoreGestures: true,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemSize: 22.5,
-                            itemBuilder: (context, _) =>
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
+                            child: data[index]['price'] !=null ? Text(
+                              ' SAR',style: TextStyle(fontSize: 8,color:AppColors.appBarBackGroundColor,),
+                            ): Container()
+                          ),
+                     ],
+                   ),       
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Stack(
+                          alignment:AlignmentDirectional.topStart,
+                         children: [
+                            Positioned(
+                              left: 10,
+                              top:2.5,
+                              child: Image.asset(AppImages.newuser,height: 20,),
                             ),
-                            onRatingUpdate: (rating) {
-                              // ratingcont.getratings(allDataAdds[index]['id']);
-                            },
-                          )
-                      )
-                    ],
-                  ),                  
-                      Container(
-                        margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 5),
-                        width: Get.width/2.3,
-                        child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 5),
-                                  child: Image.asset(AppImages.location,height: 13, color:Colors.grey[600],)
-                                ),                        
-                                Container(
-                                  width: Get.width/4.9,
-                                  margin: EdgeInsets.only(left:5),
-                                  child: data[index]['city'] !=null?  Text(data[index]['city']['city'],
-                                  style: TextStyle(fontSize: 13,color:Colors.grey[600])
-                                  ): Container()
+                            Container(
+                              margin: EdgeInsets.only(left:28,right: 5),
+                              width:55,
+                              // height: 25,
+                              decoration: BoxDecoration(
+                                // border: Border.all(),
+                                // borderRadius: BorderRadius.circular(4),
+                              border: Border(
+                                  top:BorderSide(color: Colors.black,width:1.5, ) ,
+                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
+                                  left: BorderSide(color: Colors.grey,width: 0.3),
+                                  bottom: BorderSide(color: Colors.black,width:1.5,)
                                 ),
-                                
-                              ],
-                            ),                         
-                          ],
-                        ),
-                      ),
-                      Container(
-                         margin: lang == 'ar' ?  EdgeInsets.only(right: 5):  EdgeInsets.only(left: 10),
-                        child: data[index]['price'] !=null ? Text(
-                          'SAR: $price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
-                        ): Container()
-                      ),                 
+                             
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.only(left:5,right: 5),
+                              child: Text(
+                                data[index]['contact_name'],
+                                overflow: TextOverflow.ellipsis,
+                                )),
+                            )
+                         ],
+                       ),
+                         GestureDetector(
+                           onTap: (){
+                             launch("tel:${data[index]['phone']}");
+                           },
+                           child: Container(
+                             margin: EdgeInsets.only(left:5,right: 5),
+                             child: Row(
+                               children: [
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 63,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.newphoneColor,
+                                     borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                       :BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
+                                 ),
+                                 Container(
+                                  margin: EdgeInsets.only(),
+                                  width: 20,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: lang == "ar" ?
+                                     BorderRadius.only(
+                                       topLeft: Radius.circular(15),
+                                       bottomLeft: Radius.circular(15)
+                                       )
+                                       :
+                                       BorderRadius.only(
+                                       topRight: Radius.circular(15),
+                                       bottomRight: Radius.circular(15)
+                                       )
+                                  ),
+                                  child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
+                                 ),
+                               ],
+                             ),
+                           ),
+                         )
+                     
+                      ],
+                    )
+                                 
                                           
                     ],
                   ),

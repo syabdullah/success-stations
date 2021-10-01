@@ -349,7 +349,6 @@ class _FavouritePageState extends State<FavouritePage> {
               return Container(
                 height: Get.height,
                 decoration: BoxDecoration(
-                // borderRadius:BorderRadius.circular(3),
                 border: Border.all(color: Colors.black)
                 ), 
                 child: Column(

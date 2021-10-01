@@ -791,238 +791,243 @@ class _AllAddsState extends State<AllAdds> {
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
             splitedPrice = price.split('.');
-            return  Container(
-              height: Get.height,
-              decoration: BoxDecoration(
-                // borderRadius:BorderRadius.circular(3),
-                border: Border.all(color: Colors.black)
-              ),
-              child: Column(
-                children: [
-                   Container(
-                        width: Get.width < 420
-                        ? Get.width / 1.4
-                        : Get.width / 2.3,
-                         height: Get.height /8.0,
-                        child: dataListValue[index]['image'].length != 0
-                        ? Stack(
-                         alignment:AlignmentDirectional.topStart,
-                          children: [
-                            Image.network(
-                              dataListValue[index]['image'][0]['url'],
-                              width: Get.width,
-                              height: 100,
-                              fit: BoxFit.fill
-                            ),
-                            Container(
-                               padding: EdgeInsets.only(right: 5,left: 5,top: 5),
-                              child: GestureDetector(
-                                onTap: () {
-                                  var json = {
-                                    'ads_id': dataListValue[index]['id']
-                                  };
-                                 dataListValue[index]['is_favorite'] ==false ? 
-                                 friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
-                                 controller.addedAllAds();
-                                 controller.addedByIdAddes(dataListValue[index]['category_id'], null);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.only(right: 2,left: 5),
-                                  child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 30)
-                                  : Image.asset(AppImages.redHeart,height: 30)
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                        : Stack(
-                         alignment:AlignmentDirectional.topStart,
-                          children: [
-                           
-                            Container(
-                              padding: EdgeInsets.only(right: 6,bottom: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  var json = {
-                                    'ads_id': dataListValue[index]['id']
-                                  };
-                                  // liked = !liked;
-                                  dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId);
-                                  controller.addedAllAds(); 
-                                  controller.addedByIdAddes(dataListValue[index]['category_id'], null);
-                                                     
-                                 },
-                                child: Container(
-                                  padding: EdgeInsets.only(right: 5,left: 5),
-                                  child: dataListValue[index]['is_favorite'] ==false
-                                  ? Image.asset(AppImages.blueHeart,height: 30)
-                                  : Image.asset(AppImages.redHeart,height: 30)
-                                ),
-                              ),
-                            ),
-                             Positioned(
-                              //  right: 20,
-                              //  left: 15,
-                              child: Container(),
-                             ),
-                          ],
-                        )
-                      ),
+            return  GestureDetector(
+              onTap: (){
+                Get.to(AdViewScreen(), arguments: dataListValue[index]['id']);
+              },
+              child: Container(
+                height: Get.height,
+                decoration: BoxDecoration(
+                  // borderRadius:BorderRadius.circular(3),
+                  border: Border.all(color: Colors.black)
+                ),
+                child: Column(
+                  children: [
                      Container(
-                       margin: EdgeInsets.only(left:10,right: 10),
-                       child: Container(
-                         child: dataListValue[index]['is_rated'] ==false
-                         ? RatingBar.builder(
-                           initialRating: dataListValue[index]['rating'].toDouble(),
-                           minRating: 1,
-                           direction: Axis.horizontal,
-                           allowHalfRating: true,
-                           itemCount: 5,
-                           itemSize: 14.5,
-                           itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                           onRatingUpdate: (rating) {
-                             var ratingjson = {
-                               'ads_id': dataListValue[index]['id'],
-                               'rate': rating
-                             };
-                             ratingcont.ratings(ratingjson);
-                             // ratingcont.getratings(allDataAdds[index]['id']);
-                           },
-                         )
-                         : RatingBar.builder(
-                           initialRating: dataListValue[index]['rating'].toDouble(),
-                           ignoreGestures: true,
-                           minRating: 1,
-                           direction: Axis.horizontal,
-                           allowHalfRating: true,
-                           itemCount: 5,
-                           itemSize: 14.5,
-                           itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                           onRatingUpdate: (rating) {
-                             // ratingcont.getratings(allDataAdds[index]['id']);
-                           },
-                         )
-                       ),
-                     ),
-                      Container(
-                      alignment: lang == 'en'
-                      ? Alignment.center
-                      : Alignment.center,
-                      child: Text(
-                        dataListValue[index]['title'] != null
-                        ? dataListValue[index]['title']['en'].toString()
-                        : '',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold
-                        )
-                      ),
-                    ),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Text(
-                           dataListValue[index]['price'] !=null
-                           ? "${splitedPrice[0]}"
-                           : '',
-                           style: TextStyle(color: AppColors.appBarBackGroundColor),
-                    ),
-                     Text(
-                       ' SAR',
-                       style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 7),
-                    ),
-                       ],
-                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Stack(
-                          alignment:AlignmentDirectional.topStart,
-                         children: [
-                            Positioned(
-                              left: 10,
-                              top:2.5,
-                              child: Image.asset(AppImages.newuser,height: 20,),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left:28,right: 5),
-                              width:55,
-                              // height: 25,
-                              decoration: BoxDecoration(
-                                // border: Border.all(),
-                                // borderRadius: BorderRadius.circular(4),
-                              border: Border(
-                                  top:BorderSide(color: Colors.black,width:1.5, ) ,
-                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
-                                  left: BorderSide(color: Colors.grey,width: 0.3),
-                                  bottom: BorderSide(color: Colors.black,width:1.5,)
+                          width: Get.width < 420
+                          ? Get.width / 1.4
+                          : Get.width / 2.3,
+                           height: Get.height /8.0,
+                          child: dataListValue[index]['image'].length != 0
+                          ? Stack(
+                           alignment:AlignmentDirectional.topStart,
+                            children: [
+                              Image.network(
+                                dataListValue[index]['image'][0]['url'],
+                                width: Get.width,
+                                height: 100,
+                                fit: BoxFit.fill
+                              ),
+                              Container(
+                                 padding: EdgeInsets.only(right: 5,left: 5,top: 5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    var json = {
+                                      'ads_id': dataListValue[index]['id']
+                                    };
+                                   dataListValue[index]['is_favorite'] ==false ? 
+                                   friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
+                                   controller.addedAllAds();
+                                   controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: 2,left: 5),
+                                    child: dataListValue[index]['is_favorite'] ==false
+                                    ? Image.asset(AppImages.blueHeart,height: 30)
+                                    : Image.asset(AppImages.redHeart,height: 30)
+                                  ),
                                 ),
+                              ),
+                            ],
+                          )
+                          : Stack(
+                           alignment:AlignmentDirectional.topStart,
+                            children: [
                              
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.only(left:5,right: 5),
-                              child: Text(
-                                dataListValue[index]['contact_name'],
-                                overflow: TextOverflow.ellipsis,
-                                )),
-                            )
+                              Container(
+                                padding: EdgeInsets.only(right: 6,bottom: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    var json = {
+                                      'ads_id': dataListValue[index]['id']
+                                    };
+                                    // liked = !liked;
+                                    dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId);
+                                    controller.addedAllAds(); 
+                                    controller.addedByIdAddes(dataListValue[index]['category_id'], null);
+                                                       
+                                   },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: 5,left: 5),
+                                    child: dataListValue[index]['is_favorite'] ==false
+                                    ? Image.asset(AppImages.blueHeart,height: 30)
+                                    : Image.asset(AppImages.redHeart,height: 30)
+                                  ),
+                                ),
+                              ),
+                               Positioned(
+                                //  right: 20,
+                                //  left: 15,
+                                child: Container(),
+                               ),
+                            ],
+                          )
+                        ),
+                       Container(
+                         margin: EdgeInsets.only(left:10,right: 10),
+                         child: Container(
+                           child: dataListValue[index]['is_rated'] ==false
+                           ? RatingBar.builder(
+                             initialRating: dataListValue[index]['rating'].toDouble(),
+                             minRating: 1,
+                             direction: Axis.horizontal,
+                             allowHalfRating: true,
+                             itemCount: 5,
+                             itemSize: 14.5,
+                             itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                             onRatingUpdate: (rating) {
+                               var ratingjson = {
+                                 'ads_id': dataListValue[index]['id'],
+                                 'rate': rating
+                               };
+                               ratingcont.ratings(ratingjson);
+                               // ratingcont.getratings(allDataAdds[index]['id']);
+                             },
+                           )
+                           : RatingBar.builder(
+                             initialRating: dataListValue[index]['rating'].toDouble(),
+                             ignoreGestures: true,
+                             minRating: 1,
+                             direction: Axis.horizontal,
+                             allowHalfRating: true,
+                             itemCount: 5,
+                             itemSize: 14.5,
+                             itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                             onRatingUpdate: (rating) {
+                               // ratingcont.getratings(allDataAdds[index]['id']);
+                             },
+                           )
+                         ),
+                       ),
+                        Container(
+                        alignment: lang == 'en'
+                        ? Alignment.center
+                        : Alignment.center,
+                        child: Text(
+                          dataListValue[index]['title'] != null
+                          ? dataListValue[index]['title']['en'].toString()
+                          : '',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold
+                          )
+                        ),
+                      ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           Text(
+                             dataListValue[index]['price'] !=null
+                             ? "${splitedPrice[0]}"
+                             : '',
+                             style: TextStyle(color: AppColors.appBarBackGroundColor),
+                      ),
+                       Text(
+                         ' SAR',
+                         style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 7),
+                      ),
                          ],
                        ),
-                         GestureDetector(
-                           onTap: (){
-                             launch("tel:${dataListValue[index]['phone']}");
-                           },
-                           child: Container(
-                             margin: EdgeInsets.only(left:5,right: 5),
-                             child: Row(
-                               children: [
-                                 Container(
-                                  margin: EdgeInsets.only(),
-                                  width: 63,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.newphoneColor,
-                                     borderRadius: lang == "ar" ?
-                                     BorderRadius.only(
-                                       topRight: Radius.circular(15),
-                                       bottomRight: Radius.circular(15)
-                                       )
-                                       :BorderRadius.only(
-                                       topLeft: Radius.circular(15),
-                                       bottomLeft: Radius.circular(15)
-                                       )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Stack(
+                            alignment:AlignmentDirectional.topStart,
+                           children: [
+                              Positioned(
+                                left: 10,
+                                top:2.5,
+                                child: Image.asset(AppImages.newuser,height: 20,),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left:28,right: 5),
+                                width:55,
+                                // height: 25,
+                                decoration: BoxDecoration(
+                                  // border: Border.all(),
+                                  // borderRadius: BorderRadius.circular(4),
+                                border: Border(
+                                    top:BorderSide(color: Colors.black,width:1.5, ) ,
+                                    right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
+                                    left: BorderSide(color: Colors.grey,width: 0.3),
+                                    bottom: BorderSide(color: Colors.black,width:1.5,)
                                   ),
-                                  child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
-                                 ),
-                                 Container(
-                                  margin: EdgeInsets.only(),
-                                  width: 20,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: lang == "ar" ?
-                                     BorderRadius.only(
-                                       topLeft: Radius.circular(15),
-                                       bottomLeft: Radius.circular(15)
-                                       )
-                                       :
+                               
+                              ),
+                              child: Container(
+                                margin: EdgeInsets.only(left:5,right: 5),
+                                child: Text(
+                                  dataListValue[index]['contact_name'],
+                                  overflow: TextOverflow.ellipsis,
+                                  )),
+                              )
+                           ],
+                         ),
+                           GestureDetector(
+                             onTap: (){
+                               launch("tel:${dataListValue[index]['phone']}");
+                             },
+                             child: Container(
+                               margin: EdgeInsets.only(left:5,right: 5),
+                               child: Row(
+                                 children: [
+                                   Container(
+                                    margin: EdgeInsets.only(),
+                                    width: 63,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.newphoneColor,
+                                       borderRadius: lang == "ar" ?
                                        BorderRadius.only(
-                                       topRight: Radius.circular(15),
-                                       bottomRight: Radius.circular(15)
-                                       )
-                                  ),
-                                  child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
-                                 ),
-                               ],
+                                         topRight: Radius.circular(15),
+                                         bottomRight: Radius.circular(15)
+                                         )
+                                         :BorderRadius.only(
+                                         topLeft: Radius.circular(15),
+                                         bottomLeft: Radius.circular(15)
+                                         )
+                                    ),
+                                    child: Center(child: Text("callme".tr,style: TextStyle(color: Colors.white,fontSize:8,))),
+                                   ),
+                                   Container(
+                                    margin: EdgeInsets.only(),
+                                    width: 20,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: lang == "ar" ?
+                                       BorderRadius.only(
+                                         topLeft: Radius.circular(15),
+                                         bottomLeft: Radius.circular(15)
+                                         )
+                                         :
+                                         BorderRadius.only(
+                                         topRight: Radius.circular(15),
+                                         bottomRight: Radius.circular(15)
+                                         )
+                                    ),
+                                    child: Center(child: Image.asset(AppImages.newcall,height: 10,)),
+                                   ),
+                                 ],
+                               ),
                              ),
-                           ),
-                         )
-                     
-                      ],
-                    )
-                  ]  
-                ));
+                           )
+                       
+                        ],
+                      )
+                    ]  
+                  )),
+            );
           }
         )
       ),
