@@ -131,6 +131,7 @@ const Map<String, String> en = {
   'apply': 'APPLY',
   "favourite": "Favourites",
   "membership": "Membership",
+  "mmembership": "MEMBERSHIP",
   "notification": "Notification",
   "about_us": "ABOUT US",
   "advertise_with_us": "ADEVERTISE WITH US",
@@ -246,11 +247,11 @@ const Map<String, String> en = {
   'no_detail_here':'NO Detail Here !',
   'add_number':'Phone Number',
   'owner':'owner',
-  'aboutus':'About US',
+  'aboutus':'ABOUT US',
   'suggestion':'Suggestion',
   'frien_request':'Friend Request',
   'approve':'Approve',
-  'remove':'remove',
+  'remove':'Remove',
   'recent_notification':'Recent Notification',
   'old_notification':'old_notification',
   'agr':'Usage Agreement',
@@ -304,8 +305,10 @@ const Map<String, String> en = {
   "adpostedat":"Ad Posted at",
   "helloPeople":"People Commented on this ad.",
   "allAds": "All Ads",
-  "selectService":"Select Service"
-
+  "selectService":"Select Service",
+  "digitSemester":"Semester in Digits Only",
+  "viewprofile":"View Profile"
+  
 };
 
 

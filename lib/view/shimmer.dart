@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
-// import 'package:flutter_shimmer/flutter_shimmer.dart';
 
 Widget shimmer() {
   return  ListView.builder(

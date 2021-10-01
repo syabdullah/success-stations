@@ -246,11 +246,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                     : Center(child: CircularProgressIndicator());
                   } 
                 ),
-              Container(
-                child: Row(
-                  children: [topWidget()],
-                ),
-              )
+              // Container(
+              //   child: Row(
+              //     children: [topWidget()],
+              //   ),
+              // )
             ],
           );
         }

@@ -252,6 +252,7 @@ const Map<String, String> ar = {
   'old_notification':'التنبيهات القديمة ',
   'agr':'اتفاقية الاستخدام',
   'head_members':'يمكنك استخدام الخدمات التالية في شركة',
+  'mmembership':'عضوية',
   'update_succe':'تحديث الاشتراك',
   'yearly':'سنوي',
   'monthly':'شهريا',
@@ -301,5 +302,7 @@ const Map<String, String> ar = {
   "allAds":"جميع الاعلانات",
   "callme":"اتصل بنا الآن",
   "selectService":"حدد الخدمة",
-  "locationName":"اسم الموقع"
+  "locationName":"اسم الموقع",
+  "digitSemester":"الفصل الدراسي بالأرقام فقط",
+  "viewprofile": "الملف الشخصي"
 };

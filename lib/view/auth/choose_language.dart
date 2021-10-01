@@ -7,7 +7,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class ChooseLanguage extends StatefulWidget {
@@ -32,8 +31,11 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'choose_language_drop'.tr,AppImages.appBarSearch)),
+      
+      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
+        child: stringAppbar(
+          context,Icons.arrow_back, 'choose_language_drop'.tr,AppImages.appBarSearch)
+      ),
      body : Column(
        crossAxisAlignment: CrossAxisAlignment.start,
         children: [

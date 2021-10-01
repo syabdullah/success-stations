@@ -5,19 +5,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/add_posting_screen.dart';
-import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
@@ -28,7 +26,6 @@ class AllAdds extends StatefulWidget {
 
 class _AllAddsState extends State<AllAdds> {
   final ratingcont = Get.put(RatingController());
-  RangeValues _currentRangeValues = const RangeValues(1, 1000);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final addsGet = Get.put(MyAddsController());
@@ -36,40 +33,18 @@ class _AllAddsState extends State<AllAdds> {
   final friCont = Get.put(FriendsController());
   final catCobtroller = Get.put(MyListingFilterController());
   final filterControlller = Get.put(AddBasedController());
-  var listtype = 'grid';
-  var userId;
-  var myrate;
+  var listtype = 'grid',  userId,  myrate;
   late double valueData;
-  var selectedIndex = 0;
-  var filteredIndex = 0;
-  var selectedIndexListing = 0;
+  var selectedIndex = 0,lang, filteredIndex = 0,  selectedIndexListing = 0, v,status, category, start, end, filterID, data, id, listImg = AppImages.listing, grid = AppImages.gridOf, conditionSelected,  bClicked = false;
   bool lisselect = false;
-   bool havingCategorybool = false;
-
-  var bClicked = false;
-  var grid = AppImages.gridOf;
-  var listImg = AppImages.listing;
+  bool havingCategorybool = false;
   Color selectedColor = Color(0xFF2F4199);
   Color listIconColor = AppColors.appBarBackGroundColor;
   bool liked = false;
   Color filterSelecredColor =Color(0xFF2F4199);
-  var conditionSelected;
   GetStorage box = GetStorage();
-  var lang;
   final banner = Get.put(BannerController());
-  var v;
-  var status;
-  var category;
-  var start;
-  var end;
-  var filterID;
-  var data;
-  var id;
   bool isButtonPressed = false;
-  List<String> litems = [
-    "old".tr,
-    "New".tr,
-  ];
 
   @override
   void initState() {
@@ -92,23 +67,16 @@ class _AllAddsState extends State<AllAdds> {
     v = '';
   }
 
-  int _selectedIndex = 1;
-
-  _onSelected(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: data != null?
-       AppBar(
-        leading:GestureDetector(
+      appBar: data != null?  AppBar(
+        leading: GestureDetector(
           onTap: (){
             Get.back();
           },
-          child: Image.asset(AppImages.arrowBack)
+          child: Icon(Icons.arrow_back)
         ),
         elevation: 0,
         backgroundColor: AppColors.appBarBackGroundColor,
@@ -116,471 +84,136 @@ class _AllAddsState extends State<AllAdds> {
         title:Text('allAds'.tr,
           style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
         )
-      )
-      : null,
-      body:  ListView(
-        children: [
-          SizedBox(height: 10),
-          topWidget(),
-          SizedBox(height: 10),
-          GetBuilder<CategoryController>(
-            init: CategoryController(),
-            builder: (data) {
-              return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
-              Container();
-            },
-          ),
-          SizedBox(height:20),
-          havingCategorybool == false ? 
-          // Expanded(
-          //   child: 
-            GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val) {
-                return val.isLoading == true || val.allAdsData == null? Container()
-                : val.allAdsData['data'] == null ? Container(): listtype != 'grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']
-                );
-              },
-            )
-          // )
-          : 
-          // Expanded(
-          //   child: 
-            GetBuilder<AddBasedController>(
-              init: AddBasedController(),
-              builder: (val) {
-                return val.isLoading == true || val.cData == null? Container()
-                : val.cData['data'] == null ? Container()
-                  : listtype != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']
-                  );
-              },
-            )
-          // )
-        ],
-      ),
-    );
-  }
-
-  Widget topWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            InkWell(
-              onTap: () {
-                _adsfiltringheet();
-              },
-              child: Container(
-                margin: lang == 'en'
-                ? const EdgeInsets.only(left: 15, top: 8)
-                : const EdgeInsets.only(right: 15, top: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.grey[200],
-                ),
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: Row(
-                  children: [
-                    Image.asset(AppImages.filter, height: 15),
-                    SizedBox(width: 5),
-                    Text(
-                      "filter".tr,
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                  ],
-                ),
-        ),
-            ),
-            GestureDetector(
-              onTap: () {
-               Get.to(AddPostingScreen());
-              },
-              child: Container(
-                margin: lang == 'en'
-                ? EdgeInsets.only(left: 10, top: 10)
-                : EdgeInsets.only(right: 10, top: 10),
-                child: Image.asset(AppImages.plusImage,height: 24)
-              ),
-            )
-          ],
-        ),
-        Container(
-          margin: lang == 'en'
-          ? EdgeInsets.only(left: 10)
-          : EdgeInsets.only(right: 20),
-          child: Row(
+      ): null,
+      body:  GetBuilder<GridListCategory>(
+        init: GridListCategory(),
+        builder: (valuees){
+          return ListView(
             children: [
-               Container(
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                      lisselect = !lisselect;
-                      isButtonPressed = !isButtonPressed;
-                      //listIconColor = Colors.grey;
-                      listImg = AppImages.listing;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                ),
+              SizedBox(height: 10),
+              GetBuilder<CategoryController>(
+                init: CategoryController(),
+                builder: (data) {
+                  return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
+                  Container();
+                },
               ),
-              SizedBox(width: 5,),
-              Container(
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'list';
-                      lisselect = !lisselect;
-                      isButtonPressed = !isButtonPressed;
-                      //listIconColor = Colors.grey;
-                      listImg = AppImages.listing;
-                    });
+              SizedBox(height:10),
+              havingCategorybool == false ? 
+                GetBuilder<AddBasedController>(
+                  init: AddBasedController(),
+                  builder: (val) {
+                    return val.isLoading == true || val.allAdsData == null? Container()
+                    : val.allAdsData['data'] == null ? Container(): valuees.dataType != 'grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']);
                   },
-                  child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
-              ),
-              SizedBox(height: 10,width: 15)
+                )
+              : GetBuilder<AddBasedController>(
+                init: AddBasedController(),
+                builder: (val) {
+                  return val.isLoading == true || val.cData == null? Container()
+                  : val.cData['data'] == null ? Container()
+                  : valuees.dataType != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
+                },
+              )
             ],
-          ),
-        
-        )
-      ],
+          );
+        }
+      ),
     );
   }
 
-  var catFilteredID;
-  _adsfiltringheet() {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
-      ),
-      builder: (context) {
-        return FractionallySizedBox(
-          heightFactor: 0.8,
-          child: StatefulBuilder(
-            builder: (
-              BuildContext context,void Function(void Function()) setState) {
-                return SafeArea(
-                  child: AnimatedPadding(
-                    padding: MediaQuery.of(context).viewInsets,
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.decelerate,
-                      child: Container(
-                        margin: lang == 'en'
-                        ? EdgeInsets.only(top: 10, left: 20, right: 20)
-                        : EdgeInsets.only(top: 10, left: 20, right: 20),
-                        child: ListView(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
-                                    child: Text("filter".tr,
-                                      style: TextStyle(
-                                        fontSize: 20, color: Colors.black
-                                      )
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
-                                    child: InkWell(
-                                      onTap: () => Get.back(),
-                                      child: Icon(Icons.close,
-                                        color: Colors.grey,
-                                      )
-                                    )
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: Get.height * 0.01),
-                              Container(
-                              margin: lang == 'en'
-                              ? EdgeInsets.only(top: 8, left: 8)
-                              : EdgeInsets.only(top: 8, right: 8),
-                              child: Text("category".tr,
-                                style: TextStyle(
-                                  fontSize: 15, color: Colors.grey
-                                )
-                              )
-                            ),
-                            GetBuilder<CategoryController>(
-                              init: CategoryController(),
-                              builder: (data) {
-                                return data.isLoading == true
-                                ? Container(
-                                  height: Get.height / 10,
-                                )
-                                : data.havingAddsList != null && data.havingAddsList['data'] != null
-                                  ? Container(
-                                    height: Get.height * 0.035,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: data.havingAddsList['data'].length,
-                                      itemBuilder: (
-                                        BuildContext ctxt,int index) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: Get.height * 0.035,
-                                              margin: lang == 'en'
-                                              ? EdgeInsets.only(left: 8.0)
-                                              : EdgeInsets.only(right: 8.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    filteredIndex = index;
-                                                    catFilteredID = data.havingAddsList['data'][index]['id'];
-                                                  });
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(5.0),
-                                                    border: Border.all(color: AppColors.appBarBackGroundColor),
-                                                    color: filteredIndex == index
-                                                    ? AppColors.appCategSeleGroundColor
-                                                    : Colors.white,
-                                                  ),
-                                                  padding: EdgeInsets.only(left:6.0,right: 6),
-                                                  child:
-                                                   Text(data.havingAddsList['data'][index]['category'][lang] !=null ? data.havingAddsList['data'][index]['category'][lang].toString():
-                                                    data.havingAddsList['data'][index]['category'][lang] == null ? data.havingAddsList['data'][index]['category']['en'].toString():'',
-                                                    style: TextStyle(
-                                                      color: filteredIndex == index
-                                                      ? AppColors.appBarBackGroundColor
-                                                      : AppColors.appBarBackGroundColor,
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontStyle: FontStyle.normal,
-                                                    ),
-                                                  )
-                                                  
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                    ),
-                                  )
-                                  : Container();
-                              },
-                            ),
-                            Container(
-                              margin: lang == 'en'
-                              ? EdgeInsets.only(top: 8, left: 8)
-                              : EdgeInsets.only(top: 8, right: 8),
-                              child: Text("condition".tr,
-                                style: TextStyle(
-                                  fontSize: 15, color: Colors.grey
-                                )
-                              )
-                            ),
-                            //SizedBox(height: 10),
-                            Container(
-                              height: Get.height * 0.035,
-                              child: new ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: litems.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _onSelected(index);
-                                        status = litems[index];
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: lang == 'en'
-                                      ? EdgeInsets.only(left: 8)
-                                      : EdgeInsets.only(right: 8),
-                                      width: Get.width / 5,
-                                      height: Get.height / 3,
-                                      decoration: BoxDecoration(
-                                        // ignore: unnecessary_null_comparison
-                                        color: _selectedIndex != null &&
-                                        _selectedIndex == index
-                                        ? AppColors.appCategSeleGroundColor
-                                        : Colors.white, border: Border.all(
-                                          color: AppColors.appBarBackGroundColor,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5)
-                                        )
-                                      ),
-                                      child: Center(
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 5),
-                                          child: Text(litems[index],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: _selectedIndex == index
-                                              ? AppColors.appBarBackGroundColor
-                                              : AppColors.appBarBackGroundColor
-                                            )
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  //height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 2, left: 8)
-                                  : EdgeInsets.only(top: 2, right: 8),
-                                  child: Text("price".tr,
-                                    style: TextStyle(
-                                      fontSize: 18, color: Colors.grey // fontWeight: FontWeight.bold,
-                                    )
-                                  ),
-                                ),
-                                Container(
-                            //height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 2, left: 8)
-                                  : EdgeInsets.only(top: 2, right: 8),
-                                  child: Text("SAR 0 - SAR 10000 ",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xFF2F4199),
-                                      fontWeight: FontWeight.normal
-                                    )
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              margin: lang == 'en'
-                              ? EdgeInsets.only(top: 4, left: 8)
-                              : EdgeInsets.only(top: 4, right: 8),
-                              child: RangeSlider(
-                                activeColor: Color(0xFF2F4199),
-                                values: _currentRangeValues,
-                                min: 1.00,
-                                max: 10000.00,
-                                // divisions: 5,
-                                labels: RangeLabels(
-                                  
-                                  _currentRangeValues.start.round().toString(),
-                                  _currentRangeValues.end.round().toString(),
-                                ),
-                                onChanged: (values) {
-                                  setState(() {
-                                    _currentRangeValues = values;
-                                    start = _currentRangeValues.start
-                                        .round()
-                                        .toString();
-                                    end = _currentRangeValues.end
-                                        .round()
-                                        .toString();
-                                  });
-                                },
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
-                                  : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[100],
-                                    borderRadius: BorderRadius.all(Radius.circular(5))
-                                  ),
-                                  child: GestureDetector(
-                                    child: Center(
-                                      child: Text("reset".tr,
-                                        style: TextStyle(
-                                          color:AppColors.inputTextColor
-                                        )
-                                      )
-                                    ),
-                                    onTap: () {
-                                      Get.back();
-                                    }
-                                  ),
-                                ),
-                                SizedBox(width: 20),
-                                Container(
-                                  height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
-                                  : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.appBarBackGroundColor,
-                                    borderRadius: BorderRadius.all(Radius.circular(5))
-                                  ),
-                                  child: GestureDetector(
-                                    child: Center(
-                                      child: Text("apply".tr,
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ),
-                                    onTap: catFilteredID == null && status == null
-                                    ? null
-                                    : () {
-                                      applyFiltering();
-                                      Get.off(FilteredAdds(),
-                                      arguments: listtype);
-                                      // Get.off(FilteredAdds());
-                                    }
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        // ),
-                    )
-                  ),
-                );
-          }),
-        );
-      });
-}
+  // Widget topWidget() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Row(
+  //         children: [
+  //           InkWell(
+  //             onTap: () {
+  //               // _adsfiltringheet();
+  //             },
+  //             child: Container(
+  //               margin: lang == 'en'
+  //               ? const EdgeInsets.only(left: 15, top: 8)
+  //               : const EdgeInsets.only(right: 15, top: 8),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(5),
+  //                 color: Colors.grey[200],
+  //               ),
+  //               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+  //               child: Row(
+  //                 children: [
+  //                   Image.asset(AppImages.filter, height: 15),
+  //                   SizedBox(width: 5),
+  //                   Text(
+  //                     "filter".tr,
+  //                     style: TextStyle(color: Colors.grey[700]),
+  //                   ),
+  //                 ],
+  //               ),
+  //            ),
+  //           ),
+  //           GestureDetector(
+  //             onTap: () {
+  //              Get.to(AddPostingScreen());
+  //             },
+  //             child: Container(
+  //               margin: lang == 'en'
+  //               ? EdgeInsets.only(left: 10, top: 10)
+  //               : EdgeInsets.only(right: 10, top: 10),
+  //               child: Image.asset(AppImages.plusImage,height: 24)
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //       Container(
+  //         margin: lang == 'en'
+  //         ? EdgeInsets.only(left: 10)
+  //         : EdgeInsets.only(right: 20),
+  //         child: Row(
+  //           children: [
+  //              Container(
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'grid';
+  //                     lisselect = !lisselect;
+  //                     isButtonPressed = !isButtonPressed;
+  //                     //listIconColor = Colors.grey;
+  //                     listImg = AppImages.listing;
+  //                   });
+  //                 },
+  //                 child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+  //               ),
+  //             ),
+  //             SizedBox(width: 5,),
+  //             Container(
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'list';
+  //                     lisselect = !lisselect;
+  //                     isButtonPressed = !isButtonPressed;
+  //                     //listIconColor = Colors.grey;
+  //                     listImg = AppImages.listing;
+  //                   });
+  //                 },
+  //                 child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+  //               ),
+  //             ),
+  //             SizedBox(height: 10,width: 15)
+  //           ],
+  //         ),
+        
+  //       )
+  //     ],
+  //   );
+  // }
 
-  applyFiltering() {
-    var json = {
-      'type': catFilteredID,
-      'condition': status == 'New' ? 1 : 0,
-      'start': start,
-      'end': end,
-    };
-    filterControlller.createFilterAds(json);
-  }
 
   var catID;
   Widget myAddsList(allDataAdds) {
@@ -785,8 +418,7 @@ class _AllAddsState extends State<AllAdds> {
         crossAxisCount: 2,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
-        childAspectRatio: (
-           lang == 'en' ?Get.width / 1.10 / Get.height / 0.47:Get.width / 1.10 / Get.height / 0.49),
+        childAspectRatio: ( lang == 'en' ?Get.width / 1.10 / Get.height / 0.47:Get.width / 1.10 / Get.height / 0.49),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();

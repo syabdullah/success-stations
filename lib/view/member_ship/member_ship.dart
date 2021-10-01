@@ -6,7 +6,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
-import 'package:success_stations/view/member_ship/become_member.dart';
 
 class MemberShip extends StatefulWidget {
   _MemberShipState createState() => _MemberShipState();
@@ -21,11 +20,12 @@ class _MemberShipState extends State<MemberShip> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch ,1)),
+      appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
+      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch ,1)
+      ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
-        ),
+      ),
         child: AppDrawer(),
       ),
       body: Column(

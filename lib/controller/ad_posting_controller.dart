@@ -6,7 +6,6 @@ import 'package:success_stations/action/ad_post_action.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
-import 'package:success_stations/view/auth/my_adds/draft_ads_list.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
 import 'package:dio/src/response.dart' as response;
 

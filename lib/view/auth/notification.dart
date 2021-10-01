@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/notification_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/UseProfile/notifier_user.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class NotificationPage extends StatefulWidget {
   _NotificationPageState createState() => _NotificationPageState();
@@ -29,14 +26,14 @@ class _NotificationPageState extends State<NotificationPage> {
       body:SafeArea(
         child: ListView(
           children:[
-        
-                  GetBuilder<NotificationController>( // specify type as Controller
-                  init: NotificationController(), // intialize with the Controller
-                  builder: (value){ 
-                    return 
-                    value.allNotifications != null ?
-                    fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
-                  }
+
+          GetBuilder<NotificationController>( // specify type as Controller
+          init: NotificationController(), // intialize with the Controller
+          builder: (value){ 
+            return 
+            value.allNotifications != null ?
+            fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+          }
                     ),
           ],
         ),
