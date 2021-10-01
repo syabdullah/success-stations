@@ -98,6 +98,7 @@ class AppImages {
   // new des
   static String newuser = imagePath + 'newuser.png';
   static String newcall = imagePath + 'newcall.png';
+  static String newfilter = imagePath + 'newfilter.png';
 
   //APPbAR
   static String listingImage = imagePath + 'listtt.png';

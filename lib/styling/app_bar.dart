@@ -9,6 +9,7 @@ import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
+import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +25,12 @@ final gridingData = Get.put(GridListCategory());
 final filterControlller = Get.put(AddBasedController());
 var dis,lat,long, city, currentPostion, position, decideRouter, array = [], filteredIndex = 0 ;
 var statusFiltered, status;
+var namearray = [] ;
 var color = Colors.grey[100];
 int slctedInd = 0, _selectedIndex = 1;
 bool textfeild = true;
+var selectedService;
+var  service_id;
 GetStorage box = GetStorage();
 var cityArray = [];
 var userId = box.read('user_id');
@@ -167,10 +171,13 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     leading: GestureDetector(
       child: Row(
         children: [
-          Container(
-            margin: EdgeInsets.only(left:14, top:20),
-            child: Icon(Icons.arrow_back,
-              color: Colors.white, size: 25
+          GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              margin: EdgeInsets.only(left:10, top:5),
+              child: Icon(Icons.arrow_back,
+                color: Colors.white, size: 25
+              ),
             ),
           ),
           GestureDetector(
@@ -179,7 +186,7 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
 
             },
             child: Container(
-              margin: EdgeInsets.only(right:10, top:20),
+              margin: EdgeInsets.only(left:10, top:5),
               child: Image.asset(
                 AppImages.plusImage1,
                 color: Colors.white,width: 25.w, height:25
@@ -191,22 +198,21 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     ),
     
     title: Padding(
-      padding: const EdgeInsets.only(top:20.0),
+      padding: const EdgeInsets.only(top:5.0),
       child: Text("my_adss".tr)
     ), 
     actions: [
       Container(
-        margin:EdgeInsets.only(right:20, top:20),
+        margin:EdgeInsets.only(right:20, top:5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: (){
                 gridingData.listingGrid('list');
-
               },
               child: Container(
-                margin:EdgeInsets.only(right:10),
+                margin:EdgeInsets.only(right:5),
                 child: Image.asset(AppImages.listingImage, height:22)
               )
             ),
@@ -315,13 +321,13 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
-  // RangeValues _currentRangeValues = const RangeValues(5, 500);
   var start;
   var end, size;
-
+  var locationName;
+  var service;
   filtrationModel(context) async {
     size = MediaQuery.of(context).size;
-   showModalBottomSheet(  
+    showModalBottomSheet(  
      isScrollControlled: true,
      context: context,   
      shape: RoundedRectangleBorder(
@@ -399,90 +405,122 @@ Widget sAppbar(context ,icon,image,) {
                             margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                             child: Form(
                               key: formKey,
-                              child: Container(
-                                // padding: EdgeInsets.only(
-                                //   bottom: MediaQuery.of(context).viewInsets.vertical),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabled: textfeild,
-                                    labelText: ('city'.tr),
-                                    // labelStyle: TextStyle(color: AppColors.basicColor),
-                                    prefixIcon: Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderRadius: const BorderRadius.all(
-                                        const Radius.circular(5.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        isDense: true,                      // Added this
+                                       contentPadding: EdgeInsets.all(12),  
+                                        enabled: textfeild,
+                                        hintStyle: TextStyle(color: AppColors.inputTextColor, fontSize: 13),
+                                        labelStyle:TextStyle(color: AppColors.inputTextColor, fontSize: 13),
+                                        labelText: ('city'.tr),
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(5.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                        )
                                       ),
+                                      onTap: (){},
+                                      onSubmitted: (val) {
+                                        formKey.currentState!.save();
+                                        setState((){
+                                          decideRouter = 'city';
+                                          array.add(val);
+                                          cityArray.add('city[]=$val');
+                                        });                          
+                                      },
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Theme.of(context).primaryColor)
-                                    )
                                   ),
-                                  onTap: (){
-                                    // setState((){
-                                      
-                                    // });
-                                  },
-                                  onSubmitted: (val) {
-                                     formKey.currentState!.save();
-                                    setState((){
-                                      decideRouter = 'city';
-                                      array.add(val);
-                                      cityArray.add('city[]=$val');
-                                    });                          
-                                  },
-                                ),
+                                  Container(
+                                     margin: EdgeInsets.only(top: 10),
+                                     child: TextField(
+                                      decoration: InputDecoration(
+                                        isDense: true,                      // Added this
+                                        contentPadding: EdgeInsets.all(12), 
+                                        enabled: textfeild,
+                                        hintStyle: TextStyle(color: AppColors.inputTextColor, fontSize: 13),
+                                        labelText: ('locationName'.tr),
+                                        labelStyle:TextStyle(color: AppColors.inputTextColor, fontSize: 13),
+                                        border: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(5.0),
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor)
+                                        )
+                                      ),
+                                      onTap: (){
+                                      },
+                                      onSubmitted: (val) {
+                                        formKey.currentState!.save();
+                                        setState((){
+                                          decideRouter = 'name';
+                                          namearray.add(val);
+                                          cityArray.length == 0  ?
+                                          locationName = 'name=$val':
+                                          locationName  = '&name=$val';
+                                        });                        
+                                      },
+                                    ),
+                                  ),
+                                  GetBuilder<ServicesController>(
+                                    init: ServicesController(), 
+                                    builder: (value) {
+                                      return Container(
+                                        margin: EdgeInsets.only(top:10),
+                                        padding: const EdgeInsets.only(top: 2),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey,width: 1),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0) 
+                                            ),
+                                        ),
+                                        child:  ButtonTheme(
+                                          alignedDropdown: true,
+                                          child: Container(
+                                            width: Get.width,
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                hint: Text(
+                                                  selectedService != null ? selectedService : 'selectService'.tr, 
+                                                  style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                                                  ),
+                                                dropdownColor: AppColors.inPutFieldColor,
+                                                icon: Icon(Icons.arrow_drop_down),
+                                                items: value.servicesListdata.map((coun) {
+                                                  return DropdownMenuItem(
+                                                    value: coun,
+                                                    child:Text(coun['servics_name'])
+                                                  );
+                                                }).toList(),
+                                                onChanged: (val) {
+                                                  var adsubCategory;
+                                                  setState(() {
+                                                    decideRouter = 'name';
+                                                    adsubCategory = val as Map;
+                                                    selectedService = adsubCategory['servics_name'];
+                                                    service_id = adsubCategory['id'];
+                                                    locationName != null  ?
+                                                    locationName = '$locationName&service_id=$service_id':
+                                                    locationName = 'service_id=$service_id';
+                                                  });
+                                                },
+                                              )
+                                            ),
+                                          )
+                                        )
+                                      );
+                                    }
+                                  ),
+                                ],
                               ),
                             )
-                          ),
-                          Container(
-                            height: 50,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                            for(var item in array) 
-                            GestureDetector(
-                              onTap: () {
-                                setState((){
-                                  decideRouter = 'nearby';
-                                });
-                              },
-                              child: Container(                          
-                                decoration: BoxDecoration(
-                                   color: Colors.blue[100],
-                                  borderRadius: BorderRadius.circular(20)
-                                ),
-                                // width: Get.width/4,
-                               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-                                margin: EdgeInsets.only(top: 10,left: 30),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [                             
-                                    Container(
-                                      child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
-                                    ),
-                                    GestureDetector(
-                                      onTap: (){
-                                        setState((){
-                                            var ind = 1;
-                                            ind = array.indexOf(item);
-                                             array.remove(item);
-                                            cityArray.removeAt(ind);
-                                           
-                                        });                              
-                                      },
-                                      child: Container(
-                                        child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                              ]
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 15),
@@ -490,19 +528,18 @@ Widget sAppbar(context ,icon,image,) {
                               'Distance',style:  TextStyle(fontSize: 20, color: Colors.black,)
                               ),
                           ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15),
-                              child: Text(
-                              "${_currentRangeValues.start.round().toString()} miles",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.normal)
-                              ),
+                          Container(
+                            margin: EdgeInsets.only(left: 15),
+                            child: Text(
+                            "${_currentRangeValues.start.round().toString()} miles",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.normal)
                             ),
+                          ),
                           Container(
                             child: RangeSlider(
                               activeColor: AppColors.appBarBackGroundColor,
                               values: _currentRangeValues,
                               min: 1.00,
                               max: 10000.00,
-                              // divisions: 5,
                               labels: RangeLabels(
                                 _currentRangeValues.start.round().toString(),
                                 _currentRangeValues.end.round().toString(),
@@ -540,6 +577,7 @@ Widget sAppbar(context ,icon,image,) {
                                   onPressed: () {
                                     array.clear();
                                     cityArray.clear();
+                                    locationName = null;
                                     Get.back();
                                     Get.find<LocationController>().getAllLocationToDB();
                                     // Get.to(SignIn());
@@ -558,10 +596,16 @@ Widget sAppbar(context ,icon,image,) {
                                     )
                                   ),
                                   onPressed: (){
-                                    if(decideRouter == 'city') {
-                                   var cityFinal = cityArray.toString();
-                                   var cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
-                                       Get.find<LocationController>().getAllLocationByCity(cityFinalData);
+                                    var cityFinalData;
+                                    if(decideRouter == 'city' || decideRouter == 'name' ) {
+                                      print("==/=/==/=/==//=====---------$locationName");
+                                      if(cityArray.length != 0) {
+                                        var cityFinal = cityArray.toString();
+                                        cityFinalData = cityFinal.substring(1, cityFinal.length - 1);
+                                      }else {
+                                        cityFinalData = null;
+                                      }
+                                      Get.find<LocationController>().getAllLocationByCity(cityFinalData,locationName);
                                     }else if(decideRouter == 'near'){
                                       Get.find<LocationController>().getAllLocationNearBy(end, position.latitude, position.longitude);
                                     }
@@ -680,7 +724,7 @@ Widget sAppbar(context ,icon,image,) {
                                               ),
                                               color: bottomSheetCategory == index? AppColors.appCategSeleGroundColor: Colors.white,
                                             ),
-                                            padding: EdgeInsets.only(left:6.0,right: 6),
+                                            padding: EdgeInsets.only(left:6.0,right: 6, top:2),
                                             child: Text(  
                                               data.allOffersResp['data'][index]['category_name'][lang]!=null ?  data.allOffersResp['data'][index]['category_name'][lang]:
                                               data.allOffersResp['data'][index]['category_name'][lang] ==null ?  data.allOffersResp['data'][index]['category_name']['en']:'' ,
@@ -944,7 +988,7 @@ Widget sAppbar(context ,icon,image,) {
                                                     ? AppColors.appCategSeleGroundColor
                                                     : Colors.white,
                                                   ),
-                                                  padding: EdgeInsets.only(left:6.0,right: 6),
+                                                  padding: EdgeInsets.only(left:6.0,right: 6, top:4),
                                                   child:
                                                    Text(data.havingAddsList['data'][index]['category'][lang] !=null ? data.havingAddsList['data'][index]['category'][lang].toString():
                                                     data.havingAddsList['data'][index]['category'][lang] == null ? data.havingAddsList['data'][index]['category']['en'].toString():'',
@@ -1036,10 +1080,9 @@ Widget sAppbar(context ,icon,image,) {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  //height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 2, left: 8)
-                                  : EdgeInsets.only(top: 2, right: 8),
+                                  ? EdgeInsets.only(left: 8)
+                                  : EdgeInsets.only(right: 8),
                                   child: Text("price".tr,
                                     style: TextStyle(
                                       fontSize: 18, color: Colors.grey // fontWeight: FontWeight.bold,
@@ -1047,11 +1090,10 @@ Widget sAppbar(context ,icon,image,) {
                                   ),
                                 ),
                                 Container(
-                            //height: Get.height * 0.05,
                                   margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 2, left: 8)
-                                  : EdgeInsets.only(top: 2, right: 8),
-                                  child: Text("SAR 0 - SAR 10000 ",
+                                  ? EdgeInsets.only(left: 8)
+                                  : EdgeInsets.only(right: 8),
+                                  child: Text("SAR0 - SAR 10000 ",
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: Color(0xFF2F4199),

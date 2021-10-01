@@ -17,7 +17,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
@@ -60,7 +59,7 @@ class _MyAddsState extends State<MyAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
+      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
         child: myAdds(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
       ),
       body: GetBuilder<GridListCategory>(
@@ -68,7 +67,6 @@ class _MyAddsState extends State<MyAdds> {
         builder: (valuee){
           return  ListView(
             children: [
-              // topWidget(),
               SizedBox(height: 10),
               GetBuilder<CategoryController>(
                 init: CategoryController(),
@@ -78,7 +76,7 @@ class _MyAddsState extends State<MyAdds> {
                   : Container();
                 },
               ), 
-              SizedBox(height: 15),   
+              SizedBox(height: 10),   
               categorybool == false ? 
               GetBuilder<AddBasedController>(
               init: AddBasedController(),
@@ -524,7 +522,7 @@ void _adsfiltringheet() {
         mainAxisSpacing: 5,
         crossAxisCount: 2,
         childAspectRatio: Get.width/ 
-        ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.75 :0),
+        ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.90 :0),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -549,30 +547,30 @@ void _adsfiltringheet() {
                         width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
                         height: Get.height /8.0,
                         child: dataListValue[index]['media'].length != 0 ?
-                              Stack(
-                                alignment:AlignmentDirectional.topEnd,
-                                children: [
-                                  Container(
-                                     width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
-                                       height: Get.height /8.0,
-                                    child: Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill)),
-                                     Transform.scale(
-                                    scale: .7,
-                                    child: Switch.adaptive(
-                                        activeColor: AppColors.appBarBackGroundColor,
-                                        value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
-                                      // setState(() {
-                                        dataListValue[index]['is_active'] == 1 ?
-                                        controller.deactiveAd(dataListValue[index]['id']) :
-                                        controller.activeAd(dataListValue[index]['id']) ;
-                                        controller.addesMyListAll();
-                                        controller.addedByIdAddes(catID, userId);
-                                      // });
-                                  
-                                    }),
-                                  ),   
-                                ],
-                              ) :
+                          Stack(
+                            alignment:AlignmentDirectional.topEnd,
+                            children: [
+                              Container(
+                                  width: Get.width < 420 ? Get.width/1.4: Get.width/2.3,
+                                    height: Get.height /8.0,
+                                child: Image.network(dataListValue[index]['media'][0]['url'],fit: BoxFit.fill)),
+                                  Transform.scale(
+                                scale: .7,
+                                child: Switch.adaptive(
+                                    activeColor: AppColors.appBarBackGroundColor,
+                                    value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
+                                  // setState(() {
+                                    dataListValue[index]['is_active'] == 1 ?
+                                    controller.deactiveAd(dataListValue[index]['id']) :
+                                    controller.activeAd(dataListValue[index]['id']) ;
+                                    controller.addesMyListAll();
+                                    controller.addedByIdAddes(catID, userId);
+                                  // });
+                              
+                                }),
+                              ),   
+                            ],
+                          ) :
                               Container(
                                 width: Get.width/4,
                                 child: Stack(
@@ -582,8 +580,9 @@ void _adsfiltringheet() {
                                       child: Icon(Icons.image,size: 50,)),
                                      Transform.scale(
                                     scale: .7,
-                                    child: Switch.adaptive(
+                                    child: CupertinoSwitch(
                                         activeColor: AppColors.appBarBackGroundColor,
+                                        
                                         value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
                                       // setState(() {
                                         dataListValue[index]['is_active'] == 1 ?

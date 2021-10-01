@@ -40,6 +40,7 @@ class LocationController extends GetxController {
 editLocationToDB(id,data) async{
     isLoading = true;
     await editLocation(id,data).then((value) {
+      print("....................${value.statusCode}");
       if(value.statusCode == 200 || value.statusCode < 400){
         editLoc = jsonDecode(value.body);
          Get.to(MyLocations());
@@ -97,10 +98,11 @@ deleteLocationToDB(id,userId) async {
     update();
   }
 
-   getAllLocationByCity(city,) async {
+   getAllLocationByCity(city,nameS) async {
+     print(city);
     isLoading = true;
     allLoc = null;
-    await getAllCityLocation(city).then((value) {
+    await getAllCityLocation(city,nameS).then((value) {
       allLoc = jsonDecode(value.body);
       isLoading = false;
     });

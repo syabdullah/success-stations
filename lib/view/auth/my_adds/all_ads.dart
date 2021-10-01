@@ -92,7 +92,6 @@ class _AllAddsState extends State<AllAdds> {
           return ListView(
             children: [
               SizedBox(height: 10),
-              SizedBox(height: 10),
               GetBuilder<CategoryController>(
                 init: CategoryController(),
                 builder: (data) {
@@ -100,7 +99,7 @@ class _AllAddsState extends State<AllAdds> {
                   Container();
                 },
               ),
-              SizedBox(height:20),
+              SizedBox(height:10),
               havingCategorybool == false ? 
                 GetBuilder<AddBasedController>(
                   init: AddBasedController(),
@@ -585,7 +584,7 @@ class _AllAddsState extends State<AllAdds> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(left:28,right: 5),
-                                width:55,
+                                width:50,
                                 // height: 25,
                                 decoration: BoxDecoration(
                                   // border: Border.all(),

@@ -35,30 +35,26 @@ class _DraftAdsState extends State<DraftAds> {
             Get.back();
           },
           icon:
-          Icon(Icons.arrow_back_ios_new)
+          Icon(Icons.arrow_back)
         ),
       ),
-        body: GetBuilder<DraftAdsController>( // specify type as Controller
-          init: DraftAdsController(), // 
-          builder: (value) { 
-          //  return value.isLoading == true ?  Center(child: CircularProgressIndicator()): value.userData['success'] == true ? draftedlist(value.userData['data']) : value.userData['success'] == false ? Container(
-          //    child: Center(child: Text(value.userData['errors'],style: TextStyle(fontWeight: FontWeight.bold),)),
-          //  ) : Center(child: CircularProgressIndicator());
-        return value.userData !=null &&  value.userData['data'] !=null && value.userData['success']  == true ? 
-         draftedlist(value.userData['data']): getData.resultInvalid.isTrue && value.userData['success'] == false ? 
-         Container(
-                  margin: EdgeInsets.only(top: Get.height / 3),
-                  child: Center(
-                    child: Text(
-                      getData.userData['errors'],
-                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ) : Container();
-
+      body: GetBuilder<DraftAdsController>( // specify type as Controller
+        init: DraftAdsController(), // 
+        builder: (value) { 
+          return value.userData !=null &&  value.userData['data'] !=null && value.userData['success']  == true ? 
+          draftedlist(value.userData['data']): getData.resultInvalid.isTrue && value.userData['success'] == false ? 
+          Container(
+            margin: EdgeInsets.only(top: Get.height / 3),
+            child: Center(
+              child: Text(
+                getData.userData['errors'],
+                style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ) : Container();
         }
-          )
-        );
+      )
+    );
   }
 
 Widget draftedlist(allDataAdds){

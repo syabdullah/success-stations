@@ -25,7 +25,7 @@ class _FriendListState extends State<FriendList> {
   var selected;
   var requisterId;
   final banner = Get.put(BannerController());
-
+  var lang;
   @override
   void initState() {
     super.initState();
@@ -33,6 +33,23 @@ class _FriendListState extends State<FriendList> {
     friCont.getFriendsList();
     friCont.getSuggestionsList();
     id = box.read('user_id');
+    lang = box.read('lang_code');
+  }
+  TextEditingController nameController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+   TextEditingController degreeController = TextEditingController();
+  TextEditingController semesterController = TextEditingController();
+  final callingFreindController = Get.put(FriendsController());
+
+   result(){
+      var json = {
+        'name' : nameController.text,
+        'city': cityController.text,
+      'degree': degreeController.text,
+      'semester': semesterController.text
+      };
+    callingFreindController.searchFriendControl(json);
+    print(json);
   }
 
   @override
@@ -69,7 +86,7 @@ class _FriendListState extends State<FriendList> {
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
-          
+          print("//////////${dataa[index]['requister']['address']}");
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
             onTap: () {
@@ -109,7 +126,7 @@ class _FriendListState extends State<FriendList> {
                   : Container(
                     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     child: CircleAvatar(
-                      radius: 30.0,
+                      radius: 40.0,
                       backgroundColor: Colors.grey[100],
                       child: dataa[index]['user_requisted']['image'] != null
                       ? ClipRRect(
@@ -160,30 +177,31 @@ class _FriendListState extends State<FriendList> {
                         )
                       ),
                        
-                      Container(
-                        // margin: EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          dataa[index]['user_requisted']['address'] == null ? Container() :  Icon(Icons.location_on,color:Colors.grey,),
-                            SizedBox(width: 5),
-                            Container(
-                              child: id == dataa[index]['requister_id']
-                              ? Text(
-                                dataa[index]['user_requisted']['address'] ?? '',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              )
-                              : Text(
-                                dataa[index]['requister']['address'] ?? '',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
-                            ),
-                          ],
-                        ),
-                      ) 
+                     
+                        //  Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //   dataa[index]['user_requisted']['address'] == null ? Container() :  Icon(Icons.location_on,color:Colors.grey,),
+                        //     SizedBox(width: 5),
+                        //     Container(
+                        //       width: 170,
+                        //       child: id == dataa[index]['requister_id']
+                        //       ? Text(
+                        //         dataa[index]['user_requisted']['address'] ?? '',
+                        //         overflow: TextOverflow.ellipsis,
+                        //         style: TextStyle(
+                        //             fontWeight: FontWeight.bold),
+                        //       )
+                        //       : Text(
+                        //         dataa[index]['requister']['address'] ?? '',
+                        //         style: TextStyle(
+                        //           fontWeight: FontWeight.bold
+                        //         ),
+                        //       )
+                        //     ),
+                        //   ],
+                        // ),
+                      
                     ],
                   ),
                   Spacer(),
@@ -206,11 +224,11 @@ class _FriendListState extends State<FriendList> {
       }
     }
     return GridView.count(
+      padding: EdgeInsets.only(left: 10),
         crossAxisCount: 2,
         children: List.generate(
           newData.length,
           (index) {
-            print(newData[index]['user_requisted']);
             return  GestureDetector(
               onTap: () {
                 selected = box.write("selected", newData[index]['id']);
@@ -224,7 +242,6 @@ class _FriendListState extends State<FriendList> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 8),
                     id != newData[index]['requister_id']
                     ? Container(
                     margin: EdgeInsets.symmetric(
@@ -249,7 +266,7 @@ class _FriendListState extends State<FriendList> {
                     ),
                   )
                   : Container(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    margin: EdgeInsets.only(top: 10.0, left: 10.0,right: 10),
                     child: CircleAvatar(
                       radius: 30.0,
                       backgroundColor: Colors.grey[100],
@@ -284,6 +301,7 @@ class _FriendListState extends State<FriendList> {
                       )
                     ),
                     Container(
+                      
                       margin: EdgeInsets.only(left: 10),
                       child: id == newData[index]['requister_id']
                       ? Text(
@@ -298,28 +316,38 @@ class _FriendListState extends State<FriendList> {
                         ),
                       )
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        newData[index]['user_requisted']['address'] == null ? Container() : 
-                        Icon(Icons.location_on,color:Colors.grey,),
-                        SizedBox(width: 5),
-                        Container(
-                          child: id == newData[index]['requister_id']
-                          ? Text(
-                            newData[index]['user_requisted']['address'] ?? '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold),
-                          )
-                          : Text(
-                            newData[index]['requister']['address'] ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold
-                            ),
-                          )
-                        ),
-                      ],
-                    ),
+                    
+                   
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     newData[index]['user_requisted']['address'] == null ? Container() : 
+                    //     Icon(Icons.location_on,color:Colors.grey,),
+                    //     SizedBox(width: 5),
+                    //     Container(
+                    //       width: 100,
+                    //       child:
+                    //       //  id == newData[index]['requister_id']
+                    //       // ? Text(
+                    //       //   newData[index]['user_requisted']['address'] ?? '',
+                    //       //   overflow: TextOverflow.ellipsis,
+                    //       //   style: TextStyle(
+                    //       //       fontWeight: FontWeight.bold,
+                    //       //       color: Colors.grey
+                    //       //       ),
+                    //       // )
+                    //       // : 
+                    //       newData[index]['requister']['address'] != null?
+                    //         Text(
+                    //         newData[index]['requister']['address'],
+                    //         style: TextStyle(
+                    //           fontWeight: FontWeight.bold
+                    //         ),
+                    //       ) : Container()
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
                 SizedBox(height: 8),
@@ -363,5 +391,164 @@ class _FriendListState extends State<FriendList> {
 
   rejFriend(id) {
     // friCont.appFriend(id);
+  }
+
+  Widget name(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:15),
+      child: TextFormField(
+        controller: nameController,
+        // validator: (value) {
+        // if (value == null || value.isEmpty) {
+        //     return 'enterSomeText'.tr;
+        // }
+        //   return null;
+        // },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 13,
+        ),
+        decoration:InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          hintText: "name".tr,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+      ) ,
+      ),
+    );
+  }
+   Widget city(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:15),
+      child: TextFormField(
+        controller: cityController,
+        // validator: (value) {
+        // if (value == null || value.isEmpty) {
+        //     return 'enterSomeText'.tr;
+        // }
+        //   return null;
+        // },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 13,
+        ),
+        decoration:InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          hintText: "city".tr,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+      ) ,
+      ),
+    );
+  }
+   Widget degree(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:15),
+      child: TextFormField(
+        controller: degreeController,
+        // validator: (value) {
+        // if (value == null || value.isEmpty) {
+        //     return 'enterSomeText'.tr;
+        // }
+        //   return null;
+        // },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 13,
+        ),
+        decoration:InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          hintText: "degree".tr,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+      ) ,
+      ),
+    );
+  }
+   Widget semester(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:15),
+      child: TextFormField(
+        controller: semesterController,
+        // validator: (value) {
+        // if (value == null || value.isEmpty) {
+        //     return 'enterSomeText'.tr;
+        // }
+        //   return null;
+        // },
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 13,
+        ),
+        decoration:InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          hintText: "semester".tr,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: Colors.grey),
+        ),
+      ) ,
+      ),
+    );
+  }
+  Widget buttons(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          height: Get.height * 0.05,
+          margin: lang == 'en'
+          ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+          : EdgeInsets.only(top: 8, bottom: 6, right: 8),
+          width: Get.width / 3,
+          //height: Get.height / 18,
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.all(Radius.circular(5))
+          ),
+          child: GestureDetector(
+            child: Center(
+              child: Text("cancel".tr,
+                style: TextStyle(
+                  color:AppColors.inputTextColor
+                )
+              )
+            ),
+            onTap: () {
+              Get.back();
+            }
+          ),
+        ),
+        SizedBox(width: 20),
+        GestureDetector(
+          onTap: (){
+            result();
+          },
+          child: Container(
+            height: Get.height * 0.05,
+            margin: lang == 'en'
+            ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+            : EdgeInsets.only(top: 8, bottom: 6, right: 8),
+            width: Get.width / 3,
+            //height: Get.height / 18,
+            decoration: BoxDecoration(
+              color: AppColors.appBarBackGroundColor,
+              borderRadius: BorderRadius.all(Radius.circular(5))
+            ),
+            child: Center(
+              child: Text("apply".tr,
+                style: TextStyle(color: Colors.white),
+              )
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

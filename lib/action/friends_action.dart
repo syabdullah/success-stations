@@ -62,3 +62,11 @@ Future<http.Response> friendsProfile(id) async{
   final result = await http.get(url,headers: ApiHeaders().headersWithToken);  
   return result;
 }
+
+Future<http.Response> searchFriend(data) async{
+  await ApiHeaders().getData();
+  final Config conf = Config();
+  var url = Uri.parse("${conf.baseUrl}friend-search");
+  final result = await http.post(url,body:json.encode(data),headers: ApiHeaders().headersWithToken);  
+  return result;
+}

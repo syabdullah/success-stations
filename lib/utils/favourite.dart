@@ -223,36 +223,36 @@ class _FavouritePageState extends State<FavouritePage> {
                                 ),
                               ): Container(),
                                Container(
-                                        child: listFavourite[c]['listing']['is_rated'] == false
-                                        ? RatingBar.builder(
-                                          initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 14.5,
-                                          itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                                          onRatingUpdate: (rating) {
-                                            var ratingjson = {
-                                              'ads_id': listFavourite[c]['id'],
-                                              'rate': rating
-                                            };
-                                            ratingcont.ratings(ratingjson);
-                                          },
-                                        )
-                                        : RatingBar.builder(
-                                          initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
-                                          ignoreGestures: true,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 14.5,
-                                          itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                                          onRatingUpdate: (rating) {
-                                          },
-                                        )
-                                      ),
+                                child: listFavourite[c]['listing']['is_rated'] == false
+                                ? RatingBar.builder(
+                                  initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 14.5,
+                                  itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                                  onRatingUpdate: (rating) {
+                                    var ratingjson = {
+                                      'ads_id': listFavourite[c]['id'],
+                                      'rate': rating
+                                    };
+                                    ratingcont.ratings(ratingjson);
+                                  },
+                                )
+                                : RatingBar.builder(
+                                  initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                                  ignoreGestures: true,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 14.5,
+                                  itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                                  onRatingUpdate: (rating) {
+                                  },
+                                )
+                              ),
                               listFavourite[c]['user_name']!=null ?
                               Expanded(
                                 child:  
@@ -261,8 +261,10 @@ class _FavouritePageState extends State<FavouritePage> {
                                   children: [
                                   Icon(Icons.location_on, color:Colors.grey),
                                   Container(
+                                    width: 100,
                                     child:  Text(
                                       listFavourite[c]['user_name']['address'],
+                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: Colors.grey[300]
                                       ),
@@ -332,6 +334,7 @@ class _FavouritePageState extends State<FavouritePage> {
     List<Widget> faviii = [];
     faviii.add(
        Container(
+         padding: EdgeInsets.symmetric(horizontal:5),
          margin: EdgeInsets.only(top: 10),
           height: Get.height/1,
           child: GridView.count(
@@ -361,7 +364,9 @@ class _FavouritePageState extends State<FavouritePage> {
                           Stack(
                           alignment:AlignmentDirectional.topStart,
                             children: [
-                              Image.network(gridImages,width: Get.width,fit: BoxFit.cover,),
+                              Image.network(
+                                gridImages,width: Get.width,fit: BoxFit.cover,
+                                height: 130,),
                               newData[index]['listing'] !=null ? 
                             Container(
                               padding: EdgeInsets.only(right: 10,bottom: 2),

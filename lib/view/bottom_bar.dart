@@ -65,7 +65,6 @@ class _BottomTabsState extends State<BottomTabs> {
 
   @override
   Widget build(BuildContext context) {
-    print("..........//////////////////////----------------");
     return lang == 'ar' ? 
     Scaffold(
       key: _scaffoldKey,
