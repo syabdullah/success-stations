@@ -15,6 +15,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/offer_filtered.dart';
 import 'package:success_stations/view/offer_grid_filtered.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
@@ -87,7 +88,13 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         icon: Image.asset(AppImages.menuBurger,height: 20,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ):
+    ): index == 1 ?
+        IconButton(
+          iconSize: 10,
+          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
+          onPressed: () => Get.bottomSheet(FriendFilter()),
+        ):
+          
     index == 2 ? Container()
     : Row(
       children: [
@@ -169,11 +176,18 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     leading: index == 2 ?  Container(
       margin:EdgeInsets.only(top:2),
       child: IconButton(
-        iconSize: 28,
+        iconSize: 20,
         icon: Image.asset(AppImages.menuBurger,height: 20,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ):
+    ): 
+    index == 3 ?
+        IconButton(
+          iconSize: 28,
+          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
+          onPressed: () => Get.bottomSheet(FriendFilter()),
+        )
+          :
     index == 2 ? Container()
     : Row(
       children: [
@@ -272,9 +286,8 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
       )
     ),
     
-    title: Padding(
-      padding: const EdgeInsets.only(top:5.0),
-      child: Text("my_adss".tr)
+    title: Image.asset(
+      AppImages.appBarLogo, height: 40,
     ), 
     actions: [
       Container(
@@ -287,7 +300,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('list');
               },
               child: Container(
-                margin:EdgeInsets.only(right:5),
+                margin:EdgeInsets.only(right:15),
                 child: Image.asset(AppImages.listingImage, height:22)
               )
             ),

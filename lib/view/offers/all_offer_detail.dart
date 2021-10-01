@@ -28,15 +28,9 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
     final space50 = SizedBox(height: getSize(20, context));
      final space10 = SizedBox(height: getSize(10, context));
     return Scaffold( 
-      key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
-      ),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-      ),
-        child: AppDrawer(),
-      ),
+      appBar: AppBar(centerTitle: true,
+        title: Image.asset(AppImages.appBarLogo, height:35),
+        backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

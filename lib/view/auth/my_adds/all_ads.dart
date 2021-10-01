@@ -11,11 +11,12 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool check = true;
@@ -71,20 +72,28 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: data != null?  AppBar(
-        leading: GestureDetector(
-          onTap: (){
-            Get.back();
-          },
-          child: Icon(Icons.arrow_back)
+      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
+      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          // canvasColor: AppColors.botomTiles
         ),
-        elevation: 0,
-        backgroundColor: AppColors.appBarBackGroundColor,
-        centerTitle: true,
-        title:Text('allAds'.tr,
-          style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-        )
-      ): null,
+        child: AppDrawer(),
+      ),
+      // appBar: data != null?  AppBar(
+      //   leading: GestureDetector(
+      //     onTap: (){
+      //       Get.back();
+      //     },
+      //     child: Icon(Icons.arrow_back)
+      //   ),
+      //   elevation: 0,
+      //   backgroundColor: AppColors.appBarBackGroundColor,
+      //   centerTitle: true,
+      //   title:Text('allAds'.tr,
+      //     style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
+      //   )
+      // ): null,
       body:  GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuees){

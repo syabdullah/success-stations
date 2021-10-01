@@ -54,7 +54,11 @@ class AdvertiseStatePage extends State<AdvertisePage> {
     final space10 = SizedBox(height: getSize(10, context));
     
     return Scaffold(
-      appBar:AppBar(centerTitle: true,title: Text('advertise_with_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar:AppBar(
+        leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back)),
+        centerTitle: true,title: Text('advertise_with_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
