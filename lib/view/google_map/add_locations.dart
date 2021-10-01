@@ -125,11 +125,12 @@ class _AddLocationsState extends State<AddLocations> {
         useCurrentLocation: true,
         usePlaceDetailSearch: true,
         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-          // print("...............................${state.}");
+          print("...............................$isSearchBarFocused");
           
-          if(state != SearchingState.Searching )
-          adrr = selectedPlace!.formattedAddress;
-          _modalBottomSheetMenu(adrr , selectedPlace);
+          if(state != SearchingState.Searching && adrr != selectedPlace!.formattedAddress) {
+            adrr = selectedPlace.formattedAddress;
+            _modalBottomSheetMenu(adrr , selectedPlace);
+          }
           return 
           Container();
         },
@@ -247,9 +248,15 @@ class _AddLocationsState extends State<AddLocations> {
     );
   }
   void _modalBottomSheetMenu(place,fromatd) {
+    if(dataPage == null) {
+      fileName = null;
+      selectedService = null;
+      fullNameController = TextEditingController(text: '');
+    }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       await 
       showModalBottomSheet(
+        isScrollControlled: true,
         // isDismissible: false,
         context: context,
         builder: (builder) {
@@ -282,7 +289,7 @@ class _AddLocationsState extends State<AddLocations> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(right: 10),
+                                  // margin: EdgeInsets.only(right: 10),
                                   child: InkWell(
                                     onTap:() {
                                       setState((){
@@ -457,7 +464,12 @@ class _AddLocationsState extends State<AddLocations> {
         }
       );
       // .then((value) {
-      //   Get.off(AddLocations());
+      //   // Get.off(AddLocations());
+      //   setState(() {
+      //     fileName  = null;
+      //     service_id = null;
+      //     selectedService = null; 
+      //   });
       //   // Get.back();
       //   print("this is on closed method --=-=-=------$value");
       // } );

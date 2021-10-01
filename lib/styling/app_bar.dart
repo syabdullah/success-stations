@@ -219,6 +219,9 @@ Widget newAppbar(context ,text,image,) {
   var service;
   filtrationModel(context) async {
     var size = MediaQuery.of(context).size;
+    array.clear();
+    cityArray.clear();
+    locationName = null;
    showModalBottomSheet(  
      isScrollControlled: true,
      context: context,   
@@ -351,8 +354,8 @@ Widget newAppbar(context ,text,image,) {
                                           decideRouter = 'name';
                                           namearray.add(val);
                                           cityArray.length == 0  ?
-                                          locationName = 'name=$val':
-                                          locationName  = '&name=$val';
+                                          locationName = 'location=$val':
+                                          locationName  = '&location=$val';
                                         });                        
                                       },
                                     ),
@@ -499,8 +502,6 @@ Widget newAppbar(context ,text,image,) {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                // margin: EdgeInsets.only(top: 20),
-                                // ignore: deprecated_member_use
                                 child: RaisedButton(
                                   color: Colors.grey[100],
                                   child: Container(

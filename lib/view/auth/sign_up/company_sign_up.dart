@@ -347,15 +347,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onSaved: (String? newValue) {},
         onFieldSubmitted: (value) {},
         textController: nameController,
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "namereq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "Name must be a-z and A-Z";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -407,7 +403,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         focusNode: FocusNode(),
         // autoFocus: true,
         inputDecoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 10,bottom: 10),
+          contentPadding: EdgeInsets.only(left: 10,bottom: 10,right: 10),
           fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,
@@ -547,15 +543,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {},
         textController: comNameController,
         onSaved: (String? newValue) {},
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return " companyName".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "Name must be a-z and A-Z";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),
@@ -563,7 +555,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget country(List data) {
-    
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
@@ -841,15 +832,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onSaved: (String? newValue) {},
         onFieldSubmitted: (value) {}, 
         textController: crController,
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return " crs".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "CR must be a-z and A-Z";
-          } else
-            return null;
+         validator: (value) {
+         if (value.isEmpty) {
+          return 'enterSomeText'.tr;
+        }
+           return null;
         },
         errorText: '',
       ),

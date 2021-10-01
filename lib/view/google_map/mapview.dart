@@ -94,15 +94,16 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            data['user_name']['image'] != null
+                            data['image'] != null
                                 ? Container(
-                                    width: Get.width / 5,
+                                    width: Get.width / 3.5,
+                                    height: Get.height / 3,
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(15),
                                             bottom: Radius.circular(15)),
                                         child: Image.network(
-                                            data['user_name']['image']['url'])),
+                                            data['image']['url'],fit: BoxFit.fitHeight,)),
                                   )
                                 : Container(
                                     height: Get.height / 3,
@@ -144,7 +145,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       margin:
                                           EdgeInsets.only(top: 10, left: 10),
                                       child: Text(
-                                        "${data['user_name']['rating_count'].toString()}",
+                                        "(${data['user_name']['rating_count'].toString()})",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
@@ -156,10 +157,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                 Container(
                                   width: Get.width / 4,
                                   margin: EdgeInsets.only(top: 10, left: 15),
-                                  child: Text(data['user_name']['name'],
+                                  child: Text(data['location'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20)
+                                          fontSize: 16)
                                       // Theme.of(context).textTheme.headline6!.copyWith(
                                       //       color: Colors.black,
                                       //     ),
@@ -391,8 +392,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       child: Container(
                         width: Get.width / 2.2,
                         height: Get.height / 5.2,
-                        child: userData['data'][index]['user_name'] !=null && userData['data'][index]['user_name']['image'] !=null && userData['data'][index]['user_name']['image']['url'] !=null ? 
-                        Image.network( userData['data'][index]['user_name']['image']['url'],
+                        child:  userData['data'][index]['image'] !=null && userData['data'][index]['image']['url'] !=null ? 
+                        Image.network( userData['data'][index]['image']['url'],
                             fit: BoxFit.fill,
                           )
                         :
@@ -404,9 +405,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20, top: 15,right: 15),
-                      child: userData['data'][index]['user_name']!=null &&  userData['data'][index]['user_name']['name'] !=null ? 
+                      child: userData['data'][index]['location']!=null &&  userData['data'][index]['location'] !=null ? 
                       Text(
-                        userData['data'][index]['user_name']['name'].toString(),
+                        userData['data'][index]['location'].toString(),
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -440,7 +442,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             Container(
                               margin: EdgeInsets.only(left: 5),
                               child: Text(
-                                "${userData['data'][index]['user_name']['rating_count'].toString()}",
+                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
                                 style: TextStyle(fontSize: 13),
                               )
                             ):Container()

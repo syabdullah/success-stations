@@ -544,13 +544,13 @@ Widget lastLocation(locLast){
               ),
               child:  Column(
                 children: [
-                  locLast[index]['user_name'] !=null && locLast[index]['user_name']['image'] !=null&&  locLast[index]['user_name']['image']['url']!= null ?
+                   locLast[index]['image'] !=null&&  locLast[index]['image']['url']!= null ?
                     ClipRRect(
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
                       child: Container(
                         width: Get.width/2.0,
                         height: Get.height/7.5,
-                        child: locLast[index]['user_name']['image']['url'] !=null  ?Image.network(locLast[index]['user_name']['image']['url'],fit: BoxFit.cover,) : Container()
+                        child: locLast[index]['image']['url'] !=null  ?Image.network(locLast[index]['image']['url'],fit: BoxFit.cover,) : Container()
                       ),
                     )
                   :Container(
@@ -563,7 +563,7 @@ Widget lastLocation(locLast){
                   ),
                   Container(
                     margin: EdgeInsets.only(left:10,right: 10),
-                    child: locLast[index]['user_name'] != null ?
+                    child: locLast[index]['location'] != null ?
                       Text(
                         locLast[index]['location'],
                         style: TextStyle(color: Colors.grey)
