@@ -71,7 +71,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   },
                   child: Container(
                     margin: lang == 'en' ? EdgeInsets.only(left: 20, top: 10,right: 10)  : EdgeInsets.only(right: 20, top: 10,left: 10),
-                    child: Image.asset(AppImages.plusImage, height: 24)
+                    child: Image.asset(AppImages.plusImage,color: AppColors.appBarBackGroundColor,  height: 24)
                   ),
                 ),
                 Container(

@@ -99,4 +99,11 @@ class AppImages {
   static String newuser = imagePath + 'newuser.png';
   static String newcall = imagePath + 'newcall.png';
 
+  //APPbAR
+  static String listingImage = imagePath + 'listtt.png';
+  static String filterImage = imagePath + 'filterred.png';
+  static String gridListing = imagePath + 'gridd.png';
+  static String plusImage1 = imagePath + 'plus@3x.png';
+
+
 }

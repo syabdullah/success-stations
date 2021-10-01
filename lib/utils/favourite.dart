@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/rating_controller.dart';
@@ -23,9 +24,9 @@ class _FavouritePageState extends State<FavouritePage> {
  final friCont = Get.put(FriendsController());
  
   final remoControllerFinal = Get.put(FriendsController());
-   final fContr = Get.put (FavoriteController());
+  final fContr = Get.put (FavoriteController());
   var listingIdRemoved;
-    var imageAds;
+  var imageAds;
  final ratingcont = Get.put(RatingController());
   final controller = Get.put(AddBasedController());
   var listtype = 'grid';
@@ -49,7 +50,7 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     super.initState(); 
     fContr.favoriteList();
- lang = box.read('lang_code');
+    lang = box.read('lang_code');
     id = box.read('user_id');
   }
 
@@ -76,91 +77,94 @@ class _FavouritePageState extends State<FavouritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(70.0),
+      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
         child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
-       ),
-       drawer: Theme(
+      ),
+      drawer: Theme(
         data: Theme.of(context).copyWith(
         ),
         child: AppDrawer(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            topWidget(), 
-            SizedBox(height: 20,),
-            GetBuilder<FavoriteController>(
-              init: FavoriteController(),
-              builder: (val) {
-                return val.isLoading == true  ? CircularProgressIndicator(): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
-                  children: listtype == 'list' ? myAddsList(val.fvr8DataList['data'])
-                  : myAddGridView(val.fvr8DataList['data']) ,
-                ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
-                Container(
-                  // margin: EdgeInsets.only(top: Get.height/ 4),
-                  child: Center(
-                    child: Text(
-                    fContr.fvr8DataList['errors'], style:TextStyle(fontSize: 25)),
-                  )
-                ):Container();        
-                
-              },
-            ) 
-          ],
-        ),
+      body: GetBuilder<GridListCategory>(
+        init:GridListCategory(),
+        builder: (valueu) {
+          return  SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 20,),
+                GetBuilder<FavoriteController>(
+                  init: FavoriteController(),
+                  builder: (val) {
+                    return val.isLoading == true  ? CircularProgressIndicator(): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
+                      children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data'])
+                      : myAddGridView(val.fvr8DataList['data']) ,
+                    ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
+                    Container(
+                      child: Center(
+                        child: Text(
+                        fContr.fvr8DataList['errors'], style:TextStyle(fontSize: 25)),
+                      )
+                    ):Container();        
+                    
+                  },
+                ) 
+              ],
+            ),
+          );
+        }
       ),
     );
   }
 
-  Widget topWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Container(
+  // Widget topWidget() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.end,
+  //     children: [
+  //       Container(
           
-          child: Row(
-            children: [
-              Container(
-                 margin: EdgeInsets.only(top: 20,),
-                  child: CupertinoButton(
-                    minSize: double.minPositive,
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      setState(() {
-                        listtype = 'grid';
-                        isButtonPressed = !isButtonPressed;
-                        listIconColor = Colors.grey;
-                        grid = AppImages.grid;
-                      });
-                    },
-                    child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                  ),
-              ),
-              SizedBox(width: 5,),
-                Container(
-                   margin: lang == 'en'
-                  ? EdgeInsets.only(top: 20,right: 10)
-                  : EdgeInsets.only(top: 20,left: 10),
-                          // margin: EdgeInsets.only(top: 20),
-                  child: CupertinoButton(
-                    minSize: double.minPositive,
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      setState(() {
-                          listtype = 'list';
-                      listIconColor = Colors.blue;
-                      grid = AppImages.gridOf;
-                      });
-                    },
-                    child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                  ),
-                ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
+  //         child: Row(
+  //           children: [
+  //             Container(
+  //                margin: EdgeInsets.only(top: 20,),
+  //                 child: CupertinoButton(
+  //                   minSize: double.minPositive,
+  //                   padding: EdgeInsets.zero,
+  //                   onPressed: () {
+  //                     setState(() {
+  //                       listtype = 'grid';
+  //                       isButtonPressed = !isButtonPressed;
+  //                       listIconColor = Colors.grey;
+  //                       grid = AppImages.grid;
+  //                     });
+  //                   },
+  //                   child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+  //                 ),
+  //             ),
+  //             SizedBox(width: 5,),
+  //               Container(
+  //                  margin: lang == 'en'
+  //                 ? EdgeInsets.only(top: 20,right: 10)
+  //                 : EdgeInsets.only(top: 20,left: 10),
+  //                         // margin: EdgeInsets.only(top: 20),
+  //                 child: CupertinoButton(
+  //                   minSize: double.minPositive,
+  //                   padding: EdgeInsets.zero,
+  //                   onPressed: () {
+  //                     setState(() {
+  //                         listtype = 'list';
+  //                     listIconColor = Colors.blue;
+  //                     grid = AppImages.gridOf;
+  //                     });
+  //                   },
+  //                   child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+  //                 ),
+  //               ),
+  //           ],
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
   
   List<Widget> myAddsList(listFavourite) {
     List<Widget> favrties = [];

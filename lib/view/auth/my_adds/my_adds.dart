@@ -7,9 +7,11 @@ import 'package:success_stations/controller/ad_delete_controller.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/my_adds_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -22,6 +24,7 @@ class MyAdds extends StatefulWidget {
 }
 class _MyAddsState extends State<MyAdds> {
   RangeValues _currentRangeValues = const RangeValues(1,100);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final controllerCat = Get.put(CategoryController());
    final friCont = Get.put(FriendsController()); 
@@ -56,119 +59,122 @@ class _MyAddsState extends State<MyAdds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: Text('my_adss'.tr),backgroundColor: AppColors.appBarBackGroundColor),
-       drawer: Theme(
-        data: Theme.of(context).copyWith(       
-        ),
-        child: AppDrawer(),
+      key: _scaffoldKey,
+      appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
+        child: myAdds(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
       ),
-      body: ListView(
-        children: [
-          topWidget(),
-          SizedBox(height: 10),
-          GetBuilder<CategoryController>(
-            init: CategoryController(),
-            builder: (data){
-              return data.isLoading == true ? CircularProgressIndicator(): 
-              data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
-              : Container();
-            },
-          ), 
-          SizedBox(height: 15),   
-          categorybool == false ? 
-          GetBuilder<AddBasedController>(
-          init: AddBasedController(),
-          builder: (val) {
-            return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
-            listtype == 'list' ? myAddsList(val.myALLAdd['data']): 
-            myAddGridView(val.myALLAdd['data'])
-            : myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
-            Container(
-              margin: EdgeInsets.only(top: Get.height / 3),
-              child: Center(
-                child: Text(
-                  val.myALLAdd['errors'],
-                  style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ): Container();
-          }
-        ) : GetBuilder<AddBasedController>(
-          init: AddBasedController(),
-          builder: (val){
-            return val.isLoading == true || val.cData == null? Container()
-              : val.cData['data'] == null ? Container()
-              : listtype != 'grid' ? myAddsList(val.cData['data']) : 
-                myAddGridView(val.cData['data']
-            );
-          },
-        ),
-      ],
+      body: GetBuilder<GridListCategory>(
+        init: GridListCategory(),
+        builder: (valuee){
+          return  ListView(
+            children: [
+              // topWidget(),
+              SizedBox(height: 10),
+              GetBuilder<CategoryController>(
+                init: CategoryController(),
+                builder: (data){
+                  return data.isLoading == true ? CircularProgressIndicator(): 
+                  data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
+                  : Container();
+                },
+              ), 
+              SizedBox(height: 15),   
+              categorybool == false ? 
+              GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val) {
+                return val.myALLAdd !=null && val.myALLAdd['data'] !=null && val.myALLAdd['success'] == true ? 
+                valuee.dataType == 'list' ? myAddsList(val.myALLAdd['data']): 
+                myAddGridView(val.myALLAdd['data'])
+                : myaddedDr.resultInvalid.isTrue && val.myALLAdd['data'] == false ?
+                Container(
+                  margin: EdgeInsets.only(top: Get.height / 3),
+                  child: Center(
+                    child: Text(
+                      val.myALLAdd['errors'],
+                      style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ): Container();
+              }
+            ) : GetBuilder<AddBasedController>(
+              init: AddBasedController(),
+              builder: (val){
+                return val.isLoading == true || val.cData == null? Container()
+                  : val.cData['data'] == null ? Container()
+                  : valuee.dataType != 'grid' ? myAddsList(val.cData['data']) : 
+                    myAddGridView(val.cData['data']
+                );
+              },
+            ),
+          ],
+          );
+        }
       ),
     );
   }
-    Widget topWidget() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [         
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                 Get.to(AddPostingScreen());
-                },
-                child: Container(
-                  margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                  child: Image.asset(AppImages.plusImage, height:24)
-                ),
-              ),
-              Container(
-                margin:EdgeInsets.only(left:10,right: 10,top: 20),
-                child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
-            ],
-          ),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'grid';
-                    isButtonPressed = !isButtonPressed;
-                    gridIconColor = AppColors.appBarBackGroundColor;
-                    listIconColor = Colors.grey;
-                    grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-                ),
-              ),
-              SizedBox(width: 5,),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: CupertinoButton(
-                  minSize: double.minPositive,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    setState(() {
-                      listtype = 'list';
-                      gridIconColor = Colors.grey;
-                      listIconColor = AppColors.appBarBackGroundColor;
-                      grid = AppImages.gridOf;
-                    });
-                  },
-                  child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-                ),
-              ),
-              SizedBox(height: 30,width: 15,)
-            ],
-          )
-        ],
-      );
-    }
+  // Widget topWidget() {
+  //     return Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [         
+  //         Row(
+  //           children: [
+  //             GestureDetector(
+  //               onTap: () {
+  //                Get.to(AddPostingScreen());
+  //               },
+  //               child: Container(
+  //                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
+  //                 child: Image.asset(AppImages.plusImage, color: AppColors.appBarBackGroundColor, height:24)
+  //               ),
+  //             ),
+  //             Container(
+  //               margin:EdgeInsets.only(left:10,right: 10,top: 20),
+  //               child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
+  //           ],
+  //         ),
+  //         Row(
+  //           children: [
+  //             Container(
+  //               margin: EdgeInsets.only(top: 20),
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'grid';
+  //                   isButtonPressed = !isButtonPressed;
+  //                   gridIconColor = AppColors.appBarBackGroundColor;
+  //                   listIconColor = Colors.grey;
+  //                   grid = AppImages.gridOf;
+  //                   });
+  //                 },
+  //                 child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
+  //               ),
+  //             ),
+  //             SizedBox(width: 5,),
+  //             Container(
+  //               margin: EdgeInsets.only(top: 20),
+  //               child: CupertinoButton(
+  //                 minSize: double.minPositive,
+  //                 padding: EdgeInsets.zero,
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     listtype = 'list';
+  //                     gridIconColor = Colors.grey;
+  //                     listIconColor = AppColors.appBarBackGroundColor;
+  //                     grid = AppImages.gridOf;
+  //                   });
+  //                 },
+  //                 child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
+  //               ),
+  //             ),
+  //             SizedBox(height: 30,width: 15,)
+  //           ],
+  //         )
+  //       ],
+  //     );
+  //   }
   
 void _adsfiltringheet() {
     showModalBottomSheet<void>(
