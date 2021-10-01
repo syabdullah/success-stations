@@ -576,8 +576,9 @@ void _adsfiltringheet() {
                                       child: Icon(Icons.image,size: 50,)),
                                      Transform.scale(
                                     scale: .7,
-                                    child: Switch.adaptive(
+                                    child: CupertinoSwitch(
                                         activeColor: AppColors.appBarBackGroundColor,
+                                        
                                         value:dataListValue[index]['is_active'] == 1 ? true : false, onChanged: (newValue) {
                                       // setState(() {
                                         dataListValue[index]['is_active'] == 1 ?

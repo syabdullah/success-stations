@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
@@ -173,6 +174,26 @@ class FriendsController extends GetxController {
     await basedAddById(id, userId).then((res) {
       cData = jsonDecode(res.body);
       isLoading = false;
+    });
+    update();
+  }
+   var resultInvalid = false.obs;
+  searchFriendControl(data) async {
+    isLoading = true;
+    await searchFriend(data).then((res) {
+     friendsData = jsonDecode(res.body);
+      isLoading = false;
+       if(res.statusCode ==200||res.statusCode <  400){
+        resultInvalid(false);
+         isLoading = false;
+      } if(friendsData['success'] == false){
+          resultInvalid(true);
+          isLoading = false;
+          print("hehe");
+      }
+      if(res.statusCode >400){
+         print("hehe");
+      }
     });
     update();
   }

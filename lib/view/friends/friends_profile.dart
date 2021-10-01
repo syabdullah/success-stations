@@ -29,13 +29,14 @@ class _FriendProfileState extends State<FriendProfile>
   var adID;
   bool choice = false;
   var dtaaa;
-  var langg;
+  var lang;
   @override
   void initState() {
     super.initState();
+    lang = box.read('lang_code');
     selectedUser = box.read("selected");
     requister = box.read("requister");
-    langg = box.read('lang_code');
+    // langg = box.read('lang_code');
     dtaaa = Get.arguments;
     id = dtaaa[1];
     friCont.friendDetails(id);
@@ -79,6 +80,7 @@ class _FriendProfileState extends State<FriendProfile>
   var image;
   Widget profileDetail(data) {
     var country = data['country'];
+    print("/////// ${data['country']}");
     if (data['image'] != null) {
       image = data['image']['url'];
       box.write('chat_image', image);
@@ -185,7 +187,7 @@ class _FriendProfileState extends State<FriendProfile>
                     SizedBox(width: 5),
                     Container(
                       margin: EdgeInsets.only(top: 6),
-                      child: Text(country['name']['en'],
+                      child: Text(country['name'][lang] !=null ? country['name'][lang]:  country['name'][lang] == null ? country['name']['en']:'',
                           style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -205,7 +207,7 @@ class _FriendProfileState extends State<FriendProfile>
       children: [
         FractionalTranslation(
           translation: 
-          langg == 'ar' ?  Offset(-0.5, -0.5):
+          lang == 'ar' ?  Offset(-0.5, -0.5):
           const Offset(0.6, -0.5),
           child: Container(
             child: GestureDetector(
@@ -255,7 +257,7 @@ class _FriendProfileState extends State<FriendProfile>
           )
         ),
         FractionalTranslation(
-          translation: langg == 'ar' ?  Offset(-0.7, -0.5):
+          translation: lang == 'ar' ?  Offset(-0.7, -0.5):
               const Offset(0.7, -0.5),
           child: GestureDetector(
             // margin: EdgeInsets.only(left: 250),
@@ -283,7 +285,7 @@ class _FriendProfileState extends State<FriendProfile>
           ),
         ),
         SizedBox(
-          height: langg == 'en' ? 30 : 50,
+          height: lang == 'en' ? 30 : 50,
           child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -345,7 +347,7 @@ class _FriendProfileState extends State<FriendProfile>
                           Expanded(
                             flex: 1,
                             child: Container(
-                                padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                                padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -531,7 +533,7 @@ class _FriendProfileState extends State<FriendProfile>
                 Card(
                   elevation: 2,
                   child: Container(
-                      padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                      padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                     child: Column(
                       
                       children: [
@@ -658,7 +660,7 @@ class _FriendProfileState extends State<FriendProfile>
                 ),
                 Card(
                   child: Container(
-                     padding:langg == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                     padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -705,7 +707,7 @@ class _FriendProfileState extends State<FriendProfile>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          width: langg == 'en' ? Get.width/3.3 : Get.width/3.5,
+                          width: lang == 'en' ? Get.width/3.3 : Get.width/3.5,
                           margin: EdgeInsets.symmetric(
                               vertical: 6.0, horizontal: 10.0),
                           child: ClipRRect(
