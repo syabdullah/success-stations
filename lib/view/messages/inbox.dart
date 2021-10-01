@@ -25,18 +25,20 @@ class _InboxState extends State<Inbox> {
    userId =  box.read('user_id');
   }
   Widget messageList(data,allData) {
-    return Container(     
+    return Container(    
+      height: Get.height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
         color: Colors.grey[200],
       ),
       margin: Get.height < 700 ? EdgeInsets.only(top:Get.height/2.9):
        Get.height > 700 &&
-      Get.height > 800 ?  EdgeInsets.only(top:Get.height/3.5) : EdgeInsets.only(top:Get.height/3.3),
-      padding: EdgeInsets.only(top:20),
-      child: ListView.builder(
+      Get.height > 800 ?  EdgeInsets.only(top:Get.height/3.4) : EdgeInsets.only(top:Get.height/3.3),
+      child: 
+      ListView.builder(
         physics: AlwaysScrollableScrollPhysics(),
         itemCount: conData.length,
+        padding: EdgeInsets.only(top: 15),
         itemBuilder: (context, index) {
           return chatListView(conData[index],allData['data'][index]);
         },
@@ -139,7 +141,7 @@ class _InboxState extends State<Inbox> {
       itemBuilder: (context, index) {
       return
         Padding(
-        padding: const EdgeInsets.only(left:25.0),
+        padding: const EdgeInsets.only(left:10.0),
         child: recentChat(conData[index]),
       );
     });  
@@ -210,7 +212,7 @@ Widget recentChat(data){
                       )
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:0.0,left:20,right: 20),
+                      padding: const EdgeInsets.only(left:20,right: 20),
                       child: Text("recentelyContact".tr,
                         style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
                       ),
