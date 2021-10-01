@@ -79,13 +79,13 @@ class _OfferListState extends State<OfferList> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      child:  offerid !=null ? favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1):Container()),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-        ),
-        child: AppDrawer(),
-      ),
+      // appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
+      // child:  offerid !=null ? favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1):Container()),
+      // drawer: Theme(
+      //   data: Theme.of(context).copyWith(
+      //   ),
+      //   child: AppDrawer(),
+      // ),
       body: GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuee){

@@ -72,28 +72,6 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
-      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
-      // appBar: data != null?  AppBar(
-      //   leading: GestureDetector(
-      //     onTap: (){
-      //       Get.back();
-      //     },
-      //     child: Icon(Icons.arrow_back)
-      //   ),
-      //   elevation: 0,
-      //   backgroundColor: AppColors.appBarBackGroundColor,
-      //   centerTitle: true,
-      //   title:Text('allAds'.tr,
-      //     style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-      //   )
-      // ): null,
       body:  GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuees){
@@ -113,7 +91,7 @@ class _AllAddsState extends State<AllAdds> {
                   init: AddBasedController(),
                   builder: (val) {
                     return val.isLoading == true || val.allAdsData == null? Container()
-                    : val.allAdsData['data'] == null ? Container(): valuees.dataType != 'grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']);
+                    : val.allAdsData['data'] == null ? Container(): valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']);
                   },
                 )
               : GetBuilder<AddBasedController>(
@@ -121,7 +99,7 @@ class _AllAddsState extends State<AllAdds> {
                 builder: (val) {
                   return val.isLoading == true || val.cData == null? Container()
                   : val.cData['data'] == null ? Container()
-                  : valuees.dataType != 'grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
+                  : valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
                 },
               )
             ],

@@ -59,14 +59,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:  PreferredSize( 
-        preferredSize: Size.fromHeight(70.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
+      appBar: AppBar(centerTitle: true,
+        title: Image.asset(AppImages.appBarLogo, height:35),
+        backgroundColor: AppColors.appBarBackGroundColor
       ),
-      drawer: Theme(
-        data: Theme.of(context).copyWith( ),
-        child: AppDrawer(),
-      ),
+
 
       body: SingleChildScrollView(
         child: GetBuilder<MyAddsController>(
