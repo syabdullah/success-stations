@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/bottom_bar.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 
 class FriendReqList extends StatefulWidget {
@@ -29,17 +26,11 @@ class _FriendReqListState extends State<FriendReqList> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-        key: _scaffoldKey,
-        appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-          ),
-          child: AppDrawer(),
-        ),
-        // bottomNavigationBar: BottomTabs(),
-       body: ListView(
-        children: [
+        appBar: AppBar(centerTitle: true,
+        title: Image.asset(AppImages.appBarLogo, height:35),
+        backgroundColor: AppColors.appBarBackGroundColor),
+        body: ListView(
+          children: [
            GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
