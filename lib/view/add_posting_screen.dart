@@ -736,7 +736,7 @@ Widget secondStep(){
             ),
            ),
            SizedBox(height: 5.h,),
-      SizedBox(height: 5.h,),
+            SizedBox(height: 5.h,),
            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(

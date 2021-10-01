@@ -72,7 +72,6 @@ class _FriendReqListState extends State<FriendReqList> {
      );
   }
   List<Widget> friendList(data) { 
-      
     var count = 0;
      List<Widget> req = [];
      if(data != null)
@@ -97,7 +96,7 @@ class _FriendReqListState extends State<FriendReqList> {
                 child: Row(
                   children: [
                     id == data[i]['requister_id'] ? 
-                Container(
+                  Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     radius: 30,
@@ -107,8 +106,8 @@ class _FriendReqListState extends State<FriendReqList> {
                     ,child: Image.network(data[i]['user_requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60,)) : 
                         Image.asset(AppImages.person),
                   ),
-                ):
-                Container(
+                  ):
+                  Container(
                   margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
                   child: CircleAvatar(
                     radius: 30,
