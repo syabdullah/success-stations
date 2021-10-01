@@ -66,6 +66,7 @@ class  AdPostingController extends GetxController {
     update();
   }
     uploadAdImage(data) async {
+      print("/./././././.------$data");
       await ApiHeaders().getData();
       final Config conf = Config();
       String url =conf.baseUrl + "ads/media";
@@ -73,6 +74,7 @@ class  AdPostingController extends GetxController {
         response.Response result =
         await dio.post(url, data: data,options:Options(headers: ApiHeaders().headersWithToken));
       adUpload = result.data;
+      print("/./././././.------$adUpload");
       
     update();
   }
