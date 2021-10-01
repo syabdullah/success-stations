@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -208,88 +209,109 @@ class _FriendListState extends State<FriendList> {
               : [dataa[index]['id'],dataa[index]['user_requisted']['id']]);
             },
             child: Card(
-              child: Row(
-                children: [
-                  id != dataa[index]['requister_id']
-                  ? Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10.0
+              child: ListTile(
+                trailing:  Container(
+                  margin: EdgeInsets.only(top:15),
+                      child:GestureDetector(
+                        onTap: () {
+                           friCont.deleteFriend(dataa[index]['id'],'');
+                        },
+                       child: Container(
+                         height: 35,
+                         width: 70,
+                         decoration: BoxDecoration(
+                           color: Colors.grey[700],
+                           borderRadius:BorderRadius.circular(10)
+                         ),
+                         // padding: EdgeInsets.all(10),
+                         child: Center(child: Text("remove".tr,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
+                       ),
+                          ),
                     ),
-                    child: Container(
-                      child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundColor: Colors.grey[100],
-                        child: dataa[index]['requister']['image'] !=
-                        null
-                        ? ClipRRect(
-                          borderRadius: BorderRadius.circular(50.0),
-                          child: Image.network(
-                            dataa[index]['requister']['image'] ['url'],
-                            height: 80,
-                            fit: BoxFit.fill,
+
+                title: Row(
+                  children: [
+                    id != dataa[index]['requister_id']
+                    ? Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0
+                      ),
+                      child: Container(
+                        child: CircleAvatar(
+                          radius: 30.0,
+                          backgroundColor: Colors.grey[100],
+                          child: dataa[index]['requister']['image'] !=
+                          null
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(50.0),
+                            child: Image.network(
+                              dataa[index]['requister']['image'] ['url'],
+                              height: 80,
+                              fit: BoxFit.fill,
+                            )
                           )
+                          : Image.asset(AppImages.person)
+                        ),
+                      ),
+                    )
+                    : Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                      child: CircleAvatar(
+                        radius: 40.0,
+                        backgroundColor: Colors.grey[100],
+                        child: dataa[index]['user_requisted']['image'] != null
+                        ? ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(50.0),
+                            child: Image.network(
+                              dataa[index]['user_requisted']
+                                  ['image']['url'],
+                              height: 80,
+                              fit: BoxFit.fill,
+                            )
                         )
                         : Image.asset(AppImages.person)
                       ),
                     ),
-                  )
-                  : Container(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    child: CircleAvatar(
-                      radius: 40.0,
-                      backgroundColor: Colors.grey[100],
-                      child: dataa[index]['user_requisted']['image'] != null
-                      ? ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(50.0),
-                          child: Image.network(
-                            dataa[index]['user_requisted']
-                                ['image']['url'],
-                            height: 80,
-                            fit: BoxFit.fill,
+                
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: id == dataa[index]['requister_id']
+                          ? Text(
+                            dataa[index]['user_requisted']['name'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold),
                           )
-                      )
-                      : Image.asset(AppImages.person)
+                          : Text(
+                            dataa[index]['requister']['name'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: id == dataa[index]['requister_id']
+                          ? Text(
+                            dataa[index]['user_requisted']['degree'] ?? '',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold),
+                          )
+                          : Text(
+                            dataa[index]['requister']['degree'] ?? '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ),
+                      ],
                     ),
-                  ),
-              
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: id == dataa[index]['requister_id']
-                        ? Text(
-                          dataa[index]['user_requisted']['name'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        )
-                        : Text(
-                          dataa[index]['requister']['name'],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: id == dataa[index]['requister_id']
-                        ? Text(
-                          dataa[index]['user_requisted']['degree'] ?? '',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        )
-                        : Text(
-                          dataa[index]['requister']['degree'] ?? '',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                ],
+                    Spacer(),
+                  ],
+                ),
               ),
             ),
           )
@@ -307,14 +329,17 @@ class _FriendListState extends State<FriendList> {
       }
     }
     return GridView.count(
-      padding: EdgeInsets.only(left: 10),
+      padding: EdgeInsets.only(left: 5 ),
         crossAxisCount: 2,
-        childAspectRatio: (Get.width / Get.height*1.5),
+        childAspectRatio: (Get.width / Get.height*1.8),
         children: List.generate(
           newData.length,
           (index) {
             return  GestureDetector(
               child: Card(
+                 shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -352,8 +377,7 @@ class _FriendListState extends State<FriendList> {
                           borderRadius:
                               BorderRadius.circular(50.0),
                           child: Image.network(
-                            newData[index]['user_requisted']
-                                ['image']['url'],
+                            newData[index]['user_requisted']['image']['url'],
                             height: 100,
                             fit: BoxFit.fill,
                           )
@@ -390,42 +414,48 @@ class _FriendListState extends State<FriendList> {
                       )
                     ),
                     SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                         GestureDetector(
-                           onTap: () {
-                              friCont.deleteFriend(newData[index]['id'],'');
-                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[700],
-                              borderRadius:BorderRadius.circular(10)
+                    Container(
+                       padding: EdgeInsets.only(left:6),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           GestureDetector(
+                             onTap: () {
+                                friCont.deleteFriend(newData[index]['id'],'');
+                             },
+                            child: Container(
+                              height: 35,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[700],
+                                borderRadius:BorderRadius.circular(10)
+                              ),
+                              // padding: EdgeInsets.all(10),
+                              child: Center(child: Text("remove".tr,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
                             ),
-                            padding: EdgeInsets.all(10),
-                            child: Text("Remove",style: TextStyle(color: Colors.white)),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            selected = box.write("selected", newData[index]['id']);
-                            requisterId = box.write("requister", newData[index]['requister_id']);
-                            Get.to(FriendProfile(),
-                            arguments: id != newData[index]['requister_id']
-                            ? [newData[index]['id'],newData[index]['requister_id']]
-                            : [newData[index]['id'],newData[index]['user_requisted']['id']]);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left: 10),
-                             decoration: BoxDecoration(
-                               borderRadius:BorderRadius.circular(10),
-                              color: AppColors.appBarBackGroundColor
+                          GestureDetector(
+                            onTap: () {
+                              selected = box.write("selected", newData[index]['id']);
+                              requisterId = box.write("requister", newData[index]['requister_id']);
+                              Get.to(FriendProfile(),
+                              arguments: id != newData[index]['requister_id']
+                              ? [newData[index]['id'],newData[index]['requister_id']]
+                              : [newData[index]['id'],newData[index]['user_requisted']['id']]);
+                            },
+                            child: Container(
+                              height: 35,
+                              width: 90,
+                              margin: EdgeInsets.only(left:5,right: 5),
+                               decoration: BoxDecoration(
+                                 borderRadius:BorderRadius.circular(10),
+                                color: AppColors.appBarBackGroundColor
+                              ),
+                              child: Center(child: Text("viewprofile".tr,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))),
                             ),
-                            padding: EdgeInsets.all(10),
-                            child: Text("view Profile",style: TextStyle(color: Colors.white)),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

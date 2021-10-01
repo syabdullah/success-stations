@@ -48,7 +48,8 @@ var userId = box.read('user_id');
           iconSize: 28,
           icon: Image.asset(AppImages.newfilter,color: Colors.white,),
           onPressed: () => Get.bottomSheet(FriendFilter()),
-        ):
+        )
+        :
         IconButton(
           iconSize: 28,
           icon: Image.asset(AppImages.menuBurger,height: 20,),

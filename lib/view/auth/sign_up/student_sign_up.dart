@@ -267,7 +267,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText: 'semestersu'.tr,
+        hintText: 'digitSemester'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},

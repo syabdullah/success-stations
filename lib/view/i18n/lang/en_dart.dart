@@ -304,8 +304,10 @@ const Map<String, String> en = {
   "adpostedat":"Ad Posted at",
   "helloPeople":"People Commented on this ad.",
   "allAds": "All Ads",
-  "selectService":"Select Service"
-
+  "selectService":"Select Service",
+  "digitSemester":"Semester in Digits Only",
+  "viewprofile":"View Profile"
+  
 };
 
 
