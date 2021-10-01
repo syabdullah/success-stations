@@ -368,12 +368,12 @@ Widget locationList(lastLocation) {
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         itemCount: lastLocation['data'].length,
+        shrinkWrap: true,
         // ignore: non_constant_identifier_names
         itemBuilder: (BuildContext,index) {
         
           return Card(
             child: Container(
-              height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -382,26 +382,23 @@ Widget locationList(lastLocation) {
                       Center(
                         child: Container(
                           color: Colors.grey[100],
-                          width: Get.width/4,
+                          width: Get.width/3.5,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),
                             child: GestureDetector(
-                              child: 
-                              
-                               lastLocation['data'][index]['user_name'] !=null && lastLocation['data'][index]['user_name']['image'] !=null&&  lastLocation['data'][index]['user_name']['image']['url']!= null ?
-                  ClipRRect(
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-                    child: Container(
-                      // width: Get.width/200,
-                      height: Get.height/7.5,
-                      child: lastLocation['data'][index]['user_name']['image']['url'] !=null ?
-                    Image.network(lastLocation['data'][index]['user_name']['image']['url'], fit: BoxFit.cover,): Container()
-                    ),
-                  ): Container(
-                      child: Image.asset(AppImages.location,height: 117,),
-                  ),
-                            ),
+                              child:lastLocation['data'][index]['image'] !=null&&  lastLocation['data'][index]['image']['url']!= null ?
+                              ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  height: Get.height/7.5,
+                                  child: lastLocation['data'][index]['image']['url'] !=null ?
+                                  Image.network(lastLocation['data'][index]['image']['url'], fit: BoxFit.cover,): Container()
+                                ),
+                              ): Container(
+                                  child: Image.asset(AppImages.location,height: 117,),
+                              ),
+                                        ),
                           )
                         ),
                       ),
@@ -433,14 +430,14 @@ Widget locationList(lastLocation) {
                               children: [
                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
                                 lastLocation['data'][index]['services'] !=null ?
-                              Text(lastLocation['data'][index]['services']['servics_name'],
+                              Text(": ${lastLocation['data'][index]['services']['servics_name']}",
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
                               ): Container(),
                               SizedBox(width: 3,),
                              
                               ],
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: 18),
                               
                           ],
                         ),

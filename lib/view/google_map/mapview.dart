@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/user_fav_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
@@ -22,7 +21,8 @@ class CustomInfoWindowExample extends StatefulWidget {
 }
 
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
-  CustomInfoWindowController _customInfoWindowController =  CustomInfoWindowController();
+  CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final mapCon = Get.put(LocationController());
   final adfavUser = Get.put(UserFavController());
@@ -30,6 +30,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   final double _zoom = 5.0;
   int _makrr_id_counter = 1;
   var listtype = 'map';
+  //  Marker _markers = [];
   List<Marker> _markers = [];
   var adtofavJson, remtofavJson;
   var route;
@@ -93,15 +94,16 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            data['user_name']['image'] != null
+                            data['image'] != null
                                 ? Container(
-                                    width: Get.width / 5,
+                                    width: Get.width / 3.5,
+                                    height: Get.height / 3,
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(15),
                                             bottom: Radius.circular(15)),
                                         child: Image.network(
-                                            data['user_name']['image']['url'])),
+                                            data['image']['url'],fit: BoxFit.fitHeight,)),
                                   )
                                 : Container(
                                     height: Get.height / 3,
@@ -143,7 +145,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       margin:
                                           EdgeInsets.only(top: 10, left: 10),
                                       child: Text(
-                                        "${data['user_name']['rating_count'].toString()}",
+                                        "(${data['user_name']['rating_count'].toString()})",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
@@ -155,10 +157,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                 Container(
                                   width: Get.width / 4,
                                   margin: EdgeInsets.only(top: 10, left: 15),
-                                  child: Text(data['user_name']['name'],
+                                  child: Text(data['location'],
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20)
+                                          fontSize: 16)
                                       // Theme.of(context).textTheme.headline6!.copyWith(
                                       //       color: Colors.black,
                                       //     ),
@@ -205,60 +207,53 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey, 
-      body: GetBuilder<GridListCategory>(
-        init: GridListCategory(),
-        builder: (valuee){
-          return GetBuilder<LocationController>(
-            init: LocationController(),
-            builder: (val) { 
-              _markers.clear();
-              if (val.allLoc != null)
-              for (int i = 0; i < val.allLoc['data']['data'].length; i++) {
-                if (val.allLoc['data']['data'][i]['location'] != null) {
-                  setMarkers(
-                    LatLng(val.allLoc['data']['data'][i]['long'],
-                    val.allLoc['data']['data'][i]['long']),
-                    val.allLoc['data']['data'][i]);
-                    _latLng = LatLng(val.allLoc['data']['data'][i]['long'],
-                    val.allLoc['data']['data'][i]['long']);
-                  }
-                }
-                return Stack(
-                  children: [
-                    valuee.dataType == 'map'
-                    ? Stack(
-                      children: <Widget>[
-                        val.allLoc != null
-                        ? googleMap(val.latLng)
-                        : Container(),
-                        CustomInfoWindow(
-                          controller: _customInfoWindowController,
-                          height: Get.height / 6,
-                          width: Get.width / 1.2,
-                          offset: 50,
-                        ),
-                      ],
-                    )
-                    : GetBuilder<LocationController>(
-                      init:  LocationController(),
-                      builder: (value) {
-                        return value.allLoc != null
-                        ? allUsers(value.allLoc['data'])
-                        : Center(child: CircularProgressIndicator());
-                      } 
-                    ),
-                  // Container(
-                  //   child: Row(
-                  //     children: [
-                  //       topWidget()
-                  //     ],
-                  //   ),
-                  // )
-                ],
-              );
+      body: GetBuilder<LocationController>(
+        init: LocationController(),
+        builder: (val) { 
+          _markers.clear();
+          if (val.allLoc != null)
+          for (int i = 0; i < val.allLoc['data']['data'].length; i++) {
+            if (val.allLoc['data']['data'][i]['location'] != null) {
+              setMarkers(
+                LatLng(val.allLoc['data']['data'][i]['long'],
+                val.allLoc['data']['data'][i]['long']),
+                val.allLoc['data']['data'][i]);
+                _latLng = LatLng(val.allLoc['data']['data'][i]['long'],
+                val.allLoc['data']['data'][i]['long']);
+              }
             }
+            return Stack(
+              children: [
+                listtype == 'map'
+                ? Stack(
+                  children: <Widget>[
+                    val.allLoc != null
+                    ? googleMap(val.latLng)
+                    : Container(),
+                    CustomInfoWindow(
+                      controller: _customInfoWindowController,
+                      height: Get.height / 6,
+                      width: Get.width / 1.2,
+                      offset: 50,
+                    ),
+                  ],
+                )
+                : GetBuilder<LocationController>(
+                  init:  LocationController(),
+                  builder: (value) {
+                    return value.allLoc != null
+                    ? allUsers(value.allLoc['data'])
+                    : Center(child: CircularProgressIndicator());
+                  } 
+                ),
+              // Container(
+              //   child: Row(
+              //     children: [topWidget()],
+              //   ),
+              // )
+            ],
           );
-        },
+        }
       ),
     );
   }
@@ -360,117 +355,123 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget allUsers(userData) {
     return GridView.builder(
-      primary: false,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio:
-        Get.width /(Get.height >= 800
-        ? Get.height /1.65
-        : Get.height <= 800
-        ? lang == 'en'? Get.height * 0.52: Get.height * 0.46: 0),
-      ),
-      itemCount: userData['data'].length,
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () {
-            Get.to(AdViewTab(),
-            arguments: userData['data'][index]['user_name']['id']);
-          },
-          child: Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(13.0),
-            ),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)
-                    ),
-                    child: Container(
-                      width: Get.width / 1.9,
-                      height: Get.height / 5.2,
-                      child: userData['data'][index]['user_name'] !=null && userData['data'][index]['user_name']['image'] !=null && userData['data'][index]['user_name']['image']['url'] !=null ? 
-                      Image.network( userData['data'][index]['user_name']['image']['url'], width: Get.width,
-                        fit: BoxFit.cover,
-                      )
-                      :FittedBox(
-                        fit:BoxFit.contain,
-                        child: Icon(Icons.person, color: Colors.grey[400])
-                      )
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20,right: 15),
-                    child: userData['data'][index]['user_name']!=null &&  userData['data'][index]['user_name']['name'] !=null ? 
-                    Text(
-                      userData['data'][index]['user_name']['name'].toString(),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14
+        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+        primary: false,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 20,
+          crossAxisCount: 2,
+          childAspectRatio: Get.width /
+          (Get.height >= 800
+          ? Get.height / 1.65
+          : Get.height <= 800
+          ? Get.height / 1.60
+          : 0),
+        ),
+        itemCount: userData['data'].length,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              Get.to(AdViewTab(),
+                  arguments: userData['data'][index]['user_name']['id']);
+            },
+            child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0)
                       ),
-                    ):Container()
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        children: [
-                          userData['data'][index]['user_name']!=null ? 
-                          Container(
-                            child: RatingBar.builder(
-                              ignoreGestures: true,
-                              initialRating: userData['data'][index]['user_name']['rating'].toDouble(),
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 13.5,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                                onRatingUpdate: (rating) {},
-                            ),
-                          ):Container(),
-                          userData['data'][index]['user_name']!=null ? 
-                          Container(
-                            margin: EdgeInsets.only(left: 5),
-                            child: Text(
-                              "${userData['data'][index]['user_name']['rating_count'].toString()}",
-                              style: TextStyle(fontSize: 13),
-                            )
-                          ):Container()
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          adtofavJson = {
-                            'user_id': userData['data'][index]['user_name']['id']
-                          };
-                          remtofavJson = {
-                            'user_id': userData['data'][index]['user_name']['id']
-                          };
-                          userData['data'][index]['user_name']['is_user_favourite'] ==false
-                          ? adfavUser.profileAdsToFav(adtofavJson)
-                          : adfavUser.profileRemToFav(remtofavJson);
-                        },
-                        child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['user_name']['is_user_favourite'] == false
-                        ? Image.asset(
-                          AppImages.blueHeart, height: 18,
+                      child: Container(
+                        width: Get.width / 2.2,
+                        height: Get.height / 5.2,
+                        child:  userData['data'][index]['image'] !=null && userData['data'][index]['image']['url'] !=null ? 
+                        Image.network( userData['data'][index]['image']['url'],
+                            fit: BoxFit.fill,
+                          )
+                        :
+                        FittedBox(
+                          fit:BoxFit.contain,
+                          child: Icon(Icons.person, color: Colors.grey[400])
                         )
-                        : Image.asset(AppImages.heart)
-                      )
-                    ],
-                  ),
-                ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 20, top: 15,right: 15),
+                      child: userData['data'][index]['location']!=null &&  userData['data'][index]['location'] !=null ? 
+                      Text(
+                        userData['data'][index]['location'].toString(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14
+                        ),
+                      ):Container()
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            userData['data'][index]['user_name']!=null ? 
+                            Container(
+                              child: RatingBar.builder(
+                                ignoreGestures: true,
+                                initialRating: userData['data'][index]['user_name']['rating'].toDouble(),
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 13.5,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                 onRatingUpdate: (rating) {},
+                              ),
+                            ):Container(),
+                            userData['data'][index]['user_name']!=null ? 
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(
+                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
+                                style: TextStyle(fontSize: 13),
+                              )
+                            ):Container()
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            adtofavJson = {
+                              'user_id': userData['data'][index]['user_name']['id']
+                            };
+                            remtofavJson = {
+                              'user_id': userData['data'][index]['user_name']['id']
+                            };
+                            userData['data'][index]['user_name']['is_user_favourite'] ==false
+                            ? adfavUser.profileAdsToFav(adtofavJson)
+                            : adfavUser.profileRemToFav(remtofavJson);
+                          },
+                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['user_name']['is_user_favourite'] == false
+                          ? Image.asset(
+                            AppImages.blueHeart, height: 18,
+                          )
+                          : Image.asset(AppImages.heart)
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           );
         }
       );

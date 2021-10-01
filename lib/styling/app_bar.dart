@@ -15,6 +15,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/offer_filtered.dart';
 import 'package:success_stations/view/offer_grid_filtered.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
@@ -75,7 +76,8 @@ void _getUserLocation() async {
 }
 
 Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
-  return AppBar(
+  var lang = box.read('lang_code');
+  return lang == 'en' ?  AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -86,7 +88,13 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         icon: Image.asset(AppImages.menuBurger,height: 20,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ):
+    ): index == 1 ?
+        IconButton(
+          iconSize: 10,
+          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
+          onPressed: () => Get.bottomSheet(FriendFilter()),
+        ):
+          
     index == 2 ? Container()
     : Row(
       children: [
@@ -139,6 +147,100 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             GestureDetector(
               onTap: (){
                 index == 4 ? 
+                gridingData.listingGrid('map'):
+                gridingData.listingGrid('list');
+
+
+              },
+              child: index ==2 ? Container():Image.asset(AppImages.listingImage, height:22)
+            ),
+            GestureDetector(
+              onTap: (){
+                gridingData.listingGrid('grid');
+              },
+              child: Container(
+                margin: EdgeInsets.only(left:12),
+                child:  index ==2 ? Container():Image.asset(AppImages.gridListing ,height:22)
+              ),
+            )
+          ],
+        ),
+      ),
+    ],
+    backgroundColor: AppColors.appBarBackGroundColor,
+  ) : 
+  AppBar(
+    automaticallyImplyLeading: false,
+    centerTitle: true,
+    leadingWidth: 89,
+    leading: index == 2 ?  Container(
+      margin:EdgeInsets.only(top:2),
+      child: IconButton(
+        iconSize: 20,
+        icon: Image.asset(AppImages.menuBurger,height: 20,),
+        onPressed: () => globalKey.currentState!.openDrawer()
+      ),
+    ): 
+    index == 3 ?
+        IconButton(
+          iconSize: 28,
+          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
+          onPressed: () => Get.bottomSheet(FriendFilter()),
+        )
+          :
+    index == 2 ? Container()
+    : Row(
+      children: [
+        GestureDetector(
+          onTap: index == 0 ?(){
+            filtrationModel(context);
+          }:
+          index == 1 ?(){
+            adsfiltringheet(context);
+          }:
+          index == 4 ?(){
+            filteringCategory(context);
+            
+          }:
+          null,
+          child: Container(
+            margin: EdgeInsets.only(left:10, top:12),
+            child:  index == 3 ? Container(): 
+            Image.asset(AppImages.filterImage,
+              color: Colors.white, height: 25
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: index == 1 ? (){
+            Get.to(AddPostingScreen());
+          }:
+          index == 4? (){
+            Get.to(AddOffersPage());
+          }:null ,
+          child: Container(
+            margin: EdgeInsets.only(left:3, top:12),
+            child:index != 3 && index !=0 ? Image.asset(
+              AppImages.plusImage1,
+              color: Colors.white,width: 25.w, height:25
+            ):Container()
+          ),
+        ),
+      ],
+    ),
+    title: Padding(
+      padding: const EdgeInsets.only(top:10.0),
+      child: Image.asset(image, height: 40),
+    ), 
+    actions: [
+      Container(
+        margin: EdgeInsets.only(right:16,top:10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: (){
+                index == 0 ? 
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
 
@@ -381,7 +483,10 @@ Widget sAppbar(context ,icon,image,) {
   var locationName;
   var service;
   filtrationModel(context) async {
-    size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
+    array.clear();
+    cityArray.clear();
+    locationName = null;
     showModalBottomSheet(  
      isScrollControlled: true,
      context: context,   
@@ -410,7 +515,7 @@ Widget sAppbar(context ,icon,image,) {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  margin:EdgeInsets.only(left:30),
+                                  margin:EdgeInsets.only(left:30,right:30),
                                   child: Text('filter'.tr,
                                     style: TextStyle(
                                       fontSize: 20, color: Colors.black
@@ -418,7 +523,7 @@ Widget sAppbar(context ,icon,image,) {
                                   ),
                                 ),
                                 Container(
-                                  margin:EdgeInsets.only(right:20),
+                                  margin:EdgeInsets.only(right:20,left:20),
                                   child: InkWell(
                                     onTap: () => Get.back(),
                                     child: Icon(Icons.close)
@@ -434,7 +539,7 @@ Widget sAppbar(context ,icon,image,) {
                             ),
                             width: Get.width/4,
                            padding: EdgeInsets.symmetric(vertical: 10),
-                            margin: EdgeInsets.only(top: 20,left: 30),
+                            margin: EdgeInsets.only(top: 20,left: 30,right: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -518,8 +623,8 @@ Widget sAppbar(context ,icon,image,) {
                                           decideRouter = 'name';
                                           namearray.add(val);
                                           cityArray.length == 0  ?
-                                          locationName = 'name=$val':
-                                          locationName  = '&name=$val';
+                                          locationName = 'location=$val':
+                                          locationName  = '&location=$val';
                                         });                        
                                       },
                                     ),
@@ -578,13 +683,13 @@ Widget sAppbar(context ,icon,image,) {
                             )
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 15),
+                            margin: EdgeInsets.only(left: 15,right:15),
                             child: Text(
                               'Distance',style:  TextStyle(fontSize: 20, color: Colors.black,)
                               ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 15),
+                            margin: EdgeInsets.only(left: 15,right:15),
                             child: Text(
                             "${_currentRangeValues.start.round().toString()} miles",style:  TextStyle(fontSize: 15, color: Colors.black,fontWeight: FontWeight.normal)
                             ),
@@ -615,8 +720,6 @@ Widget sAppbar(context ,icon,image,) {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                // margin: EdgeInsets.only(top: 20),
-                                // ignore: deprecated_member_use
                                 child: RaisedButton(
                                   color: Colors.grey[100],
                                   child: Container(

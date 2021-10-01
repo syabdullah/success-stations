@@ -155,24 +155,24 @@ class _AdListTabState extends State<AdListTab> {
                                 ),
                               ),
                               SizedBox(height:5),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on_sharp,
-                                      color: Colors.grey
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "${allDataAdds[index]['city']['city'] != null ? allDataAdds[index]['city']['city'] : ''},",
-                                        style: TextStyle(
-                                          color: Colors.grey[300]
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   child: Row(
+                              //     children: [
+                              //       Icon(
+                              //         Icons.location_on_sharp,
+                              //         color: Colors.grey
+                              //       ),
+                              //       Container(
+                              //         child: Text(
+                              //           "${allDataAdds[index]['city']['city'] != null ? allDataAdds[index]['city']['city'] : ''},",
+                              //           style: TextStyle(
+                              //             color: Colors.grey[300]
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
