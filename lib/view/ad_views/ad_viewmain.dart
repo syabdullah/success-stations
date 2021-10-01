@@ -12,16 +12,15 @@ import 'package:success_stations/view/ad_views/location_tab.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 
 class AdViewTab extends StatefulWidget {
-  
   const AdViewTab({Key ? key,tabBarView}) : super(key: key);
   @override
   _AdViewTabState createState() => _AdViewTabState();
 }
-
 class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMixin {
   final userProfile = Get.put(UserProfileController());
-   var id;
-@override
+  var id;
+
+  @override
   void initState() {
     id = Get.arguments;
     userProfile.getUseradProfile(id);
@@ -34,27 +33,26 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     Tab(text: 'location'.tr),
     Tab(text: 'ads'.tr),
   ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length:  myTabs.length,
+      length: myTabs.length,
       child: Scaffold(
         drawer: AppDrawer(),
         body: NestedScrollView(
-          headerSliverBuilder:
-            (BuildContext context, bool innerBoxIsScrolled){
-              return [
-                SliverToBoxAdapter(
-                  child: GetBuilder<UserProfileController>( // specify type as Controller
-                      init: UserProfileController(), // intialize with the Controller
-                      builder: (value) { 
-                        return 
-                        value.userData2 != null && value.userData2['success'] != true ?
-                        topImage(value.userData2['data'])
-                      : LinearProgressIndicator();
-                    } 
-                  ),
+          headerSliverBuilder:(BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverToBoxAdapter(
+                child: GetBuilder<UserProfileController>( 
+                  init: UserProfileController(),
+                  builder: (value) { 
+                    return value.userData2 != null && value.userData2['success'] != true ?
+                    topImage(value.userData2['data'])
+                  : LinearProgressIndicator();
+                  } 
                 ),
+              ),
             ];
           },
           body: Container(
@@ -63,13 +61,13 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
               children: [
                 SizedBox(height: 50.h),
                 TabBar(
-                indicatorColor: Color(0xFF2F4199),
-                labelColor: AppColors.appBarBackGroundColor,
-                unselectedLabelColor: AppColors.inputTextColor,
-                tabs: myTabs,
-               ),
-              tabBarView()
-             ],
+                  indicatorColor: Color(0xFF2F4199),
+                  labelColor: AppColors.appBarBackGroundColor,
+                  unselectedLabelColor: AppColors.inputTextColor,
+                  tabs: myTabs,
+                ),
+                tabBarView()
+              ],
             ),
           ),
         )  
@@ -77,7 +75,6 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     );
   }
 }
-
 
 Widget topImage(userData2){
   return Stack(
@@ -91,71 +88,55 @@ Widget topImage(userData2){
       ),
       Column(
         children: [
-          AppBar(
-            leading: 
-                 GestureDetector(
-                   onTap: (){
-                     Get.back();
-                   },
-                   child: Image.asset(AppImages.arrowBack)),
-             backgroundColor: Colors.transparent,
-             centerTitle: true,
-              title:  userData2['name'] != null ?
-                 Center(
-                   child: Text(userData2['name'],
-                   style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
-                  ),
-                 ):Container()
-              
+          AppBar( 
+            leading: GestureDetector(
+              onTap: (){
+                Get.back();
+              },
+              child: Image.asset(AppImages.arrowBack)
+            ),
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            title: userData2['name'] != null ?
+              Center(
+                child: Text(userData2['name'],
+                  style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
+                ),
+              )
+            :Container()
           ),
-          // userData2['about'] != null ?
-          // Text(userData2['about'].toString(),textAlign: TextAlign.center,
-          //   style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
-          // ):Container()
         ],
       ),
       Center(
         child: FractionalTranslation(
           translation: const Offset(0.0, 1.6),
           child: userData2['image'] != null?
-          CircleAvatar(
-            backgroundImage: NetworkImage(userData2['image']['url']),
-            //backgroundColor: Colors.transparent,
+            CircleAvatar(
+              backgroundImage: NetworkImage(userData2['image']['url']),
+              radius: 45.0,
+            )
+          :CircleAvatar(
+            backgroundColor: Colors.grey,
             radius: 45.0,
-            // child: 
-            // userData2['image'] != null ?
-            // ClipRRect(
-            // borderRadius: BorderRadius.circular(150.0,),
-            
-            // child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
-            // ) : Icon(Icons.image,size: 70,)
-          )
-        :CircleAvatar(
-           //backgroundImage:  AssetImage(AppImages.person,) ,
-           backgroundColor: Colors.grey,
-            radius: 45.0,
-            child: Icon(Icons.person,size: 70,color: Colors.black,)
-            // child: 
-            // userData2['image'] != null ?
-            // ClipRRect(
-            // borderRadius: BorderRadius.circular(150.0,),
-            
-            // child:Image.network(userData2['image']['url'],fit: BoxFit.cover,),
-            // ) : Icon(Icons.image,size: 70,)
+            child: Icon(
+              Icons.person,size: 70,color: Colors.black
+            )
           ),
-     
-      ),)
-    
+        ),
+      )
     ],
   );
 }
+
 Widget tabBarView(){
   return Expanded(
-    child: TabBarView(children: [
-     AboutTab(),
-     AdOffers(),
-     LocationTab(),
-     AdListTab()
-    ]),
+    child: TabBarView(
+      children: [
+        AboutTab(),
+        AdOffers(),
+        LocationTab(),
+        AdListTab()
+      ]
+    ),
   );
 }
