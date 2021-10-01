@@ -313,7 +313,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         child: data[index]['user_name'] !=null && data[index]['user_name']['image'] != null ? 
                         Image.network(
                           data[index]['user_name']['image']['url']
-                        ):Image.asset(AppImages.person)
+                        ):
+                        Image.asset(AppImages.person)
                       )
                     ),
                     Padding(
@@ -323,10 +324,12 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         children: [
                           Container(
                             width: Get.width/3,
-                            child: Text(data[index]['user_name']['name'],style:
+                            child:data[index]['user_name'] !=null && data[index]['user_name']['name']!=null ?  
+                            Text(
+                              data[index]['user_name']['name'],style:
                               AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
-                              ),
                             ),
+                            ):Container()
                           ),
                           Container(
                             width: Get.width/2.5,
