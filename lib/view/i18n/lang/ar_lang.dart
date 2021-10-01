@@ -57,6 +57,8 @@ const Map<String, String> ar = {
   "changedPassword":"تم تغيير كلمة السر",
   "login": "تسجيل الدخول",
   "location":"العناوين",
+  "locationTab":"العناوين",
+  "offerTab":"العروض",
   "login_can" :"يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك",
   "back_to": "العودة الى",
   "sign_in_title": "  تسجيل الدخول",

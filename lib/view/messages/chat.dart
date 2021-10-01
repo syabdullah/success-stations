@@ -199,10 +199,7 @@ class _ChattingState extends State<ChattingPage> {
             child: NotificationListener<ScrollNotification>(
               onNotification: (ScrollNotification scrollInfo) {
                 if (!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-                  // // setState(() {
                     isLoading = true;
-                  // // });
-                  print(".........-------------$data");
                   _loadData(data['next_page_url']);
                 }
                   return false;

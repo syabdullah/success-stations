@@ -225,31 +225,6 @@ class _FriendListState extends State<FriendList> {
                           ),
                         )
                       ),
-                       
-                      Container(
-                        // margin: EdgeInsets.only(left: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          dataa[index]['user_requisted']['address'] == null ? Container() :  Icon(Icons.location_on,color:Colors.grey,),
-                            SizedBox(width: 5),
-                            Container(
-                              child: id == dataa[index]['requister_id']
-                              ? Text(
-                                dataa[index]['user_requisted']['address'] ?? '',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              )
-                              : Text(
-                                dataa[index]['requister']['address'] ?? '',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
-                            ),
-                          ],
-                        ),
-                      ) 
                     ],
                   ),
                   Spacer(),
@@ -264,7 +239,6 @@ class _FriendListState extends State<FriendList> {
   }
 
   Widget friendGridView(dataGrid) {
-    // print(dataGrid);
     var newData = [];
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
@@ -273,32 +247,25 @@ class _FriendListState extends State<FriendList> {
     }
     return GridView.count(
         crossAxisCount: 2,
+        childAspectRatio: (Get.width / Get.height*1.5),
         children: List.generate(
           newData.length,
           (index) {
             print(newData[index]['user_requisted']);
             return  GestureDetector(
-              onTap: () {
-                selected = box.write("selected", newData[index]['id']);
-                requisterId = box.write("requister", newData[index]['requister_id']);
-                Get.to(FriendProfile(),
-                arguments: id != newData[index]['requister_id']
-                ? [newData[index]['id'],newData[index]['requister_id']]
-                : [newData[index]['id'],newData[index]['user_requisted']['id']]);
-              },
               child: Card(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 8),
+                    SizedBox(height: 0),
                     id != newData[index]['requister_id']
                     ? Container(
                     margin: EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10.0
+                       horizontal: 10.0
                     ),
                     child: Container(
                       child: CircleAvatar(
-                        radius: 30.0,
+                        radius: 50.0,
                         backgroundColor: Colors.grey[100],
                         child: newData[index]['requister']['image'] !=
                         null
@@ -306,7 +273,7 @@ class _FriendListState extends State<FriendList> {
                           borderRadius: BorderRadius.circular(50.0),
                           child: Image.network(
                             newData[index]['requister']['image'] ['url'],
-                            height: 80,
+                            height: 100,
                             fit: BoxFit.fill,
                           )
                         )
@@ -315,9 +282,9 @@ class _FriendListState extends State<FriendList> {
                     ),
                   )
                   : Container(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    margin: EdgeInsets.symmetric( horizontal: 10.0),
                     child: CircleAvatar(
-                      radius: 30.0,
+                      radius: 50.0,
                       backgroundColor: Colors.grey[100],
                       child: newData[index]['user_requisted']['image'] != null
                       ? ClipRRect(
@@ -326,7 +293,7 @@ class _FriendListState extends State<FriendList> {
                           child: Image.network(
                             newData[index]['user_requisted']
                                 ['image']['url'],
-                            height: 80,
+                            height: 100,
                             fit: BoxFit.fill,
                           )
                       )
@@ -352,43 +319,55 @@ class _FriendListState extends State<FriendList> {
                     Container(
                       margin: EdgeInsets.only(left: 10),
                       child: id == newData[index]['requister_id']
-                      ? Text(
+                      ? Text(                        
                         newData[index]['user_requisted']['degree'] ?? '',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
                       )
                       : Text(
                         newData[index]['requister']['degree'] ??'',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
                       )
                     ),
+                    SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        newData[index]['user_requisted']['address'] == null ? Container() : 
-                        Icon(Icons.location_on,color:Colors.grey,),
-                        SizedBox(width: 5),
-                        Container(
-                          child: id == newData[index]['requister_id']
-                          ? Text(
-                            newData[index]['user_requisted']['address'] ?? '',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold),
-                          )
-                          : Text(
-                            newData[index]['requister']['address'] ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold
+                         GestureDetector(
+                           onTap: () {
+                              friCont.deleteFriend(newData[index]['id'],'');
+                           },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[700],
+                              borderRadius:BorderRadius.circular(10)
                             ),
-                          )
+                            padding: EdgeInsets.all(10),
+                            child: Text("Remove",style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            selected = box.write("selected", newData[index]['id']);
+                            requisterId = box.write("requister", newData[index]['requister_id']);
+                            Get.to(FriendProfile(),
+                            arguments: id != newData[index]['requister_id']
+                            ? [newData[index]['id'],newData[index]['requister_id']]
+                            : [newData[index]['id'],newData[index]['user_requisted']['id']]);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 10),
+                             decoration: BoxDecoration(
+                               borderRadius:BorderRadius.circular(10),
+                              color: AppColors.appBarBackGroundColor
+                            ),
+                            padding: EdgeInsets.all(10),
+                            child: Text("view Profile",style: TextStyle(color: Colors.white)),
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 4),
               ],
             ),
           ),

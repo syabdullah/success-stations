@@ -166,7 +166,7 @@ class _FriendProfileState extends State<FriendProfile>
                         " ",
                       )),
             Container(
-              margin: EdgeInsets.only(top: 0),
+              margin: EdgeInsets.only(top: 0,left: 15 ),
               child: data['degree'] != null
                   ? Text(data['degree'],
                       style: TextStyle(
@@ -175,7 +175,7 @@ class _FriendProfileState extends State<FriendProfile>
                           fontWeight: FontWeight.w400))
                   : Text(""),
             ),
-            country['name'] != null
+            country != null
                 ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -325,8 +325,8 @@ class _FriendProfileState extends State<FriendProfile>
 
   Widget general(data, adsData) {
     var country = data['country'];
-    city = data['city'];
-    city = city['city'];
+    // city = data['city'];
+    // city = city['city'];
     return Expanded(
       flex: 1,
       child: TabBarView(
@@ -742,19 +742,19 @@ class _FriendProfileState extends State<FriendProfile>
                                 height: 15,
                               ),
                               // Icon(Icons.person,color: Colors.grey),
-                              SizedBox(width: 5),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    city != null ? Text(city) : Text(""),
-                                    Text(","),
-                                    adsData[index]['country'] != null
-                                        ? Text(
-                                            adsData[index]['country']['name']['en'])
-                                        : Text(""),
-                                  ],
-                                ),
-                              ),
+                              // SizedBox(width: 5),
+                              // Container(
+                              //   child: Row(
+                              //     children: [
+                              //       city != null ? Text(city) : Text(""),
+                              //       Text(","),
+                              //       adsData[index]['country'] != null
+                              //           ? Text(
+                              //               adsData[index]['country']['name']['en'])
+                              //           : Text(""),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                           SizedBox(
