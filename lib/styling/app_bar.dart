@@ -10,6 +10,7 @@ import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/view/friends/friend_filter.dart';
 
 final mapCon = Get.put(LocationController());
 final formKey = new GlobalKey<FormState>();
@@ -37,7 +38,14 @@ var userId = box.read('user_id');
       centerTitle: true,
       leading: Container(
         margin:EdgeInsets.only(top:2),
-        child: IconButton(
+        child: 
+        index == 1 ?
+        IconButton(
+          iconSize: 28,
+          icon: Image.asset(AppImages.newfilter,color: Colors.white,),
+          onPressed: () => Get.bottomSheet(FriendFilter()),
+        ):
+        IconButton(
           iconSize: 28,
           icon: Image.asset(AppImages.menuBurger,height: 20,),
           onPressed: () => globalKey.currentState!.openDrawer()
@@ -63,7 +71,9 @@ var userId = box.read('user_id');
             ),
           ),
         ): Container()
+        
       ],
+      
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
