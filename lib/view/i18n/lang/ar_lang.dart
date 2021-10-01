@@ -304,5 +304,6 @@ const Map<String, String> ar = {
   "selectService":"حدد الخدمة",
   "locationName":"اسم الموقع",
   "digitSemester":"الفصل الدراسي بالأرقام فقط",
-  "viewprofile": "الملف الشخصي"
+  "viewprofile": "الملف الشخصي",
+  "notifications":"إشعارات"
 };

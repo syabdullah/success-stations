@@ -44,7 +44,11 @@ class ContactPageState extends State<Contact> {
     final space10 = SizedBox(height: getSize(10, context));
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-     appBar: AppBar(centerTitle: true,title: Text('contactus'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+     appBar: AppBar(
+       leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back)),
+       centerTitle: true,title: Text('contactus'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
