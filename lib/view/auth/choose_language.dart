@@ -30,12 +30,21 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      
-      appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
-        child: stringAppbar(
-          context,Icons.arrow_back, 'choose_language_drop'.tr,AppImages.appBarSearch)
-      ),
+      // key: _scaffoldKey,
+      // appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
+      //   child: stringAppbar(
+      //     context,Icons.arrow_back, 'choose_language_drop'.tr,AppImages.appBarSearch)
+      // ),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back)),
+        centerTitle: true,
+        backgroundColor: AppColors.appBarBackGroundColor,
+        title: Text('choose_language_drop'.tr),
+        
+          ),
+
      body : Column(
        crossAxisAlignment: CrossAxisAlignment.start,
         children: [

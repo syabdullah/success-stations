@@ -22,7 +22,13 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return  Scaffold( 
       key: _scaffoldKey,
-      appBar: AppBar(centerTitle: true,title: Text('notifications'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+          child: Icon(Icons.arrow_back,)),
+        centerTitle: true,title: Text('notifications'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body:SafeArea(
         child: ListView(
           children:[

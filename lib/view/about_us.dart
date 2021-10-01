@@ -18,7 +18,11 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: Text('about_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back)),
+        centerTitle: true,title: Text('about_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: GetBuilder<ContentManagmentController>( 
         init: ContentManagmentController(),
         builder:(val) {
