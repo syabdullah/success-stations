@@ -951,7 +951,7 @@ class _AllAddsState extends State<AllAdds> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(left:28,right: 5),
-                                width:55,
+                                width:50,
                                 // height: 25,
                                 decoration: BoxDecoration(
                                   // border: Border.all(),

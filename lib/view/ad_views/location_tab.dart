@@ -431,7 +431,7 @@ Widget locationList(lastLocation) {
                               
                             Row(
                               children: [
-                                Text("Service: ",style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
+                                Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
                                 lastLocation['data'][index]['services'] !=null ?
                               Text(lastLocation['data'][index]['services']['servics_name'],
                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
