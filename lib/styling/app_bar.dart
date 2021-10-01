@@ -184,9 +184,8 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
       )
     ),
     
-    title: Padding(
-      padding: const EdgeInsets.only(top:5.0),
-      child: Text("my_adss".tr)
+    title: Image.asset(
+      AppImages.appBarLogo, height: 40,
     ), 
     actions: [
       Container(
@@ -199,7 +198,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('list');
               },
               child: Container(
-                margin:EdgeInsets.only(right:5),
+                margin:EdgeInsets.only(right:15),
                 child: Image.asset(AppImages.listingImage, height:22)
               )
             ),
