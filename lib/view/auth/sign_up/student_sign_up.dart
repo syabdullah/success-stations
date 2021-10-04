@@ -244,7 +244,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
+        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
         textController: nameController,
@@ -255,7 +255,7 @@ class _SignPageState extends State<StudentSignUp> {
           if (value.length == 0) {
             return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
-            return "Name must be a-z and A-Z";
+            return "namemust".tr;
           } else
             return null;
         },
@@ -273,7 +273,7 @@ class _SignPageState extends State<StudentSignUp> {
         controller: semesterController,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter some text';
+            return 'enteringText'.tr;
           }
           return null;
         },
@@ -282,7 +282,7 @@ class _SignPageState extends State<StudentSignUp> {
         ),
         decoration: InputDecoration( 
           contentPadding: EdgeInsets.only(left:15,right: 10,top:15),
-          hintText:"Semester",
+          hintText:"semestersu".tr,
           hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
@@ -313,7 +313,7 @@ class _SignPageState extends State<StudentSignUp> {
           if (value.length == 0) {
             return "adressField".tr;
           } else if (!regExp.hasMatch(value)) {
-            return "About must be a-z and A-Z";
+            return "filed".tr;
           } else
           return null;
         },
@@ -342,7 +342,7 @@ class _SignPageState extends State<StudentSignUp> {
           if (value.length == 0) {
             return "aboutfield".tr;
           } else if (!regExp.hasMatch(value)) {
-            return "About must be a-z and A-Z";
+            return "filed".tr;
           } else
             return null;
         },
@@ -371,7 +371,7 @@ class _SignPageState extends State<StudentSignUp> {
           if (value.length == 0) {
             return "degreeReq".tr;
           } else if (!regExp.hasMatch(value)) {
-            return "Degree must be a-z and A-Z";
+            return "degreemust".tr;
           } else
             return null;
         },
@@ -401,7 +401,7 @@ class _SignPageState extends State<StudentSignUp> {
             return 'enterEmail'.tr;
           }
           else if (!regExp.hasMatch(val)) {
-            return "Enter Valid Email Address";
+            return "email_Valid".tr;
           }
           return null;
         },
@@ -423,7 +423,7 @@ class _SignPageState extends State<StudentSignUp> {
         focusNode: FocusNode(),
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left:10,bottom:10,right: 10),
-          fillColor: AppColors.inputColor,
+          fillColor: AppColors.inputTextColor,
           filled: true,
           border: InputBorder.none,
           errorBorder: OutlineInputBorder(
@@ -444,7 +444,7 @@ class _SignPageState extends State<StudentSignUp> {
         ),
         ignoreBlank: false,
         autoValidateMode: AutovalidateMode.disabled,
-        selectorTextStyle: TextStyle(color: Colors.black),
+        selectorTextStyle: TextStyle(color:AppColors.inputTextColor),
         // initialValue: n,
         textFieldController: mobileController,
         formatInput: false,
@@ -486,15 +486,12 @@ class _SignPageState extends State<StudentSignUp> {
               // cancelStyle: TextStyle(color:Colors.white, fontSize: 16),
             ),
             onChanged: (date) {
-              print('change $date in time zone ' +
-              date.timeZoneOffset.inHours.toString());
             }, 
             onConfirm: (date) {
               setState(() {
                 dateTime = date;
                 print('confirm...sheeee $dateTime');
                   finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                  print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
                 
               });
               
@@ -506,7 +503,7 @@ class _SignPageState extends State<StudentSignUp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              child:  Text(dateTime == null ? 'date_of_birth'.tr : finalDate.toString() ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
+              child:  Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString() ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey,),
                onTap: () {               
@@ -693,7 +690,7 @@ class _SignPageState extends State<StudentSignUp> {
               setState(() {
                 mapuni = dataa as Map;
                 hintUniText =  mapuni['name'];
-                selectedUniversity = dataa['id'];
+                selectedUniversity = mapuni['id'];
               });
             },
           )
