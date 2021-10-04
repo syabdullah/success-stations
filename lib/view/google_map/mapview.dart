@@ -366,7 +366,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget allUsers(userData) {
     return GridView.builder(
-        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
         primary: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 10,
@@ -397,8 +397,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0)
+                        topLeft: Radius.circular(15.0),
+                        topRight: Radius.circular(15.0)
                       ),
                       child: Container(
                         width: Get.width / 2.2,
