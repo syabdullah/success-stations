@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/bottom_bar.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 var auth;
@@ -35,6 +33,7 @@ class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     lang =  box.read('lang_code');
+    auth =  box.read('access_token');
     print("PRINTED LANGUAGE FROM MAIN ------------$lang");
     return ScreenUtilInit(
       builder:()  {       
@@ -54,7 +53,7 @@ class SuccessApp extends StatelessWidget {
            fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
             textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199))
         ) ,
-         home:  auth == null ? SignIn() : BottomTabs(),
+        //  home:  auth == null ? SignIn() : BottomTabs(),
         initialRoute:  auth == null ? '/login' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
       );}

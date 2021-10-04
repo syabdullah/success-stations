@@ -81,7 +81,7 @@ class _AddLocationsState extends State<AddLocations> {
       geometry = dataPage['view_port'];
       lng = dataPage['long'];
       lat =  dataPage['lat'];
-      uploadedImage = dataPage['image'] != null ? dataPage['image']['name']: null;
+      uploadedImage = dataPage['image'] != null ? dataPage['image']['file_name']: null;
       _modalBottomSheetMenu(adrr,null);
 
     }   
@@ -122,9 +122,7 @@ class _AddLocationsState extends State<AddLocations> {
         initialPosition: _latLng,
         useCurrentLocation: true,
         usePlaceDetailSearch: true,
-        selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-          print("...............................$isSearchBarFocused");
-          
+        selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {         
           if(state != SearchingState.Searching && adrr != selectedPlace!.formattedAddress) {
             adrr = selectedPlace.formattedAddress;
             _modalBottomSheetMenu(adrr , selectedPlace);

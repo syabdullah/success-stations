@@ -78,7 +78,7 @@ void _getUserLocation() async {
 
 Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
   var lang = box.read('lang_code');
-  return lang == 'en' ?  AppBar(
+  return lang == 'en' || lang == null  ?  AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -150,10 +150,8 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 index == 4 ? 
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
-
-
               },
-              child: index ==2 ? Container():Image.asset(AppImages.listingImage, height:22)
+              child: index ==2 ? Container():Image.asset(AppImages.map, height:22)
             ),
             GestureDetector(
               onTap: (){
