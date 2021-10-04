@@ -67,7 +67,7 @@ class _LocationTabState extends State<LocationTab> {
                  :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
                  Container(
                    child:Text(lastLoc.lastLocation['errors'])
-                 ):shimmer();
+                 ):Container();
                 
               }
         ),
@@ -360,6 +360,7 @@ Widget locationList(lastLocation) {
     ):
      Container(
       height: Get.height/1.6,
+      margin: EdgeInsets.only(bottom: 35),
       child: ListView.builder(
         // physics: NeverScrollableScrollPhysics(),
         itemCount: lastLocation['data'].length,

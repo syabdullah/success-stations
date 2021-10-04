@@ -58,7 +58,7 @@ class _AdListTabState extends State<AdListTab> {
   Widget adList(allDataAdds) {
     return Container(
       height: Get.height/1.6,
-      margin: EdgeInsets.only(bottom: 30),
+      margin: EdgeInsets.only(bottom: 35),
       child: ListView.builder(
         physics: AlwaysScrollableScrollPhysics(),
         itemCount: allDataAdds.length,

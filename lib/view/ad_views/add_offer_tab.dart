@@ -30,13 +30,18 @@ class _AdOffersState extends State<AdOffers> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<UserOfferController>(
-      init: UserOfferController(), 
-      builder: (value){ 
-        return  value.offerDattaTypeCategory != null ?
-        gridView(value.offerDattaTypeCategory['data'])
-        :shimmer();
-      }
+    return Container(
+      height: Get.height/1.6,
+      child: GetBuilder<UserOfferController>(
+        init: UserOfferController(), 
+        builder: (value){ 
+          return  value.offerDattaTypeCategory != null ?
+          gridView(value.offerDattaTypeCategory['data'])
+          :Center(
+            child: CircularProgressIndicator()
+          );
+        }
+      ),
     );
   }
 }
