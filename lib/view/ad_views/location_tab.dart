@@ -51,32 +51,28 @@ class _LocationTabState extends State<LocationTab> {
     // });
   }
   @override
-  Widget build(BuildContext context) {
-   
+  Widget build(BuildContext context) { 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: ListView(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            filter(),
-             GetBuilder<LocationController>( // specify type as Controller
-                  init: LocationController(), // intialize with the Controller
-                  builder: (value){ 
-                    return value.isLoading == true ? shimmer():
-                    value.lastLocation !=null &&   value.lastLocation['success']== true ?
-                     locationList(value.lastLocation['data'])
-                     :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
-                     Container(
-                       child:Text(lastLoc.lastLocation['errors'])):Container();
-                    
-                  }
-                    ),
-           
-          ],
-          ),
-        ],
+        filter(),
+         GetBuilder<LocationController>( // specify type as Controller
+              init: LocationController(), // intialize with the Controller
+              builder: (value){ 
+                return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                value.lastLocation !=null &&   value.lastLocation['success']== true ?
+                 locationList(value.lastLocation['data'])
+                 :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+                 Container(
+                   child:Text(lastLoc.lastLocation['errors'])
+                 ):shimmer();
+                
+              }
+        ),
+       
+      ],
       ),
     );
   }
@@ -363,9 +359,9 @@ Widget locationList(lastLocation) {
       ),
     ):
      Container(
-      height: Get.height,
+      height: Get.height/1.6,
       child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
         itemCount: lastLocation['data'].length,
         shrinkWrap: true,
         // ignore: non_constant_identifier_names

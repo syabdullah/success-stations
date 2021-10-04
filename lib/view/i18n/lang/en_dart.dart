@@ -296,7 +296,7 @@ const Map<String, String> en = {
   'myloc':'MY LOCATIONS',
   'locationName':"Location Name",
   'url':'URL',
-  "enterSomeText": 'Please enter some text',
+  "enterSomeText": 'Enter Semester',
   "city0":"CITY",
   "city1":"TYPE",
   "city2":"PHONE NUMBER",

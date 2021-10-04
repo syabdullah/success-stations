@@ -250,10 +250,14 @@ class _SignPageState extends State<StudentSignUp> {
         textController: nameController,
         onSaved: (newValue) {},
         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "namereq".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "Name must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -262,26 +266,30 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget semester() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left:20,right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-        isObscure: false,
-        hintText: 'digitSemester'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: semesterController,
-        onSaved: (newValue) {},
-         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        controller: semesterController,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
         },
-        errorText: '',
-      ),
+        style: TextStyle(
+          color: AppColors.inputTextColor, fontSize: 18,fontWeight: FontWeight.bold
+        ),
+        decoration: InputDecoration( 
+          contentPadding: EdgeInsets.only(left:15,right: 10,top:15),
+          hintText:"Semester",
+          hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            borderSide: BorderSide(color: AppColors.inputTextColor),
+          ),
+        ),
+      )
     );
   }
 
@@ -300,10 +308,14 @@ class _SignPageState extends State<StudentSignUp> {
         textController: addressController,
         onSaved: (newValue) {},
         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "adressField".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "About must be a-z and A-Z";
+          } else
+          return null;
         },
         errorText: '',
       ),
@@ -324,11 +336,15 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: aboutController,
         onSaved: (newValue) {},
-         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+        validator: (value) {
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "aboutfield".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "About must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -349,11 +365,15 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: degreeController,
         onSaved: (newValue) {},
-         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+        validator: (value) {
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "degreeReq".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "Degree must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -375,8 +395,7 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: emailController,
         validator: (val) {
-          String pattern =
-              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
             return 'enterEmail'.tr;

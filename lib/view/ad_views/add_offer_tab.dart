@@ -30,6 +30,7 @@ class _AdOffersState extends State<AdOffers> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return GetBuilder<UserOfferController>(
       init: UserOfferController(), 
       builder: (value){ 
@@ -37,12 +38,27 @@ class _AdOffersState extends State<AdOffers> {
         gridView(value.offerDattaTypeCategory['data'])
         :shimmer();
       }
+=======
+    return Container(
+      height: Get.height/1.6,
+      child: GetBuilder<UserOfferController>(
+        init: UserOfferController(), 
+        builder: (value){ 
+          return  value.offerDattaTypeCategory != null ?
+          gridView(value.offerDattaTypeCategory['data'])
+          :Center(
+            child: CircularProgressIndicator()
+          );
+        }
+      ),
+>>>>>>> deb724eb1806cf6b4fed5d491602ff5092fbe9db
     );
   }
 }
 
 Widget gridView(offeredList){
   return  GridView.builder(
+    physics: AlwaysScrollableScrollPhysics(),
     primary: false,
     padding: const EdgeInsets.all(20),
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

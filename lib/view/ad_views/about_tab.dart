@@ -42,9 +42,11 @@ class _AboutTabState extends State<AboutTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Container(
+        height: Get.height/1.6,
         padding: EdgeInsets.symmetric(horizontal:10),
         child: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
           children: [
             GetBuilder<UserProfileController> ( 
               init: UserProfileController(), 

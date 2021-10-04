@@ -12,8 +12,11 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
+<<<<<<< HEAD
 // ignore: unused_import
 import 'package:success_stations/view/auth/sign_in.dart';
+=======
+>>>>>>> deb724eb1806cf6b4fed5d491602ff5092fbe9db
 
 
 var finalIndex, shortCode;
@@ -328,11 +331,15 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onSaved: (String? newValue) {},
         onFieldSubmitted: (value) {},
         textController: nameController,
-         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+        validator: (value) {
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "namereq".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "Name must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -354,8 +361,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {},
         textController: emailController,
         validator: (val) {
-          String pattern =
-              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regExp = RegExp(pattern);
           if ( val.length == 0 ){
             return 'enterEmail'.tr;
@@ -518,12 +524,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
         textController: comNameController,
         onSaved: (String? newValue) {},
          validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
-        },
-        errorText: '',
+          if (value.isEmpty) {
+            return 'enterSomeText'.tr;
+          }
+            return null;
+          },
+          errorText: '',
       ),
     );
   }
@@ -736,7 +742,19 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onSaved: (String? newValue) {},
         onFieldSubmitted: (value) {},
         textController: respController,
-        validator: (value) {},
+        validator: (value) {
+          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+          RegExp regExp = RegExp(pattern);
+          if( value.length  == 0){
+            return 'Responsible';
+          }
+          else if(!regExp.hasMatch(value)) {
+              return "Responsibe must be in digits";
+          }
+          else
+            return null;
+        },
+        
         errorText: '',
       ),
     );
@@ -808,9 +826,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
         textController: crController,
          validator: (value) {
          if (value.isEmpty) {
-          return 'enterSomeText'.tr;
+          return "Enter CR";
         }
-           return null;
+        return null;
         },
         errorText: '',
       ),
