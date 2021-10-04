@@ -11,13 +11,13 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../shimmer.dart';
 
 bool check = true;
 
@@ -82,7 +82,7 @@ class _AllAddsState extends State<AllAdds> {
                 init: CategoryController(),
                 builder: (data) {
                   return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
-                  Container();
+                  shimmer();
                 },
               ),
               SizedBox(height:10),
@@ -90,15 +90,15 @@ class _AllAddsState extends State<AllAdds> {
                 GetBuilder<AddBasedController>(
                   init: AddBasedController(),
                   builder: (val) {
-                    return val.isLoading == true || val.allAdsData == null? Container()
-                    : val.allAdsData['data'] == null ? Container(): valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']);
+                    return val.isLoading == true || val.allAdsData == null? shimmer()
+                    : val.allAdsData['data'] == null ? shimmer(): valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']);
                   },
                 )
               : GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
-                  return val.isLoading == true || val.cData == null? Container()
-                  : val.cData['data'] == null ? Container()
+                  return val.isLoading == true || val.cData == null? shimmer()
+                  : val.cData['data'] == null ? shimmer()
                   : valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
                 },
               )
@@ -108,99 +108,6 @@ class _AllAddsState extends State<AllAdds> {
       ),
     );
   }
-
-  // Widget topWidget() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       Row(
-  //         children: [
-  //           InkWell(
-  //             onTap: () {
-  //               // _adsfiltringheet();
-  //             },
-  //             child: Container(
-  //               margin: lang == 'en'
-  //               ? const EdgeInsets.only(left: 15, top: 8)
-  //               : const EdgeInsets.only(right: 15, top: 8),
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(5),
-  //                 color: Colors.grey[200],
-  //               ),
-  //               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-  //               child: Row(
-  //                 children: [
-  //                   Image.asset(AppImages.filter, height: 15),
-  //                   SizedBox(width: 5),
-  //                   Text(
-  //                     "filter".tr,
-  //                     style: TextStyle(color: Colors.grey[700]),
-  //                   ),
-  //                 ],
-  //               ),
-  //            ),
-  //           ),
-  //           GestureDetector(
-  //             onTap: () {
-  //              Get.to(AddPostingScreen());
-  //             },
-  //             child: Container(
-  //               margin: lang == 'en'
-  //               ? EdgeInsets.only(left: 10, top: 10)
-  //               : EdgeInsets.only(right: 10, top: 10),
-  //               child: Image.asset(AppImages.plusImage,height: 24)
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //       Container(
-  //         margin: lang == 'en'
-  //         ? EdgeInsets.only(left: 10)
-  //         : EdgeInsets.only(right: 20),
-  //         child: Row(
-  //           children: [
-  //              Container(
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'grid';
-  //                     lisselect = !lisselect;
-  //                     isButtonPressed = !isButtonPressed;
-  //                     //listIconColor = Colors.grey;
-  //                     listImg = AppImages.listing;
-  //                   });
-  //                 },
-  //                 child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-  //               ),
-  //             ),
-  //             SizedBox(width: 5,),
-  //             Container(
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'list';
-  //                     lisselect = !lisselect;
-  //                     isButtonPressed = !isButtonPressed;
-  //                     //listIconColor = Colors.grey;
-  //                     listImg = AppImages.listing;
-  //                   });
-  //                 },
-  //                 child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-  //               ),
-  //             ),
-  //             SizedBox(height: 10,width: 15)
-  //           ],
-  //         ),
-        
-  //       )
-  //     ],
-  //   );
-  // }
-
 
   var catID;
   Widget myAddsList(allDataAdds) {

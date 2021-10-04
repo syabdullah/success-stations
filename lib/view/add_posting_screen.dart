@@ -6,13 +6,11 @@ import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
 
@@ -244,20 +242,12 @@ var typeId;
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-       appBar: AppBar(
-         automaticallyImplyLeading: true,
-        //  leading: Icon(Icons.arrow_back),
-         centerTitle: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor
       ),
-      // appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
-    //   drawer: Theme(
-    //     data: Theme.of(context).copyWith(
-    //     ),
-    //   child: AppDrawer(),
-    // ),
       body: ListView(
         children: [
           ImageStepper(
@@ -279,9 +269,7 @@ var typeId;
               AssetImage(AppImages.strdStepIcon):
               AssetImage(AppImages.trdStepIcon),
             ],
-            // activeStep property set to activeStep variable defined above.
             activeStep: activeStep,
-            // This ensures step-tapping updates the activeStep. 
             onStepReached: (index) {
               setState(() {
                 activeStep = index;

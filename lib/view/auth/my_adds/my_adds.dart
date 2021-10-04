@@ -18,6 +18,8 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 
+import '../../shimmer.dart';
+
 class MyAdds extends StatefulWidget {
   _MyAddsState createState() => _MyAddsState();
 }
@@ -71,7 +73,7 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<CategoryController>(
                 init: CategoryController(),
                 builder: (data){
-                  return data.isLoading == true ? CircularProgressIndicator(): 
+                  return data.isLoading == true ? shimmer(): 
                   data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
                   : Container();
                 },
@@ -111,69 +113,7 @@ class _MyAddsState extends State<MyAdds> {
       ),
     );
   }
-  // Widget topWidget() {
-  //     return Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [         
-  //         Row(
-  //           children: [
-  //             GestureDetector(
-  //               onTap: () {
-  //                Get.to(AddPostingScreen());
-  //               },
-  //               child: Container(
-  //                 margin:EdgeInsets.only(left:10,right: 10,top: 20),
-  //                 child: Image.asset(AppImages.plusImage, color: AppColors.appBarBackGroundColor, height:24)
-  //               ),
-  //             ),
-  //             Container(
-  //               margin:EdgeInsets.only(left:10,right: 10,top: 20),
-  //               child: Text("newad".tr,style: TextStyle(color: Colors.grey[700],fontSize:18,))),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             Container(
-  //               margin: EdgeInsets.only(top: 20),
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'grid';
-  //                   isButtonPressed = !isButtonPressed;
-  //                   gridIconColor = AppColors.appBarBackGroundColor;
-  //                   listIconColor = Colors.grey;
-  //                   grid = AppImages.gridOf;
-  //                   });
-  //                 },
-  //                 child: Image.asset(AppImages.gridOf,height: 25,width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-  //               ),
-  //             ),
-  //             SizedBox(width: 5,),
-  //             Container(
-  //               margin: EdgeInsets.only(top: 20),
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'list';
-  //                     gridIconColor = Colors.grey;
-  //                     listIconColor = AppColors.appBarBackGroundColor;
-  //                     grid = AppImages.gridOf;
-  //                   });
-  //                 },
-  //                 child: Image.asset(AppImages.listing,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-  //               ),
-  //             ),
-  //             SizedBox(height: 30,width: 15,)
-  //           ],
-  //         )
-  //       ],
-  //     );
-  //   }
-  
+// ignore: unused_element
 void _adsfiltringheet() {
     showModalBottomSheet<void>(
       context: context,

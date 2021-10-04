@@ -5,6 +5,8 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import '../shimmer.dart';
 class UserAgreement extends StatefulWidget {
   const UserAgreement({ Key? key }) : super(key: key);
 
@@ -27,7 +29,7 @@ class _UserAgreement extends State<UserAgreement> {
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
-            return val.aboutData != null  ? about(val.aboutData['data']) : Center(child: CircularProgressIndicator());
+            return val.aboutData != null  ? about(val.aboutData['data']) : shimmer();
     
           }   
      )

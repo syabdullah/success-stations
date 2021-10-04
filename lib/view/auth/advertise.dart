@@ -7,6 +7,8 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 
+import '../shimmer.dart';
+
 class AdvertisePage extends StatefulWidget {
   AdvertiseStatePage createState() => AdvertiseStatePage();
 }
@@ -26,12 +28,12 @@ class AdvertiseStatePage extends State<AdvertisePage> {
    writeController.clear();
  
   }
-   void dispose() {
-    pin2node!.dispose();
-    pin3node!.dispose();
-    pin4node!.dispose();
-    super.dispose();
-  }
+  //  void dispose() {
+  //   pin2node!.dispose();
+  //   pin3node!.dispose();
+  //   pin4node!.dispose();
+  //   super.dispose();
+  // }
   final formKey = new GlobalKey<FormState>();
   var json;
   mydata(){
@@ -67,7 +69,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
               GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
-            return val.aboutData != null  ? text(val.aboutData['data']) : Center(child: CircularProgressIndicator());
+            return val.aboutData != null  ? text(val.aboutData['data']) : shimmer();
     
           }   
      ),

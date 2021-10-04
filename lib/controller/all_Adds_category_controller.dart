@@ -100,6 +100,7 @@ adDelete(dataa) async {
    activeAd(dataa) async {
      isLoading = true;
      await adActive(dataa).then((res) {    
+      // ignore: unused_local_variable
       var adact = jsonDecode(res.body);
      });
      update();
@@ -107,6 +108,7 @@ adDelete(dataa) async {
     deactiveAd(dataa) async {
      isLoading = true;
      await adDeActive(dataa).then((res) {    
+      // ignore: unused_local_variable
       var addct = jsonDecode(res.body);
      });
      update();

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:success_stations/controller/aboutController.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/images.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:success_stations/view/shimmer.dart';
 class AboutUs extends StatefulWidget {
   const AboutUs({ Key? key }) : super(key: key);
 
@@ -26,7 +24,7 @@ class _AboutUsState extends State<AboutUs> {
       body: GetBuilder<ContentManagmentController>( 
         init: ContentManagmentController(),
         builder:(val) {
-          return val.aboutData != null  ? about(val.aboutData['data']) : Center(child: CircularProgressIndicator());
+          return val.aboutData != null  ? about(val.aboutData['data']) : shimmer();
         }   
      )
    );

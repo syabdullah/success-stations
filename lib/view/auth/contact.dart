@@ -42,6 +42,7 @@ class ContactPageState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     final space10 = SizedBox(height: getSize(10, context));
+    // ignore: unused_local_variable
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
      appBar: AppBar(

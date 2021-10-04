@@ -12,6 +12,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+
+import '../shimmer.dart';
 class AboutTab extends StatefulWidget {
   const AboutTab({ Key? key }) : super(key: key);
   @override
@@ -50,7 +52,7 @@ class _AboutTabState extends State<AboutTab> {
               init: UserProfileController(), 
               builder: (value) { 
                 return  value.userData2 != null ?
-                detail( value.userData2['data'], context): Center(child: CircularProgressIndicator()); 
+                detail( value.userData2['data'], context):shimmer(); 
               }
             ),
             Container(
@@ -63,7 +65,7 @@ class _AboutTabState extends State<AboutTab> {
               init: LastAdsController(),
               builder: (value){
                 return  value.lastuserads != null ?
-                lastAds(value.lastuserads['data']): Center(child: CircularProgressIndicator());
+                lastAds(value.lastuserads['data']):shimmer();
               }
             ),
             Container(
@@ -77,7 +79,7 @@ class _AboutTabState extends State<AboutTab> {
               init: UserOfferController(),
               builder: (value){ 
                 return value.offerDattaTypeCategory != null ?
-                lastOffer(value.offerDattaTypeCategory['data']):Center(child: CircularProgressIndicator());
+                lastOffer(value.offerDattaTypeCategory['data']):shimmer();
               }
             ),
             Container(
@@ -89,7 +91,7 @@ class _AboutTabState extends State<AboutTab> {
             GetBuilder<LastLocationController>( 
               init: LastLocationController(), 
               builder: (value){ 
-                return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                return value.isLoading == true ? shimmer():
                 value.lastLocation !=null && value.lastLocation['success']== true ?
                 lastLocation( value.lastLocation['data']['data']) :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
                   Container(

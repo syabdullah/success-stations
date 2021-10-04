@@ -15,6 +15,8 @@ import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:clippy_flutter/triangle.dart';
 
+import '../shimmer.dart';
+
 class CustomInfoWindowExample extends StatefulWidget {
   @override
   _CustomInfoWindowExampleState createState() =>
@@ -27,8 +29,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final mapCon = Get.put(LocationController());
   final adfavUser = Get.put(UserFavController());
+  // ignore: unused_field
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
   final double _zoom = 5.0;
+  // ignore: non_constant_identifier_names
   int _makrr_id_counter = 1;
   var listtype = 'map';
   //  Marker _markers = [];
@@ -45,6 +49,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   void initState() {
     super.initState();
     _getUserLocation();
+    // ignore: unused_local_variable
     var id = box.read('user_id');
     route = Get.arguments;
    lang = box.read('lang_code');
@@ -172,7 +177,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             Spacer(),
                             Container(
                               margin: EdgeInsets.only(right: 15),
-                              child: data['user_name']['is_user_favourite'] ==
+                              child: data['user_name']['is_location_favourite'] ==
                                   true
                               ? Image.asset(
                                   AppImages.redHeart,
@@ -247,7 +252,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   builder: (value) {
                     return value.allLoc != null
                     ? allUsers(value.allLoc['data'])
-                    : Center(child: CircularProgressIndicator());
+                    : shimmer();
                   } 
                 ),
               // Container(
@@ -376,6 +381,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData['data'].length,
         itemBuilder: (BuildContext context, int index) {
+          print(".././/.....------${userData['data'][index]['is_location_favourite']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
@@ -457,18 +463,18 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                         GestureDetector(
                           onTap: () {
                             adtofavJson = {
-                              'user_id': userData['data'][index]['user_name']['id']
+                              'location_id': userData['data'][index]['id']
                             };
                             remtofavJson = {
-                              'user_id': userData['data'][index]['user_name']['id']
+                              'location_id': userData['data'][index]['id']
                             };
-                            userData['data'][index]['user_name']['is_user_favourite'] ==false
-                            ? adfavUser.profileAdsToFav(adtofavJson)
-                            : adfavUser.profileRemToFav(remtofavJson);
+                            userData['data'][index]['is_location_favourite'] ==false
+                            ? adfavUser.locationToFav(adtofavJson)
+                            : adfavUser.locationUnToFav(remtofavJson);
                           },
-                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['user_name']['is_user_favourite'] == false
+                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['is_location_favourite'] == false
                           ? Image.asset(
-                            AppImages.blueHeart, height: 18,
+                            AppImages.blueHeart, height: 20,
                           )
                           : Image.asset(AppImages.heart)
                         )

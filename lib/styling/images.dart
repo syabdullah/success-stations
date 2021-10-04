@@ -80,7 +80,7 @@ class AppImages {
   static String person = imagePath + "usernqame@3x.png";
 
   //maps
-  static String map1= imagePath + "mapIcon.png";
+  static String map1= imagePath + "map@3x.png";
   static String map= imagePath + "map.png";
   static String gridView = imagePath + 'grid.png';
   static String delete = imagePath + 'delete.png';

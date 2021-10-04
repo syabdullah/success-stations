@@ -4,13 +4,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
-import 'package:success_stations/main.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+import 'package:success_stations/view/shimmer.dart';
 
 class OffersDetail extends StatefulWidget {
   _MyOffersDetailState createState() => _MyOffersDetailState();
@@ -76,7 +75,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
               init: OfferCategoryController(),
               builder: (val) {
                 return val.isLoading == true  ? Center(
-                  child: CircularProgressIndicator()
+                  child: shimmer()
                 )
                   : val.myofferListDrawer != null && val.myofferListDrawer['data'] != null
                 ? Column(

@@ -9,6 +9,8 @@ import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+
+import '../shimmer.dart';
 class AdListTab extends StatefulWidget {
   const AdListTab({Key? key}) : super(key: key);
 
@@ -40,9 +42,7 @@ class _AdListTabState extends State<AdListTab> {
         init: FriendsController(),
         builder: (val) {
           return val.isLoading == true ?
-          Center(
-            child: CircularProgressIndicator()
-          ): val.userAds != null && val.userAds['data'] != null  ? adList(val.userAds['data'])
+          shimmer(): val.userAds != null && val.userAds['data'] != null  ? adList(val.userAds['data'])
           : Container(
             child: Center(
               child: Text(
@@ -58,7 +58,7 @@ class _AdListTabState extends State<AdListTab> {
   Widget adList(allDataAdds) {
     return Container(
       height: Get.height/1.6,
-      margin: EdgeInsets.only(bottom: 30),
+      margin: EdgeInsets.only(bottom: 35),
       child: ListView.builder(
         physics: AlwaysScrollableScrollPhysics(),
         itemCount: allDataAdds.length,

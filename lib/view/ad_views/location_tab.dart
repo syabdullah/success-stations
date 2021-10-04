@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:success_stations/controller/last_location_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+
+import '../shimmer.dart';
 
 class LocationTab extends StatefulWidget {
   const LocationTab({ Key? key }) : super(key: key);
@@ -361,6 +360,7 @@ Widget locationList(lastLocation) {
     ):
      Container(
       height: Get.height/1.6,
+      margin: EdgeInsets.only(bottom: 35),
       child: ListView.builder(
         // physics: NeverScrollableScrollPhysics(),
         itemCount: lastLocation['data'].length,
@@ -441,29 +441,7 @@ Widget locationList(lastLocation) {
                     ],
                   ),
                   SizedBox(height:20),
-                 
-                  
-                  // Column(
-                  //   children: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       child: 
-                  //       CircleAvatar(
-                  //         backgroundColor: Colors.grey[200],
-                  //         child: Icon(Icons.person)
-                  //         ) 
-                  //     ),
-                  //     Row(
-                  //       children: [
-                  //         Container(
-                  //           padding: EdgeInsets.only(right:5),
-                  //           child: Image.asset(AppImages.blueHeart, height: 20)
-                  //         ),
-                  //         Image.asset(AppImages.call, height: 20),
-                  //       ],
-                  //     )
-                  //   ],
-                  // ),
+                
                 ],
               ),
             ),
