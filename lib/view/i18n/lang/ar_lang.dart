@@ -211,6 +211,7 @@ const Map<String, String> ar = {
   "degree":"الدرجة العلمية",
   "degreesu":"الدرجة العلمية",
   "select_category": "اختر الفئة",
+  "namemust":"يجب أن يكون الاسم من a-z و A-Z",
   "Select Type": "اختر صنف",
   "enter_title": "أدخل العنوان",
   "enter_description": "أدخل الوصف",
@@ -305,5 +306,11 @@ const Map<String, String> ar = {
   "locationName":"اسم الموقع",
   "digitSemester":"الفصل الدراسي بالأرقام فقط",
   "viewprofile": "الملف الشخصي",
-  "notifications":"إشعارات"
+  "notifications":"إشعارات",
+  "enteringText":"أدخل الأرقام",
+  "degreemust":"يجب أن تكون الدرجة من a-z و A-Z",
+  "email_Valid":"أدخل عنوان بريد إلكتروني صالح",
+  "filed": "يجب أن يكون الحقل من الألف إلى الياء إلى الألف إلى الياء",
+  "invalid":"Invalid phone number",
+
 };

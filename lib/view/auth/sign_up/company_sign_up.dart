@@ -463,7 +463,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(dateTime == null ? 'date_of_birth'.tr : finalDate.toString(), style: TextStyle(color: Colors.grey[500],fontSize: 17)),
+            Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString(), style: TextStyle(color: Colors.grey[500],fontSize: 17)),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey),
               onTap: () {

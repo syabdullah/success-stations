@@ -307,7 +307,15 @@ const Map<String, String> en = {
   "allAds": "All Ads",
   "selectService":"Select Service",
   "digitSemester":"Semester in Digits Only",
-  "viewprofile":"View Profile"
+  "viewprofile":"View Profile",
+  "namemust":"Name must be a-z and A-Z",
+  "degreemust":"Degree must be a-z and A-Z",
+  "enteringText":"Enter Digits",
+  "email_Valid":"Enter Valid Email Address",
+  "invalid":"Invalid phone number",
+  "filed":"Filed must be a-z and A-Z"
+
+  
   
 };
 
