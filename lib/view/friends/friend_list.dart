@@ -183,15 +183,18 @@ class _FriendListState extends State<FriendList> {
                           )
                         ),
                         Container(
+                          width: Get.width/3,
                           margin: EdgeInsets.only(left: 10),
                           child: id == dataa[index]['requister_id']
                           ? Text(
                             dataa[index]['user_requisted']['degree'] ?? '',
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold),
                           )
                           : Text(
                             dataa[index]['requister']['degree'] ?? '',
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontWeight: FontWeight.bold
                             ),
@@ -221,7 +224,7 @@ class _FriendListState extends State<FriendList> {
     return GridView.count(
       padding: EdgeInsets.only(left: 5 ),
         crossAxisCount: 2,
-        childAspectRatio: (Get.width / Get.height*1.8),
+        childAspectRatio: (Get.width / Get.height*1.6),
         children: List.generate(
           newData.length,
           (index) {

@@ -250,10 +250,14 @@ class _SignPageState extends State<StudentSignUp> {
         textController: nameController,
         onSaved: (newValue) {},
         validator: (value) {
-          if (value.isEmpty) {
-            return 'enterSomeText'.tr;
-          }
-          return null;
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "namereq".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "Name must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -304,10 +308,14 @@ class _SignPageState extends State<StudentSignUp> {
         textController: addressController,
         onSaved: (newValue) {},
         validator: (value) {
-        if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-         return null;
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "adressField".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "About must be a-z and A-Z";
+          } else
+          return null;
         },
         errorText: '',
       ),
@@ -328,11 +336,15 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: aboutController,
         onSaved: (newValue) {},
-         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+        validator: (value) {
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "aboutfield".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "About must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
@@ -353,12 +365,15 @@ class _SignPageState extends State<StudentSignUp> {
         onFieldSubmitted: (value) {},
         textController: degreeController,
         onSaved: (newValue) {},
-        
         validator: (value) {
-         if (value.isEmpty) {
-          return 'enterSomeText'.tr;
-        }
-           return null;
+          String patttern = r'(^[a-zA-Z ]*$)';
+          RegExp regExp = RegExp(patttern);
+          if (value.length == 0) {
+            return "degreeReq".tr;
+          } else if (!regExp.hasMatch(value)) {
+            return "Degree must be a-z and A-Z";
+          } else
+            return null;
         },
         errorText: '',
       ),
