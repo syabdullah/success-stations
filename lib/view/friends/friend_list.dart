@@ -65,8 +65,11 @@ class _FriendListState extends State<FriendList> {
               init: FriendsController(),
               builder: (val) {
                 return val.friendsData == null ? Expanded(child: shimmer()) : val.friendsData['data'].length == 0 || val.friendsData == null
-                ? Container(
-                  child: Text("nofriends".tr),
+                ? SingleChildScrollView(
+                  child: Container(
+                    height: Get.height/1.5,
+                    child: Center(child: Text("nofriends".tr,style: TextStyle(fontSize: 20),)),
+                  ),
                 )
                 : Expanded(
                   child: valuee.dataType == 'list'
