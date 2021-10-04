@@ -39,32 +39,34 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     return DefaultTabController(
       length: myTabs.length,
       child: Scaffold(
-          body: ListView(
-            children: [
-              GetBuilder<UserProfileController>( 
-                  init: UserProfileController(),
-                  builder: (value) { 
-                    return value.userData2 != null && value.userData2['success'] != true ?
-                    topImage(value.userData2['data'])
-                  : LinearProgressIndicator();
-                  } 
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                GetBuilder<UserProfileController>( 
+                    init: UserProfileController(),
+                    builder: (value) { 
+                      return value.userData2 != null && value.userData2['success'] != true ?
+                      topImage(value.userData2['data'])
+                    : LinearProgressIndicator();
+                    } 
+                  ),
+                Container(
+                  height: Get.height,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20.h),
+                      TabBar(
+                        indicatorColor: Color(0xFF2F4199),
+                        labelColor: AppColors.appBarBackGroundColor,
+                        unselectedLabelColor: AppColors.inputTextColor,
+                        tabs: myTabs,
+                      ),
+                      tabBarView()
+                    ],
+                  ),
                 ),
-              Container(
-                height: Get.height,
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.h),
-                    TabBar(
-                      indicatorColor: Color(0xFF2F4199),
-                      labelColor: AppColors.appBarBackGroundColor,
-                      unselectedLabelColor: AppColors.inputTextColor,
-                      tabs: myTabs,
-                    ),
-                    tabBarView()
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         )  
       );
