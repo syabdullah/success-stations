@@ -75,7 +75,7 @@ class _MyAddsState extends State<MyAdds> {
                 builder: (data){
                   return data.isLoading == true ? shimmer(): 
                   data.myHavingAdds !=null ? addsCategoryWidget(data.myHavingAdds['data'])
-                  : Container();
+                  : shimmer();
                 },
               ), 
               SizedBox(height: 10),   
@@ -95,13 +95,13 @@ class _MyAddsState extends State<MyAdds> {
                       style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                ): Container();
+                ): shimmer();
               }
             ) : GetBuilder<AddBasedController>(
               init: AddBasedController(),
               builder: (val){
-                return val.isLoading == true || val.cData == null? Container()
-                  : val.cData['data'] == null ? Container()
+                return val.isLoading == true || val.cData == null? shimmer()
+                  : val.cData['data'] == null ? shimmer()
                   : valuee.dataType != 'grid' ? myAddsList(val.cData['data']) : 
                     myAddGridView(val.cData['data']
                 );
