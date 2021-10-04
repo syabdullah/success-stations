@@ -411,7 +411,7 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget mobile() {
-    return Container(
+    return  Container(
       width: Get.width / 1.1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -421,9 +421,11 @@ class _SignPageState extends State<StudentSignUp> {
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: InternationalPhoneNumberInput(
         focusNode: FocusNode(),
+        cursorColor: AppColors.appBarBackGroundColor,
+        autoFocus: false,
         inputDecoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left:10,bottom:10,right: 10),
-          fillColor: AppColors.inputTextColor,
+          contentPadding: EdgeInsets.only(left:10,bottom: 10),
+          fillColor: AppColors.inputColor,
           filled: true,
           border: InputBorder.none,
           errorBorder: OutlineInputBorder(
@@ -444,8 +446,7 @@ class _SignPageState extends State<StudentSignUp> {
         ),
         ignoreBlank: false,
         autoValidateMode: AutovalidateMode.disabled,
-        selectorTextStyle: TextStyle(color:AppColors.inputTextColor),
-        // initialValue: n,
+        selectorTextStyle: TextStyle(color: Colors.black),
         textFieldController: mobileController,
         formatInput: false,
         keyboardType:
@@ -457,6 +458,7 @@ class _SignPageState extends State<StudentSignUp> {
       )
     );
   }
+
 
 
   Widget studentdob() {
