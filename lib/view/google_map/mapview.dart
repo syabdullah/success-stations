@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/user_fav_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
@@ -170,18 +171,18 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             ),
                             Spacer(),
                             Container(
-                                margin: EdgeInsets.only(right: 15),
-                                child: data['user_name']['is_user_favourite'] ==
-                                        true
-                                    ? Image.asset(
-                                        AppImages.redHeart,
-                                        height: 30,
-                                      )
-                                    : Image.asset(
-                                        AppImages.blueHeart,
-                                        height: 30,
-                                      ))
-                          ],
+                              margin: EdgeInsets.only(right: 15),
+                              child: data['user_name']['is_user_favourite'] ==
+                                  true
+                              ? Image.asset(
+                                  AppImages.redHeart,
+                                  height: 30,
+                                )
+                              : Image.asset(
+                                  AppImages.blueHeart,
+                                  height: 30,
+                                ))
+                           ],
                         ),
                       ),
                     ),
@@ -222,9 +223,12 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                 val.allLoc['data']['data'][i]['long']);
               }
             }
-            return Stack(
+            return GetBuilder<GridListCategory>(
+            init: GridListCategory(),
+            builder: (valuee){
+              return Stack(
               children: [
-                listtype == 'map'
+                valuee.dataType == 'map'
                 ? Stack(
                   children: <Widget>[
                     val.allLoc != null
@@ -253,6 +257,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               // )
             ],
           );
+            }
+            );
         }
       ),
     );
