@@ -109,7 +109,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ) : Container();
+                  ):shimmer();
                 }
               ):
               GetBuilder<OfferCategoryController>(
@@ -126,7 +126,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ): Container();
+                  ): shimmer();
                 }
               ),
             ]
