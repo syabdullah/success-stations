@@ -5,6 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/user_drafted_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 
+import '../../shimmer.dart';
+
 class DraftAds extends StatefulWidget {
   const DraftAds({ Key? key }) : super(key: key);
 
@@ -51,7 +53,7 @@ class _DraftAdsState extends State<DraftAds> {
                 style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-          ) : Container();
+          ) : shimmer();
         }
       )
     );
