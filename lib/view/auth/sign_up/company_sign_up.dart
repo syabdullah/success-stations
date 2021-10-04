@@ -12,11 +12,8 @@ import 'package:success_stations/styling/get_size.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
-<<<<<<< HEAD
 // ignore: unused_import
 import 'package:success_stations/view/auth/sign_in.dart';
-=======
->>>>>>> deb724eb1806cf6b4fed5d491602ff5092fbe9db
 
 
 var finalIndex, shortCode;
