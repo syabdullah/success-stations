@@ -7,6 +7,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:success_stations/utils/config.dart';
 import 'package:success_stations/view/auth/my_adds/my_adds.dart';
+// ignore: implementation_imports
 import 'package:dio/src/response.dart' as response;
 
 class  AdPostingController extends GetxController {
@@ -20,6 +21,7 @@ class  AdPostingController extends GetxController {
    finalAdPosting(dataa) async {
      isLoading(true);
      await adPosting(dataa).then((res) {    
+      // ignore: unused_local_variable
       var data = jsonDecode(res.body);
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body); 

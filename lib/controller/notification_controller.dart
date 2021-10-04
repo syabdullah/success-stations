@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/notification_action.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/view/auth/notification.dart';
 
 class NotificationController extends GetxController {
  

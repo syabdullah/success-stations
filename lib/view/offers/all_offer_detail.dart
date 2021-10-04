@@ -4,14 +4,12 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 
 class MyOfferDetailMain extends StatefulWidget {
   _MyAllOffersDetailState createState() => _MyAllOffersDetailState();
 }
 class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   
   var idIdId;
   var lang;

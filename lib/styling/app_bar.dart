@@ -31,6 +31,7 @@ var color = Colors.grey[100];
 int slctedInd = 0, _selectedIndex = 1;
 bool textfeild = true;
 var selectedService;
+// ignore: non_constant_identifier_names
 var  service_id;
 GetStorage box = GetStorage();
 var cityArray = [];
@@ -481,6 +482,7 @@ Widget sAppbar(context ,icon,image,) {
   var locationName;
   var service;
   filtrationModel(context) async {
+    // ignore: unused_local_variable
     var size = MediaQuery.of(context).size;
     array.clear();
     cityArray.clear();
@@ -718,6 +720,7 @@ Widget sAppbar(context ,icon,image,) {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
+                                // ignore: deprecated_member_use
                                 child: RaisedButton(
                                   color: Colors.grey[100],
                                   child: Container(
@@ -741,6 +744,7 @@ Widget sAppbar(context ,icon,image,) {
                                 ),
                               ),
                               Container(
+                                // ignore: deprecated_member_use
                                 child: RaisedButton(
                                   color:AppColors.appBarBackGroundColor,
                                   child: Container(

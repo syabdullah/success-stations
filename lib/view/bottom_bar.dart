@@ -26,8 +26,8 @@ class _BottomTabsState extends State<BottomTabs> {
   var lang;
   GetStorage box = GetStorage();
   void initState() {
-    // TODO: implement initState
     banner.bannerController();
+    // ignore: unused_local_variable
     var id = box.read('user_id');
     lang = box.read('lang_code');
     //  mapCon.getAllLocationToDB();
