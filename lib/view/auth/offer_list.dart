@@ -13,6 +13,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
 
+import '../shimmer.dart';
+
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
 }
@@ -88,7 +90,7 @@ class _OfferListState extends State<OfferList> {
               builder: (val) {
                 return val.allOffersResp != null &&
                 val.allOffersResp['data'] != null? subOffers(val.allOffersResp['data'])
-                : Container();
+                : shimmer();
               },
             ),
             SizedBox(height:10),
