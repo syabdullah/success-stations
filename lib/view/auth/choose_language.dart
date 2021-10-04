@@ -6,7 +6,6 @@ import 'package:success_stations/controller/language_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class ChooseLanguage extends StatefulWidget {
@@ -14,6 +13,7 @@ class ChooseLanguage extends StatefulWidget {
 }
 class ChooseLanguageStatePage extends State<ChooseLanguage> {
   final getLang = Get.put(LanguageController());
+   // ignore: unused_field
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    var hintTextLang;
    @override

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:success_stations/controller/last_location_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+
+import '../shimmer.dart';
 
 class LocationTab extends StatefulWidget {
   const LocationTab({ Key? key }) : super(key: key);
@@ -65,7 +64,7 @@ class _LocationTabState extends State<LocationTab> {
              GetBuilder<LocationController>( // specify type as Controller
                   init: LocationController(), // intialize with the Controller
                   builder: (value){ 
-                    return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                    return value.isLoading == true ? shimmer():
                     value.lastLocation !=null &&   value.lastLocation['success']== true ?
                      locationList(value.lastLocation['data'])
                      :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
@@ -445,29 +444,7 @@ Widget locationList(lastLocation) {
                     ],
                   ),
                   SizedBox(height:20),
-                 
-                  
-                  // Column(
-                  //   children: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       child: 
-                  //       CircleAvatar(
-                  //         backgroundColor: Colors.grey[200],
-                  //         child: Icon(Icons.person)
-                  //         ) 
-                  //     ),
-                  //     Row(
-                  //       children: [
-                  //         Container(
-                  //           padding: EdgeInsets.only(right:5),
-                  //           child: Image.asset(AppImages.blueHeart, height: 20)
-                  //         ),
-                  //         Image.asset(AppImages.call, height: 20),
-                  //       ],
-                  //     )
-                  //   ],
-                  // ),
+                
                 ],
               ),
             ),

@@ -55,6 +55,7 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
     await deleteLocation(id).then((value) {
       if(value.statusCode == 200 || value.statusCode < 400){
+        // ignore: unused_local_variable
         var del = jsonDecode(value.body);
         isLoading = false;
         getMyLocationToDB(userId);

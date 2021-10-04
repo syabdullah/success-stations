@@ -5,7 +5,6 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/forget_password_action.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/view/auth/forgot/forgot_code.dart';
 
 class ForgetPasswordController extends GetxController {
   GetStorage box = GetStorage();

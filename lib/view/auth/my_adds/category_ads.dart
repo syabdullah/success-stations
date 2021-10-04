@@ -26,6 +26,7 @@ class _CatAddsState extends State<CatAdds> {
   final filterControlller = Get.put(AddBasedController());
   var listtype = 'list';
   var userId;
+  // ignore: unused_field
   bool _value = false;
   var selectedIndex = 0;
   var grid = AppImages.gridOf;
@@ -41,6 +42,7 @@ class _CatAddsState extends State<CatAdds> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     catCont.getCategoryTypes();

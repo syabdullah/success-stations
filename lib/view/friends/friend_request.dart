@@ -12,6 +12,7 @@ class FriendReqList extends StatefulWidget {
 }
 class _FriendReqListState extends State<FriendReqList> {
    final friCont = Get.put(FriendsController());
+   // ignore: unused_field
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
    GetStorage box = GetStorage();
    var id;

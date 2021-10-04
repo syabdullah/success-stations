@@ -5,13 +5,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,6 +29,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   GetStorage box = GetStorage();
   var id,adId,notificationID,aboutadID, lang, reviewPagePrice, price,  htmldata = '';
   String? comment,myName;
+  // ignore: non_constant_identifier_names
   var user_image;
 
   @override

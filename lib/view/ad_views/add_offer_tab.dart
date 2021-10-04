@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+
+import '../shimmer.dart';
 class AdOffers extends StatefulWidget {
   const AdOffers({ Key? key }) : super(key: key);
 
@@ -33,9 +35,7 @@ class _AdOffersState extends State<AdOffers> {
       builder: (value){ 
         return  value.offerDattaTypeCategory != null ?
         gridView(value.offerDattaTypeCategory['data'])
-        :Center(
-          child: CircularProgressIndicator()
-        );
+        :shimmer();
       }
     );
   }

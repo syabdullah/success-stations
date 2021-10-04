@@ -41,6 +41,7 @@ class _AddLocationsState extends State<AddLocations> {
   var id;
   var position;
   var selectedService;
+  // ignore: non_constant_identifier_names
   var service_id;
   var adrr;
   var dataPage;
