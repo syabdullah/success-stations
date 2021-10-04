@@ -50,7 +50,8 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
           // height:55,
           child: Padding(
             padding: widget.padding,
-            child: TextFormField(     
+            child: TextFormField(  
+              style: TextStyle(color:AppColors.inputTextColor),   
                 focusNode: FocusNode(),      
                 controller: widget.textController,
                 onFieldSubmitted: widget.onFieldSubmitted,

@@ -177,7 +177,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             Spacer(),
                             Container(
                               margin: EdgeInsets.only(right: 15),
-                              child: data['user_name']['is_user_favourite'] ==
+                              child: data['user_name']['is_location_favourite'] ==
                                   true
                               ? Image.asset(
                                   AppImages.redHeart,
@@ -381,6 +381,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData['data'].length,
         itemBuilder: (BuildContext context, int index) {
+          print(".././/.....------${userData['data'][index]['is_location_favourite']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
@@ -462,18 +463,18 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                         GestureDetector(
                           onTap: () {
                             adtofavJson = {
-                              'user_id': userData['data'][index]['user_name']['id']
+                              'location_id': userData['data'][index]['id']
                             };
                             remtofavJson = {
-                              'user_id': userData['data'][index]['user_name']['id']
+                              'location_id': userData['data'][index]['id']
                             };
-                            userData['data'][index]['user_name']['is_user_favourite'] ==false
-                            ? adfavUser.profileAdsToFav(adtofavJson)
-                            : adfavUser.profileRemToFav(remtofavJson);
+                            userData['data'][index]['is_location_favourite'] ==false
+                            ? adfavUser.locationToFav(adtofavJson)
+                            : adfavUser.locationUnToFav(remtofavJson);
                           },
-                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['user_name']['is_user_favourite'] == false
+                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['is_location_favourite'] == false
                           ? Image.asset(
-                            AppImages.blueHeart, height: 18,
+                            AppImages.blueHeart, height: 20,
                           )
                           : Image.asset(AppImages.heart)
                         )

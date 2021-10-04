@@ -151,7 +151,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
               },
-              child: index ==2 ? Container():Image.asset(AppImages.map, height:22)
+              child: index ==2 ? Container(): index == 4 ? Image.asset(AppImages.map1, height:22):Image.asset(AppImages.listingImage, height:22)
             ),
             GestureDetector(
               onTap: (){
@@ -159,7 +159,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
               },
               child: Container(
                 margin: EdgeInsets.only(left:12),
-                child:  index ==2 ? Container():Image.asset(AppImages.gridListing ,height:22)
+                child:  index ==2 ? Container():Image.asset(AppImages.gridView ,height:22)
               ),
             )
           ],
@@ -233,7 +233,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     ), 
     actions: [
       Container(
-        margin: EdgeInsets.only(right:16,top:10),
+        margin: EdgeInsets.only(left:16,top:10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -242,17 +242,15 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 index == 0 ? 
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
-
-
               },
-              child: index ==2 ? Container():Image.asset(AppImages.listingImage, height:22)
+              child: index ==2 ? Container():  index == 0 ? Image.asset(AppImages.map1, height:22): Image.asset(AppImages.listingImage, height:22)
             ),
             GestureDetector(
               onTap: (){
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(left:12),
+                margin: EdgeInsets.only(right:12),
                 child:  index ==2 ? Container():Image.asset(AppImages.gridListing ,height:22)
               ),
             )
