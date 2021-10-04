@@ -40,11 +40,24 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
       length: myTabs.length,
       child: Scaffold(
         drawer: AppDrawer(),
-        body: NestedScrollView(
-          headerSliverBuilder:(BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
-                child: GetBuilder<UserProfileController>( 
+        // body: NestedScrollView(
+        //   headerSliverBuilder:(BuildContext context, bool innerBoxIsScrolled) {
+        //     return [
+        //       SliverToBoxAdapter(
+        //         child: GetBuilder<UserProfileController>( 
+        //           init: UserProfileController(),
+        //           builder: (value) { 
+        //             return value.userData2 != null && value.userData2['success'] != true ?
+        //             topImage(value.userData2['data'])
+        //           : LinearProgressIndicator();
+        //           } 
+        //         ),
+        //       ),
+        //     ];
+        //   },
+          body: ListView(
+            children: [
+              GetBuilder<UserProfileController>( 
                   init: UserProfileController(),
                   builder: (value) { 
                     return value.userData2 != null && value.userData2['success'] != true ?
@@ -52,27 +65,26 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                   : LinearProgressIndicator();
                   } 
                 ),
-              ),
-            ];
-          },
-          body: Container(
-            height: Get.height,
-            child: Column(
-              children: [
-                SizedBox(height: 20.h),
-                TabBar(
-                  indicatorColor: Color(0xFF2F4199),
-                  labelColor: AppColors.appBarBackGroundColor,
-                  unselectedLabelColor: AppColors.inputTextColor,
-                  tabs: myTabs,
+              Container(
+                height: Get.height,
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.h),
+                    TabBar(
+                      indicatorColor: Color(0xFF2F4199),
+                      labelColor: AppColors.appBarBackGroundColor,
+                      unselectedLabelColor: AppColors.inputTextColor,
+                      tabs: myTabs,
+                    ),
+                    tabBarView()
+                  ],
                 ),
-                tabBarView()
-              ],
-            ),
+              ),
+            ],
           ),
         )  
-      ),
-    );
+      );
+    // );
   }
 }
 
@@ -83,7 +95,7 @@ Widget topImage(userData2){
         width: Get.width,
         child: ClipRRect( 
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),bottomRight: Radius.circular(20.0)),
-          child: Image.asset(AppImages.topImage,fit: BoxFit.fill,)
+          child: Image.asset(AppImages.topImage,fit: BoxFit.fill)
         ),
       ),
       Column(
