@@ -39,7 +39,6 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     return DefaultTabController(
       length: myTabs.length,
       child: Scaffold(
-        drawer: AppDrawer(),
           body: ListView(
             children: [
               GetBuilder<UserProfileController>( 
