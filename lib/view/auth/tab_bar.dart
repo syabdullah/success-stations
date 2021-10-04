@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
 import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 

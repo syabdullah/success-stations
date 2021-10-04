@@ -14,6 +14,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
+import 'package:success_stations/view/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FavouritePage extends StatefulWidget {
@@ -94,7 +95,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   init: FavoriteController(),
                   builder: (val) {
                     return val.isLoading == true  ? Center(
-                      child: CircularProgressIndicator()
+                      child: shimmer()
                     ): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ?   Column(
                       children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data'])
                       : myAddGridView(val.fvr8DataList['data']) ,

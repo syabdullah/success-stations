@@ -9,11 +9,11 @@ import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
-import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
+
+import '../shimmer.dart';
 
 class OfferList extends StatefulWidget {
   _OfferListState createState() => _OfferListState();
@@ -79,13 +79,6 @@ class _OfferListState extends State<OfferList> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      // child:  offerid !=null ? favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1):Container()),
-      // drawer: Theme(
-      //   data: Theme.of(context).copyWith(
-      //   ),
-      //   child: AppDrawer(),
-      // ),
       body: GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuee){
@@ -97,7 +90,7 @@ class _OfferListState extends State<OfferList> {
               builder: (val) {
                 return val.allOffersResp != null &&
                 val.allOffersResp['data'] != null? subOffers(val.allOffersResp['data'])
-                : Container();
+                : shimmer();
               },
             ),
             SizedBox(height:10),
@@ -116,7 +109,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ) : Container();
+                  ):shimmer();
                 }
               ):
               GetBuilder<OfferCategoryController>(
@@ -133,7 +126,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ): Container();
+                  ): shimmer();
                 }
               ),
             ]
@@ -142,107 +135,6 @@ class _OfferListState extends State<OfferList> {
       )
     );
   }
-
-  // Widget topWidget() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       Row(
-  //         children: [
-  //           InkWell(
-  //             onTap: () {
-  //               // filteringCategory();
-  //             },
-  //             child: Container(
-  //               margin: lang == 'en' ? EdgeInsets.only(left: 15, top: 8) : EdgeInsets.only(right: 15, top: 8),
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(5),
-  //                 color: Colors.grey[200],
-  //               ),
-
-  //               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-  //               child: Row(
-  //                 children: [
-  //                   Image.asset(AppImages.filter, height: 15),
-  //                   SizedBox(width: 5),
-  //                   Text(
-  //                     "filter".tr,
-  //                     style: TextStyle(color: Colors.grey[700]),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //           GestureDetector(
-  //             onTap: () {
-  //               Get.to(AddOffersPage());
-  //             },
-  //             child: usertype == 2 || usertype == 3
-  //               ? Container()
-  //               : Container(
-  //                 margin: lang == 'en' ? EdgeInsets.only(left: 15, top: 8) : EdgeInsets.only(right: 15, top: 8),
-  //               // margin: EdgeInsets.only(left: 10),
-  //               child: Image.asset(AppImages.plusImage, height: 24,)),
-  //           )
-  //         ],
-  //       ),
-  //       Container(
-  //         margin: lang == 'en'
-  //         ? EdgeInsets.only(left: 10,)
-  //         : EdgeInsets.only(right: 20,),
-  //         child: Row(
-  //           children: [
-  //              Container(
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'grid';
-  //                     lisselect = !lisselect;
-  //                     isButtonPressed = !isButtonPressed;
-  //                     //listIconColor = Colors.grey;
-  //                     listImg = AppImages.listing;
-  //                   });
-  //                 },
-  //                 child: Image.asset(AppImages.gridOf,height: 25, width:30,color:  listtype=='list' ? Colors.grey:listtype=='grid'?AppColors.appBarBackGroundColor :AppColors.appBarBackGroundColor),
-  //               ),
-  //             ),
-            
-  //             SizedBox(width: 5,),
-  //             Container(
-  //               child: CupertinoButton(
-  //                 minSize: double.minPositive,
-  //                 padding: EdgeInsets.zero,
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     listtype = 'list';
-  //                     lisselect = !lisselect;
-  //                     isButtonPressed = !isButtonPressed;
-  //                     //listIconColor = Colors.grey;
-  //                     listImg = AppImages.listing;
-  //                   });
-  //                 },
-  //                 child: Image.asset(listImg,height: 25,width:30,color: listtype=='grid' ?Colors.grey: listtype=='list' ?AppColors.appBarBackGroundColor :Colors.grey,),
-  //               ),
-  //             ),
-  //             SizedBox(height: 10,width: 15)
-  //           ],
-  //         ),
-        
-  //       )
-  //     ],
-  //   );
-  // }
-
-  // idSended() {
-  //   var createFilterjson = {
-  //     'type': filteredIDCate,
-  //     'status': statusFiltered == 'New' ? 1 : 0,
-  //   };
-  //   offerFilterCont.offerFilter(createFilterjson);
-  // }
-
   Widget listUsers(listFavou) {
     return  Container(
         // height: Get.height/1.68,

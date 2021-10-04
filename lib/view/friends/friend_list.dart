@@ -9,8 +9,9 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/utils/skalton.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
+
+import '../shimmer.dart';
 
 class FriendList extends StatefulWidget {
   _FriendListState createState() => _FriendListState();
@@ -63,9 +64,12 @@ class _FriendListState extends State<FriendList> {
             GetBuilder<FriendsController>(
               init: FriendsController(),
               builder: (val) {
-                return val.friendsData == null ? shimmer() : val.friendsData['data'].length == 0 || val.friendsData == null
-                ? Container(
-                  child: Text("nofriends".tr),
+                return val.friendsData == null ? Expanded(child: shimmer()) : val.friendsData['data'].length == 0 || val.friendsData == null
+                ? SingleChildScrollView(
+                  child: Container(
+                    height: Get.height/1.5,
+                    child: Center(child: Text("nofriends".tr,style: TextStyle(fontSize: 20),)),
+                  ),
                 )
                 : Expanded(
                   child: valuee.dataType == 'list'

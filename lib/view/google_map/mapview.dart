@@ -15,6 +15,8 @@ import 'package:success_stations/view/ad_views/ad_viewmain.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:clippy_flutter/triangle.dart';
 
+import '../shimmer.dart';
+
 class CustomInfoWindowExample extends StatefulWidget {
   @override
   _CustomInfoWindowExampleState createState() =>
@@ -27,8 +29,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final mapCon = Get.put(LocationController());
   final adfavUser = Get.put(UserFavController());
+  // ignore: unused_field
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
   final double _zoom = 5.0;
+  // ignore: non_constant_identifier_names
   int _makrr_id_counter = 1;
   var listtype = 'map';
   //  Marker _markers = [];
@@ -45,6 +49,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   void initState() {
     super.initState();
     _getUserLocation();
+    // ignore: unused_local_variable
     var id = box.read('user_id');
     route = Get.arguments;
    lang = box.read('lang_code');
@@ -247,7 +252,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   builder: (value) {
                     return value.allLoc != null
                     ? allUsers(value.allLoc['data'])
-                    : Center(child: CircularProgressIndicator());
+                    : shimmer();
                   } 
                 ),
               // Container(
@@ -361,7 +366,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget allUsers(userData) {
     return GridView.builder(
-        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 90, bottom: 10),
+        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
         primary: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 10,
@@ -392,8 +397,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0)
+                        topLeft: Radius.circular(15.0),
+                        topRight: Radius.circular(15.0)
                       ),
                       child: Container(
                         width: Get.width / 2.2,

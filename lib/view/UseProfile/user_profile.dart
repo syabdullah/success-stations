@@ -4,7 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/bottom_bar.dart';
+
+import '../shimmer.dart';
 
 class UserProfile extends StatefulWidget {
   _UserProfileState createState() => _UserProfileState();
@@ -27,6 +28,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<UserProfileController>(
@@ -38,7 +40,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
              profileDetail(val.userData['data']),
              general(val.userData['data'])
             ],
-          ):Center(child: CircularProgressIndicator());
+          ):shimmer();
 
         }
           ),

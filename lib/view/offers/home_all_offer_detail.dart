@@ -100,7 +100,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                                               margin:
                                                   EdgeInsets.only(right: 10),
                                               child: Icon(
-                                                Icons.arrow_forward_ios,
+                                                Icons.arrow_forward,
                                                 color: Colors.white,
                                               ))
                                         ],
@@ -126,8 +126,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                                         homeCategoryById['description']['en'],
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 14),
-                                      )
-                                    : Container()),
+                                      ) : Container()),
                           ],
                         ),
                       ),

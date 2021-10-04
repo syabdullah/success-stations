@@ -14,8 +14,8 @@ class FriendProfile extends StatefulWidget {
 
 class _FriendProfileState extends State<FriendProfile>
     with SingleTickerProviderStateMixin {
-  late DefaultTabController _controller;
   GetStorage box = GetStorage();
+  // ignore: unused_field
   int _selectedIndex = 0;
   final friCont = Get.put(FriendsController());
   final chatCont = Get.put(ChatController());
@@ -326,7 +326,6 @@ class _FriendProfileState extends State<FriendProfile>
   }
 
   Widget general(data, adsData) {
-    var country = data['country'];
     // city = data['city'];
     // city = city['city'];
     return Expanded(
