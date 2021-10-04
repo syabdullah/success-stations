@@ -13,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'shimmer.dart';
+
 class AdViewScreen extends StatefulWidget {
   const AdViewScreen({ Key? key }) : super(key: key);
 
@@ -68,7 +70,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
         child: GetBuilder<MyAddsController>(
           init: MyAddsController(),
           builder: (val) {
-            return val.isLoading == true ||  val.adsD== null ? Center(child: CircularProgressIndicator()) : val.adsD== null ? 
+            return val.isLoading == true ||  val.adsD== null ? shimmer() : val.adsD== null ? 
             Container(
               child: Center(
                 child: Text("no_detail_here!".tr),
