@@ -244,13 +244,13 @@ var typeId;
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-        ),
-      child: AppDrawer(),
-    ),
+    //   appBar:  PreferredSize( preferredSize: Size.fromHeight(70.0),
+    //   child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
+    //   drawer: Theme(
+    //     data: Theme.of(context).copyWith(
+    //     ),
+    //   child: AppDrawer(),
+    // ),
       body: ListView(
         children: [
           ImageStepper(
@@ -272,9 +272,7 @@ var typeId;
               AssetImage(AppImages.strdStepIcon):
               AssetImage(AppImages.trdStepIcon),
             ],
-            // activeStep property set to activeStep variable defined above.
             activeStep: activeStep,
-            // This ensures step-tapping updates the activeStep. 
             onStepReached: (index) {
               setState(() {
                 activeStep = index;
