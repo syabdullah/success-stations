@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -24,7 +25,7 @@ class _AboutUsState extends State<AboutUs> {
       body: GetBuilder<ContentManagmentController>( 
         init: ContentManagmentController(),
         builder:(val) {
-          return val.aboutData != null  ? about(val.aboutData['data']) : shimmer();
+          return val.aboutData != null  ? about(val.aboutData['data']) : shimmer4();
         }   
      )
    );

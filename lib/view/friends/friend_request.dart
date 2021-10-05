@@ -6,6 +6,7 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
+import 'package:success_stations/view/shimmer.dart';
 
 class FriendReqList extends StatefulWidget {
   _FriendReqListState createState() => _FriendReqListState();
@@ -35,7 +36,7 @@ class _FriendReqListState extends State<FriendReqList> {
            GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
-              return val.suggestionsData == null ? Container() : val.suggestionsData.length == 0  || val.suggestionsData == null? 
+              return val.suggestionsData == null ? friendReqShimmer() : val.suggestionsData.length == 0  || val.suggestionsData == null? 
               Container(
                   child: Text("suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
                 )
@@ -46,7 +47,7 @@ class _FriendReqListState extends State<FriendReqList> {
                 Column(
                   children:
                     friendList(val.friendsData['data']),
-                ):Container(),
+                ):friendReqShimmer(),
                 // SizedBox(
                 //   height: 20,
                 // ),

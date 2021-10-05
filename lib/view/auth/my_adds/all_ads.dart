@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
@@ -97,9 +98,7 @@ class _AllAddsState extends State<AllAdds> {
               : GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
-                  return val.isLoading == true || val.cData == null? shimmer()
-                  : val.cData['data'] == null ? shimmer()
-                  : valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
+                  return valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']);
                 },
               )
             ],
@@ -306,7 +305,7 @@ class _AllAddsState extends State<AllAdds> {
     return Container(
       padding: EdgeInsets.only(left:10,right:10),
       width: Get.width / 1.10,
-      child: GridView.count(
+      child:  dataListValue == null ? VideoShimmer() : GridView.count(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2,

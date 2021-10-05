@@ -69,7 +69,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
               GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
-            return val.aboutData != null  ? text(val.aboutData['data']) : shimmer();
+            return val.aboutData != null  ? text(val.aboutData['data']) : shimmer4();
     
           }   
      ),
@@ -117,7 +117,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         decoration:InputDecoration( 
           focusedBorder: OutlineInputBorder(
            borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
-          contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
+          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
           hintText: "nameph".tr,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -167,7 +167,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       decoration:InputDecoration( 
         focusedBorder: OutlineInputBorder(
            borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
-          contentPadding: EdgeInsets.only(left:15,top: 15,bottom: 15,right: 15),
+       contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
         hintText: "phone".tr,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
