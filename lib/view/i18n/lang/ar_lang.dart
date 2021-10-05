@@ -311,6 +311,10 @@ const Map<String, String> ar = {
   "degreemust":"يجب أن تكون الدرجة من a-z و A-Z",
   "email_Valid":"أدخل عنوان بريد إلكتروني صالح",
   "filed": "يجب أن يكون الحقل من الألف إلى الياء إلى الألف إلى الياء",
-  "invalid":"Invalid phone number",
+  "iqqamaNum":"يجب أن تكون الإقامة بالأرقام",
+  "IqamaDigits":"يجب أن يتكون رقم الإقامة من 13 رقمًا",
+  "resp":"مسؤول",
+  "resDig":"يجب أن يكون الرد بالأرقام",
+  "crEn":"أدخل CR",
 
 };

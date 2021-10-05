@@ -101,6 +101,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'company_name':comNameController.text,
         'service_ids[]': selectedAnimals2
       };
+      print("Company sign UP$json");
       signUpCont.companyAccountData(json);
     }
   }
@@ -112,7 +113,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": phoneController.text,
+        "mobile": mobileNUmberController.text,
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -121,6 +122,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text,
         'service_ids[]': selectedAnimals2
       };
+      print("jbhsxahgdhgdjgfshcvdshvjc,,,,,,$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -139,49 +141,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
              space10,
               eMail(),
-              // v == 1? 
-              // GetBuilder<SignUpController>(
-              //   init: SignUpController(),
-              //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue  &&  errorCheck == true? 
-              //     Container(
-              //       margin:EdgeInsets.only(left:10),
-              //       alignment: Alignment.topLeft,
-              //       child: Container(
-              //         margin:EdgeInsets.only(left:10),
-              //         alignment: Alignment.topLeft,
-              //         child: Text( signUpCont.indiviualSignup['errors']['email'][0],
-              //         style: TextStyle(color: Colors.red),
-              //         )
-              //       )
-              //     ):Container() ;
-              //   }
-              // ): 
-              // GetBuilder<SignUpController>(
-              //   init: SignUpController(),
-              //   builder: (val){
-              //     return signUpCont.resultInvalid.isTrue && errorCheck == true ? 
-              //     Container(
-              //       margin:EdgeInsets.only(left:10),
-              //       alignment: Alignment.topLeft,
-              //       child: Container(
-              //           margin:EdgeInsets.only(left:10),
-              //         alignment: Alignment.topLeft,
-              //         child: Text( signUpCont.companySignUp['errors']['email'][0] ,
-              //         style: TextStyle(color: Colors.red),
-              //         )
-              //       )
-              //     ): Container();
-              //   }
-              // ),
               space10,
               mobile(),
-              space10 ,
-              // v != 2 ? SizedBox(
-              //   height: 
-              //   Get.height / 9.3,
-              //   child: companyDob()
-              // ): 
+              space10, 
               space10,
               GetBuilder<ContryController>(
                 init: ContryController(),
@@ -212,7 +174,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
                    GetBuilder<ServicesController>(
                     init: ServicesController(),
                     builder: (val){
-                     
                       return services(val.servicesListdata, );
                     },
                   ),
@@ -230,7 +191,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               radioalert(),
               v == 2 ? 
-               comName()
+              comName()
               :space10,
               v == 2 ?
               cR():
@@ -334,7 +295,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           if (value.length == 0) {
             return "namereq".tr;
           } else if (!regExp.hasMatch(value)) {
-            return "Name must be a-z and A-Z";
+            return "namemust".tr;
           } else
             return null;
         },
@@ -385,7 +346,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
       child: InternationalPhoneNumberInput(
         cursorColor: AppColors.appBarBackGroundColor,
         focusNode: FocusNode(),
-        // autoFocus: true,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 10,bottom: 10,right: 10),
           fillColor: AppColors.inputColor,
@@ -408,15 +368,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         ),
         ignoreBlank: false,
-        autoValidateMode: AutovalidateMode.disabled,
+        autoValidateMode: AutovalidateMode.onUserInteraction,
         selectorTextStyle: TextStyle(color: Colors.black),
-        // initialValue: n,
         textFieldController: mobileNUmberController,
-        formatInput: false,
-        keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+        formatInput: true,
         inputBorder: OutlineInputBorder(),
-        onSaved: (PhoneNumber number) {
-        },
+        onSaved: (PhoneNumber number) {},
         initialValue: companyCode,
       )
     );
@@ -655,40 +612,42 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
       margin: EdgeInsets.only(left:2),
         width: Get.width/1.1,
-                decoration: BoxDecoration(
-                  color: AppColors.inPutFieldColor,
-                  border: Border.all(
-                    color: AppColors.outline
-                    // width: 2,
-                  ),
-                ),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    MultiSelectBottomSheetField(
-                      initialChildSize: 0.4,
-                      listType: MultiSelectListType.CHIP,
-                      searchable: true,
-                      buttonText: Text("services".tr, style: TextStyle(color:Colors.grey, fontSize: 17 )),
-                      items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
-                      onConfirm: (values) {
-                        var valLoop = values ;
-                        for(int c = 0 ; c < valLoop.length ; c++){
-                          var idGetServices = valLoop[c] as Map ;
-                          var servID =  idGetServices['id'];
-                          selectedAnimals2.add(servID);
-                        }
-                      },
-                      chipDisplay: MultiSelectChipDisplay(
-                        onTap: (value) {
-                          setState(() {
-                            selectedAnimals2.remove(value);
-                          });
-                        },
-                      ),
-                    ),
+        decoration: BoxDecoration(
+          color: AppColors.inPutFieldColor,
+          border: Border.all(
+            color: AppColors.outline
+            // width: 2,
+          ),
+        ),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            MultiSelectBottomSheetField(
+              initialChildSize: 0.4,
+              listType: MultiSelectListType.CHIP,
+              searchable: true,
+              buttonText: Text("services".tr, style: TextStyle(color:Colors.grey, fontSize: 17 )),
+              items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
+              onConfirm: (values) {
+                var valLoop = values ;
+                for(int c = 0 ; c < valLoop.length ; c++){
+                  var idGetServices = valLoop[c] as Map ;
+                  var servID =  idGetServices['id'];
+                  selectedAnimals2.add(servID);
+                }
+              },
+              chipDisplay: MultiSelectChipDisplay(
+                onTap: (value) {
+                  setState(() {
+                    selectedAnimals2.remove(value);
+                  });
+                },
+              ),
+            ),
                   
-      ] ));
+          ]
+         )
+        );
   }
 
   Widget iqama() {
@@ -713,10 +672,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
             return 'iqama'.tr;
           }
           else if(!regExp.hasMatch(value)) {
-              return "Iqama must be in digits";
+              return "iqqamaNum".tr;
           }
           else if(value.length !=13){
-            return 'Mobile Number must be of 13 digits';
+            return 'IqamaDigits'.tr;
           } else
             return null;
         },
@@ -743,10 +702,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
           String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
           RegExp regExp = RegExp(pattern);
           if( value.length  == 0){
-            return 'Responsible';
+            return 'resp'.tr;
           }
           else if(!regExp.hasMatch(value)) {
-              return "Responsibe must be in digits";
+              return "resDig".tr;
           }
           else
             return null;
@@ -792,13 +751,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         ),
         ignoreBlank: false,
-        autoValidateMode: AutovalidateMode.disabled,
+        autoValidateMode: AutovalidateMode.onUserInteraction,
         selectorTextStyle: TextStyle(color: Colors.black),
-        // initialValue: n,
         textFieldController: phoneController,
-        formatInput: false,
-        keyboardType:
-            TextInputType.numberWithOptions(signed: true, decimal: true),
+        formatInput: true,
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
         },
@@ -823,7 +779,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         textController: crController,
          validator: (value) {
          if (value.isEmpty) {
-          return "Enter CR";
+          return "crEn".tr;
         }
         return null;
         },
