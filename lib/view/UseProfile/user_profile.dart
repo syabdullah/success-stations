@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -40,7 +41,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
              profileDetail(val.userData['data']),
              general(val.userData['data'])
             ],
-          ):shimmer();
+          ): ProfilePageShimmer(
+              hasBottomBox: true,
+              margin: EdgeInsets.only(bottom: 300),
+          );
 
         }
           ),

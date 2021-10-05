@@ -29,7 +29,7 @@ class _UserAgreement extends State<UserAgreement> {
      body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
-            return val.aboutData != null  ? about(val.aboutData['data']) : shimmer();
+            return val.aboutData != null  ? about(val.aboutData['data']) : shimmer4();
     
           }   
      )
