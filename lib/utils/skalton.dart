@@ -56,7 +56,7 @@ Widget shimmerB() {
     );  
   }
 
-   Widget viewCardLoading(context) {
+  Widget viewCardLoading(context) {
     bool _enabled = true;
     return  Expanded(
       child:  Shimmer.fromColors(

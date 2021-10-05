@@ -84,7 +84,7 @@ class _OfferListState extends State<OfferList> {
         builder: (valuee){
           return  ListView(
             children: [
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             GetBuilder<OfferCategoryController>(
               init: OfferCategoryController(),
               builder: (val) {
@@ -93,7 +93,7 @@ class _OfferListState extends State<OfferList> {
                 : shimmer();
               },
             ),
-            SizedBox(height:10),
+            // SizedBox(height:10),
             allOffer == false ? 
             GetBuilder<OfferController>(
               init: OfferController(),
@@ -289,13 +289,13 @@ class _OfferListState extends State<OfferList> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
-          mainAxisSpacing: 0.0,
-          crossAxisSpacing: 0.70,
-          childAspectRatio:
-            Get.width /(Get.height >= 800
-            ? Get.height * 0.60
-            : Get.height <= 800
-            ? lang == 'en'? Get.height * 0.45: Get.height * 0.46: 0),
+          // mainAxisSpacing: 0.0,
+          // crossAxisSpacing: 0.70,
+          childAspectRatio: 1.1,
+            // Get.width /(Get.height >= 800
+            // ? Get.height * 0.60
+            // : Get.height <= 800
+            // ? lang == 'en'? Get.height * 0.45: Get.height * 0.46: 0),
             children: List.generate(
               listFavou.length, (c){
              return GestureDetector(
@@ -392,8 +392,8 @@ class _OfferListState extends State<OfferList> {
                   Container(
                     width: 70,
                     margin: lang == 'en'
-                    ? EdgeInsets.only(left: 12.0)
-                    : EdgeInsets.only(right: 12.0),
+                    ? EdgeInsets.only(left: 2.0, right:6)
+                    : EdgeInsets.only(right: 6.0,left:4), 
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
