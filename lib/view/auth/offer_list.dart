@@ -70,6 +70,7 @@ class _OfferListState extends State<OfferList> {
     super.initState();
     coCatOffer.offerList();
     contByCatOffer.myAllOffers();
+    // gridingData.listingGrid('grid');
     allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
@@ -87,7 +88,7 @@ class _OfferListState extends State<OfferList> {
         builder: (valuee){
           return  ListView(
             children: [
-            SizedBox(height: 10),
+            SizedBox(height: 4),
             GetBuilder<OfferCategoryController>(
               init: OfferCategoryController(),
               builder: (val) {
@@ -96,11 +97,12 @@ class _OfferListState extends State<OfferList> {
                 : shimmer();
               },
             ),
-            SizedBox(height:10),
+            // SizedBox(height:10),
             allOffer == false ? 
             GetBuilder<OfferController>(
               init: OfferController(),
                 builder: (val) {
+                  print("..............,.,.,.,,.,.-=-==--==-=--${valuee.dataType}");
                   return val.offerDataList != null && val.offerDataList['data'] != null && val.offerDataList['success'] == true
                   ? valuee.dataType == 'grid' ? allUsers(val.offerDataList['data']) : listUsers(val.offerDataList['data'])
                   : coCatOffer.resultInvalid.isTrue && val.offerDataList['success'] == false
@@ -118,6 +120,7 @@ class _OfferListState extends State<OfferList> {
               GetBuilder<OfferCategoryController>(
               init: OfferCategoryController(),
                 builder: (val) {
+                  
                   return val.iDBasedOffers != null && val.iDBasedOffers['data'] != null && val.iDBasedOffers['success'] == true
                   ? valuee.dataType == 'grid' ? allUsers(val.iDBasedOffers['data']): listUsers(val.iDBasedOffers['data'])
                   : contByCatOffer.resultInvalid.isTrue && val.iDBasedOffers['success'] == false
@@ -291,12 +294,12 @@ class _OfferListState extends State<OfferList> {
         child: GridView.count(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
+         crossAxisCount: 2,
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.70,
           childAspectRatio:
             Get.width /(Get.height >= 800
-            ? Get.height * 0.60
+            ? Get.height * 0.45
             : Get.height <= 800
             ? lang == 'en'? Get.height * 0.45: Get.height * 0.46: 0),
             children: List.generate(
@@ -395,8 +398,8 @@ class _OfferListState extends State<OfferList> {
                   Container(
                     width: 70,
                     margin: lang == 'en'
-                    ? EdgeInsets.only(left: 12.0)
-                    : EdgeInsets.only(right: 12.0),
+                    ? EdgeInsets.only(left: 2.0,)
+                    : EdgeInsets.only(right: 6.0), 
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -410,7 +413,7 @@ class _OfferListState extends State<OfferList> {
                         });
                       },
                       child: Container(
-                        margin:EdgeInsets.only(left:12),
+                        // margin:EdgeInsets.only(left:12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(

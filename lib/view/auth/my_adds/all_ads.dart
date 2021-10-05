@@ -57,6 +57,7 @@ class _AllAddsState extends State<AllAdds> {
       id = data[1];
     }
     check = true;
+    // gridingData.listingGrid('grid');
     catCont.havingCategoryByAdds();
     banner.bannerController();
     controller.addedAllAds();
@@ -613,9 +614,9 @@ class _AllAddsState extends State<AllAdds> {
                   allCheck == false ? 
                   Container(
                     width: 70,
-                    margin: lang == 'en'
-                    ? EdgeInsets.only(left: 12.0)
-                    : EdgeInsets.only(right: 12.0),
+                    // margin: lang == 'en'
+                    // ? EdgeInsets.only(left: 12.0)
+                    // : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
