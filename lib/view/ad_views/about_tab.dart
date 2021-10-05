@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import '../../main.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,7 +53,7 @@ class _AboutTabState extends State<AboutTab> {
               init: UserProfileController(), 
               builder: (value) { 
                 return  value.userData2 != null ?
-                detail( value.userData2['data'], context):shimmer(); 
+                detail( value.userData2['data'], context):shimmer3(); 
               }
             ),
             Container(
@@ -65,7 +66,7 @@ class _AboutTabState extends State<AboutTab> {
               init: LastAdsController(),
               builder: (value){
                 return  value.lastuserads != null ?
-                lastAds(value.lastuserads['data']):shimmer();
+                lastAds(value.lastuserads['data']):PlayStoreShimmer();
               }
             ),
             Container(
@@ -79,7 +80,7 @@ class _AboutTabState extends State<AboutTab> {
               init: UserOfferController(),
               builder: (value){ 
                 return value.offerDattaTypeCategory != null ?
-                lastOffer(value.offerDattaTypeCategory['data']):shimmer();
+                lastOffer(value.offerDattaTypeCategory['data']):PlayStoreShimmer();
               }
             ),
             Container(
@@ -99,7 +100,7 @@ class _AboutTabState extends State<AboutTab> {
                       lastLoc.lastLocation['errors']
                     )
                   )
-                :Container();
+                :PlayStoreShimmer();
               }
             ),
           ],
