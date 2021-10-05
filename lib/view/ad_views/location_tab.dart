@@ -61,7 +61,7 @@ class _LocationTabState extends State<LocationTab> {
          GetBuilder<LocationController>( // specify type as Controller
               init: LocationController(), // intialize with the Controller
               builder: (value){ 
-                return value.isLoading == true ? Center(child: CircularProgressIndicator()):
+                return value.isLoading == true ? friendReqShimmer():
                 value.lastLocation !=null &&   value.lastLocation['success']== true ?
                  locationList(value.lastLocation['data'])
                  :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/notification_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/view/UseProfile/notifier_user.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/shimmer.dart';
 
 class NotificationPage extends StatefulWidget {
   _NotificationPageState createState() => _NotificationPageState();
@@ -38,7 +40,7 @@ class _NotificationPageState extends State<NotificationPage> {
           builder: (value){ 
             return 
             value.allNotifications != null ?
-            fullNotifications(value.allNotifications['data']):Center(child: CircularProgressIndicator());// value is an instance of Controller.
+            fullNotifications(value.allNotifications['data']):friendReqShimmer();// value is an instance of Controller.
           }
                     ),
           ],

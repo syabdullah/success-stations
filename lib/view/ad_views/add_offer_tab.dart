@@ -37,9 +37,7 @@ class _AdOffersState extends State<AdOffers> {
         builder: (value){ 
           return  value.offerDattaTypeCategory != null ?
           gridView(value.offerDattaTypeCategory['data'])
-          :Center(
-            child: CircularProgressIndicator()
-          );
+          :friendReqShimmer();
         }
       ),
     );
