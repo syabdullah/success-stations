@@ -313,7 +313,12 @@ const Map<String, String> en = {
   "enteringText":"Enter Digits",
   "email_Valid":"Enter Valid Email Address",
   "invalid":"Invalid phone number",
-  "filed":"Filed must be a-z and A-Z"
+  "filed":"Filed must be a-z and A-Z",
+  "iqqamaNum":"Iqama must be in digits",
+  "IqamaDigits":"Iqama Number must be of 13 digits",
+  "resp":"Responsible",
+  "resDig":"Responsibe must be in digits",
+  "crEn":"Enter CR"  
 
   
   
