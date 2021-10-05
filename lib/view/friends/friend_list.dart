@@ -66,18 +66,23 @@ class _FriendListState extends State<FriendList> {
             GetBuilder<FriendsController>(
               init: FriendsController(),
               builder: (val) {
-                return val.friendsData == null ? Expanded(child: shimmer()) : val.friendsData['data'].length == 0 || val.friendsData == null
-                ? SingleChildScrollView(
+                return 
+                
+                val.friendsData == null  ? Expanded(child: shimmer()) :  val.friendsData['success'] == false ||val.friendsData['data'].length == 0 || val.friendsData == null ?
+                SingleChildScrollView(
                   child: Container(
                     height: Get.height/1.5,
                     child: Center(child: Text("nofriends".tr,style: TextStyle(fontSize: 20),)),
                   ),
-                )
-                : Expanded(
+                ) 
+               
+                : 
+                Expanded(
                   child: valuee.dataType == 'list'
                   ? friendList(val.friendsData['data'])
                   : friendGridView(val.friendsData['data'])
                 );
+                
               }
             )
           ],
@@ -93,7 +98,6 @@ class _FriendListState extends State<FriendList> {
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
-          print("//////////${dataa[index]['requister']['address']}");
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
             onTap: () {

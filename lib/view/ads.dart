@@ -75,7 +75,7 @@ class _AdsViewState extends State<AdsView> {
               init: CategoryController(),
                 builder: (dat){
                   return  
-                  dat.datacateg.length == 0 ? VideoShimmer()
+                  dat.datacateg.length == 0 ? PlayStoreShimmer()
                   :
                   advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
@@ -84,7 +84,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : VideoShimmer();
+                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : PlayStoreShimmer();
                 }
               ),
               text('specialofer'.tr,"all".tr),
@@ -92,7 +92,7 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null ? 
-                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): VideoShimmer();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): PlayStoreShimmer();
                 }),
           ],
         ),
