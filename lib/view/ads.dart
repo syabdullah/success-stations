@@ -15,7 +15,6 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
-import 'package:success_stations/view/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 List<String> imgList = [];
@@ -62,7 +61,7 @@ class _AdsViewState extends State<AdsView> {
               builder: (data){
                 imgList = [];
                 return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
-                Center(heightFactor: 1, child:shimmer()):  Column(
+                Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
                   children: [
                     carosalImage(data.bannerData['data']),
                   ],

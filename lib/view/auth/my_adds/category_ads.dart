@@ -59,8 +59,8 @@ class _CatAddsState extends State<CatAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:   PreferredSize( preferredSize: Size.fromHeight(70.0),
-      child: stringAppbar(context,Icons.arrow_back_ios_new_sharp, 'All ads',AppImages.appBarSearch)),
+      appBar:   PreferredSize( preferredSize: Size.fromHeight(60.0),
+      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)),
       body: Column(
         children: [
           topWidget(),

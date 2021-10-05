@@ -9,6 +9,7 @@ import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
@@ -79,6 +80,8 @@ class _OfferListState extends State<OfferList> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+     appBar: offerid != null ?  PreferredSize( preferredSize: Size.fromHeight(60.0),
+      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)):null,
       body: GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuee){
