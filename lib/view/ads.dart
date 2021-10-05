@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,6 +16,7 @@ import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+import 'package:success_stations/view/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 List<String> imgList = [];
@@ -61,7 +63,7 @@ class _AdsViewState extends State<AdsView> {
               builder: (data){
                 imgList = [];
                 return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
-                Center(heightFactor: 1, child: CircularProgressIndicator()):  Column(
+                Center(heightFactor: 1, child:shimmer2()):  Column(
                   children: [
                     carosalImage(data.bannerData['data']),
                   ],
@@ -72,14 +74,17 @@ class _AdsViewState extends State<AdsView> {
              GetBuilder<CategoryController>(
               init: CategoryController(),
                 builder: (dat){
-                  return  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                  return  
+                  dat.datacateg.length == 0 ? VideoShimmer()
+                  :
+                  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : Container();
+                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : VideoShimmer();
                 }
               ),
               text('specialofer'.tr,"all".tr),
@@ -87,7 +92,7 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null ? 
-                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): Container();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): VideoShimmer();
                 }),
           ],
         ),

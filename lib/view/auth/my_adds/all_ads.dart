@@ -57,7 +57,7 @@ class _AllAddsState extends State<AllAdds> {
       id = data[1];
     }
     check = true;
-    // gridingData.listingGrid('grid');
+    gridingData.listingGrid('grid');
     catCont.havingCategoryByAdds();
     banner.bannerController();
     controller.addedAllAds();

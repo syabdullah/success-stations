@@ -70,7 +70,7 @@ class _OfferListState extends State<OfferList> {
     super.initState();
     coCatOffer.offerList();
     contByCatOffer.myAllOffers();
-    // gridingData.listingGrid('grid');
+    gridList.listingGrid('grid');
     allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
