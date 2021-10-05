@@ -96,7 +96,7 @@ class _AdsViewState extends State<AdsView> {
                 }),
           ],
         ),
-        userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
+        userType == 2 || isVisible == false ? shimmer3() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
       ],
     );
   }
