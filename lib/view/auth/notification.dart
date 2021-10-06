@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/notification_controller.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -11,15 +10,16 @@ class NotificationPage extends StatefulWidget {
   _NotificationPageState createState() => _NotificationPageState();
 }
 class _NotificationPageState extends State<NotificationPage> {
-  // ignore: unused_field
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(NotificationController());
   var id;
+
   @override
   void initState() {
     super.initState();
     controller.allNoti();
   }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold( 
@@ -29,21 +29,22 @@ class _NotificationPageState extends State<NotificationPage> {
           onTap: (){
             Get.back();
           },
-          child: Icon(Icons.arrow_back,)),
-        centerTitle: true,title: Text('notifications'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+          child: Icon(Icons.arrow_back)
+        ),
+        centerTitle: true,title: Text('notifications'.tr),
+        backgroundColor: AppColors.appBarBackGroundColor
+      ),
       body:SafeArea(
         child: ListView(
           children:[
-
-          GetBuilder<NotificationController>( // specify type as Controller
-          init: NotificationController(), // intialize with the Controller
-          builder: (value){ 
-            return 
-            value.allNotifications != null ?
-            fullNotifications(value.allNotifications['data']):friendReqShimmer();// value is an instance of Controller.
-          }
-                    ),
-          ],
+            GetBuilder<NotificationController>( 
+            init: NotificationController(),
+            builder: (value){ 
+              return value.allNotifications != null && value.allNotifications['data']!=null &&   value.allNotifications['success']!=true ?
+               fullNotifications(value.allNotifications['data']):friendReqShimmer();
+            }
+          ),
+        ],
         ),
       ),
     );
