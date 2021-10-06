@@ -22,6 +22,43 @@ Widget shimmer() {
     itemCount: 20,
   );
 }
+Widget shimmerheading() {
+  return  ListView.builder(
+    scrollDirection: Axis.vertical,   
+    shrinkWrap: true,
+    itemBuilder: (_, __) => 
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[ 
+          ListTileShimmer(
+            isDarkMode: false,
+            // padding: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(left:6.0),
+          ),
+        ],
+      ),
+    itemCount: 1,
+  );
+}
+
+Widget playStoreShimmer() {
+  return  ListView.builder(
+    scrollDirection: Axis.vertical,   
+    shrinkWrap: true,
+    itemBuilder: (_, __) => 
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[ 
+          PlayStoreShimmer(
+            isDarkMode: false,
+            // padding: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(left:6.0),
+          ),
+        ],
+      ),
+    itemCount: 20,
+  );
+}
  bool _enabled = true;
 
 Widget shimmer2() {

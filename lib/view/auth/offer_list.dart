@@ -94,10 +94,9 @@ class _OfferListState extends State<OfferList> {
               builder: (val) {
                 return val.allOffersResp != null &&
                 val.allOffersResp['data'] != null? subOffers(val.allOffersResp['data'])
-                : shimmer();
+                : shimmerheading();
               },
             ),
-            // SizedBox(height:10),
             allOffer == false ? 
             GetBuilder<OfferController>(
               init: OfferController(),
@@ -114,7 +113,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ):shimmer();
+                  ):valuee.dataType == 'grid'? playStoreShimmer():shimmer();
                 }
               ):
               GetBuilder<OfferCategoryController>(
@@ -132,7 +131,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ): shimmer();
+                  ):valuee.dataType == 'grid'? playStoreShimmer():shimmer();
                 }
               ),
             ]

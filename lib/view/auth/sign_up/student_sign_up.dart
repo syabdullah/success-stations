@@ -81,7 +81,6 @@ class _SignPageState extends State<StudentSignUp> {
         'about': aboutController.text,
         'degree': degreeController.text
       };
-      print("json of student sign the user data .....$json");
       
       signUpCont.createAccountData(json);
     }
