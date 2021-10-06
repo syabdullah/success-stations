@@ -49,10 +49,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   void initState() {
     super.initState();
     _getUserLocation();
-    // ignore: unused_local_variable
+    gridingData.listingGrid('grid');
     var id = box.read('user_id');
     route = Get.arguments;
-   lang = box.read('lang_code');
+    lang = box.read('lang_code');
     mapCon.getAllLocationToDB();
   }
 
@@ -355,7 +355,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               child: Image.asset(
                 AppImages.map,
                 color:listtype=='map'? Colors.white:Colors.grey,height: 50,
-                   ),
+              ),
             ),
           ),
           SizedBox(height: 10, width: 15)
@@ -381,7 +381,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData['data'].length,
         itemBuilder: (BuildContext context, int index) {
-          print(".././/.....------${userData['data'][index]['is_location_favourite']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
@@ -468,11 +467,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             remtofavJson = {
                               'location_id': userData['data'][index]['id']
                             };
-                            userData['data'][index]['is_location_favourite'] ==false
+                            userData['data'][index]['is_location_favourite'] == false
                             ? adfavUser.locationToFav(adtofavJson)
                             : adfavUser.locationUnToFav(remtofavJson);
                           },
-                          child:userData['data'][index]['user_name'] !=null &&  userData['data'][index]['is_location_favourite'] == false
+                          child:userData['data'][index]['is_location_favourite'] == false
                           ? Image.asset(
                             AppImages.blueHeart, height: 20,
                           )

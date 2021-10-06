@@ -27,10 +27,12 @@ class _FriendListState extends State<FriendList> {
   var selected;
   var requisterId;
   final banner = Get.put(BannerController());
+  final gridList = Get.put(GridListCategory());
   var lang;
   @override
   void initState() {
     super.initState();
+    gridList.listingGrid('grid');
     banner.bannerController();
     friCont.getFriendsList();
     friCont.getSuggestionsList();
@@ -96,7 +98,6 @@ class _FriendListState extends State<FriendList> {
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
-          print("//////////${dataa[index]['requister']['address']}");
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
             onTap: () {

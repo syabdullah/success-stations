@@ -12,6 +12,7 @@ import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/controller/my_adds/listing_types_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -57,6 +58,7 @@ class _AllAddsState extends State<AllAdds> {
       id = data[1];
     }
     check = true;
+    gridingData.listingGrid('grid');
     catCont.havingCategoryByAdds();
     banner.bannerController();
     controller.addedAllAds();
@@ -73,6 +75,8 @@ class _AllAddsState extends State<AllAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      appBar:   data != null ?  PreferredSize( preferredSize: Size.fromHeight(60.0),
+      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)):null,
       body:  GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuees){
@@ -609,9 +613,9 @@ class _AllAddsState extends State<AllAdds> {
                   allCheck == false ? 
                   Container(
                     width: 70,
-                    margin: lang == 'en'
-                    ? EdgeInsets.only(left: 12.0)
-                    : EdgeInsets.only(right: 12.0),
+                    // margin: lang == 'en'
+                    // ? EdgeInsets.only(left: 12.0)
+                    // : EdgeInsets.only(right: 12.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {

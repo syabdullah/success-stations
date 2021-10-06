@@ -263,7 +263,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
 }
 
 Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
-  return AppBar(
+  return lang == 'en' || lang == null  ?  AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -306,6 +306,60 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('grid');
               },
               child: Container(
+                margin: EdgeInsets.only(right:12),
+                child: Image.asset(AppImages.gridListing ,height:22)
+              ),
+            )
+          ],
+        ),
+      ),
+    ],
+    backgroundColor: AppColors.appBarBackGroundColor,
+  ):
+  AppBar(
+    automaticallyImplyLeading: false,
+    centerTitle: true,
+    leadingWidth: 89,
+    leading: GestureDetector(
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              margin: EdgeInsets.only(left:10, top:5),
+              child: Icon(Icons.arrow_back,
+                color: Colors.white, size: 25
+              ),
+            ),
+          ),
+        ],
+      )
+    ),
+    
+    title: Image.asset(
+      AppImages.appBarLogo, height: 40,
+    ), 
+    actions: [
+      Container(
+        margin:EdgeInsets.only(right:20, top:5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: (){
+                gridingData.listingGrid('list');
+              },
+              child: Container(
+                margin:EdgeInsets.only(left:10),
+                child: Image.asset(AppImages.listingImage, height:22)
+              )
+            ),
+            GestureDetector(
+              onTap: (){
+                gridingData.listingGrid('grid');
+              },
+              child: Container(
+                margin: EdgeInsets.only(left:12),
                 child: Image.asset(AppImages.gridListing ,height:22)
               ),
             )
