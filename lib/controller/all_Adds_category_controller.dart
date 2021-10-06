@@ -37,14 +37,12 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await adsAll().then((res) {
       allAdsData = jsonDecode(res.body);
-       
       isLoading = false;
     });
     update();
   }
    
-
-    addesMyListAll() async{
+  addesMyListAll() async{
       isLoading = true;
       await addsFvrtMyAdds().then((value) {
        
