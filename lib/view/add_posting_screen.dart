@@ -243,6 +243,21 @@ var typeId;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+         leading: GestureDetector(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
         automaticallyImplyLeading: true,
         centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),

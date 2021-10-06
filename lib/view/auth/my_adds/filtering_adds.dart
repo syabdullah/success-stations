@@ -41,8 +41,23 @@ class _FilteredPageState extends State<FilteredAdds> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         leading: GestureDetector(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
         title: Text(
-          "FILTERED RESULTS",
+          "filtered_result".tr,
         ),
         backgroundColor: AppColors.appBarBackGroundColor,
       ),

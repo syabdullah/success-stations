@@ -37,7 +37,23 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     final space20 = SizedBox(height: getSize(20, context));
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(centerTitle: true,title: Text('mmembership'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+      appBar: AppBar(
+         leading: GestureDetector(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
+        centerTitle: true,title: Text('mmembership'.tr),backgroundColor: AppColors.appBarBackGroundColor),
       body: Column(
         children: [
           space20,
