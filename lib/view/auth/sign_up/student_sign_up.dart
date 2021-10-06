@@ -27,9 +27,10 @@ class StudentSignUp extends StatefulWidget {
 class _SignPageState extends State<StudentSignUp> {
     var finalDate;
   final countryPut = Get.put(ContryController());
-  var selectedCountry, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
+  var selectedCountry,statusSelected, selectCountry, selectedCity,selectedRegion,selectedUniversity, selectedCollege, selectCollege, mapuni, mapClgSleceted, hintTextCountry,hintRegionText, hintUniText,hintcityText, hintClgText;
 
   late String firstName, emailSaved, mobileSaved, dobSaved;
+   var arrayDataDegree = ['Diploma, Bachelor, Masrter, Doctorate'];
 
   final formKey = GlobalKey<FormState>();
    GetStorage box = GetStorage();
@@ -42,6 +43,7 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
+ 
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
@@ -56,8 +58,12 @@ class _SignPageState extends State<StudentSignUp> {
     lang = box.read('lang_code');
     countryPut.getCountries();
     countryIdGet = Get.arguments;
-    myTest = countryIdGet[0].toString();
+    print("argumentss.........$countryIdGet");
+    myTest = countryIdGet['short_code'];
     tttt = PhoneNumber(isoCode: myTest);
+    hintTextCountry = countryIdGet['name'][lang];
+    selectedCountry = countryIdGet['id'];
+     countryPut.getRegion(selectedCountry);
     super.initState();
   }
 
@@ -76,12 +82,10 @@ class _SignPageState extends State<StudentSignUp> {
         "date_of_birth": finalDate,
         "college_id": selectedCollege,
         'university_id': selectedUniversity,
-        'semester': semesterController.text,
-        'address': addressController.text,
         'about': aboutController.text,
-        'degree': degreeController.text
+        'degree': statusSelected
       };
-      
+      print("json of tyhe student.............$json");
       signUpCont.createAccountData(json);
     }
   }
@@ -103,12 +107,10 @@ class _SignPageState extends State<StudentSignUp> {
               eMail(),
               space10,
               mobile(),
-              space10,
-              address(),
-              space10,
-              about(),
-              space10,
-              degree(),
+              // space10,
+              // address(),
+              
+              
               space10,
               studentdob(),
               GetBuilder<ContryController>(
@@ -137,17 +139,17 @@ class _SignPageState extends State<StudentSignUp> {
                 builder: (val){
                   return  university(val.dataUni);
                 },
-              ),
-              space10,
-              semester(),
-              
-              space10,
+              ),space10,
               GetBuilder<CollegeController>(
                 init: CollegeController(),
                 builder: (val){
                   return college(val.listCollegeData);
                 },
               ),
+              space10,
+              degree(),
+              space10,
+              about(),
               space10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -232,12 +234,8 @@ class _SignPageState extends State<StudentSignUp> {
         textController: nameController,
         onSaved: (newValue) {},
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "namereq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "namemust".tr;
           } else
             return null;
         },
@@ -287,12 +285,8 @@ class _SignPageState extends State<StudentSignUp> {
         textController: addressController,
         onSaved: (newValue) {},
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "adressField".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "filed".tr;
           } else
           return null;
         },
@@ -316,13 +310,9 @@ class _SignPageState extends State<StudentSignUp> {
         textController: aboutController,
         onSaved: (newValue) {},
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "aboutfield".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "filed".tr;
-          } else
+          }  else
             return null;
         },
         errorText: '',
@@ -331,33 +321,91 @@ class _SignPageState extends State<StudentSignUp> {
   }
 
   Widget degree() {
-    return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-        isObscure: false,
-        hintText: 'degreesu'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: degreeController,
-        onSaved: (newValue) {},
-        validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
-          if (value.length == 0) {
-            return "degreeReq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "degreemust".tr;
-          } else
-            return null;
-        },
-        errorText: '',
-      ),
-    );
+     return  Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          width: Get.width * 0.9,
+          decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)
+          ),
+          child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+              child: Container(
+                margin: EdgeInsets.only(right:2),
+                child: DropdownButton(
+                  hint: Text(
+                     statusSelected == null? 'degreesu'.tr:statusSelected ,
+                    style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                  ),
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items:  <String>['Diploma' ,'Bachelor\'s', 'Master\'s', 'Doctorate'].map((String value){
+                    return DropdownMenuItem(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(color: Colors.grey[800]),
+                    )
+                  );
+                  }).toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      statusSelected = val;
+                    });
+                  },
+                ),
+              )
+            )
+          )
+        );
+      
+    // return Container(
+    //   margin: EdgeInsets.only(left: 20, right: 20),
+    //       width: Get.width * 0.9,
+    //       decoration: BoxDecoration(
+    //         color: AppColors.inputColor,
+    //         border: Border.all(color: AppColors.outline),
+    //         borderRadius: BorderRadius.circular(2.0)
+    //       ),
+    //   child: ButtonTheme(
+    //     alignedDropdown: true,
+    //     child: Container(
+    //       width: Get.width,
+    //       child: DropdownButtonHideUnderline(
+    //         child: DropdownButton(
+    //           hint: Text(
+    //             statusSelected == null? 'degreesu'.tr:statusSelected ,
+    //             style: TextStyle(
+    //               fontSize: 13, color: Colors.grey[800]
+    //             )
+    //           ),
+    //           dropdownColor: AppColors.inPutFieldColor,
+    //           icon: Icon(Icons.arrow_drop_down),
+    //           items: <String>["Diploma', 'Bachelor's, Masrter's, Doctorate "].map((String value) {
+    //             return DropdownMenuItem(
+    //               value: value,
+    //               child: Text(
+    //                 value,
+    //                 style: TextStyle(color: Colors.grey[800]),
+    //               )
+    //             );
+    //           }).toList(),
+    //           onChanged: (value) {
+    //             setState(() {
+    //               statusSelected = value;
+                 
+    //             });
+    //           },
+    //         )
+    //       ),
+    //     )
+    //   )
+    // );
+    
   }
+  
 
   Widget eMail() {
     return Container(
@@ -621,7 +669,8 @@ class _SignPageState extends State<StudentSignUp> {
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
-              return DropdownMenuItem(value: citt, child: Text(citt['city']));
+              return DropdownMenuItem(value: citt, child: Text(
+                citt['city']));
             }).toList(),
             onChanged: (value) {
               setState(() {

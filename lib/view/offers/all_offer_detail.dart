@@ -26,7 +26,23 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
     final space50 = SizedBox(height: getSize(20, context));
      final space10 = SizedBox(height: getSize(10, context));
     return Scaffold( 
-      appBar: AppBar(centerTitle: true,
+      appBar: AppBar(
+        leading: GestureDetector(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
+        centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor),
       body: SingleChildScrollView(
@@ -63,7 +79,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(right:10),
-                                      child: Icon(Icons.arrow_forward_ios,color: Colors.white,))
+                                      child: Icon(Icons.arrow_forward,color: Colors.white,))
                                   ],
                                 ):Container()
                             ),

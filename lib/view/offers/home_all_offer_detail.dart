@@ -33,15 +33,25 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
+          leading: GestureDetector(
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    margin: EdgeInsets.only(left:10, top:5),
+                    child: Icon(Icons.arrow_back,
+                      color: Colors.white, size: 25
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ),
           title: Image.asset(
             AppImages.appBarLogo,
             height: 40,
           ),
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Icon(Icons.arrow_back)),
             backgroundColor: AppColors.appBarBackGroundColor,
             centerTitle: true,
         ),

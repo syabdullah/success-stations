@@ -80,9 +80,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
     print("lang of the country code..........$lang");
     counCode = Get.arguments;
     print("printed value of country code.......$counCode");
-    inputValuePhone = counCode[0].toString();
+    inputValuePhone = counCode['short_code'];
+     selectedCountry = counCode['id'];
+    regionIdByCountry.getRegion(selectedCountry);
+    print(".......$inputValuePhone");
     companyCode = PhoneNumber(isoCode: inputValuePhone);
     errorCheck = true;
+    hintTextCountry = counCode['name'][lang];
+
   }
 
   companyUser() {
@@ -101,7 +106,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'company_name':comNameController.text,
         'service_ids[]': selectedAnimals2
       };
-      print("Company sign UP$json");
       signUpCont.companyAccountData(json);
     }
   }
@@ -113,7 +117,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobileNUmberController.text,
+        "mobile": "$mobileNUmberController.text",
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -122,7 +126,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         'iqama_number': iqamaController.text,
         'service_ids[]': selectedAnimals2
       };
-      print("jbhsxahgdhgdjgfshcvdshvjc,,,,,,$individualJson");
       signUpCont.individualAccountData(individualJson);
     }
   }
@@ -139,7 +142,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             children: [
               space10,
               fullName(),
-             space10,
+              space10,
               eMail(),
               space10,
               mobile(),
@@ -166,11 +169,29 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   return city(val.cityListData);
                 },
               ),
+              // space10,
+              // v == 1 ?
+              // Column(
+              //   children: [
+              //     companyDob(),
+              //      GetBuilder<ServicesController>(
+              //       init: ServicesController(),
+              //       builder: (val){
+              //         return services(val.servicesListdata, );
+              //       },
+              //     ),
+              //   ],
+              // )
+              
+              // : Container(),
+              
               space10,
-              v == 1 ?
-              Column(
+              radioalert(),
+              
+             Column(
                 children: [
-                  companyDob(),
+                  v == 1 ? 
+                  companyDob(): Container(),
                    GetBuilder<ServicesController>(
                     init: ServicesController(),
                     builder: (val){
@@ -178,18 +199,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                   ),
                 ],
-              )
-              
-              : Container(),
-              v ==2 ? 
-              GetBuilder<ServicesController>(
-                init: ServicesController(),
-                builder: (val){
-                  return services(val.servicesListdata);
-                },
-              ): Container(),
+              ),
               space10,
-              radioalert(),
               v == 2 ? 
               comName()
               :space10,
@@ -206,6 +217,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               responsible(),
               space10,
+              
+              
               mobileNumber(),
               space10,
               Row(
@@ -290,12 +303,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {},
         textController: nameController,
         validator: (value) {
-          String patttern = r'(^[a-zA-Z ]*$)';
-          RegExp regExp = RegExp(patttern);
           if (value.length == 0) {
             return "namereq".tr;
-          } else if (!regExp.hasMatch(value)) {
-            return "namemust".tr;
           } else
             return null;
         },
@@ -373,7 +382,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
         textFieldController: mobileNUmberController,
         formatInput: true,
         inputBorder: OutlineInputBorder(),
-        onSaved: (PhoneNumber number) {},
+        onSaved: (PhoneNumber number) {
+          print("-=-==-=-=-=-=-=-=--=$number");
+        },
         initialValue: companyCode,
       )
     );
@@ -509,16 +520,18 @@ class _CompanySignPageState extends State<CompanySignUp> {
             items: data.map((coun) {
               return DropdownMenuItem(
                 value: coun, 
-                child: coun['name'] !=null ?  Text(
-                  coun['name']['en']
-                ): Container()
+                child: Text(
+                  coun['name'][lang]!=null ?coun['name'][lang]: coun['name'][lang]==null ?coun['name']['en']:'',
+
+                )
               );
             }).toList(),
             onChanged: (val) {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name']['en'];
+                hintTextCountry = mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:  mapCountry['name'][lang]==null ? 
+                mapCountry['name']['en']:'';
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';
@@ -674,7 +687,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           else if(!regExp.hasMatch(value)) {
               return "iqqamaNum".tr;
           }
-          else if(value.length !=13){
+          else if(value.length !=10){
             return 'IqamaDigits'.tr;
           } else
             return null;
@@ -699,18 +712,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {},
         textController: respController,
         validator: (value) {
-          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
-          RegExp regExp = RegExp(pattern);
-          if( value.length  == 0){
+          if( value.length == 0){
             return 'resp'.tr;
           }
-          else if(!regExp.hasMatch(value)) {
-              return "resDig".tr;
-          }
-          else
-            return null;
+          else return null;
         },
-        
         errorText: '',
       ),
     );

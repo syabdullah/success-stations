@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/controller/language_controller.dart';
@@ -25,7 +24,7 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
     box.write('lang_id',mapCountry['id']);
     box.write('lang_code', mapCountry['short_code']);
     LocalizationServices().changeLocale(mapCountry['short_code']);
-    Get.toNamed('/tabs');
+    Get.offAllNamed('/tabs');
   }
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,6 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
       // appBar: PreferredSize( preferredSize: Size.fromHeight(60.0),
       //   child: stringAppbar(
       //     context,Icons.arrow_back, 'choose_language_drop'.tr,AppImages.appBarSearch)
-      // ),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: (){Get.back();},
@@ -45,32 +43,31 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
         
           ),
 
-     body : Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+      body : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         Container(
-           margin: EdgeInsets.only(left: 20,top: 20,right: 20),
-           child: Text("Select_your_prefered_language".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-         ),
-         GetBuilder<LanguageController>(
-          init: LanguageController(),
-          builder:(data){
-            return data.isLoading == false ? language(data.languageList['data']):Container();
-          }
-        ),
-        SizedBox(height: 20,),
-         submitButton(
-          bgcolor: AppColors.appBarBackGroundColor,
-          textColor: AppColors.appBarBackGroun,
-          buttonText: "save".tr,
-          callback: save
-        ),
+          Container(
+            margin: EdgeInsets.only(left: 20,top: 20,right: 20),
+            child: Text("Select_your_prefered_language".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+          ),
+          GetBuilder<LanguageController>(
+            init: LanguageController(),
+            builder:(data){
+              return data.isLoading == false ? language(data.languageList['data']):Container();
+            }
+          ),
+          SizedBox(height: 20,),
+          submitButton(
+            bgcolor: AppColors.appBarBackGroundColor,
+            textColor: AppColors.appBarBackGroun,
+            buttonText: "save".tr,
+            callback: save
+          ),
         ],
-     )
-
+      )
     );
   }
-var mapCountry;
+  var mapCountry;
   Widget language(List data) {
     return Container(
       margin:EdgeInsets.only(left:20, right: 20,top: 10),
@@ -97,11 +94,9 @@ var mapCountry;
               );
             }).toList(),
             onChanged: (val) {
-              
               setState(() {
                 mapCountry = val as Map;
                 hintTextLang = mapCountry['name'];
-               
               });
             },
           )
@@ -110,17 +105,17 @@ var mapCountry;
     );
   }
   Widget submitButton(
-      {buttonText,
-      fontSize,
-      callback,
-      bgcolor,
-      textColor,
-      fontFamily,
-      fontWeight,
-      height,
-      width,
-      borderColor,
-      image}) {
+    {buttonText,
+    fontSize,
+    callback,
+    bgcolor,
+    textColor,
+    fontFamily,
+    fontWeight,
+    height,
+    width,
+    borderColor,
+    image}) {
     return AppButton(
       buttonText: buttonText,
       callback: callback,

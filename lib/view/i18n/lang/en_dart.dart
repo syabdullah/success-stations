@@ -315,7 +315,7 @@ const Map<String, String> en = {
   "invalid":"Invalid phone number",
   "filed":"Filed must be a-z and A-Z",
   "iqqamaNum":"Iqama must be in digits",
-  "IqamaDigits":"Iqama Number must be of 13 digits",
+  "IqamaDigits":"Iqama Number must be of 10 digits",
   "resp":"Responsible",
   "resDig":"Responsibe must be in digits",
   "crEn":"Enter CR"  

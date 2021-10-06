@@ -29,10 +29,20 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
     return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(Icons.arrow_back_ios_outlined)),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
           title: Text(
             "filtered_result".tr,
           ),
