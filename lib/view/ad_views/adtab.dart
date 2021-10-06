@@ -42,7 +42,7 @@ class _AdListTabState extends State<AdListTab> {
         init: FriendsController(),
         builder: (val) {
           return val.isLoading == true ?
-          shimmer(): val.userAds != null && val.userAds['data'] != null  ? adList(val.userAds['data'])
+          friendReqShimmer(): val.userAds != null && val.userAds['data'] != null  ? adList(val.userAds['data'])
           : Container(
             child: Center(
               child: Text(

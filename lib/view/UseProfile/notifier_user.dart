@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/shimmer.dart';
 
 class NotifierUser extends StatefulWidget {
   _NotifierUserState createState() => _NotifierUserState();
@@ -40,7 +41,7 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
              profileDetail(val.userData2['data']),
              general(val.userData2['data'])
             ],
-          ):Center(child: CircularProgressIndicator());
+          ):friendReqShimmer();
           
         }
           ),

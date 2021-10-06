@@ -81,7 +81,7 @@ class _SignPageState extends State<StudentSignUp> {
         'about': aboutController.text,
         'degree': degreeController.text
       };
-      print("json of the user data .....$json");
+      print("json of student sign the user data .....$json");
       
       signUpCont.createAccountData(json);
     }
@@ -101,24 +101,7 @@ class _SignPageState extends State<StudentSignUp> {
             fullNameStudent(),
             space10,
             // SizedBox(height:10),
-            eMail(),
-            // GetBuilder<SignUpController>(
-            //   init: SignUpController(),
-            //   builder: (val){
-            //     return  signUpCont.resultInvalid.isTrue ? Container(
-            //       margin:EdgeInsets.only(left:10),
-            //       alignment: Alignment.topLeft,
-            //       child: Container(
-            //           margin:EdgeInsets.only(left:10),
-            //         alignment: Alignment.topLeft,
-            //         child: Text(signUpCont.signup['errors']['email'][0],
-            //         style: TextStyle(color: Colors.red),)
-            //       )
-            //       ):Container();
-
-              //    }),
-              
-              // SizedBox(height:10),
+              eMail(),
               space10,
               mobile(),
               space10,
@@ -153,7 +136,7 @@ class _SignPageState extends State<StudentSignUp> {
               GetBuilder<UniversityController>(
                 init: UniversityController(),
                 builder: (val){
-                  return university(val.dataUni);
+                  return  university(val.dataUni);
                 },
               ),
               space10,
@@ -268,28 +251,25 @@ class _SignPageState extends State<StudentSignUp> {
     return Container(
       margin: EdgeInsets.only(left:20,right: 20),
       width: Get.width * 0.9,
-      child: TextFormField(
+      child: CustomTextFiled(
         keyboardType: TextInputType.number,
-        controller: semesterController,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'semestersu'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
+        textController: semesterController,
+        onSaved: (newValue) {},
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'enteringText'.tr;
           }
           return null;
         },
-        style: TextStyle(
-          color: AppColors.inputTextColor, fontSize: 18,fontWeight: FontWeight.bold
-        ),
-        decoration: InputDecoration( 
-          contentPadding: EdgeInsets.only(left:15,right: 10,top:15),
-          hintText:"semestersu".tr,
-          hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide(color: AppColors.inputTextColor),
-          ),
-        ),
-      )
+        errorText: '',
+      ),
     );
   }
 
@@ -439,18 +419,15 @@ class _SignPageState extends State<StudentSignUp> {
         ),
         onInputChanged: (PhoneNumber number) {
         },
-        onInputValidated: (bool value) {
-        },
+        onInputValidated: (bool value) {},
         selectorConfig: SelectorConfig(
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         ),
         ignoreBlank: false,
-        autoValidateMode: AutovalidateMode.disabled,
+        autoValidateMode: AutovalidateMode.onUserInteraction,
         selectorTextStyle: TextStyle(color: Colors.black),
         textFieldController: mobileController,
-        formatInput: false,
-        keyboardType:
-            TextInputType.numberWithOptions(signed: true, decimal: true),
+        formatInput: true,
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
         },
@@ -492,7 +469,6 @@ class _SignPageState extends State<StudentSignUp> {
             onConfirm: (date) {
               setState(() {
                 dateTime = date;
-                print('confirm...sheeee $dateTime');
                   finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
                 
               });
@@ -525,15 +501,11 @@ class _SignPageState extends State<StudentSignUp> {
                     cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
                   ),
                   onChanged: (date) {
-                    print('change $date in time zone ' +
-                    date.timeZoneOffset.inHours.toString());
                   }, 
                   onConfirm: (date) {
                     setState(() {
                       dateTime = date;
-                      print('confirm...sheeee $dateTime');
                        finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                       print("kjxlkasjxklshxkjshxbikjscjxgdscjsbckkjhscvhds$finalDate");
                       
                     });
                     
@@ -691,8 +663,10 @@ class _SignPageState extends State<StudentSignUp> {
             onChanged: (dataa) {
               setState(() {
                 mapuni = dataa as Map;
+                print("mappping MAP VALUEEEEEE................................$mapuni");
                 hintUniText =  mapuni['name'];
                 selectedUniversity = mapuni['id'];
+                print("uselectedUniversity ID.................$selectedUniversity");
               });
             },
           )
@@ -724,6 +698,7 @@ class _SignPageState extends State<StudentSignUp> {
               );
             }).toList(),
             onChanged: (value) {
+              print("abdhjsgadgdhdgfsA VALUE PRINTED.....$value");
               setState(() {
                 mapClgSleceted = value as Map;
                 hintClgText = mapClgSleceted['college'];
