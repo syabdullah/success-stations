@@ -20,6 +20,7 @@ class ContryController extends GetxController {
 
   getCountries() async{
     countryListdata= [];
+    cityListData =[];
     isLoading = true ;
     await countries().then((res) {
       countryData = jsonDecode(res.body);

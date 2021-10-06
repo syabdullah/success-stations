@@ -9,28 +9,24 @@ import 'package:flutter_html/flutter_html.dart';
 import '../shimmer.dart';
 class UserAgreement extends StatefulWidget {
   const UserAgreement({ Key? key }) : super(key: key);
-
   @override
   _UserAgreement createState() => _UserAgreement();
 }
-
 class _UserAgreement extends State<UserAgreement> {
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: CustomBottomBar(),
       appBar: AppBar(
         leading: GestureDetector(
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
-        centerTitle: true,title: Text('UGR'.tr),backgroundColor: AppColors.appBarBackGroundColor),
-     body: GetBuilder<ContentManagmentController>( 
+          centerTitle: true,title: Text('UGR'.tr),backgroundColor: AppColors.appBarBackGroundColor
+        ),
+        body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
           builder:(val) {
             return val.aboutData != null  ? about(val.aboutData['data']) : shimmer4();
-    
           }   
      )
    );
@@ -50,10 +46,9 @@ Widget about(data){
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
             child:Html(data: data[index]['page_text']),
-        ),   
-        ],
-      ):Container();
+          ),   
+        ]):Container();
       }
-     ),
+    ),
   );
-  }
+}

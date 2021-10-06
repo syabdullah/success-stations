@@ -30,7 +30,6 @@ class NotificationController extends GetxController {
     await deleteNotificationAction(data).then((res) {
        deleteNotification = jsonDecode(res.body);
       if(res.statusCode < 400){
-        // Get.off(NotificationPage());
     allNoti();
         isLoading=false;
       } if(res.statusCode > 400){

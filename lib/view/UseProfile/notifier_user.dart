@@ -13,11 +13,8 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
   final dataUser = Get.put(UserProfileController());
   final banner = Get.put(BannerController());
   bool liked = false;
-   GetStorage box = GetStorage();
-  var userimage;
-  var notifyid;
-  var adID;
-  // var id ;
+  GetStorage box = GetStorage();
+  var userimage, notifyid ,adID;
   @override
   void initState() {
     super.initState();
@@ -42,12 +39,10 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
              general(val.userData2['data'])
             ],
           ):friendReqShimmer();
-          
         }
-          ),
-    );}
-  // } 
-
+      ),
+     );
+    } 
   Widget profileDetail(userData) { 
     return Stack(
       children: [         
@@ -66,7 +61,6 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
             children: [
               IconButton(
                 onPressed:() {
-                  
                   Get.toNamed('/tabs');
                   banner.bannerController();
                 },
@@ -120,7 +114,6 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
             child: Column(
               children: [
                 Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
                       flex: 1,
@@ -162,13 +155,10 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
                             margin: EdgeInsets.only(top:5),
                             child: GestureDetector(
                               onTap: (){
-                               
                                 showDialog(
                                   context: context,
                                   builder: (context) {
                                     return Dialog(
-                                      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                      // elevation: 16,
                                       child: Container(
                                         height: Get.height/7,
                                         child: Column(
@@ -180,28 +170,30 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(top:5,left: 20),
-                                              child: Text(userData["email"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
-                                            
+                                              child: Text(userData["email"].toString(),
+                                              style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),
+                                              )
+                                            ),
                                           ],
                                         ),
                                       ),
                                     );
-                              });},
+                                   }
+                                  );
+                                },
                               child: Text(
                                 userData["email"].length > 20 ? userData["email"].substring(0, 20)+'...' : userData["email"],
                                 style: TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                          ):Container(), 
+                            ),):Container(), 
                           Container(
                             margin: EdgeInsets.only(top:20),
                             child: GestureDetector(child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),)),
                           ),
                           userData["address"] != null ?
                           Container(
-                              margin: EdgeInsets.only(bottom:20,top: 5),
+                            margin: EdgeInsets.only(bottom:20,top: 5),
                             child: GestureDetector(
-                              onTap: (){
-                    
+                              onTap: (){    
                                 showDialog(
                                   context: context,
                                   builder: (context) {
@@ -217,21 +209,22 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(top:5),
-                                              child: Text(userData["address"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)),
-                                            
+                                              child: Text(userData["address"].toString(),
+                                                style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),
+                                              )
+                                            ),
                                           ],
                                         ),
                                       ),
                                     );
-                              });},
-                              
+                                  }
+                                 );
+                                },
                               child: Text(
                                 userData["address"].length > 20 ? userData["address"].substring(0, 20)+'...' : userData["address"],
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             ),
-                          ): Container(
-                            height: 45,
-                          )     
+                          ): Container(height: 45)     
                         ],
                       ),
                     ),
@@ -325,12 +318,18 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                    child: Text("about".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey))
+                    child: Text("about".tr,
+                      style: 
+                      TextStyle(fontWeight: FontWeight.bold,color:Colors.grey)
+                    )
                   ),
                   userData["about"] != null ?
                   Container(
                     margin: EdgeInsets.symmetric(horizontal:10,vertical:10),
-                    child: Text(userData["about"],style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)  )
+                    child: Text(userData["about"],
+                      style:
+                      TextStyle(fontWeight: FontWeight.bold,color:Colors.black) 
+                     )
                   ): Container()
                 ],
               ),
@@ -340,5 +339,4 @@ class _NotifierUserState extends State<NotifierUser> with AutomaticKeepAliveClie
       ),
     ); 
   }
-   
 }

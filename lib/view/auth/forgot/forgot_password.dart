@@ -120,7 +120,6 @@ class _ForgotPageState extends State<ForgotPassword> {
       fontFamily: fontFamily ,
       fontWeight: fontWeight ,
       fontSize: fontSize,    
-      // borderColor: borderColor,
       image: image,
       width: width,  
     );
