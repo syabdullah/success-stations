@@ -86,7 +86,7 @@ class _AllAddsState extends State<AllAdds> {
                 init: CategoryController(),
                 builder: (data) {
                   return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
-                  shimmerheading();
+                  smallShimmer();
                 },
               ),
               SizedBox(height:10),
