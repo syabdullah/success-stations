@@ -240,7 +240,7 @@ class _AdsViewState extends State<AdsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          margin: EdgeInsets.only(left:10,right: 10,top: 10),
+          margin: EdgeInsets.only(left:10,right: 10),
           child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.grey[700]),
           )
         ),
@@ -258,7 +258,7 @@ class _AdsViewState extends State<AdsView> {
   }
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7,vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 7,),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
