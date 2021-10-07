@@ -62,7 +62,7 @@ class _FriendListState extends State<FriendList> {
             GetBuilder<FriendsController>(
               init: FriendsController(),
               builder: (val) {
-                return val.friendsData == null  ? Expanded(child: valuee.dataType == 'list'? shimmer():playStoreShimmer())
+                return val.friendsData == null  ? Expanded(child: valuee.dataType == 'list'? shimmer():gridShimmer())
                 : val.friendsData['success'] == false || val.friendsData['data'].length == 0 || val.friendsData == null ?
                 SingleChildScrollView(
                   child: Container(

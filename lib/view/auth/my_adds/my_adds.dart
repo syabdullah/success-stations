@@ -89,14 +89,14 @@ class _MyAddsState extends State<MyAdds> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ):valuee.dataType == 'list'?  shimmer():playStoreShimmer();
+                  ):valuee.dataType == 'list'?  shimmer():gridShimmer();
                 }
               ) : GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val){
                   return val.cData != null && val.cData['data']!=null && val.cData['success']==true ?
                   valuee.dataType != 'grid' ? myAddsList(val.cData['data']) :  myAddGridView(val.cData['data']
-                  ): valuee.dataType != 'grid' ? playStoreShimmer():shimmer();
+                  ): valuee.dataType != 'grid' ? gridShimmer():shimmer();
                 },
               ),
             ],
@@ -238,7 +238,7 @@ class _MyAddsState extends State<MyAdds> {
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
         crossAxisCount: 2,
-        childAspectRatio: Get.width/ ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.90 :0),
+        childAspectRatio: Get.width/ ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.80 :0),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
