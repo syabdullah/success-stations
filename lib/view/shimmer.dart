@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_shimmer/flutter_shimmer.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 Widget shimmer() {
@@ -51,11 +52,12 @@ Widget playStoreShimmer() {
         children: <Widget>[ 
           PlayStoreShimmer(
             isDarkMode: false,
+            // padding: EdgeInsets.only(right: 20),
             margin: const EdgeInsets.only(left:6.0),
           ),
         ],
       ),
-    itemCount: 10,
+    itemCount: 20,
   );
 }
  bool _enabled = true;
@@ -196,5 +198,50 @@ Widget friendProfileShimmer() {
       ],
     ),
     itemCount:1,
+  );
+}
+Widget gridShimmer() {
+  return  ListView.builder(
+   padding: EdgeInsets.only(top:20,left:30,right: 30),
+    scrollDirection: Axis.vertical,   
+    shrinkWrap: true,
+    itemBuilder: (_, __) => 
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[ 
+          Row(
+            children: [
+              Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade400,
+                enabled: _enabled,
+                child:Card(
+                  child: Container(
+                    height:140,
+                     width: 140,
+                  ),
+                ),
+                // padding: EdgeInsets.only(right: 20),
+                // margin: const EdgeInsets.only(left:6.0),
+              ),
+              SizedBox(width: 10,),
+              Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade400,
+                enabled: _enabled,
+                child:Card(
+                  child: Container(
+                    height:140,
+                     width: 140,
+                  ),
+                ),
+                // padding: EdgeInsets.only(right: 20),
+                // margin: const EdgeInsets.only(left:6.0),
+              ),
+            ],
+          ),
+        ],
+      ),
+    itemCount: 10,
   );
 }

@@ -88,7 +88,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   builder: (val) {
                     return val.isLoading == true  ?
                     Center(
-                      child:  valueu.dataType == 'list' ? shimmer():playStoreShimmer()
+                      child:  valueu.dataType == 'list' ? shimmer():gridShimmer()
                     ): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ? 
                       Column(
                         children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
@@ -265,6 +265,7 @@ class _FavouritePageState extends State<FavouritePage> {
   
   List<Widget> myAddGridView(listFavourite) {
     var newData = [];
+    print(lang);
     for (int i = 0; i < listFavourite.length; i++) {
       if(listFavourite[i] !=null && listFavourite[i]['listing'] !=null ){
       newData.add(listFavourite[i]); 
@@ -281,7 +282,7 @@ class _FavouritePageState extends State<FavouritePage> {
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
         childAspectRatio: (
-          lang == 'en' ?Get.width / 1.01 / Get.height / 0.62:Get.width / 1.10 / Get.height / 0.55
+          lang == 'en' ? Get.width / 1.01 / Get.height / 0.72:Get.width / 1.10 / Get.height / 0.55
         ),
         children: List.generate(
           newData.length, (index) { 
@@ -407,7 +408,7 @@ class _FavouritePageState extends State<FavouritePage> {
                           ),
                           Container(
                             margin: EdgeInsets.only(left:28,right: 5),
-                            width:55,
+                            width:50,
                             decoration: BoxDecoration(
                               border: Border(
                                 top:BorderSide(color: Colors.black,width:1.5),

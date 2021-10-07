@@ -113,7 +113,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ):valuee.dataType == 'grid'? playStoreShimmer():shimmer();
+                  ):valuee.dataType == 'grid'? gridShimmer():shimmer();
                 }
               ):
               GetBuilder<OfferCategoryController>(
@@ -131,7 +131,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ):valuee.dataType == 'grid'? playStoreShimmer():shimmer();
+                  ):valuee.dataType == 'grid'? gridShimmer():shimmer();
                 }
               ),
             ]
