@@ -36,6 +36,8 @@ class _SignPageState extends State<StudentSignUp> {
    GetStorage box = GetStorage();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController conPassController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController semesterController = TextEditingController();
@@ -44,6 +46,8 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
   var number;
+  var passwordValue,confirmPasswordValue;
+ 
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
@@ -74,6 +78,8 @@ class _SignPageState extends State<StudentSignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
+        'password':passwordValue,
+        "password_confirmation":confirmPasswordValue,
         "mobile": number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
@@ -105,6 +111,10 @@ class _SignPageState extends State<StudentSignUp> {
             space10,
             // SizedBox(height:10),
               eMail(),
+              space10,
+              password(),
+              space10,
+              confirmPassword(),
               space10,
               mobile(),
               // space10,
@@ -227,7 +237,7 @@ class _SignPageState extends State<StudentSignUp> {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'full_name'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -253,7 +263,7 @@ class _SignPageState extends State<StudentSignUp> {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10,top:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'semestersu'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -278,7 +288,7 @@ class _SignPageState extends State<StudentSignUp> {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'address'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -304,7 +314,7 @@ Widget about() {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:20,top: 20) :EdgeInsets.only(left:20,top: 20),
         isObscure: false,
         hintText: 'about'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -338,7 +348,7 @@ Widget about() {
                 child: DropdownButton(
                   hint: Text(
                      statusSelected == null? 'degreesu'.tr:statusSelected ,
-                    style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                    style: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)
                   ),
                   dropdownColor: AppColors.inPutFieldColor,
                   icon: Icon(Icons.arrow_drop_down),
@@ -416,7 +426,7 @@ Widget about() {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'emails'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (newValue) {},
@@ -437,7 +447,60 @@ Widget about() {
       ),
     );
   }
-
+  Widget password() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'password'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          passwordValue = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: passController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+     Widget confirmPassword() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'ConfirmPassword'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          confirmPasswordValue = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: conPassController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }else if(val != passwordValue) {
+            return 'passwordNotMatch'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
   Widget mobile() {
     return  Container(
       width: Get.width / 1.1,
@@ -463,7 +526,7 @@ Widget about() {
             borderSide: BorderSide(color: Colors.red),
           ),
           hintText: "mobilee".tr,
-          hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber numberr) {
           print("..,.,,/././/.//././.$numberr");
@@ -511,8 +574,8 @@ Widget about() {
                 fontWeight: FontWeight.bold,
                 fontSize: 18
               ),
-              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
-              // cancelStyle: TextStyle(color:Colors.white, fontSize: 16),
+              doneStyle: TextStyle(color:Colors.white,  fontSize: lang == 'ar' ? 14 : 16,),
+              // cancelStyle: TextStyle(color:Colors.white,  fontSize: lang == 'ar' ? 14 : 16,),
             ),
             onChanged: (date) {
             }, 
@@ -531,7 +594,7 @@ Widget about() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              child:  Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString() ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500],fontSize: 16))),
+              child:  Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString() ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500], fontSize: lang == 'ar' ? 14 : 16,))),
             GestureDetector(
               child: Icon(Icons.calendar_today,color: Colors.grey,),
                onTap: () {               
@@ -547,8 +610,8 @@ Widget about() {
                       fontWeight: FontWeight.bold,
                       fontSize: 18
                     ),
-                    doneStyle: TextStyle(color:Colors.white, fontSize: 16),
-                    cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
+                    doneStyle: TextStyle(color:Colors.white, fontSize: lang == 'ar' ? 14 : 16,),
+                    cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor,  fontSize: lang == 'ar' ? 14 : 16,),
                   ),
                   onChanged: (date) {
                   }, 
@@ -702,7 +765,7 @@ Widget about() {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint:Text(hintUniText !=null ? hintUniText: "universitysu".tr,style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+            hint:Text(hintUniText !=null ? hintUniText: "universitysu".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: daattta.map((uni) {
@@ -739,7 +802,7 @@ Widget about() {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint: Text(hintClgText !=null ? hintClgText: "collegesu".tr, style: TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+            hint: Text(hintClgText !=null ? hintClgText: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: collegeData.map((coll) {

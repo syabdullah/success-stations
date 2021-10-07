@@ -86,7 +86,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       margin:EdgeInsets.only(top:2),
       child: IconButton(
         iconSize: 28,
-        icon: Image.asset(AppImages.menuBurger,height: 20,),
+        icon: Image.asset(AppImages.menuBurger,height: 18,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): index == 1 ?
@@ -176,7 +176,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       margin:EdgeInsets.only(top:2),
       child: IconButton(
         iconSize: 20,
-        icon: Image.asset(AppImages.menuBurger,height: 20,),
+        icon: Image.asset(AppImages.menuBurgerArabic,height: 18,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): 

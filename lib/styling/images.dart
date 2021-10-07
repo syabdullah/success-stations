@@ -31,6 +31,7 @@ class AppImages {
   static String ma = imagePath + 'ma.png';
   static String membership = imagePath + 'memr.png';
   static String menuBurger = imagePath + 'menu-Drawer.png';
+  static String menuBurgerArabic = imagePath + 'menu@3x.png';
   
   //Bottombar images
   static String offers = imagePath + 'offer.png';

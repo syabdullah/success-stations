@@ -317,7 +317,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
-                      fontSize: 14.0,
+                      fontSize: 12.0,
                     ):
                     AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade800,
                     )
