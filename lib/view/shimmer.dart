@@ -216,13 +216,13 @@ Widget friendProfileShimmer() {
 }
 Widget gridShimmer() {
   return  ListView.builder(
-   padding: EdgeInsets.only(top:20,left:30,right: 30),
     scrollDirection: Axis.vertical,   
     shrinkWrap: true,
     itemBuilder: (_, __) => 
       Column(
         children: <Widget>[ 
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Shimmer.fromColors(
                 baseColor: Colors.grey.shade300,
