@@ -324,7 +324,7 @@ class _AllAddsState extends State<AllAdds> {
                     Container(
                       width: Get.width < 420
                       ? Get.width / 1.4
-                      : Get.width / 2.3,height: Get.height /8.0,
+                      : Get.width / 2.3,height: Get.height /7.0,
                       child: dataListValue[index]['image'].length != 0
                       ? Stack(
                         alignment:AlignmentDirectional.topStart,
