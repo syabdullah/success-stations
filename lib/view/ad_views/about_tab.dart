@@ -53,7 +53,7 @@ class _AboutTabState extends State<AboutTab> {
               init: UserProfileController(), 
               builder: (value) { 
                 return  value.userData2 != null ?
-                detail( value.userData2['data'], context):shimmer3(); 
+                detail( value.userData2['data'], context):ProfilePageShimmer(); 
               }
             ),
             Container(

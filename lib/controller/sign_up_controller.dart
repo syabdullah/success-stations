@@ -29,6 +29,7 @@ class SignUpController extends GetxController{
 
   individualAccountData(data) async{
     isLoading = true;
+   
     await individualUser(data).then((res){
       indiviualSignup = jsonDecode(res.body);
       if(res.statusCode == 200 || res.statusCode < 400){
