@@ -251,7 +251,7 @@ class _SignPageState extends State<StudentSignUp> {
       width: Get.width * 0.9,
       child: CustomTextFiled(
         keyboardType: TextInputType.number,
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10,top:10) :EdgeInsets.only(left:10),
         isObscure: false,
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
@@ -301,7 +301,8 @@ class _SignPageState extends State<StudentSignUp> {
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        maxLine:4,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10,top: 20) :EdgeInsets.only(left:10,top: 20),
         isObscure: false,
         hintText: 'aboutsu'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),

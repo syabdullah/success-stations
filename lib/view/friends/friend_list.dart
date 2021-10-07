@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/app_bar_filtered_controller.dart';
@@ -61,7 +62,7 @@ class _FriendListState extends State<FriendList> {
             GetBuilder<FriendsController>(
               init: FriendsController(),
               builder: (val) {
-                return val.friendsData == null  ? Expanded(child: shimmer())
+                return val.friendsData == null  ? Expanded(child: valuee.dataType == 'list'? shimmer():playStoreShimmer())
                 : val.friendsData['success'] == false || val.friendsData['data'].length == 0 || val.friendsData == null ?
                 SingleChildScrollView(
                   child: Container(
@@ -72,12 +73,15 @@ class _FriendListState extends State<FriendList> {
                       )
                     ),
                   ),
-                ): 
+                ) :
+                 
                 Expanded(
                   child: valuee.dataType == 'list'
                   ? friendList(val.friendsData['data'])
                   : friendGridView(val.friendsData['data'])
                 );
+                
+                
               }
             )
           ],
