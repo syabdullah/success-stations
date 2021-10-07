@@ -221,7 +221,6 @@ Widget gridShimmer() {
     shrinkWrap: true,
     itemBuilder: (_, __) => 
       Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[ 
           Row(
             children: [

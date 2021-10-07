@@ -342,7 +342,7 @@ var imageGived;
 Widget lastAds(lastuserad){
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height > 400 ? Get.height/3.9:Get.height/4,
+    height: Get.height > 800 ? Get.height/3.9:Get.height/3.5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: lastuserad.length,
