@@ -67,7 +67,7 @@ class SignUpController extends GetxController{
         Get.toNamed('/login');
         SnackBarWidget().showToast("", companySignUp['message']);  
       }
-     else {
+      else {
         var key;
          companySignUp['errors'].forEach((k,v){  
         print('-=-==0-0-00--0-0000--0$k,$v');   
