@@ -20,7 +20,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    controller1 = TabController(vsync: this, length: 2, initialIndex: 1);
+    controller1 = TabController(vsync: this, length: 2, initialIndex: 0);
   }
 
   @override

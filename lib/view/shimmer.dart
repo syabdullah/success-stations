@@ -51,12 +51,11 @@ Widget playStoreShimmer() {
         children: <Widget>[ 
           PlayStoreShimmer(
             isDarkMode: false,
-            // padding: EdgeInsets.only(right: 20),
             margin: const EdgeInsets.only(left:6.0),
           ),
         ],
       ),
-    itemCount: 20,
+    itemCount: 10,
   );
 }
  bool _enabled = true;

@@ -121,6 +121,21 @@ class AddOffersState extends State<AddOffersPage> {
     return Scaffold(
       appBar: AppBar(
         key: _scaffoldKey,
+         leading: GestureDetector(
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left:10, top:5),
+                  child: Icon(Icons.arrow_back,
+                    color: Colors.white, size: 25
+                  ),
+                ),
+              ),
+            ],
+          )
+        ),
         backgroundColor: AppColors.appBarBackGroundColor,
         title: Text(postDataEdited == null ? 'addOffer'.tr : 'edit offer'.tr),
         centerTitle: true,
