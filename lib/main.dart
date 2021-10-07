@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -50,8 +51,12 @@ class SuccessApp extends StatelessWidget {
         translations: LocalizationServices(),
         theme:   ThemeData(
            primaryColor: Color(0xFF2F4199),
-           fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold', colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
-            textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199))
+           fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold',
+           colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
+           textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199)),
+          //  textTheme: TextTheme(bodyText1: TextStyle(fontSize: 20.0))
+            
+            
         ) ,
         //  home:  auth == null ? SignIn() : BottomTabs(),
         initialRoute:  auth == null ? '/login' : '/tabs',

@@ -51,12 +51,11 @@ Widget playStoreShimmer() {
         children: <Widget>[ 
           PlayStoreShimmer(
             isDarkMode: false,
-            // padding: EdgeInsets.only(right: 20),
             margin: const EdgeInsets.only(left:6.0),
           ),
         ],
       ),
-    itemCount: 20,
+    itemCount: 10,
   );
 }
  bool _enabled = true;
@@ -155,5 +154,47 @@ Widget friendReqShimmer() {
       isRectBox: true,
     ),
     itemCount:14,
+  );
+}
+
+Widget friendProfileShimmer() {
+  return  ListView.builder(
+    padding: EdgeInsets.only(top: 10),
+    scrollDirection: Axis.vertical,   
+    shrinkWrap: true,
+    itemBuilder: (_, __) => 
+    Column(
+      children: [
+        ProfilePageShimmer(),
+        ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ),
+         ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ),
+         ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ), ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ), ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ), ListTileShimmer(
+          isDisabledAvatar: true,
+          isDisabledButton: true,
+          isRectBox: true,
+        ),
+      ],
+    ),
+    itemCount:1,
   );
 }

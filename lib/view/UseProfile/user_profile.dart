@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/shimmer.dart';
 class UserProfile extends StatefulWidget {
   _UserProfileState createState() => _UserProfileState();
 }
@@ -36,10 +37,11 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
              profileDetail(val.userData['data']),
              general(val.userData['data'])
             ],
-          ): ProfilePageShimmer(
-              hasBottomBox: true,
-              margin: EdgeInsets.only(bottom: 300),
+          ): Padding(
+            padding: const EdgeInsets.only(top:30.0),
+            child: friendProfileShimmer(),
           );
+          
         }
       ),
     );

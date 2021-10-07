@@ -77,7 +77,7 @@ class _AdsViewState extends State<AdsView> {
                   return  
                   dat.datacateg.length == 0 ? PlayStoreShimmer()
                   :
-                  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
@@ -258,7 +258,7 @@ class _AdsViewState extends State<AdsView> {
   }
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7,),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -304,7 +304,7 @@ class _AdsViewState extends State<AdsView> {
   }
   offerList(conHeight,imageW,imageH,data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
       height: conHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -352,7 +352,7 @@ class _AdsViewState extends State<AdsView> {
    var tttt;
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
       height: Get.width < 400 ? Get.height/3.55 : Get.width < 420 ? Get.height/3.5: Get.height/4.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -6,6 +7,7 @@ import 'package:success_stations/controller/inbox_controller/chat_controller.dar
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
+import 'package:success_stations/view/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendProfile extends StatefulWidget {
@@ -20,16 +22,9 @@ class _FriendProfileState extends State<FriendProfile>
   final friCont = Get.put(FriendsController());
   final chatCont = Get.put(ChatController());
   bool liked = false;
-  var city;
-  var id;
-  var selectedUser;
-  var requister;
-  var textHolder;
-  var notifyid;
-  var adID;
+  var city, id ,selectedUser,requister, textHolder,notifyid,adID,dtaaa,lang;
   bool choice = false;
-  var dtaaa;
-  var lang;
+ 
   @override
   void initState() {
     super.initState();
@@ -55,8 +50,8 @@ class _FriendProfileState extends State<FriendProfile>
               return val.friendProfileData == null || val.userAds == null
                   ? SingleChildScrollView(
                       child: Container(
-                          // margin: EdgeInsets.only(top: 20,bo),
-                          child: Center(child: CircularProgressIndicator())))
+                          margin: EdgeInsets.only(top: 40),
+                          child:friendProfileShimmer() ))
                   : val.friendProfileData['success'] == false &&
                           val.friendProfileData['errors'] ==
                               'No Profile Available'
