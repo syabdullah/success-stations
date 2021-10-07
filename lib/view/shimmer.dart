@@ -216,13 +216,13 @@ Widget friendProfileShimmer() {
 }
 Widget gridShimmer() {
   return  ListView.builder(
-   padding: EdgeInsets.only(top:20,left:30,right: 30),
     scrollDirection: Axis.vertical,   
     shrinkWrap: true,
     itemBuilder: (_, __) => 
       Column(
         children: <Widget>[ 
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Shimmer.fromColors(
                 baseColor: Colors.grey.shade300,
@@ -230,8 +230,8 @@ Widget gridShimmer() {
                 enabled: _enabled,
                 child:Card(
                   child: Container(
-                    height:140,
-                     width: 140,
+                    height:150,
+                     width: 150,
                   ),
                 ),
                 // padding: EdgeInsets.only(right: 20),
@@ -244,8 +244,8 @@ Widget gridShimmer() {
                 enabled: _enabled,
                 child:Card(
                   child: Container(
-                    height:140,
-                     width: 140,
+                    height:150,
+                     width: 150,
                   ),
                 ),
                 // padding: EdgeInsets.only(right: 20),
