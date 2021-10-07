@@ -230,8 +230,8 @@ Widget gridShimmer() {
                 enabled: _enabled,
                 child:Card(
                   child: Container(
-                    height:140,
-                     width: 140,
+                    height:150,
+                     width: 150,
                   ),
                 ),
                 // padding: EdgeInsets.only(right: 20),
@@ -244,8 +244,8 @@ Widget gridShimmer() {
                 enabled: _enabled,
                 child:Card(
                   child: Container(
-                    height:140,
-                     width: 140,
+                    height:150,
+                     width: 150,
                   ),
                 ),
                 // padding: EdgeInsets.only(right: 20),
