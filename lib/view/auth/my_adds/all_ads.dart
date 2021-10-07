@@ -96,7 +96,7 @@ class _AllAddsState extends State<AllAdds> {
                 builder: (val) {
                   return  val.allAdsData != null && val.allAdsData['data'] !=null && val.allAdsData['success'] == true ? 
                   valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']):
-                  valuees.dataType !='grid'? shimmer(): playStoreShimmer();
+                  valuees.dataType !='grid'? shimmer(): gridShimmer();
                 },
               )
               : GetBuilder<AddBasedController>(
@@ -104,7 +104,7 @@ class _AllAddsState extends State<AllAdds> {
                 builder: (val) {
                   return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ? 
                   valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']):
-                   valuees.dataType !='grid' ? shimmer(): playStoreShimmer();
+                   valuees.dataType !='grid' ? shimmer():gridShimmer();
                 },
               )
             ],
@@ -455,7 +455,7 @@ class _AllAddsState extends State<AllAdds> {
                             ),
                             Container(
                               margin: EdgeInsets.only(left:28,right: 5),
-                              width:50,
+                              width:46.5,
                               decoration: BoxDecoration(
                                 border: Border(
                                   top:BorderSide(color: Colors.black,width:1.5),
