@@ -44,7 +44,6 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
   var number;
- 
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
   bool _isChecked = false;
