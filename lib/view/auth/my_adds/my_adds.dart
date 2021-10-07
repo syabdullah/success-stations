@@ -68,8 +68,8 @@ class _MyAddsState extends State<MyAdds> {
               GetBuilder<CategoryController>(
                 init: CategoryController(),
                 builder: (data){
-                  return  data.myHavingAdds ==null && data.myHavingAdds['data'] ? shimmer(): 
-                  addsCategoryWidget(data.myHavingAdds['data']);
+                  return  data.myHavingAdds !=null && data.myHavingAdds['data']!=null? 
+                  addsCategoryWidget(data.myHavingAdds['data']):shimmer();
                 },
               ), 
               SizedBox(height: 10),   

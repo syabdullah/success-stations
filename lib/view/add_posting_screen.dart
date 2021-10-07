@@ -6,6 +6,7 @@ import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
@@ -13,30 +14,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
-
-
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({ Key? key }) : super(key: key);
 
   @override
   _AddPostingScreenState createState() => _AddPostingScreenState();
 }
-
 class _AddPostingScreenState extends State<AddPostingScreen> {
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-   final catogoryController = Get.put(CategoryController());
-    final adpostingController = Get.put(AdPostingController());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final catogoryController = Get.put(CategoryController());
+  final adpostingController = Get.put(AdPostingController());
   int activeStep = 0;
   int upperBound = 3;  
   final _formKey = GlobalKey<FormState>();
   List list= [];
   List type = [];
   var selectedtype;
-  var selectedCategory;
-  // var selectedSubCategory;
-  var subtypeId;
-  var selectedStatus;
-  var uiStatus;
+  var selectedCategory, subtypeId, selectedStatus, uiStatus;
   final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
   TextEditingController titleController = TextEditingController();
@@ -56,19 +50,16 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   late String image;
   var editImage;
   var fileName;
-var id,cid,rid,crid , adID;
-var uploadedImage;
+var id,cid,rid,crid , adID, selectedRegion,hintRegionText, uploadedImage, hintcityText, selectedCity;
 var lang;
-var editData;
+var editData, hintTextCountry, selectedCountry;
+final countryPut = Get.put(ContryController());
 var imageName;
 var typeId;
   @override
   void initState() {
     super.initState();
     id = box.read('user_id');
-    cid = box.read('city_id');
-    rid = box.read('region_id');
-    crid = box.read('country_id');
     lang = box.read('lang_code');
     editData = Get.arguments;
     if(editData != null ) {
@@ -87,11 +78,16 @@ var typeId;
       emailController = TextEditingController(text: editData['contact_email']);
       telePhoneController = TextEditingController(text: editData['telephone']);
       mobileNoController = TextEditingController(text: editData['phone']);
-    
+      selectedCountry = editData['country_id'];
+      hintTextCountry = editData['country']['name'][lang] !=null ? editData['country']['name'][lang] : 
+      editData['country']['name'][lang] == null ? editData['country']['name']['en'] :'';
+      hintRegionText = editData['region'] !=null ? editData['region']['region']:'';
+      hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
+      selectedRegion = editData['region_id'];
+      selectedCity = editData['city_id'];
     }
     catogoryController.getCategoryNames();
     catogoryController.getCategoryTypes();
-
   }
   Future getImage() async {
     await ApiHeaders().getData();
@@ -101,7 +97,6 @@ var typeId;
         image = pickedFile!.path;      
         fileName = pickedFile!.path.split('/').last;  
       } else {
-        // print('No image selected.');
       }
     });
     try {
@@ -115,52 +110,28 @@ var typeId;
     }
      
   }
-   adpost() async{ 
-     var json = {
-       'category_id' : subtypeId,
-        'status': selectedStatus,
-        'description': descController.text,
-        'price': priceController.text,
-        'contact_name': fullNameController.text,
-        'phone': mobileNoController.text,
-        'telephone': telePhoneController.text,
-        'title':titleController.text,
-        'created_by': id.toString(),
-        'contact_email': emailController.text,
-        'country_id': crid.toString(),
-        'city_id':cid.toString(),
-        'region_id': rid.toString(),
-        'is_active' : 1,
-        'type_id': typeId,
-        'is_published':1,
-        "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
-     };
+  adpost() async{ 
+    var json = {
+      'category_id' : subtypeId,
+      'status': selectedStatus,
+      'description': descController.text,
+      'price': priceController.text,
+      'contact_name': fullNameController.text,
+      'phone': mobileNoController.text,
+      'telephone': telePhoneController.text,
+      'title':titleController.text,
+      'created_by': id.toString(),
+      'contact_email': emailController.text,
+      'country_id': selectedCountry,
+      'region_id': selectedRegion,
+      'city_id': selectedCity,
+      'is_active' : 1,
+      'type_id': typeId,
+      'is_published':1,
+      "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
+    };
+    print("json response of the step 2 add post .......,...$json");
      Get.find<AdPostingController>().finalAdPosting(json);
-    //  if(pickedFile != null) {
-    //     try {
-    //       dio.FormData formData = dio.FormData.fromMap({            
-    //          'category_id' : subtypeId,
-    //           'status': selectedStatus,
-    //           'description': descController.text,
-    //           'price': priceController.text,
-    //           'contact_name': fullNameController.text,
-    //           'mobile_no': mobileNoController.text,
-    //           'tel_no': telePhoneController.text,
-    //           'title':titleController.text,
-    //           'created_by': id.toString(),
-    //           'email': emailController.text,
-    //           'country_id': crid.toString(),
-    //           'city_id':cid.toString(),
-    //           'region_id': rid.toString(),
-    //           "image": Get.find<AdPostingController>().adUpload['name'],            
-    //       }); 
-    //       print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
-    //       Get.find<AdPostingController>().finalAdPosting(formData); 
-    //     } catch (e) {
-    //         print("...............$e");
-    //     }
-    //   }
-  
   }
   editpost() async{ 
      var json = {
@@ -174,40 +145,15 @@ var typeId;
         'title':titleController.text,
         // 'created_by': id.toString(),
         'email': emailController.text,
-        'country_id': crid.toString(),
-        'city_id':cid.toString(),
-        'region_id': rid.toString(),
+        'country_id': selectedCountry,
+        'region_id': selectedRegion,
+        'city_id': selectedCity,
         'is_active' : 1,
         'type_id': typeId,
         'is_published':1,
         "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
      };
-     print("...............$json");
      Get.find<AdPostingController>().finalAdEditing(json,adID);
-    //  if(pickedFile != null) {
-    //     try {
-    //       dio.FormData formData = dio.FormData.fromMap({            
-    //          'category_id' : subtypeId,
-    //           'status': selectedStatus,
-    //           'description': descController.text,
-    //           'price': priceController.text,
-    //           'contact_name': fullNameController.text,
-    //           'mobile_no': mobileNoController.text,
-    //           'tel_no': telePhoneController.text,
-    //           'title':titleController.text,
-    //           'created_by': id.toString(),
-    //           'email': emailController.text,
-    //           'country_id': crid.toString(),
-    //           'city_id':cid.toString(),
-    //           'region_id': rid.toString(),
-    //           "image": Get.find<AdPostingController>().adUpload['name'],            
-    //       }); 
-    //       print("add posting screen ...........>${ Get.find<AdPostingController>().adUpload['name']}");
-    //       Get.find<AdPostingController>().finalAdPosting(formData); 
-    //     } catch (e) {
-    //         print("...............$e");
-    //     }
-    //   }
   
   }
    addraft() async{
@@ -225,15 +171,14 @@ var typeId;
               'title':titleController.text,
               'created_by': id.toString(),
               'email': emailController.text,
-              'country_id': crid.toString(),
-              'city_id':cid.toString(),
-              'region_id': rid.toString(),
+              'country_id': selectedCountry,
+              'region_id': selectedRegion,
+              'city_id': selectedCity,
               'is_published':0,
               "image":  Get.find<AdPostingController>().adUpload['name'],           
           }); 
           Get.find<AdPostingController>().finalAdDrafting(formData); 
         } catch (e) {
-            print("...............$e");
         }
       }
   
@@ -296,7 +241,6 @@ var typeId;
           GetBuilder<CategoryController>( 
           init: CategoryController(),
           builder:(val) {
-            // print("...................JJ ${val.datacateg}");
             return 
              activeStep == 0 ? istStep(val.subCat['data'],val.datacategTypes) :
              activeStep == 1 ? secondStep() : 
@@ -452,7 +396,6 @@ var typeId;
   //   }
 
 Widget istStep(List list,List types){
-  print("......,,,,,..-----$types");
   return  Form(
     key: _formKey,
     child: Column(
@@ -500,7 +443,6 @@ Widget istStep(List list,List types){
                             subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
                             selectedtype = 'Type';
-                            print(subtypeId);
                           });
                         },
                       )
@@ -532,11 +474,10 @@ Widget istStep(List list,List types){
                         dropdownColor: AppColors.inPutFieldColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: type.map((coun) {
-                          // print(".//./././././.....$coun");
                           return DropdownMenuItem(
                             value: coun,
                             child:Text(
-                             coun!['type'][lang] !=null ? coun!['type'][lang] : coun!['type'][lang] == null ? coun!['type']['en']:''
+                             coun['type'][lang] !=null ? coun['type'][lang].toString() : coun['type'][lang] == null ? coun['type']['en'].toString():''
                             )
                           );
                         }).toList(),
@@ -718,43 +659,43 @@ Widget istStep(List list,List types){
 Widget secondStep(){
   return Form(
     key: _formKey,
-    child:Column(
+    child: Column(
       children: [
-      SizedBox(height: 5.h,),
-           Container(
-              padding: EdgeInsets.symmetric(horizontal:15),
-              child: TextFormField(
-                controller: fullNameController,
-                validator: (value) {
-                if (value == null || value.isEmpty) {
-                    return 'enterSomeText'.tr;
-                }
-                  return null;
-                },
-                style: TextStyle(
-                  color:AppColors.inputTextColor,fontSize: 13,
-                ),
-                decoration:InputDecoration( 
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-                  hintText: "full_name".tr,
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                    borderSide: BorderSide(color: Colors.grey),
+        SizedBox(height: 5.h,),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal:15),
+            child: TextFormField(
+              controller: fullNameController,
+              validator: (value) {
+              if (value == null || value.isEmpty) {
+                  return 'enterSomeText'.tr;
+              }
+                return null;
+              },
+              style: TextStyle(
+                color:AppColors.inputTextColor,fontSize: 13,
+              ),
+              decoration:InputDecoration( 
+                contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                hintText: "full_name".tr,
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6.0),
+                  borderSide: BorderSide(color: Colors.grey),
                 ),
               ) ,
             ),
            ),
-           SizedBox(height: 5.h,),
             SizedBox(height: 5.h,),
-           Container(
+            SizedBox(height: 5.h,),
+            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
                 controller: mobileNoController,
                 validator: (value) {
-                if (value == null || value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return 'enterSomeText'.tr;
-                }
+                  }
                   return null;
                 },
                 style: TextStyle(
@@ -767,18 +708,18 @@ Widget secondStep(){
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                     borderSide: BorderSide(color: Colors.grey),
-                ),
-              ) ,
+                  ),
+                ) ,
+              ),
             ),
-           ),
-           SizedBox(height: 5.h,),
-           Container(
+            SizedBox(height: 5.h,),
+            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
                 controller:  telePhoneController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
-                    return 'enterSomeText'.tr;
+                  return 'enterSomeText'.tr;
                 }
                   return null;
                 },
@@ -792,13 +733,13 @@ Widget secondStep(){
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                     borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
-              ) ,
+              ),
             ),
-           ),
-           SizedBox(height: 5.h,),
-           SizedBox(height: 5.h,),
-           Container(
+            SizedBox(height: 5.h,),
+            SizedBox(height: 5.h,),
+            Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
                 controller: emailController,
@@ -818,15 +759,141 @@ Widget secondStep(){
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                     borderSide: BorderSide(color: Colors.grey),
-                ),
-              ) ,
+                  ),
+                ) ,
+              ),
             ),
-           ),
-           SizedBox(height: 5.h,),
-      ],
-    ) ,
-    );
-  } 
+            SizedBox(height: 8.h,),
+            GetBuilder<ContryController>(
+              init: ContryController(),
+              builder:(val) {
+                return Container(
+                  margin: EdgeInsets.only(left: 15, right: 13),
+                  width: Get.width /0.30,
+                  decoration: BoxDecoration(
+                    color: AppColors.inputColor,
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5.0)
+                  ),
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: val.countryListdata.map((country) {
+                          return DropdownMenuItem(value: country, 
+                          child:  country['name'] !=null ?  Text(
+                            country['name'][lang]
+                          ): Container()
+                        );
+                        }).toList(),
+                        onChanged: (val) {
+                          var mapCountry;
+                          setState(() {
+                            mapCountry = val as Map;
+                            hintTextCountry = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
+                            mapCountry['name'][lang] ==null ? mapCountry['name']['en']:'';
+                            selectedCountry = mapCountry['id'];
+                            countryPut.getRegion(selectedCountry);
+                          });
+                        },
+                      )
+                    )
+                  )
+                );
+              }
+            ),
+            SizedBox(height: 8.h,),
+            GetBuilder<ContryController>(
+              init:ContryController(),
+              builder:(val) {
+                return Container(
+                  margin: EdgeInsets.only(left: 15, right: 13),
+                  width: Get.width /0.30,
+                  decoration: BoxDecoration(
+                    color: AppColors.inputColor,
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5.0)
+                  ),
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(
+                          hintRegionText != null ? hintRegionText : "region".tr,
+                          style: TextStyle(fontSize: 13, color: Colors.grey)
+                        ),
+                        dropdownColor: AppColors.inPutFieldColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: val.regionListdata.map((reg) {
+                          return DropdownMenuItem(
+                            value: reg,
+                            child: reg['region'] !=null ? Text(reg['region'] ):Container()
+                          );
+                        }).toList(),
+                        onChanged: (data) {
+                          var mapRegion;
+                          setState(() {
+                            mapRegion = data as Map;
+                            hintRegionText = mapRegion['region'];
+                            selectedRegion = data['id'];
+                            countryPut.getCity(data['id']);
+                          });
+                        },
+                      )
+                    )
+                  )
+                );
+              }
+            ),
+            SizedBox(height: 8.h,),
+            GetBuilder<ContryController>(
+              init:ContryController(),
+              builder:(val) {
+                return Container(
+                  margin: EdgeInsets.only(left: 15, right: 13),
+                  width: Get.width /0.30,
+                  decoration: BoxDecoration(
+                    color: AppColors.inputColor,
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5.0)
+                  ),
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        hint: Text(hintcityText != null ? hintcityText : "city".tr,
+                          style:TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                        ),
+                        dropdownColor: AppColors.inputColor,
+                        icon: Icon(Icons.arrow_drop_down),
+                        items: val.cityListData.map((citt) {
+                          return DropdownMenuItem(value: citt, child: Text(
+                            citt['city']));
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            var mapCity;
+                            mapCity = value as Map;
+                            hintcityText = mapCity['city'];
+                            selectedCity = mapCity['id'];
+                          });
+                        },
+                      )
+                    )
+                  )
+                );
+              }
+            )
+          ],
+        ),
+      );
+    } 
   
   Widget thirdStep(){
     return Column(
@@ -880,15 +947,10 @@ Widget secondStep(){
                      Container(
                       //  margin: EdgeInsets.only(right: 20),
                        child: Container(
-                        //  flex: 1,
                          child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 25.h,),
-                            // Text('type'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                            // SizedBox(height: 7.h),
-                            // Text(selectedtype == null ? '': selectedtype,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                            // SizedBox(height: 15.h,),
                             Text("name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                              SizedBox(height: 5.h),
                            Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
@@ -941,7 +1003,6 @@ Widget secondStep(){
         fontSize: 13.w,
         fontWeight: FontWeight.bold)),
         onPressed: () { 
-          print("..........");
           editData == null ?
         adpost():editpost();
         // Get.off(MyAdds());
