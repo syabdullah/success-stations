@@ -60,6 +60,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
   final formKey = GlobalKey<FormState>();
   PhoneNumber companyCode = PhoneNumber(isoCode: '');
   GetStorage box = GetStorage();
+  var number;
+  var cNumber;
   var inputValuePhone ;
   bool _isChecked = false;
    bool errorCheck = true;
@@ -97,7 +99,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobileNUmberController.text,
+        "mobile": cNumber.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -117,7 +119,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": "$mobileNUmberController.text",
+        "mobile":number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -369,7 +371,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintText: "mobilee".tr,
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
-        onInputChanged: (PhoneNumber number) {
+        onInputChanged: (PhoneNumber numberr) {
+          number = numberr;
         },
         onInputValidated: (bool value) {
         },
@@ -750,6 +753,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber number) {
+          cNumber = number;
         },
         onInputValidated: (bool value) {
         },

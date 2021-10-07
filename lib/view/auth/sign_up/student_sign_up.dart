@@ -43,6 +43,7 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
+  var number;
  
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
@@ -74,7 +75,7 @@ class _SignPageState extends State<StudentSignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobileController.text,
+        "mobile": number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -464,7 +465,9 @@ class _SignPageState extends State<StudentSignUp> {
           hintText: "mobilee".tr,
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
-        onInputChanged: (PhoneNumber number) {
+        onInputChanged: (PhoneNumber numberr) {
+          print("..,.,,/././/.//././.$numberr");
+          number = numberr;
         },
         onInputValidated: (bool value) {},
         selectorConfig: SelectorConfig(
