@@ -369,8 +369,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
         primary: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 20,
+          crossAxisSpacing: 3,
+          mainAxisSpacing: 3,
           crossAxisCount: 2,
           childAspectRatio: Get.width /
           (Get.height >= 800

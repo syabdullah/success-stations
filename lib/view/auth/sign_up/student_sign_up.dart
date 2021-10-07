@@ -43,6 +43,7 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
+  var number;
  
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
@@ -74,7 +75,7 @@ class _SignPageState extends State<StudentSignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
-        "mobile": mobileController.text,
+        "mobile": number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
         "region_id": selectedRegion,
@@ -295,17 +296,17 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
-  Widget about() {
+Widget about() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      // margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
-        maxLine:4,
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10,top: 20) :EdgeInsets.only(left:10,top: 20),
+        maxLine: 4,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:20,top: 20) :EdgeInsets.only(left:20,top: 20),
         isObscure: false,
-        hintText: 'aboutsu'.tr,
+        hintText: 'about'.tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
+        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
         textController: aboutController,
@@ -313,7 +314,7 @@ class _SignPageState extends State<StudentSignUp> {
         validator: (value) {
           if (value.length == 0) {
             return "aboutfield".tr;
-          }  else
+          } else
             return null;
         },
         errorText: '',
@@ -465,7 +466,9 @@ class _SignPageState extends State<StudentSignUp> {
           hintText: "mobilee".tr,
           hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         ),
-        onInputChanged: (PhoneNumber number) {
+        onInputChanged: (PhoneNumber numberr) {
+          print("..,.,,/././/.//././.$numberr");
+          number = numberr;
         },
         onInputValidated: (bool value) {},
         selectorConfig: SelectorConfig(
