@@ -378,7 +378,7 @@ Widget locationList(lastLocation) {
                       Center(
                         child: Container(
                           color: Colors.grey[100],
-                          width: Get.width/3.5,
+                          width: Get.width/3.6,
                           child: Padding(
                             padding:
                             const EdgeInsets.all(10.0),

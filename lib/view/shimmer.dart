@@ -158,6 +158,20 @@ Widget friendReqShimmer() {
     itemCount:14,
   );
 }
+Widget smallShimmer() {
+  return  ListView.builder(
+    padding: EdgeInsets.only(top: 10),
+    scrollDirection: Axis.vertical,   
+    shrinkWrap: true,
+    itemBuilder: (_, __) => 
+    ListTileShimmer(
+      isDisabledAvatar: true,
+      isDisabledButton: true,
+      isRectBox: true,
+    ),
+    itemCount:1,
+  );
+}
 
 Widget friendProfileShimmer() {
   return  ListView.builder(
