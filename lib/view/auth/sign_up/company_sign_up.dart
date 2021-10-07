@@ -712,25 +712,43 @@ Widget password() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-        isObscure: false,
-        hintText: 'password'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
+      child:  TextFormField(
+        decoration: InputDecoration(
+           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+          
+          hintText: 'password'.tr,
+          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fillColor: AppColors.inputColor,
+            filled: true,
+            border: InputBorder.none,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            enabledBorder: OutlineInputBorder(
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color: AppColors.outline),
+            ),
+          ),
+          obscureText:true,
         onChanged: (value) {
           passwrd= value;
         },
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
-        textController: passController,
+        controller: passController,
         validator: (val) {
-          if ( val.length == 0 ){
+          if ( val!.length == 0 ){
             return 'EnterPassword'.tr;
+          }else if(val != cnfPass) {
+            return 'passwordNotMatch'.tr;
           }
           return null;
         },
-        errorText: '',
+        // errorText: '',
       ),
     );
   }
@@ -738,27 +756,54 @@ Widget password() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-        isObscure: false,
-        hintText: 'ConfirmPassword'.tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
-        hintColor: AppColors.inputTextColor,
+      child:  TextFormField(
+        decoration: InputDecoration(
+           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+          
+          hintText: 'confirmPassword'.tr,
+          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+          // hintColor: AppColors.inputTextColor,
+          //  suffixIcon: IconButton(
+          //     icon: Icon(
+          //         passwordVisible ? Icons.visibility_off : Icons.visibility,
+          //         color: Theme.of(context).primaryColor),
+          //     onPressed: () {
+          //       setState(() {
+          //         passwordVisible = !passwordVisible;
+          //       });
+          //     },
+          //   ),
+            fillColor: AppColors.inputColor,
+            filled: true,
+            border: InputBorder.none,
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            enabledBorder: OutlineInputBorder(
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color: AppColors.outline),
+            ),
+          ),
+          obscureText:true,
         onChanged: (value) {
           cnfPass = value;
         },
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
-        textController: conPassController,
+        controller: conPassController,
         validator: (val) {
-          if ( val.length == 0 ){
-            return 'EnterPassword'.tr;
+          if ( val!.length == 0 ){
+            return 'EnterPasswordConfirm'.tr;
           }else if(val != passwrd) {
             return 'passwordNotMatch'.tr;
           }
           return null;
         },
-        errorText: '',
+        // errorText: '',
       ),
     );
   }
