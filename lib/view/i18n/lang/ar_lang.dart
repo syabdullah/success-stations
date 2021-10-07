@@ -24,6 +24,8 @@ const Map<String, String> ar = {
   "password" : "كلمه السر",
   "confirmPassword":"تأكيد كلمة المرور",
   "passwordNotMatch":"كلمة السر ليست جيدة",
+  "EnterPassword" : "أدخل كلمة المرور",
+  "EnterPasswordConfirm" : "أدخل تأكيد كلمة المرور",
   "sign_in": "تسجيل الدخول ",
   "forgot_your_password": " نسيت رقمك السري ؟",
   "forgot_login_detail": " نسيت تفاصيل تسجيل الدخول الخاصة بك ؟",
