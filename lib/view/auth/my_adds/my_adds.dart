@@ -201,14 +201,21 @@ class _MyAddsState extends State<MyAdds> {
                                         controller.addedByIdAddes(catID, userId);
                                         controller.addedByIdAddes(catID, userId);
                                       },
-                                      child: Image.asset(AppImages.delete,height: 30)
+                                      child: Container(
+                                        // margin: lang== 'ar'? EdgeInsets.only(left:10): EdgeInsets.only(),
+                                        child: Image.asset(AppImages.delete,height: 30)
+                                      )
                                     ),
                                     SizedBox(width: 3,),
                                     GestureDetector(
                                       onTap:(){
                                         Get.to(AddPostingScreen(),arguments:allDataAdds[index]);
                                       },
-                                      child: Image.asset(AppImages.edit,height: 30,)
+                                      child: 
+                                      Container(
+                                        // margin: lang == 'ar'? EdgeInsets.only(right:20, left:10): EdgeInsets.only(),
+                                        child: Image.asset(AppImages.edit,height: 30,)
+                                      )
                                     )
                                   ],
                                 ),
@@ -238,7 +245,7 @@ class _MyAddsState extends State<MyAdds> {
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
         crossAxisCount: 2,
-        childAspectRatio: Get.width/ ( Get.height >= 800 ? Get.height/ 2.0:Get.height <= 800 ? Get.height/ 1.80 :0),
+        childAspectRatio: Get.width/ ( Get.height >= 800 ? Get.height/ 1.93:Get.height <= 800 ? Get.height/ 1.80 :0),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -348,8 +355,9 @@ class _MyAddsState extends State<MyAdds> {
                         margin: EdgeInsets.only(left: 10,right: 10),
                         child: Center(
                           child: Text(
-                            dataListValue[index]['title']['en'] !=null ?
-                            dataListValue[index]['title']['en']: '',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                            dataListValue[index]['title'][lang] !=null ?dataListValue[index]['title'][lang]:
+                            dataListValue[index]['title'][lang] ==null ? dataListValue[index]['title']['en']:'',
+                            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
                             maxLines:1
                           ),
@@ -389,7 +397,10 @@ class _MyAddsState extends State<MyAdds> {
                                         onTap:(){  
                                           Get.to(AddPostingScreen(),arguments:dataListValue[index]);
                                         },
-                                        child: Image.asset(AppImages.edit,height: 30)
+                                        child: Container(
+                                          margin: lang == 'en'? EdgeInsets.only():EdgeInsets.only(left:10,),
+                                          child: Image.asset(AppImages.edit,height: 30)
+                                        )
                                       )
                                     ],
                                   ),

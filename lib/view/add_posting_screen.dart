@@ -79,8 +79,7 @@ var typeId;
       telePhoneController = TextEditingController(text: editData['telephone']);
       mobileNoController = TextEditingController(text: editData['phone']);
       selectedCountry = editData['country_id'];
-      hintTextCountry = editData['country']['name'][lang] !=null ? editData['country']['name'][lang] : 
-      editData['country']['name'][lang] == null ? editData['country']['name']['en'] :'';
+      hintTextCountry = editData['country']['name'][lang] !=null ? editData['country']['name'][lang] :  editData['country']['name'][lang] == null ? editData['country']['name']['en'] :'';
       hintRegionText = editData['region'] !=null ? editData['region']['region']:'';
       hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
       selectedRegion = editData['region_id'];
@@ -442,7 +441,7 @@ Widget istStep(List list,List types){
                             selectedCategory = adCategory['category'][lang] !=null ? adCategory['category'][lang] :adCategory['category'][lang] == null ? adCategory['category']['en'] :'' ;
                             subtypeId = adCategory['id'];
                             type = adCategory['category_listing_types'];
-                            selectedtype = 'Type';
+                            selectedtype = 'type'.tr;
                           });
                         },
                       )
@@ -665,6 +664,7 @@ Widget secondStep(){
         Container(
           padding: EdgeInsets.symmetric(horizontal:15),
             child: TextFormField(
+              focusNode: FocusNode(),
               controller: fullNameController,
               validator: (value) {
               if (value == null || value.isEmpty) {
@@ -691,6 +691,7 @@ Widget secondStep(){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                focusNode: FocusNode(),
                 controller: mobileNoController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -716,6 +717,7 @@ Widget secondStep(){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                focusNode: FocusNode(),
                 controller:  telePhoneController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -742,6 +744,7 @@ Widget secondStep(){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
+                focusNode: FocusNode(),
                 controller: emailController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -904,7 +907,7 @@ Widget secondStep(){
           child: Column(
             children: [
               Padding(
-                 padding: const EdgeInsets.only(top:10,left: 30,right: 30),
+                padding: const EdgeInsets.only(top:10,left: 30,right: 30),
                 child: Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -920,45 +923,48 @@ Widget secondStep(){
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      // flex:1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // SizedBox(height: 15.h,),
                           SizedBox(height: 15.h,),
                           Text('title'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
-                          Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                          // SizedBox(height: 10.h),
-                          // Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontW
-                          // SizedBox(height: 15.h,),
-                          // Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                          // SizedBox(height: 7.h),
-                          // Text(mobileNoController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          Text(titleController.text ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)),
                           SizedBox(height: 15.h,),
                           Text("category".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(selectedCategory != null ? selectedCategory : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
+                          Text("country".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(hintTextCountry != null ? hintTextCountry : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          SizedBox(height: 15.h,),
+                          Text("city".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 7.h),
+                          Text(hintcityText != null ? hintcityText : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           
                         ],
                       ),
                     ),
                      Container(
-                      //  margin: EdgeInsets.only(right: 20),
                        child: Container(
                          child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 25.h,),
+                            SizedBox(height: 1.h,),
                             Text("name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                              SizedBox(height: 5.h),
-                           Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
-                             Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                            Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
                              Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
+                            Text("region".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                             SizedBox(height: 5.h),
+                            Text(hintRegionText !=null ?hintRegionText:'',
+                             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
+                            ),
                             
                           ],
                           ),
@@ -1005,7 +1011,6 @@ Widget secondStep(){
         onPressed: () { 
           editData == null ?
         adpost():editpost();
-        // Get.off(MyAdds());
         },
         child: Text("publishb".tr),
       ),

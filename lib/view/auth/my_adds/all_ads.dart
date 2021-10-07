@@ -86,7 +86,7 @@ class _AllAddsState extends State<AllAdds> {
                 init: CategoryController(),
                 builder: (data) {
                   return data.havingAddsList!=null && data.havingAddsList['data']  !=null ? addsCategoryWidget(data.havingAddsList['data']):
-                  shimmerheading();
+                  smallShimmer();
                 },
               ),
               SizedBox(height:10),
@@ -305,7 +305,7 @@ class _AllAddsState extends State<AllAdds> {
         crossAxisCount: 2,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
-        childAspectRatio: ( lang == 'en' || Get.height < 700  ? Get.width / 1.10 / Get.height / 0.53:Get.width / 1.10 / Get.height / 0.49),
+        childAspectRatio: ( lang == 'en' || Get.height < 700  ? Get.width / 1.10 / Get.height / 0.53:Get.width / 1.10 / Get.height / 0.51),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
