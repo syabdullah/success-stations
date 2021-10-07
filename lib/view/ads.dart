@@ -77,7 +77,7 @@ class _AdsViewState extends State<AdsView> {
                   return  
                   dat.datacateg.length == 0 ? PlayStoreShimmer()
                   :
-                  advertisingList(Get.height/5.6,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 

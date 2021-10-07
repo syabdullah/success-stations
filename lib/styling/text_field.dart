@@ -17,6 +17,7 @@ class CustomTextFiled extends StatefulWidget {
   final  validator;
   final contentPadding;
   final keyboardType;
+  final maxLine;
   CustomTextFiled(
     {
       this.hintText ='',
@@ -35,6 +36,7 @@ class CustomTextFiled extends StatefulWidget {
       this.hintStyle,
       this.contentPadding,
       this.keyboardType,
+      this.maxLine
 
     }
   );
@@ -53,6 +55,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
           child: Padding(
             padding: widget.padding,
             child: TextFormField( 
+              maxLines: widget.maxLine,
               keyboardType: widget.keyboardType, 
               style: TextStyle(
                 color:AppColors.inputTextColor
