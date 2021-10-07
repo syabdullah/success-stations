@@ -94,7 +94,7 @@ class _OfferListState extends State<OfferList> {
               builder: (val) {
                 return val.allOffersResp != null &&
                 val.allOffersResp['data'] != null? subOffers(val.allOffersResp['data'])
-                : shimmerheading();
+                : smallShimmer();
               },
             ),
             allOffer == false ? 
@@ -113,7 +113,7 @@ class _OfferListState extends State<OfferList> {
                         style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ):valuee.dataType == 'grid'? gridShimmer():shimmer();
+                  ):valuee.dataType == 'grid'? gridShimmer():friendReqShimmer();
                 }
               ):
               GetBuilder<OfferCategoryController>(
@@ -297,10 +297,11 @@ class _OfferListState extends State<OfferList> {
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.70,
           childAspectRatio:
-            Get.width /(Get.height >= 800
+            Get.width /(
+              Get.height >= 800
             ? Get.height * 0.45
             : Get.height <= 800
-            ? lang == 'en'? Get.height * 0.45: Get.height * 0.46: 0),
+            ? lang == 'en'? Get.height * 0.5: Get.height * 0.46: 0),
             children: List.generate(
               listFavou.length, (c){
              return GestureDetector(

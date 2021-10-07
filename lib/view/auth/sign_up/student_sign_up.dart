@@ -453,6 +453,7 @@ Widget about() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
+<<<<<<< HEAD
       child: TextFormField(
         decoration: InputDecoration(
            contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),         
@@ -487,10 +488,20 @@ Widget about() {
          
           obscureText : true,
           onChanged: (value) {
+=======
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'password'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+>>>>>>> 480c37af59913a3359cf46ba5c9883b3a682834b
           passwordValue = value;
         },
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
+<<<<<<< HEAD
         controller: passController,
         validator: (val) {
           if ( val!.length == 0 ){
@@ -501,6 +512,16 @@ Widget about() {
           return null;
         },
         // errorText: '',
+=======
+        textController: passController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+>>>>>>> 480c37af59913a3359cf46ba5c9883b3a682834b
       ),
     );
   }
@@ -508,6 +529,7 @@ Widget about() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
+<<<<<<< HEAD
       child: TextFormField(
         decoration: InputDecoration(
            contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
@@ -551,12 +573,33 @@ Widget about() {
         validator: (val) {
           if ( val!.length == 0 ){
             return 'EnterPasswordConfirm'.tr;
+=======
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'ConfirmPassword'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          confirmPasswordValue = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: conPassController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+>>>>>>> 480c37af59913a3359cf46ba5c9883b3a682834b
           }else if(val != passwordValue) {
             return 'passwordNotMatch'.tr;
           }
           return null;
         },
+<<<<<<< HEAD
         // errorText: '',
+=======
+        errorText: '',
+>>>>>>> 480c37af59913a3359cf46ba5c9883b3a682834b
       ),
     );
   }
