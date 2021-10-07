@@ -75,6 +75,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   flutter_launcher_icons: "^0.9.2"
   huawei_map: ^5.3.0+301
+  iqama_validator: ^0.0.2
 
   
    

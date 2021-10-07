@@ -36,6 +36,8 @@ class _SignPageState extends State<StudentSignUp> {
    GetStorage box = GetStorage();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController conPassController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController semesterController = TextEditingController();
@@ -44,6 +46,7 @@ class _SignPageState extends State<StudentSignUp> {
   final TextEditingController degreeController = TextEditingController();
   String initialCountry = 'PK';
   var number;
+  var passwordValue,confirmPasswordValue;
  
   PhoneNumber tttt = PhoneNumber(isoCode: '');
 
@@ -75,6 +78,8 @@ class _SignPageState extends State<StudentSignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
+        'password':passwordValue,
+        "password_confirmation":confirmPasswordValue,
         "mobile": number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
@@ -106,6 +111,10 @@ class _SignPageState extends State<StudentSignUp> {
             space10,
             // SizedBox(height:10),
               eMail(),
+              space10,
+              password(),
+              space10,
+              confirmPassword(),
               space10,
               mobile(),
               // space10,
@@ -437,7 +446,60 @@ class _SignPageState extends State<StudentSignUp> {
       ),
     );
   }
-
+  Widget password() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'password'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          passwordValue = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: passController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+     Widget confirmPassword() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'ConfirmPassword'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          confirmPasswordValue = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: conPassController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }else if(val != passwordValue) {
+            return 'passwordNotMatch'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
   Widget mobile() {
     return  Container(
       width: Get.width / 1.1,

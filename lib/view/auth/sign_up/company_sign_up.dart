@@ -14,6 +14,7 @@ import 'package:success_stations/styling/text_field.dart';
 import 'package:intl/intl.dart';
 // ignore: unused_import
 import 'package:success_stations/view/auth/sign_in.dart';
+import 'package:iqama_validator/iqama_validator.dart';
 
 
 var finalIndex, shortCode;
@@ -52,6 +53,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
   TextEditingController respController = TextEditingController();
   TextEditingController dobController = TextEditingController();
    TextEditingController phoneController = TextEditingController();
+   TextEditingController conPassController = TextEditingController();
+   TextEditingController passController = TextEditingController();
+   var passwrd,cnfPass;
    List selectedAnimals2 = [];
    List selectedAnimals5 = [];
     List  selectedAnimals3 = [];
@@ -99,6 +103,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var json = {
         "name": nameController.text,
         'email': emailController.text,
+        'password':passwrd,
+        "password_confirmation":cnfPass,
         "mobile": cNumber.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
@@ -119,6 +125,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
       var individualJson = {
         "name": nameController.text,
         'email': emailController.text,
+        'password':passwrd,
+        "password_confirmation":cnfPass,
         "mobile":number.toString(),
         "country_id": selectedCountry,
         "city_id": selectedCity,
@@ -146,6 +154,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
               fullName(),
               space10,
               eMail(),
+              space10,
+              password(),
+              space10,
+              confirmPassword(),
               space10,
               mobile(),
               space10, 
@@ -682,17 +694,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         // isObscure: true,
         textController: iqamaController,
         validator: (value) {
-          String pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
-          RegExp regExp = RegExp(pattern);
           if( value.length  == 0){
             return 'iqama'.tr;
           }
-          else if(!regExp.hasMatch(value)) {
+          else if(IqamaValidator.validate(value) == false) {
               return "iqqamaNum".tr;
           }
-          else if(value.length !=10){
-            return 'IqamaDigits'.tr;
-          } else
+         else
             return null;
         },
         errorText: '',
@@ -700,6 +708,60 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
+Widget password() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'password'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          passwrd= value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: passController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
+     Widget confirmPassword() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width * 0.9,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: 'ConfirmPassword'.tr,
+        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
+          cnfPass = value;
+        },
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
+        textController: conPassController,
+        validator: (val) {
+          if ( val.length == 0 ){
+            return 'EnterPassword'.tr;
+          }else if(val != passwrd) {
+            return 'passwordNotMatch'.tr;
+          }
+          return null;
+        },
+        errorText: '',
+      ),
+    );
+  }
   Widget responsible() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
