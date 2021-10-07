@@ -9,7 +9,6 @@ import 'package:success_stations/view/ad_views/about_tab.dart';
 import 'package:success_stations/view/ad_views/add_offer_tab.dart';
 import 'package:success_stations/view/ad_views/adtab.dart';
 import 'package:success_stations/view/ad_views/location_tab.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 
 class AdViewTab extends StatefulWidget {
   const AdViewTab({Key ? key,tabBarView}) : super(key: key);

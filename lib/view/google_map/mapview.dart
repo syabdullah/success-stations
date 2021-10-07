@@ -252,7 +252,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   builder: (value) {
                     return value.allLoc != null
                     ? allUsers(value.allLoc['data'])
-                    : friendReqShimmer();
+                    : playStoreShimmer();
                   } 
                 ),
               // Container(
