@@ -19,6 +19,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
     idIdId = Get.arguments;
     lang = box.read('lang_code');
     super.initState();
+    print(idIdId['country']['name']['en']);
   }
 
   @override
@@ -83,7 +84,23 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                                   ],
                                 ):Container()
                             ),
+                              space50,
+                            
+                              Container(
+                                alignment: Alignment.topLeft,
+                                margin: EdgeInsets.only(left:14),
+                                child: Text("COUNTRY:", style:TextStyle(fontSize:14, color:Colors.grey[400]))
+                              ),
+                              space10,
+                              Container(
+                                margin: EdgeInsets.only(left:14, right:10),
+                                alignment: Alignment.topLeft,
+                                child:idIdId['country']!=null ?   Text(
+                                  idIdId['country']['name']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
+                                ):Container()
+                              ),
                             space50,
+                            
                               Container(
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.only(left:14),
