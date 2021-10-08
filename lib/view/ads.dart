@@ -84,7 +84,7 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.isLoading == false && data.addsListCategory != null ?  featuredAdsList(data.addsListCategory['data']) : PlayStoreShimmer();
+                  return data.addsListCategory!=null && data.addsListCategory['data'] != null ?  featuredAdsList(data.addsListCategory['data']) : PlayStoreShimmer();
                 }
               ),
               text('specialofer'.tr,"all".tr),

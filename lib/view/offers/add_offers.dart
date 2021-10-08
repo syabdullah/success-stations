@@ -47,7 +47,6 @@ class AddOffersState extends State<AddOffersPage> {
     super.initState();
     lang = box.read('lang_code');
     postDataEdited = Get.arguments;
-    print("posted data addes.....$postDataEdited");
     if (postDataEdited != null) {
       addedEditPosting = postDataEdited['id'];
       hintTextCate = postDataEdited['category']['category_name']['en'];
@@ -60,7 +59,17 @@ class AddOffersState extends State<AddOffersPage> {
       edittImage = postDataEdited['image'] != null  ? postDataEdited['image']['url'] : null;
       imageName = postDataEdited['image'] != null ? postDataEdited['image']['file_name'] : null;
       selectedCountry = postDataEdited['country_id'];
-      // hintTextCountry = postDataEdited['country']['name'][lang] !=null ? postDataEdited['country']['name'][lang].toString() :postDataEdited['country']['name'][lang]== null ? postDataEdited['country']['name']['en'].toString() :'';
+      print("---------------------${postDataEdited['country']}");
+      if(postDataEdited['country']!=null ) {
+        if(postDataEdited['country']['name'] !=null ){
+          hintTextCountry =  postDataEdited['country']['name'][lang] ;
+        }else{
+          hintTextCountry = "country".tr;
+        }
+      }
+      
+      // postDataEdited['country']['name'][lang]==null ?   postDataEdited['country']['name']['en']:'';
+
       hintLinking =postDataEdited['listing']!=null ? postDataEdited['listing']['title']['en']:'Ads Listing';
     }
   }
@@ -103,7 +112,7 @@ class AddOffersState extends State<AddOffersPage> {
             'country_id': selectedCountry,
             'image': imageName != null ? imageName : Get.find<StorePostAddesController>().uploadImageOfAdd['name'],
           });
-          print("json of add data ....$formData");
+          print("json of add data ....$selectedCountry");
           Get.find<StorePostAddesController>().storefOffersAAll(formData);
         } catch (e) {}
       }
@@ -204,7 +213,7 @@ class AddOffersState extends State<AddOffersPage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-        maxLength: 20,
+        // maxLength: 20,
         focusNode: FocusNode(),
         controller: titleController,
         validator: (value) {
@@ -236,12 +245,12 @@ class AddOffersState extends State<AddOffersPage> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          width: Get.width * 0.9,
+          margin: EdgeInsets.only(left: 15, right: 13),
+          width: Get.width /0.30,
           decoration: BoxDecoration(
-            color: Colors.grey,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)
+            color: Colors.grey.shade50,
+            border: Border.all(color:Colors.grey),
+            borderRadius: BorderRadius.circular(5.0)
           ),
           child: ButtonTheme(
             alignedDropdown: true,
@@ -249,14 +258,15 @@ class AddOffersState extends State<AddOffersPage> {
               child: DropdownButton(
                 hint: Text(
                   hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                  style: TextStyle(fontSize: 13, color: Colors.grey[800])
                 ),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
                   return DropdownMenuItem(value: coun, 
                   child: coun['name'] !=null?  Text(
-                    coun['name'][lang]!=null ? coun['name'][lang].toString(): coun['name'][lang]==null ? coun['name']['en']:"",
+                   coun['name'][lang]!=null ?  coun['name'][lang].toString():
+                   coun['name'][lang] == null ? coun['name']['en']:''
                   ):Container()
                 );
                 }).toList(),
@@ -265,7 +275,7 @@ class AddOffersState extends State<AddOffersPage> {
                   setState(() {
                     mapCountry = val as Map;
                     print("map countryy....$mapCountry");
-                    hintTextCountry = mapCountry['name'][lang] !=null ?mapCountry['name'][lang]: mapCountry['name'][lang] ==null ? mapCountry['name']['en']:'';
+                    hintTextCountry = mapCountry['name'][lang]!=null ?  mapCountry['name'][lang].toString():mapCountry['name'][lang]==null ?mapCountry['name']['en'].toString():"" ;
                     selectedCountry = mapCountry['id'];
                   });
                 },
@@ -329,7 +339,7 @@ class AddOffersState extends State<AddOffersPage> {
     Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-        maxLength: 20,
+        // maxLength: 20,
         focusNode: FocusNode(),
         controller: urlContr,
         validator: (val) {
@@ -371,7 +381,7 @@ class AddOffersState extends State<AddOffersPage> {
           ),
           color: AppColors.inPutFieldColor,
           child: TextFormField(
-            maxLines: 4,
+            // maxLines: 4,
             textAlignVertical: TextAlignVertical.top,
             focusNode: FocusNode(),
             controller: descriptionController,
