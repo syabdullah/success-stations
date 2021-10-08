@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_shimmer/flutter_shimmer.dart';
-import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 Widget shimmer() {

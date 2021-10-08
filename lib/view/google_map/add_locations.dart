@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:success_stations/styling/images.dart';
@@ -32,6 +33,7 @@ class _AddLocationsState extends State<AddLocations> {
   final formKey = new GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
+  final countryPut = Get.put(ContryController());
   XFile? pickedFile;
   late String image;
   var editImage;
@@ -59,6 +61,7 @@ class _AddLocationsState extends State<AddLocations> {
    var countryName;
    var geometry;
    var placeId;
+   var editData, hintTextCountry, selectedCountry,lang;
     @override
   void initState() {
     super.initState();   
@@ -74,10 +77,10 @@ class _AddLocationsState extends State<AddLocations> {
       street = dataPage['street_address'];
       placeId = dataPage['place'];
       city = dataPage['locality'];
-      countryName = dataPage['country_name'];
+      // countryName = dataPage['country_name'];
       region = dataPage['region'];
       postCode = dataPage['postal_code'];
-      countryName = dataPage['country_name'];
+      selectedCountry = dataPage['country_name'];
       geometry = dataPage['view_port'];
       lng = dataPage['long'];
       lat =  dataPage['lat'];
@@ -205,11 +208,11 @@ class _AddLocationsState extends State<AddLocations> {
             "place":placeId,
             "street_address":strAdr,
             "locality":city,
-            "country_name" : countryName,
+            "country_name" : selectedCountry,
             "region" : region,
             "postal_code":postCode,
             "view_port":geometry,
-            "country_id":1,
+            "country_id":selectedCountry,
             "city_id":1,
             "region_id":1,
             "service_id":service_id,
@@ -358,7 +361,6 @@ class _AddLocationsState extends State<AddLocations> {
                                   child:  ButtonTheme(
                                     alignedDropdown: true,
                                     child: Container(
-                                     
                                       width: Get.width,
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton(
@@ -388,7 +390,51 @@ class _AddLocationsState extends State<AddLocations> {
                                   )
                                 );
                               }
-                            ), 
+                            ),
+                             SizedBox(height: 8),
+                            GetBuilder<ContryController>(
+                              init: ContryController(),
+                              builder:(val) {
+                                return Container(
+                                 width: Get.width,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.inputColor,
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5.0)
+                                  ),
+                                  child: ButtonTheme(
+                                    alignedDropdown: true,
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        hint: Text(
+                                          selectedCountry  != null ? selectedCountry  : 'country'.tr,
+                                          style: TextStyle(fontSize: 13, color: AppColors.inputTextColor)
+                                        ),
+                                        dropdownColor: AppColors.inPutFieldColor,
+                                        icon: Icon(Icons.arrow_drop_down),
+                                        items: val.countryListdata.map((country) {
+                                          return DropdownMenuItem(value: country, 
+                                          child:  country['name'] !=null ?  Text(
+                                            country['name']['en']
+                                          ): Container()
+                                        );
+                                        }).toList(),
+                                        onChanged: (val) {
+                                          var mapCountry;
+                                          setState(() {
+                                            mapCountry = val as Map;
+                                            hintTextCountry = mapCountry['name']['en'] !=null ? mapCountry['name']['en']:
+                                            mapCountry['name'][lang] ==null ? mapCountry['name']['en']:'';
+                                            selectedCountry = mapCountry['name']['en'];
+                                            // countryPut.getRegion(selectedCountry);
+                                          });
+                                        },
+                                      )
+                                    )
+                                  )
+                                );
+                              }
+                            ),
                             Container(
                               margin: EdgeInsets.only(top:10),
                               child: DottedBorder(

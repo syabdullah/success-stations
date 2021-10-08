@@ -421,7 +421,7 @@ Widget locationList(lastLocation) {
                                   ),
                                )
                               : Container(),
-                              
+                               SizedBox(height: 4),
                             Row(
                               children: [
                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
@@ -433,8 +433,32 @@ Widget locationList(lastLocation) {
                              
                               ],
                             ),
-                            SizedBox(height: 18),
-                              
+                            SizedBox(height: 4),
+                               lastLocation['data'][index]['country_name']!= null ? 
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "country".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight:FontWeight.bold
+                                    ,fontSize: 12
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width / 3.3,
+                                child: Text(
+                                  " ${lastLocation['data'][index]['country_name']}",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12
+                                  ),
+                                ),
+                              )
+                            ],
+                          ): Container()
                           ],
                         ),
                       ),
