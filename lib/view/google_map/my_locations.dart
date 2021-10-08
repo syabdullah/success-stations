@@ -69,6 +69,7 @@ class _MyLocationsState extends State<MyLocations> {
                 GetBuilder<LocationController>(
                   init: LocationController(),
                   builder: (val) {
+                    print("........................... ${myAddsList(val.locData['data']['data'])}");
                     return val.locData != null &&
                     val.locData['data'].length != 0
                     ? Expanded(child: myAddsList(val.locData['data']['data']))
@@ -174,6 +175,29 @@ class _MyLocationsState extends State<MyLocations> {
                                 width: Get.width / 3.6,
                                 child: Text(
                                   data[index]['services']['servics_name'] ?? '',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ): Container(),
+                          data[index]['country_name'] != null ? 
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "country".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight:FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width / 3.6,
+                                child: Text(
+                                  " ${data[index]['country_name']}",
                                   style: TextStyle(
                                     color: Colors.grey,
                                   ),

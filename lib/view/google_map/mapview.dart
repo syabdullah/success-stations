@@ -50,6 +50,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     super.initState();
     _getUserLocation();
     gridingData.listingGrid('grid');
+    // ignore: unused_local_variable
     var id = box.read('user_id');
     route = Get.arguments;
     lang = box.read('lang_code');
