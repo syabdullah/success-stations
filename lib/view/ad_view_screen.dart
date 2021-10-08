@@ -182,45 +182,67 @@ class _AdViewScreenState extends State<AdViewScreen> {
               Container(
                 margin:lang =='en'? EdgeInsets.only(left:30,bottom: 10): EdgeInsets.only(left:30,right:30),
                 child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  
                   children: [
                     Container(
+                     // margin: lang=='en'? EdgeInsets.only(left:60,bottom: 3):EdgeInsets.only(right:60,bottom: 3),
+                      
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20),
+                          Text('country'.tr,
+                            style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey)
+                          ),
+                          SizedBox(height: 8.h),
+                          Text( 
+                            data['country']['name'][lang] !=null?  data['country']['name'][lang] :
+                            data['country']['name'][lang] == null ? data['country']['name']['en']:'',
+                            style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
+                          ),
+                          SizedBox(height: 11.h,),
                           Text('city0'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
-                          Text( data['city'] !=null&& data['city']!=null  ? data['city']['city'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 11.h,),
                            Text("city2".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
+                          //  Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          // SizedBox(height: 7.h),
+                          // Text(data['category'] != null ? data['category']['category'][lang] : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                         // SizedBox(height: 15.h,),
                         ],
                       ),
                     ),
-                    Container(
+                     Container(
+                      //  margin: lang=='en'? EdgeInsets.only(left:60,ri):EdgeInsets.only(right:60,left: 60),
                       margin: EdgeInsets.only(left:60,right: 60),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 30,),
+                          SizedBox(height: 20),
+                          Text("region".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                          SizedBox(height: 8.h),
+                          Text(
+                            data['region'] != null ?data['region']['region']:'',
+                            style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
+                          ),
+                          SizedBox(height: 11.h),
                           Text("city1".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
-                          data['type'] != null ?
-                          Text(
-                           data['type']['type'][lang]!= null ? data['type']['type'][lang].toString() : data['type']['type'][lang] ==null ? data['type']['type']['en']:'',
-                            style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
-                          ):Container(),
+                          Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 10.h,),
-                          Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
+                           Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
                           Text(data['status'] == 0 ? 'old'.tr: 'new'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 23.h),
                           
                         ],
-                      ),
-                    ),
+                        ),
+                     ),
                   ],
                 ),
               )

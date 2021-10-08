@@ -260,6 +260,8 @@ class AddOffersState extends State<AddOffersPage> {
     );
   }
 
+
+
   Widget url() {
     return
     Container(
@@ -318,9 +320,6 @@ class AddOffersState extends State<AddOffersPage> {
               return null;
             },
             decoration: InputDecoration(
-              // contentPadding: lang == 'en'
-              // ? EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 0.0)
-              // : EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
               hintText: "Offer description".tr,
               hintStyle: TextStyle(fontSize: 14, color: Colors.grey[700]),
               border: OutlineInputBorder(
