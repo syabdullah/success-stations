@@ -83,10 +83,12 @@ class OfferCategoryController extends GetxController {
     isLoading = true;
     await myOffers().then((res) {
       myofferListDrawer = jsonDecode(res.body);
+      print("data of mine all offers.....$myofferListDrawer");
         if (res.statusCode == 200 || res.statusCode < 400) {
           resultInvalid(false);
           isLoading = false;
-        } else if (myofferListDrawer['success'] == false) {
+        } else if (
+          myofferListDrawer['success'] == false) {
         resultInvalid(true);
         isLoading = false;
       }
