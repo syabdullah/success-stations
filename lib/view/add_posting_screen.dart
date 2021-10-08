@@ -79,9 +79,28 @@ var typeId;
       telePhoneController = TextEditingController(text: editData['telephone']);
       mobileNoController = TextEditingController(text: editData['phone']);
       selectedCountry = editData['country_id'];
-      hintTextCountry = editData['country']['name'][lang] !=null ? editData['country']['name'][lang] :  editData['country']['name'][lang] == null ? editData['country']['name']['en'] :'';
-      hintRegionText = editData['region'] !=null ? editData['region']['region']:'';
-      hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
+      if(editData['country'] !=null){
+        if(editData['country']['name'] !=null){
+          hintTextCountry = editData['country']['name'][lang] !=null ? editData['country']['name'][lang] :  editData['country']['name'][lang] == null ? editData['country']['name']['en'] :'';
+        }
+        else{
+          hintTextCountry = "country".tr;
+        }
+      }
+      if(editData['region']!=null){
+        hintRegionText = editData['region'] !=null ? editData['region']['region']:'';
+      }
+      else{
+       hintRegionText = 'region'.tr; 
+      }
+      if(editData['city']!=null){
+        hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
+
+      }
+      else {
+        hintcityText = 'city'.tr;
+      }
+      // hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
       selectedRegion = editData['region_id'];
       selectedCity = editData['city_id'];
     }
