@@ -517,7 +517,7 @@ Widget istStep(List list,List types){
                   hintText: "title".tr,
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     borderSide: BorderSide(color: Colors.grey),
                 ),
               ) ,
@@ -554,11 +554,8 @@ Widget istStep(List list,List types){
                           );
                         }).toList(),
                           onChanged: (value) {
-                          
-                          setState(() {
-                           
+                            setState(() {
                             selectedStatus = value;
-
                             value == 'New'.tr ? selectedStatus = '1' : selectedStatus = '0' ;
                            
                             
@@ -590,7 +587,7 @@ Widget istStep(List list,List types){
                 hintText: "description".tr,
                 hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
                 border: OutlineInputBorder( 
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(5.0),
                 borderSide: BorderSide(color: Colors.grey),
               ),
               ) ,
@@ -600,7 +597,7 @@ Widget istStep(List list,List types){
             Container(
               padding: EdgeInsets.symmetric(horizontal:15),
               child: TextFormField(
-                maxLength: 5,
+                // maxLength: 5,
                 keyboardType: TextInputType.number,
                 controller: priceController,
                 validator: (value) {
@@ -617,7 +614,7 @@ Widget istStep(List list,List types){
                   hintText: "price".tr,
                   hintStyle: TextStyle(fontSize: 14,color: Colors.grey[400]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     borderSide: BorderSide(color: Colors.grey),
                 ),
               ) ,
@@ -680,7 +677,7 @@ Widget secondStep(){
                 hintText: "full_name".tr,
                 hintStyle: TextStyle(color: Colors.grey[400]),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6.0),
+                  borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide(color: Colors.grey),
                 ),
               ) ,
@@ -707,7 +704,7 @@ Widget secondStep(){
                   hintText: "mobile_number".tr,
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ) ,
@@ -733,7 +730,7 @@ Widget secondStep(){
                   hintText: "telephone_numbers".tr,
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
@@ -760,7 +757,7 @@ Widget secondStep(){
                   hintText: "emails".tr,
                   hintStyle: TextStyle(color: Colors.grey[400]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6.0),
+                    borderRadius: BorderRadius.circular(5.0),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ) ,
