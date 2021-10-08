@@ -180,6 +180,29 @@ class _MyLocationsState extends State<MyLocations> {
                                 ),
                               )
                             ],
+                          ): Container(),
+                          data[index]['country_name'] != null ? 
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "country".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight:FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width / 3.6,
+                                child: Text(
+                                  " ${data[index]['country_name']}",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              )
+                            ],
                           ): Container()
                         ],
                       ),
