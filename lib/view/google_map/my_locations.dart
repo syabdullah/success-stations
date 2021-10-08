@@ -94,7 +94,7 @@ class _MyLocationsState extends State<MyLocations> {
 
   Widget myAddsList(data) {
     return ListView.builder(
-      padding: EdgeInsets.all(5),
+      // padding: EdgeInsets.only(left:10),
       itemCount: data != null ? data.length : 0,
       itemBuilder: (BuildContext context, index) {
         return Card(
@@ -163,7 +163,7 @@ class _MyLocationsState extends State<MyLocations> {
                             children: [
                               Container(
                                 child: Text(
-                                  "Service: ",
+                                  "Service:   ",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -186,7 +186,7 @@ class _MyLocationsState extends State<MyLocations> {
                             children: [
                               Container(
                                 child: Text(
-                                  "country".tr,
+                                  "Country: ",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight:FontWeight.bold
@@ -220,7 +220,7 @@ class _MyLocationsState extends State<MyLocations> {
                           locationCon.deleteLocationToDB(data[index]['id'], id);
                         },
                         child: Container(
-                            padding: EdgeInsets.only(right: 5),
+                            // padding: EdgeInsets.only(right: 5),
                             child: Image.asset(AppImages.delete, height: 30)),
                       ),
                       SizedBox(width: 5),
