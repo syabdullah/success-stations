@@ -24,6 +24,7 @@ class ContryController extends GetxController {
     isLoading = true ;
     await countries().then((res) {
       countryData = jsonDecode(res.body);
+      print("country controoler....$countryData");
       for(int c =0; c < countryData['data'].length; c++){
         countryListdata.add(countryData['data'][c]);
       }
