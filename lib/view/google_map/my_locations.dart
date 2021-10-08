@@ -69,7 +69,6 @@ class _MyLocationsState extends State<MyLocations> {
                 GetBuilder<LocationController>(
                   init: LocationController(),
                   builder: (val) {
-                    print("........................... ${myAddsList(val.locData['data']['data'])}");
                     return val.locData != null &&
                     val.locData['data'].length != 0
                     ? Expanded(child: myAddsList(val.locData['data']['data']))
