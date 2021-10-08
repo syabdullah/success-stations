@@ -59,17 +59,14 @@ class AddOffersState extends State<AddOffersPage> {
       edittImage = postDataEdited['image'] != null  ? postDataEdited['image']['url'] : null;
       imageName = postDataEdited['image'] != null ? postDataEdited['image']['file_name'] : null;
       selectedCountry = postDataEdited['country_id'];
-      print("---------------------${postDataEdited['country']}");
       if(postDataEdited['country']!=null ) {
         if(postDataEdited['country']['name'] !=null ){
-          hintTextCountry =  postDataEdited['country']['name'][lang] ;
+          hintTextCountry =  postDataEdited['country']['name'][lang] !=null ? postDataEdited['country']['name'][lang] :
+          postDataEdited['country']['name'][lang] == null ? postDataEdited['country']['name']['en']:'' ;
         }else{
           hintTextCountry = "country".tr;
         }
       }
-      
-      // postDataEdited['country']['name'][lang]==null ?   postDataEdited['country']['name']['en']:'';
-
       hintLinking =postDataEdited['listing']!=null ? postDataEdited['listing']['title']['en']:'Ads Listing';
     }
   }
@@ -274,8 +271,7 @@ class AddOffersState extends State<AddOffersPage> {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    print("map countryy....$mapCountry");
-                    hintTextCountry = mapCountry['name'][lang]!=null ?  mapCountry['name'][lang].toString():mapCountry['name'][lang]==null ?mapCountry['name']['en'].toString():"" ;
+                    hintTextCountry = mapCountry['name'][lang]!=null ?  mapCountry['name'][lang].toString(): mapCountry['name'][lang]==null ?mapCountry['name']['en'].toString():"" ;
                     selectedCountry = mapCountry['id'];
                   });
                 },
