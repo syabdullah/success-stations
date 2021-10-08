@@ -91,7 +91,7 @@ class _AdsViewState extends State<AdsView> {
                 GetBuilder<OfferController>(
                 init: OfferController(),
                 builder: (data){
-                  return data.offerDataList != null &&  data.offerDataList['data']!=null  ? 
+                  return data.offerDataList != null && data.offerDataList['data']!=null  ? 
                    offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): PlayStoreShimmer();
                 }),
           ],
