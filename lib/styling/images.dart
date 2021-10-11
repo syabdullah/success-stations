@@ -106,6 +106,6 @@ class AppImages {
   static String filterImage = imagePath + 'filterred.png';
   static String gridListing = imagePath + 'gridd.png';
   static String plusImage1 = imagePath + 'plus@3x.png';
-
+  static String chating = imagePath + 'chats.png'; 
 
 }

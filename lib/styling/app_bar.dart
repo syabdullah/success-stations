@@ -95,7 +95,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
           onPressed: () => Get.bottomSheet(FriendFilter()),
         ):
-          
+
     index == 2 ? Container()
     : Row(
       children: [
@@ -140,6 +140,16 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       child: Image.asset(image, height: 40),
     ), 
     actions: [
+      index == 2 ?
+      GestureDetector(
+        onTap: (){
+          Get.toNamed('/inbox');
+        },
+        child: Container(
+          margin: EdgeInsets.only(right:16,top:10),
+          child:Image.asset(AppImages.chating)
+        ),
+      ):
       Container(
         margin: EdgeInsets.only(right:16,top:10),
         child: Row(
@@ -169,6 +179,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     backgroundColor: AppColors.appBarBackGroundColor,
   ) : 
   AppBar(
+    
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -232,6 +243,15 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       child: Image.asset(image, height: 40),
     ), 
     actions: [
+        index == 2 ?
+      GestureDetector(
+        onTap: (){
+           Get.toNamed('/inbox');
+        },
+        child: Container(margin: EdgeInsets.only(left:16,top:10),
+          child:Image.asset(AppImages.chating)
+        ),
+      ):
       Container(
         margin: EdgeInsets.only(left:16,top:10),
         child: Row(
