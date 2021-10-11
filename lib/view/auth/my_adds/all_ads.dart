@@ -106,11 +106,12 @@ class _AllAddsState extends State<AllAdds> {
                       ),
                     ),
                   ):
-
                   valuees.dataType !='grid'? shimmer(): gridShimmer();
                 },
               )
-              : GetBuilder<AddBasedController>(
+              :
+              
+               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
                   return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ? 
