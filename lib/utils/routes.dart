@@ -25,6 +25,7 @@ import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/tab_bar.dart';
 import 'package:success_stations/view/bottom_bar.dart';
+import 'package:success_stations/view/choose_country.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
@@ -74,7 +75,8 @@ const String draweer = '/drawer';
 const String resetPass = '/resetPass';
 const String addLocation = '/addLocation';
 const String privacy = '/privacy';
-const String  chooseLang = '/chooseLang';
+const String chooseLang = '/chooseLang';
+const String chooseCountry = '/chooseCountry';
 const String  myOfferMain = '/myOfferMain';
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
@@ -152,6 +154,8 @@ class SuccessStationRoutes {
       return MaterialPageRoute(builder: (_) => Privacy());
       case chooseLang:
       return MaterialPageRoute(builder: (_) => ChooseLanguage());
+       case chooseCountry:
+      return MaterialPageRoute(builder: (_) => ChooseCountry());
       default:
       return MaterialPageRoute(builder: (_) => auth == null ? SignIn() : BottomTabs());
     }

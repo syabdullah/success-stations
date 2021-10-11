@@ -322,7 +322,7 @@ const Map<String, String> en = {
   "IqamaDigits":"Iqama Number must be of 10 digits",
   "resp":"Responsible",
   "resDig":"Responsibe must be in digits",
-  "crEn":"Enter CR"  
+  "crEn":"Enter CR"  ,
 
   
   

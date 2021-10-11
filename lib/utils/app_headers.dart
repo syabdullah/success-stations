@@ -2,11 +2,14 @@
 import 'package:get_storage/get_storage.dart';
 
 String? token;
+var countryIDD;
 class ApiHeaders {
 
   getData() {
     GetStorage box = GetStorage(); 
     token = box.read('access_token');
+    countryIDD = box.read('country_id');
+    print("Headers of the country ID........$countryIDD");
   } 
 
    var headers = {

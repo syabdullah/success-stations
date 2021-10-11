@@ -263,7 +263,7 @@ class AddOffersState extends State<AddOffersPage> {
                   return DropdownMenuItem(value: coun, 
                   child: coun['name'] !=null?  Text(
                    coun['name'][lang]!=null ?  coun['name'][lang].toString():
-                   coun['name'][lang] == null ? coun['name']['en']:''
+                   coun['name'][lang] == null ? coun['name']['en'].toString():''
                   ):Container()
                 );
                 }).toList(),
@@ -353,9 +353,6 @@ class AddOffersState extends State<AddOffersPage> {
           fontSize: 13,
         ),
         decoration: InputDecoration(
-          // contentPadding: lang == 'en'
-          // ? EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0)
-          // : EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
           hintText: "URL".tr,
           hintStyle: TextStyle(fontSize: 13, color: Colors.grey[700]),
           border: OutlineInputBorder(
@@ -377,7 +374,6 @@ class AddOffersState extends State<AddOffersPage> {
           ),
           color: AppColors.inPutFieldColor,
           child: TextFormField(
-            // maxLines: 4,
             textAlignVertical: TextAlignVertical.top,
             focusNode: FocusNode(),
             controller: descriptionController,
@@ -425,7 +421,7 @@ class AddOffersState extends State<AddOffersPage> {
                 return DropdownMenuItem(
                   value: adds,
                   child: Text(
-                    adds['title'][lang] !=null ? adds['title'][lang] :  adds['title'][lang] == null ?  adds['title']['en']:'',
+                    adds['title'][lang] !=null ? adds['title'][lang].toString() :  adds['title'][lang] == null ?  adds['title']['en'].toString():'',
                   )
                 );
               }).toList(),
@@ -433,7 +429,7 @@ class AddOffersState extends State<AddOffersPage> {
                 var addsMapByMyAdds;
                 setState(() {
                   addsMapByMyAdds = value as Map;
-                  hintLinking = addsMapByMyAdds['title'][lang] !=null ? addsMapByMyAdds['title'][lang]  : addsMapByMyAdds['title'][lang] == null ? addsMapByMyAdds['title']['en']:'';
+                  hintLinking = addsMapByMyAdds['title'][lang] !=null ? addsMapByMyAdds['title'][lang].toString()  : addsMapByMyAdds['title'][lang] == null ? addsMapByMyAdds['title']['en'].toString():'';
                   hintLinkingId = addsMapByMyAdds['id'];
                 });
               },

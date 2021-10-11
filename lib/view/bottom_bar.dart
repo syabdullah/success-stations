@@ -24,13 +24,15 @@ class _BottomTabsState extends State<BottomTabs> {
   final banner = Get.put(BannerController());
   final mapCon = Get.put(LocationController());
   var lang;
+  var countryIDD;
   GetStorage box = GetStorage();
   void initState() {
     banner.bannerController();
     // ignore: unused_local_variable
     var id = box.read('user_id');
     lang = box.read('lang_code');
-    //  mapCon.getAllLocationToDB();
+    countryIDD = box.read('country_id');
+    print("country iddddd //..... bottom bar ....$countryIDD");
     super.initState();
   }
   @override

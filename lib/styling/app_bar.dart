@@ -938,8 +938,8 @@ Widget sAppbar(context ,icon,image,) {
                                             ),
                                             padding: EdgeInsets.only(left:6.0,right: 6, top:2),
                                             child: Text(  
-                                              data.allOffersResp['data'][index]['category_name'][lang]!=null ?  data.allOffersResp['data'][index]['category_name'][lang]:
-                                              data.allOffersResp['data'][index]['category_name'][lang] ==null ?  data.allOffersResp['data'][index]['category_name']['en']:'' ,
+                                              data.allOffersResp['data'][index]['category_name'][lang]!=null ?  data.allOffersResp['data'][index]['category_name'][lang].toString():
+                                              data.allOffersResp['data'][index]['category_name'][lang] ==null ?  data.allOffersResp['data'][index]['category_name']['en'].toString():'' ,
                                               style: TextStyle(
                                                 color: bottomSheetCategory == index
                                                 ? AppColors.appBarBackGroundColor

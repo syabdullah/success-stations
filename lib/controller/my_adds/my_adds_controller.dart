@@ -27,11 +27,7 @@ class MyAddsAdedController extends GetxController {
         resultInvalid(true);
         isLoading = false;
 
-       }
-      // for(int c =0; c < addsGet['data'].length; c++){
-      //   myMyAdd.add(addsGet['data'][c]);
-      // }
-      isLoading = false;
+      }
     });
     update();
   }
