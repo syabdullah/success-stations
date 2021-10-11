@@ -32,6 +32,7 @@ class _AdsViewState extends State<AdsView> {
   final addescontrollRefresh = Get.put(MyAddsController());
   final ratingcont = Get.put(RatingController());
   final banner = Get.put(BannerController());
+  final offerlist = Get.put(OfferController());
   var userType;
   GetStorage box = GetStorage();
   var lang ,address, newv, accounType; var isVisible = true ;
@@ -75,7 +76,7 @@ class _AdsViewState extends State<AdsView> {
               init: CategoryController(),
                 builder: (dat){
                   return  
-                  dat.datacateg.length == 0 ? PlayStoreShimmer()
+                  dat.datacateg.length == 0  ? PlayStoreShimmer()
                   :
                   advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
@@ -84,7 +85,21 @@ class _AdsViewState extends State<AdsView> {
               GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data){ 
-                  return data.addsListCategory!=null && data.addsListCategory['data'] != null ?  featuredAdsList(data.addsListCategory['data']) : PlayStoreShimmer();
+                  return 
+                  
+                  data.addsListCategory!=null && data.addsListCategory['data'] != null ?   featuredAdsList(data.addsListCategory['data']) 
+                 : 
+                  addescontrollRefresh.isInvalid.isTrue? 
+                  Container(
+                    child: Center(
+                      child: Text(
+                        data.addsListCategory['errors'],
+                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ) : 
+                  PlayStoreShimmer();
+
                 }
               ),
               text('specialofer'.tr,"all".tr),
@@ -92,7 +107,16 @@ class _AdsViewState extends State<AdsView> {
                 init: OfferController(),
                 builder: (data){
                   return data.offerDataList != null && data.offerDataList['data']!=null  ? 
-                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): PlayStoreShimmer();
+                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): 
+                   offerlist.resultInvalid.isTrue?  
+                   Container(
+                    child: Center(
+                      child: Text(
+                        data.offerDataList['errors'],
+                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ):  PlayStoreShimmer();
                 }),
           ],
         ),

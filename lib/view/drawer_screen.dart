@@ -214,9 +214,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
                             Get.toNamed('/userProfile');
                           },15.0 ),
-                          CustomListTile(AppImages.message, 'messeges'.tr, () {
-                            Get.toNamed('/inbox');
-                          },15.0 ),
+                          // CustomListTile(AppImages.message, 'messeges'.tr, () {
+                          //   Get.toNamed('/inbox');
+                          // },15.0 ),
                           userType == 2 && accountType == 'Free'? Container():  accountType == 'Paid' ?
                           CustomListTile(AppImages.location, 'location'.tr, () {
                             Get.toNamed('/location');

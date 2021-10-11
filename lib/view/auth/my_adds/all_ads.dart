@@ -96,10 +96,13 @@ class _AllAddsState extends State<AllAdds> {
                 builder: (val) {
                   return  val.allAdsData != null && val.allAdsData['data'] !=null && val.allAdsData['success'] == true ? 
                   valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']):
+                 
                   valuees.dataType !='grid'? shimmer(): gridShimmer();
                 },
               )
-              : GetBuilder<AddBasedController>(
+              :
+              
+               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
                   return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ? 
