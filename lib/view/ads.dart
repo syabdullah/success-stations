@@ -94,7 +94,7 @@ class _AdsViewState extends State<AdsView> {
                     child: Center(
                       child: Text(
                         data.addsListCategory['errors'],
-                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle( fontSize:18),
                       ),
                     ),
                   ) : 
@@ -110,10 +110,11 @@ class _AdsViewState extends State<AdsView> {
                    offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): 
                    offerlist.resultInvalid.isTrue?  
                    Container(
+                     height: Get.height/8,
                     child: Center(
                       child: Text(
                         data.offerDataList['errors'],
-                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle( fontSize: 18),
                       ),
                     ),
                   ):  PlayStoreShimmer();
