@@ -94,9 +94,18 @@ class _AllAddsState extends State<AllAdds> {
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
-                  return  val.allAdsData != null && val.allAdsData['data'] !=null && val.allAdsData['success'] == true ? 
+                  return  val.allAdsData != null && val.allAdsData['data'] !=null? 
                   valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']):
-                 
+                  controller.resultInvalid.isTrue?
+                  Container(
+                    margin: EdgeInsets.only(top: Get.height / 3),
+                    child: Center(
+                      child: Text(
+                        controller.allAdsData['errors'],
+                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ):
                   valuees.dataType !='grid'? shimmer(): gridShimmer();
                 },
               )
@@ -107,7 +116,17 @@ class _AllAddsState extends State<AllAdds> {
                 builder: (val) {
                   return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ? 
                   valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']):
-                   valuees.dataType !='grid' ? shimmer():gridShimmer();
+                  controller.resultInvalid.isTrue? 
+                  Container(
+                    margin: EdgeInsets.only(top: Get.height / 3),
+                    child: Center(
+                      child: Text(
+                        controller.cData['errors'],
+                        style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ):
+                  valuees.dataType !='grid' ? shimmer():gridShimmer();
                 },
               )
             ],

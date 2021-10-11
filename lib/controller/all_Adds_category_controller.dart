@@ -27,7 +27,14 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await basedAddById(id,userId).then((res) {
       cData = jsonDecode(res.body);   
-      isLoading = false;
+      if(res.statusCode == 200 ||res.statusCode <400){
+        resultInvalid(false);
+        isLoading = false;
+      }  
+      else if(cData['success']== false){
+        resultInvalid(true);
+        isLoading = false;
+      }     
     });
     update();
   }
@@ -37,30 +44,36 @@ class AddBasedController extends GetxController {
     isLoading = true ;
     await adsAll().then((res) {
       allAdsData = jsonDecode(res.body);
-      isLoading = false;
+      if(res.statusCode == 200 || res.statusCode < 400){
+        resultInvalid(false);
+        isLoading = false;
+      }
+      else if(allAdsData['success'] == false){
+        resultInvalid(true);
+        isLoading = false;
+      }
     });
     update();
   }
    
   addesMyListAll() async{
-      isLoading = true;
-      await addsFvrtMyAdds().then((value) {
-       
-        if(value.statusCode == 200 || value.statusCode < 400){
-           myALLAdd= jsonDecode(value.body);
-          resultInvalid(false);
-          isLoading = false;
-        }
-        else if(myALLAdd['success'] == false){
-          resultInvalid(true);
-          isLoading = false;
-
-        }
+    isLoading = true;
+    await addsFvrtMyAdds().then((value) {
+      if(value.statusCode == 200 || value.statusCode < 400){
+          myALLAdd= jsonDecode(value.body);
+        resultInvalid(false);
         isLoading = false;
-      });
-      update();
+      }
+      else if(myALLAdd['success'] == false){
+        resultInvalid(true);
+        isLoading = false;
+      }
+      // isLoading = false;
+    });
+    update();
   }
-adDelete(dataa) async {
+
+  adDelete(dataa) async {
      isLoading = true;
      await adDeleting(dataa).then((res) {    
       var data = jsonDecode(res.body);  

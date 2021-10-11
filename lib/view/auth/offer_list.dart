@@ -101,10 +101,9 @@ class _OfferListState extends State<OfferList> {
             GetBuilder<OfferController>(
               init: OfferController(),
                 builder: (val) {
-                  print("..............,.,.,.,,.,.-=-==--==-=--${valuee.dataType}");
-                  return val.offerDataList != null && val.offerDataList['data'] != null && val.offerDataList['success'] == true
+                  return val.offerDataList != null && val.offerDataList['data'] != null
                   ? valuee.dataType == 'grid' ? allUsers(val.offerDataList['data']) : listUsers(val.offerDataList['data'])
-                  : coCatOffer.resultInvalid.isTrue && val.offerDataList['success'] == false
+                  : coCatOffer.resultInvalid.isTrue
                   ? Container(
                     margin: EdgeInsets.only(top: Get.height / 3),
                     child: Center(
@@ -117,12 +116,11 @@ class _OfferListState extends State<OfferList> {
                 }
               ):
               GetBuilder<OfferCategoryController>(
-              init: OfferCategoryController(),
+                init: OfferCategoryController(),
                 builder: (val) {
-                  
-                  return val.iDBasedOffers != null && val.iDBasedOffers['data'] != null && val.iDBasedOffers['success'] == true
+                  return val.iDBasedOffers != null && val.iDBasedOffers['data'] != null
                   ? valuee.dataType == 'grid' ? allUsers(val.iDBasedOffers['data']): listUsers(val.iDBasedOffers['data'])
-                  : contByCatOffer.resultInvalid.isTrue && val.iDBasedOffers['success'] == false
+                  : contByCatOffer.resultInvalid.isTrue
                   ? Container(
                     margin: EdgeInsets.only(top: Get.height / 3),
                     child: Center(
@@ -403,17 +401,14 @@ class _OfferListState extends State<OfferList> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          // selectAllOffer = true;
                           textAllcheck = false;
                           allOffer = false;
                           selectedIndex = index;
                           allColor = AppColors.appBarBackGroundColor;
                           coCatOffer.offerList();
-                          
                         });
                       },
                       child: Container(
-                        // margin:EdgeInsets.only(left:12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
@@ -461,9 +456,11 @@ class _OfferListState extends State<OfferList> {
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           dataListedCateOffer[index]['category_name'][lang] !=null ? 
-                            dataListedCateOffer[index]['category_name'][lang]:
-                            dataListedCateOffer[index]['category_name'][lang] ==null ? 
-                            dataListedCateOffer[index]['category_name']['en']:'',
+                          dataListedCateOffer[index]['category_name'][lang].toString():
+                          dataListedCateOffer[index]['category_name']['ar'] == null ? 
+                          dataListedCateOffer[index]['category_name']['en'].toString():
+                          dataListedCateOffer[index]['category_name']['en'] == null ? 
+                          dataListedCateOffer[index]['category_name']['ar']:'',
                           style: TextStyle(
                             color: selectedIndex == index && textAllcheck == true ? Colors.white  : AppColors.appBarBackGroundColor,
                             fontSize: 12,

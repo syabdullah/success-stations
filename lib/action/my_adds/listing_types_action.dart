@@ -6,6 +6,7 @@ Future<http.Response> listingTypesAdds() async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}ads-types");
+  print("listing to add type in $url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

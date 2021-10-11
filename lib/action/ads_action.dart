@@ -7,7 +7,7 @@ import 'package:success_stations/utils/config.dart';
 
 Future<http.Response> createAdsAction(data) async{
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}all-ads");
+  var url = Uri.parse("${conf.baseUrl}all-ads?country=$countryIDD");
   final result = await http.post(
     url,body: jsonEncode(data),headers: ApiHeaders().headers);
     return result;

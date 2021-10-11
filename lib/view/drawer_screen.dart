@@ -1,6 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:io';
+import 'dart:math' as math; // import this
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -57,7 +58,6 @@ class _AppDrawerState extends State<AppDrawer> {
     accountType = box.read('account_type');
     lang = box.read('lang_code');
     box.read('name');
-    print("box .read najme ........${ box.read('name')}");
     banner.bannerController();
     
   }
@@ -243,6 +243,9 @@ class _AppDrawerState extends State<AppDrawer> {
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.toNamed('/chooseLang')
                           },15.0 ), 
+                          CustomListTile(AppImages.language, 'choose_country'.tr, () => {
+                            Get.toNamed('/chooseCountry')
+                          },15.0 ), 
                           Divider(),
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
@@ -309,7 +312,20 @@ class _AppDrawerState extends State<AppDrawer> {
               children: [
                 Container(
                   width: 25,
-                  child: Center(child: Image.asset(image.toString(),color:Colors.grey[600],height: 15,))),
+                  child: Center(
+                    child: lang == 'ar' ? Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(math.pi),
+                      child: Image.asset(image.toString(),
+                        color:Colors.grey[600],height: 15,
+                      ),
+                    ):
+                    Image.asset(image.toString(),
+                      color:Colors.grey[600],height: 15,
+                    ),
+                  )
+
+                  ),
                 Container(
                   margin: EdgeInsets.only(left:10,right: 10),
                   child: Text(text,textAlign: TextAlign.start,
