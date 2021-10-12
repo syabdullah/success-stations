@@ -30,6 +30,7 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   final logoutCont = Get.put(LoginController());
+  final userProfile =  Get.put(UserProfileController());
   var image;
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();  
@@ -41,7 +42,7 @@ class _AppDrawerState extends State<AppDrawer> {
   final getLang = Get.put(LanguageController());
   var lang;
   var uploadedImage;
-
+  
   @override
   void dispose() {
     banner.bannerController();
@@ -51,6 +52,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   void initState() {
     super.initState();
+    userProfile.getUserProfile();
     getLang.getLanguas();
     userType = box.read('user_type');
     image = box.read('user_image');

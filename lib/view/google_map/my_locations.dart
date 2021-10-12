@@ -71,7 +71,7 @@ class _MyLocationsState extends State<MyLocations> {
                   builder: (val) {
                     return val.locData != null &&
                     val.locData['data'].length != 0
-                    ? Expanded(child: myAddsList(val.locData['data']['data']))
+                    ? Expanded(child: myAddsList(val.locData['data']))
                     : Container(
                       child: Center(
                         heightFactor: 8 * 4,

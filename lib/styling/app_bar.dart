@@ -812,6 +812,7 @@ Widget sAppbar(context ,icon,image,) {
                                     array.clear();
                                     cityArray.clear();
                                     locationName = null;
+                                    selectedService = null;
                                     Get.back();
                                     Get.find<LocationController>().getAllLocationToDB();
                                     // Get.to(SignIn());
