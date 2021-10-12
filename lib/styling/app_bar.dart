@@ -147,7 +147,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         },
         child: Container(
           margin: EdgeInsets.only(right:16,top:10),
-          child:Image.asset(AppImages.chating)
+          child:Image.asset(AppImages.chating,height:10)
         ),
       ):
       Container(

@@ -118,7 +118,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                         chatCont.getAllConvo();
                       Get.back();
                     },
-                    child: Image.asset(AppImages.arrowBack)),
+                    child: Icon(Icons.arrow_back)),
                   elevation: 0,
                   backgroundColor: AppColors.appBarBackGroundColor,
                   centerTitle: true,
