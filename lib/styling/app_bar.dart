@@ -146,6 +146,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           Get.toNamed('/inbox');
         },
         child: Container(
+          padding: EdgeInsets.all(8),
           margin: EdgeInsets.only(right:16,top:10),
           child:Image.asset(AppImages.chating)
         ),
@@ -248,7 +249,9 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         onTap: (){
            Get.toNamed('/inbox');
         },
-        child: Container(margin: EdgeInsets.only(left:16,top:10),
+        child: Container(
+           padding: EdgeInsets.all(8),
+          margin: EdgeInsets.only(left:16,top:10),
           child:Image.asset(AppImages.chating)
         ),
       ):
