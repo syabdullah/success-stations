@@ -146,7 +146,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
                               Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                               userData["country"] != null ?
+                               userData["country"] != null || userData["country"]["name"] != null  ?
                               Container(
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("country".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
@@ -260,7 +260,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                  userData["city"] != null ?
                                 Container(
                                   // margin: EdgeInsets.only(top:15),
-                                  child: Text("Account_type.tr",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                                  child: Text("Account_type".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
                                 Text(userData["account_type"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                                 

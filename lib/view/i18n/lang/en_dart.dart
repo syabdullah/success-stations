@@ -4,7 +4,7 @@ const Map<String, String> en = {
   "terms_condition":  " Terms and Conditions",
   "Responsible": "Responsible",
   "forget_Desc": "Type your email-ID to receive password by Email",
-  "Account_type": "Account Type : ",
+  "Account_type": "Account Type",
   "google": "Google",
   "facebook": "Facebook",
   "choose_language": "Choose Language",
