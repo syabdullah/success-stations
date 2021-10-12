@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -23,11 +24,13 @@ class BottomTabs extends StatefulWidget {
 class _BottomTabsState extends State<BottomTabs> {
   final banner = Get.put(BannerController());
   final mapCon = Get.put(LocationController());
+  final offer = Get.put(OfferController());
   var lang;
   var countryIDD;
   GetStorage box = GetStorage();
   void initState() {
     banner.bannerController();
+    offer.offerList();
     // ignore: unused_local_variable
     var id = box.read('user_id');
     lang = box.read('lang_code');
