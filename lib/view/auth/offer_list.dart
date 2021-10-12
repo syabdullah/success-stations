@@ -70,7 +70,7 @@ class _OfferListState extends State<OfferList> {
     super.initState();
     coCatOffer.offerList();
     contByCatOffer.myAllOffers();
-    gridList.listingGrid('grid');
+    
     allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
@@ -78,7 +78,8 @@ class _OfferListState extends State<OfferList> {
   }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ) {
+    // gridList.listingGrid('grid');
     return Scaffold(
       key: _scaffoldKey,
      appBar: offerid != null ?  PreferredSize( preferredSize: Size.fromHeight(60.0),
