@@ -50,7 +50,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
     return Stack(
       children: [
         Container(
-          height: Get.height/2.5,
+          height: Get.height/2.8,
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
@@ -107,6 +107,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                margin: EdgeInsets.only(top:6),
               child: Text(userData['mobile'].toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w600)),
             ),
+            
           ],
         ),
       ],
@@ -127,7 +128,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                       Expanded(
                         flex: 1,
                         child: Container(
-                         margin: lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left: 20),
+                         margin: lang == 'ar'? EdgeInsets.only(right:20,top: 10) :EdgeInsets.only(left: 20,top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -135,108 +136,136 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               ),
                               userData["name"] != null ?
                               Container(
-                                margin: EdgeInsets.only(top: 5),
+                                // margin: EdgeInsets.only(top: 5),
                                 child:
                                 Text(userData["name"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                               ): Container(),
                               userData["mobile"] != null ?
                               Container(
-                                margin: EdgeInsets.only(top:25),
+                                // margin: EdgeInsets.only(top:),
                                 child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
                               Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                               userData["country"] != null ?
+                              Container(
+                                // margin: EdgeInsets.only(top:25),
+                                child: Text("country".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                              ):Container(),
+                              Text(userData["country"]["name"][lang].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                               userData["region"] != null ?
+                              Container(
+                                // margin: EdgeInsets.only(top:25),
+                                child: Text("region".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                              ):Container(),
+                              Text(userData["region"]["region"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                              SizedBox(height: 5,)
                             ],
                           ),
                         ),
                     ),
                       Expanded(
                         flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:25),
-                              child: Text('email'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                            ),
-                             userData["email"] != null ?
-                            Container(
-                              margin: EdgeInsets.only(top:5),
-                              child: GestureDetector(
-                                onTap: (){
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Dialog(
-                                        child: Container(
-                                          height: Get.height/7,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(left:20,top:10),
-                                                child:Text("email".tr)
-                                              ),
-                                              Container(
-                                                margin: lang == 'ar'? EdgeInsets.only(right:20,top:5) :EdgeInsets.only(left: 20,top:5),
-                                                child: Text(userData["email"].toString(),
-                                                style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                                  },
-                                  child: Text(
-                                    userData["email"].length > 20 ? userData["email"].substring(0, 20)+'...' : userData["email"],
-                                    style: TextStyle(fontWeight: FontWeight.w600)),
+                        child: Container(
+                           margin: EdgeInsets.only(top:5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                //
+                                child: Text('email'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ),
-                            ):Container(),
-                            Container(
-                              margin: EdgeInsets.only(top:20),
-                              child: GestureDetector(child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),)),
-                            ),
-                            userData["address"] != null ?
-                            Container(
-                                margin: EdgeInsets.only(bottom:20,top: 5),
-                              child: GestureDetector(
-                                onTap: (){
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Dialog(
-                                        child: Container(
-                                          height: Get.height/7,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(top:10),
-                                                child:Text("Address".tr)
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(top:5),
-                                                child: Text(userData["address"].toString(),
-                                                  style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),
-                                                )
-                                              ),
-                                            ],
+                               userData["email"] != null ?
+                              Container(
+                                // margin: EdgeInsets.only(top:5),
+                                child: GestureDetector(
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          child: Container(
+                                            height: Get.height/7,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  // margin: EdgeInsets.only(left:20,top:10),
+                                                  child:Text("email".tr)
+                                                ),
+                                                Container(
+                                                  margin: lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                                                  child: Text(userData["email"].toString(),
+                                                  style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    });
-                                  },
-      
-                                child: Text(
-                                  userData["address"].length > 20 ? userData["address"].substring(0, 20)+'...' : userData["address"],
-                                  style: TextStyle(fontWeight: FontWeight.w600)
+                                        );
+                                      });
+                                    },
+                                    child: Text(
+                                      userData["email"].length > 20 ? userData["email"].substring(0, 20)+'...' : userData["email"],
+                                      style: TextStyle(fontWeight: FontWeight.w600)),
                                 ),
+                              ):Container(),
+                              Container(
+                                // margin: EdgeInsets.only(top:15),
+                                child: GestureDetector(child: Text("address".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),)),
                               ),
-                            ): Container(
-                              height: 45,
-                            )
-                          ],
+                              userData["address"] != null ?
+                              Container(
+                                  // margin: EdgeInsets.only(bottom:20,top: 5),
+                                child: GestureDetector(
+                                  onTap: (){
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          child: Container(
+                                            height: Get.height/7,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.only(top:10),
+                                                  child:Text("Address".tr)
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(top:5),
+                                                  child: Text(userData["address"].toString(),
+                                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),
+                                                  )
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                    },
+                                  child: Text(
+                                    userData["address"].length > 20 ? userData["address"].substring(0, 20)+'...' : userData["address"],
+                                    style: TextStyle(fontWeight: FontWeight.w600)
+                                  ),
+                                ),
+                              ): Container(
+                                height: 45,
+                              ),
+                               userData["city"] != null ?
+                                Container(
+                                  // margin: EdgeInsets.only(top:15),
+                                  child: Text("city".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                                ):Container(),
+                                Text(userData["city"]["city"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                                 userData["city"] != null ?
+                                Container(
+                                  // margin: EdgeInsets.only(top:15),
+                                  child: Text("Account_type.tr",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
+                                ):Container(),
+                                Text(userData["city"]["city"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                                
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -260,7 +289,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top:14,),
+                                // margin: EdgeInsets.only(top:14,),
                                 child: Text('university'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ),
                               Container(
@@ -268,16 +297,17 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 child: Text(userData['university']!= null ? userData['university']['name'] : '',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top:23,),
+                                // margin: EdgeInsets.only(top:23,),
                                 child: Text("semester".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ),
                               userData["semester"] != null ?
                               Container(
-                                  margin: EdgeInsets.only(bottom:20,top: 5),
+                                  // margin: EdgeInsets.only(bottom:20,),
                                 child: Text(userData["semester"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                               ):Container(
                                 height: 20,
-                              )
+                              ),
+                              SizedBox(height: 5,)
                             ],
                           ),
                         ),
@@ -289,7 +319,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top:25,),
+                                  // margin: EdgeInsets.only(top:25,),
                                   child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
                                 userData['college'] != null  ?
@@ -299,12 +329,12 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 ):Container(),
                                 Container(
       
-                                  margin: EdgeInsets.only(top:20),
+                                  // margin: EdgeInsets.only(top:20),
                                   child: Text("degree".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
                                  userData["degree"] != null ?
                                 Container(
-                                    margin: EdgeInsets.only(bottom:20,top: 5),
+                                    // margin: EdgeInsets.only(bottom:20,top: 5),
                                   child: Text(
                                     userData["degree"].length > 30 ? userData["degree"].substring(0, 30)+'...' : userData["degree"],
                                       style: TextStyle(fontWeight: FontWeight.w600,)),

@@ -44,7 +44,7 @@ class ChooseCountryStatePage extends State<ChooseCountry> {
         children: [
           Container(
             margin: EdgeInsets.only(left: 20,top: 20,right: 20),
-            child: Text("Select Country",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+            child: Text("select_country".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
           ),
           GetBuilder<ContryController>(
             init: ContryController(),

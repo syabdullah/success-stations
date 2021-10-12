@@ -28,7 +28,7 @@ Future<http.Response> deleteLocation(id) async{
 } 
 Future<http.Response> getMyLocation(id) async{
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}user-location/$id");
+  var url = Uri.parse("${conf.baseUrl}locations/$id");
   final result = await http.get(
     url,headers: ApiHeaders().headersWithToken);
     return result;
