@@ -13,6 +13,7 @@ Future<http.Response> userProfileAction() async {
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}users/$id");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
+   print(url);
   return response;
 }
 
@@ -20,6 +21,7 @@ Future<http.Response> userProfiletabAction(id) async {
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}users/$id");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
+ 
   return response;
 }
 

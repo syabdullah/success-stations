@@ -35,6 +35,7 @@ class SuccessApp extends StatelessWidget {
     lang =  box.read('lang_code');
     auth =  box.read('access_token');
     print("PRINTED LANGUAGE FROM MAIN ------------$lang");
+    print(auth);
     return ScreenUtilInit(
       builder:()  {       
         return GetMaterialApp(     

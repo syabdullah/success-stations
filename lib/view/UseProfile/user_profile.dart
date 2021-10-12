@@ -262,7 +262,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   // margin: EdgeInsets.only(top:15),
                                   child: Text("Account_type.tr",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
-                                Text(userData["city"]["city"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                                Text(userData["account_type"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                                 
                             ],
                           ),
