@@ -15,15 +15,20 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController passwordControlller = TextEditingController();
   TextEditingController confirmPasswordControlller = TextEditingController();
-  
+  var lang;
    GetStorage box = GetStorage();
-   
   final formKey = new GlobalKey<FormState>();
-   final resetPasss = Get.put(ResetPassWordController());
+  final resetPasss = Get.put(ResetPassWordController());
+
+  @override 
+  void initState() {
+    lang = box.read('lang_code');
+    super.initState();
+  }
 
  
-void requiredPassword(){
-   var forgetemailid = box.read('forgetEmail');
+  void requiredPassword(){
+    var forgetemailid = box.read('forgetEmail');
     final form = formKey.currentState;
     if(form!.validate()){
       form.save();
@@ -35,6 +40,7 @@ void requiredPassword(){
       resetPasss.passwordreset(json);
     }
   }
+  
   
   @override
   Widget build(BuildContext context) {
@@ -116,14 +122,14 @@ void requiredPassword(){
     return Column(
       children: [
         Container(
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left:30),
+          alignment:  lang == 'en'? Alignment.topLeft: Alignment.topRight,
+          margin: lang == 'en'?  EdgeInsets.only(left:30): EdgeInsets.only(right:30) ,
           child: Text("reset_password".tr, style: TextStyle(fontSize: 23,color: AppColors.inputTextColor))
         ),
         space20, 
         Container(
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left:30),
+          alignment:lang == 'en'? Alignment.topLeft: Alignment.topRight,
+          margin: lang == 'en'?  EdgeInsets.only(left:30): EdgeInsets.only(right:30) ,
           child: Text("set_new_pass".tr, style: TextStyle(fontSize: 13, color: AppColors.inputTextColor),)
         ),
       ],

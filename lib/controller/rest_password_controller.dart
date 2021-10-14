@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/action/reset_password_action.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -8,10 +9,16 @@ import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 
 class ResetPassWordController extends GetxController {
-  
+  GetStorage box = GetStorage();
   var result = true;
-  var email;
+  var email, lang;
   RxBool isLoading = false.obs;
+
+  @override
+  void onInit(){
+    lang = box.read('lang_code');
+    super.onInit();
+  }
   passwordreset(data) async {
     isLoading(true);
     await restPasswordAction(data).then((res) { 
@@ -27,16 +34,16 @@ class ResetPassWordController extends GetxController {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[   
                 Container(
-                  margin:EdgeInsets.only(top: 60, left: 20),
+                  margin: lang == 'en'? EdgeInsets.only(top: 60, left: 20):EdgeInsets.only(right: 20, top: 60) ,
                   child: Text(
                     "changedPassword".tr  ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
                   ),
                 ),
                 SizedBox(height:10),
                 Container(
-                  margin:EdgeInsets.only(left: 20),
+                  margin: lang == 'en'? EdgeInsets.only(left: 20): EdgeInsets.only(right: 20) ,
                   child: Text(
-                    "login_Can".tr,style:  TextStyle(fontSize: 14, color: AppColors.resetText)
+                    "login_can".tr,style:  TextStyle(fontSize: 14, color: AppColors.resetText)
                   ),
                 ),
                 SizedBox(height: 30),

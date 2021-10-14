@@ -49,7 +49,7 @@ const Map<String, String> en = {
   "password_recovered": "Password Recovered",
   "password_created": "Password Created",
   "changedPassword": "Password Changed",
-  "login_Can" :"You can now login with your new password.",
+  "login_can" :"You can now login with your new password.",
   "login":"Login",
   "capsLogin":"LOGIN",
   "password_recovered_desc": "Your password recovered successfully please login",
