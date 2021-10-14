@@ -66,7 +66,6 @@ idSended() {
     'type': filteredIDCate,
     'status': statusFiltered == 'New' ? 1 : 0,
   };
-  print(" categories........ filtered responsed........$createFilterjson");
   offerFilterCont.offerFilter(createFilterjson);
 }
 
@@ -514,7 +513,8 @@ Widget sAppbar(context ,icon,image,) {
           margin: EdgeInsets.only(top:5),
           child: IconButton(
             icon: Icon(icon,
-            color: AppColors.backArrow),
+              color: AppColors.backArrow
+            ),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -544,7 +544,7 @@ Widget sAppbar(context ,icon,image,) {
       centerTitle: true,
       leading:
         IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_sharp,
+          icon: Icon(Icons.arrow_back,
           color: AppColors.backArrow),
          onPressed: () => Get.back()
         ),

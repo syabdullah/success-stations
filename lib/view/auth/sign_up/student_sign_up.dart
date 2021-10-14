@@ -119,10 +119,6 @@ class _SignPageState extends State<StudentSignUp> {
               confirmPassword(),
               space10,
               mobile(),
-              // space10,
-              // address(),
-              
-              
               space10,
               studentdob(),
               GetBuilder<ContryController>(
@@ -174,12 +170,10 @@ class _SignPageState extends State<StudentSignUp> {
                       onChanged: (value) {
                         setState(() {
                           _isChecked= value!;
-                          // _isChecked= true;
                         });
                       },
                     ),
                   ),
-                  
                   Text(
                     'terms'.tr, 
                     style: TextStyle( 
@@ -200,7 +194,6 @@ class _SignPageState extends State<StudentSignUp> {
                 textColor: AppColors.appBarBackGroun,
                 buttonText: "sign_up_text".tr,fontSize: 16.0,
                 callback: _isChecked == true ?  createUser : null
-                // callback:  createUser
               ),
               space20,
                Container(
@@ -449,49 +442,24 @@ Widget about() {
       ),
     );
   }
+  
   Widget password() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
-      child: TextFormField(
-        decoration: InputDecoration(
-           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),         
-            hintText: 'password'.tr,            
-            hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),  
-            //  suffixIcon: IconButton(
-            //   icon: Icon(
-            //     isvisible ? Icons.visibility_off : Icons.visibility,
-            //     color: Theme.of(context).primaryColor),
-            //   onPressed: () {
-            //     setState(() {
-            //       isvisible = !isvisible;
-            //     });
-            //   },
-              
-            // ),  
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            enabledBorder: OutlineInputBorder(
-              //borderRadius: BorderRadius.circular(20.0),
-
-              borderSide: BorderSide(color: AppColors.outline),
-            ),       
-         ),
-         
-          obscureText : true,
-          onChanged: (value) {
+      child: CustomTextFiled(
+        maxLine: 1,
+        isObscure : true,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        hintText: 'password'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
           passwordValue = value;
         },
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
-        controller: passController,
+        textController: passController,
         validator: (val) {
           if ( val!.length == 0 ){
             return 'EnterPassword'.tr;
@@ -500,54 +468,28 @@ Widget about() {
           }
           return null;
         },
-        // errorText: '',
+        errorText: '',
       ),
     );
   }
-     Widget confirmPassword() {
+  
+  Widget confirmPassword() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
-      child: TextFormField(
-        decoration: InputDecoration(
-           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-          
-          hintText: 'confirmPassword'.tr,
-          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-          // hintColor: AppColors.inputTextColor,
-          //  suffixIcon: IconButton(
-          //     icon: Icon(
-          //         passwordVisible ? Icons.visibility_off : Icons.visibility,
-          //         color: Theme.of(context).primaryColor),
-          //     onPressed: () {
-          //       setState(() {
-          //         passwordVisible = !passwordVisible;
-          //       });
-          //     },
-          //   ),
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            enabledBorder: OutlineInputBorder(
-              //borderRadius: BorderRadius.circular(20.0),
-
-              borderSide: BorderSide(color: AppColors.outline),
-            ),
-          ),
-          obscureText:true,
-          onChanged: (value) {
+      child: CustomTextFiled(
+        maxLine: 1,
+        isObscure: true,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        hintText: 'confirmPassword'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
+        onChanged: (value) {
           confirmPasswordValue = value;
         },
-       
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
-        controller: conPassController,
+        textController: conPassController,
         validator: (val) {
           if ( val!.length == 0 ){
             return 'EnterPasswordConfirm'.tr;
@@ -556,7 +498,7 @@ Widget about() {
           }
           return null;
         },
-        // errorText: '',
+        errorText: '',
       ),
     );
   }
@@ -588,7 +530,6 @@ Widget about() {
           hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         ),
         onInputChanged: (PhoneNumber numberr) {
-          print("..,.,,/././/.//././.$numberr");
           number = numberr;
         },
         onInputValidated: (bool value) {},
@@ -607,10 +548,7 @@ Widget about() {
       )
     );
   }
-
-
-
-  Widget studentdob() {
+   Widget studentdob() {
     return Container(
       height: 50,
       padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
@@ -634,17 +572,13 @@ Widget about() {
                 fontSize: 18
               ),
               doneStyle: TextStyle(color:Colors.white,  fontSize: lang == 'ar' ? 14 : 16,),
-              // cancelStyle: TextStyle(color:Colors.white,  fontSize: lang == 'ar' ? 14 : 16,),
             ),
-            onChanged: (date) {
-            }, 
+            onChanged: (date) {}, 
             onConfirm: (date) {
               setState(() {
                 dateTime = date;
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                
+                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
               });
-              
             },    
             currentTime: DateTime.now(), locale: LocaleType.en
           );

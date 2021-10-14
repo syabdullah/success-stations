@@ -18,6 +18,7 @@ class _ForgotPageState extends State<ForgotPassword> {
   final pwdforget = Get.put(ForgetPasswordController());
   final formKey = new GlobalKey<FormState>();
   GetStorage box = GetStorage();
+  var lang ;
   void requiredEmail(){
     final form = formKey.currentState;
     if(form!.validate()){
@@ -28,6 +29,11 @@ class _ForgotPageState extends State<ForgotPassword> {
       pwdforget.forgetPassword(json);
      box.write('forgetEmail', emailController.text); 
     }
+  }
+  @override
+  void initState() {
+    lang =  box.read('lang_code');
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -42,10 +48,15 @@ class _ForgotPageState extends State<ForgotPassword> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: (){Get.back();},
+                onTap: (){
+                  Get.back();
+                },
                 child: Container(
-                  padding:  EdgeInsets.only(left:15.0,top:50),
-                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+                  padding: lang =='en'? EdgeInsets.only(left:15.0,top:50): EdgeInsets.only(right:20, top:50),
+                  child: Icon(
+                    Icons.arrow_back, color: Colors.black
+                  )
+                ),
               ),
               space50, 
               Container(
@@ -76,18 +87,18 @@ class _ForgotPageState extends State<ForgotPassword> {
   }
 
   Widget textHint(){
-    final space20 = SizedBox(height: getSize(20, context));
+    final space10 = SizedBox(height: getSize(10, context));
     return Column(
       children: [
         Container(
-          alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left:30),
+          alignment:lang== 'en'?  Alignment.topLeft:Alignment.topRight ,
+          margin: lang == 'en'? EdgeInsets.only(left:30):EdgeInsets.only(right:22),
           child: Text("forgot_password".tr, style: TextStyle(fontSize: 23,color: AppColors.forgotPassText))
         ),
-        space20, 
+        // space10, 
         Container(
           alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(left:30),
+          margin: lang == 'en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
           child: Text("forget_Desc".tr, style: TextStyle(fontSize: 13, color: AppColors.forgotPassText),)
         ),
       ],
@@ -95,21 +106,23 @@ class _ForgotPageState extends State<ForgotPassword> {
   }
   Widget eMail() {
     return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
-        hintText:"email".tr,
-        hintStyle: TextStyle(fontSize: 13, color: AppColors.forgotPassText),
+        hintText: 'emails'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.forgotPassText),
         hintColor: AppColors.textInput,
-        onChanged: (value) {  },
-        onSaved: (String? newValue) {}, 
-        onFieldSubmitted: (value) { },
+        onChanged: (value) {},
+        onSaved: (newValue) {},
+        onFieldSubmitted: (value) {},
         textController: emailController,
-        validator: (value) => !GetUtils.isEmail(value)  ? 'Enter valid email': value == '' ? 'Enter Email adress' : null,
+        validator: (value) => !GetUtils.isEmail(value)  ? 'enter_valid_email'.tr: value == '' ? 'emailAdd'.tr : null,
         errorText: '',
       ),
     );
+    
   }
    Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
     return AppButton(

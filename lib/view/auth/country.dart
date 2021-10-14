@@ -119,22 +119,12 @@ class _CountryPageState extends State<Ccountry> {
               init: ContryController(),
               builder: (data) {
                 return data.isLoading == true
-                    ? Container(
-                        height: MediaQuery.of(context).size.height / 4.30,
-                      )
-                    : featureCountryList(data.countryListdata);
+                ? Container(
+                  height: MediaQuery.of(context).size.height / 4.30,
+                  )
+                : featureCountryList(data.countryListdata);
               },
             ),
-            // submitButton(
-            //   bgcolor: AppColors.appBarBackGroundColor,  
-            //   textColor: AppColors.appBarBackGroun,
-            //   buttonText: "next".tr,
-            //   fontSize: 18.toDouble(),
-            //   callback: (){
-            //     Get.off(TabBarPage());
-            //   }
-            //    // callback: signIn
-            // ),
             
              HorizontalOrLine(label: "oR".tr, height: 2),
              SizedBox(height: 20,),

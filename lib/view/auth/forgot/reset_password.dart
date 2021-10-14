@@ -7,8 +7,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
-import 'package:success_stations/utils/page_util.dart';
-import 'package:success_stations/view/auth/sign_in.dart';
 
 
 class ResetPassword extends StatefulWidget {
@@ -50,11 +48,12 @@ void requiredPassword(){
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            GestureDetector(
+              GestureDetector(
                 onTap: (){Get.back();},
                 child: Container(
                   padding:  EdgeInsets.only(left:15.0,top:50),
-                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+                  child:Icon(Icons.arrow_back, color:Colors.black)
+                ),
               ),
               space10, 
               Container(
@@ -72,30 +71,43 @@ void requiredPassword(){
               space10,
               newpassword(),
               space20,
-              // ignore: deprecated_member_use
               Center(
-                // ignore: deprecated_member_use
-                child: RaisedButton(
-                  color: AppColors.appBarBackGroundColor,
-                  child: Container(
-                    width: Get.width / 1.3,
-                    height: Get.height * 0.05,
-                    child: Center(
-                      child: Text(
-                        "reset".tr, style: TextStyle(color: AppColors.backArrow )
-                      )
-                    )
-                  ),
-                  onPressed: () {
-                    requiredPassword();
-                   
-                  }
-                ),
+                child:  submitButton(
+                  width: Get.width/1.2,
+                  bgcolor: AppColors.appBarBackGroundColor,  
+                  textColor: AppColors.appBarBackGroun,
+                  buttonText: "reset".tr,fontSize: 16.0,
+                  callback: requiredPassword,
+                )
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget submitButton(
+    {
+      buttonText,
+      fontSize,
+      callback,
+      bgcolor,
+      textColor,
+      fontFamily,
+      width,
+      fontWeight
+    }
+  ) {
+    return AppButton(
+      buttonText: buttonText,
+      callback: callback,
+      width:width,
+      bgcolor: bgcolor,
+      textColor: textColor,
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
     );
   }
 
@@ -132,9 +144,8 @@ void requiredPassword(){
         textController: passwordControlller,
         validator: (value) {
           if (value.isEmpty) {
-            return 'Enter Password';
+            return 'EnterPassword'.tr;
           }
-          
           return null;
         },
         errorText: '',
@@ -156,10 +167,10 @@ void requiredPassword(){
         textController: confirmPasswordControlller,
         validator: (value) {
            if (value.isEmpty) {
-            return 'Enter Password';
+            return 'EnterPassword'.tr;
           }
           if(value != passwordControlller.text ){
-            return "password does'nt match ";
+            return "passnotMatch".tr;
           }
         return null; 
         } ,
@@ -167,22 +178,8 @@ void requiredPassword(){
       ),
     );
   }
-
-  Widget submitButton({buttonText, fontSize, callback, bgcolor, textColor, fontFamily, fontWeight,height,width,borderColor,image}) {
-    return AppButton(
-      buttonText: buttonText, 
-      callback: callback,
-      bgcolor: bgcolor,
-      textColor: textColor,
-      fontFamily: fontFamily ,
-      fontWeight: fontWeight ,
-      fontSize: fontSize,
-      width: width,  
-    );
-  }
-void navigateToHomeScreen() {
-    PageUtils.pushPage(SignIn());
-  }
 }
+
+ 
 
  
