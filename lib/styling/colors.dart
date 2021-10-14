@@ -15,6 +15,7 @@ class AppColors {
   static Color textInput = Color(0xFF868282);
   static Color darkgrey = Colors.grey.shade900;
    static Color themecolor = Color(0xFF4AA6E);
+  static Color resetText = Color(0xFF828DA4);
 
   // login
   static Color facebook = Color(0xFF3A5CA9);

@@ -54,17 +54,16 @@ class _ForgotCodeState extends State<ForgotCode> {
     final space20 = SizedBox(height: getSize(20, context));
     final space50 = SizedBox(height: getSize(50, context));
     final otpInputDecoration = InputDecoration(
-      // disabledBorder: InputBorder.none,
       filled: true,
        border: OutlineInputBorder(
-        borderSide: BorderSide(color:Colors.grey),
+        borderSide: BorderSide(color:AppColors.appBarBackGroundColor),
         borderRadius: BorderRadius.circular(15)),
-      contentPadding: EdgeInsets.symmetric(
+       contentPadding: EdgeInsets.symmetric(
         vertical: 20
       ),
       enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: BorderSide(color:Colors.grey)
+      borderSide: BorderSide(color:AppColors.appBarBackGroundColor)
       )
     );
    void requiredCode(){
@@ -108,17 +107,17 @@ class _ForgotCodeState extends State<ForgotCode> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               otpTextfield(_controller1,null,(value){
-                      nextField(value:value,focusNode:pin2node);
-                    },),
+                nextField(value:value,focusNode:pin2node);
+              }),
               otpTextfield(_controller2,pin2node,(value){
-                      nextField(value:value,focusNode:pin3node);
-                    },),
+                nextField(value:value,focusNode:pin3node);
+              }),
               otpTextfield(_controller3,pin3node,(value){
-                      nextField(value:value,focusNode:pin4node);
-                    },),
+                nextField(value:value,focusNode:pin4node);
+              }),
               otpTextfield(_controller4,pin4node,(value){
-                      pin4node!.unfocus();
-                },)
+                pin4node!.unfocus();
+              })
             ],
           )
         ),
@@ -135,7 +134,8 @@ class _ForgotCodeState extends State<ForgotCode> {
                 onTap: (){Get.back();},
                 child: Container(
                   padding:  EdgeInsets.only(left:15.0,top:50),
-                  child: Image.asset(AppImages.arrowBack,color: Colors.black,)),
+                  child: Icon(Icons.arrow_back, color: Colors.black)
+                  ),
               ),
               space50, 
               Container(

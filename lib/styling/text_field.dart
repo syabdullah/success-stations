@@ -18,6 +18,7 @@ class CustomTextFiled extends StatefulWidget {
   final contentPadding;
   final keyboardType;
   final maxLine;
+  final obscureText;
   CustomTextFiled(
     {
       this.hintText ='',
@@ -35,6 +36,7 @@ class CustomTextFiled extends StatefulWidget {
       required this.onSaved,
       this.hintStyle,
       this.contentPadding,
+      this.obscureText,
       this.keyboardType,
       this.maxLine
 
@@ -51,10 +53,10 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          // height:55,
           child: Padding(
             padding: widget.padding,
             child: TextFormField( 
+              obscureText : widget.isObscure,
               maxLines: widget.maxLine,
               keyboardType: widget.keyboardType, 
               style: TextStyle(
@@ -65,14 +67,13 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
                 onFieldSubmitted: widget.onFieldSubmitted,
                 onChanged: widget.onChanged,
                 validator: widget.validator,
-                obscureText: widget.isObscure,
+                // obscureText: widget.obscureText,
                 onSaved: widget.onSaved,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: widget.contentPadding,
                   fillColor: AppColors.inputColor,
                   filled: true,
-                  // border: InputBorder.none,
                   errorBorder: OutlineInputBorder(
                      borderSide: BorderSide(
                       color: Colors.red

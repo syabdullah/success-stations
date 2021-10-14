@@ -155,11 +155,18 @@ class _LanguagePageState extends State<Language> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("have_account".tr, 
-              style: TextStyle(fontWeight: FontWeight.w300,color: Colors.grey
-              ),
+             Container(
+              margin:EdgeInsets.only(left:2),
+              child: Text(
+                "have_account".tr, style:TextStyle(fontWeight: FontWeight.w300,color: Colors.grey)
+              )
             ),
-            Text("sign_in".tr, style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+            Container(
+              margin:EdgeInsets.only(right:2),
+              child: Text(
+                "sign_in".tr, style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)
+              )
+            ),
           ],
         ),
       ),

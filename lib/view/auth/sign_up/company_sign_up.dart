@@ -184,26 +184,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   return city(val.cityListData);
                 },
               ),
-              // space10,
-              // v == 1 ?
-              // Column(
-              //   children: [
-              //     companyDob(),
-              //      GetBuilder<ServicesController>(
-              //       init: ServicesController(),
-              //       builder: (val){
-              //         return services(val.servicesListdata, );
-              //       },
-              //     ),
-              //   ],
-              // )
-              
-              // : Container(),
-              
               space10,
               radioalert(),
-              
-             Column(
+              Column(
                 children: [
                   v == 1 ? 
                   companyDob(): Container(),
@@ -232,8 +215,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               responsible(),
               space10,
-              
-              
               mobileNumber(),
               space10,
               Row(
@@ -399,7 +380,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
         formatInput: true,
         inputBorder: OutlineInputBorder(),
         onSaved: (PhoneNumber number) {
-          print("-=-==-=-=-=-=-=-=--=$number");
         },
         initialValue: companyCode,
       )
@@ -538,7 +518,6 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 value: coun, 
                 child: Text(
                   coun['name'][lang]!=null ?coun['name'][lang]: coun['name'][lang]==null ?coun['name']['en']:'',
-
                 )
               );
             }).toList(),
@@ -692,17 +671,15 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onChanged: (value) {},
         onSaved: (String? newValue) {},
         onFieldSubmitted: (value) {},
-        // isObscure: true,
         textController: iqamaController,
         validator: (value) {
           if( value.length  == 0){
             return 'iqama'.tr;
           }
           else if(IqamaValidator.validate(value) == false) {
-              return "iqqamaNum".tr;
+            return "iqqamaNum".tr;
           }
-         else
-            return null;
+         else return null;
         },
         errorText: '',
       ),
@@ -710,93 +687,53 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
 Widget password() {
+  return Container(
+    margin: EdgeInsets.only(left: 20, right: 20),
+    width: Get.width * 0.9,
+    child: CustomTextFiled(
+      maxLine: 1,
+      isObscure : true,
+      contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+      hintText: 'password'.tr,
+      hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+      hintColor: AppColors.inputTextColor,
+      onChanged: (value) {
+        passwrd= value;
+      },
+      onSaved: (newValue) {},
+      onFieldSubmitted: (value) {},
+      textController: passController,
+      validator: (val) {
+        if ( val!.length == 0 ){
+          return 'EnterPassword'.tr;
+        }else if(val != cnfPass) {
+          return 'passwordNotMatch'.tr;
+        }
+        return null;
+      },
+      errorText: '',
+    ),
+  );
+}
+
+  Widget confirmPassword() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
-      child:  TextFormField(
-        decoration: InputDecoration(
-           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-          
-          hintText: 'password'.tr,
-          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            enabledBorder: OutlineInputBorder(
-              //borderRadius: BorderRadius.circular(20.0),
-
-              borderSide: BorderSide(color: AppColors.outline),
-            ),
-          ),
-          obscureText:true,
-        onChanged: (value) {
-          passwrd= value;
-        },
-        onSaved: (newValue) {},
-        onFieldSubmitted: (value) {},
-        controller: passController,
-        validator: (val) {
-          if ( val!.length == 0 ){
-            return 'EnterPassword'.tr;
-          }else if(val != cnfPass) {
-            return 'passwordNotMatch'.tr;
-          }
-          return null;
-        },
-        // errorText: '',
-      ),
-    );
-  }
-     Widget confirmPassword() {
-    return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
-      child:  TextFormField(
-        decoration: InputDecoration(
-           contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-          
-          hintText: 'confirmPassword'.tr,
-          hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-          // hintColor: AppColors.inputTextColor,
-          //  suffixIcon: IconButton(
-          //     icon: Icon(
-          //         passwordVisible ? Icons.visibility_off : Icons.visibility,
-          //         color: Theme.of(context).primaryColor),
-          //     onPressed: () {
-          //       setState(() {
-          //         passwordVisible = !passwordVisible;
-          //       });
-          //     },
-          //   ),
-            fillColor: AppColors.inputColor,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            enabledBorder: OutlineInputBorder(
-              //borderRadius: BorderRadius.circular(20.0),
-
-              borderSide: BorderSide(color: AppColors.outline),
-            ),
-          ),
-          obscureText:true,
+      child: CustomTextFiled(
+        maxLine: 1,
+        isObscure: true,
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        hintText: 'confirmPassword'.tr,
+        hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           cnfPass = value;
         },
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
-        controller: conPassController,
-        validator: (val) {
+        textController: conPassController,
+         validator: (val) {
           if ( val!.length == 0 ){
             return 'EnterPasswordConfirm'.tr;
           }else if(val != passwrd) {
@@ -804,10 +741,11 @@ Widget password() {
           }
           return null;
         },
-        // errorText: '',
+        errorText: '',
       ),
     );
   }
+
   Widget responsible() {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
