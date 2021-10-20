@@ -806,7 +806,7 @@ Widget secondStep(){
                         icon: Icon(Icons.arrow_drop_down),
                         items: val.countryListdata.map((country) {
                           return DropdownMenuItem(value: country, 
-                          child:  country['name'] !=null ?  Text(
+                          child:  country['name'][lang] !=null ?  Text(
                             country['name'][lang]
                           ): Container()
                         );
@@ -816,7 +816,7 @@ Widget secondStep(){
                           setState(() {
                             mapCountry = val as Map;
                             hintTextCountry = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
-                            mapCountry['name'][lang] ==null ? mapCountry['name']['en']:'';
+                            mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:'';
                             selectedCountry = mapCountry['id'];
                             countryPut.getRegion(selectedCountry);
                           });
@@ -852,14 +852,16 @@ Widget secondStep(){
                         items: val.regionListdata.map((reg) {
                           return DropdownMenuItem(
                             value: reg,
-                            child: reg['region'] !=null ? Text(reg['region'] ):Container()
+                            child: reg['region'] !=null ? Text(
+                              
+                              reg['region'][lang]!= null ? reg['region'][lang]:'' ):Container()
                           );
                         }).toList(),
                         onChanged: (data) {
                           var mapRegion;
                           setState(() {
                             mapRegion = data as Map;
-                            hintRegionText = mapRegion['region'];
+                            hintRegionText = mapRegion['region'][lang];
                             selectedRegion = data['id'];
                             countryPut.getCity(data['id']);
                           });
@@ -893,13 +895,13 @@ Widget secondStep(){
                         icon: Icon(Icons.arrow_drop_down),
                         items: val.cityListData.map((citt) {
                           return DropdownMenuItem(value: citt, child: Text(
-                            citt['city']));
+                            citt['city'][lang] != null ? citt['city'][lang]:''));
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
                             var mapCity;
                             mapCity = value as Map;
-                            hintcityText = mapCity['city'];
+                            hintcityText = mapCity['city'][lang];
                             selectedCity = mapCity['id'];
                           });
                         },
