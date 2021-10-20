@@ -146,18 +146,18 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
                               Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                               userData["country"] != null || userData["country"]["name"] != null  ?
+                               userData["country"] != null || userData["country"]["name"][lang] != null  ?
                               Container(
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("country".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
                               Text(userData["country"]["name"][lang].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                               userData["region"] != null ?
-                              Container(
+                               userData["region"] != null || userData["region"]["region"][lang] != null ?
+                              Container( 
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("region".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
-                              Text(userData["region"]["region"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                              Text(userData["region"]["region"][lang].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
                               SizedBox(height: 5,)
                             ],
                           ),
@@ -256,8 +256,8 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   // margin: EdgeInsets.only(top:15),
                                   child: Text("city".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
-                                Text(userData["city"]["city"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                                 userData["city"] != null ?
+                                Text(userData["city"]["city"][lang],style: TextStyle(fontWeight: FontWeight.w600)),
+                                 userData["account_types"] != null ?
                                 Container(
                                   // margin: EdgeInsets.only(top:15),
                                   child: Text("Account_type".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
@@ -294,7 +294,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               ),
                               Container(
                                 margin: EdgeInsets.only(top:5),
-                                child: Text(userData['university']!= null ? userData['university']['name'] : '',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
+                                child: Text(userData['university']!= null || userData['university']['name'][lang]!= null ? userData['university']['name'][lang] : '',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
                               ),
                               Container(
                                 // margin: EdgeInsets.only(top:23,),
@@ -322,10 +322,10 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   // margin: EdgeInsets.only(top:25,),
                                   child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
-                                userData['college'] != null  ?
+                                userData['college'] != null || userData['college']['college'][lang] != null ?
                                 Container(
                                   margin: EdgeInsets.only(top: 5,),
-                                  child: Text(userData['college']['college'].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
+                                  child: Text(userData['college']['college'][lang].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
                                 ):Container(),
                                 Container(
       
