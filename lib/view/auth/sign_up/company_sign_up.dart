@@ -517,7 +517,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               return DropdownMenuItem(
                 value: coun, 
                 child: Text(
-                  coun['name'][lang]!=null ?coun['name'][lang]: coun['name'][lang]==null ?coun['name']['en']:'',
+                  coun['name'][lang]!=null ?coun['name'][lang] : ''
+                  // coun['name'][lang]!=null ?coun['name'][lang]: coun['name'][lang]==null ?coun['name']['en']:'',
                 )
               );
             }).toList(),
@@ -525,8 +526,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry = mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:  mapCountry['name'][lang]==null ? 
-                mapCountry['name']['en']:'';
+                hintTextCountry =mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:'';
+                //  mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:  mapCountry['name'][lang]==null ? 
+                // mapCountry['name'][lang]:'';
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';
@@ -558,13 +560,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
-              return DropdownMenuItem(value: reg, child: Text(reg['region']));
+              return DropdownMenuItem(value: reg, child: Text(reg['region'][lang]!= null ?reg['region'][lang]:''));
             }).toList(),
             onChanged: (data) {
               var mapRegion;
               setState(() {
                 mapRegion = data as Map;
-                hintRegionText = mapRegion['region'];
+                hintRegionText = mapRegion['region'][lang];
                 selectedRegion = data['id'];
                 regionIdByCountry.getCity(data['id']);
               });
@@ -598,14 +600,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
             items: citydata.map((citt) {
               return DropdownMenuItem(
                 value: citt,
-                child:Text(citt['city'])
+                child:Text(citt['city'][lang]!= null ?citt['city'][lang] : '' )
               );
             }).toList(),
             onChanged: (value) {
               setState(() {
                 var mapCity ;
                 mapCity = value as Map;
-                hintcityText = mapCity['city'];
+                hintcityText = mapCity['city'][lang];
                 selectedCity = mapCity['id'];
               });
             },

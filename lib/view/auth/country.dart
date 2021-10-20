@@ -78,8 +78,10 @@ class _CountryPageState extends State<Ccountry> {
                   ),
                   Container(
                     child: 
-                      Text(countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
-                      countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+                      Text(
+                       countryListData[index]['name'][lang] != null ? countryListData[index]['name'][lang]:'',
+                        // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
+                        // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 
                         style: TextStyle(color: AppColors.inputTextColor),)
                   )

@@ -46,26 +46,26 @@ class _FriendProfileState extends State<FriendProfile>
         body: GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
-              return val.friendProfileData == null || val.userAds == null
-                  ? SingleChildScrollView(
-                      child: Container(
-                          margin: EdgeInsets.only(top: 40),
-                          child:friendProfileShimmer() ))
-                  : val.friendProfileData['success'] == false &&
-                          val.friendProfileData['errors'] ==
-                              'No Profile Available'
-                      ? Container(
-                          child: Center(
-                              child: Text(val.friendProfileData['errors'])),
-                        )
-                      : 
-                      Column(
-                          children: [
-                            profileDetail(val.friendProfileData['data']),
-                            tabs(val.friendProfileData['data']),
-                            general(val.friendProfileData['data'],val.userAds['data']),
-                          ],
-                        );
+              return val.friendProfileData == null || val.userAds == null ? 
+              SingleChildScrollView(
+                child: Container(
+                    margin: EdgeInsets.only(top: 40),
+                    child:friendProfileShimmer() )
+                  ): val.friendProfileData['success'] == false &&
+                    val.friendProfileData['errors'] ==
+                        'No Profile Available'
+                ? Container(
+                    child: Center(
+                        child: Text(val.friendProfileData['errors'])),
+                  )
+                : 
+                Column(
+                    children: [
+                      profileDetail(val.friendProfileData['data']),
+                      tabs(val.friendProfileData['data']),
+                      general(val.friendProfileData['data'],val.userAds['data']),
+                    ],
+                  );
             }),
       ),
     );
