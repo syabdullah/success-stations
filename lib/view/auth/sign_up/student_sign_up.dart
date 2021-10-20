@@ -649,7 +649,7 @@ Widget about() {
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
                   return DropdownMenuItem(value: coun, 
-                  child:  coun['name'] !=null ?  Text(
+                  child:  coun['name'][lang] !=null ?  Text(
                     coun['name'][lang]
                   ): Container()
                 );
@@ -691,14 +691,14 @@ Widget about() {
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
               return DropdownMenuItem(
-                value: reg, child: reg['region'] !=null ? Text(reg['region'] ):Container()
+                value: reg, child: reg['region'][lang] !=null ? Text(reg['region'][lang] ):Container()
               );
             }).toList(),
             onChanged: (data) {
               var mapRegion;
               setState(() {
                 mapRegion = data as Map;
-                hintRegionText = mapRegion['region'];
+                hintRegionText = mapRegion['region'][lang];
                 selectedRegion = data['id'];
                 countryPut.getCity(data['id']);
               });
@@ -728,14 +728,17 @@ Widget about() {
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
-              return DropdownMenuItem(value: citt, child: Text(
-                citt['city']));
+              return DropdownMenuItem(value: citt, child:
+               citt['city'][lang]!= null ?
+               Text(
+                citt['city'][lang]):Container()
+                );
             }).toList(),
             onChanged: (value) {
               setState(() {
                 var mapCity;
                 mapCity = value as Map;
-                hintcityText = mapCity['city'];
+                hintcityText = mapCity['city'][lang];
                 selectedCity = mapCity['id'];
               });
             },
@@ -764,14 +767,16 @@ Widget about() {
             items: daattta.map((uni) {
               return DropdownMenuItem(
                 value: uni,
-                child:Text(uni['name'])
+                child:
+                uni['name'][lang]!= null ?
+                Text(uni['name'][lang]): Container()
               );
             }).toList(),
             onChanged: (dataa) {
               setState(() {
                 mapuni = dataa as Map;
                 print("mappping MAP VALUEEEEEE................................$mapuni");
-                hintUniText =  mapuni['name'];
+                hintUniText =  mapuni['name'][lang];
                 selectedUniversity = mapuni['id'];
                 print("uselectedUniversity ID.................$selectedUniversity");
               });
@@ -801,14 +806,16 @@ Widget about() {
             items: collegeData.map((coll) {
               return DropdownMenuItem(
                 value: coll,
-                child:Text(coll['college'])
+                child:
+                coll['college'][lang]!= null ?
+                Text(coll['college'][lang]):Container()
               );
             }).toList(),
             onChanged: (value) {
               print("abdhjsgadgdhdgfsA VALUE PRINTED.....$value");
               setState(() {
                 mapClgSleceted = value as Map;
-                hintClgText = mapClgSleceted['college'];
+                hintClgText = mapClgSleceted['college'][lang];
                 selectedCollege =  mapClgSleceted['id'];
               });
             },
