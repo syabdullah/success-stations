@@ -500,7 +500,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget googleMap(kInitialPosition) {
     return StatefulBuilder(builder: (context, newSetState) {
-      return Container(
+     print("///////////// $kInitialPosition");
+     
+      return kInitialPosition != null ?Container(
         height: Get.height,
         child: GoogleMap(
           mapType: MapType.normal,
@@ -509,6 +511,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             _customInfoWindowController.onCameraMove!();
           },
           onMapCreated: (GoogleMapController controller) async {
+             
             _customInfoWindowController.googleMapController = controller;
           },
           initialCameraPosition: CameraPosition(
@@ -517,7 +520,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           ),
           markers: _markers.toSet(),
         ),
-      );
+      ):Center(child: Text("noLoc".tr),);
     });
   }
 }
