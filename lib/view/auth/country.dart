@@ -79,7 +79,7 @@ class _CountryPageState extends State<Ccountry> {
                   Container(
                     child: 
                       Text(
-                       countryListData[index]['name'][lang] != null ? countryListData[index]['name'][lang]:'',
+                          countryListData[index]['name'][lang] != null ? countryListData[index]['name'][lang]:'',
                         // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
                         // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 

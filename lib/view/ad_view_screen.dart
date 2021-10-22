@@ -126,7 +126,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
       ),
     );
   }
-
+  //hehe
   Widget titleStep(data) {
     price = data['price'].toString();
     reviewPagePrice = price.split('.');
@@ -167,7 +167,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       data['title'][lang] != null ? data['title'][lang].toString() : data['title'][lang] ==null ? data['title']['en']:'',
                       style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold),
                     )
-                   
                   ],
                 ),
               ),
@@ -204,7 +203,9 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(height: 11.h,),
                           Text('city0'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
-                          Text(data['city']['city'].toString(),style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          Text(
+                            data['city']['city'][lang]!= null ?
+                            data['city']['city'][lang]:data['city']['city'][lang]== null ? data['city']['city']['en']:'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 11.h,),
                            Text("city2".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
@@ -227,13 +228,16 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           Text("region".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
                           Text(
-                            data['region'] != null ?data['region']['region']:'',
+                            data['region']['region'][lang] != null ? data['region']['region'][lang]:
+                            data['region']['region'][lang] == null ? data['region']['region']['en']:'',
                             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
                           ),
                           SizedBox(height: 11.h),
                           Text("city1".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
-                          Text(data['type'] != null ?data['type']['type'][lang].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          Text(data['type']['type'][lang] != null  ? data['type']['type'][lang].toString():
+                          data['type']['type'][lang] == null ? data['type']['type']['en'] :''
+                          ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 10.h,),
                            Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
