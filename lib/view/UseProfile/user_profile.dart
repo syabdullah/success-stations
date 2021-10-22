@@ -146,18 +146,20 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 child: Text("mobile".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ):Container(),
                               Text(userData["mobile"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                               userData["country"] != null || userData["country"]["name"][lang] != null  ?
                               Container(
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("country".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                              ):Container(),
-                              Text(userData["country"]["name"][lang].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
-                               userData["region"] != null || userData["region"]["region"][lang] != null ?
+                              ),
+                              Text(
+                                userData["country"]["name"][lang] != null ?
+                                userData["country"]["name"][lang].toString():userData["country"]["name"][lang]==null ?userData["country"]["name"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)),
                               Container( 
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("region".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
-                              ):Container(),
-                              Text(userData["region"]["region"][lang].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
+                                ),
+                              Text(
+                                userData["region"]["region"][lang] != null ?
+                                userData["region"]["region"][lang].toString():userData["region"]["region"][lang]== null? userData["region"]["region"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)),
                               SizedBox(height: 5,)
                             ],
                           ),
@@ -256,7 +258,8 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   // margin: EdgeInsets.only(top:15),
                                   child: Text("city".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
-                                Text(userData["city"]["city"][lang],style: TextStyle(fontWeight: FontWeight.w600)),
+                                Text(userData["city"]["city"][lang]!= null ?
+                                  userData["city"]["city"][lang]:userData["city"]["city"][lang]== null ? userData["city"]["city"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)),
                                  userData["account_types"] != null ?
                                 Container(
                                   // margin: EdgeInsets.only(top:15),
@@ -294,7 +297,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               ),
                               Container(
                                 margin: EdgeInsets.only(top:5),
-                                child: Text(userData['university']!= null || userData['university']['name'][lang]!= null ? userData['university']['name'][lang] : '',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
+                                child: Text(
+                                  userData['university']['name'][lang]!= null ? 
+                                  userData['university']['name'][lang] : 
+                                  userData['university']['name'][lang]== null ? 
+                                  userData['university']['name']['en']:'',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.w600)),
                               ),
                               Container(
                                 // margin: EdgeInsets.only(top:23,),
@@ -322,11 +331,13 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   // margin: EdgeInsets.only(top:25,),
                                   child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
-                                userData['college'] != null || userData['college']['college'][lang] != null ?
+                                 
                                 Container(
                                   margin: EdgeInsets.only(top: 5,),
-                                  child: Text(userData['college']['college'][lang].toString() ,style: TextStyle(fontWeight: FontWeight.w600)),
-                                ):Container(),
+                                  child: Text(
+                                    userData['college']['college'][lang] != null ?
+                                    userData['college']['college'][lang]:userData['college']['college'][lang]== null ? userData['college']['college']['en']:'' ,style: TextStyle(fontWeight: FontWeight.w600)),
+                                ),
                                 Container(
       
                                   // margin: EdgeInsets.only(top:20),

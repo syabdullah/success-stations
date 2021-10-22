@@ -181,7 +181,7 @@ class _FriendProfileState extends State<FriendProfile>
                     SizedBox(width: 5),
                     Container(
                       margin: EdgeInsets.only(top: 6),
-                      child: Text(country['name'][lang] !=null ? country['name'][lang]:  country['name'][lang] == null ? country['name']['en']:'',
+                      child: Text( country['name'][lang] !=null ? country['name'][lang]:  country['name'][lang] == null ? country['name']['en']:'',
                           style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -441,8 +441,7 @@ class _FriendProfileState extends State<FriendProfile>
                                           child: Text(
                                               data["email"].length > 20
                                                   ? data["email"]
-                                                          .substring(0, 20) +
-                                                      '...'
+                                                    .substring(0, 20) + '...'
                                                   : data["email"],
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600)),
@@ -551,18 +550,18 @@ class _FriendProfileState extends State<FriendProfile>
                                             color: Colors.grey),
                                       ),
                                     ),
-                                    data['college'] != null
-                                        ? Container(
+                                     Container(
                                             margin: EdgeInsets.only(
                                               top: 5,
                                             ),
                                             child: Text(
-                                                data['college']['college']
-                                                    .toString(),
+                                                data['college']['college'][lang]!= null ?
+                                                data['college']['college'][lang] : 
+                                                data['college']['college'][lang] == null ? 
+                                                data['college']['college']['en']:'',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600)),
-                                          )
-                                        : Container(),
+                                          ),
                                     Container(
                                       margin: EdgeInsets.only(top: 20),
                                       child: Text(
@@ -613,9 +612,9 @@ class _FriendProfileState extends State<FriendProfile>
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
                                     child: Text(
-                                        data['university'] != null
-                                            ? data['university']['name']
-                                            : '',
+                                        data['university']['name'][lang] != null ? 
+                                        data['university']['name'][lang]:
+                                        data['university']['name'][lang]== null ? data['university']['name']['en']:'',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600)),
