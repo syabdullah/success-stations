@@ -33,6 +33,7 @@ class _FriendProfileState extends State<FriendProfile>
     // langg = box.read('lang_code');
     dtaaa = Get.arguments;
     id = dtaaa[1];
+    print(id);
     friCont.friendDetails(id);
     friCont.profileAds(id);
   }
@@ -74,7 +75,7 @@ class _FriendProfileState extends State<FriendProfile>
   var image;
   Widget profileDetail(data) {
     var country = data['country'];
-    print("/////// ${data['country']}");
+    // print("/////// ${data['name']}");
     if (data['image'] != null) {
       image = data['image']['url'];
       box.write('chat_image', image);
@@ -359,8 +360,7 @@ class _FriendProfileState extends State<FriendProfile>
                                                   fontWeight: FontWeight.w600)),
                                         )
                                       : Container(),
-                                  data['mobile'] != null
-                                      ? Container(
+                                   Container(
                                           margin: EdgeInsets.only(top: 25),
                                           child: Text(
                                             "mobile".tr,
@@ -368,11 +368,12 @@ class _FriendProfileState extends State<FriendProfile>
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.grey),
                                           ),
-                                        )
-                                      : Container(),
+                                        ),
+                                     data['mobile'] != null
+                                      ?
                                   Text(data['mobile'].toString(),
                                       style:
-                                          TextStyle(fontWeight: FontWeight.w600)),
+                                          TextStyle(fontWeight: FontWeight.w600)):Container()
                                 ],
                               ),
                             ),
@@ -481,6 +482,7 @@ class _FriendProfileState extends State<FriendProfile>
                                                                       top: 10),
                                                               child: Text(
                                                                   "Address".tr)),
+                                                         data["address"] != null ?
                                                           Container(
                                                               margin:
                                                                   EdgeInsets.only(
@@ -494,21 +496,22 @@ class _FriendProfileState extends State<FriendProfile>
                                                                             .bold,
                                                                     color: Colors
                                                                         .black),
-                                                              )),
+                                                              )):Container(),
                                                         ],
                                                       ),
                                                     ),
                                                   );
                                                 });
                                           },
-                                          child: Text(
+                                          child:data["address"] != null ?
+                                           Text(
                                               data["address"].length > 20
                                                   ? data["address"]
                                                           .substring(0, 20) +
                                                       '...'
                                                   : data["address"],
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w600)),
+                                                  fontWeight: FontWeight.w600)):Container()
                                         ),
                                       )
                                     : Container(
@@ -550,6 +553,7 @@ class _FriendProfileState extends State<FriendProfile>
                                             color: Colors.grey),
                                       ),
                                     ),
+                                     data['college'] != null ?
                                      Container(
                                             margin: EdgeInsets.only(
                                               top: 5,
@@ -561,7 +565,7 @@ class _FriendProfileState extends State<FriendProfile>
                                                 data['college']['college']['en']:'',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600)),
-                                          ),
+                                          ):Container(),
                                     Container(
                                       margin: EdgeInsets.only(top: 20),
                                       child: Text(
@@ -609,6 +613,7 @@ class _FriendProfileState extends State<FriendProfile>
                                           color: Colors.grey),
                                     ),
                                   ),
+                                  data['university']!= null ?
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
                                     child: Text(
@@ -618,7 +623,7 @@ class _FriendProfileState extends State<FriendProfile>
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600)),
-                                  ),
+                                  ):Container(),
                                   Container(
                                     margin: EdgeInsets.only(
                                       top: 23,
