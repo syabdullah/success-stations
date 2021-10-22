@@ -160,7 +160,7 @@ Widget detail(userData2, context){
               ),
             ),
             Container(
-              margin: lang == 'ar'? EdgeInsets.only(right:20,left:12,top:5) :EdgeInsets.only(left:10,right: 20,top:5),
+              margin: lang == 'ar'? EdgeInsets.only(right:20,left:12,top:5) :EdgeInsets.only(left:10,right: 40,top:5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:[
@@ -227,7 +227,7 @@ Widget detail(userData2, context){
               ),
             ),
             Container(
-              margin: lang == 'ar'? EdgeInsets.only(right:20,left:10,top:5) :EdgeInsets.only(left:10,top:5),
+              margin: lang == 'ar'? EdgeInsets.only(right:20,left:10,top:5) :EdgeInsets.only(left:10,right:37,top:5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -323,5 +323,6 @@ const Map<String, String> ar = {
   "resp":"المسؤول",
   "resDig":"يجب أن يكون الرد بالأرقام",
   "crEn":"أدخل CR",
+  'noLoc':'لا يوجد موقع مضاف بعد'
 
 };

@@ -326,6 +326,7 @@ const Map<String, String> en = {
   "resp":"Responsible",
   "resDig":"Responsibe must be in digits",
   "crEn":"Enter CR"  ,
+  'noLoc':'No Location Added Yet'
 
   
   
