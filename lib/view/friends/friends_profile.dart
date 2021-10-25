@@ -321,8 +321,7 @@ class _FriendProfileState extends State<FriendProfile>
   }
 
   Widget general(data, adsData) {
-    // city = data['city'];
-    // city = city['city'];
+    print(" data['college']$data");
     return Expanded(
       flex: 1,
       child: TabBarView(
@@ -341,39 +340,52 @@ class _FriendProfileState extends State<FriendProfile>
                           Expanded(
                             flex: 1,
                             child: Container(
-                                padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                              padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "name".tr,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
+                                      fontWeight: FontWeight.bold,color: Colors.grey
+                                    ),
                                   ),
-                                  data['name'] != null
-                                      ? Container(
-                                          margin: EdgeInsets.only(top: 5),
-                                          child: Text(data['name'].toString(),
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600)),
-                                        )
-                                      : Container(),
-                                   Container(
-                                          margin: EdgeInsets.only(top: 25),
-                                          child: Text(
-                                            "mobile".tr,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ),
-                                        ),
-                                     data['mobile'] != null
-                                      ?
-                                  Text(data['mobile'].toString(),
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.w600)):Container()
+                                  data['name'] != null ? Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text(
+                                      data['name'].toString(),
+                                      style: TextStyle(fontWeight: FontWeight.w600)
+                                    ),
+                                  ): Container(),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 25),
+                                    child: Text(
+                                      "mobile".tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, color: Colors.grey
+                                      ),
+                                    ),
+                                  ),
+                                  data['mobile'] != null ? Text(
+                                    data['mobile'].toString(),
+                                    style:TextStyle(fontWeight: FontWeight.w600)
+                                  ):Container(),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 25),
+                                    child: Text(
+                                      "country".tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold, color: Colors.grey
+                                      ),
+                                    ),
+                                  ),
+                                  data['country'] != null ? Text(
+                                    data['country']['name'][lang] !=null ?
+                                    data['country']['name'][lang] : 
+                                    data['country']['name'][lang] ==null ? 
+                                    data['country']['name']['en']:"" , 
+                                    style:TextStyle(fontWeight: FontWeight.w600)
+                                  ):Container()
                                 ],
                               ),
                             ),
@@ -385,138 +397,130 @@ class _FriendProfileState extends State<FriendProfile>
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 25),
+                                  // margin: EdgeInsets.only(top: 25),
                                   child: Text(
                                     'email'.tr,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
+                                      fontWeight: FontWeight.bold, color: Colors.grey
+                                    ),
                                   ),
                                 ),
-                                data['email'] != null
-                                    ? Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return Dialog(
-                                                    // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                                    // elevation: 16,
-                                                    child: Container(
-                                                      height: Get.height / 7,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      left: 20,
-                                                                      top: 10),
-                                                              child: Text(
-                                                                  "email".tr)),
-                                                          Container(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      top: 5,
-                                                                      left: 20),
-                                                              child: Text(
-                                                                data["email"]
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Colors
-                                                                        .black),
-                                                              )),
-                                                        ],
+                                data['email'] != null? Container(
+                                  // margin: EdgeInsets.only(top: 5),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                            child: Container(
+                                              height: Get.height / 7,
+                                              child: Column(
+                                                crossAxisAlignment:CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    margin:  EdgeInsets.only(  left: 20, top: 10),
+                                                    child: Text(
+                                                      "email".tr
+                                                    )
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(  top: 5,left: 20),
+                                                    child: Text(
+                                                      data["email"].toString(),
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,  color: Colors.black
                                                       ),
-                                                    ),
-                                                  );
-                                                });
-                                          },
-                                          child: Text(
-                                              data["email"].length > 20
-                                                  ? data["email"]
-                                                    .substring(0, 20) + '...'
-                                                  : data["email"],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600)),
-                                        ),
-                                      )
-                                    : Container(),
+                                                    )
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      );
+                                    },
+                                    child: Text(
+                                      data["email"].length > 20  ? data["email"].substring(0, 20) + '...'  : data["email"],
+                                      style: TextStyle( fontWeight: FontWeight.w600)
+                                    ),
+                                  ),
+                                )
+                                : Container(),
                                 Container(
                                   margin: EdgeInsets.only(top: 20),
                                   child: GestureDetector(
-                                      child: Text(
-                                    "address".tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey),
-                                  )),
+                                    child: Text(
+                                      "address".tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,color: Colors.grey
+                                      ),
+                                    )
+                                  ),
                                 ),
-                                data["address"] != null
-                                    ? Container(
-                                        margin:
-                                            EdgeInsets.only(bottom: 20, top: 5),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return Dialog(
-                                                    child: Container(
-                                                      height: Get.height / 7,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      top: 10),
-                                                              child: Text(
-                                                                  "Address".tr)),
-                                                         data["address"] != null ?
-                                                          Container(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      top: 5),
-                                                              child: Text(
-                                                                data["address"]
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color: Colors
-                                                                        .black),
-                                                              )):Container(),
-                                                        ],
+                                data["address"] != null  ? Container(
+                                  margin:EdgeInsets.only(bottom: 20, top: 5),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                            child: Container(
+                                              height: Get.height / 7,
+                                              child: Column(
+                                                crossAxisAlignment:CrossAxisAlignment .start,
+                                                children: [
+                                                  Container(
+                                                    margin:  EdgeInsets.only( top: 10),
+                                                    child: Text(
+                                                      "Address".tr
+                                                    )
+                                                  ),
+                                                  data["address"] != null ? Container(
+                                                    margin: EdgeInsets.only(top: 5),
+                                                    child: Text(
+                                                      data["address"].toString(),
+                                                      style: TextStyle(
+                                                        fontWeight:  FontWeight.bold,
+                                                        color: Colors.black
                                                       ),
-                                                    ),
-                                                  );
-                                                });
-                                          },
-                                          child:data["address"] != null ?
-                                           Text(
-                                              data["address"].length > 20
-                                                  ? data["address"]
-                                                          .substring(0, 20) +
-                                                      '...'
-                                                  : data["address"],
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600)):Container()
-                                        ),
+                                                    )
+                                                  ):Container(),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      );
+                                    },
+                                    child:data["address"] != null ?
+                                      Text(
+                                        data["address"].length > 20  ? data["address"].substring(0, 20) + '...'  : data["address"],
+                                        style: TextStyle(fontWeight: FontWeight.w600)
                                       )
-                                    : Container(
-                                        height: 45,
-                                      )
+                                    :Container()
+                                  ),
+                                ): Container(height: 45),
+                                Container(
+                                  // margin: EdgeInsets.only(top: 20),
+                                  child: GestureDetector(
+                                    child: Text(
+                                      "city".tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,color: Colors.grey
+                                      ),
+                                    )
+                                  ),
+                                ),
+                                data['city'] !=null ? 
+                                Text( 
+                                  data['city']['city'][lang] !=null ? 
+                                  data['city']['city'][lang] : 
+                                  data['city']['city'][lang] == null ? 
+                                  data['city']['city']['en']:"",
+                                  style: TextStyle(fontWeight: FontWeight.w600)
+                                ):Container()
                               ],
                             ),
                           ),
@@ -528,12 +532,10 @@ class _FriendProfileState extends State<FriendProfile>
                 Card(
                   elevation: 2,
                   child: Container(
-                      padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
+                    padding:lang == 'ar'? EdgeInsets.only(right:20,) :EdgeInsets.only(left: 20,),
                     child: Column(
-                      
                       children: [
                         Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(
                               flex: 1,
@@ -549,30 +551,27 @@ class _FriendProfileState extends State<FriendProfile>
                                       child: Text(
                                         "college".tr,
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey),
+                                          fontWeight: FontWeight.bold,color: Colors.grey
+                                        ),
                                       ),
                                     ),
-                                     data['college'] != null ?
-                                     Container(
-                                            margin: EdgeInsets.only(
-                                              top: 5,
-                                            ),
-                                            child: Text(
-                                                data['college']['college'][lang]!= null ?
-                                                data['college']['college'][lang] : 
-                                                data['college']['college'][lang] == null ? 
-                                                data['college']['college']['en']:'',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w600)),
-                                          ):Container(),
+                                    data['college'] !=null ?Container(
+                                      margin: EdgeInsets.only( top: 5),
+                                      child: Text(
+                                        data['college']['college'][lang]!= null ?
+                                        data['college']['college'][lang] : 
+                                        data['college']['college'][lang] == null ? 
+                                        data['college']['college']['en']:'',
+                                        style: TextStyle( fontWeight: FontWeight.w600)
+                                      ),
+                                    ):Container(),
                                     Container(
                                       margin: EdgeInsets.only(top: 20),
                                       child: Text(
                                         "degree".tr,
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey),
+                                          fontWeight: FontWeight.bold, color: Colors.grey
+                                        ),
                                       ),
                                     ),
                                     data["degree"] != null

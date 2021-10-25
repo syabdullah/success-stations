@@ -93,7 +93,6 @@ class _SignPageState extends State<StudentSignUp> {
         'about': aboutController.text,
         'degree': statusSelected
       };
-      print("json of tyhe student.............$json");
       signUpCont.createAccountData(json);
     }
   }
@@ -111,16 +110,15 @@ class _SignPageState extends State<StudentSignUp> {
             space10,
             fullNameStudent(),
             space10,
-            // SizedBox(height:10),
-              eMail(),
-              space10,
-              password(),
-              space10,
-              confirmPassword(),
-              space10,
-              mobile(),
-              space10,
-              studentdob(),
+            eMail(),
+            space10,
+            password(),
+            space10,
+            confirmPassword(),
+            space10,
+            mobile(),
+            space10,
+            studentdob(),
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {

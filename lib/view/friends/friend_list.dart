@@ -89,14 +89,22 @@ class _FriendListState extends State<FriendList> {
     );
   }
 
+var count = 0;
   Widget friendList(dataa) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
+          if(dataa[index]['status'] == "Accepted"){
+            ++count;
+          }
+          else{
+            count = 0;
+          }
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
+
             onTap: () {
               selected = box.write("selected", dataa[index]['id']);
               requisterId = box.write("requister", dataa[index]['requister_id']);
@@ -207,25 +215,42 @@ class _FriendListState extends State<FriendList> {
               ),
             ),
           )
-          : Container();
+          : count == 0 && index == dataa.length -1 ? Container(
+            height: Get.height/1.5,
+            child: Center(
+              child: Text("nofriends".tr,
+                style: TextStyle(fontSize: 20)
+              )
+            ),
+          ):Container();
         },
       ),
     );
   }
 
   Widget friendGridView(dataGrid) {
+   
     var newData = [];
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
         newData.add(dataGrid[i]);
       }
     }
-    return GridView.count(
+    return newData.length == 0 ? 
+    Container(
+      height: Get.height/1.5,
+      child: Center(
+        child: Text("nofriends".tr,
+          style: TextStyle(fontSize: 20)
+        )
+      ),
+    ) :GridView.count(
       padding: EdgeInsets.only(left: 5),
       crossAxisCount: 2,
       childAspectRatio: (Get.width / Get.height*1.6),
       children: List.generate(
         newData.length, (index) {
+           print("friend requiues ns dkjhhsdgawsgkd.......${newData[index]['requister_id']}");
           return  GestureDetector(
             child: Card(
               shape: RoundedRectangleBorder(

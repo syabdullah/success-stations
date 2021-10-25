@@ -29,7 +29,7 @@ class _FriendReqListState extends State<FriendReqList> {
   Widget build(BuildContext context) {
      return Scaffold(
         appBar: AppBar(
-           leading: GestureDetector(
+          leading: GestureDetector(
           child: Row(
             children: [
               GestureDetector(
