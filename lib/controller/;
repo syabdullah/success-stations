@@ -17,14 +17,13 @@ class ContryController extends GetxController {
   @override
   void onInit() { 
     isLoading = true;
-    getCountries();
-    getCityAll();
-    getCollege();
     countryListdata= [];
     regionListdata= [];
     cityListData = [];
     listCollegeData = [];
-   
+    getCountries();
+    getCityAll();
+    cityAll= [];
     super.onInit();
   }
 
@@ -87,9 +86,9 @@ class ContryController extends GetxController {
     isLoading = true ;
     await cities().then((res) {
       city = jsonDecode(res.body);
-      print("city data pf yhre ≥...>±$city");
-      for(int c =0; c < city['data'].length; c++){
-        cityAll.add(city['data'][c]);
+      print(" city data .....$city");
+      for(int c =0; c < cityData['data'].length; c++){
+        cityAll.add(cityData['data'][c]);
       }
       isLoading = false;
     });

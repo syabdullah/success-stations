@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
+import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/text_field.dart';
 
 class FriendFilter extends StatefulWidget {
   const FriendFilter({ Key? key }) : super(key: key);
@@ -12,178 +15,323 @@ class FriendFilter extends StatefulWidget {
 }
 
 class _FriendFilterState extends State<FriendFilter> {
-  var lang;
+  var lang, countryHint,countryID,  hinText,  mapuni, universitySelected, hinCity, cityMapping, citySelected, collegeID, mapClg, hintClg;
   TextEditingController nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
    TextEditingController degreeController = TextEditingController();
   TextEditingController semesterController = TextEditingController();
   final callingFreindController = Get.put(FriendsController());
   GetStorage box = GetStorage();
-@override
+  @override
   void initState() {
-     lang = box.read('lang_code');
+    lang = box.read('lang_code');
     super.initState();
   }
-    result(){
-      var json = {
-        'name' : nameController.text,
-        'city': cityController.text,
+
+  result(){
+    var json = {
+      'name' : nameController.text,
+      'city': citySelected,
       'degree': degreeController.text,
-      'semester': semesterController.text
-      };
+      'country':countryID,
+      'university':universitySelected,
+      'college':collegeID,
+    };
     callingFreindController.searchFriendControl(json);
-    print(json);
+    print("josn of the filtereartuon....$json");
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: Get.height/1.3,
-        width: Get.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
-        )
-      ),
-      child: ListView(
-        children: [
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              margin: lang == 'en'
-              ? EdgeInsets.only(top: 8, left: 8)
-              : EdgeInsets.only(top: 8, right: 8),
-              child: Text("filter".tr,
-                style: TextStyle(
-                  fontSize: 20, color: Colors.black
-                )
-              ),
-            ),
+    return ListView(
+      children: [
+        Container(
+          // height: Get.height/1.3,
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
+            )
           ),
-          
-          SizedBox(height: 10,),
-          name(),
-          SizedBox(height: 10,),
-          city(),
-          SizedBox(height: 10,),
-          degree(),
-          SizedBox(height: 10,),
-          semester(),
-          SizedBox(height: 20,),
-          buttons()
-        ]    
+          child: Column(
+            children: [
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  margin: lang == 'en'
+                  ? EdgeInsets.only(top: 8, left: 8)
+                  : EdgeInsets.only(top: 8, right: 8),
+                  child: Text("filter".tr,
+                    style: TextStyle(
+                      fontSize: 20, color: Colors.black
+                    )
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              name(),
+              SizedBox(height: 5),
+              degree(),
+              SizedBox(height: 5),
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder:(val) {
+                  return country(val.countryListdata);
+                } ,
+              ),
+              SizedBox(height: 5),
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder:(val) {
+                  return city(val.cityAll);
+                } ,
+              ),
+              SizedBox(height: 5),
+              GetBuilder<ContryController>(
+                init: ContryController(),
+                builder:(val) {
+                  return college(val.listCollegeData);
+                } ,
+              ),
+              SizedBox(height:5),
+              GetBuilder<UniversityController>(
+                init: UniversityController(),
+                builder: (val){
+                  return  university(val.dataUni);
+                },
+              ),
+              SizedBox(height: 15),
+              buttons()
+            ]    
+          ),
+        ),
+      ],
+    );
+  }
+
+
+  Widget name(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:20),
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: "name".tr,
+        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor:  lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
+        textController: nameController,
+        onSaved: (newValue) {},
+        validator: (value) {},
+        errorText: '',
       ),
     );
   }
 
-  Widget name(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:15),
-      child: TextFormField(
-        controller: nameController,
-        // validator: (value) {
-        // if (value == null || value.isEmpty) {
-        //     return 'enterSomeText'.tr;
-        // }
-        //   return null;
-        // },
-        style: TextStyle(
-          color:AppColors.inputTextColor,fontSize: 13,
+  Widget country(List data){
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          width: Get.width * 0.9,
+          decoration: BoxDecoration(
+            color: AppColors.inputColor,
+            border: Border.all(color: AppColors.outline),
+            borderRadius: BorderRadius.circular(2.0)
+          ),
+          child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                hint: Text(
+                  countryHint != null ? countryHint : 'country'.tr,
+                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+                ),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(Icons.arrow_drop_down),
+                items: data.map((coun) {
+                  return DropdownMenuItem(value: coun, 
+                  child:   Text(
+                    coun['name'][lang] !=null ?  coun['name'][lang] :
+                     coun['name'][lang] == null ?  coun['name']['en']:'',
+                  )
+                );
+                }).toList(),
+                onChanged: (val) {
+                  var mapCountry;
+                  setState(() {
+                    mapCountry = val as Map;
+                    countryHint = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
+                    mapCountry['name'][lang]== null ? mapCountry['name']['en']:'' ;
+                    countryID = mapCountry['id'];
+                  });
+                },
+              )
+            )
+          )
         ),
-        decoration:InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          hintText: "name".tr,
-          hintStyle: TextStyle(color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide(color: Colors.grey),
-        ),
-      ) ,
-      ),
+      ],
     );
   }
-   Widget city(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:15),
-      child: TextFormField(
-        controller: cityController,
-        // validator: (value) {
-        // if (value == null || value.isEmpty) {
-        //     return 'enterSomeText'.tr;
-        // }
-        //   return null;
-        // },
-        style: TextStyle(
-          color:AppColors.inputTextColor,fontSize: 13,
-        ),
-        decoration:InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          hintText: "city".tr,
-          hintStyle: TextStyle(color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide(color: Colors.grey),
-        ),
-      ) ,
+ 
+  Widget college(List data){
+   return Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
       ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint: Text(hintClg !=null ? hintClg: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: data.map((coll) {
+              return DropdownMenuItem(
+                value: coll,
+                child:
+                Text(coll['college'][lang] !=null ? coll['college'][lang] :
+                coll['college'][lang] == null ? coll['college']['en'] :'',
+                )
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                mapClg = value as Map;
+                hintClg = mapClg['college'][lang] !=null ? mapClg['college'][lang]: mapClg['college'][lang] == null ? mapClg['college']['en']:'';
+                collegeID =  mapClg['id'];
+              });
+            },
+          )
+        )
+      )
     );
   }
-   Widget degree(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:15),
-      child: TextFormField(
-        controller: degreeController,
-        // validator: (value) {
-        // if (value == null || value.isEmpty) {
-        //     return 'enterSomeText'.tr;
-        // }
-        //   return null;
-        // },
-        style: TextStyle(
-          color:AppColors.inputTextColor,fontSize: 13,
-        ),
-        decoration:InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          hintText: "degree".tr,
-          hintStyle: TextStyle(color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide(color: Colors.grey),
-        ),
-      ) ,
+ 
+  Widget university(List data){
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
       ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text(hinText !=null ? hinText: "universitysu".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: data.map((uni) {
+              return DropdownMenuItem(
+                value: uni,
+                child:
+                Text(
+                  uni['name'][lang] !=null ?   uni['name'][lang] :
+                    uni['name'][lang] == null ?   uni['name']['en']:''
+              )
+              );
+            }).toList(),
+            onChanged: (dataa) {
+              setState(() {
+                mapuni = dataa as Map;
+                hinText =  mapuni['name'][lang] !=null ? mapuni['name'][lang]: mapuni['name'][lang] == null ? mapuni['name']['en']:'';
+                universitySelected = mapuni['id'];
+              });
+            },
+          )
+        )
+      )
+    );
+  }
+  
+
+  Widget city(List data){
+    return  Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      decoration: BoxDecoration(
+        color: AppColors.inputColor,
+        border: Border.all(color: AppColors.outline),
+        borderRadius: BorderRadius.circular(2.0)
+      ),
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton(
+            hint:Text(hinCity !=null ? hinCity: "city".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
+            dropdownColor: AppColors.inPutFieldColor,
+            icon: Icon(Icons.arrow_drop_down),
+            items: data.map((city) {
+              return DropdownMenuItem(
+                value: city,
+                child:
+                Text(
+                  city['city'][lang] !=null ? city['city'][lang] : city['city'][lang] == null ? city['city']['en']:'',
+                )
+              );
+            }).toList(),
+            onChanged: (dataa) {
+              setState(() {
+                cityMapping = dataa as Map;
+                hinCity =  cityMapping['city'][lang] !=null ? cityMapping['city'][lang]: cityMapping['city'][lang] == null ? cityMapping['city']['en']:"";
+                citySelected = cityMapping['id'];
+              });
+            },
+          )
+        )
+      )
+    );
+  }
+
+  Widget degree(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal:20),
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: "degree".tr,
+        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
+        textController: degreeController,
+        onSaved: (newValue) {},
+        validator: (value) {},
+        errorText: '',
+      )
     );
   }
    Widget semester(){
     return Container(
       padding: EdgeInsets.symmetric(horizontal:15),
-      child: TextFormField(
-        controller: semesterController,
-        // validator: (value) {
-        // if (value == null || value.isEmpty) {
-        //     return 'enterSomeText'.tr;
-        // }
-        //   return null;
-        // },
-        style: TextStyle(
-          color:AppColors.inputTextColor,fontSize: 13,
-        ),
-        decoration:InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          hintText: "semester".tr,
-          hintStyle: TextStyle(color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide(color: Colors.grey),
-        ),
-      ) ,
+      child: CustomTextFiled(
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        isObscure: false,
+        hintText: "semester".tr,
+        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
+        onChanged: (value) {},
+        onFieldSubmitted: (value) {},
+        textController: semesterController,
+        onSaved: (newValue) {},
+        validator: (value) {},
+        errorText: '',
       ),
     );
   }
+
   Widget buttons(){
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: Get.height * 0.05,
@@ -191,7 +339,6 @@ class _FriendFilterState extends State<FriendFilter> {
           ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
           : EdgeInsets.only(top: 8, bottom: 6, right: 8),
           width: Get.width / 3,
-          //height: Get.height / 18,
           decoration: BoxDecoration(
             color: Colors.grey[100],
             borderRadius: BorderRadius.all(Radius.circular(5))
