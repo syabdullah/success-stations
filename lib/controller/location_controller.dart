@@ -79,11 +79,14 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
     await getAllLocation().then((value) {
       allLoc = jsonDecode(value.body);
-      for(int i=0; i < allLoc['data']['data'].length; i++) {
-            if(allLoc['data']['data'][i]['location'] != null) {
-              latLng =LatLng(allLoc['data']['data'][i]['long'],allLoc['data']['data'][i]['long']);
-            }
-          }
+      print("all loactions........ controller ...$allLoc");
+      if(allLoc['success'] == true){
+      for(int i=0; i < allLoc['data'].length; i++) {
+        if(allLoc['data'][i]['location'] != null) {
+          latLng =LatLng(allLoc['data'][i]['long'],allLoc['data'][i]['long']);
+        }
+      }
+      }
       isLoading = false;
     });
     update();
@@ -105,6 +108,7 @@ deleteLocationToDB(id,userId) async {
     allLoc = null;
     await getAllCityLocation(city,nameS).then((value) {
       allLoc = jsonDecode(value.body);
+      print("xhsxgshajxgsaxghsaxddssa............>$allLoc");
       isLoading = false;
     });
     update();
@@ -125,6 +129,7 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
     await getCityLocation(city,id).then((value) {
       lastLocation = jsonDecode(value.body);
+       print("3..............$lastLocation");
       isLoading = false;
     });
     update();
@@ -133,6 +138,7 @@ deleteLocationToDB(id,userId) async {
     isLoading = true;
     await lastLocatin(id).then((value) {
       lastLocation = jsonDecode(value.body);
+      print("4...............$lastLocation");
       if (value.statusCode == 200 || value.statusCode < 400) {
         resultInvalid(false);
         isLoading = false;

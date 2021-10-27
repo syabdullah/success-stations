@@ -73,14 +73,11 @@ class _FriendListState extends State<FriendList> {
                     ),
                   ),
                 ) :
-                 
                 Expanded(
                   child: valuee.dataType == 'list'
                   ? friendList(val.friendsData['data'])
                   : friendGridView(val.friendsData['data'])
                 );
-                
-                
               }
             )
           ],
@@ -89,7 +86,7 @@ class _FriendListState extends State<FriendList> {
     );
   }
 
-var count = 0;
+  var count = 0;
   Widget friendList(dataa) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -104,7 +101,6 @@ var count = 0;
           }
           return dataa[index]['status'] == "Accepted"
           ? GestureDetector(
-
             onTap: () {
               selected = box.write("selected", dataa[index]['id']);
               requisterId = box.write("requister", dataa[index]['requister_id']);
@@ -229,7 +225,6 @@ var count = 0;
   }
 
   Widget friendGridView(dataGrid) {
-   
     var newData = [];
     for (int i = 0; i < dataGrid.length; i++) {
       if (dataGrid[i]['status'] == "Accepted") {
@@ -244,13 +239,12 @@ var count = 0;
           style: TextStyle(fontSize: 20)
         )
       ),
-    ) :GridView.count(
+    ):GridView.count(
       padding: EdgeInsets.only(left: 5),
       crossAxisCount: 2,
       childAspectRatio: (Get.width / Get.height*1.6),
       children: List.generate(
         newData.length, (index) {
-           print("friend requiues ns dkjhhsdgawsgkd.......${newData[index]['requister_id']}");
           return  GestureDetector(
             child: Card(
               shape: RoundedRectangleBorder(

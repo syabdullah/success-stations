@@ -834,7 +834,6 @@ Widget sAppbar(context ,icon,image,) {
                                   onPressed: (){
                                     var cityFinalData;
                                     if(decideRouter == 'city' || decideRouter == 'name' ) {
-                                      print("==/=/==/=/==//=====---------$locationName");
                                       if(cityArray.length != 0) {
                                         var cityFinal = cityArray.toString();
                                         cityFinalData = cityFinal.substring(1, cityFinal.length - 1);

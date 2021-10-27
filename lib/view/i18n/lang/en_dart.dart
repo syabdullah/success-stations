@@ -155,6 +155,10 @@ const Map<String, String> en = {
   "remove_from_favourites": "Remove Favourite",
   "contact": "Contact",
   "connect": "Connect",
+  "diploma":"Diploma",
+  "bachelor\'s":"Bachelor\'s",
+  "doctorate":"Doctorate",
+  "master\'s":"Master\'s",
   "read_more": "Read More",
   "reset": "RESET",
   "filter": "Filter",
@@ -326,7 +330,8 @@ const Map<String, String> en = {
   "resp":"Responsible",
   "resDig":"Responsibe must be in digits",
   "crEn":"Enter CR"  ,
-  'noLoc':'No Location Added Yet'
+  'noLoc':'No Location Added Yet',
+  'dobb': 'Date of Birth should not be greater then current Date'
 
   
   

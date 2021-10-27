@@ -12,12 +12,10 @@ class FriendReqList extends StatefulWidget {
   _FriendReqListState createState() => _FriendReqListState();
 }
 class _FriendReqListState extends State<FriendReqList> {
-   final friCont = Get.put(FriendsController());
-   // ignore: unused_field
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-   GetStorage box = GetStorage();
-   var id;
-   @override
+  final friCont = Get.put(FriendsController());
+  GetStorage box = GetStorage();
+  var id;
+  @override
   void initState() {
     super.initState();
     friCont.getFriendsList();
@@ -27,9 +25,9 @@ class _FriendReqListState extends State<FriendReqList> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
+    return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
           child: Row(
             children: [
               GestureDetector(
@@ -44,201 +42,195 @@ class _FriendReqListState extends State<FriendReqList> {
             ],
           )
         ),
-          centerTitle: true,
+        centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
-        backgroundColor: AppColors.appBarBackGroundColor),
-        body: ListView(
-          children: [
-           GetBuilder<FriendsController>(
+        backgroundColor: AppColors.appBarBackGroundColor
+      ),
+      body: ListView(
+        children: [
+          GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
               return val.suggestionsData == null ? friendReqShimmer() : val.suggestionsData.length == 0  || val.suggestionsData == null? 
               Container(
-                  child: Text("suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
+                child: Text(
+                  "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
                 )
-                
-              ) :  Column(
+              ):  Column(
                 children: [
-                val.friendsData != null ? 
-                Column(
-                  children:
-                    friendList(val.friendsData['data']),
-                ):friendReqShimmer(),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                 Column(
-                  children:
+                  val.friendsData != null ? 
+                  Column(
+                    children: friendList(val.friendsData['data']),
+                  ) :friendReqShimmer(),
+                  Column(
+                    children:
                     sugesstionList(val.suggestionsData),
-                ),
-              ],
-            );
-        })
-         ],
-       ),
-     );
+                  ),
+                ],
+              );
+            }
+          )
+        ],
+      ),
+    );
   }
+
   List<Widget> friendList(data) { 
     var count = 0;
-     List<Widget> req = [];
-     if(data != null)
-     for(int i= 0; i< data.length; i++) {  
-       if(data[i]['requister'] != null && data[i]['status'] == null) {
-         ++count;
+    List<Widget> req = [];
+    if(data != null)
+    for(int i= 0; i< data.length; i++) {  
+      if(data[i]['requister'] != null && data[i]['status'] == null) {
+        ++count;
         req.add(
           Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-            count == 1  ?  Container(
-              margin: EdgeInsets.only(left: 20,right: 20),
-              child: Text(
-                'frien_request'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
-              ),
-            ):Container(),
-             GestureDetector(
-              onTap: (){
-                // Get.toNamed('/friendProfile');
-              },
-              child: Card(
-                child: Row(
-                  children: [
-                    id == data[i]['requister_id'] ? 
-                  Container(
-                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.grey[100],
-                    child: data[i]['user_requisted']['image'] != null ? ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0)
-                    ,child: Image.network(data[i]['user_requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60,)) : 
-                        Image.asset(AppImages.person),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              count == 1 ? 
+                Container(
+                  margin: EdgeInsets.only(left: 20,right: 20),
+                  child: Text(
+                    'frien_request'.tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
                   ),
-                  ):
-                  Container(
-                  margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.grey[100],
-                    child: data[i]['requisted'] != null && data[i]['requisted']['image'] != null ?  ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0),
-                    child: Image.network(data[i]['requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60,)) : Image.asset(AppImages.person),
-                  ),
-                ),
-                    Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                )
+              :Container(),
+              GestureDetector(
+                child: Card(
+                  child: Row(
+                    children: [
+                      id == data[i]['requister_id'] ? 
                         Container(
-                          // margin:EdgeInsets.only(left:10),
-                          width: Get.width/4,
-                          child: id == data[i]['requister_id'] ?  Text(data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold),):
-                      Text(data[i]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold),)
-                        ),
-                        // Container(
-                        //   child: Text("Mobile app dev",style: TextStyle(fontWeight: FontWeight.w600)),
-                        // ),
-                      ],
-                    ),
-                    Spacer(),
-                    data[i]['requister']['id'] != id ?
-                    GestureDetector(
-                      onTap: (){ 
-                        friCont.appFriend(data[i]['id']);
-                      },
-                      child: Container( 
-                         margin:EdgeInsets.only(right:10),
-                        alignment: Alignment.center,
-                        width: Get.width/4.2,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: AppColors.appBarBackGroundColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                        child:
-                        Container(                        
-                          child: Text(
-                            "approve".tr,
-                            style:TextStyle(
-                              color: Colors.white,
-                            ),
+                          margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.grey[100],
+                            child: data[i]['user_requisted']['image'] != null ?
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: Image.network(
+                                  data[i]['user_requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60
+                                )
+                              ) 
+                            :Image.asset(AppImages.person),
                           ),
                         )
-                      ),
-                    ): 
-                    GestureDetector(
-                      onTap: (){ 
-                        friCont.deleteFriend(data[i]['id'],'');
-                      },
-                      child: Container( 
-                         margin:EdgeInsets.only(right:10),
-                        alignment: Alignment.center,
-                        width: Get.width/3.0,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
+                      : Container(
+                        margin: EdgeInsets.symmetric(vertical:10.0,horizontal:10.0),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.grey[100],
+                          child: data[i]['requisted'] != null && data[i]['requisted']['image'] != null ?  
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50.0),
+                              child: Image.network(
+                                data[i]['requisted']['image']['url'],fit: BoxFit.fill,height: 60,width: 60
+                              )
+                            ) 
+                          :Image.asset(AppImages.person),
                         ),
-                        child:
-                        Container(                        
-                          child: Text(
-                            "cancel".tr,
-                            style:TextStyle(
-                              color: Colors.white,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: Get.width/4,
+                            child: id == data[i]['requister_id'] ?  Text(
+                              data[i]['user_requisted']['name'],style: TextStyle(fontWeight: FontWeight.bold)
+                            ):
+                            Text(
+                              data[i]['requister']['name'],style: TextStyle(fontWeight: FontWeight.bold)
+                            )
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      data[i]['requister']['id'] != id ?
+                        GestureDetector(
+                          onTap: (){ 
+                            friCont.appFriend(data[i]['id']);
+                          },
+                          child: Container( 
+                            margin:EdgeInsets.only(right:10),
+                            alignment: Alignment.center,
+                            width: Get.width/4.2,
+                            height: 35.0,
+                            decoration: BoxDecoration(
+                              color: AppColors.appBarBackGroundColor,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
+                            child: Container(                        
+                              child: Text(
+                                "approve".tr,
+                                style:TextStyle(color: Colors.white),
+                              ),
+                            )
                           ),
                         )
-                      ),
-                    ),
-                    data[i]['requister']['id'] != id ?
-                    GestureDetector(
-                      onTap: (){
-                        friCont.rejFriend(data[i]['id']);
+                      : GestureDetector(
+                        onTap: (){ 
+                          friCont.deleteFriend(data[i]['id'],'');
                         },
-                      child: Container( 
-                        alignment: Alignment.center,
-                        width: Get.width/4.2,
-                        height: 35.0,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
+                        child: Container( 
+                          margin:EdgeInsets.only(right:10),
+                          alignment: Alignment.center,
+                          width: Get.width/3.0,
+                          height: 35.0,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
-                        ),
-                        child:
-                        Container(
-                          margin:EdgeInsets.only(left:10),
-                          child: Text(
-                            'reject'.tr,
-                            style:TextStyle(
-                              color: Colors.white,
+                          child: Container(                        
+                            child: Text(
+                              "cancel".tr,
+                              style:TextStyle(color: Colors.white),
                             ),
+                          )
+                        ),
+                      ),
+                      data[i]['requister']['id'] != id ?
+                        GestureDetector(
+                          onTap: (){
+                            friCont.rejFriend(data[i]['id']);
+                          },
+                          child: Container( 
+                            alignment: Alignment.center,
+                            width: Get.width/4.2,
+                            height: 35.0,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.all( Radius.circular(8)),
+                            ),
+                            child:Container(
+                              margin:EdgeInsets.only(left:10),
+                              child: Text(
+                                'reject'.tr,
+                                style:TextStyle( color: Colors.white ),
+                              ),
+                            )
                           ),
                         )
-                      ),
-                    ):Container()
-                  ],
+                      :Container()
+                    ],
+                  ),
                 ),
               ),
-            ),
-           ],
-         )
-      );
+            ],
+          )
+        );
       }
       if(count == 0 && i == data.length) {
         req.add(
           Column(
             children: [
-               Container(
+              Container(
                 margin: EdgeInsets.only(top: 20,left: 20,bottom: 10),
                 child: Text(
                   "Friend Requests",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
                 ),
               ),
               Container(
-                child: Text("No Friend Request!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                child: Text(
+                  "No Friend Request!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)
+                ),
               ),
             ],
           )
@@ -247,22 +239,22 @@ class _FriendReqListState extends State<FriendReqList> {
     }
     return req;
   }
+
   List<Widget> sugesstionList(data) {
-    
-     List<Widget> req = [];
-     if(data != null)
-     for(int i= 0; i< data.length; i++) {
-        req.add(
-         Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-              i == 0 ?  Container(
+    List<Widget> req = [];
+    if(data != null)
+    for(int i= 0; i< data.length; i++) {
+      req.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            i == 0 ?  Container(
               margin: EdgeInsets.only(left: 20,bottom: 10, right: 20),
               child: Text(
                 "suggestion".tr,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),
               ),
             ):Container(),
-             GestureDetector(
+            GestureDetector(
               onTap: (){
                 Get.to(FriendProfile() ,arguments: ['',data[i]['id']] );
               },
@@ -299,7 +291,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         friCont.getSuggestionsList();
                       },
                       child: Container( 
-                         margin:EdgeInsets.only(right:10,left: 10),
+                        margin:EdgeInsets.only(right:10,left: 10),
                         alignment: Alignment.center,
                         width: Get.width/4.2,
                         height: 35.0,
@@ -309,12 +301,9 @@ class _FriendReqListState extends State<FriendReqList> {
                             Radius.circular(8),
                           ),
                         ),
-                        child:
-                        Container(
+                        child:Container(
                           child: Text('add_friend'.tr,
-                            style:TextStyle(
-                              color: Colors.white,
-                            ),
+                            style:TextStyle(color: Colors.white),
                           ),
                         )
                       ),
@@ -336,9 +325,7 @@ class _FriendReqListState extends State<FriendReqList> {
                           margin:EdgeInsets.only(left:10,right: 10),
                           child: Text(
                             'remove'.tr,
-                            style:TextStyle(
-                              color: Colors.white,
-                            ),
+                            style:TextStyle(color: Colors.white),
                           ),
                         )
                       ),
@@ -346,18 +333,9 @@ class _FriendReqListState extends State<FriendReqList> {
                   ],
                 ),
               ),
-        ),
-           ],
-         )
-        // : Container(
-        //   margin: EdgeInsets.only(top: 20),
-        //   child: Center(
-        //     child: Text(
-        //       "No Friend Request.",style: TextStyle(fontWeight: FontWeight.bold),
-        //     ),
-        //   ),
-        // );
-      
+            ),
+          ],
+        )
       );
     }
     return req;

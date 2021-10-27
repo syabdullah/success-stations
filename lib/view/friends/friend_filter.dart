@@ -18,10 +18,11 @@ class _FriendFilterState extends State<FriendFilter> {
   var lang, countryHint,countryID,  hinText,  mapuni, universitySelected, hinCity, cityMapping, citySelected, collegeID, mapClg, hintClg;
   TextEditingController nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
-   TextEditingController degreeController = TextEditingController();
+  TextEditingController degreeController = TextEditingController();
   TextEditingController semesterController = TextEditingController();
   final callingFreindController = Get.put(FriendsController());
   GetStorage box = GetStorage();
+
   @override
   void initState() {
     lang = box.read('lang_code');
@@ -38,14 +39,13 @@ class _FriendFilterState extends State<FriendFilter> {
       'college':collegeID,
     };
     callingFreindController.searchFriendControl(json);
-    print("josn of the filtereartuon....$json");
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
         Container(
-          // height: Get.height/1.3,
           width: Get.width,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -110,14 +110,13 @@ class _FriendFilterState extends State<FriendFilter> {
     );
   }
 
-
   Widget name(){
     return Container(
       padding: EdgeInsets.symmetric(horizontal:20),
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:20),
         isObscure: false,
-        hintText: "name".tr,
+        hintText: "nameph".tr,
         hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:  lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
@@ -152,12 +151,13 @@ class _FriendFilterState extends State<FriendFilter> {
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
-                  return DropdownMenuItem(value: coun, 
-                  child:   Text(
-                    coun['name'][lang] !=null ?  coun['name'][lang] :
-                     coun['name'][lang] == null ?  coun['name']['en']:'',
-                  )
-                );
+                  return DropdownMenuItem(
+                    value: coun, 
+                    child:   Text(
+                      coun['name'][lang] !=null ?  coun['name'][lang] :
+                      coun['name'][lang] == null ?  coun['name']['en']:'',
+                    )
+                  );
                 }).toList(),
                 onChanged: (val) {
                   var mapCountry;
@@ -189,7 +189,9 @@ class _FriendFilterState extends State<FriendFilter> {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
-            hint: Text(hintClg !=null ? hintClg: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
+            hint: Text(
+              hintClg !=null ? hintClg: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)
+            ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: data.map((coll) {
@@ -236,8 +238,8 @@ class _FriendFilterState extends State<FriendFilter> {
                 child:
                 Text(
                   uni['name'][lang] !=null ?   uni['name'][lang] :
-                    uni['name'][lang] == null ?   uni['name']['en']:''
-              )
+                  uni['name'][lang] == null ?   uni['name']['en']:''
+                )
               );
             }).toList(),
             onChanged: (dataa) {
@@ -253,7 +255,6 @@ class _FriendFilterState extends State<FriendFilter> {
     );
   }
   
-
   Widget city(List data){
     return  Container(
       margin:EdgeInsets.only(left:20, right: 20),
@@ -296,9 +297,9 @@ class _FriendFilterState extends State<FriendFilter> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal:20),
       child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
+        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:20),
         isObscure: false,
-        hintText: "degree".tr,
+        hintText: "degreesu".tr,
         hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
         onChanged: (value) {},
@@ -310,7 +311,8 @@ class _FriendFilterState extends State<FriendFilter> {
       )
     );
   }
-   Widget semester(){
+
+  Widget semester(){
     return Container(
       padding: EdgeInsets.symmetric(horizontal:15),
       child: CustomTextFiled(
@@ -368,7 +370,6 @@ class _FriendFilterState extends State<FriendFilter> {
             ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
             : EdgeInsets.only(top: 8, bottom: 6, right: 8),
             width: Get.width / 3,
-            //height: Get.height / 18,
             decoration: BoxDecoration(
               color: AppColors.appBarBackGroundColor,
               borderRadius: BorderRadius.all(Radius.circular(5))
