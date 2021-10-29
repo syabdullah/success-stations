@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/text_field.dart';
 
-class FriendFilter extends StatefulWidget {
-  const FriendFilter({ Key? key }) : super(key: key);
+class SuggestFriends extends StatefulWidget {
+  const SuggestFriends({ Key? key }) : super(key: key);
 
   @override
-  _FriendFilterState createState() => _FriendFilterState();
+  _SuggestFriendFilterState createState() => _SuggestFriendFilterState();
 }
 
-class _FriendFilterState extends State<FriendFilter> {
+class _SuggestFriendFilterState extends State<SuggestFriends> {
   var lang, countryHint,countryID,  hinText,  mapuni, universitySelected, hinCity, cityMapping, citySelected, collegeID, mapClg, hintClg;
   TextEditingController nameController = TextEditingController();
   TextEditingController cityController = TextEditingController();
@@ -22,10 +23,12 @@ class _FriendFilterState extends State<FriendFilter> {
   TextEditingController semesterController = TextEditingController();
   final callingFreindController = Get.put(FriendsController());
   GetStorage box = GetStorage();
+   final users = Get.put(LocationController());
 
   @override
   void initState() {
     lang = box.read('lang_code');
+    users.getAllLocationToDB();
     super.initState();
   }
 
@@ -38,8 +41,7 @@ class _FriendFilterState extends State<FriendFilter> {
       'university':universitySelected,
       'college':collegeID,
     };
-    print(" friends suggestion .....$json");
-    callingFreindController.searchFriendControl(json);
+    callingFreindController.userFriendSuggest(json);
   }
 
   @override

@@ -89,6 +89,10 @@ const Map<String, String> ar = {
   "Iqama_number": "رقم الهوية ",
   "cr_no": "رقم السجل",
   "collegesu": "كلية",
+  "diploma":"شهادة دبلوم",
+  "bachelor\'s":"البكالوريوس",
+  "doctorate":"دكتوراه",
+  "master\'s":"سادة",
   "universitysu": "جامعة",
   "college": "كلية",
   "university": "جامعة",
@@ -323,6 +327,11 @@ const Map<String, String> ar = {
   "resp":"المسؤول",
   "resDig":"يجب أن يكون الرد بالأرقام",
   "crEn":"أدخل CR",
-  'noLoc':'لا يوجد موقع مضاف بعد'
+  'noLoc':'لا يوجد موقع مضاف بعد',
+  'dobb' :'يجب ألا يكون تاريخ الميلاد أكبر من التاريخ الحالي',
+  "cancelCaps": "إلغاء",
+  "update": "تحديث",
+  "locationFound":'لم يتم العثور على موقع',
+  "savecaps": "حفظ",
 
 };

@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -119,6 +121,7 @@ class _SignPageState extends State<StudentSignUp> {
             mobile(),
             space10,
             studentdob(),
+             space10,
               GetBuilder<ContryController>(
                 init: ContryController(),
                 builder:(val) {
@@ -345,7 +348,7 @@ Widget about() {
                   ),
                   dropdownColor: AppColors.inPutFieldColor,
                   icon: Icon(Icons.arrow_drop_down),
-                  items:  <String>['Diploma' ,'Bachelor\'s', 'Master\'s', 'Doctorate'].map((String value){
+                  items:  <String>['diploma'.tr ,'bachelor\'s'.tr, 'master\'s'.tr, 'doctorate'.tr].map((String value){
                     return DropdownMenuItem(
                     value: value,
                     child: Text(
@@ -364,49 +367,6 @@ Widget about() {
             )
           )
         );
-      
-    // return Container(
-    //   margin: EdgeInsets.only(left: 20, right: 20),
-    //       width: Get.width * 0.9,
-    //       decoration: BoxDecoration(
-    //         color: AppColors.inputColor,
-    //         border: Border.all(color: AppColors.outline),
-    //         borderRadius: BorderRadius.circular(2.0)
-    //       ),
-    //   child: ButtonTheme(
-    //     alignedDropdown: true,
-    //     child: Container(
-    //       width: Get.width,
-    //       child: DropdownButtonHideUnderline(
-    //         child: DropdownButton(
-    //           hint: Text(
-    //             statusSelected == null? 'degreesu'.tr:statusSelected ,
-    //             style: TextStyle(
-    //               fontSize: 13, color: Colors.grey[800]
-    //             )
-    //           ),
-    //           dropdownColor: AppColors.inPutFieldColor,
-    //           icon: Icon(Icons.arrow_drop_down),
-    //           items: <String>["Diploma', 'Bachelor's, Masrter's, Doctorate "].map((String value) {
-    //             return DropdownMenuItem(
-    //               value: value,
-    //               child: Text(
-    //                 value,
-    //                 style: TextStyle(color: Colors.grey[800]),
-    //               )
-    //             );
-    //           }).toList(),
-    //           onChanged: (value) {
-    //             setState(() {
-    //               statusSelected = value;
-                 
-    //             });
-    //           },
-    //         )
-    //       ),
-    //     )
-    //   )
-    // );
     
   }
   
@@ -526,6 +486,7 @@ Widget about() {
           ),
           hintText: "mobilee".tr,
           hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+          
         ),
         onInputChanged: (PhoneNumber numberr) {
           number = numberr;
@@ -546,83 +507,77 @@ Widget about() {
       )
     );
   }
-   Widget studentdob() {
+  Widget studentdob() {
     return Container(
-      height: 50,
-      padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
-      margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: AppColors.outline)
-      ),
-      child: GestureDetector(
-        onTap: () {
-          DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: DateTime(1900, 3, 5),
-            maxTime: DateTime.now(),
-            theme: DatePickerTheme(
-              headerColor:AppColors.appBarBackGroundColor,
-              backgroundColor: Colors.white,
-              itemStyle: TextStyle(
-                color: AppColors.appBarBackGroundColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18
-              ),
-              doneStyle: TextStyle(color:Colors.white,  fontSize: lang == 'ar' ? 14 : 16,),
-            ),
-            onChanged: (date) {}, 
-            onConfirm: (date) {
-              setState(() {
-                dateTime = date;
-                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-              });
-            },    
-            currentTime: DateTime.now(), locale: LocaleType.en
-          );
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: TextFormField(
+        
+        focusNode: FocusNode(),
+        validator: (val) {
+          if( DateTime.parse(finalDate!).isAfter(DateTime.now())){
+            return 'dobb'.tr;
+          }
+           return null;
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              child:  Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString() ,textAlign: TextAlign.left, style: TextStyle(color: Colors.grey[500], fontSize: lang == 'ar' ? 14 : 16,))),
-            GestureDetector(
-              child: Icon(Icons.calendar_today,color: Colors.grey,),
-               onTap: () {               
-                DatePicker.showDatePicker(context,
-                  showTitleActions: true,
-                  minTime: DateTime(1900, 3, 5),
-                  maxTime: DateTime.now(),
-                  theme: DatePickerTheme(
-                    headerColor:AppColors.appBarBackGroundColor,
-                    backgroundColor: Colors.white,
-                    itemStyle: TextStyle(
-                      color: AppColors.appBarBackGroundColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                    doneStyle: TextStyle(color:Colors.white, fontSize: lang == 'ar' ? 14 : 16,),
-                    cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor,  fontSize: lang == 'ar' ? 14 : 16,),
-                  ),
-                  onChanged: (date) {
-                  }, 
-                  onConfirm: (date) {
-                    setState(() {
-                      dateTime = date;
-                       finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                      
-                    });
-                    
-                  },    
-                  currentTime: DateTime.now(), locale: LocaleType.en
-                );
-              },
-            ),
-          ],
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
         ),
+        decoration:InputDecoration( 
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.shade200
+            ),
+          ),
+          // fillColor: AppColors.inputColor,
+          // filled: true,
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: Colors.grey.shade200
+          )),
+          
+          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
+          hintText: finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
+          hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor, fontWeight: FontWeight.normal),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(color: Colors.grey.shade100),
+        ),
+        suffixIcon:  GestureDetector(
+          child: Icon(Icons.calendar_today,color: Colors.grey,),
+            onTap: () {               
+              DatePicker.showDatePicker(
+                context,
+                showTitleActions: true,
+                minTime: DateTime(1900, 3, 5),
+                // maxTime: DateTime.now(),
+                theme: DatePickerTheme(
+                  headerColor:AppColors.appBarBackGroundColor,
+                  backgroundColor: Colors.white,
+                  itemStyle: TextStyle(
+                    color: AppColors.appBarBackGroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
+                  doneStyle: TextStyle(color:Colors.white, fontSize: lang == 'ar' ? 14 : 16,),
+                  cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor,  fontSize: lang == 'ar' ? 14 : 16,),
+                ),
+                onChanged: (date) {}, 
+                onConfirm: (date) {
+                  setState(() {
+                    dateTime = date;
+                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    
+                  });
+                },
+                currentTime: DateTime.now(), locale: LocaleType.en
+              );
+            },
+          ),
+        ) ,
       ),
     );
   }
+  
 
   Widget country(List data) {
     return Column(
@@ -647,16 +602,16 @@ Widget about() {
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
                   return DropdownMenuItem(value: coun, 
-                  child:  coun['name'][lang] !=null ?  Text(
-                    coun['name'][lang]
-                  ): Container()
+                  child:   Text(
+                    coun['name'][lang] !=null ?  coun['name'][lang].toString() : coun['name'][lang] == null ? coun['name']['en'].toString():''
+                  )
                 );
                 }).toList(),
                 onChanged: (val) {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'][lang];
+                    hintTextCountry = mapCountry['name'][lang] !=null ?  mapCountry['name'][lang].toString():  mapCountry['name'][lang] ==null ?  mapCountry['name']['en'].toString():"";
                     selectedCountry = mapCountry['id'];
                     countryPut.getRegion(selectedCountry);
                   });
@@ -689,14 +644,17 @@ Widget about() {
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
               return DropdownMenuItem(
-                value: reg, child: reg['region'][lang] !=null ? Text(reg['region'][lang] ):Container()
+                value: reg, child:  Text(
+                  reg['region'][lang] !=null ?  reg['region'][lang].toString() : reg['region'][lang] ==null ?  reg['region']['en'].toString():'',
+                )
               );
             }).toList(),
             onChanged: (data) {
               var mapRegion;
               setState(() {
                 mapRegion = data as Map;
-                hintRegionText = mapRegion['region'][lang];
+                hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang].toString():
+                mapRegion['region'][lang] ==null ? mapRegion['region']['en'].toString():'' ;
                 selectedRegion = data['id'];
                 countryPut.getCity(data['id']);
               });
@@ -726,17 +684,20 @@ Widget about() {
             dropdownColor: AppColors.inputColor,
             icon: Icon(Icons.arrow_drop_down),
             items: citydata.map((citt) {
-              return DropdownMenuItem(value: citt, child:
-               citt['city'][lang]!= null ?
-               Text(
-                citt['city'][lang]):Container()
-                );
+              return DropdownMenuItem(
+                value: citt, 
+                child: Text(
+                  citt['city'][lang] !=null ? citt['city'][lang].toString() :
+                  citt['city'][lang] == null ? citt['city']['en'].toString():''
+                )
+              );
             }).toList(),
             onChanged: (value) {
               setState(() {
                 var mapCity;
                 mapCity = value as Map;
-                hintcityText = mapCity['city'][lang];
+                hintcityText = mapCity['city'][lang] !=null ? mapCity['city'][lang].toString() :
+                mapCity['city'][lang] ==null ? mapCity['city']['en'].toString() :'';
                 selectedCity = mapCity['id'];
               });
             },
@@ -766,17 +727,16 @@ Widget about() {
               return DropdownMenuItem(
                 value: uni,
                 child:
-                uni['name'][lang]!= null ?
-                Text(uni['name'][lang]): Container()
+                Text (
+                  uni['name'][lang] !=null ?  uni['name'][lang].toString():  uni['name'][lang] ==null ?  uni['name']['en'].toString() : ''
+                )
               );
             }).toList(),
             onChanged: (dataa) {
               setState(() {
                 mapuni = dataa as Map;
-                print("mappping MAP VALUEEEEEE................................$mapuni");
-                hintUniText =  mapuni['name'][lang];
+                hintUniText =  mapuni['name'][lang] !=null ?  mapuni['name'][lang].toString():  mapuni['name'][lang] == null ?  mapuni['name']['en'].toString():'';
                 selectedUniversity = mapuni['id'];
-                print("uselectedUniversity ID.................$selectedUniversity");
               });
             },
           )
@@ -804,16 +764,17 @@ Widget about() {
             items: collegeData.map((coll) {
               return DropdownMenuItem(
                 value: coll,
-                child:
-                coll['college'][lang]!= null ?
-                Text(coll['college'][lang]):Container()
+                child: Text(
+                  coll['college'][lang] !=null ?  coll['college'][lang].toString() :
+                  coll['college'][lang] == null ? coll['college']['en'].toString():'',
+                )
               );
             }).toList(),
             onChanged: (value) {
-              print("abdhjsgadgdhdgfsA VALUE PRINTED.....$value");
               setState(() {
                 mapClgSleceted = value as Map;
-                hintClgText = mapClgSleceted['college'][lang];
+                hintClgText = mapClgSleceted['college'][lang] !=null ? mapClgSleceted['college'][lang].toString() : 
+                mapClgSleceted['college'][lang] == null ? mapClgSleceted['college']['en'].toString(): "";
                 selectedCollege =  mapClgSleceted['id'];
               });
             },

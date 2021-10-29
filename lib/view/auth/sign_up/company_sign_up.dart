@@ -190,6 +190,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 children: [
                   v == 1 ? 
                   companyDob(): Container(),
+                  space10,
                    GetBuilder<ServicesController>(
                     init: ServicesController(),
                     builder: (val){
@@ -388,84 +389,72 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   var finalDate;
   Widget companyDob() {
-    return Container(
-      height: 55,
-      padding: const EdgeInsets.symmetric(vertical:1.0,horizontal: 10),
-      margin: EdgeInsets.only(left: 18,right: 20,bottom: 10),
-      decoration: BoxDecoration(
-        color:AppColors.inputColor,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: AppColors.outline)
-      ),
-      child: GestureDetector(
-        onTap: () {
-          DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: DateTime(1900, 3, 5),
-            maxTime: DateTime.now(),
-            theme: DatePickerTheme(
-              headerColor:AppColors.appBarBackGroundColor,
-              backgroundColor: Colors.white,
-              itemStyle: TextStyle(
-                color: AppColors.appBarBackGroundColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18
-              ),
-              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
-              cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
-            ),
-            onChanged: (date) {
-            }, 
-            onConfirm: (date) {
-              setState(() {
-                dateTime = date;
-                finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-              });
-            },    
-            currentTime: DateTime.now(), locale: LocaleType.en
-          );
+     return Container(
+      margin:EdgeInsets.only(left:20, right: 20),
+      width: Get.width * 0.9,
+      child: TextFormField(
+        
+        focusNode: FocusNode(),
+        validator: (val) {
+          if( DateTime.parse(finalDate!).isAfter(DateTime.now())){
+            return 'dobb'.tr;
+          }
+           return null;
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(finalDate == null ? 'date_of_birth'.tr : finalDate.toString(), style: TextStyle(color: Colors.grey[500],fontSize: 17)),
-            GestureDetector(
-              child: Icon(Icons.calendar_today,color: Colors.grey),
-              onTap: () {
-                DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: DateTime(1900, 3, 5),
-            maxTime: DateTime.now(),
-            theme: DatePickerTheme(
-              headerColor:AppColors.appBarBackGroundColor,
-              backgroundColor: Colors.white,
-              itemStyle: TextStyle(
-                color: AppColors.appBarBackGroundColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18
-              ),
-              doneStyle: TextStyle(color:Colors.white, fontSize: 16),
-              cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 16),
-            ),
-            onChanged: (date) {
-              print('change $date in time zone ' +
-              date.timeZoneOffset.inHours.toString());
-            }, 
-            onConfirm: (date) {
-              setState(() {
-                dateTime = date;
-                print('confirm...sheeee $dateTime');
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                
-              });
-              
-            },    
-            currentTime: DateTime.now(), locale: LocaleType.en
-          );
-              },
-            )
-          ],
+        style: TextStyle(
+          color:AppColors.inputTextColor,fontSize: 16,fontWeight: FontWeight.bold
         ),
+        decoration:InputDecoration( 
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.shade200
+            ),
+          ),
+          // fillColor: AppColors.inputColor,
+          // filled: true,
+          focusedBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: Colors.grey.shade200
+          )),
+          
+          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
+          hintText: finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
+          hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor, fontWeight: FontWeight.normal),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(color: Colors.grey.shade100),
+        ),
+        suffixIcon:  GestureDetector(
+          child: Icon(Icons.calendar_today,color: Colors.grey,),
+            onTap: () {               
+              DatePicker.showDatePicker(
+                context,
+                showTitleActions: true,
+                minTime: DateTime(1900, 3, 5),
+                // maxTime: DateTime.now(),
+                theme: DatePickerTheme(
+                  headerColor:AppColors.appBarBackGroundColor,
+                  backgroundColor: Colors.white,
+                  itemStyle: TextStyle(
+                    color: AppColors.appBarBackGroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
+                  doneStyle: TextStyle(color:Colors.white, fontSize: lang == 'ar' ? 14 : 16,),
+                  cancelStyle: TextStyle(color:AppColors.appBarBackGroundColor,  fontSize: lang == 'ar' ? 14 : 16,),
+                ),
+                onChanged: (date) {}, 
+                onConfirm: (date) {
+                  setState(() {
+                    dateTime = date;
+                    finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    
+                  });
+                },
+                currentTime: DateTime.now(), locale: LocaleType.en
+              );
+            },
+          ),
+        ) ,
       ),
     );
   }
@@ -517,8 +506,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
               return DropdownMenuItem(
                 value: coun, 
                 child: Text(
-                  coun['name'][lang]!=null ?coun['name'][lang] : ''
-                  // coun['name'][lang]!=null ?coun['name'][lang]: coun['name'][lang]==null ?coun['name']['en']:'',
+                  // coun['name'][lang]!=null ?coun['name'][lang] : ''
+                  coun['name'][lang]!=null ?coun['name'][lang].toString(): coun['name'][lang]==null ?coun['name']['en'].toString():'',
                 )
               );
             }).toList(),
@@ -526,9 +515,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               var mapCountry;
               setState(() {
                 mapCountry = val as Map;
-                hintTextCountry =mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:'';
-                //  mapCountry['name'][lang]!=null ? mapCountry['name'][lang]:  mapCountry['name'][lang]==null ? 
-                // mapCountry['name'][lang]:'';
+                hintTextCountry =mapCountry['name'][lang]!=null ? mapCountry['name'][lang].toString():mapCountry['name'][lang] == null ?mapCountry['name']['en'] :'';
                 selectedCountry = mapCountry['id'];
                 regionIdByCountry.getRegion(selectedCountry);
                 hintRegionText = 'Region';
@@ -560,13 +547,18 @@ class _CompanySignPageState extends State<CompanySignUp> {
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
-              return DropdownMenuItem(value: reg, child: Text(reg['region'][lang]!= null ?reg['region'][lang]:''));
+              return DropdownMenuItem(
+                value: reg, 
+                child: Text(
+                  reg['region'][lang]!= null ? reg['region'][lang].toString() : reg['region'][lang] == null ? reg['region']['en']:"",
+                )
+              );
             }).toList(),
             onChanged: (data) {
               var mapRegion;
               setState(() {
                 mapRegion = data as Map;
-                hintRegionText = mapRegion['region'][lang];
+                hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang].toString() :mapRegion['region'][lang] ==null ? mapRegion['region']['en'].toString():'';
                 selectedRegion = data['id'];
                 regionIdByCountry.getCity(data['id']);
               });
@@ -600,14 +592,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
             items: citydata.map((citt) {
               return DropdownMenuItem(
                 value: citt,
-                child:Text(citt['city'][lang]!= null ?citt['city'][lang] : '' )
+                child:Text( 
+                  citt['city'][lang]!= null ? citt['city'][lang] : citt['city'][lang] ==null ? citt['city']['en'].toString() :  '' 
+                )
               );
             }).toList(),
             onChanged: (value) {
               setState(() {
                 var mapCity ;
                 mapCity = value as Map;
-                hintcityText = mapCity['city'][lang];
+                hintcityText = mapCity['city'][lang] !=null ?  mapCity['city'][lang].toString():  mapCity['city'][lang] ==null ?  mapCity['city']['en'].toString():'';
                 selectedCity = mapCity['id'];
               });
             },

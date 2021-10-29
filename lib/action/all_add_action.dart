@@ -7,7 +7,6 @@ Future<http.Response> adsAll() async {
   await ApiHeaders().getData();
   final Config config = Config();
   var url = Uri.parse("${config.baseUrl}ads?country=$countryIDD?change_language=ar");
-  print("url of all adds ....$url");
   http.Response response = await http.get(url, headers: ApiHeaders().headersWithToken);
   return response;
 }

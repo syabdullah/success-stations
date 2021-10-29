@@ -22,8 +22,7 @@ Future<http.Response> editLocation(id,data) async{
 Future<http.Response> deleteLocation(id) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}delete-locations/$id");
-  final result = await http.post(
-    url,headers: ApiHeaders().headersWithToken);
+  final result = await http.post( url,headers: ApiHeaders().headersWithToken);
     return result;
 } 
 Future<http.Response> getMyLocation(id) async{
@@ -36,9 +35,9 @@ Future<http.Response> getMyLocation(id) async{
 
 Future<http.Response> getAllLocation() async{
   final Config conf = Config();
-  var url = Uri.parse("${conf.baseUrl}locations");
-  final result = await http.get(
-    url,headers: ApiHeaders().headersWithToken);
+  var url = Uri.parse("${conf.baseUrl}locations?country=$countryIDD");
+  print("url of the locaation .......$url");
+  final result = await http.get( url,headers: ApiHeaders().headersWithToken);
     return result;
 }
 
@@ -46,16 +45,15 @@ Future<http.Response> getAllLocation() async{
 Future<http.Response> getNearByLocation(id,dis,lat,long) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}user-location/$id?distance=$dis&lat=$lat&lon=$long");
-  final result = await http.get(
-    url,headers: ApiHeaders().headersWithToken);
-    return result;
+  print("url of the long lattttt json data ....$url");
+  final result = await http.get( url,headers: ApiHeaders().headersWithToken);
+  return result;
 }
 
 Future<http.Response> getAllNearByLocation(dis,lat,long) async{
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}locationS?distance=$dis&lat=$lat&lon=$long");
-  final result = await http.get(
-    url,headers: ApiHeaders().headersWithToken);
+  final result = await http.get( url,headers: ApiHeaders().headersWithToken);
     return result;
 }
 
@@ -71,8 +69,7 @@ Future<http.Response> getAllCityLocation(city,nameS) async{
   final Config conf = Config();
   var url = city != null && nameS != null ?  Uri.parse("${conf.baseUrl}locations?$city$nameS"):
    city == null && nameS != null ? Uri.parse("${conf.baseUrl}locations?$nameS") : Uri.parse("${conf.baseUrl}locations?$city");
-    print(url);
-  final result = await http.get(
-    url,headers: ApiHeaders().headersWithToken);
+    print("services id.....$url");
+  final result = await http.get(  url,headers: ApiHeaders().headersWithToken);
     return result;
 }

@@ -31,7 +31,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
   GetStorage box = GetStorage();
   var id,adId,notificationID,aboutadID, lang, reviewPagePrice, price,  htmldata = '';
   String? comment,myName;
-  // ignore: non_constant_identifier_names
   var user_image;
 
   @override
@@ -44,7 +43,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
     aboutadID =Get.arguments;
     notificationID = Get.arguments;
     adDetailCont.adsDetail(adId);
-  
     super.initState();
   }
   
@@ -56,6 +54,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     };
     adpostingController.commentPost(json);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,8 +79,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
         title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor
       ),
-
-
       body: SingleChildScrollView(
         child: GetBuilder<MyAddsController>(
           init: MyAddsController(),
@@ -103,8 +100,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
                 SizedBox(height: 5.h,),
                 Container(
                   margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
-                  child: Text(val.adsD != null ? "   ${val.adsD['data']['listing_comments'].length} helloPeople".tr :'',
-                    style:AppTextStyles.appTextStyle(fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
+                  child: Text(
+                    val.adsD != null ? " ${val.adsD['data']['listing_comments'].length} helloPeople".tr :'',
+                    style:AppTextStyles.appTextStyle(
+                      fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
                     ),
                   ),
                 ),
@@ -126,11 +125,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
       ),
     );
   }
-  //hehe
+
   Widget titleStep(data) {
     price = data['price'].toString();
     reviewPagePrice = price.split('.');
-
     if(data != null ) {
       htmldata =
       """ <head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -203,9 +201,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(height: 11.h,),
                           Text('city0'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
+                          data['city'] !=null ? 
                           Text(
                             data['city']['city'][lang]!= null ?
-                            data['city']['city'][lang]:data['city']['city'][lang]== null ? data['city']['city']['en']:'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            data['city']['city'][lang]: data['city']['city'][lang]== null ? data['city']['city']['en']:'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):
+                            Container(),
                           SizedBox(height: 11.h,),
                            Text("city2".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
@@ -220,24 +220,27 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     ),
                      Container(
                       //  margin: lang=='en'? EdgeInsets.only(left:60,ri):EdgeInsets.only(right:60,left: 60),
-                      margin: EdgeInsets.only(left:60,right: 60),
+                       margin: EdgeInsets.only(left:60,right: 60),
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                          children: [
                           SizedBox(height: 20),
                           Text("region".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 8.h),
+                          data['region'] !=null ? 
                           Text(
                             data['region']['region'][lang] != null ? data['region']['region'][lang]:
                             data['region']['region'][lang] == null ? data['region']['region']['en']:'',
                             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
-                          ),
+                          ):Container(),
                           SizedBox(height: 11.h),
                           Text("city1".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),
+                          data['type'] !=null ? 
                           Text(data['type']['type'][lang] != null  ? data['type']['type'][lang].toString():
                           data['type']['type'][lang] == null ? data['type']['type']['en'] :''
-                          ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                          ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),):
+                          Container(),
                           SizedBox(height: 10.h,),
                            Text('city3'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                           SizedBox(height: 7.h),

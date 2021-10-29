@@ -70,3 +70,12 @@ Future<http.Response> searchFriend(data) async{
   final result = await http.post(url,body:json.encode(data),headers: ApiHeaders().headersWithToken);  
   return result;
 }
+
+Future<http.Response> userSearch(data) async{
+  await ApiHeaders().getData();
+  final Config conf = Config();
+  var url = Uri.parse("${conf.baseUrl}user-search");
+  print("url of the user search ,....$url");
+  final result = await http.post(url,body:json.encode(data),headers: ApiHeaders().headersWithToken);  
+  return result;
+}

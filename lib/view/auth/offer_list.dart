@@ -1,5 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +11,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
-
 import '../shimmer.dart';
 
 class OfferList extends StatefulWidget {
@@ -29,48 +26,26 @@ class _OfferListState extends State<OfferList> {
   var json;
   int slctedInd = 0;
   onSelected(int index) {
-    
     setState(() => slctedInd = index);
   }
 
   var lang;
-  var listtype = 'grid';
   bool allOffer = false;
   bool allTextOpr = false;
   bool isButtonPressed = false;
   final offerFilterCont = Get.put(OfferCategoryController());
-  var selectedIndex = 0;
-  bool lisselect = false;
-  var id;
-  var grid = AppImages.gridOf;
+   bool lisselect = false;
+  var selectedIndex = 0, id, grid = AppImages.gridOf, bottomSheetCategory = 0, selectedIndexListing = 0, listImg = AppImages.listing, status, category, statusFiltered, start, end, filterID,  usertype;
+  Color filterCategoryColor = AppColors.appBarBackGroundColor;
   Color selectedColor = AppColors.appBarBackGroundColor;
   Color listIconColor = AppColors.appBarBackGroundColor;
-  var bottomSheetCategory = 0;
-  Color filterCategoryColor = AppColors.appBarBackGroundColor;
-  var selectedIndexListing = 0;
-  var listImg = AppImages.listing;
-  var status;
-  var category;
-  var statusFiltered;
-  var start;
-  var end;
-  var filterID;
-  var usertype;
-  List<String> itemsList = [
-    "old".tr,
-    "New".tr,
-  ];
   GetStorage box = GetStorage();
-
-  var cardHeight;
-  var cardwidth;
   @override
   void initState() {
     banner.bannerController();
     super.initState();
     coCatOffer.offerList();
     contByCatOffer.myAllOffers();
-    
     allOffer = false;
     offerid = Get.arguments;
     lang = box.read('lang_code');
@@ -78,12 +53,13 @@ class _OfferListState extends State<OfferList> {
   }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
-  Widget build(BuildContext context, ) {
-    // gridList.listingGrid('grid');
+  Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-     appBar: offerid != null ?  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)):null,
+      appBar: offerid != null ?  PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: favAdds( _scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
+      ):null,
       body: GetBuilder<GridListCategory>(
         init: GridListCategory(),
         builder: (valuee){
@@ -139,150 +115,138 @@ class _OfferListState extends State<OfferList> {
       )
     );
   }
+
   Widget listUsers(listFavou) {
     return  Container(
-        // height: Get.height/1.68,
-        child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-            itemCount: listFavou.length,
-            itemBuilder: (BuildContext context, int c) {
-              return GestureDetector(
-                onTap: () {
-                  Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
-                },
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: listFavou.length,
+        itemBuilder: (BuildContext context, int c) {
+          return GestureDetector(
+            onTap: () {
+              Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
+            },
+            child: Container(
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Container(
-                  child: Card(
-                    elevation: 1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Center(
-                              child: Container(
-                                height: Get.height / 7,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  //padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      //Get.to(MyOfferDetailMain(), arguments:listFavou[c]);
-                                    },
-                                    child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
-                                    ? Image.network(
-                                      listFavou[c]['image']['url'],
-                                      width: Get.width / 4,
-                                      fit: BoxFit.fill,
-                                    )
-                                    : Container(
-                                      width: Get.width / 4,
-                                      child: Icon(
-                                        Icons.image,
-                                        size: 50,
-                                      ),
-                                    )
-                                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Center(
+                            child: Container(
+                              height: Get.height / 7,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    //Get.to(MyOfferDetailMain(), arguments:listFavou[c]);
+                                  },
+                                  child: listFavou[c]['image'] != null && listFavou[c]['image']['url'] != null
+                                  ? Image.network(
+                                    listFavou[c]['image']['url'],
+                                    width: Get.width / 4,
+                                    fit: BoxFit.fill,
+                                  )
+                                  : Container(
+                                    width: Get.width / 4,
+                                    child: Icon(
+                                      Icons.image,
+                                      size: 50,
+                                    ),
+                                  )
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        child:Text(
-                                          listFavou[c]['text_ads'][lang]!=null ? listFavou[c]['text_ads'][lang].toString():
-                                          listFavou[c]['text_ads'][lang]==null ? listFavou[c]['text_ads']['en'].toString():'',
-                                          style: TextStyle(
-                                            color: Colors.black, fontWeight: FontWeight.bold
-                                          ),
-                                        )
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    width: Get.width / 2.5,
-                                    child: ReadMoreText(
-                                      listFavou[c]['description'] != null
-                                      ? listFavou[c]['description']['en']
-                                      : "",
-                                      style: TextStyle(
-                                        color: AppColors.inputTextColor,
-                                        fontSize: 13
-                                      ),
-                                      trimLines: 2,
-                                      colorClickableText: AppColors.appBarBackGroundColor,
-                                      trimMode: TrimMode.Line,
-                                      trimCollapsedText: 'Show more',
-                                      trimExpandedText: 'Show less',
-                                    ),
-                                  ),
-                                  Center(
-                                    child: Container(
-                                     width: Get.width/3,
-                                      margin: EdgeInsets.only(top:5),
-                                      child: listFavou[c]['description']!=null  ?
-                                      Text(
-                                        listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
-                                      ):Container()
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5),
-                                    child: listFavou[c]['url'] != null
-                                    ? Text(listFavou[c]['url'],
-                                      style: TextStyle(
-                                        color: Colors.blue
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      child:Text(
+                                        listFavou[c]['text_ads'][lang]!=null ? listFavou[c]['text_ads'][lang].toString():
+                                        listFavou[c]['text_ads'][lang]==null ? listFavou[c]['text_ads']['en'].toString():'',
+                                        style: TextStyle(
+                                          color: Colors.black, fontWeight: FontWeight.bold
+                                        ),
                                       )
-                                    )
-                                    : Container()
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  width: Get.width / 2.5,
+                                  child: ReadMoreText(
+                                    listFavou[c]['description'] != null
+                                    ? listFavou[c]['description']['en']
+                                    : "",
+                                    style: TextStyle(
+                                      color: AppColors.inputTextColor,fontSize: 13
+                                    ),
+                                    trimLines: 2,
+                                    colorClickableText: AppColors.appBarBackGroundColor,
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: 'Show more',
+                                    trimExpandedText: 'Show less',
+                                  ),
+                                ),
+                                Center(
+                                  child: Container(
+                                    width: Get.width/3,
+                                    margin: EdgeInsets.only(top:5),
+                                    child: listFavou[c]['description']!=null  ?
+                                    Text(
+                                      listFavou[c]['description']['en'], style:TextStyle(color:Colors.black)
+                                    ):Container()
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 5),
+                                  child: listFavou[c]['url'] != null
+                                  ? Text(listFavou[c]['url'],
+                                    style: TextStyle( color: Colors.blue)
                                   )
-                                ]
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                listFavou[c]['status'] == 1
-                                  ? "NEW"
-                                  : listFavou[c]['status'] == 0
-                                    ? "OLD"
-                                    : listFavou[c]['status'] == null
-                                    ? ''
-                                    : '',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal,
-                                  color: listFavou[c]['status'] == 1
-                                  ? AppColors.snackBarColor
-                                  : AppColors.appBarBackGroundColor,
+                                  : Container()
                                 )
-                              )
+                              ]
                             ),
-                           
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              listFavou[c]['status'] == 1 ? "NEW"
+                              : listFavou[c]['status'] == 0? "OLD" : listFavou[c]['status'] == null ? '': '',
+                              style: TextStyle(
+                                fontSize: 14,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal,
+                                color: listFavou[c]['status'] == 1 ? AppColors.snackBarColor: AppColors.appBarBackGroundColor,
+                              )
+                            )
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                )),
-                
-              );
-            }),
+                ),
+              )
+            ),
+              
+          );
+        }
+      ),
     
     );
   }

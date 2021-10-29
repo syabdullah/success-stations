@@ -50,7 +50,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     super.initState();
     _getUserLocation();
     gridingData.listingGrid('grid');
-    // ignore: unused_local_variable
     var id = box.read('user_id');
     route = Get.arguments;
     lang = box.read('lang_code');
@@ -97,7 +96,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       color: Colors.white,
                       elevation: 5,
                       child: Container(
-                        // padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -206,8 +204,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             ),
             point,
           );
-        }));
-    //  });
+        }
+      )
+    );
   }
 
   @override
@@ -218,15 +217,16 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         init: LocationController(),
         builder: (val) { 
           _markers.clear();
-          if (val.allLoc != null)
-          for (int i = 0; i < val.allLoc['data']['data'].length; i++) {
-            if (val.allLoc['data']['data'][i]['location'] != null) {
+          if (val.allLoc != null && val.allLoc['success'] == true)
+          for (int i = 0; i < val.allLoc['data'].length; i++) {
+            if ( val.allLoc['data']!=null ) {
               setMarkers(
-                LatLng(val.allLoc['data']['data'][i]['long'],
-                val.allLoc['data']['data'][i]['long']),
-                val.allLoc['data']['data'][i]);
-                _latLng = LatLng(val.allLoc['data']['data'][i]['long'],
-                val.allLoc['data']['data'][i]['long']);
+                LatLng(
+                  val.allLoc['data'][i]['long'],
+                  val.allLoc['data'][i]['long']),
+                  val.allLoc['data'][i]);
+                  _latLng = LatLng(val.allLoc['data'][i]['long'],
+                  val.allLoc['data'][i]['long']);
               }
             }
             return GetBuilder<GridListCategory>(
@@ -251,16 +251,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                 : GetBuilder<LocationController>(
                   init:  LocationController(),
                   builder: (value) {
-                    return value.allLoc != null
-                    ? allUsers(value.allLoc['data'])
-                    : gridShimmer();
+                    return value.allLoc != null 
+                    ? allUsers(value.allLoc['data']) :
+                    gridShimmer();
                   } 
                 ),
-              // Container(
-              //   child: Row(
-              //     children: [topWidget()],
-              //   ),
-              // )
             ],
           );
             }
@@ -366,7 +361,13 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   }
 
   Widget allUsers(userData) {
-    return GridView.builder(
+    return  userData == null ?
+    Container(
+      child: Center(
+        child: Text(
+          "locationFound".tr, style:TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
+        )
+      ): GridView.builder(
         padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
         primary: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -380,12 +381,13 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           ? Get.height / 1.60
           : 0),
         ),
-        itemCount: userData['data'].length,
+        itemCount: userData.length,
         itemBuilder: (BuildContext context, int index) {
+          print("userData[index].........................${userData[index]['id']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
-                  arguments: userData['data'][index]['user_name']['id']);
+              arguments: userData[index]['id']);
             },
             child: Card(
               elevation: 3,
@@ -404,8 +406,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       child: Container(
                         width: Get.width / 2.2,
                         height: Get.height / 5.2,
-                        child:  userData['data'][index]['image'] !=null && userData['data'][index]['image']['url'] !=null ? 
-                        Image.network( userData['data'][index]['image']['url'],
+                        child:  userData[index]['image'] !=null && userData[index]['image']['url'] !=null ? 
+                        Image.network( userData[index]['image']['url'],
                             fit: BoxFit.fill,
                           )
                         :
@@ -417,9 +419,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20, top: 15,right: 15),
-                      child: userData['data'][index]['location']!=null &&  userData['data'][index]['location'] !=null ? 
+                      child: userData[index]['location']!=null &&  userData[index]['location'] !=null ? 
                       Text(
-                        userData['data'][index]['location'].toString(),
+                        userData[index]['location'].toString(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black,
@@ -433,11 +435,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       children: [
                         Row(
                           children: [
-                            userData['data'][index]['user_name']!=null ? 
+                            userData[index]['user_name']!=null ? 
                             Container(
                               child: RatingBar.builder(
                                 ignoreGestures: true,
-                                initialRating: userData['data'][index]['user_name']['rating'].toDouble(),
+                                initialRating: userData[index]['user_name']['rating'].toDouble(),
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -450,34 +452,34 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                  onRatingUpdate: (rating) {},
                               ),
                             ):Container(),
-                            userData['data'][index]['user_name']!=null ? 
+                            userData[index]['user_name']!=null ? 
                             Container(
                               margin: EdgeInsets.only(left: 5),
                               child: Text(
-                                "(${userData['data'][index]['user_name']['rating_count'].toString()})",
+                                "(${userData[index]['user_name']['rating_count'].toString()})",
                                 style: TextStyle(fontSize: 13),
                               )
                             ):Container()
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            adtofavJson = {
-                              'location_id': userData['data'][index]['id']
-                            };
-                            remtofavJson = {
-                              'location_id': userData['data'][index]['id']
-                            };
-                            userData['data'][index]['is_location_favourite'] == false
-                            ? adfavUser.locationToFav(adtofavJson)
-                            : adfavUser.locationUnToFav(remtofavJson);
-                          },
-                          child:userData['data'][index]['is_location_favourite'] == false
-                          ? Image.asset(
-                            AppImages.blueHeart, height: 20,
-                          )
-                          : Image.asset(AppImages.heart)
-                        )
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     adtofavJson = {
+                        //       'location_id': userData['data'][index]['id']
+                        //     };
+                        //     remtofavJson = {
+                        //       'location_id': userData['data'][index]['id']
+                        //     };
+                        //     userData['data'][index]['is_location_favourite'] == false
+                        //     ? adfavUser.locationToFav(adtofavJson)
+                        //     : adfavUser.locationUnToFav(remtofavJson);
+                        //   },
+                        //   child:userData['data'][index]['is_location_favourite'] == false
+                        //   ? Image.asset(
+                        //     AppImages.blueHeart, height: 20,
+                        //   )
+                        //   : Image.asset(AppImages.heart)
+                        // )
                       ],
                     ),
                   ],

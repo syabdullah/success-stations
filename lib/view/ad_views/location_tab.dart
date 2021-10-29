@@ -367,7 +367,8 @@ class _LocationTabState extends State<LocationTab> {
 }
 
 Widget locationList(lastLocation) {
-    return lastLocation['data'].length == 0 ? Center(
+  print("lastLocatuon. of the locatio ...................$lastLocation");
+    return lastLocation.length == 0 ? Center(
       child: Container(
         margin: EdgeInsets.only(top:85),
         child: Text("No location available!",style: TextStyle(fontWeight: FontWeight.bold),),
@@ -376,7 +377,7 @@ Widget locationList(lastLocation) {
      ListView.builder(
        padding: EdgeInsets.only(bottom: 1),
        // physics: NeverScrollableScrollPhysics(),
-       itemCount: lastLocation['data'].length,
+       itemCount: lastLocation.length,
        shrinkWrap: true,
        // ignore: non_constant_identifier_names
        itemBuilder: (BuildContext,index) {
@@ -396,13 +397,13 @@ Widget locationList(lastLocation) {
                            padding:
                            const EdgeInsets.all(10.0),
                            child: GestureDetector(
-                             child:lastLocation['data'][index]['image'] !=null&&  lastLocation['data'][index]['image']['url']!= null ?
+                             child:lastLocation[index]['image'] !=null&&  lastLocation[index]['image']['url']!= null ?
                              ClipRRect(
                              borderRadius: BorderRadius.circular(10),
                                child: Container(
                                  height: Get.height/7.5,
-                                 child: lastLocation['data'][index]['image']['url'] !=null ?
-                                 Image.network(lastLocation['data'][index]['image']['url'], fit: BoxFit.cover,): Container()
+                                 child: lastLocation[index]['image']['url'] !=null ?
+                                 Image.network(lastLocation[index]['image']['url'], fit: BoxFit.cover,): Container()
                                ),
                              ): Container(
                                  child: Image.asset(AppImages.location,height: 117,),
@@ -418,18 +419,18 @@ Widget locationList(lastLocation) {
                          mainAxisAlignment: MainAxisAlignment.center,
                          children: [
                           
-                            lastLocation['data'][index]['location'] != null ?
+                            lastLocation[index]['location'] != null ?
                               Container(
                                 width: Get.width/1.5,
-                                child: Text(lastLocation['data'][index]['location'],textAlign: TextAlign.left,
+                                child: Text(lastLocation[index]['location'],textAlign: TextAlign.left,
                                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
                                  ),
                               )
                              : Container(),
-                              lastLocation['data'][index]['formated_address'] != null ?
+                              lastLocation[index]['formated_address'] != null ?
                               Container(
                                 width: Get.width/1.5,
-                                child: Text(lastLocation['data'][index]['formated_address'],textAlign: TextAlign.left,
+                                child: Text(lastLocation[index]['formated_address'],textAlign: TextAlign.left,
                                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12),
                                  ),
                               )
@@ -438,8 +439,8 @@ Widget locationList(lastLocation) {
                            Row(
                              children: [
                                Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
-                               lastLocation['data'][index]['services'] !=null ?
-                             Text(": ${lastLocation['data'][index]['services']['servics_name']}",
+                               lastLocation[index]['services'] !=null ?
+                             Text(": ${lastLocation[index]['services']['servics_name']}",
                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
                              ): Container(),
                              SizedBox(width: 3,),
@@ -447,7 +448,7 @@ Widget locationList(lastLocation) {
                              ],
                            ),
                            SizedBox(height: 4),
-                              lastLocation['data'][index]['country_name']!= null ? 
+                              lastLocation[index]['country_name']!= null ? 
                          Row(
                            children: [
                              Container(
@@ -459,7 +460,7 @@ Widget locationList(lastLocation) {
                              Container(
                                width: Get.width / 3.3,
                                child: Text(
-                                 ": ${lastLocation['data'][index]['country_name']}",
+                                 ": ${lastLocation[index]['country_name']}",
                                  style: TextStyle(
                                    color: Colors.black,
                                    fontSize: 12

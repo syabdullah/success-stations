@@ -113,7 +113,9 @@ const Map<String, String> en = {
   "details": "Details",
   "ad_posted_at": "Ad Posted at",
   "save": "Save",
+  "savecaps": "SAVE",
   "cancel": "Cancel",
+  "cancelCaps": "CANCEL",
   "categories": "Categories",
   "search_book": "Search Book",
   "search_offer": "Search Offer",
@@ -155,6 +157,10 @@ const Map<String, String> en = {
   "remove_from_favourites": "Remove Favourite",
   "contact": "Contact",
   "connect": "Connect",
+  "diploma":"Diploma",
+  "bachelor\'s":"Bachelor\'s",
+  "doctorate":"Doctorate",
+  "master\'s":"Master\'s",
   "read_more": "Read More",
   "reset": "RESET",
   "filter": "Filter",
@@ -269,6 +275,7 @@ const Map<String, String> en = {
   'pro_comp':'Pro(Company)',
   'my_offer':'My Offers',
   'email_address':'Email Address',
+  "locationFound":'No Location Found',
   'first_name':'First Name',
   'last_name':'Last Name',
   'apartment':'Apartment',
@@ -286,6 +293,7 @@ const Map<String, String> en = {
   'crs':'Cr',
   'DegreeSU':"Degree",
   'oR':'OR',
+  "update": "UPDATE",
   'contactC':'CONTACT',
   'favC':'FAVOURITES',
   'contactus':'CONTACT US',
@@ -326,7 +334,8 @@ const Map<String, String> en = {
   "resp":"Responsible",
   "resDig":"Responsibe must be in digits",
   "crEn":"Enter CR"  ,
-  'noLoc':'No Location Added Yet'
+  'noLoc':'No Location Added Yet',
+  'dobb': 'Date of Birth should not be greater then current Date'
 
   
   

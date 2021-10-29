@@ -45,6 +45,9 @@ class _AdOffersState extends State<AdOffers> {
 }
 
 Widget gridView(offeredList){
+   offeredList == null && offeredList.length == 0 ? 
+   Container(child: Text("No Offer Yet")):
+  print("offeredList.....offeredList.....$offeredList");
   return  GridView.builder(
     physics: AlwaysScrollableScrollPhysics(),
     primary: false,

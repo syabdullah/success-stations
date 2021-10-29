@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
+import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/offer_filtered.dart';
 import 'package:success_stations/view/offer_grid_filtered.dart';
 import 'package:success_stations/view/offers/add_offers.dart';
@@ -481,6 +482,29 @@ Widget sAppbar(context ,icon,image,) {
       backgroundColor: AppColors.appBarBackGroundColor,
     );
   }
+  Widget locationFiltered(context ,icon,image,) {
+  return AppBar(
+      centerTitle: true,
+      leading:  Padding(
+        padding: const EdgeInsets.only(top:15.0),
+        child: IconButton(
+          icon: Icon(icon,
+          color: AppColors.backArrow),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      actions: [
+        GestureDetector(
+          onTap: (){
+            Get.bottomSheet(SuggestFriends());
+
+          },
+          child: Image.asset(image, height: 10))
+      ],
+      
+      backgroundColor: AppColors.appBarBackGroundColor,
+    );
+  }
 
   Widget newAppbar(context ,icon,image) {
     return AppBar(
@@ -834,7 +858,6 @@ Widget sAppbar(context ,icon,image,) {
                                   onPressed: (){
                                     var cityFinalData;
                                     if(decideRouter == 'city' || decideRouter == 'name' ) {
-                                      print("==/=/==/=/==//=====---------$locationName");
                                       if(cityArray.length != 0) {
                                         var cityFinal = cityArray.toString();
                                         cityFinalData = cityFinal.substring(1, cityFinal.length - 1);

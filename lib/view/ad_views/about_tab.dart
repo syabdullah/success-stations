@@ -65,7 +65,7 @@ class _AboutTabState extends State<AboutTab> {
             GetBuilder<LastAdsController>(
               init: LastAdsController(),
               builder: (value){
-                return  value.lastuserads != null ?
+                return  value.lastuserads != null && value.lastuserads['data']  !=null?
                 lastAds(value.lastuserads['data']):PlayStoreShimmer();
               }
             ),
@@ -93,8 +93,10 @@ class _AboutTabState extends State<AboutTab> {
               init: LastLocationController(), 
               builder: (value){ 
                 return value.isLoading == true ? shimmer():
-                value.lastLocation !=null && value.lastLocation['success']== true ?
-                lastLocation( value.lastLocation['data']['data']) :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+                value.lastLocation !=null &&value.lastLocation['data'] !=null ? 
+                //  && 
+                //  value.lastLocation['success']== true ?
+                lastLocation( value.lastLocation['data']) :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
                   Container(
                     child:Text(
                       lastLoc.lastLocation['errors']
@@ -127,7 +129,7 @@ Widget detail(userData2, context){
                   style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
                 ),
                 SizedBox(height:5),
-                userData2['about'] != null ?
+                userData2 !=null && userData2['about'] != null ?
                   Text(
                     userData2['about'],
                     textAlign: TextAlign.justify,
@@ -164,14 +166,14 @@ Widget detail(userData2, context){
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:[
-                  userData2['name'] !=null ?
+                  userData2!=null &&  userData2['name'] !=null ?
                     Text(
                       userData2['name'],style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
                     )
                   :Container(),
                   Column(
                     children: [
-                      userData2['email'] != null ?
+                      userData2 !=null &&  userData2['email'] != null ?
                       Container(
                         child: GestureDetector(
                           onTap: (){
@@ -231,7 +233,7 @@ Widget detail(userData2, context){
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  userData2['mobile'] != null ?
+                 userData2 !=null &&  userData2['mobile'] != null ?
                     Text(
                       userData2['mobile'],
                       style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
@@ -239,7 +241,7 @@ Widget detail(userData2, context){
                   :Container(),
                   Column(
                     children: [
-                      userData2['address'] != null ?
+                      userData2 !=null && userData2['address'] != null ?
                       Container(
                         child: GestureDetector(
                           onTap: (){
@@ -340,6 +342,7 @@ Widget lastOffer(offerDattaTypeCategory){
 
 var imageGived;
 Widget lastAds(lastuserad){
+  print("nmsxbsxbbxbx.............$lastuserad");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
     height: Get.height > 800 ? Get.height/3.9:Get.height/3.5,
