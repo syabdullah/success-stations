@@ -74,6 +74,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
 }
 
 Widget topImage(userData2){
+  print("..........!!!!!!>.......... userdata .....$userData2");
   return Stack(
     children: [
       Container(
@@ -94,7 +95,7 @@ Widget topImage(userData2){
             ),
             backgroundColor: Colors.transparent,
             centerTitle: true,
-            title: userData2['name'] != null ?
+            title: userData2!= null ?
               Center(
                 child: Text(userData2['name'],
                   style:AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor,),
@@ -107,7 +108,7 @@ Widget topImage(userData2){
       Center(
         child: FractionalTranslation(
           translation: const Offset(0.0, 1.6),
-          child: userData2['image'] != null?
+          child:  userData2 !=null  &&  userData2['image'] != null?
             CircleAvatar(
               backgroundImage: NetworkImage(userData2['image']['url']),
               radius: 45.0,

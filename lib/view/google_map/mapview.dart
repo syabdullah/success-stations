@@ -50,7 +50,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     super.initState();
     _getUserLocation();
     gridingData.listingGrid('grid');
-    // ignore: unused_local_variable
     var id = box.read('user_id');
     route = Get.arguments;
     lang = box.read('lang_code');
@@ -97,7 +96,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       color: Colors.white,
                       elevation: 5,
                       child: Container(
-                        // padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -206,8 +204,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             ),
             point,
           );
-        }));
-    //  });
+        }
+      )
+    );
   }
 
   @override
@@ -221,7 +220,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           if (val.allLoc != null && val.allLoc['success'] == true)
           for (int i = 0; i < val.allLoc['data'].length; i++) {
             if ( val.allLoc['data']!=null ) {
-              print("long lattitude....${val.allLoc['data']}");
               setMarkers(
                 LatLng(
                   val.allLoc['data'][i]['long'],
@@ -254,19 +252,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   init:  LocationController(),
                   builder: (value) {
                     return value.allLoc != null 
-                    ? allUsers(value.allLoc['data']) : 
-                    value.allLoc  !=null &&   value.allLoc['data'] !=null? 
-                    Center(
-                      child: Text("No location yet"),
-                    )
-                    : gridShimmer();
+                    ? allUsers(value.allLoc['data']) :
+                    gridShimmer();
                   } 
                 ),
-              // Container(
-              //   child: Row(
-              //     children: [topWidget()],
-              //   ),
-              // )
             ],
           );
             }
@@ -376,7 +365,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     Container(
       child: Center(
         child: Text(
-          "No Location Found ", style:TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
+          "locationFound".tr, style:TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
         )
       ): GridView.builder(
         padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
@@ -394,10 +383,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData.length,
         itemBuilder: (BuildContext context, int index) {
+          print("userData[index].........................${userData[index]['id']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),
-                  arguments: userData[index]['user_name']['id']);
+              arguments: userData[index]['id']);
             },
             child: Card(
               elevation: 3,

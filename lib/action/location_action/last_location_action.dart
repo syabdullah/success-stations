@@ -8,6 +8,7 @@ Future<http.Response> lastLocatin(id) async {
   await ApiHeaders().getData();
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}user-location/$id");
+  print("printed bvalue dof the lastLoaction ..............$url");
   final result =await http.get(url,headers: ApiHeaders().headersWithToken);  
   return result;
 }

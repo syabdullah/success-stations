@@ -16,8 +16,9 @@ class FriendsController extends GetxController {
   var friendsData;
   var sendReq;
   var appReq;
+  var resultInvalid = false.obs;
   var rejReq;
-  var suggestionsData;
+  var suggestionsData, userSearchData;
   var friendProfileData;
   var userAds, addAd, removeAds, rep;
 
@@ -35,6 +36,25 @@ class FriendsController extends GetxController {
       isLoading = false;
     }).catchError((e) {
       return e;
+    });
+    update();
+  }
+  userFriendSuggest(data) async {
+    isLoading = true;
+    await userSearch(data).then((res) {
+     userSearchData = jsonDecode(res.body);
+     suggestionsData = userSearchData['data'];
+      print("friends Data .......$userSearchData");
+      isLoading = false;
+      if(res.statusCode ==200||res.statusCode <  400){
+        resultInvalid(false);
+        isLoading = false;
+      } if(userSearchData['success'] == false){
+        resultInvalid(true);
+        isLoading = false;
+      }
+      if(res.statusCode >400){
+      }
     });
     update();
   }
@@ -176,11 +196,12 @@ class FriendsController extends GetxController {
     });
     update();
   }
-   var resultInvalid = false.obs;
+
   searchFriendControl(data) async {
     isLoading = true;
     await searchFriend(data).then((res) {
      friendsData = jsonDecode(res.body);
+   
       isLoading = false;
        if(res.statusCode ==200||res.statusCode <  400){
         resultInvalid(false);
@@ -196,4 +217,6 @@ class FriendsController extends GetxController {
     });
     update();
   }
+
+ 
 }

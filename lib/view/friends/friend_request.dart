@@ -6,6 +6,7 @@ import 'package:success_stations/controller/friends_controloler.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
+import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/shimmer.dart';
 
 class FriendReqList extends StatefulWidget {
@@ -13,6 +14,7 @@ class FriendReqList extends StatefulWidget {
 }
 class _FriendReqListState extends State<FriendReqList> {
   final friCont = Get.put(FriendsController());
+  
   GetStorage box = GetStorage();
   var id;
   @override
@@ -42,6 +44,16 @@ class _FriendReqListState extends State<FriendReqList> {
             ],
           )
         ),
+        actions: [ 
+          GestureDetector(
+            onTap: (){
+              Get.bottomSheet(SuggestFriends());
+            },
+            child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Image.asset(AppImages.filterImage, height:10),
+        ),
+          )],
         centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor
@@ -51,17 +63,26 @@ class _FriendReqListState extends State<FriendReqList> {
           GetBuilder<FriendsController>(
             init: FriendsController(),
             builder: (val) {
-              return val.suggestionsData == null ? friendReqShimmer() : val.suggestionsData.length == 0  || val.suggestionsData == null? 
+              return val.suggestionsData == null?
+              Container(
+                height: Get.height/1.5,
+                child:Center(
+                  child: Text("No Record Found", style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal))
+                )
+              ):
+              val.suggestionsData.length == 0  || val.suggestionsData == null? 
               Container(
                 child: Text(
                   "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
                 )
-              ):  Column(
+              ):
+              Column(
                 children: [
                   val.friendsData != null ? 
                   Column(
                     children: friendList(val.friendsData['data']),
-                  ) :friendReqShimmer(),
+                  ) :
+                   friendReqShimmer(),
                   Column(
                     children:
                     sugesstionList(val.suggestionsData),

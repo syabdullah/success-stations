@@ -221,7 +221,7 @@ class _AddLocationsState extends State<AddLocations> {
           print(jsonLoc);
            dataPage != null ? locCont.editLocationToDB(dataPage['id'],jsonLoc) :  locCont.saveLocationToDB(jsonLoc);
          },
-        child: Text( dataPage != null ? 'Update' : 'SAVE',style: TextStyle( color: AppColors.appBarBackGroundColor),),
+        child: Text( dataPage != null ? 'update'.tr : 'savecaps'.tr,style: TextStyle( color: AppColors.appBarBackGroundColor),),
       ),
     );
   
@@ -241,7 +241,7 @@ class _AddLocationsState extends State<AddLocations> {
         onPressed: () { 
           Get.back();
          },
-        child: Text('CANCEL',style: TextStyle( color: Colors.white,),),
+        child: Text('cancelCaps'.tr,style: TextStyle( color: Colors.white,),),
       ),
     );
   }
