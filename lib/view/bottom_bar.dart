@@ -65,6 +65,7 @@ class _BottomTabsState extends State<BottomTabs> {
   void onTabTapped(int index) {
    setState(() {
      _currentIndex = index;
+     print("...... current index ....$_currentIndex");
    });
   }
 
