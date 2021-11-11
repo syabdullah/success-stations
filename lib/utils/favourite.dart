@@ -281,9 +281,9 @@ class _FavouritePageState extends State<FavouritePage> {
         crossAxisCount: 2,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        childAspectRatio: (
-          lang == 'en' ? Get.width / 1.01 / Get.height / 0.72:Get.width / 1.10 / Get.height / 0.55
-        ),
+        childAspectRatio: ( lang == 'en' ?  
+        lang == 'en' ? Get.width / 1.01 / Get.height / 0.49:Get.width / 1.10 / Get.height / 0.55: 
+        Get.width / 1.01 / Get.height / 0.49),
         children: List.generate(
           newData.length, (index) { 
             var price = newData[index]['listing']['price'].toString();
@@ -396,93 +396,6 @@ class _FavouritePageState extends State<FavouritePage> {
                       ),
                     ],
                   ),         
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Stack(
-                        alignment:AlignmentDirectional.topStart,
-                        children: [
-                          Positioned(
-                            left: 10, top:2.5,
-                            child: Image.asset(AppImages.newuser,height: 20),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left:28,right: 5),
-                            width:50,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top:BorderSide(color: Colors.black,width:1.5),
-                                right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5),
-                                left: BorderSide(color: Colors.grey,width: 0.3),
-                                bottom: BorderSide(color: Colors.black,width:1.5)
-                              ),
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.only(left:5,right: 5),
-                              child: Text(
-                                newData[index]['created_by']['name'],
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ),
-                          )
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          launch("tel:${newData[index]['created_by']['phone']}");
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(left:5,right: 5),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(),
-                                width: 63,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: AppColors.newphoneColor,
-                                  borderRadius: lang == "ar" ?
-                                  BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15)
-                                  ):
-                                  BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15)
-                                  )
-                                ),
-                                child: Center(
-                                  child: Text("callme".tr,
-                                    style: TextStyle(color: Colors.white,fontSize:8)
-                                  )
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(),
-                                width: 20,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: lang == "ar" ?
-                                  BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15)
-                                  ) :
-                                  BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15)
-                                  )
-                                ),
-                                child: Center(
-                                  child: Image.asset(AppImages.newcall,height: 10)
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  )
                 ]
               ),
             );    

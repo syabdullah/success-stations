@@ -342,10 +342,9 @@ Widget lastOffer(offerDattaTypeCategory){
 
 var imageGived;
 Widget lastAds(lastuserad){
-  print("nmsxbsxbbxbx.............$lastuserad");
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height > 800 ? Get.height/3.9:Get.height/3.5,
+    height: Get.height > 800 ? Get.height/4.50:Get.height/3.5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: lastuserad.length,
@@ -431,97 +430,7 @@ Widget lastAds(lastuserad){
                           style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 8,)
                         )
                       ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Stack(
-                          alignment:AlignmentDirectional.topStart,
-                          children: [
-                            Positioned(
-                              left: 10,
-                              top: 2.5,
-                              child: Image.asset(AppImages.newuser,height: 20,),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left:28,right: 5),
-                              width:55,
-                              decoration: BoxDecoration(
-                              border: Border(
-                                top:BorderSide(color: Colors.black,width:1.5, ) ,
-                                right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5,) ,
-                                left: BorderSide(color: Colors.grey,width: 0.3),
-                                bottom: BorderSide(color: Colors.black,width:1.5,)
-                              ),
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.only(left:5,right: 5),
-                              child: Text(
-                                lastuserad[index]['created_by']['name'],
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ),
-                            )
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            launch("tel:${lastuserad[index]['created_by']['phone']}");
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left:5,right: 5),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(),
-                                  width: 63,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.newphoneColor,
-                                    borderRadius: lang == "ar" ?
-                                    BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)
-                                      )
-                                      :BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)
-                                    )
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "callme".tr,style: TextStyle(color: Colors.white,fontSize:8 )
-                                    )
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(),
-                                  width: 20,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: lang == "ar" ?
-                                    BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)
-                                    ):
-                                    BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)
-                                    )
-                                  ),
-                                  child: Center(
-                                    child: Image.asset(
-                                      AppImages.newcall,height: 10
-                                    )
-                                  ),
-                                ),
-                              ],
-                            )
-                          )
-                        )
-                      ],
-                    ),
+                    ),  
                   ],
                 ),
               ]

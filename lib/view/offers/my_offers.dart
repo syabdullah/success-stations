@@ -41,23 +41,35 @@ class _MyOffersDetailState extends State<OffersDetail> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leadingWidth: 76,
         backgroundColor: AppColors.appBarBackGroundColor,
-        title: Text('my_Offer'.tr),
+        title: Container(
+          margin: EdgeInsets.only(top:10),
+          child: Text(
+            'my_Offer'.tr, style: TextStyle(fontSize:15)
+          ),
+        ),
         centerTitle: true,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            IconButton(
-              onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-              icon: Icon(Icons.arrow_back,)
+            Container(
+              margin: EdgeInsets.only(top:12, left:7),
+              child: GestureDetector(
+                onTap: (){
+                  _scaffoldKey.currentState!.openDrawer();
+                },
+                child: Icon(
+                  Icons.arrow_back, size: 20,
+                )
+              )
             ),
             GestureDetector(
               onTap: () {
                 Get.to(AddOffersPage());
               },
               child: Container(
-                child:Image.asset(AppImages.plusImage,color:Colors.white, height:24)
+                margin: EdgeInsets.only(top:12,left:5),
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:18)
               ),
             ),
           ]

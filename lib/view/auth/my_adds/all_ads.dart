@@ -35,7 +35,7 @@ class _AllAddsState extends State<AllAdds> {
   final friCont = Get.put(FriendsController());
   final catCobtroller = Get.put(MyListingFilterController());
   final filterControlller = Get.put(AddBasedController());
-  var listtype = 'grid',  userId,  myrate;
+  var  userId,  myrate;
   late double valueData;
   var selectedIndex = 0,lang, filteredIndex = 0,  selectedIndexListing = 0, v,status, category, start, end, filterID, data, id, listImg = AppImages.listing, grid = AppImages.gridOf, conditionSelected,  bClicked = false;
   bool lisselect = false;
@@ -327,7 +327,9 @@ class _AllAddsState extends State<AllAdds> {
         crossAxisCount: 2,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
-        childAspectRatio: ( lang == 'en' || Get.height < 700  ? Get.width / 1.10 / Get.height / 0.53:Get.width / 1.10 / Get.height / 0.51),
+        childAspectRatio: ( lang == 'en' ?  Get.height < 700  ? Get.width / 1.10 / Get.height / 0.43: Get.width / 1.10 / Get.height / 0.42:
+        Get.height < 700  ? Get.width / 1.10 / Get.height / 0.43:Get.width / 1.10 / Get.height / 0.43
+        ),
         children: List.generate(
           dataListValue.length, (index) {
             var price = dataListValue[index]['price'].toString();
@@ -465,91 +467,91 @@ class _AllAddsState extends State<AllAdds> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Stack(
-                          alignment:AlignmentDirectional.topStart,
-                          children: [
-                            Positioned(
-                              left: 10,top:2.5,
-                              child: Image.asset(AppImages.newuser,height: 20),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left:28,right: 5),
-                              width:46.5,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  top:BorderSide(color: Colors.black,width:1.5),
-                                  right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5) ,
-                                  left: BorderSide(color: Colors.grey,width: 0.3),
-                                  bottom: BorderSide(color: Colors.black,width:1.5)
-                                ),
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.only(left:5,right: 5),
-                                child: Text(
-                                  dataListValue[index]['contact_name'],
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              ),
-                            )
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            launch("tel:${dataListValue[index]['phone']}");
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left:5,right: 5),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 63,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.newphoneColor,
-                                    borderRadius: lang == "ar" ?
-                                    BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)
-                                    ):
-                                    BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)
-                                    )
-                                  ),
-                                  child: Center(
-                                    child: Text("callme".tr,
-                                      style: TextStyle(color: Colors.white,fontSize:8)
-                                    )
-                                  ),
-                                ),
-                                Container(
-                                  width: 20,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: lang == "ar" ?
-                                    BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)
-                                    )
-                                    :BorderRadius.only(
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)
-                                    )
-                                  ),
-                                  child: Center(
-                                    child: Image.asset(AppImages.newcall,height: 10)
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    )
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Stack(
+                    //       alignment:AlignmentDirectional.topStart,
+                    //       children: [
+                    //         Positioned(
+                    //           left: 10,top:2.5,
+                    //           child: Image.asset(AppImages.newuser,height: 20),
+                    //         ),
+                    //         Container(
+                    //           margin: EdgeInsets.only(left:28,right: 5),
+                    //           width:46.5,
+                    //           decoration: BoxDecoration(
+                    //             border: Border(
+                    //               top:BorderSide(color: Colors.black,width:1.5),
+                    //               right: BorderSide(color: Colors.black,style:BorderStyle.solid,width:1.5) ,
+                    //               left: BorderSide(color: Colors.grey,width: 0.3),
+                    //               bottom: BorderSide(color: Colors.black,width:1.5)
+                    //             ),
+                    //           ),
+                    //           child: Container(
+                    //             margin: EdgeInsets.only(left:5,right: 5),
+                    //             child: Text(
+                    //               dataListValue[index]['contact_name'],
+                    //               overflow: TextOverflow.ellipsis,
+                    //             )
+                    //           ),
+                    //         )
+                    //       ],
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: (){
+                    //         launch("tel:${dataListValue[index]['phone']}");
+                    //       },
+                    //       child: Container(
+                    //         margin: EdgeInsets.only(left:5,right: 5),
+                    //         child: Row(
+                    //           children: [
+                    //             Container(
+                    //               width: 63,
+                    //               height: 25,
+                    //               decoration: BoxDecoration(
+                    //                 color: AppColors.newphoneColor,
+                    //                 borderRadius: lang == "ar" ?
+                    //                 BorderRadius.only(
+                    //                   topRight: Radius.circular(15),
+                    //                   bottomRight: Radius.circular(15)
+                    //                 ):
+                    //                 BorderRadius.only(
+                    //                   topLeft: Radius.circular(15),
+                    //                   bottomLeft: Radius.circular(15)
+                    //                 )
+                    //               ),
+                    //               child: Center(
+                    //                 child: Text("callme".tr,
+                    //                   style: TextStyle(color: Colors.white,fontSize:8)
+                    //                 )
+                    //               ),
+                    //             ),
+                    //             Container(
+                    //               width: 20,
+                    //               height: 25,
+                    //               decoration: BoxDecoration(
+                    //                 color: Colors.red,
+                    //                 borderRadius: lang == "ar" ?
+                    //                 BorderRadius.only(
+                    //                   topLeft: Radius.circular(15),
+                    //                   bottomLeft: Radius.circular(15)
+                    //                 )
+                    //                 :BorderRadius.only(
+                    //                   topRight: Radius.circular(15),
+                    //                   bottomRight: Radius.circular(15)
+                    //                 )
+                    //               ),
+                    //               child: Center(
+                    //                 child: Image.asset(AppImages.newcall,height: 10)
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // )
                   ]  
                 )
               ),

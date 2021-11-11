@@ -78,7 +78,7 @@ void _getUserLocation() async {
 
 Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,index ) {
   var lang = box.read('lang_code');
-  return lang == 'en' || lang == null  ?  AppBar(
+  return lang == 'en' || lang == null  ? AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -90,11 +90,14 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): index == 1 ?
-        IconButton(
-          iconSize: 10,
-          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
+      Container(
+        alignment:  Alignment.topLeft,
+        margin: EdgeInsets.only(top:12, left:01),
+        child: IconButton(
+          icon: Image.asset(AppImages.newfilter,color: Colors.white, height:23),
           onPressed: () => Get.bottomSheet(FriendFilter()),
-        ):
+        ),
+      ):
 
     index == 2 ? Container()
     : Row(
@@ -114,7 +117,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             margin: EdgeInsets.only(left:10, top:12),
             child:  index == 1 ? Container(): 
             Image.asset(AppImages.filterImage,
-              color: Colors.white, height: 25
+              color: Colors.white, height: 23
             ),
           ),
         ),
@@ -129,7 +132,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             margin: EdgeInsets.only(left:3, top:12),
             child:index != 1 && index !=4 ? Image.asset(
               AppImages.plusImage1,
-              color: Colors.white,width: 25.w, height:25
+              color: Colors.white,width: 25.w, height:23
             ):Container()
           ),
         ),
@@ -152,7 +155,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         ),
       ):
       Container(
-        margin: EdgeInsets.only(right:16,top:10),
+        margin: EdgeInsets.only(right:16,top:12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -162,15 +165,15 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
               },
-              child: index ==2 ? Container(): index == 4 ? Image.asset(AppImages.map1, height:22):Image.asset(AppImages.listingImage, height:22)
+              child: index == 2 ? Container(): index == 4 ? Image.asset(AppImages.map1, height:20):Image.asset(AppImages.listingImage, height:17)
             ),
             GestureDetector(
               onTap: (){
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(left:12),
-                child:  index ==2 ? Container():Image.asset(AppImages.gridView ,height:22)
+                margin: EdgeInsets.only(left:8),
+                child:  index ==2 ? Container():Image.asset(AppImages.gridView ,height:20)
               ),
             )
           ],
@@ -180,7 +183,6 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     backgroundColor: AppColors.appBarBackGroundColor,
   ) : 
   AppBar(
-    
     automaticallyImplyLeading: false,
     centerTitle: true,
     leadingWidth: 89,
@@ -192,13 +194,16 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): 
-    index == 3 ?
-        IconButton(
-          iconSize: 28,
-          icon: Image.asset(AppImages.newfilter,color: Colors.white,height:25),
-          onPressed: () => Get.bottomSheet(FriendFilter()),
-        )
-          :
+    index == 3  && index == 0  ?
+    Container(
+      margin: EdgeInsets.only(top:17),
+      alignment: Alignment.topRight,
+      child: IconButton(
+        icon: Image.asset(AppImages.newfilter,color: Colors.white,height:23),
+        onPressed: () => Get.bottomSheet(FriendFilter()),
+      ),
+    )
+    :
     index == 2 ? Container()
     : Row(
       children: [
@@ -215,10 +220,13 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           }:
           null,
           child: Container(
-            margin: EdgeInsets.only(left:10, top:12),
+            margin:  index == 0 ?EdgeInsets.only(right:10, top:18) :  EdgeInsets.only(right:10, top:18),
             child:  index == 3 ? Container(): 
-            Image.asset(AppImages.filterImage,
-              color: Colors.white, height: 25
+            Container(
+              child: Image.asset(
+                AppImages.filterImage,
+                color: Colors.white, height: 23
+              ),
             ),
           ),
         ),
@@ -230,7 +238,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             Get.to(AddOffersPage());
           }:null ,
           child: Container(
-            margin: EdgeInsets.only(left:3, top:12),
+            margin: EdgeInsets.only(right:7, top:18),
             child:index != 3 && index !=0 ? Image.asset(
               AppImages.plusImage1,
               color: Colors.white,width: 25.w, height:25
@@ -244,7 +252,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       child: Image.asset(image, height: 40),
     ), 
     actions: [
-        index == 2 ?
+      index == 2 ?
       GestureDetector(
         onTap: (){
            Get.toNamed('/inbox');
@@ -256,7 +264,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         ),
       ):
       Container(
-        margin: EdgeInsets.only(left:16,top:10),
+        margin: EdgeInsets.only(left:13,top:12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -266,15 +274,20 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
               },
-              child: index ==2 ? Container():  index == 0 ? Image.asset(AppImages.map1, height:22): Image.asset(AppImages.listingImage, height:22)
+              child: Container(
+                margin: EdgeInsets.only(top:12),
+                child: index == 2 ? Container():  
+                index == 0 ? Image.asset(AppImages.map1, height:20): Image.asset(AppImages.listingImage, height:20),
+              )
             ),
             GestureDetector(
               onTap: (){
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(right:12),
-                child:  index ==2 ? Container():Image.asset(AppImages.gridListing ,height:22)
+                margin: EdgeInsets.only(right: 7, top:12),
+                child:  index == 2 ? Container():
+                Image.asset(AppImages.gridListing , height:20)
               ),
             )
           ],
@@ -296,9 +309,9 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
           GestureDetector(
             onTap: () => Get.back(),
             child: Container(
-              margin: EdgeInsets.only(left:10, top:5),
+              // margin: EdgeInsets.only(left:12, top:5),
               child: Icon(Icons.arrow_back,
-                color: Colors.white, size: 25
+                color: Colors.white, size: 22
               ),
             ),
           ),
@@ -309,34 +322,34 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
     title: Image.asset(
       AppImages.appBarLogo, height: 40,
     ), 
-    actions: [
-      Container(
-        margin:EdgeInsets.only(right:20, top:5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: (){
-                gridingData.listingGrid('list');
-              },
-              child: Container(
-                margin:EdgeInsets.only(right:15),
-                child: Image.asset(AppImages.listingImage, height:22)
-              )
-            ),
-            GestureDetector(
-              onTap: (){
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-                margin: EdgeInsets.only(right:12),
-                child: Image.asset(AppImages.gridListing ,height:22)
-              ),
-            )
-          ],
-        ),
-      ),
-    ],
+    // actions: [
+    //   Container(
+    //     margin:EdgeInsets.only(top:5, right:10),
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         GestureDetector(
+    //           onTap: (){
+    //             gridingData.listingGrid('list');
+    //           },
+    //           child: Container(
+    //             // margin:EdgeInsets.only(right:15),
+    //             child: Image.asset(AppImages.listingImage, height:18)
+    //           )
+    //         ),
+    //         GestureDetector(
+    //           onTap: (){
+    //             gridingData.listingGrid('grid');
+    //           },
+    //           child: Container(
+    //             // margin: EdgeInsets.only(right:12),
+    //             child: Image.asset(AppImages.gridListing ,height:18)
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //   ),
+    // ],
     backgroundColor: AppColors.appBarBackGroundColor,
   ):
   AppBar(
@@ -349,9 +362,9 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
           GestureDetector(
             onTap: () => Get.back(),
             child: Container(
-              margin: EdgeInsets.only(left:10, top:5),
+              margin:lang == 'en'?  EdgeInsets.only(left:10, top:14):EdgeInsets.only(right:10, top:14),
               child: Icon(Icons.arrow_back,
-                color: Colors.white, size: 25
+                color: Colors.white, size: 22
               ),
             ),
           ),
@@ -364,7 +377,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
     ), 
     actions: [
       Container(
-        margin:EdgeInsets.only(right:20, top:5),
+        margin: lang == 'en'? EdgeInsets.only(right:20, top:14): EdgeInsets.only(left:10, top:14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -373,8 +386,8 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('list');
               },
               child: Container(
-                margin:EdgeInsets.only(left:10),
-                child: Image.asset(AppImages.listingImage, height:22)
+                margin: lang == 'ar'? EdgeInsets.only(left:10, right:10): EdgeInsets.only(right:10) ,
+                child: Image.asset(AppImages.listingImage, height:18)
               )
             ),
             GestureDetector(
@@ -382,8 +395,9 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(left:12),
-                child: Image.asset(AppImages.gridListing ,height:22)
+                // margin: EdgeInsets.only(left: 8),
+                margin: lang == 'ar'? EdgeInsets.only(right:10): EdgeInsets.only(left:8) ,
+                child: Image.asset(AppImages.gridListing ,height:18)
               ),
             )
           ],
@@ -405,9 +419,9 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           GestureDetector(
             onTap: () => Get.back(),
             child: Container(
-              margin: EdgeInsets.only(left:10, top:5),
+              margin: lang == 'en'? EdgeInsets.only(left:10, top:12):EdgeInsets.only(right:20, top:12) ,
               child: Icon(Icons.arrow_back,
-                color: Colors.white, size: 25
+                color: Colors.white, size: 20
               ),
             ),
           ),
@@ -417,10 +431,10 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
 
             },
             child: Container(
-              margin: EdgeInsets.only(left:10, top:5),
+              margin: EdgeInsets.only( top:12),
               child: Image.asset(
                 AppImages.plusImage1,
-                color: Colors.white,width: 25.w, height:25
+                color: Colors.white,width: 25.w, height:20
               )
             ),
           )
@@ -429,12 +443,12 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     ),
     
     title: Padding(
-      padding: const EdgeInsets.only(top:5.0),
-      child: Text("my_adss".tr)
+      padding: const EdgeInsets.only(top:12.0),
+      child: Text("my_adss".tr, style: TextStyle(fontSize: 16),)
     ), 
     actions: [
       Container(
-        margin:EdgeInsets.only(right:20, top:5),
+        margin: lang == 'en'? EdgeInsets.only(right:20, top:5): EdgeInsets.only(left:20, top:5) ,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -443,8 +457,8 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('list');
               },
               child: Container(
-                margin:EdgeInsets.only(right:5),
-                child: Image.asset(AppImages.listingImage, height:22)
+                margin:EdgeInsets.only(right:5, top : 10),
+                child: Image.asset(AppImages.listingImage, height:18)
               )
             ),
             GestureDetector(
@@ -452,7 +466,8 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                child: Image.asset(AppImages.gridListing ,height:22)
+                 margin:EdgeInsets.only(right:5, top : 10),
+                child: Image.asset(AppImages.gridListing ,height:18)
               ),
             )
           ],

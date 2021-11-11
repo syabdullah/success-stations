@@ -33,23 +33,34 @@ class _MyLocationsState extends State<MyLocations> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leadingWidth: 76,
+        // leadingWidth: 76,
         backgroundColor: AppColors.appBarBackGroundColor,
-        title: Text('myloc'.tr),
+        title: Container(
+           margin: EdgeInsets.only(top:12),
+          child: Text('myloc'.tr, style: TextStyle(fontSize:14),)
+        ),
         centerTitle: true,
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            IconButton(
-              onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-              icon: Icon(Icons.arrow_back,)
+            Container(
+              margin: EdgeInsets.only(top:12, left:7),
+              child: GestureDetector(
+                onTap: (){
+                  _scaffoldKey.currentState!.openDrawer();
+                },
+                child: Icon(
+                  Icons.arrow_back, size: 20,
+                )
+              )
             ),
             GestureDetector(
               onTap: () {
                 Get.to(AddLocations());
               },
               child: Container(
-                child:Image.asset(AppImages.plusImage,color:Colors.white, height:24)
+                margin: EdgeInsets.only(top:12, left:7),
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:18)
               ),
             ),
           ]
