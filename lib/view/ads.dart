@@ -400,12 +400,14 @@ class _AdsViewState extends State<AdsView> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                    child: Container(
+                    child: data[index]['image'].length != 0 ? Image.network(
+                      data[index]['image'][0]['url'],
                       width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.2:  Get.height/9.5,
-                      child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
-                        child: Icon(Icons.image,size: 50,),
-                      )
+                      height: Get.width < 420 ? Get.height/9.2:  Get.height/9.5,
+                      fit:BoxFit.fill
+                    )
+                    : Container(
+                      child: Icon(Icons.image,size: 50),
                     ),
                   ),
                   Column(
