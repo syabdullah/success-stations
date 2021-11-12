@@ -376,7 +376,7 @@ class _AdsViewState extends State<AdsView> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
       height: lang =='en'? Get.height < 700 ? Get.height/2.2 : Get.width < 420 ? Get.height/4.26: Get.height/4.35:
-      Get.height < 700 ? Get.height/3.2 : Get.width < 420 ? Get.height/4.16: Get.height/4.35,
+      Get.height < 700 ? Get.height/3.2 : Get.width < 420 ? Get.height/4.6: Get.height/4.35,
 
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -400,12 +400,14 @@ class _AdsViewState extends State<AdsView> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                    child: Container(
+                    child: data[index]['image'].length != 0 ? Image.network(
+                      data[index]['image'][0]['url'],
                       width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/7.2:  Get.height/9.5,
-                      child: data[index]['image'].length != 0 ? Image.network(data[index]['image'][0]['url'],fit: BoxFit.cover,): Container(
-                        child: Icon(Icons.image,size: 50,),
-                      )
+                      height: Get.width < 420 ? Get.height/9.2:  Get.height/9.5,
+                      fit:BoxFit.fill
+                    )
+                    : Container(
+                      child: Icon(Icons.image,size: 50),
                     ),
                   ),
                   Column(

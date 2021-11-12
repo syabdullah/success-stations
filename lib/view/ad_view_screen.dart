@@ -59,6 +59,21 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      bottomNavigationBar: GetBuilder<MyAddsController>(
+        init: MyAddsController(),
+        builder: (val) {
+          return val.adsD !=null &&  val.adsD['data'] !=null ?   
+          SafeArea(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                previousButton(AppImages.heart,"favC".tr,Colors.grey,''),
+                previousButton(AppImages.contact,'contactC'.tr,Color(0xFF2F4199),val.adsD['data'])
+              ],
+            ),
+          ): Container();
+        }
+      ),
       appBar: AppBar(
         leading: GestureDetector(
           child: Row(
@@ -66,8 +81,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
               GestureDetector(
                 onTap: () => Get.back(),
                 child: Container(
-                  margin: EdgeInsets.only(left:10, top:5),
-                  child: Icon(Icons.arrow_back,
+                  margin:  lang == 'en'? EdgeInsets.only(left:10, top:5):
+                  EdgeInsets.only(right:10, top:5) ,
+                  child: Icon(
+                    Icons.arrow_back,
                     color: Colors.white, size: 25
                   ),
                 ),
@@ -76,7 +93,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
           )
         ),
         centerTitle: true,
-        title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor
       ),
       body: SingleChildScrollView(
@@ -97,27 +113,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                 commentInput(),
                 SizedBox(height: 10.h,),
                 commentButton(),
-                SizedBox(height: 5.h,),
-                Container(
-                  margin: lang=='en'? EdgeInsets.only(left:30):EdgeInsets.only(right:30),
-                  child: Text(
-                    val.adsD != null ? " ${val.adsD['data']['listing_comments'].length} helloPeople".tr :'',
-                    style:AppTextStyles.appTextStyle(
-                      fontSize: 14.h, fontWeight: FontWeight.bold, color:AppColors.inputTextColor,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 3.h,),
                 listTileRow2(val.adsD['data']['listing_comments']),
-                SizedBox(height: 8.h,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    previousButton(AppImages.heart,"favC".tr,Colors.grey,''),
-                    previousButton(AppImages.contact,'contactC'.tr,Color(0xFF2F4199),val.adsD['data'])
-                  ],
-                ),
-                SizedBox(height: 8.h,),
               ],
             );
           }
@@ -142,11 +138,14 @@ class _AdViewScreenState extends State<AdViewScreen> {
     Column(
       children: [
         data['image'].length != 0 ? 
-        Container(
-          height: 200,
-            width: Get.width,
-            child: Image.network(data['image'][0]['url'],fit: BoxFit.fitWidth,
-          )
+        ClipRRect(
+          child: Image.network(
+            data['image'][0]['url'],
+            width: Get.width/1.0,
+            height: Get.height * 0.30,
+            fit:BoxFit.fill  
+
+          ),
         ):
         Container(
           height: Get.height/4,
@@ -179,12 +178,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
               Container(
                 margin:lang =='en'? EdgeInsets.only(left:30,bottom: 10): EdgeInsets.only(left:30,right:30),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  
                   children: [
                     Container(
-                     // margin: lang=='en'? EdgeInsets.only(left:60,bottom: 3):EdgeInsets.only(right:60,bottom: 3),
-                      
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -211,15 +206,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(height: 7.h),
                           Text(data['phone'] != null ?data['phone'].toString():'',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                           SizedBox(height: 15.h,),
-                          //  Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                          // SizedBox(height: 7.h),
-                          // Text(data['category'] != null ? data['category']['category'][lang] : '',style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                         // SizedBox(height: 15.h,),
                         ],
                       ),
                     ),
-                     Container(
-                      //  margin: lang=='en'? EdgeInsets.only(left:60,ri):EdgeInsets.only(right:60,left: 60),
+                    Container(
                        margin: EdgeInsets.only(left:60,right: 60),
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,23 +280,26 @@ class _AdViewScreenState extends State<AdViewScreen> {
                   )
                   :Icon(Icons.image)
                 ) 
-             ),
+              ),
               Padding(
-                padding: lang=='en'?EdgeInsets.only(left:8.0):EdgeInsets.only(right:8.0),
-                child: Column(
+                padding: lang=='en'? EdgeInsets.only(left:4.0):
+                EdgeInsets.only(right:8.0),
+               child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     data['created_by'] != null?
                     Container(
-                      width: Get.width/3.5,
                       child: Text(data['created_by']['name'],style:
                         AppTextStyles.appTextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey,
                         ),
                       ),
                     ): Container(),
-                    Text(
-                      "owner".tr,style:
-                      AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey, ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "owner".tr,style:
+                        AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Colors.grey, ),
+                      ),
                     ),
                   ],
                 ),
@@ -317,17 +310,23 @@ class _AdViewScreenState extends State<AdViewScreen> {
             onTap: () {
               Get.to(FriendProfile(),arguments: ["ads",data['created_by']['id']]);
             },
-            child: Text("${"see_profile".tr} >",style:
-              AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor ),
+            child: Container(
+              margin: EdgeInsets.only(bottom:15),              
+              child: Text("${"see_profile".tr}",
+              style: AppTextStyles.appTextStyle(
+                fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.appBarBackGroundColor),
+              ),
             ),
           ),
         ),
         Container(
           margin: EdgeInsets.only(left: 20,right: 20),
-          child:   Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-                  Text("adpostedat".tr,style: TextStyle(color: Colors.grey[700]),),
+              Text(
+                "adpostedat".tr,style: TextStyle(color: Colors.grey[700])
+              ),
             ],
           ),
         ),
@@ -477,6 +476,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
         ),
       ),
     );
+    
   }
 
   Widget commentInput(){
