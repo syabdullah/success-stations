@@ -376,7 +376,7 @@ class _AdsViewState extends State<AdsView> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
       height: lang =='en'? Get.height < 700 ? Get.height/2.2 : Get.width < 420 ? Get.height/4.26: Get.height/4.35:
-      Get.height < 700 ? Get.height/3.2 : Get.width < 420 ? Get.height/4.6: Get.height/4.35,
+      Get.height < 700 ? Get.height/3.2 : Get.width < 420 ? Get.height/4.16: Get.height/4.35,
 
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
