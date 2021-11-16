@@ -50,21 +50,46 @@ class _MyLocationsState extends State<MyLocations> {
                   _scaffoldKey.currentState!.openDrawer();
                 },
                 child: Icon(
-                  Icons.arrow_back, size: 20,
+                  Icons.arrow_back, size: 22,
                 )
               )
             ),
             GestureDetector(
               onTap: () {
-                Get.to(AddLocations());
+              Get.to(AddLocations());
               },
               child: Container(
-                margin: EdgeInsets.only(top:12, left:7),
-                child:Image.asset(AppImages.plusImage,color:Colors.white, height:18)
+                margin: EdgeInsets.only(top:12,left:5),
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
               ),
             ),
           ]
         ),
+        // leading: Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     Container(
+        //       margin: EdgeInsets.only(top:12, left:7),
+        //       child: GestureDetector(
+        //         onTap: (){
+        //           _scaffoldKey.currentState!.openDrawer();
+        //         },
+        //         child: Icon(
+        //           Icons.arrow_back, size: 22,
+        //         )
+        //       )
+        //     ),
+        //     GestureDetector(
+        //       onTap: () {
+        //         Get.to(AddLocations());
+        //       },
+        //       child: Container(
+        //         margin: EdgeInsets.only(top:12, left:7),
+        //         child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
+        //       ),
+        //     ),
+        //   ]
+        // ),
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(),

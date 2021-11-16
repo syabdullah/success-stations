@@ -335,7 +335,10 @@ const Map<String, String> en = {
   "resDig":"Responsibe must be in digits",
   "crEn":"Enter CR"  ,
   'noLoc':'No Location Added Yet',
-  'dobb': 'Date of Birth should not be greater then current Date'
+  'dobb': 'Date of Birth should not be greater then current Date',
+  'noOffer':'No offers available',
+  'noAdds':'No Adds available',
+  'noLoaction':'No Location Found'
 
   
   

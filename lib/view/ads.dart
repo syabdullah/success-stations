@@ -11,13 +11,11 @@ import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/controller/rating_controller.dart';
 import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/auth/my_adds/all_ads.dart';
 import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
 import 'package:success_stations/view/shimmer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 List<String> imgList = [];
 
@@ -278,6 +276,7 @@ class _AdsViewState extends State<AdsView> {
       ],
     );
   }
+
   advertisingList(conHeight,imageW,imageH,data) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,),
@@ -302,8 +301,10 @@ class _AdsViewState extends State<AdsView> {
                     child: Container(
                       width: imageW,
                       height: imageH,
-                      child:data[index]['media'].length != 0 ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
-                         child: Icon(Icons.image,size: 50,),
+                      child:data[index]['media'].length != 0 ? 
+                      Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover) :
+                      Container(
+                        child: Icon(Icons.image,size: 50),
                       )
                       //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
                     ),
@@ -313,9 +314,11 @@ class _AdsViewState extends State<AdsView> {
               Container(
                 width: imageW,
                 child: Center(
-                  child: Text(data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
+                  child: Text(
+                    data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: AppColors.grey)),
+                    style: TextStyle(color: AppColors.grey)
+                  ),
                 ),
               )
             ],
@@ -324,6 +327,7 @@ class _AdsViewState extends State<AdsView> {
       ),
     );
   }
+
   offerList(conHeight,imageW,imageH,data) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
@@ -345,7 +349,6 @@ class _AdsViewState extends State<AdsView> {
                     onTap: (){
                      Get.to(MyOfferDetailMain(), arguments: data[index]);
                     },
-
                     child: Container(
                       width: imageW,
                       height: imageH,
@@ -371,7 +374,8 @@ class _AdsViewState extends State<AdsView> {
       ),
     );
   }
-   var tttt;
+
+  var tttt;
   featuredAdsList(data) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
@@ -468,7 +472,8 @@ class _AdsViewState extends State<AdsView> {
                             ): Container()
                           ),
                           Container(
-                            child: data[index]['price'] !=null ? Text(
+                            child: data[index]['price'] !=null ? 
+                            Text(
                               ' SAR',style: TextStyle(fontSize: 8,color:AppColors.appBarBackGroundColor,),
                             ): Container()
                           ),

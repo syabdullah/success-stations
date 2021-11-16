@@ -123,7 +123,7 @@ class _CatAddsState extends State<CatAdds> {
               },
               child: Container(
                   margin: EdgeInsets.only(left: 10),
-                  child: Image.asset(AppImages.plusImage, height: 24)),
+                  child: Image.asset(AppImages.plusImage, height: 22)),
             )
           ],
         ),

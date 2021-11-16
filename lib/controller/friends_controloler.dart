@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ads_action.dart';
 import 'package:success_stations/action/all_adds_category_action.dart';
@@ -6,6 +7,7 @@ import 'package:success_stations/action/friends_action.dart';
 import 'package:success_stations/action/report_user_action.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/utils/snack_bar.dart';
 
 class FriendsController extends GetxController {
@@ -31,9 +33,15 @@ class FriendsController extends GetxController {
   getSuggestionsList() async {
     isLoading = true;
     await suggestions().then((res) {
-      var data = jsonDecode(res.body);
-      suggestionsData = data['data'];
-      isLoading = false;
+      if(res.statusCode == 200 || res.statusCode < 400){
+        var data = jsonDecode(res.body);
+        suggestionsData = data['data'];
+        isLoading = false;
+
+    } 
+    else if (res.statusCode == 429){
+       Get.snackbar("", "Too Many Attempts", backgroundColor: AppColors.appBarBackGroundColor, colorText: Colors.white);
+    }     
     }).catchError((e) {
       return e;
     });
@@ -42,18 +50,18 @@ class FriendsController extends GetxController {
   userFriendSuggest(data) async {
     isLoading = true;
     await userSearch(data).then((res) {
-     userSearchData = jsonDecode(res.body);
-     suggestionsData = userSearchData['data'];
-      print("friends Data .......$userSearchData");
-      isLoading = false;
       if(res.statusCode ==200||res.statusCode <  400){
+        userSearchData = jsonDecode(res.body);
+        suggestionsData = userSearchData['data'];
         resultInvalid(false);
         isLoading = false;
       } if(userSearchData['success'] == false){
         resultInvalid(true);
         isLoading = false;
       }
-      if(res.statusCode >400){
+      if(res.statusCode >400){}
+      else if( res.statusCode == 429){
+        Get.snackbar("", "Too Many Attempts", backgroundColor: AppColors.appBarBackGroundColor, colorText: Colors.white);
       }
     });
     update();
@@ -100,9 +108,14 @@ class FriendsController extends GetxController {
       if ( res.statusCode ==  200 || res.statusCode < 400) {
         sendReq = jsonDecode(res.body);
         SnackBarWidget().showToast("", sendReq['message']);
-      }else {
+      }
+      else if( res.statusCode == 429){
+        Get.snackbar("", "Too Many Attempts", backgroundColor:  AppColors.appBarBackGroundColor, colorText: Colors.white);
+      }
+      else {
         SnackBarWidget().showToast("", res.body);
       }
+      
       getFriendsList();
       isLoading = false;
     }).catchError((e) {
@@ -114,13 +127,20 @@ class FriendsController extends GetxController {
   deleteFriend(id,pro) async {
     isLoading = true;
     await delFriendReq(id).then((res) {
-      getFriendsList();
-      getSuggestionsList(); 
-       if(pro == 'pro') {
-         Get.back();
-       }
-      SnackBarWidget().showToast("", res.body);
-      isLoading = false;
+      if(res.statusCode == 200 || res.statusCode < 400){
+        getFriendsList();
+        getSuggestionsList(); 
+        if(pro == 'pro') {
+          Get.back();
+        }
+        SnackBarWidget().showToast("", res.body);
+        isLoading = false;
+
+      } else if( res.statusCode == 429){
+          Get.snackbar("", "Too Many Arguments", backgroundColor: AppColors.appBarBackGroundColor, colorText: Colors.white);
+
+      }  
+    
     }).catchError((e) {
       return e;
     });

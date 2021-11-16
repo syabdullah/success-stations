@@ -328,7 +328,7 @@ class _AllAddsState extends State<AllAdds> {
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
         childAspectRatio: ( lang == 'en' ?  Get.height < 700  ? Get.width / 1.10 / Get.height / 0.43: Get.width / 1.10 / Get.height / 0.42:
-        Get.height < 700  ? Get.width / 1.10 / Get.height / 0.43:Get.width / 1.10 / Get.height / 0.43
+        Get.height < 700  ? Get.width / 1.10 / Get.height / 0.43:Get.width / 1.10 / Get.height / 0.45
         ),
         children: List.generate(
           dataListValue.length, (index) {

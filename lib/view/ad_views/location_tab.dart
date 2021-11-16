@@ -21,9 +21,9 @@ class _LocationTabState extends State<LocationTab> {
    TextEditingController textEditingController = TextEditingController();
     RangeValues _currentRangeValues = const RangeValues(5,500);
     final formKey = new GlobalKey<FormState>();
-       final lastLoc = Get.put(LocationController());
-        var id;
-        var dis,lat,long;
+      final lastLoc = Get.put(LocationController());
+      var id;
+      var dis,lat,long;
       var city;
       var currentPostion;
       var position;
@@ -50,33 +50,29 @@ class _LocationTabState extends State<LocationTab> {
       currentPostion = LatLng(position.latitude, position.longitude);
     // });
   }
+
   @override
   Widget build(BuildContext context) { 
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        filter(),
-         GetBuilder<LocationController>( // specify type as Controller
-              init: LocationController(), // intialize with the Controller
-              builder: (value){ 
-                return value.isLoading == true ? friendReqShimmer():
-                value.lastLocation !=null &&   value.lastLocation['success']== true ?
-                 locationList(value.lastLocation['data'])
-                 :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
-                 Container(
-                   child:Text(lastLoc.lastLocation['errors'])
-                 ):Container();
-                
-              }
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+      filter(),
+        GetBuilder<LocationController>( // specify type as Controller
+          init: LocationController(), // intialize with the Controller
+          builder: (value){ 
+            return value.isLoading == true ? friendReqShimmer():
+            value.lastLocation !=null &&   value.lastLocation['success']== true ?
+            locationList(value.lastLocation['data'])
+            :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
+            Container(
+              child:Text(lastLoc.lastLocation['errors'])
+            ):Container();
+          }
         ),
-       
       ],
-  
     );
   }
   
-
-
   void _showModal() {
      _getUserLocation();
     showModalBottomSheet(

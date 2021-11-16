@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import '../../main.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/last_ads_controller.dart';
 import 'package:success_stations/controller/last_location_controller.dart';
@@ -65,10 +64,19 @@ class _AboutTabState extends State<AboutTab> {
             GetBuilder<LastAdsController>(
               init: LastAdsController(),
               builder: (value){
-                return  value.lastuserads != null && value.lastuserads['data']  !=null?
-                lastAds(value.lastuserads['data']):PlayStoreShimmer();
+                return  value.isLoading == true ? PlayStoreShimmer(): value.lastuserads != null && value.lastuserads['data'].length  !=0?
+                lastAds(value.lastuserads['data']):
+                Container(
+                  margin:EdgeInsets.only(top:40),
+                  child: Center(
+                    child: Text(
+                      "noAdds".tr, style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12, color:AppColors.black)
+                    )
+                  )
+                );
               }
             ),
+            SizedBox(height:30),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:08):EdgeInsets.only(right:08),
               child: Text(
@@ -79,30 +87,43 @@ class _AboutTabState extends State<AboutTab> {
             GetBuilder<UserOfferController>( 
               init: UserOfferController(),
               builder: (value){ 
-                return value.offerDattaTypeCategory != null ?
-                lastOffer(value.offerDattaTypeCategory['data']):PlayStoreShimmer();
+                return  value.isLoading == true ? PlayStoreShimmer():
+                value.offerDattaTypeCategory != null && value.offerDattaTypeCategory['data'].length  !=0  ? 
+                lastOffer(value.offerDattaTypeCategory['data']):
+                Container(
+                  margin:EdgeInsets.only(top:40),
+                  child: Center(
+                    child: Text("noOffer".tr,
+                    style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12, color:AppColors.black)
+                    )
+                  )
+                );
               }
             ),
+            SizedBox(height:30),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:08):EdgeInsets.only(right:08),
               child: Text("${'lastlocation'.tr}",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.black),
               ),
             ),
+
             GetBuilder<LastLocationController>( 
               init: LastLocationController(), 
               builder: (value){ 
                 return value.isLoading == true ? shimmer():
-                value.lastLocation !=null &&value.lastLocation['data'] !=null ? 
-                //  && 
-                //  value.lastLocation['success']== true ?
-                lastLocation( value.lastLocation['data']) :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
-                  Container(
-                    child:Text(
-                      lastLoc.lastLocation['errors']
-                    )
+                value.lastLocation !=null &&value.lastLocation['data']!=null ? 
+                lastLocation( value.lastLocation['data']) :
+                Container(
+                  margin:EdgeInsets.only(top:40),
+                  child:Center(
+                    child: Text(
+                      "noLoaction".tr,
+                      style: TextStyle(fontSize: 12,fontWeight:FontWeight.normal,color:AppColors.black),
+                    ),
                   )
-                :PlayStoreShimmer();
+                );
+                
               }
             ),
           ],
@@ -233,11 +254,11 @@ Widget detail(userData2, context){
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 userData2 !=null &&  userData2['mobile'] != null ?
-                    Text(
-                      userData2['mobile'],
-                      style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
-                    )
+                  userData2 !=null &&  userData2['mobile'] != null ?
+                  Text(
+                    userData2['mobile'],
+                    style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),
+                  )
                   :Container(),
                   Column(
                     children: [

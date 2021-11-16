@@ -74,8 +74,8 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
               ),
               SizedBox(height: 5),
               name(),
-              SizedBox(height: 5),
-              degree(),
+              // SizedBox(height: 5),
+              // degree(),
               SizedBox(height: 5),
               GetBuilder<ContryController>(
                 init: ContryController(),

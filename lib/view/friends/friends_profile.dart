@@ -67,9 +67,13 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
   }
 
   var image;
+  var country ;
   Widget profileDetail(data) {
-    var country = data['country'];
-    if (data['image'] != null) {
+    if(data !=null){
+      country= data['country'];
+    }
+    
+    if ( data !=null && data['image'] != null) {
       image = data['image']['url'];
       box.write('chat_image', image);
     } else {
@@ -129,7 +133,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                   shape: BoxShape.circle
                 ),
                 margin: EdgeInsets.only(left: 0.0, right: 10.0, top: Get.height / 13.5),
-                child: data['image'] != null
+                child: data != null && data['image'] !=null 
                 ? CircleAvatar(
                   backgroundImage: NetworkImage(data['image']['url']),
                   radius: 50.0,
@@ -147,7 +151,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
-              child: data['name'] != null? Text(
+              child: data != null? Text(
                 data['name'],
                 style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)
               )
@@ -157,8 +161,8 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
             ),
             Container(
               margin: EdgeInsets.only(top: 0,left: 15 ),
-              child: data['degree'] != null
-                ? Text(data['degree'],
+              child: data != null && data['degree'] !=null 
+                ? Text(data['degree'].toString(),
                   style: TextStyle(  color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)
                 )
               : Text(""),
@@ -214,7 +218,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                   color: AppColors.appBarBackGroundColor,
                   borderRadius: BorderRadius.circular(50)
                 ),
-                child: name['is_user_friend'] == null || name['is_user_friend'].length == null
+                child: name == null || name['is_user_friend'] == null
                 ? Center(
                   child: Text(
                     "addFriend".tr,
@@ -327,7 +331,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                       fontWeight: FontWeight.bold,color: Colors.grey
                                     ),
                                   ),
-                                  data['name'] != null ? Container(
+                                  data!= null && data['name'] !=null  ? Container(
                                     margin: EdgeInsets.only(top: 5),
                                     child: Text(
                                       data['name'].toString(),
@@ -343,7 +347,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                       ),
                                     ),
                                   ),
-                                  data['mobile'] != null ? Text(
+                                  data != null &&  data['mobile'] !=null ? Text(
                                     data['mobile'].toString(),
                                     style:TextStyle(fontWeight: FontWeight.w600)
                                   ):Container(),
@@ -354,7 +358,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
                                     ),
                                   ),
-                                  data['country'] != null ? Text(
+                                  data != null &&   data['country'] !=null ?  Text(
                                     data['country']['name'][lang] !=null ?
                                     data['country']['name'][lang] : 
                                     data['country']['name'][lang] ==null ? 
@@ -377,7 +381,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                     style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey),
                                   ),
                                 ),
-                                data['email'] != null ? Container(
+                                data != null ? Container(
                                   child: GestureDetector(
                                     onTap: () {
                                       showDialog(
@@ -428,7 +432,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                     )
                                   ),
                                 ),
-                                data["address"] != null  ? Container(
+                                data != null  ? Container(
                                   margin:EdgeInsets.only(bottom: 20, top: 5),
                                   child: GestureDetector(
                                     onTap: () {
@@ -480,7 +484,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                     )
                                   ),
                                 ),
-                                data['city'] !=null ? 
+                                data !=null &&  data['city'] !=null ? 
                                 Text( 
                                   data['city']['city'][lang] !=null ? 
                                   data['city']['city'][lang] : 
@@ -520,7 +524,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                         ),
                                       ),
                                     ),
-                                    data['college'] !=null ? Container(
+                                    data !=null &&  data['college'] !=null  ? Container(
                                       margin: EdgeInsets.only( top: 5),
                                       child: Text(
                                         data['college']['college'][lang]!= null ?
@@ -537,11 +541,12 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                         style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey),
                                       ),
                                     ),
-                                    data["degree"] != null
+                                    data != null &&  data["degree"] != null 
                                     ? Container(
                                       margin: EdgeInsets.only( bottom: 20, top: 5),
                                       child: Text(
-                                        data["degree"].length > 20 ? data["degree"] .substring(0, 20) +'...': data["degree"],
+                                         data["degree"]  != null ? data["degree"].length > 13 ? data["degree"] .substring(0, 13) +'...': data["degree"]: ' ',
+                                        // data["degree"].length > 13 ? data["degree"] .substring(0, 13) +'...': data["degree"],
                                         style: TextStyle( fontWeight: FontWeight.w600 )
                                       ),
                                     ): Container( height: 20)
@@ -562,7 +567,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                       style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey),
                                     ),
                                   ),
-                                  data['university']!= null ?
+                                  data!= null  && data['university'] !=null ?
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
                                     child: Text(
@@ -580,11 +585,11 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                                       style: TextStyle( fontWeight: FontWeight.bold, color: Colors.grey),
                                     ),
                                   ),
-                                  data["semester"] != null
+                                  data != null && data["semester"] !=null 
                                   ? Container(
                                     margin:  EdgeInsets.only(bottom: 20, top: 5),
                                     child: Text(
-                                      data["semester"].toString(),
+                                      data["semester"] !=null ? data["semester"].toString():'',
                                       style: TextStyle( fontWeight: FontWeight.w600)
                                     ),
                                   ): Container( height: 20 )
@@ -609,12 +614,12 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                             style: TextStyle( fontWeight: FontWeight.bold,  color: Colors.grey)
                           )
                         ),
-                        data["about"] != null
+                        data != null &&  data["about"] !=null 
                         ? Container(
                           width: Get.width,
                           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           child: Text(
-                            data["about"],
+                            data["about"] != null ?  data["about"].toString():'',
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)
                           )
                         ): Container()

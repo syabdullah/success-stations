@@ -7,7 +7,6 @@ Future<http.Response> userOffers(id) async {
   await ApiHeaders().getData();
   final Config conf = Config();
   var url = Uri.parse("${conf.baseUrl}offers/user/$id");
-  print("url of the catdegory opffres.....$url");
   final result =await http.get(url,headers: ApiHeaders().headersWithToken);  
   return result;
 }
