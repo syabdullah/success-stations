@@ -1364,12 +1364,8 @@ Widget sAppbar(context ,icon,image,) {
                                 onChanged: (values) {
                                   setState(() {
                                     _currentRangeValues = values;
-                                    start = _currentRangeValues.start
-                                        .round()
-                                        .toString();
-                                    end = _currentRangeValues.end
-                                        .round()
-                                        .toString();
+                                    start = _currentRangeValues.start.round().toString();
+                                    end = _currentRangeValues.end.round().toString();
                                   });
                                 },
                               ),

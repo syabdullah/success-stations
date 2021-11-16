@@ -40,7 +40,7 @@ class FriendsController extends GetxController {
 
     } 
     else if (res.statusCode == 429){
-       Get.snackbar("title", "Too Many Attempts", backgroundColor: AppColors.appBarBackGroundColor, colorText: Colors.white);
+       Get.snackbar("", "Too Many Attempts", backgroundColor: AppColors.appBarBackGroundColor, colorText: Colors.white);
     }     
     }).catchError((e) {
       return e;

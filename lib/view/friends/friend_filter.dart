@@ -33,7 +33,7 @@ class _FriendFilterState extends State<FriendFilter> {
     var json = {
       'name' : nameController.text,
       'city': citySelected,
-      'degree': degreeController.text,
+      // 'degree': degreeController.text,
       'country':countryID,
       'university':universitySelected,
       'college':collegeID,
@@ -72,8 +72,8 @@ class _FriendFilterState extends State<FriendFilter> {
               ),
               SizedBox(height: 5),
               name(),
-              SizedBox(height: 5),
-              degree(),
+              // SizedBox(height: 5),
+              // degree(),
               SizedBox(height: 5),
               GetBuilder<ContryController>(
                 init: ContryController(),
