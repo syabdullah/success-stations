@@ -59,7 +59,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   _scaffoldKey.currentState!.openDrawer();
                 },
                 child: Icon(
-                  Icons.arrow_back, size: 20,
+                  Icons.arrow_back, size: 22,
                 )
               )
             ),
@@ -69,7 +69,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
               },
               child: Container(
                 margin: EdgeInsets.only(top:12,left:5),
-                child:Image.asset(AppImages.plusImage,color:Colors.white, height:18)
+                child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
               ),
             ),
           ]

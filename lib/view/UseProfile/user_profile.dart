@@ -157,9 +157,11 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 // margin: EdgeInsets.only(top:25),
                                 child: Text("region".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
+                              userData["region"] !=null ? 
                               Text(
                                 userData["region"]["region"][lang] != null ?
-                                userData["region"]["region"][lang].toString():userData["region"]["region"][lang]== null? userData["region"]["region"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)),
+                                userData["region"]["region"][lang].toString():userData["region"]["region"][lang]== null? userData["region"]["region"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)
+                              ):Container(),
                               SizedBox(height: 5,)
                             ],
                           ),
@@ -255,14 +257,15 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                               ),
                                userData["city"] != null ?
                                 Container(
-                                  // margin: EdgeInsets.only(top:15),
                                   child: Text("city".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
-                                Text(userData["city"]["city"][lang]!= null ?
-                                  userData["city"]["city"][lang]:userData["city"]["city"][lang]== null ? userData["city"]["city"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)),
-                                 userData["account_types"] != null ?
+                                userData["city"] !=null ? 
+                                Text(
+                                  userData["city"]["city"][lang]!= null ?
+                                  userData["city"]["city"][lang]:userData["city"]["city"][lang]== null ? userData["city"]["city"]['en']:'',style: TextStyle(fontWeight: FontWeight.w600)
+                                ):Container(),
+                                userData["account_types"] != null ?
                                 Container(
-                                  // margin: EdgeInsets.only(top:15),
                                   child: Text("Account_type".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ):Container(),
                                 Text(userData["account_type"].toString(),style: TextStyle(fontWeight: FontWeight.w600)),
@@ -295,6 +298,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                 // margin: EdgeInsets.only(top:14,),
                                 child: Text('university'.tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                               ),
+                              userData !=null && userData['university'] !=null  ? 
                               Container(
                                 margin: EdgeInsets.only(top:5),
                                 child: Text(
@@ -304,7 +308,7 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                                   userData['university']['name']['en']:'',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontWeight: FontWeight.w600)),
-                              ),
+                              ):Container(),
                               Container(
                                 // margin: EdgeInsets.only(top:23,),
                                 child: Text("semester".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
@@ -320,32 +324,28 @@ class _UserProfileState extends State<UserProfile> with AutomaticKeepAliveClient
                             ],
                           ),
                         ),
-                         Expanded(
-                           flex: 1,
-                           child: Container(
-                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  // margin: EdgeInsets.only(top:25,),
                                   child: Text("college".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
-                                 
+                                userData !=null && userData['college'] !=null ? 
                                 Container(
                                   margin: EdgeInsets.only(top: 5,),
                                   child: Text(
                                     userData['college']['college'][lang] != null ?
                                     userData['college']['college'][lang]:userData['college']['college'][lang]== null ? userData['college']['college']['en']:'' ,style: TextStyle(fontWeight: FontWeight.w600)),
-                                ),
+                                ):Container(),
                                 Container(
-      
-                                  // margin: EdgeInsets.only(top:20),
                                   child: Text("degree".tr,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey),),
                                 ),
-                                 userData["degree"] != null ?
+                                userData["degree"] != null ?
                                 Container(
-                                    // margin: EdgeInsets.only(bottom:20,top: 5),
                                   child: Text(
                                     userData["degree"].length > 30 ? userData["degree"].substring(0, 30)+'...' : userData["degree"],
                                       style: TextStyle(fontWeight: FontWeight.w600,)),

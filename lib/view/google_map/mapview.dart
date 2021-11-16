@@ -502,8 +502,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget googleMap(kInitialPosition) {
     return StatefulBuilder(builder: (context, newSetState) {
-     print("///////////// $kInitialPosition");
-     
       return kInitialPosition != null ?Container(
         height: Get.height,
         child: GoogleMap(

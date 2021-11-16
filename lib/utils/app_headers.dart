@@ -9,10 +9,9 @@ class ApiHeaders {
     GetStorage box = GetStorage(); 
     token = box.read('access_token');
     countryIDD = box.read('country_id');
-    print("Headers of the country ID........$countryIDD");
   } 
 
-   var headers = {
+  var headers = {
     "Content-Type": "application/json;charset=UTF-8",
     "accept": "application/json",   
   };
