@@ -89,13 +89,16 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         icon: Image.asset(AppImages.menuBurger,height: 18,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ): index == 1 ?
+    ): 
+    index == 1 ?
       Container(
         alignment:  Alignment.topLeft,
         margin: EdgeInsets.only(top:12, left:01),
         child: IconButton(
           icon: Image.asset(AppImages.newfilter,color: Colors.white, height:22),
-          onPressed: () => Get.bottomSheet(FriendFilter()),
+          onPressed: () => 
+          Get.bottomSheet(FriendFilter()
+        ),
         ),
       ):
 
@@ -114,7 +117,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           }:
           null,
           child: Container(
-            margin: EdgeInsets.only(left:10, top:12),
+            margin: EdgeInsets.only(left:15, top:08),
             child:  index == 1 ? Container(): 
             Image.asset(AppImages.filterImage,
               color: Colors.white, height: 22
@@ -129,7 +132,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             Get.to(AddOffersPage());
           }:null ,
           child: Container(
-            margin: EdgeInsets.only(left:3, top:12),
+            margin: EdgeInsets.only(left:5, top:08),
             child:index != 1 && index !=4 ? Image.asset(
               AppImages.plusImage1,
               color: Colors.white,width: 25.w, height:23
@@ -139,7 +142,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       ],
     ),
     title: Padding(
-      padding: const EdgeInsets.only(top:10.0),
+      padding: const EdgeInsets.only(top:08.0),
       child: Image.asset(image, height: 40),
     ), 
     actions: [
@@ -155,24 +158,29 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         ),
       ):
       Container(
-        margin: EdgeInsets.only(right:16,top:12),
+        margin: EdgeInsets.only(right:16,top:08),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: (){
-                index == 4 ? 
-                gridingData.listingGrid('map'):
-                gridingData.listingGrid('list');
-              },
-              child: index == 2 ? Container(): index == 4 ? Image.asset(AppImages.map1, height:20):Image.asset(AppImages.listingImage, height:17)
+            Container(
+              margin: EdgeInsets.only(left:8, top:08),
+              child: GestureDetector(
+                onTap: (){
+                  index == 4 ? 
+                  gridingData.listingGrid('map'):
+                  gridingData.listingGrid('list');
+                },
+                child: index == 2 ? Container(): index == 4 ? 
+                Image.asset(AppImages.map1, height:20):
+                Image.asset(AppImages.listingImage, height:17)
+              ),
             ),
             GestureDetector(
               onTap: (){
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(left:8),
+                margin: EdgeInsets.only(left:8, top:08),
                 child:  index ==2 ? Container():Image.asset(AppImages.gridView ,height:20)
               ),
             )
@@ -196,11 +204,12 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     ): 
     index == 3  && index == 0  ?
     Container(
-      margin: EdgeInsets.only(top:17),
+      margin: EdgeInsets.only(top:08),
       alignment: Alignment.topRight,
       child: IconButton(
         icon: Image.asset(AppImages.newfilter,color: Colors.white,height:23),
-        onPressed: () => Get.bottomSheet(FriendFilter()),
+        onPressed: () => index == 4?  filteringCategory(context): 
+         Get.bottomSheet(FriendFilter()),
       ),
     )
     :
@@ -214,25 +223,28 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           index == 1 ?(){
             adsfiltringheet(context);
           }:
-          index == 4 ?(){
+          lang == 'ar' && index == 4 ?(){
             filteringCategory(context);
             
           }:
           null,
           child: Container(
-            margin:  index == 0 ?EdgeInsets.only(right:10, top:18) :  EdgeInsets.only(right:10, top:18),
-            child:  lang == 'ar' &&index == 3 ?  
-            GestureDetector(
-              onTap: (){
+            margin:  index == 0 ?EdgeInsets.only(right:10, top:08) :  EdgeInsets.only(right:10, top:08),
+            child: GestureDetector(
+              onTap: 
+                index == 4 ?(){
+                filteringCategory(context);
+              }:
+              index == 3 ? (){
                 Get.bottomSheet(FriendFilter());
-              },
+              }: null, 
               child: Container(
                 child: Image.asset(
                   AppImages.filterImage,
                   color: Colors.white, height: 22
                 ),
               ),
-            ):Container()
+            )
           ),
         ),
         GestureDetector(
@@ -243,7 +255,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             Get.to(AddOffersPage());
           }:null ,
           child: Container(
-            margin: EdgeInsets.only(right:7, top:18),
+            margin: EdgeInsets.only(right:7, top:08),
             child:index != 3 && index !=0 ? Image.asset(
               AppImages.plusImage1,
               color: Colors.white,width: 25.w, height:25
@@ -253,7 +265,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       ],
     ),
     title: Padding(
-      padding: const EdgeInsets.only(top:10.0),
+      padding: const EdgeInsets.only(top:08),
       child: Image.asset(image, height: 40),
     ), 
     actions: [
@@ -269,7 +281,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         ),
       ):
       Container(
-        margin: EdgeInsets.only(left:13,top:12),
+        margin: EdgeInsets.only(left:13),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -280,7 +292,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('list');
               },
               child: Container(
-                margin: EdgeInsets.only(top:12),
+                margin: EdgeInsets.only(top:08),
                 child: index == 2 ? Container():  
                 index == 0 ? Image.asset(AppImages.map1, height:20): Image.asset(AppImages.listingImage, height:20),
               )
@@ -290,7 +302,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                margin: EdgeInsets.only(right: 7, top:12),
+                margin: EdgeInsets.only(right: 7, top:08),
                 child:  index == 2 ? Container():
                 Image.asset(AppImages.gridListing , height:20)
               ),
@@ -347,7 +359,6 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
         ],
       )
     ),
-    
     title: Image.asset(
       AppImages.appBarLogo, height: 40,
     ), 
@@ -371,7 +382,6 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
                 gridingData.listingGrid('grid');
               },
               child: Container(
-                // margin: EdgeInsets.only(left: 8),
                 margin: lang == 'ar'? EdgeInsets.only(right:10): EdgeInsets.only(left:8) ,
                 child: Image.asset(AppImages.gridListing ,height:18)
               ),
@@ -388,66 +398,63 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
   return AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
-    leading: 
-      Container(
-        margin: lang == 'en'? EdgeInsets.only(left:20): EdgeInsets.only() ,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                 margin:EdgeInsets.only(top : 12,),
-              child: GestureDetector(
-                onTap: () => Get.back(),
-                child: Icon(
-                  Icons.arrow_back, size: 22,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          alignment: lang == 'en'? Alignment.topLeft: Alignment.topRight,
+          child: Row(
+            children: [
+              Container(
+                margin:EdgeInsets.only(top:08),
+                child: GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Icon(
+                    Icons.arrow_back, size: 22,
+                  )
                 )
-              )
-            ),
-            GestureDetector(
-            onTap: () {
-              Get.to(AddPostingScreen());
-            },
-            child: Container(
-               margin: EdgeInsets.only(top : 12, left:2),
-              child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
-            ),
-          ),
-          ],
-        ),
-      ),
-    
-    title: Padding(
-      padding: const EdgeInsets.only(top:12),
-      child: Text("my_adss".tr, style: TextStyle(fontSize: 16))
-    ), 
-    actions: [
-      Container(
-        margin: lang == 'en'? EdgeInsets.only(left:20): EdgeInsets.only(right:20, left:10) ,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: (){
-                gridingData.listingGrid('list');
-              },
-              child: Container(
-                margin:EdgeInsets.only(right:6,top : 12, left:6),
-                child: Image.asset(AppImages.listingImage, height:18)
-              )
-            ),
-            GestureDetector(
-              onTap: (){
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-               margin: EdgeInsets.only( top : 12),
-                child: Image.asset(AppImages.gridListing ,height:18)
               ),
-            )
-          ],
+              GestureDetector(
+                onTap: () {
+                  Get.to(AddPostingScreen());
+                },
+                child: Container(
+                  margin:EdgeInsets.only(top:08, left:6, right:4),
+                  child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
+                ),
+              ),
+            ]  ,
+          ),
         ),
-      ),
-    ],
+        Padding(
+          padding: const EdgeInsets.only(top:08),
+          child: Text("my_adss".tr, style: TextStyle(fontSize: 16))
+        ),
+        Container(
+          alignment: lang == 'en'? Alignment.topLeft: Alignment.topRight,
+          child: Row(
+            children: [
+              Container(
+                margin:EdgeInsets.only(top:08, left:6),
+                child: GestureDetector(
+                  onTap: () => gridingData.listingGrid('list'),
+                  child: Image.asset(AppImages.listingImage, height:18)
+                )
+              ),
+              GestureDetector(
+                onTap: () {
+                  gridingData.listingGrid('grid');
+                },
+                child: Container(
+                    margin: EdgeInsets.only(top :08,left:6),
+                  child:Image.asset(AppImages.gridListing ,height:18)
+                ),
+              ),
+            ]  ,
+          ),
+        ),
+      ],
+    ),
     backgroundColor: AppColors.appBarBackGroundColor,
   );
 }
@@ -566,7 +573,6 @@ Widget sAppbar(context ,icon,image,) {
   var locationName;
   var service;
   filtrationModel(context) async {
-    var size = MediaQuery.of(context).size;
     array.clear();
     cityArray.clear();
     locationName = null;
@@ -768,7 +774,7 @@ Widget sAppbar(context ,icon,image,) {
                           Container(
                             margin: EdgeInsets.only(left: 15,right:15),
                             child: Text(
-                              'Distance',style:  TextStyle(fontSize: 20, color: Colors.black,)
+                              'distance'.tr,style:  TextStyle(fontSize: 20, color: Colors.black,)
                               ),
                           ),
                           Container(

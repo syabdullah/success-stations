@@ -158,7 +158,7 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
                     value: coun, 
                     child:   Text(
                       coun['name'][lang] !=null ?  coun['name'][lang] :
-                      coun['name'][lang] == null ?  coun['name']['en']:'',
+                      coun['name']['en'] == null ?  coun['name']['ar']:coun['name']['ar'] == null ?  coun['name']['en']:'.'
                     )
                   );
                 }).toList(),
@@ -201,15 +201,15 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
               return DropdownMenuItem(
                 value: coll,
                 child:
-                Text(coll['college'][lang] !=null ? coll['college'][lang] :
-                coll['college'][lang] == null ? coll['college']['en'] :'',
+                Text(coll['college'][lang] !=null ? coll['college'][lang].toString() :
+                coll['college'][lang] == null ? coll['college']['en'].toString() :'',
                 )
               );
             }).toList(),
             onChanged: (value) {
               setState(() {
                 mapClg = value as Map;
-                hintClg = mapClg['college'][lang] !=null ? mapClg['college'][lang]: mapClg['college'][lang] == null ? mapClg['college']['en']:'';
+                hintClg = mapClg['college'][lang] !=null ? mapClg['college'][lang].toString(): mapClg['college'][lang] == null ? mapClg['college']['en'].toString():'';
                 collegeID =  mapClg['id'];
               });
             },
@@ -240,15 +240,17 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
                 value: uni,
                 child:
                 Text(
-                  uni['name'][lang] !=null ?   uni['name'][lang] :
-                  uni['name'][lang] == null ?   uni['name']['en']:''
+                  uni['name'][lang] !=null ?   uni['name'][lang].toString() :
+                  uni['name']['en'] == null ? uni['name']['ar'].toString():
+                  uni['name']['ar'] == null ? uni['name']['en'].toString() : ''
+                
                 )
               );
             }).toList(),
             onChanged: (dataa) {
               setState(() {
                 mapuni = dataa as Map;
-                hinText =  mapuni['name'][lang] !=null ? mapuni['name'][lang]: mapuni['name'][lang] == null ? mapuni['name']['en']:'';
+                hinText =  mapuni['name'][lang] !=null ? mapuni['name'][lang].toString(): mapuni['name'][lang] == null ? mapuni['name']['en'].toString():'';
                 universitySelected = mapuni['id'];
               });
             },
@@ -279,14 +281,14 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
                 value: city,
                 child:
                 Text(
-                  city['city'][lang] !=null ? city['city'][lang] : city['city'][lang] == null ? city['city']['en']:'',
+                  city['city'][lang] !=null ? city['city'][lang].toString() : city['city'][lang] == null ? city['city']['en'].toString():'',
                 )
               );
             }).toList(),
             onChanged: (dataa) {
               setState(() {
                 cityMapping = dataa as Map;
-                hinCity =  cityMapping['city'][lang] !=null ? cityMapping['city'][lang]: cityMapping['city'][lang] == null ? cityMapping['city']['en']:"";
+                hinCity =  cityMapping['city'][lang] !=null ? cityMapping['city'][lang].toString(): cityMapping['city'][lang] == null ? cityMapping['city']['en'].toString():"";
                 citySelected = cityMapping['id'];
               });
             },

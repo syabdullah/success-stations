@@ -806,9 +806,10 @@ Widget secondStep(){
                         icon: Icon(Icons.arrow_drop_down),
                         items: val.countryListdata.map((country) {
                           return DropdownMenuItem(value: country, 
-                          child:  country['name'][lang] !=null ?  Text(
-                            country['name'][lang]
-                          ): Container()
+                          child: Text(
+                            country['name'][lang] !=null ? country['name'][lang] : country['name'][lang] == null ?
+                             country['name']['en']:'',
+                          )
                         );
                         }).toList(),
                         onChanged: (val) {
@@ -816,7 +817,7 @@ Widget secondStep(){
                           setState(() {
                             mapCountry = val as Map;
                             hintTextCountry = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
-                            mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:'';
+                            mapCountry['name'][lang] ==null ? mapCountry['name']['en']:'';
                             selectedCountry = mapCountry['id'];
                             countryPut.getRegion(selectedCountry);
                           });
@@ -852,16 +853,18 @@ Widget secondStep(){
                         items: val.regionListdata.map((reg) {
                           return DropdownMenuItem(
                             value: reg,
-                            child: reg['region'] !=null ? Text(
-                              
-                              reg['region'][lang]!= null ? reg['region'][lang]:'' ):Container()
+                            child:  Text(
+                              reg['region'][lang]!= null ? reg['region'][lang]: reg['region'][lang] ==null ?
+                              reg['region']['en']:'' 
+                            )
                           );
                         }).toList(),
                         onChanged: (data) {
                           var mapRegion;
                           setState(() {
                             mapRegion = data as Map;
-                            hintRegionText = mapRegion['region'][lang];
+                            hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang] : 
+                            mapRegion['region'][lang] == null ? mapRegion['region']['en']:'';
                             selectedRegion = data['id'];
                             countryPut.getCity(data['id']);
                           });
@@ -894,14 +897,16 @@ Widget secondStep(){
                         dropdownColor: AppColors.inputColor,
                         icon: Icon(Icons.arrow_drop_down),
                         items: val.cityListData.map((citt) {
-                          return DropdownMenuItem(value: citt, child: Text(
-                            citt['city'][lang] != null ? citt['city'][lang]:''));
+                          return DropdownMenuItem(value: citt, child: 
+                          Text(
+                            citt['city'][lang] != null ? citt['city'][lang]: citt['city'][lang] == null ?citt['city']['en']:'' )
+                          );
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
                             var mapCity;
                             mapCity = value as Map;
-                            hintcityText = mapCity['city'][lang];
+                            hintcityText = mapCity['city'][lang] !=null ?mapCity['city'][lang] : mapCity['city'][lang] == null ? mapCity['city']['en'] : '';
                             selectedCity = mapCity['id'];
                           });
                         },

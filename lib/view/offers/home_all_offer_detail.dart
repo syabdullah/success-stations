@@ -65,85 +65,74 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // SizedBox(height: 20),
             Container(
               child: Column(
                 children: [
                   Container(
                     child: homeCategoryById != null && homeCategoryById['image'] != null && homeCategoryById['image']['url'] != null
-                      ? Image.network(homeCategoryById['image']['url'],
-                        height: Get.height / 2, fit: BoxFit.fitHeight
-                      )
-                      : Container(
-                        child: Icon(
-                          Icons.image,
-                          size: 50,
-                        ),
-                      )
-                    ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: Get.height / 3.3,
-                      child: Card(
-                        elevation: 2.0,
-                        // margin: EdgeInsets.only(left: 20, right: 20),
-                        child: Column(
-                          children: [
-                            Container(
+                    ? Image.network(homeCategoryById['image']['url'],
+                      height: Get.height / 2, fit: BoxFit.fitHeight
+                    )
+                    : Container(
+                      child: Icon(
+                        Icons.image,
+                        size: 50,
+                      ),
+                    )
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: Get.height / 3.3,
+                        child: Card(
+                          elevation: 2.0,
+                          child: Column(
+                            children: [
+                              Container(
                                 width: MediaQuery.of(context).size.width / 1,
                                 color: AppColors.appBarBackGroundColor,
                                 padding: EdgeInsets.only( top: 10, bottom: 15, right: 25,left: 20),
-                                child: homeCategoryById != null &&
-                                        homeCategoryById['url'] != null
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(homeCategoryById['url'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16)),
-                                          Container(
-                                              margin:
-                                                  EdgeInsets.only(right: 10),
-                                              child: Icon(
-                                                Icons.arrow_forward,
-                                                color: Colors.white,
-                                              ))
-                                        ],
+                                child: homeCategoryById != null &&  homeCategoryById['url'] != null
+                                ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(homeCategoryById['url'],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,fontSize: 16
                                       )
-                                    : Container()),
-                            space50,
-                            Container(
+                                    ),
+                                  ],
+                                )
+                                : Container()
+                              ),
+                              space50,
+                              Container(
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.only(left: 14),
-                                child: Text("DESCRIPTION",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[400]))),
-                            space10,
-                            Container(
+                                child: Text(
+                                  "description".tr,
+                                  style: TextStyle(  fontSize: 14,  color: Colors.grey[400])
+                                )
+                              ),
+                              space10,
+                              Container(
                                 margin: EdgeInsets.only(left: 14, right: 10),
                                 alignment: Alignment.topLeft,
-                                child: homeCategoryById['description'] !=
-                                            null &&
-                                        homeCategoryById['description']['en'] !=
-                                            null
-                                    ? Text(
-                                        homeCategoryById['description']['en'],
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 14),
-                                      ) : Container()),
-                          ],
+                                child: homeCategoryById['description'] != null && homeCategoryById['description']['en'] !=  null
+                                ? Text(
+                                  homeCategoryById['description']['en'],
+                                  style: TextStyle(  color: Colors.black, fontSize: 14),
+                                ) : Container()
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    // SizedBox(height:40)
-                  ],
-                )
+                      // SizedBox(height:40)
+                    ],
+                  )
               ],
             ))
           ],

@@ -94,7 +94,7 @@ const Map<String, String> en = {
   "review_publish": "Review and\n publish",
   "category": "Category",
   "title": "Title",
-  "description": "Description",
+  "description": "Description : ",
   "next": "NEXT",
   "01": "01",
   "02": "02",
@@ -338,7 +338,8 @@ const Map<String, String> en = {
   'dobb': 'Date of Birth should not be greater then current Date',
   'noOffer':'No offers available',
   'noAdds':'No Adds available',
-  'noLoaction':'No Location Found'
+  'noLoaction':'No Location Found',
+  'noadds':'No Ads Yet',
 
   
   

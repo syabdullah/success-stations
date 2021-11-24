@@ -12,8 +12,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
-
-import '../shimmer.dart';
 class AboutTab extends StatefulWidget {
   const AboutTab({ Key? key }) : super(key: key);
   @override
@@ -44,7 +42,7 @@ class _AboutTabState extends State<AboutTab> {
     return Scaffold(
       body: Container(
         height: Get.height/1.6,
-        padding: EdgeInsets.symmetric(horizontal:10),
+        // padding: EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           physics: AlwaysScrollableScrollPhysics(),
           children: [
@@ -66,22 +64,21 @@ class _AboutTabState extends State<AboutTab> {
               builder: (value){
                 return  value.isLoading == true ? PlayStoreShimmer(): value.lastuserads != null && value.lastuserads['data'].length  !=0?
                 lastAds(value.lastuserads['data']):
-                Container(
-                  margin:EdgeInsets.only(top:40),
-                  child: Center(
-                    child: Text(
-                      "noAdds".tr, style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12, color:AppColors.black)
-                    )
+                Center(
+                  heightFactor: 4,
+                  child: Text(
+                    "noAdds".tr, 
+                   style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
                   )
                 );
               }
             ),
-            SizedBox(height:30),
+            // SizedBox(height:30),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:08):EdgeInsets.only(right:08),
               child: Text(
                 "${'lastoffers'.tr}",
-                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: AppColors.black),
+                 style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
               ),
             ),
             GetBuilder<UserOfferController>( 
@@ -90,40 +87,35 @@ class _AboutTabState extends State<AboutTab> {
                 return  value.isLoading == true ? PlayStoreShimmer():
                 value.offerDattaTypeCategory != null && value.offerDattaTypeCategory['data'].length  !=0  ? 
                 lastOffer(value.offerDattaTypeCategory['data']):
-                Container(
-                  margin:EdgeInsets.only(top:40),
-                  child: Center(
+                 Center(
+                   heightFactor: 4,
                     child: Text("noOffer".tr,
-                    style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12, color:AppColors.black)
-                    )
+                    style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
+                    
                   )
                 );
               }
             ),
-            SizedBox(height:30),
+            // SizedBox(height:30),
             Container(
               margin: lang=='en'? EdgeInsets.only(left:08):EdgeInsets.only(right:08),
               child: Text("${'lastlocation'.tr}",
                 style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color:AppColors.black),
               ),
             ),
-
             GetBuilder<LastLocationController>( 
               init: LastLocationController(), 
               builder: (value){ 
-                return value.isLoading == true ? shimmer():
+                return 
                 value.lastLocation !=null &&value.lastLocation['data']!=null ? 
                 lastLocation( value.lastLocation['data']) :
-                Container(
-                  margin:EdgeInsets.only(top:40),
-                  child:Center(
-                    child: Text(
-                      "noLoaction".tr,
-                      style: TextStyle(fontSize: 12,fontWeight:FontWeight.normal,color:AppColors.black),
-                    ),
-                  )
+                Center(
+                  heightFactor: 4,
+                  child: Text(
+                    "noLoaction".tr,
+                     style: TextStyle(fontSize: 15,fontWeight:FontWeight.normal,color:AppColors.black),
+                  ),
                 );
-                
               }
             ),
           ],
@@ -208,11 +200,11 @@ Widget detail(userData2, context){
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(left:20,top:10),
+                                          margin: lang == 'en'? EdgeInsets.only(left:20,top:10): EdgeInsets.only(right:20,top:10),
                                           child:Text("${'email'.tr}:",)
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(left:20,top:10),
+                                          margin: lang == 'en'? EdgeInsets.only(left:20,top:10): EdgeInsets.only(right:20,top:10),
                                           child: Text( userData2['email'].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)
                                         ),
                                       ],
@@ -234,7 +226,7 @@ Widget detail(userData2, context){
               ),
             ),
             Container(
-              margin: lang == 'ar'? EdgeInsets.only(right:20,left:20,top:5) :EdgeInsets.only(left:10,right: Get.height/8,top:5),
+              margin: lang == 'ar'? EdgeInsets.only(right:20,left:40,top:5) :EdgeInsets.only(left:10,right: Get.height/8,top:5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -250,8 +242,8 @@ Widget detail(userData2, context){
               ),
             ),
             Container(
-              margin: lang == 'ar'? EdgeInsets.only(right:20,left:10,top:5) :EdgeInsets.only(left:10,right:37,top:5),
-              child: Row(
+              margin: lang == 'ar'? EdgeInsets.only(right:20,left:10,top:5) :EdgeInsets.only(left:10,right:9,top:5),              
+               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   userData2 !=null &&  userData2['mobile'] != null ?
@@ -276,11 +268,11 @@ Widget detail(userData2, context){
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(left:20,top:10),
+                                          margin: lang =='en'? EdgeInsets.only(left:20,top:10):EdgeInsets.only(right:20,top:10) ,
                                           child:Text("${'address'.tr}:",)
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(left:20,top:10),
+                                           margin: lang == 'en'? EdgeInsets.only(left:20,top:10): EdgeInsets.only(right:20,top:10),
                                           child: Text(userData2['address'].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black),)
                                         ),
                                       ],
@@ -290,10 +282,13 @@ Widget detail(userData2, context){
                               }
                             );
                           },
-                          child: Container( 
-                            child: Text(
-                              userData2['address'].length > 17 ? userData2['address'].substring(0, 17)+'...' : userData2['address'],
-                              style: TextStyle(fontWeight: FontWeight.w600)
+                          child: Center(
+                            child: Container( 
+                              margin: lang == 'en'? EdgeInsets.only(right:60): EdgeInsets.only( left:26),
+                              child: Text(
+                                userData2['address'].length > 17 ? userData2['address'].substring(0, 17)+'...' : userData2['address'],
+                                style: TextStyle(fontWeight: FontWeight.w600)
+                              ),
                             ),
                           ),
                         ),
@@ -521,7 +516,7 @@ Widget lastLocation(locLast){
 Widget lastLocations(lastLocation){
   return Container(
     margin: EdgeInsets.symmetric(vertical:10),
-    height: Get.height/5.5,
+    //  height: Get.height/5.5,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 4,
