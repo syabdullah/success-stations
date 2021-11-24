@@ -107,7 +107,7 @@ const Map<String, String> ar = {
   "review_publish": "مراجعة ونشر",
   "category": "الفئة",
   "title": "عنوان",
-  "description": "وصف",
+  "description": " : وصف",
   "next": "التالى",
   "01": "واحد",
   "02": "إثنان",

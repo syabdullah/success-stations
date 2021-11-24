@@ -57,16 +57,17 @@ class _LocationTabState extends State<LocationTab> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
       filter(),
-        GetBuilder<LocationController>( // specify type as Controller
-          init: LocationController(), // intialize with the Controller
+        GetBuilder<LocationController>( 
+          init: LocationController(), 
           builder: (value){ 
-            return value.isLoading == true ? friendReqShimmer():
-            value.lastLocation !=null &&   value.lastLocation['success']== true ?
-            locationList(value.lastLocation['data'])
-            :lastLoc.resultInvalid.isTrue && value.lastLocation['success'] == false?
-            Container(
-              child:Text(lastLoc.lastLocation['errors'])
-            ):Container();
+            return value.lastLocation == null  ? Center(
+              heightFactor: 15,
+                child: Text( "noLoaction".tr, 
+                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
+              )
+            ):
+            value.lastLocation['data'] !=null && value.lastLocation['success'] == true  ?
+            locationList(value.lastLocation['data']): shimmer();
           }
         ),
       ],
@@ -363,14 +364,14 @@ class _LocationTabState extends State<LocationTab> {
 }
 
 Widget locationList(lastLocation) {
-  print("lastLocatuon. of the locatio ...................$lastLocation");
-    return lastLocation.length == 0 ? Center(
-      child: Container(
-        margin: EdgeInsets.only(top:85),
-        child: Text("No location available!",style: TextStyle(fontWeight: FontWeight.bold),),
-      ),
-    ):
-     ListView.builder(
+  // print("lastLocatuon. of the locatio ...................$lastLocation");
+  //   return lastLocation.length == 0 ? Center(
+  //     child: Container(
+  //       margin: EdgeInsets.only(top:85),
+  //       child: Text("No location available!",style: TextStyle(fontWeight: FontWeight.bold),),
+  //     ),
+  //   ):
+    return  ListView.builder(
        padding: EdgeInsets.only(bottom: 1),
        // physics: NeverScrollableScrollPhysics(),
        itemCount: lastLocation.length,

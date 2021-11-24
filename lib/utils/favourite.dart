@@ -86,20 +86,15 @@ class _FavouritePageState extends State<FavouritePage> {
                 GetBuilder<FavoriteController>(
                   init: FavoriteController(),
                   builder: (val) {
-                    return val.isLoading == true  ?
-                    Center(
-                      child:  valueu.dataType == 'list' ? shimmer():gridShimmer()
-                    ): val.fvr8DataList !=null &&  val.fvr8DataList['success'] == true ? 
+                    
+                  return  val.fvr8DataList !=null &&  val.fvr8DataList['data'].length !=0 ? 
                       Column(
                         children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
                       ): myAddGridView(val.fvr8DataList['data']) ,
-                    ): fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
-                    Container(
-                      child: Center(
-                        child: Text(
-                        fContr.fvr8DataList['errors'], style:TextStyle(fontSize: 25)),
-                      )
-                    ):Container();        
+                    ):Container() ;
+                    // : fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
+                    
+                           
                   },
                 ) 
               ],
@@ -111,6 +106,7 @@ class _FavouritePageState extends State<FavouritePage> {
   }
   
   List<Widget> myAddsList(listFavourite) {
+     print("List view....$listFavourite");
     List<Widget> favrties = [];
     if(listFavourite.length !=null || listFavourite !=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
@@ -265,7 +261,6 @@ class _FavouritePageState extends State<FavouritePage> {
   
   List<Widget> myAddGridView(listFavourite) {
     var newData = [];
-    print(lang);
     for (int i = 0; i < listFavourite.length; i++) {
       if(listFavourite[i] !=null && listFavourite[i]['listing'] !=null ){
       newData.add(listFavourite[i]); 

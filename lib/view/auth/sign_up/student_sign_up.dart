@@ -603,7 +603,8 @@ Widget about() {
                 items: data.map((coun) {
                   return DropdownMenuItem(value: coun, 
                   child:   Text(
-                    coun['name'][lang] !=null ?  coun['name'][lang].toString() : coun['name'][lang] == null ? coun['name']['en'].toString():''
+                    coun['name'][lang] !=null ?  coun['name'][lang].toString() : coun['name']['ar'] == null ? coun['name']['en'].toString():
+                    coun['name']['en'] ==null ? coun['name']['ar'].toString():''
                   )
                 );
                 }).toList(),
@@ -611,7 +612,8 @@ Widget about() {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'][lang] !=null ?  mapCountry['name'][lang].toString():  mapCountry['name'][lang] ==null ?  mapCountry['name']['en'].toString():"";
+                    hintTextCountry = mapCountry['name'][lang] !=null ?  mapCountry['name'][lang].toString():  mapCountry['name'][lang] ==null ?  mapCountry['name']['en'].toString(): mapCountry['name']['en'] == null ? 
+                    mapCountry['name']['ar']: mapCountry['name']['ar']== null ?mapCountry['name']['en']:'' ;
                     selectedCountry = mapCountry['id'];
                     countryPut.getRegion(selectedCountry);
                   });
@@ -644,8 +646,10 @@ Widget about() {
             icon: Icon(Icons.arrow_drop_down),
             items: dataRegion.map((reg) {
               return DropdownMenuItem(
-                value: reg, child:  Text(
-                  reg['region'][lang] !=null ?  reg['region'][lang].toString() : reg['region'][lang] ==null ?  reg['region']['en'].toString():'',
+                value: reg,
+                 child:  Text(
+                  reg['region'][lang] !=null ?  reg['region'][lang].toString() : 
+                  reg['region']['en']== null ? reg['region']['ar'].toString(): reg['region']['ar']== null ? reg['region']['en'].toString():'',
                 )
               );
             }).toList(),
@@ -654,7 +658,8 @@ Widget about() {
               setState(() {
                 mapRegion = data as Map;
                 hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang].toString():
-                mapRegion['region'][lang] ==null ? mapRegion['region']['en'].toString():'' ;
+                mapRegion['region'][lang] ==null ? mapRegion['region']['en'].toString(): mapRegion['region']['en'] == null ?
+                mapRegion['region']['ar'] : mapRegion['region']['ar']== null ? mapRegion['region']['en']:'';
                 selectedRegion = data['id'];
                 countryPut.getCity(data['id']);
               });

@@ -65,9 +65,10 @@ class _FriendListState extends State<FriendList> {
                 : val.friendsData['success'] == false || val.friendsData['data'].length == 0 || val.friendsData == null ?
                 SingleChildScrollView(
                   child: Container(
-                    height: Get.height/1.5,
+                    // height: Get.height/1.5,
                     child: Center(
-                      child: Text("nofriends".tr,
+                      child: Text(
+                        "nofriends".tr,
                         style: TextStyle(fontSize: 20)
                       )
                     ),
@@ -88,11 +89,13 @@ class _FriendListState extends State<FriendList> {
 
   var count = 0;
   Widget friendList(dataa) {
+    print(".....!!!!!!!!!!!!razaaaa!!!!!!....$dataa");
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         itemCount: dataa.length,
         itemBuilder: (BuildContext context, index) {
+          print("sakdhdhdhhdhdhlsajxhsakjxhsa...${ count == 0 && index == dataa.length -1}");
           if(dataa[index]['status'] == "Accepted"){
             ++count;
           }
@@ -211,14 +214,14 @@ class _FriendListState extends State<FriendList> {
               ),
             ),
           )
-          : count == 0 && index == dataa.length -1 ? Container(
-            height: Get.height/1.5,
-            child: Center(
+          :
+           count == 0 && index == dataa.length -1 ? 
+            Center(
+              heightFactor:22,
               child: Text("nofriends".tr,
                 style: TextStyle(fontSize: 20)
               )
-            ),
-          ):Container();
+            ):Container();
         },
       ),
     );
@@ -239,7 +242,8 @@ class _FriendListState extends State<FriendList> {
           style: TextStyle(fontSize: 20)
         )
       ),
-    ):GridView.count(
+    ):
+    GridView.count(
       padding: EdgeInsets.only(left: 5),
       crossAxisCount: 2,
       childAspectRatio: (Get.width / Get.height*1.6),

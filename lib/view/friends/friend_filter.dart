@@ -44,9 +44,9 @@ class _FriendFilterState extends State<FriendFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
+    return 
         Container(
+          margin: EdgeInsets.only(top:02),
           width: Get.width,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -54,60 +54,63 @@ class _FriendFilterState extends State<FriendFilter> {
               topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
             )
           ),
-          child: Column(
+          child: ListView(
             children: [
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  margin: lang == 'en'
-                  ? EdgeInsets.only(top: 8, left: 8)
-                  : EdgeInsets.only(top: 8, right: 8),
-                  child: Text("filter".tr,
-                    style: TextStyle(
-                      fontSize: 20, color: Colors.black
-                    )
+              Column(
+                children: [
+                  // SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child:  Container(
+                      margin: lang == 'en'
+                      ? EdgeInsets.only(top: 8, left: 8)
+                      : EdgeInsets.only(top: 8, right: 8),
+                      child: Text("filter".tr,
+                        style: TextStyle(
+                          fontSize: 20, color: Colors.black
+                        )
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(height: 5),
+                  name(),
+                  SizedBox(height: 5),
+                  degree(),
+                  SizedBox(height: 5),
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder:(val) {
+                      return country(val.countryListdata);
+                    } ,
+                  ),
+                  SizedBox(height: 5),
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder:(val) {
+                      return city(val.cityAll);
+                    } ,
+                  ),
+                  SizedBox(height: 5),
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder:(val) {
+                      return college(val.listCollegeData);
+                    } ,
+                  ),
+                  SizedBox(height:5),
+                  GetBuilder<UniversityController>(
+                    init: UniversityController(),
+                    builder: (val){
+                      return  university(val.dataUni);
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  buttons()
+                ]    
               ),
-              SizedBox(height: 5),
-              name(),
-              // SizedBox(height: 5),
-              // degree(),
-              SizedBox(height: 5),
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return country(val.countryListdata);
-                } ,
-              ),
-              SizedBox(height: 5),
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return city(val.cityAll);
-                } ,
-              ),
-              SizedBox(height: 5),
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return college(val.listCollegeData);
-                } ,
-              ),
-              SizedBox(height:5),
-              GetBuilder<UniversityController>(
-                init: UniversityController(),
-                builder: (val){
-                  return  university(val.dataUni);
-                },
-              ),
-              SizedBox(height: 15),
-              buttons()
-            ]    
+            ],
           ),
-        ),
-      ],
+       
     );
   }
 
@@ -152,11 +155,14 @@ class _FriendFilterState extends State<FriendFilter> {
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
+                  print("printed country code...±${ coun['name']['en']}");
                   return DropdownMenuItem(
+                    
                     value: coun, 
                     child:   Text(
                       coun['name'][lang] !=null ?  coun['name'][lang] :
-                      coun['name'][lang] == null ?  coun['name']['en']:'',
+                      coun['name'][lang] == null ?  coun['name']['en']:
+                      coun['name']['en'] == "  " ? coun['name']['ar']: coun['name']['ar'] ==  "  " ? coun['name']['en']:''
                     )
                   );
                 }).toList(),
@@ -277,7 +283,7 @@ class _FriendFilterState extends State<FriendFilter> {
                 value: city,
                 child:
                 Text(
-                  city['city'][lang] !=null ? city['city'][lang] : city['city'][lang] == null ? city['city']['en']:'',
+                  city['city'][lang] !=null ? city['city'][lang].toString() : city['city'][lang] == null ? city['city']['en'].toString():'',
                 )
               );
             }).toList(),

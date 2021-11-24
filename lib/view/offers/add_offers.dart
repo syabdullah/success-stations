@@ -261,17 +261,21 @@ class AddOffersState extends State<AddOffersPage> {
                 icon: Icon(Icons.arrow_drop_down),
                 items: data.map((coun) {
                   return DropdownMenuItem(value: coun, 
-                  child: coun['name'] !=null?  Text(
-                   coun['name'][lang]!=null ?  coun['name'][lang].toString():
-                   coun['name'][lang] == null ? coun['name']['en'].toString():''
-                  ):Container()
+                  child: Text(
+                    coun['name'][lang] != null ?  
+                    coun['name'][lang].toString() :
+                    coun['name']['en'] == null ?coun['name']['ar']:
+                    coun['name']['ar'] ==  " " ? coun['name']['en']:''
+                   
+                  )
                 );
                 }).toList(),
                 onChanged: (val) {
                   var mapCountry;
                   setState(() {
                     mapCountry = val as Map;
-                    hintTextCountry = mapCountry['name'][lang]!=null ?  mapCountry['name'][lang].toString(): mapCountry['name'][lang]==null ?mapCountry['name']['en'].toString():"" ;
+                    hintTextCountry = mapCountry['name'][lang]!=null ?  mapCountry['name'][lang].toString(): mapCountry['name'][lang] ==null ?mapCountry['name']['en'].toString():
+                    
                     selectedCountry = mapCountry['id'];
                   });
                 },
@@ -306,7 +310,7 @@ class AddOffersState extends State<AddOffersPage> {
               ),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
-              items: <String>['New', 'Old'].map((String value) {
+              items: <String>['New'.tr, 'old'.tr].map((String value) {
                 return DropdownMenuItem(
                   value: value,
                   child: Text(
@@ -318,7 +322,7 @@ class AddOffersState extends State<AddOffersPage> {
               onChanged: (value) {
                 setState(() {
                   statusSelected = value;
-                  value == 'New' ? statusSelected = 1 : statusSelected = 0;
+                  value == 'New'.tr ? statusSelected = 1 : statusSelected = 0;
                 });
               },
             )
@@ -335,7 +339,6 @@ class AddOffersState extends State<AddOffersPage> {
     Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: TextFormField(
-        // maxLength: 20,
         focusNode: FocusNode(),
         controller: urlContr,
         validator: (val) {
@@ -421,7 +424,8 @@ class AddOffersState extends State<AddOffersPage> {
                 return DropdownMenuItem(
                   value: adds,
                   child: Text(
-                    adds['title'][lang] !=null ? adds['title'][lang].toString() :  adds['title'][lang] == null ?  adds['title']['en'].toString():'',
+                    adds['title'][lang] !=null ? adds['title'][lang].toString() :
+                    adds['title']['en'] == null ?  adds['title']['ar'] : adds['title']['ar'] == null ?  adds['title']['en']:'',
                   )
                 );
               }).toList(),
@@ -467,9 +471,10 @@ class AddOffersState extends State<AddOffersPage> {
                   value: countee,
                   child: Text(  
                     countee['category_name'][lang] != null ?  
-                    countee['category_name'][lang].toString() : 
-                    countee['category_name'][lang] == null ?
-                    countee['category_name']['en'].toString():'',
+                    countee['category_name'][lang].toString() :
+                    countee['category_name']['en'] == null ? countee['category_name']['ar']:
+                    countee['category_name']['ar'] == null ? countee['category_name']['en']:''
+
                   )
                 );
               }).toList(),

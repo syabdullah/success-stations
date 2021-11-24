@@ -43,7 +43,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
       appBar: AppBar(
         backgroundColor: AppColors.appBarBackGroundColor,
         title: Container(
-          margin: EdgeInsets.only(top:10),
+          margin: EdgeInsets.only(top:08),
           child: Text(
             'my_Offer'.tr, style: TextStyle(fontSize:15)
           ),
@@ -53,7 +53,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(top:12, left:7),
+              margin: EdgeInsets.only(top:08, left:7),
               child: GestureDetector(
                 onTap: (){
                   _scaffoldKey.currentState!.openDrawer();
@@ -68,7 +68,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                 Get.to(AddOffersPage());
               },
               child: Container(
-                margin: EdgeInsets.only(top:12,left:5),
+                margin: EdgeInsets.only(top:08,left:5),
                 child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
               ),
             ),
@@ -222,11 +222,12 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             )
                           )
                         ),
-                        Expanded(
+                        Container(
+                          margin: EdgeInsets.only(top:20, left: 10),
                           child: Row(
                             children: [
                               Container(
-                                margin:  lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                margin:  lang=='en'?EdgeInsets.only(right: 5):EdgeInsets.only(),
                                 child: GestureDetector(
                                   onTap: () {
                                     delete.deleteOfferController(listFavou[c]['id']);
@@ -239,8 +240,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   Get.to(AddOffersPage(), arguments: listFavou[c]);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                  margin: EdgeInsets.only(right: 5),
+                                  // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                   child: Image.asset(AppImages.edit, height: 30)
                                 ),
                               ),

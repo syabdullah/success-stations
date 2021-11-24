@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/offers/user_offers_controller.dart';
 import 'package:success_stations/controller/user_profile_controller.dart';
+import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
 
 import '../shimmer.dart';
@@ -30,28 +31,30 @@ class _AdOffersState extends State<AdOffers> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height/1.6,
-      child: GetBuilder<UserOfferController>(
+    return 
+     GetBuilder<UserOfferController>(
         init: UserOfferController(), 
         builder: (value){ 
-          return  value.offerDattaTypeCategory != null ?
-          gridView(value.offerDattaTypeCategory['data'])
-          :friendReqShimmer();
+          return   value.offerDattaTypeCategory['data'].length == 0 ? 
+          Container(
+            margin:EdgeInsets.only(top:Get.height/3.9, left:Get.height/6.9 ),
+            child: Text(
+              "noOfferyet".tr, 
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
+            )
+          ): 
+          value.offerDattaTypeCategory != null ?
+          gridView(value.offerDattaTypeCategory['data']): friendReqShimmer();
         }
-      ),
+      
     );
   }
 }
 
 Widget gridView(offeredList){
-   offeredList == null && offeredList.length == 0 ? 
-   Container(child: Text("No Offer Yet")):
-  print("offeredList.....offeredList.....$offeredList");
   return  GridView.builder(
     physics: AlwaysScrollableScrollPhysics(),
     primary: false,
-    padding: const EdgeInsets.all(20),
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       childAspectRatio: Get.width /(Get.height >= 800 ? Get.height * 0.54 : Get.height <= 800  ? Get.height /1.82  : 0
     ),

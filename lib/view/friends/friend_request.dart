@@ -37,7 +37,7 @@ class _FriendReqListState extends State<FriendReqList> {
                 child: Container(
                   margin: EdgeInsets.only(left:10, top:5),
                   child: Icon(Icons.arrow_back,
-                    color: Colors.white, size: 25
+                    color: Colors.white, size: 22
                   ),
                 ),
               ),
@@ -50,10 +50,11 @@ class _FriendReqListState extends State<FriendReqList> {
               Get.bottomSheet(SuggestFriends());
             },
             child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Image.asset(AppImages.filterImage, height:10),
-        ),
-          )],
+              padding: const EdgeInsets.all(15.0),
+              child: Image.asset(AppImages.filterImage, height:20),
+            ),
+          )
+        ],
         centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
         backgroundColor: AppColors.appBarBackGroundColor
