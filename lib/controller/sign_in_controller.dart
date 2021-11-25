@@ -51,7 +51,8 @@ class LoginController extends GetxController {
         box.write('access_token', logindata['data']['token']);
         box.write('email', logindata['data']['user']['email']);
         box.write('name', logindata['data']['user']['name']);
-        box.write('user_id', logindata['data']['user']['id']);       
+        box.write('user_id', logindata['data']['user']['id']);   
+        box.write('user_type', logindata['data']['user_type']);    
         resultInvalid(false);
         isLoading(false);
         Get.offAll(BottomTabs());

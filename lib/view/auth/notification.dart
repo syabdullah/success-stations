@@ -40,8 +40,13 @@ class _NotificationPageState extends State<NotificationPage> {
             GetBuilder<NotificationController>( 
             init: NotificationController(),
             builder: (value){ 
-              return value.allNotifications != null && value.allNotifications['data']!=null &&   value.allNotifications['success']!=true ?
-               fullNotifications(value.allNotifications['data']):friendReqShimmer();
+              return   value.allNotifications != null && value.allNotifications['data'].length !=0 ? fullNotifications(value.allNotifications['data']): 
+              Container(
+                height: Get.height/1.5,
+                child: Center(
+                  child: Text("notific".tr, style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black))
+                )
+              );
             }
           ),
         ],
@@ -50,9 +55,7 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
   var idd;
-  Widget fullNotifications(data) {
-   
-    return  Container(
+  Widget fullNotifications(data) { return  Container(
       height: Get.height,
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),

@@ -86,13 +86,15 @@ class _FavouritePageState extends State<FavouritePage> {
                 GetBuilder<FavoriteController>(
                   init: FavoriteController(),
                   builder: (val) {
-                    
-                  return  val.fvr8DataList !=null &&  val.fvr8DataList['data'].length !=0 ? 
+                     return  val.fvr8DataList !=null &&  val.fvr8DataList['data'] !=null ? 
                       Column(
                         children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
                       ): myAddGridView(val.fvr8DataList['data']) ,
-                    ):Container() ;
-                    // : fContr.resultInvalid.isTrue && val.fvr8DataList['success'] == false ?
+                    ):
+                     fContr.resultInvalid.isTrue?
+                     Container(child: Text(
+                      fContr.fvr8DataList['errors']
+                     )): friendReqShimmer();
                     
                            
                   },

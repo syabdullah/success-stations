@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/aboutController.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -13,6 +14,15 @@ class AboutUs extends StatefulWidget {
 }
  
 class _AboutUsState extends State<AboutUs> {
+  var userType;
+
+  @override
+  void initState() {
+   GetStorage box = GetStorage();
+    userType =  box.read('user_type');
+    print("usr tyepeee.....$userType");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +30,11 @@ class _AboutUsState extends State<AboutUs> {
         leading: GestureDetector(
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
-          centerTitle: true,title: Text('about_us'.tr),backgroundColor: AppColors.appBarBackGroundColor
+          centerTitle: true,
+          title: Text(
+            userType == 4 ?  'about_company'.tr :  userType == 2 ? 'about_user' .tr: 'about_us'.tr
+          ),
+          backgroundColor: AppColors.appBarBackGroundColor
         ),
         body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
@@ -31,6 +45,7 @@ class _AboutUsState extends State<AboutUs> {
     );
   }
 }
+
 Widget about(data){
   return
   Align(

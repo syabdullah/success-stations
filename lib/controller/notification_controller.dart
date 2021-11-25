@@ -7,6 +7,7 @@ class NotificationController extends GetxController {
  
   bool isLoading = false; 
   List offeredList = [];
+  var resultInvalid = false.obs;
   var recentNotifications;
   var allNotifications;
   var deleteNotification;
@@ -20,11 +21,13 @@ class NotificationController extends GetxController {
   allNoti() async{
     isLoading = true;
     await allNotification().then((value) {
-      allNotifications = jsonDecode(value.body);
-      isLoading = false;
+        allNotifications = jsonDecode(value.body);
+        isLoading = false;
+      
     });
     update();
   }
+  
    deleteNotificationController(data) async {
     isLoading = true;
     await deleteNotificationAction(data).then((res) {

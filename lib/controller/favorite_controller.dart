@@ -9,7 +9,7 @@ class FavoriteController extends GetxController {
   var resultInvalid = false.obs;
   favoriteList() async{
    isLoading = true;
-    await favorite().then((res) {
+  await favorite().then((res) {
       fvr8DataList = jsonDecode(res.body);
       print("data list ......>>$fvr8DataList");
       if (res.statusCode == 200 ||res.statusCode < 400) {

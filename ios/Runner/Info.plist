@@ -11,17 +11,50 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>salah</string>
+	<string>Success Stations</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.148001945963-b2ungtu6drp5nknovbuam1nineeom32n</string>
+				<string>fb495109941777752</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>495109941777752</string>
+	<key>FacebookDisplayName</key>
+	<string>success-station</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSCameraUsageDescription</key>
+	<string>this app needs to access camera permision</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Example: You should fill this in</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -30,10 +63,29 @@
 	<string>This app needs access to location when in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>this app needs to access mirco phone</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>this app needs to access photo library</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSSiriUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Example: You should fill this in</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -50,6 +102,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
-	<string>YES</string>
+	<true/>
 </dict>
 </plist>

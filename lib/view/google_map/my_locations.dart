@@ -145,12 +145,15 @@ class _MyLocationsState extends State<MyLocations> {
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
-                            child: data[index]['image'] != null
-                            ? Image.network(
-                              data[index]['image']['url'],
-                              height: 100,
-                              width: Get.width / 5.5,
-                              fit: BoxFit.fill,
+                            child: data[index]['image'] != null &&  data[index]['image']['url'] !=null
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.all( Radius.circular(10) ),
+                              child: Image.network(
+                                data[index]['image']['url'],
+                                height: 100,
+                                width: Get.width / 5.5,
+                                fit: BoxFit.fill,
+                              ),
                             )
                             : Container(
                               child: Image.asset(AppImages.locationimg),
