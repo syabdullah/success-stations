@@ -158,7 +158,7 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
                     value: coun, 
                     child:   Text(
                       coun['name'][lang] !=null ?  coun['name'][lang] :
-                      coun['name']['en'] == null ?  coun['name']['ar']:coun['name']['ar'] == null ?  coun['name']['en']:'.'
+                      coun['name']['en'] == null ?  coun['name']['ar'].toString() :coun['name']['ar'] == null ?  coun['name']['en'].toString():'.'
                     )
                   );
                 }).toList(),
@@ -201,8 +201,10 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
               return DropdownMenuItem(
                 value: coll,
                 child:
-                Text(coll['college'][lang] !=null ? coll['college'][lang].toString() :
-                coll['college'][lang] == null ? coll['college']['en'].toString() :'',
+                Text(
+                  coll['college'][lang] !=null ? coll['college'][lang].toString() :
+                  coll['college']['en'] ==null ? coll['college']['ar'].toString():
+                  coll['college']['ar'] == null ?   coll['college']['en'].toString() :''
                 )
               );
             }).toList(),

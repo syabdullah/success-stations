@@ -84,9 +84,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   void initState() {
     super.initState();
     lang = box.read('lang_code');
-    print("lang of the country code..........$lang");
     counCode = Get.arguments;
-    print("printed value of country code.......$counCode");
     inputValuePhone = counCode['short_code'];
      selectedCountry = counCode['id'];
     regionIdByCountry.getRegion(selectedCountry);
@@ -669,13 +667,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
         onFieldSubmitted: (value) {},
         textController: iqamaController,
         validator: (value) {
-          if( value.length  == 0){
-            return 'iqama'.tr;
-          }
-          else if(IqamaValidator.validate(value) == false) {
-            return "iqqamaNum".tr;
-          }
-         else return null;
+        //   if( value.length  == 0){
+        //     return 'iqama'.tr;
+        //   }
+        //   else if(IqamaValidator.validate(value) == false) {
+        //     return "iqqamaNum".tr;
+        //   }
+        //  else return null;
         },
         errorText: '',
       ),

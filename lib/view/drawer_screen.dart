@@ -55,6 +55,7 @@ class _AppDrawerState extends State<AppDrawer> {
     userProfile.getUserProfile();
     getLang.getLanguas();
     userType = box.read('user_type');
+    print("user tyie.....$userType");
     image = box.read('user_image');
     imageP = box.read('user_image_local');
     accountType = box.read('account_type');
@@ -259,7 +260,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               ),
                           ),
                           SizedBox(height: 10.h),
-                          CustomListTile(AppImages.aboutus, 'aboutus'.tr, () => {
+                          CustomListTile(AppImages.aboutus,  userType == 4? 'about_company'.tr : userType == 2 ? 'about_user'.tr :"about_us".tr,  () => {
                            Get.toNamed('/aboutUs')
                           },15.0 ),
                           CustomListTile(AppImages.privacy, 'privacy'.tr, () => {

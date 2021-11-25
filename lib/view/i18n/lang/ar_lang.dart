@@ -140,6 +140,8 @@ const Map<String, String> ar = {
   "membership": "العضوية",
   "notification": "التنبيهات",
   "about_us": "معلومات عنا",
+  "about_user": " نبذة عني",
+  "about_company": "نبذة عن الشركة",
   "advertise_with_us": "أعلن معنا",
   "privacy": "سياسة الخصوصية",
   "privacydr": "سياسة الخصوصية",
@@ -336,5 +338,6 @@ const Map<String, String> ar = {
   "update": "تحديث",
   "locationFound":'لم يتم العثور على موقع',
   "savecaps": "حفظ",
+  "notific":"لا يوجد إعلام حتى الآن",
 
 };
