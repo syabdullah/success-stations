@@ -352,12 +352,15 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       radius: 30.0,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50.0),
-                        child: data[index]['user_name'] !=null && data[index]['user_name']['image'] != null ? 
-                        Image.network(
-                          data[index]['user_name']['image']['url']
-                        ):
-                        Image.asset(AppImages.person)
-                      )
+                        child: data[index]['user_name'] !=null && data[index]['user_name']['image'] != null ?
+                        CircleAvatar(
+                          backgroundColor: Colors.grey[200],
+                          backgroundImage: NetworkImage(
+                            data[index]['user_name']['image']['url']
+                          )
+                        )
+                        :Image.asset(AppImages.person)
+                      ) 
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left:8.0),
@@ -483,7 +486,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
     return  Padding(
       padding: const EdgeInsets.symmetric(horizontal:15.0),
       child: TextFormField(
-        maxLines: 4,
+        maxLines: null,
         textAlignVertical: TextAlignVertical.top,
         validator: (value) {
           if (value == null || value.isEmpty) {

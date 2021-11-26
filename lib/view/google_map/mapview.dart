@@ -227,7 +227,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                   val.allLoc['data'][i]);
                   _latLng = LatLng(val.allLoc['data'][i]['long'],
                   val.allLoc['data'][i]['long']);
-              }
+                }
             }
             return GetBuilder<GridListCategory>(
             init: GridListCategory(),
@@ -383,7 +383,6 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
         ),
         itemCount: userData.length,
         itemBuilder: (BuildContext context, int index) {
-          print("userData[index].........................${userData[index]['id']}");
           return GestureDetector(
             onTap: () {
               Get.to(AdViewTab(),

@@ -60,14 +60,15 @@ class _LocationTabState extends State<LocationTab> {
         GetBuilder<LocationController>( 
           init: LocationController(), 
           builder: (value){ 
-            return value.lastLocation == null  ? Center(
+            return value.lastLocation !=null &&  value.lastLocation['data']!=null   ?
+            locationList(value.lastLocation['data']):
+             Center(
               heightFactor: 15,
                 child: Text( "noLoaction".tr, 
                 style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
               )
-            ):
-            value.lastLocation['data'] !=null && value.lastLocation['success'] == true  ?
-            locationList(value.lastLocation['data']): shimmer();
+            );
+           
           }
         ),
       ],
@@ -180,7 +181,7 @@ class _LocationTabState extends State<LocationTab> {
                               )
                             ), 
                           Container(
-                              height: 50,
+                              // height: 50,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: [
@@ -364,121 +365,116 @@ class _LocationTabState extends State<LocationTab> {
 }
 
 Widget locationList(lastLocation) {
-  // print("lastLocatuon. of the locatio ...................$lastLocation");
-  //   return lastLocation.length == 0 ? Center(
-  //     child: Container(
-  //       margin: EdgeInsets.only(top:85),
-  //       child: Text("No location available!",style: TextStyle(fontWeight: FontWeight.bold),),
-  //     ),
-  //   ):
-    return  ListView.builder(
-       padding: EdgeInsets.only(bottom: 1),
-       // physics: NeverScrollableScrollPhysics(),
-       itemCount: lastLocation.length,
-       shrinkWrap: true,
-       // ignore: non_constant_identifier_names
-       itemBuilder: (BuildContext,index) {
-       
-         return Card(
-           child: Container(
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 Row(
-                   children: [
-                     Center(
-                       child: Container(
-                         color: Colors.grey[100],
-                         width: Get.width/3.6,
-                         child: Padding(
-                           padding:
-                           const EdgeInsets.all(10.0),
-                           child: GestureDetector(
-                             child:lastLocation[index]['image'] !=null&&  lastLocation[index]['image']['url']!= null ?
-                             ClipRRect(
-                             borderRadius: BorderRadius.circular(10),
-                               child: Container(
-                                 height: Get.height/7.5,
-                                 child: lastLocation[index]['image']['url'] !=null ?
-                                 Image.network(lastLocation[index]['image']['url'], fit: BoxFit.cover,): Container()
+  print("length of the ....${lastLocation.length}");
+    return  Container(
+      height:Get.height/1.7,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+         padding: EdgeInsets.only(bottom: 1),
+         itemCount: lastLocation.length,
+         itemBuilder: (BuildContext context ,index) {
+         
+          return Card(
+             child: Container(
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Row(
+                     children: [
+                       Center(
+                         child: Container(
+                           color: Colors.grey[100],
+                           width: Get.width/3.6,
+                           child: Padding(
+                             padding:
+                             const EdgeInsets.all(10.0),
+                             child: GestureDetector(
+                               child:lastLocation[index]['image'] !=null&&  lastLocation[index]['image']['url']!= null ?
+                               ClipRRect(
+                               borderRadius: BorderRadius.circular(10),
+                                 child: Container(
+                                   height: Get.height/7.5,
+                                   child: lastLocation[index]['image']['url'] !=null ?
+                                   Image.network(lastLocation[index]['image']['url'], fit: BoxFit.cover,): Container()
+                                 ),
+                               ): Container(
+                                   child: Image.asset(AppImages.location,height: 117,),
                                ),
-                             ): Container(
-                                 child: Image.asset(AppImages.location,height: 117,),
-                             ),
-                                       ),
-                         )
+                                         ),
+                           )
+                         ),
                        ),
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.only(top:.0,left: 10),
-                       child: Column(
-                         crossAxisAlignment:CrossAxisAlignment.start,
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                          
-                            lastLocation[index]['location'] != null ?
-                              Container(
-                                width: Get.width/1.5,
-                                child: Text(lastLocation[index]['location'],textAlign: TextAlign.left,
-                                   style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
-                                 ),
-                              )
-                             : Container(),
-                              lastLocation[index]['formated_address'] != null ?
-                              Container(
-                                width: Get.width/1.5,
-                                child: Text(lastLocation[index]['formated_address'],textAlign: TextAlign.left,
-                                   style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12),
-                                 ),
-                              )
-                             : Container(),
-                              SizedBox(height: 4),
+                       Padding(
+                         padding: const EdgeInsets.only(top:.0,left: 10),
+                         child: Column(
+                           crossAxisAlignment:CrossAxisAlignment.start,
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                            
+                              lastLocation[index]['location'] != null ?
+                                Container(
+                                  width: Get.width/1.5,
+                                  child: Text(lastLocation[index]['location'],textAlign: TextAlign.left,
+                                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                                   ),
+                                )
+                               : Container(),
+                                lastLocation[index]['formated_address'] != null ?
+                                Container(
+                                  width: Get.width/1.5,
+                                  child: Text(lastLocation[index]['formated_address'],textAlign: TextAlign.left,
+                                     style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12),
+                                   ),
+                                )
+                               : Container(),
+                                SizedBox(height: 4),
+                             Row(
+                               children: [
+                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
+                                 lastLocation[index]['services'] !=null ?
+                               Text(": ${lastLocation[index]['services']['servics_name']}",
+                               style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
+                               ): Container(),
+                               SizedBox(width: 3,),
+                              
+                               ],
+                             ),
+                             SizedBox(height: 4),
+                                lastLocation[index]['country_name']!= null ? 
                            Row(
                              children: [
-                               Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
-                               lastLocation[index]['services'] !=null ?
-                             Text(": ${lastLocation[index]['services']['servics_name']}",
-                             style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
-                             ): Container(),
-                             SizedBox(width: 3,),
-                            
-                             ],
-                           ),
-                           SizedBox(height: 4),
-                              lastLocation[index]['country_name']!= null ? 
-                         Row(
-                           children: [
-                             Container(
-                               child: Text(
-                                 "country".tr,
-                                 style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)
-                               ),
-                             ),
-                             Container(
-                               width: Get.width / 3.3,
-                               child: Text(
-                                 ": ${lastLocation[index]['country_name']}",
-                                 style: TextStyle(
-                                   color: Colors.black,
-                                   fontSize: 12
+                               Container(
+                                 child: Text(
+                                   "country".tr,
+                                   style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)
                                  ),
                                ),
-                             )
+                               Container(
+                                 width: Get.width / 3.3,
+                                 child: Text(
+                                   ": ${lastLocation[index]['country_name']}",
+                                   style: TextStyle(
+                                     color: Colors.black,
+                                     fontSize: 12
+                                   ),
+                                 ),
+                               )
+                             ],
+                           ): Container()
                            ],
-                         ): Container()
-                         ],
+                         ),
                        ),
-                     ),
-                   ],
-                 ),
-                 SizedBox(height:20),
-               
-               ],
+                     ],
+                   ),
+                   SizedBox(height:20),
+                 
+                 ],
+               ),
              ),
-           ),
-           );
-         },
-     );
+             );
+           },
+       ),
+    );
   }
   void handleClick(int item) {
   switch (item) {

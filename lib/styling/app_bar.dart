@@ -326,6 +326,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
           GestureDetector(
             onTap: () => Get.back(),
             child: Container(
+              margin:EdgeInsets.only(left:10, right:10),
               child: Icon(Icons.arrow_back,
                 color: Colors.white, size: 22
               ),

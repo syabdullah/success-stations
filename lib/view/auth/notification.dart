@@ -55,10 +55,12 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
   var idd;
-  Widget fullNotifications(data) { return  Container(
-      height: Get.height,
+  Widget fullNotifications(data) {  
+    return  Container(
+     height: Get.height*0.9,
       child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
+        
+        scrollDirection: Axis.vertical,
         itemCount: data.length,
         itemBuilder: (BuildContext context, index) {
           String convertToAgo(DateTime input){
@@ -120,7 +122,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                   
                                   SizedBox(height: 3,),
                                   Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: Get.width/2,
@@ -136,26 +138,27 @@ class _NotificationPageState extends State<NotificationPage> {
                                         controller.deleteNotificationController(data[index]['id']);
                                         print(data[index]['id']);
                                       },
-                                        child: Icon(Icons.cancel, color: Colors.grey,))
+                                      child: Icon(Icons.cancel, color: Colors.grey)
+                                    )
                                     ],
                                   ),
                                 ],
                               ),
-                                leading:
-                                data[index]['notifier']['image']
-                                != null ?
+                              leading:   data[index]['notifier'] !=null && data[index]['notifier']['image'] != null && data[index]['notifier']['image']['url'] !=null ?
                                 GestureDetector(
                                   onTap: (){
                                     Get.to(NotifierUser(),arguments:data[index]['notifier']['id'] );
-                                    print(data[index]['notifier']['id']);
                                   },
                                   child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(data[index]['notifier']['image']['url'])),
-                                ) : Icon(Icons.image),
-                              ),
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(data[index]['notifier']['image']['url'])),
+                                  ) : Container(
+                                    margin: EdgeInsets.only(left:10),
+                                    child: Icon(Icons.image)
+                                  ),
+                                ),
             
-                            ),
+                              ),
                             data[index]['notifiable']  != null ?
                           Container(
                             margin: EdgeInsets.only(right: 15),

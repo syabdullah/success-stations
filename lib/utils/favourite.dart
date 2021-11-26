@@ -14,7 +14,6 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/drawer_screen.dart';
-import 'package:success_stations/view/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 class FavouritePage extends StatefulWidget {
   _FavouritePageState createState() => _FavouritePageState();
@@ -86,17 +85,18 @@ class _FavouritePageState extends State<FavouritePage> {
                 GetBuilder<FavoriteController>(
                   init: FavoriteController(),
                   builder: (val) {
-                     return  val.fvr8DataList !=null &&  val.fvr8DataList['data'] !=null ? 
-                      Column(
-                        children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
-                      ): myAddGridView(val.fvr8DataList['data']) ,
-                    ):
-                     fContr.resultInvalid.isTrue?
-                     Container(child: Text(
-                      fContr.fvr8DataList['errors']
-                     )): friendReqShimmer();
-                    
-                           
+                    return  val.fvr8DataList !=null &&  val.fvr8DataList['data'].length !=0 ? 
+                    Column(
+                      children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
+                    ): myAddGridView(val.fvr8DataList['data']) ,
+                  ):
+                  Container(
+                    // height: Get.height/1.5,
+                    // child:Text(
+                    //   "fav".tr,
+                    //   style:TextStyle(fontSize: 16)
+                    // )
+                  );
                   },
                 ) 
               ],
@@ -108,7 +108,6 @@ class _FavouritePageState extends State<FavouritePage> {
   }
   
   List<Widget> myAddsList(listFavourite) {
-     print("List view....$listFavourite");
     List<Widget> favrties = [];
     if(listFavourite.length !=null || listFavourite !=null){
       for(int c = 0 ; c < listFavourite.length; c++ ){
@@ -260,16 +259,25 @@ class _FavouritePageState extends State<FavouritePage> {
     return favrties;
   }
   
-  
   List<Widget> myAddGridView(listFavourite) {
     var newData = [];
     for (int i = 0; i < listFavourite.length; i++) {
       if(listFavourite[i] !=null && listFavourite[i]['listing'] !=null ){
-      newData.add(listFavourite[i]); 
+        newData.add(listFavourite[i]); 
       }   
     }
     List<Widget> faviii = [];
-    faviii.add(
+    newData.length == 0 ? faviii.add (
+    Container(
+      height: Get.height/1.5,
+      child:Center(
+        child: Text(
+          "fav".tr,
+          style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal, )
+        ),
+      )
+    )
+  ): faviii.add(
       Container(
         padding: EdgeInsets.symmetric(horizontal:5),
         margin: EdgeInsets.only(top: 5),
@@ -278,7 +286,7 @@ class _FavouritePageState extends State<FavouritePage> {
         crossAxisCount: 2,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        childAspectRatio: ( lang == 'en' ?  
+        childAspectRatio:  ( lang == 'en' ?  
         lang == 'en' ? Get.width / 1.01 / Get.height / 0.49:Get.width / 1.10 / Get.height / 0.55: 
         Get.width / 1.01 / Get.height / 0.49),
         children: List.generate(
@@ -291,7 +299,6 @@ class _FavouritePageState extends State<FavouritePage> {
               }
             }
             return Container(
-              height: Get.height,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black)
               ), 
@@ -318,7 +325,8 @@ class _FavouritePageState extends State<FavouritePage> {
                           ): null,
                         ): Container(),
                       ],
-                    ):
+                    )
+                    :
                     Stack(
                       alignment:AlignmentDirectional.topStart,
                       children: [

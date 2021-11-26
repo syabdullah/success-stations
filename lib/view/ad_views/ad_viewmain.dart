@@ -74,7 +74,6 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
 }
 
 Widget topImage(userData2){
-  print("..........!!!!!!>.......... userdata .....$userData2");
   return Stack(
     children: [
       Container(

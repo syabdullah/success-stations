@@ -460,6 +460,7 @@ class _MyAddsState extends State<MyAdds> {
                 children: [
                   allCheck == false ? 
                   Container(
+                    margin:EdgeInsets.only(left:10, right:6),
                     width: 70,
                     child: GestureDetector(
                       onTap: () {
@@ -473,7 +474,6 @@ class _MyAddsState extends State<MyAdds> {
                         });
                       },
                       child: Container(
-                        margin: EdgeInsets.only(left:12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(
@@ -481,7 +481,7 @@ class _MyAddsState extends State<MyAdds> {
                           ),
                           color: allColor,
                         ),
-                        padding: EdgeInsets.all(10.0),
+                        // padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
                             "all".tr,
@@ -498,7 +498,7 @@ class _MyAddsState extends State<MyAdds> {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 12.0),
+                        margin: EdgeInsets.only(left: 8.0),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {

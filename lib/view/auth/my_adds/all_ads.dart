@@ -628,14 +628,14 @@ class _AllAddsState extends State<AllAdds> {
                         });
                       },
                       child: Container(
-                        margin:EdgeInsets.only(left:10),
+                        margin: lang == 'en'? EdgeInsets.only(left:6): EdgeInsets.only(right:2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18.0),
                           border: Border.all(
                             color: AppColors.appBarBackGroundColor),
                           color: allColor,
                         ),
-                        padding: EdgeInsets.all(10.0),
+                        // padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
                             "all".tr,
@@ -650,7 +650,7 @@ class _AllAddsState extends State<AllAdds> {
                     ),
                   ):Container(),
                   Container(
-                    margin: lang == 'en' ? EdgeInsets.only(left: 12.0): EdgeInsets.only(right: 12.0),
+                    margin: lang == 'en' ? EdgeInsets.only(left: 12.0): EdgeInsets.only(right:6.0),
                     decoration: BoxDecoration(),
                     child: GestureDetector(
                       onTap: () {
