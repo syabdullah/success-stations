@@ -41,7 +41,7 @@ class _AboutTabState extends State<AboutTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: Get.height/1.6,
+        height: Get.height,
         // padding: EdgeInsets.symmetric(horizontal:10),
         child: ListView(
           physics: AlwaysScrollableScrollPhysics(),

@@ -761,7 +761,7 @@ Widget secondStep(){
                 controller: emailController,
                 validator: (value) {
                 if (value == null || value.isEmpty) {
-                    return 'enterSomeText'.tr;
+                    return 'enterSomeTextEmail'.tr;
                 }
                   return null;
                 },

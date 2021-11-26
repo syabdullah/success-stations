@@ -69,14 +69,12 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   }
 
   sendMessage(String chatMessage) {
-    print("On sedn message.... Function$chatMessage");
+    print("On sedn message.... Function${chatMessage.length}");
     socket.emit("chatMessage", chatMessage);
   }
 
-  handleMessage(data) { 
-   
-    chatCont.loadMessage(data);
-     
+  handleMessage(data) {   
+    chatCont.loadMessage(data);   
   }
   @override
   void dispose() {
@@ -276,6 +274,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       alignment: Alignment.bottomLeft,
       child: Container(
         height: 60,
+        
         decoration: BoxDecoration(
             color: Colors.grey[300], borderRadius: BorderRadius.circular(78)),
         margin: EdgeInsets.symmetric(horizontal: 15),
@@ -286,9 +285,11 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
             ),
             Expanded(
               child: TextField(
-                controller: msg,
+                controller: msg,                
                 maxLines: null,
+                maxLength: 160,
                 decoration: InputDecoration(
+                  counterText: '',
                 isDense: true,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
