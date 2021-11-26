@@ -11,15 +11,7 @@ class FavoriteController extends GetxController {
    isLoading = true;
   await favorite().then((res) {
       fvr8DataList = jsonDecode(res.body);
-      print("data list ......>>$fvr8DataList");
-      if (res.statusCode == 200 ||res.statusCode < 400) {
-        resultInvalid(false);
-        isLoading = false;
-      }
-      else if (fvr8DataList['success'] == false) {
-        resultInvalid(true);
-       isLoading = false;
-      }
+      isLoading = false;
     });
     update();
   }

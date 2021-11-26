@@ -54,10 +54,9 @@ class _AdListTabState extends State<AdListTab> {
  
   Widget adList(allDataAdds) {
     return Container(
-      // height: Get.height/1.6,
-      margin: EdgeInsets.only(bottom: 35),
+      height: Get.height/1.5,
       child: ListView.builder(
-        physics: AlwaysScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
         itemCount: allDataAdds.length,
         itemBuilder: (BuildContext context, index) {
           return GestureDetector(

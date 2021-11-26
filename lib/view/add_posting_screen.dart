@@ -88,13 +88,13 @@ var typeId;
         }
       }
       if(editData['region']!=null){
-        hintRegionText = editData['region'] !=null ? editData['region']['region']:'';
+        hintRegionText = editData['region'] !=null ? editData['region'][lang]:'';
       }
       else{
        hintRegionText = 'region'.tr; 
       }
       if(editData['city']!=null){
-        hintcityText = editData['city'] !=null ? editData['city']['city'] :'';
+        hintcityText = editData['city'] !=null ? editData['city'][lang] :'';
 
       }
       else {
@@ -148,7 +148,6 @@ var typeId;
       'is_published':1,
       "image": imageName != null ? imageName : Get.find<AdPostingController>().adUpload['name'],
     };
-    print("json response of the step 2 add post .......,...$json");
      Get.find<AdPostingController>().finalAdPosting(json);
   }
   editpost() async{ 
@@ -504,9 +503,7 @@ Widget istStep(List list,List types){
                           setState(() {
                             adsubCategory = val as Map;
                             selectedtype = adsubCategory['type'][lang] !=null ?  adsubCategory['type'][lang] : adsubCategory['type'][lang]== null ?  adsubCategory['type']['en']:'';
-                            print(selectedtype);
                              typeId =adsubCategory['id'];
-                             print(typeId);
                             
                           });
                         },
@@ -854,8 +851,8 @@ Widget secondStep(){
                           return DropdownMenuItem(
                             value: reg,
                             child:  Text(
-                              reg['region'][lang]!= null ? reg['region'][lang]: reg['region'][lang] ==null ?
-                              reg['region']['en']:'' 
+                              reg['region'][lang] != null ? reg['region'][lang]: reg['region']['en'] ==null ?
+                              reg['region']['ar'] :reg['region']['ar']  == null ? reg['region']['en'] :''
                             )
                           );
                         }).toList(),
@@ -863,10 +860,11 @@ Widget secondStep(){
                           var mapRegion;
                           setState(() {
                             mapRegion = data as Map;
-                            hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang] : 
-                            mapRegion['region'][lang] == null ? mapRegion['region']['en']:'';
-                            selectedRegion = data['id'];
-                            countryPut.getCity(data['id']);
+                            print("map region.....$mapRegion");
+                            hintRegionText = mapRegion['region'][lang] !=null ? mapRegion['region'][lang].toString() : 
+                            mapRegion['region'][lang] == null ? mapRegion['region']['en'].toString():'';
+                            selectedRegion = mapRegion['id'];
+                            countryPut.getCity(selectedRegion);
                           });
                         },
                       )
@@ -899,14 +897,17 @@ Widget secondStep(){
                         items: val.cityListData.map((citt) {
                           return DropdownMenuItem(value: citt, child: 
                           Text(
-                            citt['city'][lang] != null ? citt['city'][lang]: citt['city'][lang] == null ?citt['city']['en']:'' )
+                            citt['city'][lang] != null ? citt['city'][lang].toString():
+                            citt['city']['en']  == null ?  citt['city']['ar'].toString():
+                            citt['city']['ar'] == null ?  citt['city']['en'].toString():''
+                          )
                           );
                         }).toList(),
                         onChanged: (value) {
                           setState(() {
                             var mapCity;
                             mapCity = value as Map;
-                            hintcityText = mapCity['city'][lang] !=null ?mapCity['city'][lang] : mapCity['city'][lang] == null ? mapCity['city']['en'] : '';
+                            hintcityText = mapCity['city'][lang] !=null ? mapCity['city'][lang].toString() : mapCity['city'][lang] == null ? mapCity['city']['en'].toString() : '';
                             selectedCity = mapCity['id'];
                           });
                         },
@@ -969,39 +970,38 @@ Widget secondStep(){
                         ],
                       ),
                     ),
-                     Container(
-                       child: Container(
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
+                    Container(
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 1.h,),
                             Text("name".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                             SizedBox(height: 5.h),
+                            SizedBox(height: 5.h),
                             Text(fullNameController.text,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
                             Text('status'.tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
                             SizedBox(height: 7.h),
-                             Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+                            Text(selectedStatus == '0'  ? uiStatus = 'Old':selectedStatus == '1'  ?'new': ' ' ,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
                             SizedBox(height: 15.h),
                             Text("region".tr,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                             SizedBox(height: 5.h),
+                            SizedBox(height: 5.h),
                             Text(hintRegionText !=null ?hintRegionText:'',
                              style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold)
                             ),
-                            
                           ],
-                          ),
-                       ),
-                     ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
             ],
           ),
         ),
-      Container(
-        width: Get.width,
-        child: Card(
+        Container(
+          width: Get.width,
+         child: Card(
           child:Padding(
           padding: const EdgeInsets.only(top:15,left:50,right: 50),
           child: Column(

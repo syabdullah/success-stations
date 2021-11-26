@@ -49,6 +49,7 @@ class ContryController extends GetxController {
       regionDataByCountry = jsonDecode(res.body);
       for(int c =0; c < regionDataByCountry['data'].length; c++){
         regionListdata.add(regionDataByCountry['data'][c]);
+        print("get region ....$regionListdata");
       }
       isLoading = false;
     });

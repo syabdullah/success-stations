@@ -78,7 +78,7 @@ class _AboutTabState extends State<AboutTab> {
               margin: lang=='en'? EdgeInsets.only(left:08):EdgeInsets.only(right:08),
               child: Text(
                 "${'lastoffers'.tr}",
-                 style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
+                 style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16, color:AppColors.black)
               ),
             ),
             GetBuilder<UserOfferController>( 
@@ -162,11 +162,11 @@ Widget detail(userData2, context){
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text( "nameph".tr,
+                  Text(  "${'nameph'.tr} :",
                     style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
                   ),
                   Text(
-                    "${'email'.tr}:",
+                    "${'email'.tr} :",
                     style: TextStyle(
                       fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey
                     ),
@@ -231,11 +231,11 @@ Widget detail(userData2, context){
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${'mobile'.tr}:",
+                    "${'mobile'.tr} :",
                     style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
                   ),
                   Text(
-                    "${'address'.tr}:",
+                    "${'address'.tr} :",
                     style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),
                   ),
                 ],

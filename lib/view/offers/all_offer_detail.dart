@@ -49,7 +49,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // SizedBox(height:20),
             Container(
               child: Column(
               children: [
@@ -65,70 +64,70 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       height: Get.height/3.3,
                       child: Card(
                         elevation: 2.0,
-                        // margin: lang=='en'?EdgeInsets.only(left:19,right:19):EdgeInsets.only(left:19,right:19),
                         child: Column(
                           children: [
                             Container(
                               color: AppColors.appBarBackGroundColor,
                               padding: EdgeInsets.only(top:10,bottom:15,left: 15),
                               child: idIdId !=null && idIdId['url'] !=null ?
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text( idIdId['url'] ,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: lang == 'ar'?  EdgeInsets.only(top:10, right:10):EdgeInsets.only(top:10),
+                                    child: Text( idIdId['url'] ,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.only(right:10),
-                                      child: Icon(Icons.arrow_forward,color: Colors.white,))
-                                  ],
-                                ):Container()
+                                  ),
+                                ],
+                              ):Container()
                             ),
-                              space50,
+                            space50,
                             
                               Container(
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.only(left:14),
-                                child: Text("COUNTRY:", style:TextStyle(fontSize:14, color:Colors.grey[400]))
+                                child: Text("coun".tr, style:TextStyle(fontSize:14, color:Colors.grey[400]))
                               ),
                               space10,
                               Container(
                                 margin: EdgeInsets.only(left:14, right:10),
                                 alignment: Alignment.topLeft,
                                 child:idIdId['country']!=null ?   Text(
-                                  idIdId['country']['name']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
+                                  idIdId['country']['name'][lang] !=null ? idIdId['country']['name'][lang]:
+                                  idIdId['country']['name'][lang] == null ? idIdId['country']['name']['en']:'',
+                                  style:TextStyle(color:Colors.black, fontSize: 14), 
                                 ):Container()
                               ),
-                            space50,
-                            
+                              space50,
                               Container(
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.only(left:14),
-                                child: Text("DESCRIPTION:", style:TextStyle(fontSize:14, color:Colors.grey[400]))
+                                child: Text("descrip".tr, style:TextStyle(fontSize:14, color:Colors.grey[400]))
                               ),
                               space10,
                               Container(
                                 margin: EdgeInsets.only(left:14, right:10),
                                 alignment: Alignment.topLeft,
-                                child:idIdId['description']!=null  &&idIdId['description']['en']!=null ?   Text(
-                                  idIdId['description']['en'], style:TextStyle(color:Colors.black, fontSize: 14), 
+                                child:idIdId['description']!=null ?   Text(
+                                  idIdId['description'][lang] != null ? idIdId['description'][lang]:
+                                  idIdId['description'][lang]  == null ? idIdId['description']['en']:'',
+                                  style:TextStyle(color:Colors.black, fontSize: 14), 
                                 ):Container()
                               ),
                             ],
                           ),
-                          ),
-                        )  ,
-                        // SizedBox(height:40)  
-                      ],
-                    )
-                  ],
-                )
+                        ),
+                      ), 
+                    ],
+                  )
+                ],
+              )
             )
           ],
         ),
       ),
     );
   }
-
 }
 
     
