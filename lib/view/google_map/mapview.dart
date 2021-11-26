@@ -408,7 +408,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                         child:  userData[index]['image'] !=null && userData[index]['image']['url'] !=null ? 
                         Image.network( userData[index]['image']['url'],
                             fit: BoxFit.fill,
-                          )
+                        )
                         :
                         FittedBox(
                           fit:BoxFit.contain,
