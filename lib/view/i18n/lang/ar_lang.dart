@@ -309,6 +309,7 @@ const Map<String, String> ar = {
   'my_Offer':'عرضي',
   'myloc':'مواقعي',
   "enterSomeText": 'الرجاء إدخال نص',
+  "enterSomeTextEmail":"أدخل بريدك الإلكتروني",
   "city0":"المدينة",
   "city1":"المنطقة",
   "city2":"رقم الاعلان ",

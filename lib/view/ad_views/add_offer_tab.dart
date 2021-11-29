@@ -35,9 +35,11 @@ class _AdOffersState extends State<AdOffers> {
      GetBuilder<UserOfferController>(
         init: UserOfferController(), 
         builder: (value){ 
-          return   value.offerDattaTypeCategory['data'].length == 0 ? 
+          return  value.offerDattaTypeCategory != null && value.offerDattaTypeCategory['data'].length == 0 ? 
           Container(
-            margin:EdgeInsets.only(top:Get.height/3.9, left:Get.height/6.9 ),
+            width: Get.width,
+            alignment: Alignment.center,
+            margin:EdgeInsets.only(bottom:Get.height/3.9),
             child: Text(
               "noOfferyet".tr, 
               style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
@@ -45,8 +47,7 @@ class _AdOffersState extends State<AdOffers> {
           ): 
           value.offerDattaTypeCategory != null ?
           gridView(value.offerDattaTypeCategory['data']): friendReqShimmer();
-        }
-      
+        }      
     );
   }
 }
@@ -58,7 +59,9 @@ Widget gridView(offeredList){
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       childAspectRatio: Get.width /(Get.height >= 800 ? Get.height * 0.54 : Get.height <= 800  ? Get.height /1.82  : 0
     ),
-    crossAxisSpacing: 1, mainAxisSpacing: 1, crossAxisCount: 2),
+    crossAxisSpacing: 3,
+          mainAxisSpacing: 3,
+          crossAxisCount: 2,),
     itemCount: offeredList.length,
     itemBuilder: (BuildContext context, int index) {
       return GestureDetector(

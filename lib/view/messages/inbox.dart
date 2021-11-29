@@ -89,9 +89,10 @@ class _InboxState extends State<Inbox> {
                     ),
                     Container(
                       width: Get.width/3.0,
+                      
                       child: Text(
                         dataWithMessage['last_message'] != null ? dataWithMessage['last_message'] :'',
-                        maxLines: 2,
+                        maxLines: 1,
                         style:TextStyle(color: Colors.grey,fontSize: 13,),
                       ),
                     ),                                       
