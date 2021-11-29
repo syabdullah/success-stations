@@ -85,8 +85,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 GetBuilder<FavoriteController>(
                   init: FavoriteController(),
                   builder: (val) {
-                    print("--------${val.fvr8DataList}");
-                    return val.fvr8DataList !=null &&  val.fvr8DataList['data'].length != 0 && val.fvr8DataList['success'] == true  ? 
+                    return val.fvr8DataList !=null &&  val.fvr8DataList['data'] != null && val.fvr8DataList['success'] == true  ? 
                     Column(
                       children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
                     ): myAddGridView(val.fvr8DataList['data']) ,
@@ -96,7 +95,7 @@ class _FavouritePageState extends State<FavouritePage> {
                     child:Center(
                       child: Text(
                         "fav".tr,
-                        style:TextStyle(fontSize: 16)
+                        style:TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
                       ),
                     )
                   );
