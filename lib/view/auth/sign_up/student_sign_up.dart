@@ -169,15 +169,27 @@ class _SignPageState extends State<StudentSignUp> {
               space10,
               Row(
                 children: [
-                  Flexible(
-                    flex: 2,
-                    child: Container(
-                      child: CircleAvatar(child: Icon(Icons.email)),
-                      color: Colors.blue,
-                      // decoration: BoxDecoration(color: ),
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height/7,
+                        width: MediaQuery.of(context).size.width/5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: CircleAvatar(child: Icon(Icons.email)),
+                        ),
+                        color: Colors.white
+
+                        // decoration: BoxDecoration(color: ),
+                      ),
                     ),
                   ),
-                  Flexible(child: about()),
+                  Expanded(flex:6,child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0,left: 10,right: 20,),
+                    child: about(),
+                  )),
                 ],
               ),
               space10,
@@ -752,6 +764,7 @@ Widget about() {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
+            isExpanded: true,
             hint:Text(hintUniText !=null ? hintUniText: "universitysu".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
@@ -790,6 +803,7 @@ Widget about() {
         alignedDropdown: true,
         child: DropdownButtonHideUnderline(
           child: DropdownButton(
+            isExpanded: true,
             hint: Text(hintClgText !=null ? hintClgText: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),

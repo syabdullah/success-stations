@@ -90,9 +90,9 @@ class _SignPageState extends State<SignIn> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: Get.height / 8.0),
+                              SizedBox(height: Get.height / 40.0),
                               Container(
-                                margin: EdgeInsets.only(bottom: 20),
+                                margin: EdgeInsets.only(bottom: 50),
                                 child: Image.asset(AppImages.appLogo,
                                     height: Get.height / 6),
                               ),
@@ -110,32 +110,34 @@ class _SignPageState extends State<SignIn> {
                                       ),
                                     )
                                   : Container(),
-                              //SizedBox(height: 4),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/forgotPass');
-                                },
-                                child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  margin: EdgeInsets.only(
-                                      bottom: 10, right: 18, top: 6),
-                                  child: Text('forgot_password'.tr,
-                                      style: TextStyle(color: Colors.grey),
-                                      textAlign: TextAlign.end),
-                                ),
-                              ),
+                              SizedBox(height: 8),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.pushNamed(context, '/forgotPass');
+                              //   },
+                              //   child: Container(
+                              //     alignment: Alignment.bottomRight,
+                              //     margin: EdgeInsets.only(
+                              //         bottom: 10, right: 18, top: 6),
+                              //     child: Text('forgot_password'.tr,
+                              //         style: TextStyle(color: Colors.grey),
+                              //         textAlign: TextAlign.end),
+                              //   ),
+                              // ),
                               submitButton(
-                                  bgcolor: AppColors.appBarBackGroundColor,
+                                  bgcolor: AppColors.darkblue,
                                   textColor: AppColors.appBarBackGroun,
-                                  buttonText: "login".tr,
+                                  buttonText: "Log In".tr,
                                   fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Source_Sans_Pro",
                                   callback: signIn),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 20,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                Text("Forgot your log in details?",style: TextStyle(color: Colors.grey)),
-                                Text(" Get help logging in.",style: TextStyle(color: AppColors.login_help,fontWeight: FontWeight.bold),),
+                                Text("Forgot your log in details?",style: TextStyle(color: Colors.grey,fontFamily: "Source_Sans_Pro",fontSize: 15)),
+                                Text(" Get help logging in.",style: TextStyle(color: AppColors.login_help,fontWeight: FontWeight.bold,fontFamily: "Source_Sans_Pro",fontSize: 16),),
                               ],),
                               Container(
                                 margin: EdgeInsets.only(
@@ -158,24 +160,24 @@ class _SignPageState extends State<SignIn> {
                                       /*SizedBox(
                                         width: 3,
                                       ),*/
-                                      
+
                                     ]),
                               ),
-                              
+                              SizedBox(height: 30,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   submitButton(
                                     textColor: AppColors.appBarBackGroun,
-                                    buttonText: AppString.facebook,
+                                    buttonText: AppString.facebook,fontFamily: "Source_Sans_Pro",
                                     callback: navigateToGoogleFaceBook,
                                     width: Get.width / 2.3,
                                     image: AppImages.fb
                                   ),
-                                  SizedBox(width: 20),
+                                  SizedBox(width: 10),
                                   submitButton(
                                     textColor: AppColors.google,
-                                    buttonText: AppString.facebook,
+                                    buttonText: AppString.facebook,fontFamily: "Source_Sans_Pro",
                                     borderColor: AppColors.google,
                                     callback: navigateToGoogleLogin,
                                     width: Get.width / 2.3,
@@ -183,6 +185,7 @@ class _SignPageState extends State<SignIn> {
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 40,),
                               bottomW()
                             ],
                           ),
@@ -197,6 +200,7 @@ class _SignPageState extends State<SignIn> {
 
   Widget eMail() {
     return Container(
+      decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
@@ -270,6 +274,7 @@ class _SignPageState extends State<SignIn> {
 
   Widget passwordW() {
     return Container(
+        decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(
@@ -326,12 +331,13 @@ class _SignPageState extends State<SignIn> {
           Divider(
             color: Colors.black,
           ),
+          SizedBox(height: 5,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Dont_have_account".tr,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey,fontFamily: "Source_Sans_Pro",fontSize: 18),
               ),
               GestureDetector(
                   onTap: () {
@@ -341,6 +347,9 @@ class _SignPageState extends State<SignIn> {
                     'sign_up_text'.tr,
                     style: TextStyle(
                       color: AppColors.appBarBackGroundColor,
+                        fontFamily: "Source_Sans_Pro",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   )),
             ],
