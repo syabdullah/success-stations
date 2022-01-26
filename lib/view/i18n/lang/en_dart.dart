@@ -44,7 +44,7 @@ const Map<String, String> en = {
   "new_password": "New password",
   "confirm_password": "Confirm Password",
   "submit": "Submit",
-  "location":"Locations",
+  "location":" Our Locations",
   "locationTab":"Location",
   "password_recovered": "Password Recovered",
   "password_created": "Password Created",

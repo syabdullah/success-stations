@@ -20,6 +20,7 @@ class AppColors {
   static Color resetText = Color(0xFF828DA4);
   static Color login_help = Color(0xFF3A70CA);
   static Color border = Color(0xFFAEABAB);
+  static Color darkblue = Color(0xFF2B409E);
 
   // login
   static Color facebook = Color(0xFF3A5CA9);
