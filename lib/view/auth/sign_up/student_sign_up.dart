@@ -114,9 +114,11 @@ class _SignPageState extends State<StudentSignUp> {
             space10,
             eMail(),
             space10,
-            password(),
-            space10,
-            confirmPassword(),
+            Row(
+              children: [
+                password(),confirmPassword(),
+              ],
+            ),
             space10,
             mobile(),
             space10,
@@ -129,36 +131,55 @@ class _SignPageState extends State<StudentSignUp> {
                 } ,
               ),
               space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder: (val){
-                  return region(val.regionListdata);
-                },
+              Row(
+                children: [
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder: (val){
+                      return region(val.regionListdata);
+                    },
+                  ),
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder: (val){
+                      return city(val.cityListData);
+                    },
+                  ),
+                ],
               ),
               space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder: (val){
-                  return city(val.cityListData);
-                },
-              ),
-              space10,
-              GetBuilder<UniversityController>(
-                init: UniversityController(),
-                builder: (val){
-                  return  university(val.dataUni);
-                },
-              ),space10,
-              GetBuilder<CollegeController>(
-                init: CollegeController(),
-                builder: (val){
-                  return college(val.listCollegeData);
-                },
+              Row(
+                children: [
+                  GetBuilder<UniversityController>(
+                    init: UniversityController(),
+                    builder: (val){
+                      return  university(val.dataUni);
+                    },
+                  ),
+                  GetBuilder<CollegeController>(
+                    init: CollegeController(),
+                    builder: (val){
+                      return college(val.listCollegeData);
+                    },
+                  ),
+                ],
               ),
               space10,
               degree(),
               space10,
-              about(),
+              Row(
+                children: [
+                  Flexible(
+                    flex: 2,
+                    child: Container(
+                      child: CircleAvatar(child: Icon(Icons.email)),
+                      color: Colors.blue,
+                      // decoration: BoxDecoration(color: ),
+                    ),
+                  ),
+                  Flexible(child: about()),
+                ],
+              ),
               space10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -232,6 +253,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
+        color: Colors.white,
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
@@ -304,11 +326,12 @@ class _SignPageState extends State<StudentSignUp> {
 Widget about() {
     return Container(
       // margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      // width: Get.width * 0.55,
       child: CustomTextFiled(
         maxLine: 4,
         contentPadding: lang == 'ar'? EdgeInsets.only(right:20,top: 20) :EdgeInsets.only(left:20,top: 20),
         isObscure: false,
+        color: Colors.white,
         hintText: 'about'.tr,
         hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
@@ -332,7 +355,7 @@ Widget about() {
           margin: EdgeInsets.only(left: 20, right: 20),
           width: Get.width * 0.9,
           decoration: BoxDecoration(
-            color: AppColors.inputColor,
+            color: Colors.white,
             border: Border.all(color: AppColors.outline),
             borderRadius: BorderRadius.circular(2.0)
           ),
@@ -378,6 +401,7 @@ Widget about() {
       child: CustomTextFiled(
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         isObscure: false,
+        color: Colors.white,
         hintText: 'emails'.tr,
         hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -403,11 +427,12 @@ Widget about() {
   
   Widget password() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only(left: 20, right: 5),
+      width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure : true,
+        color: Colors.white,
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         hintText: 'password'.tr,
         hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
@@ -433,11 +458,12 @@ Widget about() {
   
   Widget confirmPassword() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only(right: 20),
+      width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
+        color: Colors.white,
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
@@ -475,7 +501,7 @@ Widget about() {
         autoFocus: false,
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left:10,bottom: 10),
-          fillColor: AppColors.inputColor,
+          fillColor: Colors.white,
           filled: true,
           border: InputBorder.none,
           errorBorder: OutlineInputBorder(
@@ -542,6 +568,7 @@ Widget about() {
             borderRadius: BorderRadius.circular(5.0),
             borderSide: BorderSide(color: Colors.grey.shade100),
         ),
+        fillColor: Colors.white,
         suffixIcon:  GestureDetector(
           child: Icon(Icons.calendar_today,color: Colors.grey,),
             onTap: () {               
@@ -586,7 +613,7 @@ Widget about() {
           margin: EdgeInsets.only(left: 20, right: 20),
           width: Get.width * 0.9,
           decoration: BoxDecoration(
-            color: AppColors.inputColor,
+            color: Colors.white,
             border: Border.all(color: AppColors.outline),
             borderRadius: BorderRadius.circular(2.0)
           ),
@@ -628,10 +655,10 @@ Widget about() {
 
   Widget region(List dataRegion) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only(left: 20, right: 5),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
-        color: AppColors.inputColor,
+        color: Colors.white,
         border: Border.all(color: AppColors.outline),
         borderRadius: BorderRadius.circular(2.0)
       ),
@@ -672,10 +699,10 @@ Widget about() {
 
   Widget city(List citydata) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only(right: 20),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
-        color: AppColors.inputColor,
+        color: Colors.white,
         border: Border.all(color: AppColors.outline),
         borderRadius: BorderRadius.circular(2.0)
       ),
@@ -714,10 +741,10 @@ Widget about() {
 
   Widget university(List daattta) {
     return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
+      margin:EdgeInsets.only(left:20, right: 5),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
-        color: AppColors.inputColor,
+        color: Colors.white,
         border: Border.all(color: AppColors.outline),
         borderRadius: BorderRadius.circular(2.0)
       ),
@@ -752,10 +779,10 @@ Widget about() {
 
   Widget college(List collegeData) {
     return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
+      margin:EdgeInsets.only(right: 20),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
-        color: AppColors.inputColor,
+        color: Colors.white,
         border: Border.all(color: AppColors.outline),
         borderRadius: BorderRadius.circular(2.0)
       ),

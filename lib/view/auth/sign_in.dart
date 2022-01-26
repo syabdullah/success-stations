@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -129,26 +130,34 @@ class _SignPageState extends State<SignIn> {
                                   buttonText: "login".tr,
                                   fontSize: 20.0,
                                   callback: signIn),
+                              SizedBox(height: 10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                Text("Forgot your log in details?",style: TextStyle(color: Colors.grey)),
+                                Text(" Get help logging in.",style: TextStyle(color: AppColors.login_help,fontWeight: FontWeight.bold),),
+                              ],),
                               Container(
                                 margin: EdgeInsets.only(
                                     top: 10, bottom: 10, left: 20, right: 20),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // Expanded(
-                                      //     child: Divider(
-                                      //   color: Colors.black,
-                                      // )),
-                                      // SizedBox(
-                                      //   width: 3,
-                                      // ),
+                                      Expanded(
+                                          child: Divider(
+                                        color: Colors.black,
+                                      )),
                                       Text(
-                                        "or".tr,
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      SizedBox(
+                                      " or ".tr,
+                                      style: TextStyle(color: Colors.grey,fontSize: 20),
+                                      ),Expanded(
+                                          child: Divider(
+                                            color: Colors.black,
+                                          )),
+
+                                      /*SizedBox(
                                         width: 3,
-                                      ),
+                                      ),*/
                                       
                                     ]),
                               ),
@@ -197,6 +206,7 @@ class _SignPageState extends State<SignIn> {
           fontSize: lang == 'ar' ? 14 : 16,
           color: Colors.grey,
         ),
+
         contentPadding:
             new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintColor: AppColors.inputTextColor,
@@ -273,7 +283,7 @@ class _SignPageState extends State<SignIn> {
                fontSize: lang == 'ar' ? 14 : 16,
             ),
             // labelStyle: TextStyle(color: AppColors.basicColor),
-            fillColor: AppColors.inputColor,
+            fillColor: AppColors.inputColor2,
             filled: true,
             border: InputBorder.none,
             errorBorder: OutlineInputBorder(
@@ -309,25 +319,32 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      margin: EdgeInsets.only(top: 50),
+      margin: EdgeInsets.only(top: 50,bottom: 5),
       alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Text(
-            "Dont_have_account".tr,
-            style: TextStyle(color: Colors.grey),
+          Divider(
+            color: Colors.black,
           ),
-          GestureDetector(
-              onTap: () {
-                Get.toNamed('/langua');
-              },
-              child: Text(
-                'sign_up_text'.tr,
-                style: TextStyle(
-                  color: AppColors.appBarBackGroundColor,
-                ),
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Dont_have_account".tr,
+                style: TextStyle(color: Colors.grey),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/langua');
+                  },
+                  child: Text(
+                    'sign_up_text'.tr,
+                    style: TextStyle(
+                      color: AppColors.appBarBackGroundColor,
+                    ),
+                  )),
+            ],
+          ),
         ],
       ),
     );

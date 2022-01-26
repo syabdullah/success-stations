@@ -296,7 +296,7 @@ const Map<String, String> en = {
   'cr':'CR is Required',
   'crs':'Cr',
   'DegreeSU':"Degree",
-  'oR':'OR',
+  'oR':'or',
   "update": "UPDATE",
   'contactC':'CONTACT',
   'favC':'FAVOURITES',

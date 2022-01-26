@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:google_fonts_arabic/fonts.dart';
+// import 'package:google_fonts_arabic/fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
@@ -334,8 +334,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   child: Text(text,textAlign: TextAlign.start,
                   style:  lang == 'ar' ?
                     TextStyle(
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
+                      fontFamily: "Cairo Regular",
                       fontSize: 12.0,
                     ):
                     AppTextStyles.appTextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade800,

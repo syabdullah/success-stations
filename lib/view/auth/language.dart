@@ -10,6 +10,7 @@ import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
+import 'package:success_stations/view/header.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class Language extends StatefulWidget {
@@ -50,11 +51,12 @@ class _LanguagePageState extends State<Language> {
                   width: Get.width / 3,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
+                    color: AppColors.inputColor2,
                     border: Border.all(
                         width: 2,
                         color: index == i
                             ? AppColors.appBarBackGroundColor
-                            : AppColors.grey),
+                            : AppColors.border),
                   ),
                   child: dataLanguage['data'][i]['name'] != null
                       ? Center(
@@ -66,7 +68,7 @@ class _LanguagePageState extends State<Language> {
                                 fontSize: 18,
                                 color: index == i
                                     ? AppColors.appBarBackGroundColor
-                                    : Colors.grey),
+                                    : AppColors.border),
                           ),
                         )
                       : Container()),
@@ -92,6 +94,8 @@ class _LanguagePageState extends State<Language> {
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
+      appBar: AppBar(title: Text("Previous",style: TextStyle(color: Colors.white,fontSize: 18)),
+        backgroundColor:AppColors.appBarBackGroundColor ,leading: Icon(Icons.arrow_back),),
       body: SingleChildScrollView(
         // children: [
          child:  Column(
@@ -105,7 +109,7 @@ class _LanguagePageState extends State<Language> {
               space50,
               Container(
                 height: MediaQuery.of(context).size.height * 0.05,
-                child: chooseLanguage()),
+                /*child: chooseLanguage()*/),
             GetBuilder<LanguageController>(
                 init: LanguageController(),
                 builder:(data){
@@ -164,7 +168,7 @@ class _LanguagePageState extends State<Language> {
             Container(
               margin:EdgeInsets.only(right:2),
               child: Text(
-                "sign_in".tr, style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)
+                "sign_in".tr, style: TextStyle(color: AppColors.login_help, fontWeight: FontWeight.bold)
               )
             ),
           ],

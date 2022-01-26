@@ -4,18 +4,22 @@ class AppColors {
   // signUP
   // signUP  #2F4199
   static Color appCategSeleGroundColor = Color(0xFFD4F0FB);
-  static Color appBarBackGroundColor = Color(0xFF2F4199);
+  // static Color appBarBackGroundColor = Color(0xFF2F4199);
+  static Color appBarBackGroundColor = Color(0xFF3A70CA);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
   static Color backArrow = Color(0xFFF0F7FD);
   static Color black = Color(0xFF000000);
-  static Color outline = Color(0xFFECEEEF); 
-  static Color inputColor  = Color(0xFFF9F8FA); 
+  static Color outline = Color(0xFFECEEEF);
+  static Color inputColor  = Color(0xFFF9F8FA);
+  static Color inputColor2  = Color(0xFFF7F5F9);
   static Color inPutFieldColor = Color(0xFFFAF9FB);
   static Color inputTextColor = Color(0xFFA09D9E);
   static Color textInput = Color(0xFF868282);
   static Color darkgrey = Colors.grey.shade900;
    static Color themecolor = Color(0xFF4AA6E);
   static Color resetText = Color(0xFF828DA4);
+  static Color login_help = Color(0xFF3A70CA);
+  static Color border = Color(0xFFAEABAB);
 
   // login
   static Color facebook = Color(0xFF3A5CA9);

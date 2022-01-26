@@ -70,12 +70,11 @@ dependencies:
   intl_phone_field: ^2.0.1
   intl_phone_number_input: ^0.7.0+2
   socket_io_client: ^2.0.0-beta.4-nullsafety.0
-  google_fonts_arabic: ^1.1.7
+
   double_back_to_close_app: ^1.2.0
   flutter_datetime_picker: ^1.5.1
   flutter_launcher_icons: "^0.9.2"
   huawei_map: ^5.3.0+301
-  iqama_validator: ^0.0.2
 
   
    
@@ -125,6 +124,9 @@ flutter:
         
   #         style: italic
     - family: Poppins Regular
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+    - family: Cairo Regular
       fonts:
         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
   # fonts:

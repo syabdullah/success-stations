@@ -16,6 +16,7 @@ class CustomTextFiled extends StatefulWidget {
   final bool autoFocus;
   final  validator;
   final contentPadding;
+  Color? color=AppColors.inputColor2;
   final keyboardType;
   final maxLine;
   final obscureText;
@@ -38,8 +39,8 @@ class CustomTextFiled extends StatefulWidget {
       this.contentPadding,
       this.obscureText,
       this.keyboardType,
-      this.maxLine
-
+      this.maxLine,
+      this.color
     }
   );
   @override
@@ -72,7 +73,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: widget.contentPadding,
-                  fillColor: AppColors.inputColor,
+                  fillColor: widget.color,
                   filled: true,
                   errorBorder: OutlineInputBorder(
                      borderSide: BorderSide(

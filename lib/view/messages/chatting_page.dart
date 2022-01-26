@@ -10,6 +10,7 @@ import 'package:success_stations/styling/text_style.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:ui' as ui;
 
+
 var loginUser, conversationID, loginToken;
 
 class ChattinPagePersonal extends StatefulWidget {

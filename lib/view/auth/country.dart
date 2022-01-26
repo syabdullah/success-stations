@@ -32,10 +32,13 @@ class _CountryPageState extends State<Ccountry> {
   
     return Container(
       alignment: Alignment.bottomCenter,
-      height: MediaQuery.of(context).size.height / 4.30,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
+      height: MediaQuery.of(context).size.height / 2,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
+        ),
           itemCount: countryListData.length,
           itemBuilder: (BuildContext context, int index) {
               print("country name .....${ countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' '}");
@@ -58,8 +61,8 @@ class _CountryPageState extends State<Ccountry> {
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 20),
-                      height: Get.height / 6.25,
-                      width: Get.width / 3.4,
+                      height: Get.height / 8,
+                      width: Get.width / 5,
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: selectedIndex == index
@@ -77,14 +80,14 @@ class _CountryPageState extends State<Ccountry> {
                     ),
                   ),
                   Container(
-                    child: 
+                    child:
                       Text(
                           countryListData[index]['name'][lang] != null ? countryListData[index]['name'][lang]:'',
                         // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
                         // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 
                         style: TextStyle(color: AppColors.inputTextColor),)
-                  )
+                  ),
                 ],
               ),
             );
@@ -96,6 +99,8 @@ class _CountryPageState extends State<Ccountry> {
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
+      appBar: AppBar(title: Text("Previous",style: TextStyle(color: Colors.white,fontSize: 18)),
+        backgroundColor:AppColors.appBarBackGroundColor ,leading: Icon(Icons.arrow_back),),
       bottomNavigationBar: SafeArea(
         child: Container(
           margin: EdgeInsets.all(20),
@@ -107,31 +112,31 @@ class _CountryPageState extends State<Ccountry> {
       body:SingleChildScrollView(
         child: Column(
           children: [
-            space50, 
-            space50, 
-            space50, 
-            space50, 
+            // space50,
+            space50,
+            space50,
+            space50,
             // mainLogo(),
-            SizedBox(height:40),
-            Container(
+            // SizedBox(height:40),
+            /*Container(
                 height: MediaQuery.of(context).size.height * 0.05,
-                child: chooseLanguage()),
-            SizedBox(height: 30),
+                child: chooseLanguage()),*/
+            // SizedBox(height: 30),
             GetBuilder<ContryController>(
               init: ContryController(),
               builder: (data) {
                 return data.isLoading == true
                 ? Container(
-                  height: MediaQuery.of(context).size.height / 4.30,
+                  height: MediaQuery.of(context).size.height / 2.30,
                   )
                 : featureCountryList(data.countryListdata);
               },
             ),
-            
+
              HorizontalOrLine(label: "oR".tr, height: 2),
              SizedBox(height: 20,),
-            
-           
+
+
             Container(
               child: existingAccount()
             ),

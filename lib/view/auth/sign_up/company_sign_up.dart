@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 // ignore: unused_import
 import 'package:success_stations/view/auth/sign_in.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:iqama_validator/iqama_validator.dart';
+// import 'package:iqama_validator/iqama_validator.dart';
 
 
 var finalIndex, shortCode;
