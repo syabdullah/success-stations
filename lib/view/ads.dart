@@ -281,7 +281,7 @@ class _AdsViewState extends State<AdsView> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 7,),
       height: conHeight,
-      child: ListView.builder(
+      child: GridView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: data != null ?  data.length : 0,
         itemBuilder: (BuildContext context,index) {
@@ -323,7 +323,11 @@ class _AdsViewState extends State<AdsView> {
               )
             ],
           );
-        }
+        }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        crossAxisSpacing: 5.0,
+        mainAxisSpacing: 5.0,
+      ),
       ),
     );
   }

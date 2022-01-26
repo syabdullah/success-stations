@@ -154,9 +154,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
               space10,
               eMail(),
               space10,
-              password(),
-              space10,
-              confirmPassword(),
+              Row(
+                children: [
+                  password(),confirmPassword(),
+                ],
+              ),
               space10,
               mobile(),
               space10, 
@@ -169,18 +171,21 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 } ,
               ),
               space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder: (val){
-                  return region(val.regionListdata);
-                },
-              ),
-              space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder: (val){
-                  return city(val.cityListData);
-                },
+              Row(
+                children: [
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder: (val){
+                      return region(val.regionListdata);
+                    },
+                  ),
+                  GetBuilder<ContryController>(
+                    init: ContryController(),
+                    builder: (val){
+                      return city(val.cityListData);
+                    },
+                  ),
+                ],
               ),
               space10,
               radioalert(),
@@ -290,6 +295,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10,right: 10),
         padding :EdgeInsets.only(top:10), 
         isObscure: false,
+        color: Colors.white,
         hintText: "full_name".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
@@ -318,6 +324,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         hintText:"emails".tr,
         hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
+        color: Colors.white,
         onChanged: (value) {},
         onSaved: (newValue) {},
         onFieldSubmitted: (value) {},
@@ -352,7 +359,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         focusNode: FocusNode(),
         inputDecoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 10,bottom: 10,right: 10),
-          fillColor: AppColors.inputColor,
+          fillColor: Colors.white,
           filled: true,
           border: InputBorder.none,
           errorBorder: OutlineInputBorder(
@@ -528,8 +535,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only(left: 20, right: 5),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
         color: AppColors.inputColor,
         border: Border.all(color: AppColors.outline),
@@ -569,8 +576,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget city(List citydata) {
     return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
+      margin:EdgeInsets.only( right: 20),
+      width: Get.width * 0.44,
       decoration: BoxDecoration(
         color: AppColors.inputColor,
         border: Border.all(color: AppColors.outline),
@@ -682,11 +689,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
 Widget password() {
   return Container(
-    margin: EdgeInsets.only(left: 20, right: 20),
-    width: Get.width * 0.9,
+    margin: EdgeInsets.only(left: 20, right: 5),
+    width: Get.width * 0.44,
     child: CustomTextFiled(
       maxLine: 1,
       isObscure : true,
+      color: Colors.white,
       contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
       hintText: 'password'.tr,
       hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
@@ -712,11 +720,12 @@ Widget password() {
 
   Widget confirmPassword() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      margin: EdgeInsets.only( right: 20),
+      width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
+        color: Colors.white,
         contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle( fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
