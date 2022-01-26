@@ -129,9 +129,6 @@ flutter:
     - family: Cairo Regular
       fonts:
         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
-    - family: Source_Sans_Pro
-      fonts:
-        - asset: assets/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
   # fonts:
   #   -  assets/fonts/stc.ttf
        

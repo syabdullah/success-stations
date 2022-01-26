@@ -205,18 +205,19 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                           ),
                           SizedBox(height: 10,),
-                          CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
+                          /*CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                             Get.toNamed('/tabs');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
                             Get.toNamed('/myDraft');
+                          },15.0 ),*/
+
+                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
+                            Get.toNamed('/userProfile');
                           },15.0 ),
                           CustomListTile(AppImages.ma, 'my_ads'.tr, ()  {
                             Get.toNamed('/myAddsPage');
                           } ,15.0),
-                          CustomListTile(AppImages.userProfile, 'profile'.tr, ()  {
-                            Get.toNamed('/userProfile');
-                          },15.0 ),
                           // CustomListTile(AppImages.message, 'messeges'.tr, () {
                           //   Get.toNamed('/inbox');
                           // },15.0 ),
@@ -233,22 +234,22 @@ class _AppDrawerState extends State<AppDrawer> {
                           CustomListTile(AppImages.notification, 'notification'.tr, () => {
                             Get.toNamed('/notification')
                           },15.0 ),
-                          CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
+                          /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.toNamed('/friReq');
-                          } ,15.0),
+                          } ,15.0),*/
                            userType == 2  && accountType == 'Free' ? Container():  userType == 3 && accountType == "Paid" ? Container(): accountType == "Free" ? Container() :
                           CustomListTile(AppImages.offers, 'myoffer'.tr, () {
                             Get.toNamed('/offerPage');
                           },15.0 ),
                           CustomListTile(AppImages.fav, 'favourite'.tr, () => {
                             Get.toNamed('/favourities')
-                          },15.0 ), 
+                          },15.0 ),
                            CustomListTile(AppImages.language, 'choose_language'.tr, () => {
                             Get.toNamed('/chooseLang')
-                          },15.0 ), 
-                          CustomListTile(AppImages.language, 'choose_country'.tr, () => {
+                          },15.0 ),
+                          /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
                             Get.toNamed('/chooseCountry')
-                          },15.0 ), 
+                          },15.0 ), */
                           Divider(),
                           Padding(
                             padding: const EdgeInsets.only(left:10.0),
