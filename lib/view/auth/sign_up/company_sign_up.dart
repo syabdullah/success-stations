@@ -163,13 +163,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
               mobile(),
               space10, 
               space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder:(val) {
-                  return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
-                  Container();
-                } ,
-              ),
+              // GetBuilder<ContryController>(
+              //   init: ContryController(),
+              //   builder:(val) {
+              //     return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
+              //     Container();
+              //   } ,
+              // ),
               space10,
               Row(
                 children: [
@@ -867,39 +867,44 @@ Widget password() {
   }
 
   radioalert() {
-    return Container(
-      margin:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10,right: 20),
-      child: Row(
-        children: [
-          Container(
-            padding:lang == 'ar'? EdgeInsets.only(right:30) :EdgeInsets.only(left:10),
-            child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: _group.map((t) => 
-              Expanded(
-                child: Row(
+    return Padding(
+        padding: EdgeInsets.only(left: 20, right: 5),
+
+      child: Container(
+        // margin:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10,right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding:lang == 'ar'? EdgeInsets.only(right:30) :EdgeInsets.only(left:10),
+              child: Text("Account_type".tr,style: TextStyle(fontSize: 16,color: Colors.grey),)
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                children: _group.map((t) =>
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Radio(
-                      value: t.index,
-                      groupValue: v,
-                      activeColor:AppColors.appBarBackGroundColor,
-                      onChanged: (int?value ) {
-                        setState(() {
-                          v = value!;
-                        });
-                      },
-                    ),Container(
-                    child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
+                    // Radio(
+                    //   value: t.index,
+                    //   groupValue: v,
+                    //   activeColor:AppColors.appBarBackGroundColor,
+                    //   onChanged: (int?value ) {
+                    //     setState(() {
+                    //       v = value!;
+                    //     });
+                    //   },
+                    // ),
+                    Container(height:45,width:MediaQuery.of(context).size.width *0.45,decoration: BoxDecoration(color: Colors.transparent,border: Border.all(color: Colors.grey)),)
+                    // Container(
+                    // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
                   ],
-                ),
-              )).toList()
+                )).toList()
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

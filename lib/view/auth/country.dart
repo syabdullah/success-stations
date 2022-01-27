@@ -22,33 +22,32 @@ class _CountryPageState extends State<Ccountry> {
 
   @override
   void initState() {
-    super.initState(); 
+    super.initState();
     lang = box.read('lang_code');
   }
 
-  
   Widget featureCountryList(countryListData) {
-  
-  
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 2,
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 5.0,
-          mainAxisSpacing: 5.0,
-        ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 5.0,
+          ),
           itemCount: countryListData.length,
           itemBuilder: (BuildContext context, int index) {
-              print("country name .....${ countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' '}");
+            print(
+                "country name .....${countryListData[index]['name'][lang] == null || countryListData[index]['name'][lang] == ' '}");
             return GestureDetector(
               onTap: () {
                 setState(() {
                   selectedIndex = index;
                   box.write("country", selectedIndex);
                   box.write("country_id", countryListData[index]['id']);
-                  box.write(  "country_code", countryListData[index]['short_code']);
+                  box.write(
+                      "country_code", countryListData[index]['short_code']);
                   countrycOde = countryListData[index]['short_code'];
                   countryId = countryListData[index]['id'];
                 });
@@ -56,7 +55,7 @@ class _CountryPageState extends State<Ccountry> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(TabBarPage(), arguments: countryListData[index]);
                     },
                     child: Container(
@@ -80,14 +79,15 @@ class _CountryPageState extends State<Ccountry> {
                     ),
                   ),
                   Container(
-                    child:
-                      Text(
-                          countryListData[index]['name'][lang] != null ? countryListData[index]['name'][lang]:'',
-                        // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
-                        // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+                      child: Text(
+                    countryListData[index]['name'][lang] != null
+                        ? countryListData[index]['name'][lang]
+                        : '',
+                    // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
+                    // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 
-                        style: TextStyle(color: AppColors.inputTextColor),)
-                  ),
+                    style: TextStyle(color: AppColors.inputTextColor),
+                  )),
                 ],
               ),
             );
@@ -98,18 +98,32 @@ class _CountryPageState extends State<Ccountry> {
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
-    return Scaffold(
-      appBar: AppBar(title: Text("Previous",style: TextStyle(color: Colors.white,fontSize: 18)),
-        backgroundColor:AppColors.appBarBackGroundColor ,leading: Icon(Icons.arrow_back),),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          margin: EdgeInsets.all(20),
-          child: GestureDetector(
-            onTap: (){Get.back();},
-            child: Text("previous".tr,style: TextStyle(decoration: TextDecoration.underline,fontSize: 18,fontWeight: FontWeight.bold),)),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+        home: Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.arrow_back),
+            Padding(
+              padding: const EdgeInsets.only(right: 188.0),
+              child: Text("Previous",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: "Source_Sans_Pro")),
+            ),
+            Text("Country",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: "Source_Sans_Pro")),
+          ],
         ),
+        backgroundColor: AppColors.darkblue,
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             // space50,
@@ -126,24 +140,23 @@ class _CountryPageState extends State<Ccountry> {
               init: ContryController(),
               builder: (data) {
                 return data.isLoading == true
-                ? Container(
-                  height: MediaQuery.of(context).size.height / 2.30,
-                  )
-                : featureCountryList(data.countryListdata);
+                    ? Container(
+                        height: MediaQuery.of(context).size.height / 2.30,
+                      )
+                    : featureCountryList(data.countryListdata);
               },
             ),
 
-             HorizontalOrLine(label: "oR".tr, height: 2),
-             SizedBox(height: 20,),
-
-
-            Container(
-              child: existingAccount()
+            HorizontalOrLine(label: "oR".tr, height: 2),
+            SizedBox(
+              height: 20,
             ),
+
+            Container(child: existingAccount()),
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget mainLogo() {
@@ -154,7 +167,8 @@ class _CountryPageState extends State<Ccountry> {
       ),
     );
   }
- Widget existingAccount() {
+
+  Widget existingAccount() {
     return GestureDetector(
       onTap: () {
         Get.to(SignIn());
@@ -163,11 +177,16 @@ class _CountryPageState extends State<Ccountry> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("have_account".tr, 
-              style: TextStyle(fontWeight: FontWeight.w300,color: Colors.grey
-              ),
+            Text(
+              "have_account".tr,
+              style: TextStyle(fontWeight: FontWeight.w300, color: Colors.grey),
             ),
-            Text("sign_in".tr, style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold),),
+            Text(
+              "sign_in".tr,
+              style: TextStyle(
+                  color: AppColors.appBarBackGroundColor,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
