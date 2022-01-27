@@ -86,7 +86,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       margin:EdgeInsets.only(top:2),
       child: IconButton(
         iconSize: 28,
-        icon: Image.asset(AppImages.menuBurger,height: 18,),
+        icon: Image.asset(AppImages.menuBurger,height: 18,color: AppColors.grey),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): 
@@ -152,9 +152,15 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           Get.toNamed('/inbox');
         },
         child: Container(
-          padding: EdgeInsets.all(8),
-          margin: EdgeInsets.only(right:16,top:10),
-          child:Image.asset(AppImages.chating)
+          padding: EdgeInsets.only(right: 2,top: 4,bottom: 4),
+          margin: EdgeInsets.only(right:10,top:10),
+          child:Row(
+            children: [
+              Image.asset(AppImages.chating,color: AppColors.black),
+              Container(height: 20,color: AppColors.grey,width: 1,),
+              Image.asset(AppImages.appbar_location,color: AppColors.black),
+            ],
+          )
         ),
       ):
       Container(
@@ -188,7 +194,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         ),
       ),
     ],
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: Colors.white,
   ) : 
   AppBar(
     automaticallyImplyLeading: false,

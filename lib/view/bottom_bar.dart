@@ -148,50 +148,51 @@ class _BottomTabsState extends State<BottomTabs> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
           onTap: onTabTapped,
-        items: [        
+        items: [
           BottomNavigationBarItem(
             // ignore: deprecated_member_use
             title: Text('offer'.tr, style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
+              )
             ),
             icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
               title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                ) 
+                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.black
+                )
               ),
               icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
             ),
              BottomNavigationBarItem(
             // ignore: deprecated_member_use
-            title: Text('home'.tr, style: AppTextStyles.appTextStyle(
+            title: Text('Home'.tr, style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
+              )
             ),
-            icon: Icon(Icons.home,color: AppColors.grey)
+               icon:Icon(Icons.home,color:  AppColors.grey,),),
             //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
+
              BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text('ads'.tr,style: 
+              title: Text('ads'.tr,style:
                 AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   )
                 ),
               icon:ImageIcon(AssetImage(AppImages.ma),color: AppColors.grey),
+
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
               title: Text('location'.tr, style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
+                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.black
+                  )
                 ),
               icon: ImageIcon(AssetImage(AppImages.locations),color: AppColors.grey),
             ),
-           
+
         ],
       ),
     );

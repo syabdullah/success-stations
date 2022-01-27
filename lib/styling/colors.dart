@@ -6,7 +6,6 @@ class AppColors {
   static Color appCategSeleGroundColor = Color(0xFFD4F0FB);
   // static Color appBarBackGroundColor = Color(0xFF2F4199);
   static Color appBarBackGroundColor = Color(0xFF3A70CA);
-  static Color darkblue = Color(0XFF2B409E);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
   static Color backArrow = Color(0xFFF0F7FD);
   static Color black = Color(0xFF000000);
@@ -21,6 +20,7 @@ class AppColors {
   static Color resetText = Color(0xFF828DA4);
   static Color login_help = Color(0xFF3A70CA);
   static Color border = Color(0xFFAEABAB);
+  static Color darkblue = Color(0xFF2B409E);
 
   // login
   static Color facebook = Color(0xFF3A5CA9);

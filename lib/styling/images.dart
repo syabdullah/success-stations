@@ -5,7 +5,9 @@ class AppImages {
   static String appBarSearch = imagePath + "search.png";
 
   //Steps Images
+
   static String istStepIcon = imagePath + "01.png";
+
   static String secStepIcon = imagePath + "02.png";
   static String trdStepIcon = imagePath + "03.png";
   static String sistStepIcon = imagePath + "1.png";
@@ -29,6 +31,7 @@ class AppImages {
   static String notification = imagePath + 'notifications.png';
   static String ugr = imagePath + 'uagr.png';
   static String ma = imagePath + 'ma.png';
+  static String home = imagePath + '9.png';
   static String membership = imagePath + 'memr.png';
   static String menuBurger = imagePath + 'menu-Drawer.png';
   static String menuBurgerArabic = imagePath + 'menu@3x.png';
@@ -87,8 +90,12 @@ class AppImages {
   static String delete = imagePath + 'delete.png';
   static String edit = imagePath + 'edit.png';
   //addoffers
+
   static String addOfferImage  = imagePath +'Group 2108@3x.png';
   static String locationimg  = imagePath +'location.png';
+  static String delete_offer  = imagePath +'delete_myoffers.png';
+  static String edit_Offer  = imagePath +'edit_myoffers.png';
+
   //membership
   static String memberShip = imagePath + 'company.png';
   static String homeicon = imagePath + 'home.png';
@@ -107,5 +114,6 @@ class AppImages {
   static String gridListing = imagePath + 'gridd.png';
   static String plusImage1 = imagePath + 'plus@3x.png';
   static String chating = imagePath + 'chats.png'; 
+  static String appbar_location = imagePath + 'appbar_location.png';
 
 }

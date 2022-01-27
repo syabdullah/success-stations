@@ -75,6 +75,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   flutter_launcher_icons: "^0.9.2"
   huawei_map: ^5.3.0+301
+  material_color_gen: ^2.0.0
 
   
    
@@ -129,9 +130,6 @@ flutter:
     - family: Cairo Regular
       fonts:
         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
-    - family: Source_Sans_Pro
-      fonts:
-        - asset: assets/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
   # fonts:
   #   -  assets/fonts/stc.ttf
        

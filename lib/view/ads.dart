@@ -61,7 +61,7 @@ class _AdsViewState extends State<AdsView> {
               init: BannerController(),
               builder: (data){
                 imgList = [];
-                return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
+                return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ?
                 Center(heightFactor: 1, child:shimmer2()):  Column(
                   children: [
                     carosalImage(data.bannerData['data']),
@@ -69,13 +69,13 @@ class _AdsViewState extends State<AdsView> {
                 );
               }
             ),
-             featureTextAdded("advertisingCategories".tr,"all".tr),
+             // featureTextAdded("advertisingCategories".tr,"all".tr),
               GetBuilder<CategoryController>(
               init: CategoryController(),
                 builder: (dat){
                   return  dat.datacateg.length == 0  ? PlayStoreShimmer()
                   :
-                  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
+                  advertisingList(Get.height/5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
                 }
               ),
              featureTextAdded("FeaturedAds".tr,"all".tr), 
@@ -200,7 +200,7 @@ class _AdsViewState extends State<AdsView> {
             }
           ),
         ),
-        imgList.length == 0 ? 
+        imgList.length == 0 ?
         Container(
           child: Text("No Image added yet!"),
         ):
@@ -217,7 +217,7 @@ class _AdsViewState extends State<AdsView> {
                   shape: BoxShape.rectangle,
                   color: (Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
-                  : AppColors.appBarBackGroundColor)
+                  :Colors.white)
                   .withOpacity(_current == entry.key ? 0.9 : 0.4
                 )
               ),
@@ -278,56 +278,61 @@ class _AdsViewState extends State<AdsView> {
   }
 
   advertisingList(conHeight,imageW,imageH,data) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7,),
-      height: conHeight,
-      child: GridView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: data != null ?  data.length : 0,
-        itemBuilder: (BuildContext context,index) {
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.to(AllAdds(),arguments:['cat',data[index]['id']]);
-                },
-                child: Card(
-                  elevation: 5,
-                  shape:  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: imageW,
-                      height: imageH,
-                      child:data[index]['media'].length != 0 ? 
-                      Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover) :
-                      Container(
-                        child: Icon(Icons.image,size: 50),
-                      )
-                      //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 7,),
+        height: conHeight,
+        child: GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
+        ),
+          // scrollDirection: Axis.horizontal,
+          itemCount: data != null ?  data.length : 0,
+          itemBuilder: (BuildContext context,index) {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(AllAdds(),arguments:['cat',data[index]['id']]);
+                  },
+                  child: Card(
+                    elevation: 5,
+                    shape:  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        child:data[index]['media'].length != 0 ?
+                        Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover) :
+                        Container(
+                          child: Icon(Icons.image,size: 50),
+                        )
+                        //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                width: imageW,
-                child: Center(
-                  child: Text(
-                    data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: AppColors.grey)
+                Container(
+                  width: imageW,
+                  child: Center(
+                    child: Text(
+                      data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: AppColors.grey)
+                    ),
                   ),
-                ),
-              )
-            ],
-          );
-        }, gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: 5.0,
-        mainAxisSpacing: 5.0,
-      ),
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -399,20 +404,22 @@ class _AdsViewState extends State<AdsView> {
               Get.to(AdViewScreen(),arguments:data[index]['id']);
             },
             child: Card(
-              elevation: 3,
               shape:  RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(5.0),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                    child: data[index]['image'].length != 0 ? Image.network(
-                      data[index]['image'][0]['url'],
-                      width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/9.2:  Get.height/9.5,
-                      fit:BoxFit.fill
+                    // borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
+                    child: data[index]['image'].length != 0 ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(
+                        data[index]['image'][0]['url'],
+                        width: Get.width < 420 ? Get.width/3.1: Get.width/3.3,
+                        height: Get.width < 420 ? Get.height/9.2:  Get.height/9.5,
+                        fit:BoxFit.fill
+                      ),
                     )
                     : Container(
                       child: Icon(Icons.image,size: 50),

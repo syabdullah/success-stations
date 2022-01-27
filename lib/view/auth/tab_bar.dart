@@ -43,16 +43,9 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
               onTap: (){
                 Get.back();
               },
-              child: ColoredBox(
-                color: Color(0XFF2B409E),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(18),
-                      child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,),)
-                    ),
-                  ],
-                ),
+              child: Container(
+                padding: EdgeInsets.all(7),
+                child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.black,decoration: TextDecoration.underline,),)
               ),
             ),
             SizedBox(height: 10,),
@@ -60,26 +53,30 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 20,right: 20),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),),
+                    color:Colors.white,
                     child:TabBar(
-                        indicator: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            color: AppColors.darkblue),
+                      
                       controller: controller1,
-                      indicatorColor: Colors.white,
-                      unselectedLabelColor: Colors.black,
-                      labelColor: Colors.white,
+                      indicatorColor: AppColors.appBarBackGroundColor,
+                      // indicatorColor: controller1.index==1 ?  AppColors.appBarBackGroundColor: Colors.grey,
+                      // labelColor:controller1.index==1 ? AppColors.appBarBackGroundColor: Colors.grey,
+                      unselectedLabelColor: Colors.grey,
+                      
                       tabs: <Tab>[
                         Tab(
                           child: Text(
                             'student'.tr,
+                            style: TextStyle(
+                              color: Colors.grey ,
+                              fontSize: 18
+                              // controller1.index==1 ?  Colors.blue : Colors.grey
+                            
+                            )
                           )
                         ),
                         Tab(
                           child: Text(
-                            'company'.tr,
+                            'company'.tr, style: TextStyle(color: Colors.grey,fontSize: 18),
                           )
                         ),
                       ]
