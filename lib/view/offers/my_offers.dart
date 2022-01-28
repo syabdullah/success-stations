@@ -47,20 +47,22 @@ class _MyOffersDetailState extends State<OffersDetail> {
         // leadingWidth: 76,
         backgroundColor:Colors.white,
         title: Container(
-            margin: EdgeInsets.only(top: 12),
+            // margin: EdgeInsets.only(top: 12),
             child: Text(
                 "my_offer".tr,
-              style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold),
+              style: TextStyle(
+
+                  fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
             )),
         centerTitle: true,
         leading: Container(
-            margin: EdgeInsets.only(top: 12, left: 7),
+            margin: EdgeInsets.only( left: 7),
             child: GestureDetector(
                 onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
                 child:  Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(8),
                   child: Image.asset(AppImages.imagearrow1,
                       color: Colors.black, height: 22),
                 ))),
@@ -69,19 +71,23 @@ class _MyOffersDetailState extends State<OffersDetail> {
             onTap: () {
               Get.to(AddOffersPage());
             },
-            child: Container(
-                margin: EdgeInsets.only(top: 10, left: 20),
-                child: Image.asset(AppImages.plusImage,
-                    color: Colors.black, height: 22)),
+            child: Center(
+              child: Container(
+                  // margin: EdgeInsets.only( left: 15,),
+                  child: Image.asset(AppImages.plusImage,
+                      color: Colors.black, height: 30)),
+            ),
           ),
           GestureDetector(
             onTap: () {
               // Get.to(AddLocations());
             },
-            child: Container(
-                margin: EdgeInsets.only(top: 10, left:0),
-                child: Image.asset(AppImages.setting,
-                    color: Colors.black, height: 22)),
+            child: Center(
+              child: Container(
+                  margin: EdgeInsets.only( right:10),
+                  child: Image.asset(AppImages.setting,
+                      color: Colors.black, height: 35)),
+            ),
           ),
         ],),
 
