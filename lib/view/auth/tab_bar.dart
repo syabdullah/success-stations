@@ -35,69 +35,72 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
     return  Scaffold(
       // appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
       // child: newAppbar(context,'previous'.tr, AppImages.appBarLogo )),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: (){
-                Get.back();
-              },
-              child: Container(
-                padding: EdgeInsets.all(7),
-                child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.black,decoration: TextDecoration.underline,),)
-              ),
-            ),
-            SizedBox(height: 10,),
-            Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    color:Colors.white,
-                    child:TabBar(
-                      
-                      controller: controller1,
-                      indicatorColor: AppColors.appBarBackGroundColor,
-                      // indicatorColor: controller1.index==1 ?  AppColors.appBarBackGroundColor: Colors.grey,
-                      // labelColor:controller1.index==1 ? AppColors.appBarBackGroundColor: Colors.grey,
-                      unselectedLabelColor: Colors.grey,
-                      
-                      tabs: <Tab>[
-                        Tab(
-                          child: Text(
-                            'student'.tr,
-                            style: TextStyle(
-                              color: Colors.grey ,
-                              fontSize: 18
-                              // controller1.index==1 ?  Colors.blue : Colors.grey
-                            
-                            )
-                          )
-                        ),
-                        Tab(
-                          child: Text(
-                            'company'.tr, style: TextStyle(color: Colors.grey,fontSize: 18),
-                          )
-                        ),
-                      ]
-                    )
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Get.back();
+                },
+                child: ColoredBox(
+                  color: Color(0XFF2B409E),
+                  child: Row(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(18),
+                          child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,),)
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: controller1, 
-                      physics: NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        StudentSignUp(),
-                        CompanySignUp()
-                      ]
+                ),
+              ),
+              SizedBox(height: 10,),
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(left: 20,right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),),
+                        child:TabBar(
+                            indicator: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                color: AppColors.darkblue),
+                            controller: controller1,
+                            indicatorColor: Colors.white,
+                            unselectedLabelColor: Colors.black,
+                            labelColor: Colors.white,
+                            tabs: <Tab>[
+                              Tab(
+                                  child: Text(
+                                    'student'.tr,
+                                  )
+                              ),
+                              Tab(
+                                  child: Text(
+                                    'company'.tr,
+                                  )
+                              ),
+                            ]
+                        )
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: TabBarView(
+                          controller: controller1,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: <Widget>[
+                            StudentSignUp(),
+                            CompanySignUp()
+                          ]
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      )
+            ],
+          ),
+        )
     );
   }
 

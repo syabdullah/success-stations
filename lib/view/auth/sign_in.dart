@@ -24,7 +24,7 @@ class _SignPageState extends State<SignIn> {
 
   TextEditingController fulNameController = TextEditingController();
   TextEditingController password = TextEditingController();
-  
+
 
   bool passwordVisible = true;
   GetStorage dataStore = GetStorage();
@@ -61,142 +61,146 @@ class _SignPageState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return
-     WillPopScope(
-      onWillPop: () async => true,      
-      child:
-       Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: GetBuilder<LanguageController>(
-              init: LanguageController(),
-              builder: (val) {
-                return   val.languageList == null
-                    ? Container()
-                    : language(val.languageList['data']);
-              },
+      WillPopScope(
+        onWillPop: () async => true,
+        child:
+        Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: GetBuilder<LanguageController>(
+                init: LanguageController(),
+                builder: (val) {
+                  return   val.languageList == null
+                      ? Container()
+                      : language(val.languageList['data']);
+                },
+              ),
             ),
-          ),
-          body: GetBuilder<LoginController>(
-              init: LoginController(),
-              builder: (val) {
-                return Center(
-                  child: ListView(
-                    children: [
-                      Center(
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(height: Get.height / 8.0),
-                              Container(
-                                margin: EdgeInsets.only(bottom: 20),
-                                child: Image.asset(AppImages.appLogo,
-                                    height: Get.height / 6),
-                              ),
-                              SizedBox(height: 23),
-                              eMail(),
-                              SizedBox(height: 8),
-                              passwordW(),
-                              loginCont.resultInvalid.isTrue && errorCheck == true
-                                  ? Container(
-                                      child: Container(
-                                        child: Text(
-                                          loginCont.logindata['errors'],
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
-                              //SizedBox(height: 4),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/forgotPass');
-                                },
-                                child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  margin: EdgeInsets.only(
-                                      bottom: 10, right: 18, top: 6),
-                                  child: Text('forgot_password'.tr,
-                                      style: TextStyle(color: Colors.grey),
-                                      textAlign: TextAlign.end),
+            body: GetBuilder<LoginController>(
+                init: LoginController(),
+                builder: (val) {
+                  return Center(
+                    child: ListView(
+                      children: [
+                        Center(
+                          child: Form(
+                            key: formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(height: Get.height / 40.0),
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 50),
+                                  child: Image.asset(AppImages.appLogo,
+                                      height: Get.height / 6),
                                 ),
-                              ),
-                              submitButton(
-                                  bgcolor: AppColors.appBarBackGroundColor,
-                                  textColor: AppColors.appBarBackGroun,
-                                  buttonText: "login".tr,
-                                  fontSize: 20.0,
-                                  callback: signIn),
-                              SizedBox(height: 10,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                Text("Forgot your log in details?",style: TextStyle(color: Colors.grey)),
-                                Text(" Get help logging in.",style: TextStyle(color: AppColors.login_help,fontWeight: FontWeight.bold),),
-                              ],),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    top: 10, bottom: 10, left: 20, right: 20),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                          child: Divider(
-                                        color: Colors.black,
-                                      )),
-                                      Text(
-                                      " or ".tr,
-                                      style: TextStyle(color: Colors.grey,fontSize: 20),
-                                      ),Expanded(
-                                          child: Divider(
-                                            color: Colors.black,
-                                          )),
+                                SizedBox(height: 23),
+                                eMail(),
+                                SizedBox(height: 8),
+                                passwordW(),
+                                loginCont.resultInvalid.isTrue && errorCheck == true
+                                    ? Container(
+                                  child: Container(
+                                    child: Text(
+                                      loginCont.logindata['errors'],
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                )
+                                    : Container(),
+                                SizedBox(height: 8),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     Navigator.pushNamed(context, '/forgotPass');
+                                //   },
+                                //   child: Container(
+                                //     alignment: Alignment.bottomRight,
+                                //     margin: EdgeInsets.only(
+                                //         bottom: 10, right: 18, top: 6),
+                                //     child: Text('forgot_password'.tr,
+                                //         style: TextStyle(color: Colors.grey),
+                                //         textAlign: TextAlign.end),
+                                //   ),
+                                // ),
+                                submitButton(
+                                    bgcolor: AppColors.darkblue,
+                                    textColor: AppColors.appBarBackGroun,
+                                    buttonText: "Log In".tr,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Source_Sans_Pro",
+                                    callback: signIn),
+                                SizedBox(height: 20,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Forgot your log in details?",style: TextStyle(color: Colors.grey,fontFamily: "Source_Sans_Pro",fontSize: 15)),
+                                    Text(" Get help logging in.",style: TextStyle(color: AppColors.login_help,fontWeight: FontWeight.bold,fontFamily: "Source_Sans_Pro",fontSize: 16),),
+                                  ],),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 20, right: 20),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                            child: Divider(
+                                              color: Colors.black,
+                                            )),
+                                        Text(
+                                          " or ".tr,
+                                          style: TextStyle(color: Colors.grey,fontSize: 20),
+                                        ),Expanded(
+                                            child: Divider(
+                                              color: Colors.black,
+                                            )),
 
-                                      /*SizedBox(
+                                        /*SizedBox(
                                         width: 3,
                                       ),*/
-                                      
-                                    ]),
-                              ),
-                              
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  submitButton(
-                                    textColor: AppColors.appBarBackGroun,
-                                    buttonText: AppString.facebook,
-                                    callback: navigateToGoogleFaceBook,
-                                    width: Get.width / 2.3,
-                                    image: AppImages.fb
-                                  ),
-                                  SizedBox(width: 20),
-                                  submitButton(
-                                    textColor: AppColors.google,
-                                    buttonText: AppString.facebook,
-                                    borderColor: AppColors.google,
-                                    callback: navigateToGoogleLogin,
-                                    width: Get.width / 2.3,
-                                    image: AppImages.google
-                                  ),
-                                ],
-                              ),
-                              bottomW()
-                            ],
+
+                                      ]),
+                                ),
+                                SizedBox(height: 30,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    submitButton(
+                                        textColor: AppColors.appBarBackGroun,
+                                        buttonText: AppString.facebook,fontFamily: "Source_Sans_Pro",
+                                        callback: navigateToGoogleFaceBook,
+                                        width: Get.width / 2.3,
+                                        image: AppImages.fb
+                                    ),
+                                    SizedBox(width: 10),
+                                    submitButton(
+                                        textColor: AppColors.google,
+                                        buttonText: AppString.facebook,fontFamily: "Source_Sans_Pro",
+                                        borderColor: AppColors.google,
+                                        callback: navigateToGoogleLogin,
+                                        width: Get.width / 2.3,
+                                        image: AppImages.google
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 40,),
+                                bottomW()
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              })),
-    );
+                        )
+                      ],
+                    ),
+                  );
+                })),
+      );
   }
 
   Widget eMail() {
     return Container(
+      decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: CustomTextFiled(
@@ -208,7 +212,7 @@ class _SignPageState extends State<SignIn> {
         ),
 
         contentPadding:
-            new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
@@ -217,8 +221,8 @@ class _SignPageState extends State<SignIn> {
         validator: (value) => value == ''
             ? 'email_required'.tr
             : !value.contains('@') || !value.contains('.')
-                ? 'enter_valid_email'.tr
-                : null,
+            ? 'enter_valid_email'.tr
+            : null,
         errorText: '',
       ),
     );
@@ -226,61 +230,62 @@ class _SignPageState extends State<SignIn> {
 
   Widget language(List data) {
     return ButtonTheme(
-      alignedDropdown: true,
-      child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-        hint: hintTextLang!=null
-        ? Text(hintTextLang,
-         
-          style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor))
-        : hintTextLang == null && lang == null
-        ? Text("English")
-        : Text(lang),
-        dropdownColor: AppColors.inPutFieldColor,
-        icon: Icon(
-          Icons.expand_more_outlined,
-          color: AppColors.inputTextColor,
-        ),
-        items: data.map((coun) {
-          return DropdownMenuItem(
-            value: coun,
-            child: coun['name'] != null
-            ? Text(
-              coun['name'],
-              style: TextStyle(color: AppColors.inputTextColor),
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+              hint: hintTextLang!=null
+                  ? Text(hintTextLang,
+
+                  style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor))
+                  : hintTextLang == null && lang == null
+                  ? Text("English")
+                  : Text(lang),
+              dropdownColor: AppColors.inPutFieldColor,
+              icon: Icon(
+                Icons.expand_more_outlined,
+                color: AppColors.inputTextColor,
+              ),
+              items: data.map((coun) {
+                return DropdownMenuItem(
+                  value: coun,
+                  child: coun['name'] != null
+                      ? Text(
+                    coun['name'],
+                    style: TextStyle(color: AppColors.inputTextColor),
+                  )
+                      : Container(),
+                );
+              }).toList(),
+              onChanged: (val) {
+                var mapLang;
+                setState(() {
+                  mapLang = val as Map;
+                  hintTextLang = mapLang['name'];
+                  selectedLang = mapLang['id'];
+                  box.write('lang_id', mapLang['id']);
+                  box.write('lang_code', mapLang['short_code']);
+                  LocalizationServices().changeLocale(mapLang['short_code']);
+                });
+              },
             )
-              : Container(),
-            );
-          }).toList(),
-          onChanged: (val) {
-            var mapLang;
-            setState(() {
-              mapLang = val as Map;
-              hintTextLang = mapLang['name'];
-              selectedLang = mapLang['id'];
-              box.write('lang_id', mapLang['id']);
-              box.write('lang_code', mapLang['short_code']);
-              LocalizationServices().changeLocale(mapLang['short_code']);
-            });
-          },
         )
-      )
     );
   }
 
   Widget passwordW() {
     return Container(
+        decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(
           obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
-                new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
             hintText: ('password'.tr),
             hintStyle: TextStyle(
               color: Colors.grey,
-               fontSize: lang == 'ar' ? 14 : 16,
+              fontSize: lang == 'ar' ? 14 : 16,
             ),
             // labelStyle: TextStyle(color: AppColors.basicColor),
             fillColor: AppColors.inputColor2,
@@ -311,8 +316,8 @@ class _SignPageState extends State<SignIn> {
           validator: (val) => val == ''
               ? 'enter_password'.tr
               : val!.length < 4
-                  ? 'pass_to_short'.tr
-                  : null,
+              ? 'pass_to_short'.tr
+              : null,
           onSaved: (val) => password = TextEditingController(text: val),
         ));
   }
@@ -326,12 +331,13 @@ class _SignPageState extends State<SignIn> {
           Divider(
             color: Colors.black,
           ),
+          SizedBox(height: 5,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Dont_have_account".tr,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey,fontFamily: "Source_Sans_Pro",fontSize: 18),
               ),
               GestureDetector(
                   onTap: () {
@@ -341,6 +347,9 @@ class _SignPageState extends State<SignIn> {
                     'sign_up_text'.tr,
                     style: TextStyle(
                       color: AppColors.appBarBackGroundColor,
+                      fontFamily: "Source_Sans_Pro",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   )),
             ],
@@ -352,16 +361,16 @@ class _SignPageState extends State<SignIn> {
 
   Widget submitButton(
       {buttonText,
-      fontSize,
-      callback,
-      bgcolor,
-      textColor,
-      fontFamily,
-      fontWeight,
-      height,
-      width,
-      borderColor,
-      image}) {
+        fontSize,
+        callback,
+        bgcolor,
+        textColor,
+        fontFamily,
+        fontWeight,
+        height,
+        width,
+        borderColor,
+        image}) {
     return AppButton(
       buttonText: buttonText,
       callback: callback,

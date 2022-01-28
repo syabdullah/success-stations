@@ -31,15 +31,17 @@ class AppImages {
   static String notification = imagePath + 'notifications.png';
   static String ugr = imagePath + 'uagr.png';
   static String ma = imagePath + 'ma.png';
-  static String home = imagePath + '9.png';
+
   static String membership = imagePath + 'memr.png';
   static String menuBurger = imagePath + 'menu-Drawer.png';
   static String menuBurgerArabic = imagePath + 'menu@3x.png';
   
   //Bottombar images
-  static String offers = imagePath + 'offer.png';
-  static String friends = imagePath + 'friends.png';
-  static String locations = imagePath + 'loc.png';
+  static String offers = imagePath + 'Bottom_offers.png';
+  static String friends = imagePath + 'Bottom_friends.png';
+  static String locations = imagePath + 'Bottom_loc.png';
+  static String home = imagePath + '9.png';
+  static String ads = imagePath + 'Bottom_ads.png';
 
   //about us logo
 

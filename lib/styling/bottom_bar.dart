@@ -38,11 +38,11 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         },
         items: [
             BottomNavigationBarItem(
-              
+
               // ignore: deprecated_member_use
               title: Text("offer".tr, style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
+                  )
                 ),
               icon: ImageIcon(AssetImage(AppImages.offers,),),
             ),
@@ -69,7 +69,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   )
                 ),
-              icon:ImageIcon(AssetImage(AppImages.ma)),
+              icon:ImageIcon(AssetImage(AppImages.ads)),
             ),
         ],
       
