@@ -83,7 +83,7 @@ class _AdsViewState extends State<AdsView> {
                           Get.width < 420 ? Get.height / 7.5 : Get.height / 7.5,
                           dat.datacateg);
                 }),
-            featureTextAdded("FeaturedAds".tr, "all".tr),
+            featureTextAdded("Jeddah"+" | "+"Featured ads", "".tr),
             GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data) {
@@ -101,7 +101,8 @@ class _AdsViewState extends State<AdsView> {
                             )
                           : PlayStoreShimmer();
                 }),
-            text('specialofer'.tr, "all".tr),
+            SizedBox(height: 15,),
+            text("Jeddah"+" | " +'specialofer'.tr, "".tr),
             GetBuilder<OfferController>(
                 init: OfferController(),
                 builder: (data) {
@@ -260,8 +261,9 @@ class _AdsViewState extends State<AdsView> {
             child: Text(
               text1,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
+                  fontFamily:  "Source_Sans_Pro",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
                   color: Colors.grey[700]),
             )),
         GestureDetector(
@@ -289,8 +291,9 @@ class _AdsViewState extends State<AdsView> {
             child: Text(
               text1,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
+                  fontFamily:  "Source_Sans_Pro",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
                   color: Colors.grey[700]),
             )),
         GestureDetector(
@@ -301,6 +304,7 @@ class _AdsViewState extends State<AdsView> {
               margin: EdgeInsets.only(right: 10, left: 10),
               child: Text(text2,
                   style: TextStyle(
+                      fontFamily:  "Source_Sans_Pro",
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.grey[700]))),
@@ -379,18 +383,17 @@ class _AdsViewState extends State<AdsView> {
           itemBuilder: (BuildContext context, index) {
             return Column(
               children: [
-                Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(MyOfferDetailMain(), arguments: data[index]);
-                      },
-                      child: Container(
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(2),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(MyOfferDetailMain(), arguments: data[index]);
+                    },
+                    child: Card(
+                      elevation: 2,
+                      child: Container(decoration: BoxDecoration(
+                        border: Border.all(width: 2,color: Colors.white)
+                      ),
                           width: imageW,
                           height: imageH,
                           child: data[index]['media'].length != 0 &&
@@ -408,17 +411,17 @@ class _AdsViewState extends State<AdsView> {
                     ),
                   ),
                 ),
-                Container(
-                  width: 100,
-                  child: Text(
-                      data[index]['text_ads'][lang] != null
-                          ? data[index]['text_ads'][lang].toString()
-                          : data[index]['text_ads'][lang] == null
-                              ? data[index]['text_ads']['en'].toString()
-                              : '',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: AppColors.grey)),
-                )
+                // Container(
+                //   width: 100,
+                //   child: Text(
+                //       data[index]['text_ads'][lang] != null
+                //           ? data[index]['text_ads'][lang].toString()
+                //           : data[index]['text_ads'][lang] == null
+                //               ? data[index]['text_ads']['en'].toString()
+                //               : '',
+                //       overflow: TextOverflow.ellipsis,
+                //       style: TextStyle(color: AppColors.grey)),
+                // )
               ],
             );
           }),
@@ -434,12 +437,12 @@ class _AdsViewState extends State<AdsView> {
           ? Get.height < 700
               ? Get.height / 2.2
               : Get.width < 420
-                  ? Get.height / 2
+                  ? Get.height / 2.8
                   : Get.height / 4.35
           : Get.height < 700
               ? Get.height / 3.2
               : Get.width < 420
-                  ? Get.height / 2
+                  ? Get.height / 2.8
                   : Get.height / 4.35,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -457,7 +460,7 @@ class _AdsViewState extends State<AdsView> {
                   borderRadius: BorderRadius.circular(3.0),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
                       // borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
@@ -479,7 +482,7 @@ class _AdsViewState extends State<AdsView> {
                             ),
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Container(
                         //     margin: lang == 'ar'
@@ -522,34 +525,69 @@ class _AdsViewState extends State<AdsView> {
                         //             onRatingUpdate: (rating) {},
                         //           )),
 
-                        Container(
-                          margin: lang == 'ar'
-                              ? EdgeInsets.only(top: 5, right: 5)
-                              : EdgeInsets.only(top: 5, left: 5),
-                          child: data[index]['is_rated'] == false
-                              ? Text(
-                                  "name of author",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w400,
-                                  ))
-                              : Text(
-                              "name of author",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400,
-                              ))
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Container(
+                              margin: lang == 'ar'
+                                  ? EdgeInsets.only(top: 5, right: 5)
+                                  : EdgeInsets.only(top: 5, left: 5),
+                              child: data[index]['is_rated'] == false
+                                  ? Text("name of author",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily:  "Source_Sans_Pro",
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                      ))
+                                  : Text("name of author",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily:  "Source_Sans_Pro",
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                      ))),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
 
-                        Align(
-                          alignment: Alignment.center,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Row(
+                            children: [
+                              Container(
+                                  child: data[index]['price'] != null
+                                      ? Text(
+                                          ' SAR' + " ",
+                                          style: TextStyle(
+                                              fontFamily:  "Source_Sans_Pro",
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600),
+                                        )
+                                      : Container()),
+                              Container(
+                                  child: data[index]['price'] != null
+                                      ? Text(
+
+                                          '$price' + ".00",
+                                          style: TextStyle(
+                                              fontFamily:  "Source_Sans_Pro",
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600),
+                                        )
+                                      : Container()),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
                           child: Container(
                             margin: EdgeInsets.only(
-                              top: 5,
+                              top: 4,
                             ),
                             child: Text(
                                 data[index]['title'][lang] != null
@@ -557,37 +595,14 @@ class _AdsViewState extends State<AdsView> {
                                     : data[index]['title']['ar'] == null
                                         ? data[index]['title']['en']
                                         : '',
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.start,
                                 style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily:  "Source_Sans_Pro",
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w400,
                                 )),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                                child: data[index]['price'] != null
-                                    ? Text(
-                                        '$price',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: AppColors
-                                                .appBarBackGroundColor),
-                                      )
-                                    : Container()),
-                            Container(
-                                child: data[index]['price'] != null
-                                    ? Text(
-                                        ' SAR',
-                                        style: TextStyle(
-                                          fontSize: 8,
-                                          color:
-                                              AppColors.appBarBackGroundColor,
-                                        ),
-                                      )
-                                    : Container()),
-                          ],
                         ),
                       ],
                     ),

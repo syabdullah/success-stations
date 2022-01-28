@@ -83,10 +83,10 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     centerTitle: true,
     leadingWidth: 89,
     leading: index == 2 ?  Container(
-      margin:EdgeInsets.only(top:2),
+      margin:EdgeInsets.only(top:12),
       child: IconButton(
-        iconSize: 28,
-        icon: Image.asset(AppImages.menuBurger,height: 18,color: AppColors.grey),
+        iconSize:40,
+        icon: Image.asset(AppImages.menuBurger,height: 25,color: AppColors.grey),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
     ): 
