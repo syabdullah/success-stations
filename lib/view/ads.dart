@@ -346,22 +346,20 @@ class _AdsViewState extends State<AdsView> {
                         ),
                   ),
                 ),
-
                 SizedBox(
                   height: 8,
                 ),
                 Container(
                   width: imageW,
                   child: Center(
-                    child: Text(
-                        data[index]['category'][lang] != null
-                            ? data[index]['category'][lang]
-                            : data[index]['category'][lang] == null
-                                ? data[index]['category']['en']
-                                : '',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black ))
-                  ),
+                      child: Text(
+                          data[index]['category'][lang] != null
+                              ? data[index]['category'][lang]
+                              : data[index]['category'][lang] == null
+                                  ? data[index]['category']['en']
+                                  : '',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.black))),
                 )
               ],
             );
@@ -436,13 +434,13 @@ class _AdsViewState extends State<AdsView> {
           ? Get.height < 700
               ? Get.height / 2.2
               : Get.width < 420
-                  ? Get.height / 4.26
+                  ? Get.height / 2
                   : Get.height / 4.35
           : Get.height < 700
               ? Get.height / 3.2
               : Get.width < 420
                   ? Get.height / 2
-                  : Get.height /2,
+                  : Get.height / 4.35,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
@@ -472,8 +470,8 @@ class _AdsViewState extends State<AdsView> {
                                       ? Get.width / 3.1
                                       : Get.width / 3.3,
                                   height: Get.width < 420
-                                      ? Get.height / 4.9
-                                      : Get.height / 2,
+                                      ? Get.height / 4.8
+                                      : Get.height / 9.5,
                                   fit: BoxFit.fill),
                             )
                           : Container(
@@ -483,46 +481,70 @@ class _AdsViewState extends State<AdsView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // Container(
+                        //     margin: lang == 'ar'
+                        //         ? EdgeInsets.only(top: 5, right: 5)
+                        //         : EdgeInsets.only(top: 5, left: 5),
+                        //     child: data[index]['is_rated'] == false
+                        //         ? RatingBar.builder(
+                        //             initialRating:
+                        //                 data[index]['rating'].toDouble(),
+                        //             minRating: 1,
+                        //             direction: Axis.horizontal,
+                        //             allowHalfRating: true,
+                        //             itemCount: 5,
+                        //             itemSize: 18.0,
+                        //             itemBuilder: (context, _) => Icon(
+                        //               Icons.star,
+                        //               color: Colors.amber,
+                        //             ),
+                        //             onRatingUpdate: (rating) {
+                        //               var ratingjson = {
+                        //                 'ads_id': data[index]['id'],
+                        //                 'rate': rating
+                        //               };
+                        //               ratingcont.ratings(ratingjson);
+                        //             },
+                        //           )
+                        //         : RatingBar.builder(
+                        //             initialRating:
+                        //                 data[index]['rating'].toDouble(),
+                        //             ignoreGestures: true,
+                        //             minRating: 1,
+                        //             direction: Axis.horizontal,
+                        //             allowHalfRating: true,
+                        //             itemCount: 5,
+                        //             itemSize: 22.5,
+                        //             itemBuilder: (context, _) => Icon(
+                        //               Icons.star,
+                        //               color: Colors.amber,
+                        //             ),
+                        //             onRatingUpdate: (rating) {},
+                        //           )),
+
                         Container(
-                            margin: lang == 'ar'
-                                ? EdgeInsets.only(top: 5, right: 5)
-                                : EdgeInsets.only(top: 5, left: 5),
-                            child: data[index]['is_rated'] == false
-                                ? RatingBar.builder(
-                                    initialRating:
-                                        data[index]['rating'].toDouble(),
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 18.0,
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      var ratingjson = {
-                                        'ads_id': data[index]['id'],
-                                        'rate': rating
-                                      };
-                                      ratingcont.ratings(ratingjson);
-                                    },
-                                  )
-                                : RatingBar.builder(
-                                    initialRating:
-                                        data[index]['rating'].toDouble(),
-                                    ignoreGestures: true,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemSize: 22.5,
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {},
-                                  )),
+                          margin: lang == 'ar'
+                              ? EdgeInsets.only(top: 5, right: 5)
+                              : EdgeInsets.only(top: 5, left: 5),
+                          child: data[index]['is_rated'] == false
+                              ? Text(
+                                  "name of author",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w400,
+                                  ))
+                              : Text(
+                              "name of author",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ))
+                        ),
+
                         Align(
                           alignment: Alignment.center,
                           child: Container(
