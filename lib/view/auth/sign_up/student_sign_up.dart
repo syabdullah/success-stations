@@ -137,15 +137,15 @@ class _SignPageState extends State<StudentSignUp> {
               ),
               space10,
               mobile(),
-              space10,
-              studentdob(),
-              space10,
-              GetBuilder<ContryController>(
-                init: ContryController(),
-                builder: (val) {
-                  return country(val.countryListdata);
-                },
-              ),
+              // space10,
+              // studentdob(),
+              // space10,
+              // GetBuilder<ContryController>(
+              //   init: ContryController(),
+              //   builder: (val) {
+              //     return country(val.countryListdata);
+              //   },
+              // ),
               space10,
               Row(
                 children: [
@@ -496,7 +496,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           passwordValue = value;
@@ -530,7 +530,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           confirmPasswordValue = value;
@@ -553,8 +553,10 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        width: Get.width / 1.1,
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
         decoration: BoxDecoration(
+          color: Colors.white,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -573,10 +575,10 @@ class _SignPageState extends State<StudentSignUp> {
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
             ),
-            hintText: "mobilee".tr,
-            hintStyle: TextStyle(
-                fontSize: lang == 'ar' ? 14 : 16,
-                color: AppColors.inputTextColor),
+            // hintText: "mobilee".tr,
+            // hintStyle: TextStyle(
+            //     fontSize: lang == 'ar' ? 14 : 16,
+            //     color: AppColors.inputTextColor),
           ),
           onInputChanged: (PhoneNumber numberr) {
             number = numberr;
@@ -598,6 +600,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget studentdob() {
     return Container(
+      color: Colors.white,
       margin: EdgeInsets.only(left: 20, right: 20),
       width: Get.width * 0.9,
       child: TextFormField(
@@ -609,7 +612,7 @@ class _SignPageState extends State<StudentSignUp> {
           return null;
         },
         style: TextStyle(
-            color: AppColors.inputTextColor,
+            color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold),
         decoration: InputDecoration(

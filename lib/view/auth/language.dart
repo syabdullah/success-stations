@@ -10,7 +10,6 @@ import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
-import 'package:success_stations/view/header.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class Language extends StatefulWidget {
@@ -94,48 +93,59 @@ class _LanguagePageState extends State<Language> {
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
-      appBar: AppBar(title: Text("Previous",style: TextStyle(color: Colors.white,fontSize: 18)),
-        backgroundColor:AppColors.appBarBackGroundColor ,leading: Icon(Icons.arrow_back),),
+      appBar: AppBar(
+        title: Text(
+          "Previous",
+          style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"Source_Sans_Pro",fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: AppColors.appBarBackGroundColor,
+        leading: Icon(Icons.arrow_back),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text("Language", style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"Source_Sans_Pro",fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         // children: [
-         child:  Column(
-            children: [
-              // space50, 
-              // mainLogo(),
-              space50,
-              space50,
-              space50,
-              space50,
-              space50,
-              Container(
-                height: MediaQuery.of(context).size.height * 0.05,
-                /*child: chooseLanguage()*/),
+        child: Column(
+          children: [
+            // space50,
+            // mainLogo(),
+            space50,
+            space50,
+            space50,
+            space50,
+            space50,
+            Container(
+              height: MediaQuery.of(context).size.height *
+                  0.05, /*child: chooseLanguage()*/
+            ),
             GetBuilder<LanguageController>(
                 init: LanguageController(),
-                builder:(data){
-                  return  data.isLoading == true ? Container(
-                    height: Get.height * 0.25,
-                  ):  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: getTextWidgets(data.languageList)
-                  );
-                }
-              ),
-              // submitButton(
-              //   bgcolor: AppColors.appBarBackGroundColor,  
-              //   textColor: AppColors.appBarBackGroun,
-              //   buttonText: "next".tr,
-              //   fontSize: 18.toDouble(),
-              //   callback: navigateToHomeScreen
-              // ),
-              HorizontalOrLine(label: "oR".tr, height: 2),
-              SizedBox(height: Get.height * 0.03),
-              Container(
-                alignment: Alignment.bottomRight,
-                child: existingAccount()
-              ),
-            ],
-          ),
+                builder: (data) {
+                  return data.isLoading == true
+                      ? Container(
+                          height: Get.height * 0.25,
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: getTextWidgets(data.languageList));
+                }),
+            // submitButton(
+            //   bgcolor: AppColors.appBarBackGroundColor,
+            //   textColor: AppColors.appBarBackGroun,
+            //   buttonText: "next".tr,
+            //   fontSize: 18.toDouble(),
+            //   callback: navigateToHomeScreen
+            // ),
+            HorizontalOrLine(label: "oR".tr, height: 2),
+            SizedBox(height: Get.height * 0.03),
+            Container(
+                alignment: Alignment.bottomRight, child: existingAccount()),
+          ],
+        ),
         // ],
       ),
     );
@@ -153,24 +163,23 @@ class _LanguagePageState extends State<Language> {
   Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-       Get.to(SignIn());
+        Get.to(SignIn());
       },
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Container(
-              margin:EdgeInsets.only(left:2),
-              child: Text(
-                "have_account".tr, style:TextStyle(fontWeight: FontWeight.w300,color: Colors.grey)
-              )
-            ),
             Container(
-              margin:EdgeInsets.only(right:2),
-              child: Text(
-                "sign_in".tr, style: TextStyle(color: AppColors.login_help, fontWeight: FontWeight.bold)
-              )
-            ),
+                margin: EdgeInsets.only(left: 2),
+                child: Text("have_account".tr,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300, color: Colors.grey))),
+            Container(
+                margin: EdgeInsets.only(right: 2),
+                child: Text("sign_in".tr,
+                    style: TextStyle(
+                        color: AppColors.login_help,
+                        fontWeight: FontWeight.bold))),
           ],
         ),
       ),

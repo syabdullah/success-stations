@@ -218,16 +218,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 padding: const EdgeInsets.only(right: 278.0),
                 child: Text(
                   "Services".tr,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 0.5,color: Colors.grey
-                      )),
+                      border: Border.all(width: 0.5, color: Colors.grey)),
                   height: 100,
                   width: double.infinity,
                   child: GridView.builder(
@@ -241,9 +241,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              border: Border.all(),
+                              border:
+                                  Border.all(width: 0.5, color: Colors.grey),
                               borderRadius: BorderRadius.circular(5)),
-                          child: Center(child: Text(servicesdemo[index])),
+                          child: Center(child: Text(servicesdemo[index],style: TextStyle(color: Colors.grey),)),
                         ),
                       );
                     },
@@ -520,16 +521,19 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget mobile() {
     return Container(
-        width: Get.width / 1.1,
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
         decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
-          cursorColor: AppColors.appBarBackGroundColor,
           focusNode: FocusNode(),
+          cursorColor: AppColors.appBarBackGroundColor,
+          autoFocus: false,
           inputDecoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+            contentPadding: EdgeInsets.only(left: 10, bottom: 10),
             fillColor: Colors.white,
             filled: true,
             border: InputBorder.none,
@@ -539,8 +543,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
             ),
-            hintText: "mobilee".tr,
-            hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+            // hintText: "mobilee".tr,
+            // hintStyle: TextStyle(
+            //     fontSize: lang == 'ar' ? 14 : 16,
+            //     color: AppColors.inputTextColor),
           ),
           onInputChanged: (PhoneNumber numberr) {
             number = numberr;
@@ -718,7 +724,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         margin: EdgeInsets.only(left: 20, right: 5),
         width: Get.width * 0.44,
         decoration: BoxDecoration(
-            color: AppColors.inputColor,
+            color: Colors.white,
             border: Border.all(color: AppColors.outline),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
@@ -762,7 +768,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         margin: EdgeInsets.only(right: 20),
         width: Get.width * 0.44,
         decoration: BoxDecoration(
-            color: AppColors.inputColor,
+            color: Colors.white,
             border: Border.all(color: AppColors.outline),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
@@ -800,10 +806,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget services(List serviceName) {
     return Container(
+        color: Colors.white,
         margin: EdgeInsets.only(left: 2),
         width: Get.width / 1.1,
         decoration: BoxDecoration(
-          color: AppColors.inPutFieldColor,
+          color: Colors.grey,
           border: Border.all(color: AppColors.outline
               // width: 2,
               ),
@@ -1099,7 +1106,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     : EdgeInsets.only(left: 10),
                 child: Text(
                   "Account_type".tr,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
                 )),
             Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -1157,7 +1164,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                           ],
                         ),
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: Colors.white,
                             border: Border.all(color: Colors.grey)),
                       ),
                     ),
@@ -1203,7 +1210,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                           ],
                         ),
                         decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: Colors.white,
                             border: Border.all(color: Colors.grey)),
                       ),
                     )

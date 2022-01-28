@@ -112,13 +112,13 @@ class _CountryPageState extends State<Ccountry> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: "Source_Sans_Pro")),
+                          fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold)),
                 ),
                 Text("Country",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontFamily: "Source_Sans_Pro")),
+                        fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold)),
               ],
             ),
             backgroundColor: AppColors.darkblue,
