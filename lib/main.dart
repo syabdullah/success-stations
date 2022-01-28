@@ -50,7 +50,7 @@ class SuccessApp extends StatelessWidget {
         translations: LocalizationServices(),
         theme:   ThemeData(
            primaryColor: Color(0xFF2F4199),
-           fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold',
+           fontFamily: lang == 'en' || lang == null ? 'Source_Sans_Pro': 'STC Bold',
            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
            textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199)),
           //  textTheme: TextTheme(bodyText1: TextStyle(fontSize: 20.0))

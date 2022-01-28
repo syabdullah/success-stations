@@ -68,10 +68,70 @@ class _FavouritePageState extends State<FavouritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f2),
       key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-        child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
-      ),
+      appBar: AppBar(
+        // leadingWidth: 76,
+        backgroundColor:Colors.white,
+        // title: Container(
+        //   // margin: EdgeInsets.only(top: 12),
+        //     child: Text(
+        //       "My Fevorite",
+        //       style: TextStyle(
+        //
+        //           fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
+        //     )),
+        centerTitle: true,
+        leading: Container(
+            margin: EdgeInsets.only( left: 7),
+            child: GestureDetector(
+                onTap: () {
+                  _scaffoldKey.currentState!.openDrawer();
+                },
+                child:  Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Image.asset(AppImages.imagearrow1,
+                      color: Colors.black, height: 22),
+                ))),
+        actions: [
+       Center(
+         child: Padding(
+           padding: const EdgeInsets.only(right: 15),
+           child: Container(
+            // margin: EdgeInsets.only(top: 12),
+              child: Text(
+                "My Favorite",
+                style: TextStyle(
+
+                    fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
+              )),
+         ),
+       ),
+          // GestureDetector(
+          //   onTap: () {
+          //   },
+          //   child: Center(
+          //     child: Container(
+          //       // margin: EdgeInsets.only( left: 15,),
+          //         child: Image.asset(AppImages.plusImage,
+          //             color: Colors.black, height: 30)),
+          //   ),
+          // ),
+          // GestureDetector(
+          //   onTap: () {
+          //     // Get.to(AddLocations());
+          //   },
+          //   child: Center(
+          //     child: Container(
+          //         margin: EdgeInsets.only( right:10),
+          //         child: Image.asset(AppImages.setting,
+          //             color: Colors.black, height: 35)),
+          //   ),
+          // ),
+        ],),
+      // appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
+      //   child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
+      // ),
       drawer: Theme(
         data: Theme.of(context).copyWith( ),
         child: AppDrawer(),
@@ -88,7 +148,8 @@ class _FavouritePageState extends State<FavouritePage> {
                     return val.fvr8DataList !=null &&  val.fvr8DataList['data'] != null && val.fvr8DataList['success'] == true  ? 
                     Column(
                       children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
-                    ): myAddGridView(val.fvr8DataList['data']) ,
+                    ):myAddsList(val.fvr8DataList['data']),
+                      // myAddGridView(val.fvr8DataList['data']) ,
                   ):
                   Container(
                     height: Get.height/1.5,
@@ -119,9 +180,14 @@ class _FavouritePageState extends State<FavouritePage> {
             imageAds =listFavourite[c]['listing']['image'][array]['url'];
           }
           favrties.add(
-            Card(
+            Padding(
+              padding: const EdgeInsets.only(right: 5,left: 5,top: 10),
               child: Container(
-                 height: 100,
+                 height: 120,
+decoration: BoxDecoration(
+  color: Colors.white,
+  border: Border.all(color: Colors.grey)
+),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -133,12 +199,12 @@ class _FavouritePageState extends State<FavouritePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: GestureDetector(
-                                  child: listFavourite[c]['listing']['image'] !=null &&  imageAds !=null 
+                                  child: listFavourite[c]['listing']['image'] !=null &&  imageAds !=null
                                   ? ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    // borderRadius: BorderRadius.all(Radius.circular(10)),
                                     child: Image.network(
                                      imageAds,
-                                      width: Get.width / 4,
+                                      width: Get.width / 6,
                                       fit: BoxFit.fill,
                                     ),
                                   )
@@ -150,103 +216,175 @@ class _FavouritePageState extends State<FavouritePage> {
                             ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child:  Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              listFavourite[c]['user_name']!=null ?
-                              Container(
-                                margin:EdgeInsets.only(left:8),
-                                child: Text(
-                                 allWordsCapitilize( listFavourite[c]['user_name']['name'],),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight:FontWeight.bold
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Container(
+                                //   child:
+                                //   Text(
+                                //     listFavou[c]['text_ads'][lang]!=null ?
+                                //     listFavou[c]['text_ads'][lang].toString():
+                                //     listFavou[c]['text_ads'][lang]==null?
+                                //     listFavou[c]['text_ads']['en'].toString():'',
+                                //      style: TextStyle(
+                                //       color: Colors.grey[700],
+                                //       fontWeight: FontWeight.bold
+                                //     ),
+                                //   )
+                                // ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Container(
+                                      child:
+                                      Text(
+                                        "Teaching the brain to read book\n at a special price from",
+                                        // textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: "Source_Sans_Pro",
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      )
                                   ),
                                 ),
-                              ): Container(),
-                               Container(
-                                child: listFavourite[c]['listing']['is_rated'] == false
-                                ? RatingBar.builder(
-                                  initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 14.5,
-                                  itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
-                                  onRatingUpdate: (rating) {
-                                    var ratingjson = {
-                                      'ads_id': listFavourite[c]['id'],
-                                      'rate': rating
-                                    };
-                                    ratingcont.ratings(ratingjson);
-                                  },
-                                )
-                                : RatingBar.builder(
-                                  initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
-                                  ignoreGestures: true,
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 14.5,
-                                  itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
-                                  onRatingUpdate: (rating) {
-                                  },
-                                )
-                              ),
-                              listFavourite[c]['user_name']!=null ?
-                              Expanded(
-                                child:  
-                                listFavourite[c]['user_name']['address'] !=null ?
-                                Row(
-                                  children: [
-                                  Icon(Icons.location_on, color:Colors.grey),
-                                  Container(
-                                    width: 100,
-                                    child:  Text(
-                                      listFavourite[c]['user_name']['address'],
-                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.grey[300]
-                                      ),
-                                    )
-                                  )
-                                  ],
-                                ):Container()
-                              ): Container(),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Container(
+                                      child:
+                                      Text(
+                                        "55.22 " +"SAR" ,
+                                        style: TextStyle(
+                                            fontFamily: "Source_Sans_Pro",
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      )
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Container(
+                                      child:
+                                      Text(
+                                        "New",
+                                        style: TextStyle(
+                                            fontFamily: "Source_Sans_Pro",
+                                            color: Colors.lightGreen,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      )
+                                  ),
+                                ),
+
+
+                              ]
                           ),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 20),
+                        //   child:  Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       listFavourite[c]['user_name']!=null ?
+                        //       Container(
+                        //         margin:EdgeInsets.only(left:8),
+                        //         child: Text(
+                        //          allWordsCapitilize( listFavourite[c]['user_name']['name'],),
+                        //           style: TextStyle(
+                        //             color: Colors.black,
+                        //             fontWeight:FontWeight.bold
+                        //           ),
+                        //         ),
+                        //       ): Container(),
+                        //        Container(
+                        //         child: listFavourite[c]['listing']['is_rated'] == false
+                        //         ? RatingBar.builder(
+                        //           initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                        //           minRating: 1,
+                        //           direction: Axis.horizontal,
+                        //           allowHalfRating: true,
+                        //           itemCount: 5,
+                        //           itemSize: 14.5,
+                        //           itemBuilder:(context, _) => Icon(Icons.star,color: Colors.amber,),
+                        //           onRatingUpdate: (rating) {
+                        //             var ratingjson = {
+                        //               'ads_id': listFavourite[c]['id'],
+                        //               'rate': rating
+                        //             };
+                        //             ratingcont.ratings(ratingjson);
+                        //           },
+                        //         )
+                        //         : RatingBar.builder(
+                        //           initialRating:listFavourite[c]['user_name']['rating'].toDouble(),
+                        //           ignoreGestures: true,
+                        //           minRating: 1,
+                        //           direction: Axis.horizontal,
+                        //           allowHalfRating: true,
+                        //           itemCount: 5,
+                        //           itemSize: 14.5,
+                        //           itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber,),
+                        //           onRatingUpdate: (rating) {
+                        //           },
+                        //         )
+                        //       ),
+                        //       listFavourite[c]['user_name']!=null ?
+                        //       Expanded(
+                        //         child:
+                        //         listFavourite[c]['user_name']['address'] !=null ?
+                        //         Row(
+                        //           children: [
+                        //           Icon(Icons.location_on, color:Colors.grey),
+                        //           Container(
+                        //             width: 100,
+                        //             child:  Text(
+                        //               listFavourite[c]['user_name']['address'],
+                        //                overflow: TextOverflow.ellipsis,
+                        //               style: TextStyle(
+                        //                 color: Colors.grey[300]
+                        //               ),
+                        //             )
+                        //           )
+                        //           ],
+                        //         ):Container()
+                        //       ): Container(),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height:20),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(height:30),
-                        Row(
-                          children: [
-                            listFavourite[c]['listing'] !=null ? 
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: Row(
+                            children: [
+                              listFavourite[c]['listing'] !=null ?
+                                Container(
+                                  child: listFavourite[c]['listing']['is_favorite'] == true ?
+                                  GestureDetector(
+                                    onTap: (){
+                                      removeFvr8z();
+                                    },
+                                    child: Image.asset(AppImages.redHeart,height:30)
+                                  ): null,
+                              ): Container(),
                               Container(
-                                child: listFavourite[c]['listing']['is_favorite'] == true ?
-                                GestureDetector(
+                                padding: EdgeInsets.only(right:15),
+                                child: GestureDetector(
                                   onTap: (){
-                                    removeFvr8z();
+                                    launch("tel:${listFavourite[c]['listing']['phone']}");
                                   },
-                                  child: Image.asset(AppImages.redHeart,height:30)
-                                ): null,
-                            ): Container(),
-                            Container(
-                              padding: EdgeInsets.only(right:15),
-                              child: GestureDetector(
-                                onTap: (){
-                                  launch("tel:${listFavourite[c]['listing']['phone']}");
-                                },
-                                child: Image.asset(AppImages.call, height: 20)
+                                  child: Image.asset(AppImages.call, height: 20)
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
