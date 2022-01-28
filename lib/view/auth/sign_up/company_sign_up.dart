@@ -469,7 +469,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         isObscure: false,
         color: Colors.white,
         hintText: "full_name".tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
@@ -496,7 +496,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             ? EdgeInsets.only(right: 10)
             : EdgeInsets.only(left: 10, right: 10),
         hintText: "emails".tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         color: Colors.white,
         onChanged: (value) {},
@@ -598,7 +598,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintText:
               finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
-              fontSize: lang == 'ar' ? 14 : 16,
+              fontSize: lang == 'ar' ?  10 : 12,
               color: AppColors.inputTextColor,
               fontWeight: FontWeight.normal),
           border: OutlineInputBorder(
@@ -624,11 +624,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         fontSize: 18),
                     doneStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ?  10 : 12,
                     ),
                     cancelStyle: TextStyle(
                       color: AppColors.appBarBackGroundColor,
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ? 10 : 12,
                     ),
                   ),
                   onChanged: (date) {}, onConfirm: (date) {
@@ -654,7 +654,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 10, right: 10),
         isObscure: false,
         hintText: "company".tr,
-        hintStyle: TextStyle(fontSize: 16, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -686,7 +686,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               hint: Text(
                   hintTextCountry != null ? hintTextCountry : 'country'.tr,
                   style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: data.map((coun) {
@@ -733,7 +733,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
                   style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: dataRegion.map((reg) {
@@ -777,7 +777,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintcityText != null ? hintcityText : "city".tr,
                   style:
-                      TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inputColor,
               icon: Icon(Icons.arrow_drop_down),
               items: citydata.map((citt) {
@@ -860,7 +860,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         color: Colors.white,
         hintText: 'about'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -921,7 +921,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           passwrd = value;
@@ -955,7 +955,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           cnfPass = value;

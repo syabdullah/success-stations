@@ -49,7 +49,11 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                     children: [
                       Container(
                           padding: EdgeInsets.all(18),
-                          child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,),)
+                          child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,fontFamily: "Source_Sans_Pro"),)
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(top: 18,bottom: 18,left: 130),
+                          child:Text("New Account".tr,style: TextStyle(fontSize: 20,color: Colors.white,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold),)
                       ),
                     ],
                   ),

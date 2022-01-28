@@ -21,50 +21,61 @@ class _MyLocationsState extends State<MyLocations> {
   GetStorage box = GetStorage();
   var id;
   var lang;
+
   @override
   void initState() {
     super.initState();
-    lang=box.read('lang_code');
+    lang = box.read('lang_code');
     id = box.read('user_id');
     locationCon.getMyLocationToDB(id);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         // leadingWidth: 76,
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor:Colors.white,
         title: Container(
-           margin: EdgeInsets.only(top:12),
-          child: Text('myloc'.tr, style: TextStyle(fontSize:14),)
-        ),
+            margin: EdgeInsets.only(top: 12),
+            child: Text(
+                "Our Locations",
+              style: TextStyle(fontSize: 16,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold),
+            )),
         centerTitle: true,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top:12, left:7),
-              child: GestureDetector(
-                onTap: (){
+        leading: Container(
+            margin: EdgeInsets.only(top: 12, left: 7),
+            child: GestureDetector(
+                onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
-                child: Icon(
-                  Icons.arrow_back, size: 22,
-                )
-              )
-            ),
-            GestureDetector(
-              onTap: () {
+                child:  Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Image.asset(AppImages.imagearrow1,
+                      color: Colors.black, height: 22),
+                ))),
+        actions: [
+          GestureDetector(
+            onTap: () {
               Get.to(AddLocations());
-              },
-              child: Container(
-                margin: EdgeInsets.only(top:12,left:5),
-                child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
-              ),
-            ),
-          ]
-        ),
+            },
+            child: Container(
+                margin: EdgeInsets.only(top: 10, left: 20),
+                child: Image.asset(AppImages.plusImage,
+                    color: Colors.black, height: 22)),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.to(AddLocations());
+            },
+            child: Container(
+                margin: EdgeInsets.only(top: 10, left:0),
+                child: Image.asset(AppImages.setting,
+                    color: Colors.black, height: 22)),
+          ),
+        ],
+
         // leading: Row(
         //   mainAxisAlignment: MainAxisAlignment.start,
         //   children: [
@@ -98,31 +109,28 @@ class _MyLocationsState extends State<MyLocations> {
       body: Stack(
         children: [
           Container(
-            height: Get.height,
-            width: Get.width,
-            child: Column(
-              children: [
-                GetBuilder<LocationController>(
-                  init: LocationController(),
-                  builder: (val) {
-                    return val.locData != null &&
-                    val.locData['data'].length != 0
-                    ? Expanded(child: myAddsList(val.locData['data']))
-                    : Container(
-                      child: Center(
-                        heightFactor: 8 * 4,
-                        child: Text(
-                          "No Location added yet!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        )
-                      ),
-                    );
-                  }
-                )
-              ],
-            )
-          ),
+              height: Get.height,
+              width: Get.width,
+              child: Column(
+                children: [
+                  GetBuilder<LocationController>(
+                      init: LocationController(),
+                      builder: (val) {
+                        return val.locData != null &&
+                                val.locData['data'].length != 0
+                            ? Expanded(child: myAddsList(val.locData['data']))
+                            : Container(
+                                child: Center(
+                                    heightFactor: 8 * 4,
+                                    child: Text(
+                                      "No Location added yet!",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              );
+                      })
+                ],
+              )),
         ],
       ),
     );
@@ -142,107 +150,110 @@ class _MyLocationsState extends State<MyLocations> {
                   children: [
                     Center(
                       child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            child: data[index]['image'] != null &&  data[index]['image']['url'] !=null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.all( Radius.circular(10) ),
-                              child: Image.network(
-                                data[index]['image']['url'],
-                                height: 100,
-                                width: Get.width / 5.5,
-                                fit: BoxFit.fill,
-                              ),
-                            )
-                            : Container(
-                              child: Image.asset(AppImages.locationimg),
-                              width: Get.width / 6)
-                          ),
-                        )
-                      ),
+                          child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                            child: data[index]['image'] != null &&
+                                    data[index]['image']['url'] != null
+                                ? ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: Image.network(
+                                      data[index]['image']['url'],
+                                      height: 100,
+                                      width: Get.width / 5.5,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                : Container(
+                                    child: Image.asset(AppImages.locationimg),
+                                    width: Get.width / 6)),
+                      )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          data[index]['location'] != null ?
-                          Container(
-                             width: Get.width / 3.0,
-                            child: Text(
-                              data[index]['location'],
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight:FontWeight.bold
-                              ),
-                            ),
-                          ):Container(),
+                          data[index]['location'] != null
+                              ? Container(
+                                  width: Get.width / 3.0,
+                                  child: Text(
+                                    data[index]['location'],
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              : Container(),
                           SizedBox(height: 7),
                           Container(
                             width: Get.width / 3.0,
-                            child:ReadMoreText(
+                            child: ReadMoreText(
                               data[index]['formated_address'] != null
-                                ? data[index]['formated_address']
-                                : '',
+                                  ? data[index]['formated_address']
+                                  : '',
                               trimLines: 2,
                               trimMode: TrimMode.Line,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
                               textAlign: TextAlign.left,
-                              colorClickableText: AppColors.appBarBackGroundColor,
+                              colorClickableText:
+                                  AppColors.appBarBackGroundColor,
                               style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.grey[400],
                               ),
                             ),
                           ),
-                           data[index]['services'] != null ? 
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Service:   ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight:FontWeight.bold
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width / 3.6,
-                                child: Text(
-                                  data[index]['services']['servics_name'] ?? '',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ): Container(),
-                          data[index]['country_name'] != null ? 
-                          Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Country: ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight:FontWeight.bold
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width / 3.6,
-                                child: Text(
-                                  " ${data[index]['country_name']}",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ): Container()
+                          data[index]['services'] != null
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Service:   ",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: Get.width / 3.6,
+                                      child: Text(
+                                        data[index]['services']
+                                                ['servics_name'] ??
+                                            '',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Container(),
+                          data[index]['country_name'] != null
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Country: ",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: Get.width / 3.6,
+                                      child: Text(
+                                        " ${data[index]['country_name']}",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Container()
                         ],
                       ),
                     ),
@@ -250,7 +261,9 @@ class _MyLocationsState extends State<MyLocations> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: lang=='en'?EdgeInsets.only(right: 20):EdgeInsets.only(left: 20),
+                  padding: lang == 'en'
+                      ? EdgeInsets.only(right: 20)
+                      : EdgeInsets.only(left: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -264,14 +277,11 @@ class _MyLocationsState extends State<MyLocations> {
                       ),
                       SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () {
-                          Get.to(AddLocations(),
-                              arguments: data[index]);
-                        },
-                        child: Container(
-                          child: Image.asset(AppImages.edit, height: 30)
-                        )
-                      ),
+                          onTap: () {
+                            Get.to(AddLocations(), arguments: data[index]);
+                          },
+                          child: Container(
+                              child: Image.asset(AppImages.edit, height: 30))),
                     ],
                   ),
                 ),

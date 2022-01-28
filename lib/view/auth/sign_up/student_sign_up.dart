@@ -300,7 +300,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -330,7 +330,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -358,7 +358,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'address'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -388,7 +388,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'about'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -423,7 +423,7 @@ class _SignPageState extends State<StudentSignUp> {
                 hint: Text(
                     statusSelected == null ? 'degreesu'.tr : statusSelected,
                     style: TextStyle(
-                        fontSize: lang == 'ar' ? 14 : 16,
+                        fontSize: lang == 'ar' ? 10 : 12,
                         color: AppColors.inputTextColor)),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
@@ -461,7 +461,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'emails'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (newValue) {},
@@ -519,7 +519,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget confirmPassword() {
     return Container(
-      margin: EdgeInsets.only(right: 20),
+      margin: EdgeInsets.only(right: 21),
       width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
@@ -530,7 +530,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           confirmPasswordValue = value;
@@ -693,7 +693,7 @@ class _SignPageState extends State<StudentSignUp> {
                   hint: Text(
                       hintTextCountry != null ? hintTextCountry : 'country'.tr,
                       style: TextStyle(
-                          fontSize: 18, color: AppColors.inputTextColor)),
+                          fontSize: 10, color: AppColors.inputTextColor)),
                   dropdownColor: AppColors.inPutFieldColor,
                   icon: Icon(Icons.arrow_drop_down),
                   items: data.map((coun) {
@@ -743,7 +743,7 @@ class _SignPageState extends State<StudentSignUp> {
                 child: DropdownButton(
               hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
                   style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: dataRegion.map((reg) {
@@ -793,7 +793,7 @@ class _SignPageState extends State<StudentSignUp> {
                 child: DropdownButton(
               hint: Text(hintcityText != null ? hintcityText : "city".tr,
                   style:
-                      TextStyle(fontSize: 18, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inputColor,
               icon: Icon(Icons.arrow_drop_down),
               items: citydata.map((citt) {
@@ -835,7 +835,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintUniText != null ? hintUniText : "universitysu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ?  10 : 12,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -877,7 +877,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintClgText != null ? hintClgText : "collegesu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ?  10 : 12,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
