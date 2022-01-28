@@ -277,7 +277,7 @@ const Map<String, String> en = {
   'yearly':'Yearly',
   'monthly':'Monthly',
   'pro_comp':'Pro(Company)',
-  'my_offer':'My Offers',
+  'my_offer':'My Promotions',
   'email_address':'Email Address',
   "locationFound":'No Location Found',
   'first_name':'First Name',

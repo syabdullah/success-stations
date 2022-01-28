@@ -363,7 +363,9 @@ class _AdsViewState extends State<AdsView> {
                                   ? data[index]['category']['en']
                                   : '',
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black))),
+                          style: TextStyle(
+                              fontFamily:  "Source_Sans_Pro",
+                              color: Colors.black))),
                 )
               ],
             );

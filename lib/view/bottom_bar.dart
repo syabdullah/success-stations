@@ -179,7 +179,7 @@ class _BottomTabsState extends State<BottomTabs> {
                         color: AppColors.black,
                         size: 40,
                       ),
-                      Text('loction'.tr,
+                      Text('location'.tr,
                           style: AppTextStyles.appTextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -321,7 +321,7 @@ class _BottomTabsState extends State<BottomTabs> {
                         color: AppColors.black,
                         size: 40,
                       ),
-                      Text('loction'.tr,
+                      Text('location'.tr,
                           style: AppTextStyles.appTextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
