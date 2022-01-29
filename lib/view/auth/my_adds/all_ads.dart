@@ -90,11 +90,11 @@ class _AllAddsState extends State<AllAdds> {
                 },
               ),
               SizedBox(height:10),
-              havingCategorybool == false ? 
+              havingCategorybool == false ?
               GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
-                  return  val.allAdsData != null && val.allAdsData['data'] !=null? 
+                  return  val.allAdsData != null && val.allAdsData['data'] !=null?
                   valuees.dataType !='grid' ? myAddsList(val.allAdsData['data']): myAddGridView(val.allAdsData['data']):
                   controller.resultInvalid.isTrue?
                   Container(
@@ -110,13 +110,13 @@ class _AllAddsState extends State<AllAdds> {
                 },
               )
               :
-              
+
                GetBuilder<AddBasedController>(
                 init: AddBasedController(),
                 builder: (val) {
-                  return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ? 
+                  return  val.cData != null && val.cData['data'] !=null && val.cData['success'] == true ?
                   valuees.dataType !='grid' ? myAddsList(val.cData['data']) : myAddGridView(  val.cData['data']):
-                  controller.resultInvalid.isTrue? 
+                  controller.resultInvalid.isTrue?
                   Container(
                     margin: EdgeInsets.only(top: Get.height / 3),
                     child: Center(
@@ -166,7 +166,7 @@ class _AllAddsState extends State<AllAdds> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: GestureDetector(
-                                  child: allDataAdds[index]['image'].length !=0  
+                                  child: allDataAdds[index]['image'].length !=0
                                   ? ClipRRect(
                                     borderRadius: BorderRadius.all(Radius.circular(10)),
                                     child: Image.network(
@@ -321,7 +321,8 @@ class _AllAddsState extends State<AllAdds> {
     return Container(
       padding: EdgeInsets.only(left:10,right:10),
       width: Get.width / 1.10,
-      child:  dataListValue == null ? VideoShimmer() : GridView.count(
+      child:  dataListValue == null ? VideoShimmer() :
+      GridView.count(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
@@ -347,8 +348,8 @@ class _AllAddsState extends State<AllAdds> {
                   children: [
                     Container(
                       width: Get.width < 420
-                      ? Get.width / 1.4
-                      : Get.width / 2.3,height: Get.height /7.0,
+                      ? Get.width / 1.8
+                      : Get.width / 3.3,height: Get.height /7.0,
                       child: dataListValue[index]['image'].length != 0
                       ? Stack(
                         alignment:AlignmentDirectional.topStart,
@@ -357,7 +358,7 @@ class _AllAddsState extends State<AllAdds> {
                             dataListValue[index]['image'][0]['url'],
                             width: Get.width,
                             height: 100,
-                            fit: BoxFit.fill
+                            fit: BoxFit.contain
                           ),
                           Container(
                             padding: EdgeInsets.only(right: 5,left: 5,top: 5),
@@ -366,7 +367,7 @@ class _AllAddsState extends State<AllAdds> {
                                 var json = {
                                   'ads_id': dataListValue[index]['id']
                                 };
-                                dataListValue[index]['is_favorite'] ==false ? 
+                                dataListValue[index]['is_favorite'] ==false ?
                                 friCont.profileAdsToFav(json, userId): friCont.profileAdsRemove(json, userId);
                                 controller.addedAllAds();
                                 controller.addedByIdAddes(dataListValue[index]['category_id'], null);
@@ -392,7 +393,7 @@ class _AllAddsState extends State<AllAdds> {
                                   'ads_id': dataListValue[index]['id']
                                 };
                                 dataListValue[index]['is_favorite'] ==false ? friCont.profileAdsToFav(json, userId) : friCont.profileAdsRemove(json, userId);
-                                controller.addedAllAds(); 
+                                controller.addedAllAds();
                                 controller.addedByIdAddes(dataListValue[index]['category_id'], null);
                               },
                               child: Container(
@@ -447,7 +448,7 @@ class _AllAddsState extends State<AllAdds> {
                       child: Text(
                         dataListValue[index]['title'][lang] != null
                         ? dataListValue[index]['title'][lang].toString():
-                        dataListValue[index]['title'][lang] ==null ? 
+                        dataListValue[index]['title'][lang] ==null ?
                         dataListValue[index]['title']['en'].toString() : '',
                         style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold
@@ -552,7 +553,7 @@ class _AllAddsState extends State<AllAdds> {
                     //     )
                     //   ],
                     // )
-                  ]  
+                  ]
                 )
               ),
             );
@@ -611,7 +612,7 @@ class _AllAddsState extends State<AllAdds> {
               }
               return  Row(
                 children: [
-                  allCheck == false ? 
+                  allCheck == false ?
                   Container(
                     width: 70,
                     // margin: lang == 'en'
@@ -624,7 +625,7 @@ class _AllAddsState extends State<AllAdds> {
                           textAllcheck = false;
                           selectedIndex = index;
                           allColor = AppColors.appBarBackGroundColor;
-                          addsGet.myAddsCategory();                      
+                          addsGet.myAddsCategory();
                         });
                       },
                       child: Container(

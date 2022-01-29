@@ -52,12 +52,12 @@ class _BottomTabsState extends State<BottomTabs> {
     OfferList(),
     FriendList(),
     AdsView(),
-    AllAdds(),
     CustomInfoWindowExample(),
+    AllAdds(),
   ];
   final List<Widget> _archildren = [
-    CustomInfoWindowExample(),
     AllAdds(),
+    CustomInfoWindowExample(),
     AdsView(),
     FriendList(),
     OfferList(),

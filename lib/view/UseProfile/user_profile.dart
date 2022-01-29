@@ -88,7 +88,7 @@ class _UserProfileState extends State<UserProfile>
                   AppImages.profileBack,
                   height: 60,
                 )),
-            SizedBox(width: 270),
+            SizedBox(width: 225),
             InkWell(
                 onTap: () {
                   // Get.back();
