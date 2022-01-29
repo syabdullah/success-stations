@@ -132,7 +132,7 @@ Widget tabBarView(){
         AboutTab(),
         AdOffers(),
         LocationTab(),
-        AdListTab()
+        AdListTab(),
       ]
     ),
   );

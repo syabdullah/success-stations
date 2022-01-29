@@ -188,9 +188,9 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
+                      padding: const EdgeInsets.only(left: 18.0,top: 8),
                       child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 8,
                           width: MediaQuery.of(context).size.width / 5,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -205,7 +205,7 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                       flex: 6,
                       child: Padding(
-                        padding: const EdgeInsets.only(
+                        padding:  EdgeInsets.only(
                           top: 8.0,
                           left: 10,
                           right: 20,
@@ -520,7 +520,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget confirmPassword() {
     return Container(
       margin: EdgeInsets.only(right: 21),
-      width: Get.width * 0.44,
+      width: Get.width * 0.43,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -782,7 +782,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget city(List citydata) {
     return Container(
         margin: EdgeInsets.only(right: 20),
-        width: Get.width * 0.44,
+        width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -865,7 +865,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget college(List collegeData) {
     return Container(
         margin: EdgeInsets.only(right: 20),
-        width: Get.width * 0.44,
+        width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),

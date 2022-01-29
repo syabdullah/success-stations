@@ -107,7 +107,7 @@ class _CountryPageState extends State<Ccountry> {
               children: [
                 Icon(Icons.arrow_back),
                 Padding(
-                  padding: const EdgeInsets.only(right: 188.0),
+                  padding: const EdgeInsets.only(right: 158.0),
                   child: Text("Previous",
                       style: TextStyle(
                           color: Colors.white,

@@ -215,7 +215,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               radioalert(),
               space10,
               Padding(
-                padding: const EdgeInsets.only(right: 278.0),
+                padding: const EdgeInsets.only(right: 250.0),
                 child: Text(
                   "Services".tr,
                   style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
@@ -353,9 +353,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
+                      padding: const EdgeInsets.only(left: 18.0,top: 8),
                       child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 8,
                           width: MediaQuery.of(context).size.width / 5,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -397,14 +397,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   ),
                   Text('terms'.tr,
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold)),
                   Text("terms_condition".tr,
                       style: TextStyle(
                           fontFamily: 'Lato',
                           color: AppColors.appBarBackGroundColor,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold)),
                 ],
               ),
@@ -442,7 +442,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     Text(
                       "sign_in".tr,
                       style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 15,
                           color: AppColors.appBarBackGroundColor,
                           fontWeight: FontWeight.bold),
                     ),
@@ -598,7 +598,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintText:
               finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
-              fontSize: lang == 'ar' ?  10 : 12,
+              fontSize: lang == 'ar' ?  12 : 14,
               color: AppColors.inputTextColor,
               fontWeight: FontWeight.normal),
           border: OutlineInputBorder(
@@ -624,11 +624,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         fontSize: 18),
                     doneStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: lang == 'ar' ?  10 : 12,
+                      fontSize: lang == 'ar' ?  12 : 14,
                     ),
                     cancelStyle: TextStyle(
                       color: AppColors.appBarBackGroundColor,
-                      fontSize: lang == 'ar' ? 10 : 12,
+                      fontSize: lang == 'ar' ? 12 : 14,
                     ),
                   ),
                   onChanged: (date) {}, onConfirm: (date) {
@@ -766,7 +766,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget city(List citydata) {
     return Container(
         margin: EdgeInsets.only(right: 20),
-        width: Get.width * 0.44,
+        width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -860,7 +860,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         color: Colors.white,
         hintText: 'about'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -921,7 +921,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           passwrd = value;
@@ -945,7 +945,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget confirmPassword() {
     return Container(
       margin: EdgeInsets.only(right: 20),
-      width: Get.width * 0.44,
+      width: Get.width * 0.43,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -955,7 +955,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           cnfPass = value;
@@ -1137,7 +1137,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       },
                       child: Container(
                         height: 45,
-                        width: MediaQuery.of(context).size.width * 0.45,
+                        width: MediaQuery.of(context).size.width * 0.43,
                         child: Row(
                           children: [
                             Padding(
@@ -1149,7 +1149,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             Text(
                               "individual",
                               style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: textcolor == 0
                                       ? Colors.blueAccent
                                       : Colors.grey,
@@ -1188,9 +1188,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             Padding(
                               padding: const EdgeInsets.only(left: 45.0),
                               child: Text(
-                                "Bussnise",
+                                "business",
                                 style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     color: textcolor == 1
                                         ? Colors.blueAccent
                                         : Colors.grey,
@@ -1204,7 +1204,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                               ),
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 14,
                             ),
                             Image.asset("assets/Bussnise.png"),
                           ],

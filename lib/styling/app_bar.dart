@@ -95,7 +95,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         alignment:  Alignment.topLeft,
         margin: EdgeInsets.only(top:12, left:01),
         child: IconButton(
-          icon: Image.asset(AppImages.newfilter,color: Colors.white, height:22),
+          icon: Image.asset(AppImages.newfilter,color: Colors.grey, height:22),
           onPressed: () => 
           Get.bottomSheet(FriendFilter()
         ),
@@ -120,7 +120,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             margin: EdgeInsets.only(left:15, top:08),
             child:  index == 1 ? Container(): 
             Image.asset(AppImages.filterImage,
-              color: Colors.white, height: 22
+              color: Colors.grey, height: 22
             ),
           ),
         ),
@@ -135,7 +135,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             margin: EdgeInsets.only(left:5, top:08),
             child:index != 1 && index !=4 ? Image.asset(
               AppImages.plusImage1,
-              color: Colors.white,width: 25.w, height:23
+              color: Colors.grey,width: 25.w, height:23
             ):Container()
           ),
         ),
@@ -178,7 +178,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 },
                 child: index == 2 ? Container(): index == 4 ? 
                 Image.asset(AppImages.map1, height:20):
-                Image.asset(AppImages.listingImage, height:17)
+                Image.asset(AppImages.listingImage,color: Colors.grey, height:17)
               ),
             ),
             GestureDetector(
@@ -187,7 +187,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
               },
               child: Container(
                 margin: EdgeInsets.only(left:8, top:08),
-                child:  index ==2 ? Container():Image.asset(AppImages.gridView ,height:20)
+                child:  index ==2 ? Container():Image.asset(AppImages.gridView,color: Colors.grey ,height:20)
               ),
             )
           ],
@@ -213,7 +213,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       margin: EdgeInsets.only(top:08),
       alignment: Alignment.topRight,
       child: IconButton(
-        icon: Image.asset(AppImages.newfilter,color: Colors.white,height:23),
+        icon: Image.asset(AppImages.newfilter,color: Colors.grey,height:23),
         onPressed: () => index == 4?  filteringCategory(context): 
          Get.bottomSheet(FriendFilter()),
       ),
@@ -247,7 +247,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
               child: Container(
                 child: Image.asset(
                   AppImages.filterImage,
-                  color: Colors.white, height: 22
+                  color: Colors.grey, height: 22
                 ),
               ),
             )
@@ -264,7 +264,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
             margin: EdgeInsets.only(right:7, top:08),
             child:index != 3 && index !=0 ? Image.asset(
               AppImages.plusImage1,
-              color: Colors.white,width: 25.w, height:25
+              color: Colors.grey,width: 25.w, height:25
             ):Container()
           ),
         ),
@@ -334,7 +334,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
             child: Container(
               margin:EdgeInsets.only(left:10, right:10),
               child: Icon(Icons.arrow_back,
-                color: Colors.white, size: 22
+                color: Colors.grey, size: 22
               ),
             ),
           ),
@@ -359,7 +359,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
             child: Container(
               margin:lang == 'en'?  EdgeInsets.only(left:10, top:14):EdgeInsets.only(right:10, top:14),
               child: Icon(Icons.arrow_back,
-                color: Colors.white, size: 22
+                color: Colors.grey, size: 22
               ),
             ),
           ),
@@ -427,7 +427,7 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
                 },
                 child: Container(
                   margin:EdgeInsets.only(top:08, left:6, right:4),
-                  child:Image.asset(AppImages.plusImage,color:Colors.white, height:22)
+                  child:Image.asset(AppImages.plusImage,color:Colors.grey, height:22)
                 ),
               ),
             ]  ,
@@ -555,7 +555,7 @@ Widget sAppbar(context ,icon,image,) {
       actions: [
         string != 'choose_language_drop'.tr ?
         Image.asset(
-          AppImages.appBarSearch,color: Colors.white,width: 25.w,
+          AppImages.appBarSearch,color: Colors.grey,width: 25.w,
         ): Container()
       ],
       backgroundColor: AppColors.appBarBackGroundColor,
@@ -848,7 +848,7 @@ Widget sAppbar(context ,icon,image,) {
                                     width: Get.width / 4,
                                     child: Center(
                                       child: Text("apply".tr,
-                                        style: TextStyle( color: Colors.white)
+                                        style: TextStyle( color: Colors.grey)
                                       )
                                     )
                                   ),
@@ -978,7 +978,7 @@ Widget sAppbar(context ,icon,image,) {
                                               border: Border.all(
                                                 color: AppColors.appBarBackGroundColor,
                                               ),
-                                              color: bottomSheetCategory == index? AppColors.appCategSeleGroundColor: Colors.white,
+                                              color: bottomSheetCategory == index? AppColors.appCategSeleGroundColor: Colors.grey,
                                             ),
                                             padding: EdgeInsets.only(left:6.0,right: 6, top:2),
                                             child: Text(  
@@ -1038,7 +1038,7 @@ Widget sAppbar(context ,icon,image,) {
                                     color: slctedInd != null &&
                                     slctedInd == index
                                     ? AppColors.appCategSeleGroundColor
-                                    : Colors .white, //Colors.blue[100],
+                                    : Colors .grey, //Colors.blue[100],
                                     border: Border.all(
                                       color: AppColors.appBarBackGroundColor,
                                       width: 1,
@@ -1112,7 +1112,7 @@ Widget sAppbar(context ,icon,image,) {
                                 child: Center(
                                   child: Text("apply".tr,
                                     style: TextStyle(
-                                      color: Colors.white
+                                      color: Colors.grey
                                     )
                                   )
                                 ),
@@ -1242,7 +1242,7 @@ Widget sAppbar(context ,icon,image,) {
                                                     border: Border.all(color: AppColors.appBarBackGroundColor),
                                                     color: filteredIndex == index
                                                     ? AppColors.appCategSeleGroundColor
-                                                    : Colors.white,
+                                                    : Colors.grey,
                                                   ),
                                                   padding: EdgeInsets.only(left:6.0,right: 6, top:4),
                                                   child:
@@ -1304,7 +1304,7 @@ Widget sAppbar(context ,icon,image,) {
                                         color: _selectedIndex != null &&
                                         _selectedIndex == index
                                         ? AppColors.appCategSeleGroundColor
-                                        : Colors.white, border: Border.all(
+                                        : Colors.grey, border: Border.all(
                                           color: AppColors.appBarBackGroundColor,
                                           width: 1,
                                         ),
@@ -1425,7 +1425,7 @@ Widget sAppbar(context ,icon,image,) {
                                   child: GestureDetector(
                                     child: Center(
                                       child: Text("apply".tr,
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.grey),
                                       )
                                     ),
                                     onTap: catFilteredID == null && status == null
