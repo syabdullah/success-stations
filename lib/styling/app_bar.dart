@@ -89,14 +89,14 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         icon: Image.asset(AppImages.menuBurger,height: 15,color: AppColors.grey),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ): 
+    ):
     index == 1 ?
       Container(
         alignment:  Alignment.topLeft,
         margin: EdgeInsets.only(top:12, left:01),
         child: IconButton(
           icon: Image.asset(AppImages.newfilter,color: Colors.grey, height:22),
-          onPressed: () => 
+          onPressed: () =>
           Get.bottomSheet(FriendFilter()
         ),
         ),
@@ -118,7 +118,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           null,
           child: Container(
             margin: EdgeInsets.only(left:15, top:08),
-            child:  index == 1 ? Container(): 
+            child:  index == 1 ? Container():
             Image.asset(AppImages.filterImage,
               color: Colors.grey, height: 22
             ),
@@ -144,7 +144,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     title: Padding(
       padding: const EdgeInsets.only(top:08.0),
       child: Image.asset(image, height: 40),
-    ), 
+    ),
     actions: [
       index == 2 ?
       GestureDetector(
@@ -172,11 +172,11 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
               margin: EdgeInsets.only(left:8, top:08),
               child: GestureDetector(
                 onTap: (){
-                  index == 4 ? 
+                  index == 4 ?
                   gridingData.listingGrid('map'):
                   gridingData.listingGrid('list');
                 },
-                child: index == 2 ? Container(): index == 4 ? 
+                child: index == 2 ? Container(): index == 4 ?
                 Image.asset(AppImages.map1, height:20):
                 Image.asset(AppImages.listingImage,color: Colors.grey, height:17)
               ),
@@ -195,7 +195,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
       ),
     ],
     backgroundColor: Colors.white,
-  ) : 
+  ) :
   AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
@@ -207,14 +207,14 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
         icon: Image.asset(AppImages.menuBurgerArabic,height: 18,),
         onPressed: () => globalKey.currentState!.openDrawer()
       ),
-    ): 
+    ):
     index == 3  && index == 0  ?
     Container(
       margin: EdgeInsets.only(top:08),
       alignment: Alignment.topRight,
       child: IconButton(
         icon: Image.asset(AppImages.newfilter,color: Colors.grey,height:23),
-        onPressed: () => index == 4?  filteringCategory(context): 
+        onPressed: () => index == 4?  filteringCategory(context):
          Get.bottomSheet(FriendFilter()),
       ),
     )
@@ -231,19 +231,19 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           }:
           lang == 'ar' && index == 4 ?(){
             filteringCategory(context);
-            
+
           }:
           null,
           child: Container(
             margin:  index == 0 ?EdgeInsets.only(right:10, top:08) :  EdgeInsets.only(right:10, top:08),
             child: GestureDetector(
-              onTap: 
+              onTap:
                 index == 4 ?(){
                 filteringCategory(context);
               }:
               index == 3 ? (){
                 Get.bottomSheet(FriendFilter());
-              }: null, 
+              }: null,
               child: Container(
                 child: Image.asset(
                   AppImages.filterImage,
@@ -273,7 +273,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
     title: Padding(
       padding: const EdgeInsets.only(top:08),
       child: Image.asset(image, height: 40),
-    ), 
+    ),
     actions: [
       index == 2 ?
       GestureDetector(
@@ -293,13 +293,13 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,ind
           children: [
             GestureDetector(
               onTap: (){
-                index == 0 ? 
+                index == 0 ?
                 gridingData.listingGrid('map'):
                 gridingData.listingGrid('list');
               },
               child: Container(
                 margin: EdgeInsets.only(top:08),
-                child: index == 2 ? Container():  
+                child: index == 2 ? Container():
                 index == 0 ? Image.asset(AppImages.map1, height:20): Image.asset(AppImages.listingImage, height:20),
               )
             ),
@@ -341,10 +341,10 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
         ],
       )
     ),
-    
+
     title: Image.asset(
       AppImages.appBarLogo, height: 40,
-    ), 
+    ),
     backgroundColor: AppColors.appBarBackGroundColor,
   ):
   AppBar(
@@ -368,7 +368,7 @@ Widget favAdds(GlobalKey<ScaffoldState> globalKey,context ,image, searchImage,in
     ),
     title: Image.asset(
       AppImages.appBarLogo, height: 40,
-    ), 
+    ),
     actions: [
       Container(
         margin: lang == 'en'? EdgeInsets.only(right:20, top:14): EdgeInsets.only(left:10, top:14),

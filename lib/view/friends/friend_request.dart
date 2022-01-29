@@ -44,7 +44,7 @@ class _FriendReqListState extends State<FriendReqList> {
             ],
           )
         ),
-        actions: [ 
+        actions: [
           GestureDetector(
             onTap: (){
               Get.bottomSheet(SuggestFriends());
@@ -71,15 +71,15 @@ class _FriendReqListState extends State<FriendReqList> {
                   child: Text("No Record Found", style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal))
                 )
               ):
-              val.suggestionsData.length == 0  || val.suggestionsData == null? 
+              val.suggestionsData.length == 0  || val.suggestionsData == null?
               Container(
                 child: Text(
-                  "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
+                  "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24)
                 )
               ):
               Column(
                 children: [
-                  val.friendsData != null ? 
+                  val.friendsData != null ?
                   Column(
                     children: friendList(val.friendsData['data']),
                   ) :
