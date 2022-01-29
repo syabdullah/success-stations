@@ -361,7 +361,7 @@ decoration: BoxDecoration(
                       children: [
                         SizedBox(height:30),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
+                          padding: const EdgeInsets.only(bottom: 8),
                           child: Row(
                             children: [
                               listFavourite[c]['listing'] !=null ?
@@ -371,16 +371,17 @@ decoration: BoxDecoration(
                                     onTap: (){
                                       removeFvr8z();
                                     },
-                                    child: Image.asset(AppImages.redHeart,height:30)
+                                    child: Image.asset(AppImages.redHeart,height:22)
                                   ): null,
                               ): Container(),
+                              SizedBox(width: 10,),
                               Container(
                                 padding: EdgeInsets.only(right:15),
                                 child: GestureDetector(
                                   onTap: (){
                                     launch("tel:${listFavourite[c]['listing']['phone']}");
                                   },
-                                  child: Image.asset(AppImages.call, height: 20)
+                                  child: Image.asset(AppImages.call, height: 22)
                                 ),
                               ),
                             ],

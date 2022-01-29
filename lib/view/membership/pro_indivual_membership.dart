@@ -15,7 +15,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
   bool value = true;
   final memberShipCon = Get.put(MemberShipController());
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> memberShipDatta = [
     "profile".tr,
     "my_ads".tr,
@@ -26,6 +26,38 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     "friend_requests".tr,
     "favourite".tr,
   ];
+
+  List<String> titles = [
+    "Basic",
+    "Advance",
+    "Pro",
+    "unlimited",
+  ];
+  List<String> ads_items = [
+    "Unlimited",
+    "Unlimited",
+    "Unlimited",
+    "Unlimited",
+  ];
+  List<String> branches = [
+    "5 Locations",
+    "10 Locations",
+    "20 Locations",
+    "Unlimited",
+  ];
+  List<String> promotions = [
+    "1 Weekly",
+    "2 Weekly",
+    "10 Weekly",
+    "Unlimited",
+  ];
+List<String> prize = [
+    "49",
+    "99",
+    "199",
+    "299",
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -38,110 +70,230 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-         leading: GestureDetector(
-          child: Row(
+          leading: GestureDetector(
+              child: Row(
             children: [
               GestureDetector(
                 onTap: () => Get.back(),
                 child: Container(
-                  margin: EdgeInsets.only(left:10, top:5),
-                  child: Icon(Icons.arrow_back,
-                    color: Colors.white, size: 25
-                  ),
+                  margin: EdgeInsets.only(left: 10, top: 5),
+                  child: Icon(Icons.arrow_back, color: Colors.white, size: 25),
                 ),
               ),
             ],
-          )
-        ),
-        centerTitle: true,title: Text('mmembership'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+          )),
+          centerTitle: true,
+          title: Text('mmembership'.tr),
+          backgroundColor: AppColors.appBarBackGroundColor),
       body: Column(
         children: [
           space20,
           headingMember(),
           space20,
-          Container(
-            height: Get.height / 1.75,
-            width: Get.width / 1.5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              border: Border.all(
-                color: Colors.blue,
-                style: BorderStyle.solid,
-                width: 2.0,
-              ),
-            ),
-            child: Column(
-              children: [
-                space20,
-                imagess(context),
-                dataBox(),
-              ],
-            ),
-          ),
-          GetBuilder<MemberShipController>(
-            init: MemberShipController(),
-            builder: (val) {
-              return FractionalTranslation(
-                translation: const Offset(0.0, -0.5),
-                child: Container(
-                  height: 50,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: AppColors.appBarBackGroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                    // borderRadius: Border.all()
+          GridView.builder(
+            scrollDirection: Axis.vertical,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 18,
+                childAspectRatio: Get.height / 3 / Get.width / 1.1),
+            itemCount: titles.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                        height: 280,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(40),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text(titles[index],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey)),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: Text("Company Profile",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey)),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Ads Items: ",
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey)),
+                                      Text(ads_items[index],
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.appBarBackGroundColor)),
+                                    ],
+                                  )),Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Branches: ",
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey)),
+                                      Text(branches[index],
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.appBarBackGroundColor)),
+                                    ],
+                                  )),Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Promotions: ",
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey)),
+                                      Text(promotions[index],
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.appBarBackGroundColor)),
+                                    ],
+
+                                  )),
+                              SizedBox(height:22),
+                              Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(prize[index],
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.orange)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 1),
+                                        child: Text("SAR",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                // fontWeight: FontWeight.w400,
+                                                color:Colors.orange)),
+                                      ),
+                                    ],
+                                  )),
+                              SizedBox(height:10),
+                              Container(
+                                height:Get.height/26,
+                                width:Get.width/3.8,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color:AppColors.appBarBackGroundColor
+                                ),
+                                child:  Center(
+                                  child: Text("Subscribe",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color:Colors.white)),
+                                ),
+                              )
+
+                            ],
+                          ),
+                        )),
                   ),
-                  child: Center(
-                      child: val.result != null
-                          ? Text(
-                              statustogle == false
-                                  ? "\$ ${val.result['data']['monthly'].toString()}"
-                                  : "\$ ${val.result['data']['yearly'].toString()}",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            )
-                          : Text('')),
-                ),
+                ],
               );
             },
           ),
+          // Container(
+          //   height: Get.height / 1.75,
+          //   width: Get.width / 1.5,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(16.0),
+          //     border: Border.all(
+          //       color: Colors.blue,
+          //       style: BorderStyle.solid,
+          //       width: 2.0,
+          //     ),
+          //   ),
+          //   child: Column(
+          //     children: [
+          //       space20,
+          //       imagess(context),
+          //       dataBox(),
+          //     ],
+          //   ),
+          // ),
+          // GetBuilder<MemberShipController>(
+          //   init: MemberShipController(),
+          //   builder: (val) {
+          //     return FractionalTranslation(
+          //       translation: const Offset(0.0, -0.5),
+          //       child: Container(
+          //         height: 50,
+          //         width: 120,
+          //         decoration: BoxDecoration(
+          //           color: AppColors.appBarBackGroundColor,
+          //           borderRadius: BorderRadius.circular(10),
+          //           // borderRadius: Border.all()
+          //         ),
+          //         child: Center(
+          //             child: val.result != null
+          //                 ? Text(
+          //                     statustogle == false
+          //                         ? "\$ ${val.result['data']['monthly'].toString()}"
+          //                         : "\$ ${val.result['data']['yearly'].toString()}",
+          //                     style: TextStyle(
+          //                         color: Colors.white,
+          //                         fontWeight: FontWeight.bold,
+          //                         fontSize: 18),
+          //                   )
+          //                 : Text('')),
+          //       ),
+          //     );
+          //   },
+          // ),
           // space50,
-          submitButton(
-              buttonText: 'update_succe'.tr,
-              bgcolor: AppColors.appBarBackGroundColor,
-              textColor: AppColors.appBarBackGroun,
-              callback: navigateToHomeScreen),
+          // submitButton(
+          //     buttonText: 'update_succe'.tr,
+          //     bgcolor: AppColors.appBarBackGroundColor,
+          //     textColor: AppColors.appBarBackGroun,
+          //     callback: navigateToHomeScreen),
         ],
       ),
     );
   }
 
   Widget headingMember() {
-    return Container(
-        margin: EdgeInsets.only(left: 15),
-        child: Text('head_members'.tr,
-            style: TextStyle(fontSize: 17, color: Colors.grey[600])));
-  }
-
-  Widget imagess(context) {
-    final space20 = SizedBox(height: getSize(20, context));
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-            child: Image.asset(
-          AppImages.memberShip,
-          height: 30,
-        )),
-        space20,
-        Container(
-            child: Text("pro_comp".tr,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[500]))),
+            margin: EdgeInsets.only(left: 15),
+            child: Text('head_members'.tr,
+                style: TextStyle(fontSize: 17, color: Colors.grey[600]))),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -164,10 +316,34 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
               width: 5,
             ),
             Container(
-                child: Text('yearly'.tr,
+                child: Text('yearly '.tr,
                     style: TextStyle(color: Colors.grey[400]))),
+            Container(
+                child: Text('15% off'.tr,
+                    style: TextStyle(color: Colors.grey[600]))),
           ],
         ),
+      ],
+    );
+  }
+
+  Widget imagess(context) {
+    final space20 = SizedBox(height: getSize(20, context));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+            child: Image.asset(
+          AppImages.memberShip,
+          height: 30,
+        )),
+        space20,
+        Container(
+            child: Text("pro_comp".tr,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500]))),
       ],
     );
   }
