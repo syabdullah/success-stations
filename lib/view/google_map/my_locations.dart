@@ -32,28 +32,27 @@ class _MyLocationsState extends State<MyLocations> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
+      appBar:
+      AppBar(
         // leadingWidth: 76,
-        backgroundColor: Colors.white,
+        backgroundColor:Colors.white,
         title: Container(
-            margin: EdgeInsets.only(top: 12),
+          // margin: EdgeInsets.only(top: 12),
             child: Text(
-              "Our Locations",
+              "Our Location",
               style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontFamily: "Source_Sans_Pro",
-                  fontWeight: FontWeight.bold),
+
+                  fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
             )),
         centerTitle: true,
         leading: Container(
-            margin: EdgeInsets.only(top: 12, left: 7),
+            margin: EdgeInsets.only( left: 7),
             child: GestureDetector(
-                onTap: () {
+                onTap: (){
                   _scaffoldKey.currentState!.openDrawer();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
+                child:  Padding(
+                  padding: const EdgeInsets.all(8),
                   child: Image.asset(AppImages.imagearrow1,
                       color: Colors.black, height: 22),
                 ))),
@@ -62,21 +61,26 @@ class _MyLocationsState extends State<MyLocations> {
             onTap: () {
               Get.to(AddLocations());
             },
-            child: Container(
-                margin: EdgeInsets.only(top: 10, left: 20),
-                child: Image.asset(AppImages.plusImage,
-                    color: Colors.black, height: 22)),
+            child: Center(
+              child: Container(
+                // margin: EdgeInsets.only( left: 15,),
+                  child: Image.asset(AppImages.plusImage,
+                      color: Colors.black, height: 30)),
+            ),
           ),
           GestureDetector(
             onTap: () {
-              Get.to(AddLocations());
+              // Get.to(AddLocations());
             },
-            child: Container(
-                margin: EdgeInsets.only(top: 10, left: 0),
-                child: Image.asset(AppImages.setting,
-                    color: Colors.black, height: 22)),
+            child: Center(
+              child: Container(
+                  margin: EdgeInsets.only( right:10),
+                  child: Image.asset(AppImages.setting,
+                      color: Colors.black, height: 35)),
+            ),
           ),
-        ],
+        ],),
+
 
         // leading: Row(
         //   mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +107,7 @@ class _MyLocationsState extends State<MyLocations> {
         //     ),
         //   ]
         // ),
-      ),
+      // ),
       drawer: Theme(
         data: Theme.of(context).copyWith(),
         child: AppDrawer(),
