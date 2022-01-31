@@ -350,7 +350,7 @@ class _OfferListState extends State<OfferList> {
   var offerBYID;
   var ind1 = 0;
   var allCheck = false;
-  Color allColor = AppColors.appBarBackGroundColor;
+  Color allColor = AppColors.grey;
   bool textAllcheck = false;
 
   Widget subOffers(dataListedCateOffer) {
