@@ -105,9 +105,9 @@ class _AddLocationsState extends State<AddLocations> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar:PreferredSize( preferredSize: Size.fromHeight(60.0),
-        child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
-      ),
+      // appBar:PreferredSize( preferredSize: Size.fromHeight(60.0),
+      //   child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
+      // ),
       body:SafeArea(
         child: Stack(
           children: [

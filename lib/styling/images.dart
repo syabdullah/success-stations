@@ -114,13 +114,15 @@ class AppImages {
   // new des
   static String newuser = imagePath + 'newuser.png';
   static String newcall = imagePath + 'newcall.png';
-  static String newfilter = imagePath + 'newfilter.png';
+  static String newfilter = imagePath + 'filterred.png';
 
   //APPbAR
-  static String listingImage = imagePath + 'listtt.png';
+  static String listingImage = imagePath + 'list.png';
   static String filterImage = imagePath + 'filterred.png';
+  static String adsFilter = imagePath + 'filter1.png';
+  static String myFriendList = imagePath + 'friendList.png';
   static String gridListing = imagePath + 'gridd.png';
-  static String plusImage1 = imagePath + 'plus@3x.png';
+  static String plusImage1 = imagePath + 'plus@2x.png';
   static String chating = imagePath + 'chats.png';
   static String appbar_location = imagePath + 'appbar_location.png';
   static String remove_friend = imagePath + 'remove_request.png';
