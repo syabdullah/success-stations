@@ -133,18 +133,11 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
           }
               :
           index == 1 ? () {
-<<<<<<< HEAD
             Scaffold.of(context).openDrawer();
             // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
             // FriendFilter();
             // index == 4 ? filteringCategory(context) :
             // Get.bottomSheet(FriendFilter());
-=======
-            index == 4 ? filteringCategory(context) :
-            Get.bottomSheet(FriendFilter());
-            // AppDrawer();
-
->>>>>>> 4c2513ae890c80474506b55adbf415b04be150ab
           } :
           index == 3 ? () {
             adsfiltringheet(context);
