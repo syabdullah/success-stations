@@ -98,6 +98,7 @@ class _AllAddsState extends State<AllAdds> {
               child: favAdds(_scaffoldKey, context, AppImages.appBarLogo,
                   AppImages.appBarSearch, 1))
           : null,
+      backgroundColor: Color(0xfff2f2f2),
       body: GetBuilder<GridListCategory>(
           init: GridListCategory(),
           builder: (valuees) {
@@ -188,13 +189,16 @@ class _AllAddsState extends State<AllAdds> {
           },
           child: allDataAdds[index]['is_active'] == 0
               ? Container()
-              : Container(
-                  decoration: BoxDecoration(),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Card(
+              : Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Container(
+                    decoration: BoxDecoration(),
+                    child: Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
-                        height: 100,
+                        decoration: BoxDecoration(border: Border.all(color: Colors.black26)),
+                        height: 125,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -202,6 +206,7 @@ class _AllAddsState extends State<AllAdds> {
                               children: [
                                 Center(
                                   child: Container(
+                                    width: Get.width/4,
                                       height: Get.height / 4,
                                       child: Padding(
                                         padding: const EdgeInsets.all(10.0),
@@ -213,7 +218,7 @@ class _AllAddsState extends State<AllAdds> {
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
-                                                                10)),
+                                                                0)),
                                                     child: Image.network(
                                                       allDataAdds[index]
                                                           ['image'][0]['url'],
@@ -230,173 +235,235 @@ class _AllAddsState extends State<AllAdds> {
                                                   )),
                                       )),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          allDataAdds[index]['title']['en']
-                                              .toString(),
+                                // Padding(
+                                //   padding: EdgeInsets.only(top: 10),
+                                //   child: Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Container(
+                                //         child: Text(
+                                //           allDataAdds[index]['title']['en']
+                                //               .toString(),
+                                //           style: TextStyle(
+                                //               color: Colors.black,
+                                //               fontWeight: FontWeight.bold),
+                                //         ),
+                                //       ),
+                                //       Row(
+                                //         children: [
+                                //           Container(
+                                //               margin: EdgeInsets.only(top: 5),
+                                //               child: allDataAdds[index]
+                                //                           ['is_rated'] ==
+                                //                       false
+                                //                   ? RatingBar.builder(
+                                //                       initialRating:
+                                //                           allDataAdds[index]
+                                //                                   ['rating']
+                                //                               .toDouble(),
+                                //                       minRating: 1,
+                                //                       direction:
+                                //                           Axis.horizontal,
+                                //                       allowHalfRating: true,
+                                //                       itemCount: 5,
+                                //                       itemSize: 22.5,
+                                //                       itemBuilder:
+                                //                           (context, _) => Icon(
+                                //                         Icons.star,
+                                //                         color: Colors.amber,
+                                //                       ),
+                                //                       onRatingUpdate: (rating) {
+                                //                         var ratingjson = {
+                                //                           'ads_id':
+                                //                               allDataAdds[index]
+                                //                                   ['id'],
+                                //                           'rate': rating
+                                //                         };
+                                //                         ratingcont.ratings(
+                                //                             ratingjson);
+                                //                       },
+                                //                     )
+                                //                   : RatingBar.builder(
+                                //                       initialRating:
+                                //                           allDataAdds[index]
+                                //                                   ['rating']
+                                //                               .toDouble(),
+                                //                       ignoreGestures: true,
+                                //                       minRating: 1,
+                                //                       direction:
+                                //                           Axis.horizontal,
+                                //                       allowHalfRating: true,
+                                //                       itemCount: 5,
+                                //                       itemSize: 22.5,
+                                //                       itemBuilder:
+                                //                           (context, _) => Icon(
+                                //                         Icons.star,
+                                //                         color: Colors.amber,
+                                //                       ),
+                                //                       onRatingUpdate:
+                                //                           (rating) {},
+                                //                     ))
+                                //         ],
+                                //       ),
+                                //       Expanded(
+                                //         flex: 2,
+                                //         child: Row(
+                                //           children: [
+                                //             Icon(Icons.person,
+                                //                 color: Colors.grey),
+                                //             Container(
+                                //               child: Text(
+                                //                 allDataAdds[index]
+                                //                             ['contact_name'] !=
+                                //                         null
+                                //                     ? allDataAdds[index]
+                                //                         ['contact_name']
+                                //                     : '',
+                                //                 style: TextStyle(
+                                //                     color: Colors.grey[300]),
+                                //               ),
+                                //             )
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                      Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Column( mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  allDataAdds[index]['title']['en']
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                                SizedBox(height: 10,),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row (
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            allDataAdds[index]['price'] != null
+                                                ? "${splitedPrice[0]}"
+                                                : '',
+                                            style: TextStyle(
+                                              color: Colors.black,fontSize: 18,
+
+                                            )),
+
+                                        Text(
+                                          ' SAR',
                                           style: TextStyle(
                                               color: Colors.black,
-                                              fontWeight: FontWeight.bold),
+                                              fontSize: 14),
                                         ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                              margin: EdgeInsets.only(top: 5),
-                                              child: allDataAdds[index]
-                                                          ['is_rated'] ==
-                                                      false
-                                                  ? RatingBar.builder(
-                                                      initialRating:
-                                                          allDataAdds[index]
-                                                                  ['rating']
-                                                              .toDouble(),
-                                                      minRating: 1,
-                                                      direction:
-                                                          Axis.horizontal,
-                                                      allowHalfRating: true,
-                                                      itemCount: 5,
-                                                      itemSize: 22.5,
-                                                      itemBuilder:
-                                                          (context, _) => Icon(
-                                                        Icons.star,
-                                                        color: Colors.amber,
-                                                      ),
-                                                      onRatingUpdate: (rating) {
-                                                        var ratingjson = {
-                                                          'ads_id':
-                                                              allDataAdds[index]
-                                                                  ['id'],
-                                                          'rate': rating
-                                                        };
-                                                        ratingcont.ratings(
-                                                            ratingjson);
-                                                      },
-                                                    )
-                                                  : RatingBar.builder(
-                                                      initialRating:
-                                                          allDataAdds[index]
-                                                                  ['rating']
-                                                              .toDouble(),
-                                                      ignoreGestures: true,
-                                                      minRating: 1,
-                                                      direction:
-                                                          Axis.horizontal,
-                                                      allowHalfRating: true,
-                                                      itemCount: 5,
-                                                      itemSize: 22.5,
-                                                      itemBuilder:
-                                                          (context, _) => Icon(
-                                                        Icons.star,
-                                                        color: Colors.amber,
-                                                      ),
-                                                      onRatingUpdate:
-                                                          (rating) {},
-                                                    ))
-                                        ],
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.person,
-                                                color: Colors.grey),
-                                            Container(
-                                              child: Text(
-                                                allDataAdds[index]
-                                                            ['contact_name'] !=
-                                                        null
-                                                    ? allDataAdds[index]
-                                                        ['contact_name']
-                                                    : '',
-                                                style: TextStyle(
-                                                    color: Colors.grey[300]),
-                                              ),
-                                            )
-                                          ],
+
+                                      ],
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          ' Store name',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14,),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                        SizedBox(width: 120,),
+                                        Text(
+                                          ' NEW',
+                                          style: TextStyle(
+                                              color: Colors.greenAccent,
+                                              fontSize: 15,fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20),
-                            Column(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.grey[200],
-                                        child: Icon(
-                                          Icons.person,
-                                          color:
-                                              AppColors.appBarBackGroundColor,
-                                        ))),
-                                Container(
-                                    margin: EdgeInsets.only(right: 5, left: 5),
-                                    child: Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            var json = {
-                                              'ads_id': allDataAdds[index]['id']
-                                            };
-                                            allDataAdds[index]['is_favorite'] ==
-                                                    false
-                                                ? friCont.profileAdsToFav(
-                                                    json, userId)
-                                                : friCont.profileAdsRemove(
-                                                    json, userId);
-                                            controller.addedAllAds();
-                                            controller.addedByIdAddes(
-                                                allDataAdds[index]
-                                                    ['category_id'],
-                                                null);
-                                          },
-                                          child: Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 5, left: 5),
-                                              child: allDataAdds[index]
-                                                          ['is_favorite'] ==
-                                                      false
-                                                  ? Image.asset(
-                                                      AppImages.blueHeart,
-                                                      height: 25)
-                                                  : Image.asset(
-                                                      AppImages.redHeart,
-                                                      height: 25)),
-                                        ),
-                                        Container(
-                                            child: allDataAdds[index]
-                                                        ['phone'] !=
-                                                    null
-                                                ? GestureDetector(
-                                                    onTap: () {
-                                                      launch(
-                                                          "tel:${allDataAdds[index]['phone']}");
-                                                    },
-                                                    child: Image.asset(
-                                                        AppImages.call,
-                                                        height: 25))
-                                                : Container())
-                                      ],
-                                    ))
-                              ],
-                            ),
-                          ],
+
+                            // SizedBox(height: 20),
+                            // Column(
+                            //   children: [
+                            //     Padding(
+                            //         padding: EdgeInsets.all(10.0),
+                            //         child: CircleAvatar(
+                            //             backgroundColor: Colors.grey[200],
+                            //             child: Icon(
+                            //               Icons.person,
+                            //               color:
+                            //                   AppColors.appBarBackGroundColor,
+                            //             ))),
+                            //     Container(
+                            //         margin: EdgeInsets.only(right: 5, left: 5),
+                            //         child: Row(
+                            //           children: [
+                            //             GestureDetector(
+                            //               onTap: () {
+                            //                 var json = {
+                            //                   'ads_id': allDataAdds[index]['id']
+                            //                 };
+                            //                 allDataAdds[index]['is_favorite'] ==
+                            //                         false
+                            //                     ? friCont.profileAdsToFav(
+                            //                         json, userId)
+                            //                     : friCont.profileAdsRemove(
+                            //                         json, userId);
+                            //                 controller.addedAllAds();
+                            //                 controller.addedByIdAddes(
+                            //                     allDataAdds[index]
+                            //                         ['category_id'],
+                            //                     null);
+                            //               },
+                            //               child: Container(
+                            //                   padding: EdgeInsets.only(
+                            //                       right: 5, left: 5),
+                            //                   child: allDataAdds[index]
+                            //                               ['is_favorite'] ==
+                            //                           false
+                            //                       ? Image.asset(
+                            //                           AppImages.blueHeart,
+                            //                           height: 25)
+                            //                       : Image.asset(
+                            //                           AppImages.redHeart,
+                            //                           height: 25)),
+                            //             ),
+                            //             Container(
+                            //                 child: allDataAdds[index]
+                            //                             ['phone'] !=
+                            //                         null
+                            //                     ? GestureDetector(
+                            //                         onTap: () {
+                            //                           launch(
+                            //                               "tel:${allDataAdds[index]['phone']}");
+                            //                         },
+                            //                         child: Image.asset(
+                            //                             AppImages.call,
+                            //                             height: 25))
+                            //                     : Container())
+                            //           ],
+                            //         ))
+                            //   ],
+                            // ),
+                      )],
                         ),
+      ]),
                       ),
-                    ),
                   ),
-                ),
-        );
+        ),
+              ));
       },
     );
   }
@@ -434,7 +501,7 @@ class _AllAddsState extends State<AllAdds> {
                   child: Container(
                       height: Get.height,
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey)),
+                          border: Border.all(color: Color(0xffC6C5C4))),
                       child: Column(children: [
                         Container(
                             width: Get.width < 420
@@ -765,7 +832,7 @@ class _AllAddsState extends State<AllAdds> {
 
   void navigateToGoogleLogin() {}
   var allCheck = false;
-  Color allColor = AppColors.appBarBackGroundColor;
+  Color allColor = Colors.grey;
   bool textAllcheck = false;
 
   Widget addsCategoryWidget(havingAdds) {
@@ -797,7 +864,7 @@ class _AllAddsState extends State<AllAdds> {
                                 havingCategorybool = false;
                                 textAllcheck = false;
                                 selectedIndex = index;
-                                allColor = AppColors.appBarBackGroundColor;
+                                allColor = Colors.grey;
                                 addsGet.myAddsCategory();
                               });
                             },
@@ -806,9 +873,9 @@ class _AllAddsState extends State<AllAdds> {
                                   ? EdgeInsets.only(left: 6)
                                   : EdgeInsets.only(right: 2),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
-                                    color: AppColors.appBarBackGroundColor),
+                                    color: Colors.grey),
                                 color: allColor,
                               ),
                               // padding: EdgeInsets.all(10.0),
@@ -818,7 +885,7 @@ class _AllAddsState extends State<AllAdds> {
                                   style: TextStyle(
                                     color: textAllcheck == false
                                         ? Colors.white
-                                        : AppColors.appBarBackGroundColor,
+                                        : AppColors.grey,
                                     fontSize: 12,
                                     fontStyle: FontStyle.normal,
                                   ),
@@ -848,13 +915,13 @@ class _AllAddsState extends State<AllAdds> {
                       },
                       child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
+                            borderRadius: BorderRadius.circular(2.0),
                             border: Border.all(
-                                color: AppColors.appBarBackGroundColor),
+                                color: AppColors.grey),
                             color: selectedIndex == index &&
                                     id == havingAdds[index]['id'] &&
                                     textAllcheck == true
-                                ? AppColors.appBarBackGroundColor
+                                ? AppColors.grey
                                 : Colors.white,
                           ),
                           padding: EdgeInsets.all(10.0),
@@ -869,7 +936,7 @@ class _AllAddsState extends State<AllAdds> {
                                       id == havingAdds[index]['id'] &&
                                       textAllcheck == true
                                   ? Colors.white
-                                  : AppColors.appBarBackGroundColor,
+                                  : AppColors.grey,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.normal,
