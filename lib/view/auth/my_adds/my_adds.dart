@@ -306,7 +306,7 @@ class _MyAddsState extends State<MyAdds> {
                               ]
                           ),
                         ),
-                        SizedBox(width: 40,),
+                        SizedBox(width: 28,),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
