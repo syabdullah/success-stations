@@ -142,7 +142,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
             filtrationModel(context);
           } :
           null,
-          child: index == 0 || index == 4 ? Container() :
+          child: index == 0 || index == 4 ||index ==3 ? Container() :
 
           Container(
             margin: EdgeInsets.only(left: 15, top: 08),
@@ -162,7 +162,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
             Get.to(AddOffersPage());
           } :
           index == 4 ? () {
-            filtrationModel(context);
+            Get.to(AddPostingScreen());
           } : null,
           child: Container(
               margin: EdgeInsets.only(left: 10, top: 08),
@@ -233,7 +233,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
               ),
             ) : Container(),
 
-           index == 4? GestureDetector(
+           index == 4 || index==3? GestureDetector(
               onTap: () {
                 filtrationModel(context);
               },
@@ -255,7 +255,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
                       )
               ),
             ):Container(),
-            index == 4?
+            index == 4 || index==3?
             Container(
               height: 25,
               width: 30,
@@ -288,7 +288,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
                   )
               ),
             ):Container(),
-            index == 4? GestureDetector(
+            index == 4 || index==3? GestureDetector(
               onTap: () {
                 gridingData.listingGrid('grid');
               },
@@ -306,7 +306,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
                       : Padding(
                     padding: const EdgeInsets.all(2),
                     child: Image.asset(
-                        AppImages.gridView, color: Colors.black, height: 30),
+                        index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
                   )
               ),
             ):Container()
