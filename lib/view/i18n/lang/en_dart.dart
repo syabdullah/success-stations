@@ -66,6 +66,8 @@ const Map<String, String> en = {
   "region": "Region",
   "country": "Country",
   "coun": "COUNTRY : ",
+  "featured_ads": "Featured Ad",
+  "termsline":"I agree to the terms and conditions",
   "descrip": " DESCRIPTION :",
   "city": "City",
   "Iqama_number": "ID / Iqama number",

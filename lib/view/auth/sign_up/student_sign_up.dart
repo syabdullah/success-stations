@@ -122,174 +122,174 @@ class _SignPageState extends State<StudentSignUp> {
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
-          child: Column(
-            children: [
-              space10,
-              fullNameStudent(),
-              space10,
-              eMail(),
-              space10,
-              Row(
-                children: [
-                  password(),
-                  confirmPassword(),
-                ],
-              ),
-              space10,
-              mobile(),
-              // space10,
-              // studentdob(),
-              // space10,
-              // GetBuilder<ContryController>(
-              //   init: ContryController(),
-              //   builder: (val) {
-              //     return country(val.countryListdata);
-              //   },
-              // ),
-              space10,
-              Row(
-                children: [
-                  GetBuilder<ContryController>(
-                    init: ContryController(),
-                    builder: (val) {
-                      return region(val.regionListdata);
-                    },
-                  ),
-                  SizedBox(width: 0.5,),
-                  GetBuilder<ContryController>(
-                    init: ContryController(),
-                    builder: (val) {
-                      return city(val.cityListData);
-                    },
-                  ),
-                ],
-              ),
-              space10,
-              Row(
-                children: [
-                  GetBuilder<UniversityController>(
-                    init: UniversityController(),
-                    builder: (val) {
-                      return university(val.dataUni);
-                    },
-                  ),
-                  SizedBox(
-                    width: 1.8,
-                  ),
-                  GetBuilder<CollegeController>(
-                    init: CollegeController(),
-                    builder: (val) {
-                      return college(val.listCollegeData);
-                    },
-                  ),
-                ],
-              ),
-              space10,
-              degree(),
-              space10,
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding:lang == 'ar' ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19.0, top: 8) :EdgeInsets.only(left: MediaQuery.of(context).size.width/19.0, top: 8) ,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                space10,
+                fullNameStudent(),
+                space10,
+                eMail(),
+                space10,
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+
+                    password(),
+                    confirmPassword(),
+                  ],
+                ),
+                space10,
+                mobile(),
+                // space10,
+                // studentdob(),
+                // space10,
+                // GetBuilder<ContryController>(
+                //   init: ContryController(),
+                //   builder: (val) {
+                //     return country(val.countryListdata);
+                //   },
+                // ),
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return region(val.regionListdata);
+                      },
+                    ),
+                    SizedBox(width: 0.5,),
+                    GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return city(val.cityListData);
+                      },
+                    ),
+                  ],
+                ),
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GetBuilder<UniversityController>(
+                      init: UniversityController(),
+                      builder: (val) {
+                        return university(val.dataUni);
+                      },
+                    ),
+                    SizedBox(
+                      width: 1.8,
+                    ),
+                    GetBuilder<CollegeController>(
+                      init: CollegeController(),
+                      builder: (val) {
+                        return college(val.listCollegeData);
+                      },
+                    ),
+                  ],
+                ),
+                space10,
+                degree(),
+                space10,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
                       child: Container(
-                          height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
-                          width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                          border: Border.all(color:AppColors.outline)
+                        ),
+                          height: Get.height/7.8,
+                          width:Get.width/3,
                           child: Padding(
                             padding: lang== 'ar'? EdgeInsets.all(10.0):EdgeInsets.all(10.0),
                             child: CircleAvatar(child: Icon(Icons.email)),
                           ),
-                          color: Colors.white
+
 
                           // decoration: BoxDecoration(color: ),
                           ),
                     ),
-                  ),
-                  Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: lang == 'ar'?EdgeInsets.only(
-                          top: 8.0,
-                          left: MediaQuery.of(context).size.width/170,
-                          right: MediaQuery.of(context).size.width/100,
-                        ): EdgeInsets.only(
-                          top: 8.0,
-                          right: MediaQuery.of(context).size.width/19,
-                          left: MediaQuery.of(context).size.width/120,
-                        ),
-                        child: about(),
-                      )),
-                ],
-              ),
-              space10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Transform.scale(
-                    scale: .9,
-                    child: new Checkbox(
-                      activeColor: AppColors.appBarBackGroundColor,
-                      value: _isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          _isChecked = value!;
-                        });
-                      },
-                    ),
-                  ),
-                  Text('terms'.tr,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold)),
-                  Text("terms_condition".tr,
-                      style: TextStyle(
-                          fontFamily: 'Lato',
-                          color: AppColors.appBarBackGroundColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-              space20,
-              submitButton(
-                  bgcolor: AppColors.appBarBackGroundColor,
-                  textColor: AppColors.appBarBackGroun,
-                  buttonText: "sign_up_text".tr,
-                  fontSize: 16.0,
-                  callback: _isChecked == true ? createUser : null),
-              space20,
-              Container(
-                height: 1,
-                color: Colors.grey,
-              ),
-              space20,
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/login');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "have_account".tr,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey),
-                    ),
-                    Text(
-                      "sign_in".tr,
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: AppColors.appBarBackGroundColor,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    Expanded(
+                        flex: 6,
+                        child: about()),
                   ],
                 ),
-              ),
-              space20,
-            ],
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Transform.scale(
+                      scale: .9,
+                      child: new Checkbox(
+                        activeColor: AppColors.appBarBackGroundColor,
+                        value: _isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            _isChecked = value!;
+                          });
+                        },
+                      ),
+                    ),
+              Text('termsline'.tr,
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black,
+                      fontFamily: "andada",
+                      fontWeight: FontWeight.w600
+                  )),
+                    // Text("terms_condition".tr,
+                    //     style: TextStyle(
+                    //         fontFamily: 'Lato',
+                    //         color: AppColors.appBarBackGroundColor,
+                    //         fontSize: 14,
+                    //         fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                space20,
+                submitButton(
+                    bgcolor: AppColors.appBarBackGroundColor,
+                    textColor: AppColors.appBarBackGroun,
+                    buttonText: "sign_up_text".tr,
+                    fontSize: 16.0,
+                    callback: _isChecked == true ? createUser : null),
+                space20,
+                Container(
+                  height: 1,
+                  color: Colors.grey,
+                ),
+                space20,
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/login');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "have_account".tr,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        "sign_in".tr,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: AppColors.appBarBackGroundColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                space20,
+              ],
+            ),
           ),
         ),
       ),
@@ -298,8 +298,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget fullNameStudent() {
     return Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
-      width: Get.width * 0.9,
+      // margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+      width: Get.width,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
@@ -386,7 +386,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget about() {
     return Container(
       // height: ,
-      margin:lang == 'ar'? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0): EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0),
+      // margin:lang == 'ar'? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0): EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0),
       width: Get.width * 0.55,
       child: CustomTextFiled(
         maxLine: 4,
@@ -417,8 +417,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget degree() {
     return Container(
-        margin: lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19):EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
-        width: Get.width * 0.9,
+        // margin: lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19):EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+        width: Get.width ,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -460,8 +460,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget eMail() {
     return Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
-      width: Get.width * 0.9,
+      // margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+      width: Get.width ,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
@@ -494,12 +494,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget password() {
     return Container(
-      margin: lang == 'ar'
-          ? EdgeInsets.only(
-              right: MediaQuery.of(context).size.width/19, left: MediaQuery.of(context).size.width / 46)
-          : EdgeInsets.only(
-              left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.43,
+      // margin: lang == 'ar'
+      //     ? EdgeInsets.only(
+      //         right: MediaQuery.of(context).size.width/19, left: MediaQuery.of(context).size.width / 46)
+      //     : EdgeInsets.only(
+      //         left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -532,9 +532,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget confirmPassword() {
     return Container(
-      margin:
-          lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19) : EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
-      width: Get.width * 0.44,
+      // margin:
+      //     lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19) : EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -567,8 +567,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
-        width: Get.width * 0.9,
+        // margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+        width: Get.width,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(0),
@@ -743,10 +743,10 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-        margin: lang == 'ar' ?EdgeInsets.only(
-            right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
-            left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.43,
+        // margin: lang == 'ar' ?EdgeInsets.only(
+        //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+        //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -795,8 +795,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget city(List citydata) {
     return Container(
-        margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.44,
+        // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -836,10 +836,10 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget university(List daattta) {
     return Container(
-        margin: lang == 'ar' ?EdgeInsets.only(
-            right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
-            left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.43,
+        // margin: lang == 'ar' ?EdgeInsets.only(
+        //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+        //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -880,8 +880,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget college(List collegeData) {
     return Container(
-        margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.44,
+        // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),

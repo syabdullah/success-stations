@@ -384,11 +384,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 ),
                 space10,
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Transform.scale(
                       scale: .9,
-                      child: new Checkbox(
+                      child:  Checkbox(
                         activeColor: AppColors.appBarBackGroundColor,
                         value: _isChecked,
                         onChanged: (value) {
@@ -398,17 +398,19 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         },
                       ),
                     ),
-                    Text('terms'.tr,
+                    Text('termsline'.tr,
                         style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold)),
-                    Text("terms_condition".tr,
-                        style: TextStyle(
-                            fontFamily: 'Lato',
-                            color: AppColors.appBarBackGroundColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold)),
+                            fontSize: 13,
+                            color: Colors.black,
+                            fontFamily: "andada",
+                            fontWeight: FontWeight.w600
+                        )),
+                    // Text("terms_condition".tr,
+                    //     style: TextStyle(
+                    //         fontFamily: 'Lato',
+                    //         color: AppColors.black,
+                    //         fontSize: 13,
+                    //         fontWeight: FontWeight.bold)),
                   ],
                 ),
                 space20,
@@ -1125,7 +1127,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           Padding(
               padding: EdgeInsets.only(top: 8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Radio(
                   //   value: t.index,
@@ -1151,7 +1153,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                     child: Container(
                       height: 45,
-                      width: MediaQuery.of(context).size.width * 0.463,
+                      width: MediaQuery.of(context).size.width * 0.46,
                       child: Row(
 
                         children: [
@@ -1197,7 +1199,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                     child: Container(
                       height: 45,
-                      width: MediaQuery.of(context).size.width * 0.464,
+                      width: MediaQuery.of(context).size.width * 0.46,
                       child: Row(
                         children: [
                           Padding(

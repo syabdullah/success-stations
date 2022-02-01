@@ -213,36 +213,36 @@ class _SignPageState extends State<SignIn> {
     );
   }
 
-//   Widget eMail() {
-//     return Container(
-//       decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
-//       margin: EdgeInsets.only(left: 20, right: 20),
-//       width: Get.width * 0.9,
-//       child: CustomTextFiled(
-//         isObscure: false,
-//         hintText: "emails".tr,
-//         hintStyle: TextStyle(
-//           fontSize: lang == 'ar' ? 14 : 16,
-//           color: Colors.grey,
-//         ),
+  // Widget eMail() {
+  //   return Container(
+  //     decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
+  //     margin: EdgeInsets.only(left: 20, right: 20),
+  //     width: Get.width * 0.9,
+  //     child: CustomTextFiled(
+  //       isObscure: false,
+  //       hintText: "emails".tr,
+  //       hintStyle: TextStyle(
+  //         fontSize: lang == 'ar' ? 14 : 16,
+  //         color: Colors.grey,
+  //       ),
+  //
+  //       contentPadding:
+  //       new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+  //       hintColor: AppColors.inputTextColor,
+  //       onChanged: (value) {},
+  //       onSaved: (String? newValue) {},
+  //       onFieldSubmitted: (value) {},
+  //       textController: email,
+  //       validator: (value) => value == ''
+  //           ? 'email_required'.tr
+  //           : !value.contains('@') || !value.contains('.')
+  //           ? 'enter_valid_email'.tr
+  //           : null,
+  //       errorText: '',
+  //     ),
+  //   );
+  // }
 
-//         contentPadding:
-//         new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-//         hintColor: AppColors.inputTextColor,
-//         onChanged: (value) {},
-//         onSaved: (String? newValue) {},
-//         onFieldSubmitted: (value) {},
-//         textController: fulNameController,
-//         validator: (value) => value == ''
-//             ? 'email_required'.tr
-//             : !value.contains('@') || !value.contains('.')
-//             ? 'enter_valid_email'.tr
-//             : null,
-//         errorText: '',
-//       ),
-//     );
-//   }
-// >>>>>>> af2e421a40eeeb028ffdae159d5118e303e9734a
 
   Widget language(List data) {
     return ButtonTheme(
@@ -295,7 +295,8 @@ class _SignPageState extends State<SignIn> {
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(
-          obscureText: passwordVisible,
+          controller:email ,
+          // obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
                 new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -327,12 +328,13 @@ class _SignPageState extends State<SignIn> {
               borderSide: BorderSide(color: AppColors.outline),
             ),
           ),
-          validator: (value) => value == ''
-              ? 'email_required'.tr
-              : value!.contains('@') || value.contains('.')
-                  ? 'enter_valid_email'.tr
-                  : null,
-          onSaved: (val) => email = TextEditingController(text: val),
+            validator: (value) => value == ''
+                      ? 'email_required'.tr
+                      : !value!.contains('@') || !value!.contains('.')
+                      ? 'enter_valid_email'.tr
+                      : null,
+                  // errorText: '',
+          // onSaved: (val) => email = TextEditingController(text: val),
         ));
   }
 

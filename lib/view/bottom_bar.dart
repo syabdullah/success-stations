@@ -55,12 +55,20 @@ class _BottomTabsState extends State<BottomTabs> {
     CustomInfoWindowExample(),
     AllAdds(),
   ];
+  // final List<Widget> _archildren = [
+  //   AllAdds(),
+  //   CustomInfoWindowExample(),
+  //   AdsView(),
+  //   FriendList(),
+  //   OfferList(),
+  // ];
+
   final List<Widget> _archildren = [
-    AllAdds(),
-    CustomInfoWindowExample(),
-    AdsView(),
-    FriendList(),
     OfferList(),
+    FriendList(),
+    AdsView(),
+    CustomInfoWindowExample(),
+    AllAdds(),
   ];
 
   void onTabTapped(int index) {

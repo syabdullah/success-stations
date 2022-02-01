@@ -78,12 +78,12 @@ class _AdsViewState extends State<AdsView> {
                   return dat.datacateg.length == 0
                       ? PlayStoreShimmer()
                       : advertisingList(
-                          Get.height / 5,
+                         lang=="ar"? Get.height / 4.5:Get.height / 4,
                           Get.width / 3.7,
                           Get.width < 420 ? Get.height / 7.5 : Get.height / 7.5,
                           dat.datacateg);
                 }),
-            featureTextAdded("Jeddah"+" | "+"Featured ads", "".tr),
+            featureTextAdded("jeddah"+" | "+"featured_ads".tr, "".tr),
             GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data) {
@@ -323,8 +323,8 @@ class _AdsViewState extends State<AdsView> {
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
-            crossAxisSpacing: 15.0,
-            mainAxisSpacing: 5.0,
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 15.0,
           ),
           // scrollDirection: Axis.horizontal,
           itemCount: data != null ? data.length : 0,
@@ -362,7 +362,9 @@ class _AdsViewState extends State<AdsView> {
                               : data[index]['category'][lang] == null
                                   ? data[index]['category']['en']
                                   : '',
-                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontFamily:  "Source_Sans_Pro",
                               color: Colors.black))),
@@ -528,7 +530,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         //           )),
 
                         Padding(
-                          padding: const EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5,right: 5),
                           child: Container(
                               margin: lang == 'ar'
                                   ? EdgeInsets.only(top: 5, right: 5)
@@ -556,7 +558,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         ),
 
                         Padding(
-                          padding: const EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5,right: 5),
                           child: Row(
                             children: [
                               Container(
@@ -586,7 +588,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 8),
+                          padding: const EdgeInsets.only(left: 8,right: 8),
                           child: Container(
                             margin: EdgeInsets.only(
                               top: 4,

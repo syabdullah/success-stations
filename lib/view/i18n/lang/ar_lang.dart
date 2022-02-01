@@ -1,6 +1,7 @@
 const Map<String, String> ar = {
   "set_new_pass": "قم بتعيين كلمة المرور الجديدة لتسجيل الدخول",
   "terms": "أوافق ",
+  "termsline":"أوافق على الشروط",
   "terms_condition": " على الشروط",
   "Responsible": "المسؤول",
   "forget_Desc":
@@ -11,7 +12,7 @@ const Map<String, String> ar = {
   "choose_language": "اختر اللغة",
   'choose_language_drop': "اختر اللغة",
   "choose_country": "اختر الدولة",
-
+  "featured_ads":"إعلانات مميزة",
   "welcome_back": "مرحبا بعودتك!",
   "sign_continue": "تسجيل الدخول للمتابعة",
   "remember_me": "تذكرنى",
