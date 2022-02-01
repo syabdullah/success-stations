@@ -191,10 +191,10 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, top: 8),
+                      padding:lang == 'ar' ? EdgeInsets.only(right: 20.0, top: 8) :EdgeInsets.only(left: 20.0, top: 8) ,
                       child: Container(
-                          height: MediaQuery.of(context).size.height / 8,
-                          width: MediaQuery.of(context).size.width / 3,
+                          height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
+                          width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: CircleAvatar(child: Icon(Icons.email)),
@@ -208,10 +208,14 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                       flex: 6,
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: lang == 'ar'?EdgeInsets.only(
                           top: 8.0,
                           left: 10,
                           right: 20,
+                        ): EdgeInsets.only(
+                          top: 8.0,
+                          right: 10,
+                          left: 10,
                         ),
                         child: about(),
                       )),
@@ -380,7 +384,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget about() {
     return Container(
-      margin: EdgeInsets.only(left: 0, right: 0),
+      // height: ,
+      margin:lang == 'ar'? EdgeInsets.only(left: 07, right: 0): EdgeInsets.only(left: 8, right: 0),
       width: Get.width * 0.55,
       child: CustomTextFiled(
         maxLine: 4,
@@ -411,7 +416,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget degree() {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 17),
+        margin: lang == 'ar' ? EdgeInsets.only(left: 17, right: 20):EdgeInsets.only(left: 20, right: 17),
         width: Get.width * 0.9,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -527,7 +532,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget confirmPassword() {
     return Container(
       margin:
-          lang == 'ar' ? EdgeInsets.only(right: 4) : EdgeInsets.only(left: 4),
+          lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
       width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
@@ -737,8 +742,11 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-        margin: EdgeInsets.only(
-            left: 20, right: MediaQuery.of(context).size.width / 46),
+        margin: lang == 'ar'
+            ? EdgeInsets.only(
+                right: 20, left: MediaQuery.of(context).size.width / 46)
+            : EdgeInsets.only(
+                left: 20, right: MediaQuery.of(context).size.width / 46),
         width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -788,7 +796,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget city(List citydata) {
     return Container(
-        margin: EdgeInsets.only(right: 4),
+        margin:lang == 'ar'
+            ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
         width: Get.width * 0.44,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -829,7 +838,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget university(List daattta) {
     return Container(
-        margin: EdgeInsets.only(
+        margin: lang == 'ar' ?EdgeInsets.only(
+            right: 20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
             left: 20, right: MediaQuery.of(context).size.width / 46),
         width: Get.width * 0.43,
         decoration: BoxDecoration(
@@ -872,7 +882,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget college(List collegeData) {
     return Container(
-        margin: EdgeInsets.only(right: 4),
+        margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
         width: Get.width * 0.44,
         decoration: BoxDecoration(
             color: Colors.white,
