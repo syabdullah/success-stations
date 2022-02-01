@@ -60,7 +60,7 @@ class _CountryPageState extends State<Ccountry> {
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 20),
-                      height: Get.height / 8,
+                      height: Get.height / 10,
                       width: Get.width / 5,
                       decoration: BoxDecoration(
                         border: Border.all(

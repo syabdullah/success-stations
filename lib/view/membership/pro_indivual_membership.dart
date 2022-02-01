@@ -99,9 +99,9 @@ List<String> prize = [
                 crossAxisCount: 2,
                 crossAxisSpacing: 18,
 
-                childAspectRatio: Get.height / 3.3 / Get.width / 1.1),
+                // childAspectRatio: Get.height / 3.3 / Get.width / 1.1),
 
-                childAspectRatio: Get.height / 3 / Get.width / 1.1),
+                childAspectRatio: Get.height / 3 / Get.width / 1.1,),
 
             itemCount: titles.length,
             itemBuilder: (context, index) {

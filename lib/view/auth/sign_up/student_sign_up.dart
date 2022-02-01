@@ -2,21 +2,21 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// ignore: unused_import
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/college_controller.dart';
-import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
+import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/text_field.dart';
-
-// ignore: unused_import
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 DateTime? dateTime;
 var dateFormate =
@@ -155,7 +155,6 @@ class _SignPageState extends State<StudentSignUp> {
                       return region(val.regionListdata);
                     },
                   ),
-                  SizedBox(width: 1.8,),
                   GetBuilder<ContryController>(
                     init: ContryController(),
                     builder: (val) {
@@ -173,7 +172,9 @@ class _SignPageState extends State<StudentSignUp> {
                       return university(val.dataUni);
                     },
                   ),
-                  SizedBox(width: 1.8,),
+                  SizedBox(
+                    width: 1.8,
+                  ),
                   GetBuilder<CollegeController>(
                     init: CollegeController(),
                     builder: (val) {
@@ -190,10 +191,10 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 18.0,top: 8),
+                      padding: const EdgeInsets.only(left: 20.0, top: 8),
                       child: Container(
                           height: MediaQuery.of(context).size.height / 8,
-                          width: MediaQuery.of(context).size.width / 5,
+                          width: MediaQuery.of(context).size.width / 3,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: CircleAvatar(child: Icon(Icons.email)),
@@ -207,7 +208,7 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                       flex: 6,
                       child: Padding(
-                        padding:  EdgeInsets.only(
+                        padding: EdgeInsets.only(
                           top: 8.0,
                           left: 10,
                           right: 20,
@@ -297,7 +298,7 @@ class _SignPageState extends State<StudentSignUp> {
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            : EdgeInsets.only(left: 20),
         isObscure: false,
         color: Colors.white,
         hintText: 'full_name'.tr,
@@ -379,13 +380,13 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget about() {
     return Container(
-      // margin: EdgeInsets.only(left: 20, right: 20),
-      // width: Get.width * 0.55,
+      margin: EdgeInsets.only(left: 0, right: 0),
+      width: Get.width * 0.55,
       child: CustomTextFiled(
         maxLine: 4,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 20, top: 20)
-            : EdgeInsets.only(left: 20, top: 20),
+            ? EdgeInsets.only(right: 16, top: 20)
+            : EdgeInsets.only(left: 16, top: 20),
         isObscure: false,
         color: Colors.white,
         hintText: 'about'.tr,
@@ -410,7 +411,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget degree() {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
+        margin: EdgeInsets.only(left: 20, right: 17),
         width: Get.width * 0.9,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -487,8 +488,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget password() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 8),
-      width: Get.width * 0.44,
+      margin: lang == 'ar'
+          ? EdgeInsets.only(
+              right: 20, left: MediaQuery.of(context).size.width / 46)
+          : EdgeInsets.only(
+              left: 20, right: MediaQuery.of(context).size.width / 46),
+      width: Get.width * 0.43,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -521,8 +526,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget confirmPassword() {
     return Container(
-      // margin: EdgeInsets.only(right: 18),
-      width: Get.width * 0.43,
+      margin:
+          lang == 'ar' ? EdgeInsets.only(right: 4) : EdgeInsets.only(left: 4),
+      width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -558,7 +564,7 @@ class _SignPageState extends State<StudentSignUp> {
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         decoration: BoxDecoration(
-          color: Colors.white,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(0),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -614,9 +620,7 @@ class _SignPageState extends State<StudentSignUp> {
           return null;
         },
         style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold),
+            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade200),
@@ -733,8 +737,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 5),
-        width: Get.width * 0.44,
+        margin: EdgeInsets.only(
+            left: 20, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -783,8 +788,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget city(List citydata) {
     return Container(
-        margin: EdgeInsets.only(right: 20),
-        width: Get.width * 0.43,
+        margin: EdgeInsets.only(right: 4),
+        width: Get.width * 0.44,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -824,8 +829,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget university(List daattta) {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 5),
-        width: Get.width * 0.44,
+        margin: EdgeInsets.only(
+            left: 20, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -837,7 +843,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintUniText != null ? hintUniText : "universitysu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ?  10 : 12,
+                      fontSize: lang == 'ar' ? 10 : 12,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -866,8 +872,8 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget college(List collegeData) {
     return Container(
-        margin: EdgeInsets.only(right: 20),
-        width: Get.width * 0.43,
+        margin: EdgeInsets.only(right: 4),
+        width: Get.width * 0.44,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -879,7 +885,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintClgText != null ? hintClgText : "collegesu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ?  10 : 12,
+                      fontSize: lang == 'ar' ? 10 : 12,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
