@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/all_Adds_category_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/favorite_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
@@ -30,8 +31,13 @@ class _FavouritePageState extends State<FavouritePage> {
   Color listIconColor = Colors.blue;
   GetStorage box = GetStorage();
   bool isButtonPressed = false;
-  
-
+bool itemshow = true;
+   int select = 0;
+List<String> headings = [
+  "item     |     ",
+  "Service Provider     |     ",
+  "promotions"
+];
   allWordsCapitilize (String str) {
     return str.toLowerCase().split(' ').map((word) {
       String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
@@ -67,105 +73,252 @@ class _FavouritePageState extends State<FavouritePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xfff2f2f2),
-      key: _scaffoldKey,
-      appBar: AppBar(
-        // leadingWidth: 76,
-        backgroundColor:Colors.white,
-        // title: Container(
-        //   // margin: EdgeInsets.only(top: 12),
-        //     child: Text(
-        //       "My Fevorite",
-        //       style: TextStyle(
-        //
-        //           fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
-        //     )),
-        centerTitle: true,
-        leading: Container(
-            margin: EdgeInsets.only( left: 7),
-            child: GestureDetector(
-                onTap: () {
-                  _scaffoldKey.currentState!.openDrawer();
-                },
-                child:  Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Image.asset(AppImages.imagearrow1,
-                      color: Colors.black, height: 22),
-                ))),
-        actions: [
-       Center(
-         child: Padding(
-           padding: const EdgeInsets.only(right: 15),
-           child: Container(
-            // margin: EdgeInsets.only(top: 12),
-              child: Text(
-                "My Favorite",
-                style: TextStyle(
-
-                    fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
-              )),
-         ),
-       ),
-          // GestureDetector(
-          //   onTap: () {
-          //   },
-          //   child: Center(
-          //     child: Container(
-          //       // margin: EdgeInsets.only( left: 15,),
-          //         child: Image.asset(AppImages.plusImage,
-          //             color: Colors.black, height: 30)),
-          //   ),
-          // ),
-          // GestureDetector(
-          //   onTap: () {
-          //     // Get.to(AddLocations());
-          //   },
-          //   child: Center(
-          //     child: Container(
-          //         margin: EdgeInsets.only( right:10),
-          //         child: Image.asset(AppImages.setting,
-          //             color: Colors.black, height: 35)),
-          //   ),
-          // ),
-        ],),
-      // appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      //   child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
-      // ),
-      drawer: Theme(
-        data: Theme.of(context).copyWith( ),
-        child: AppDrawer(),
-      ),
-      body: GetBuilder<GridListCategory>(
-        init:GridListCategory(),
-        builder: (valueu) {
-          return  SingleChildScrollView(
-            child: Column(
-              children: [
-                GetBuilder<FavoriteController>(
-                  init: FavoriteController(),
-                  builder: (val) {
-                    return val.fvr8DataList !=null &&  val.fvr8DataList['data'] != null && val.fvr8DataList['success'] == true  ? 
-                    Column(
-                      children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
-                    ):myAddsList(val.fvr8DataList['data']),
-                      // myAddGridView(val.fvr8DataList['data']) ,
-                  ):
-                  Container(
-                    height: Get.height/1.5,
-                    child:Center(
-                      child: Text(
-                        "fav".tr,
-                        style:TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-                      ),
-                    )
-                  );
+    return DefaultTabController(
+      length: 3,  // Added
+      initialIndex: 0, //Added
+      child: Scaffold(
+        backgroundColor: Color(0xfff2f2f2),
+        key: _scaffoldKey,
+        appBar: AppBar(
+          // leadingWidth: 76,
+          backgroundColor:Colors.white,
+          // title: Container(
+          //   // margin: EdgeInsets.only(top: 12),
+          //     child: Text(
+          //       "My Fevorite",
+          //       style: TextStyle(
+          //
+          //           fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
+          //     )),
+          centerTitle: true,
+          leading: Container(
+              margin: EdgeInsets.only( left: 7),
+              child: GestureDetector(
+                  onTap: () {
+                    _scaffoldKey.currentState!.openDrawer();
                   },
-                ) 
-              ],
+                  child:  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Image.asset(AppImages.imagearrow1,
+                        color: Colors.black, height: 22),
+                  ))),
+          actions: [
+         Center(
+           child: Padding(
+             padding: const EdgeInsets.only(right: 15),
+             child: Container(
+              // margin: EdgeInsets.only(top: 12),
+                child: Text(
+                  "My Favorite",
+                  style: TextStyle(
+
+                      fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
+                )),
+           ),
+         ),
+            // GestureDetector(
+            //   onTap: () {
+            //   },
+            //   child: Center(
+            //     child: Container(
+            //       // margin: EdgeInsets.only( left: 15,),
+            //         child: Image.asset(AppImages.plusImage,
+            //             color: Colors.black, height: 30)),
+            //   ),
+            // ),
+            // GestureDetector(
+            //   onTap: () {
+            //     // Get.to(AddLocations());
+            //   },
+            //   child: Center(
+            //     child: Container(
+            //         margin: EdgeInsets.only( right:10),
+            //         child: Image.asset(AppImages.setting,
+            //             color: Colors.black, height: 35)),
+            //   ),
+            // ),
+          ],),
+        // appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
+        //   child: favAdds(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,1)
+        // ),
+        drawer: Theme(
+          data: Theme.of(context).copyWith( ),
+          child: AppDrawer(),
+        ),
+        body:
+
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                height: Get.height/28,
+
+                child: TabBar(
+                 indicatorColor: Colors.black,
+                  indicatorSize: TabBarIndicatorSize.label,
+
+
+                  isScrollable: true,
+                  tabs: [
+                    Tab(
+
+                      child: Text("item",style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,))
+                    ),
+                    Tab(
+                      child: Text("Service Provider",style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,)
+                    ),),
+                    Tab(
+                      child: Text("promotions",style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,)),
+                    ),
+
+                  ],
+                ),
+              ),
             ),
-          );
-        }
+            SizedBox(
+              height: Get.height-150,
+
+              child: TabBarView(
+                children: [
+                  items(),
+                  Service(),
+                  Center(
+                    child: Icon(Icons.alarm),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+
+
+
+        // Column(
+        //   children: [
+        //     SizedBox(
+        //       height: Get.height/25,
+        //       width:Get.width,
+        //
+        //       child: Padding(
+        //         padding: const EdgeInsets.only(left: 65,top: 10),
+        //         child: ListView.builder(
+        //             scrollDirection: Axis.horizontal,
+        //           itemCount: 3,
+        //             itemBuilder: (ctx ,index){
+        //               bool checked =
+        //                   index == select;
+        //
+        //
+        //               return Expanded(
+        //               child: InkWell(
+        //                 onTap: () {
+        //
+        //                   setState(() {
+        //                     show = true;
+        //                     select  =
+        //                       index;
+        //
+        //                   });
+        //
+        //
+        //               },
+        //                 child: Text(headings[index],
+        //
+        //                 style: TextStyle(
+        //
+        //                     fontSize: 15,fontWeight:checked?FontWeight.bold:FontWeight.normal)),
+        //               ),
+        //             );
+        //             }),
+        //       ),
+        //     ),
+        //
+        //     show==true?items():Container()
+        //   ],
+        // ),
+      ),
+    );
+
+
+  }
+
+
+  Widget items(){
+    return   SizedBox(
+      child: GetBuilder<GridListCategory>(
+          init:GridListCategory(),
+          builder: (valueu) {
+            return  SingleChildScrollView(
+              child: Column(
+                children: [
+
+                  GetBuilder<FavoriteController>(
+                    init: FavoriteController(),
+                    builder: (val) {
+                      return val.fvr8DataList !=null &&  val.fvr8DataList['data'] != null && val.fvr8DataList['success'] == true  ?
+                      Column(
+                        children: valueu.dataType == 'list' ? myAddsList(val.fvr8DataList['data']
+                        ):myAddsList(val.fvr8DataList['data']),
+                        // myAddGridView(val.fvr8DataList['data']) ,
+                      ):
+                      Container(
+                          height: Get.height/1.5,
+                          child:Center(
+                            child: Text(
+                                "fav".tr,
+                                style:TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+                            ),
+                          )
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+          }
+      ),
+    );
+  }
+  Widget Service(){
+    return   SizedBox(
+      child: GetBuilder<GridListCategory>(
+          init:GridListCategory(),
+          builder: (valueu) {
+            return  SingleChildScrollView(
+              child: Column(
+                children: [
+
+                  GetBuilder<FavoriteController>(
+                    init: FavoriteController(),
+                    builder: (val) {
+                      return val.fvr8DataList !=null &&  val.fvr8DataList['data'] != null && val.fvr8DataList['success'] == true  ?
+                      Column(
+                        children: valueu.dataType == 'list' ? myserviceList(val.fvr8DataList['data']
+                        ):myserviceList(val.fvr8DataList['data']),
+                        // myAddGridView(val.fvr8DataList['data']) ,
+                      ):
+                      Container(
+                          height: Get.height/1.5,
+                          child:Center(
+                            child: Text(
+                                "fav".tr,
+                                style:TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+                            ),
+                          )
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+          }
       ),
     );
   }
@@ -371,7 +524,7 @@ decoration: BoxDecoration(
                                     onTap: (){
                                       removeFvr8z();
                                     },
-                                    child: Image.asset(AppImages.redHeart,height:22)
+                                    child: Image.asset(AppImages.call,height:22)
                                   ): null,
                               ): Container(),
                               SizedBox(width: 10,),
@@ -381,7 +534,7 @@ decoration: BoxDecoration(
                                   onTap: (){
                                     launch("tel:${listFavourite[c]['listing']['phone']}");
                                   },
-                                  child: Image.asset(AppImages.call, height: 22)
+                                  child: Image.asset(AppImages.redHeart, height: 22)
                                 ),
                               ),
                             ],
@@ -399,7 +552,99 @@ decoration: BoxDecoration(
     }
     return favrties;
   }
-  
+
+  List<Widget> myserviceList(listFavourite) {
+    List<Widget> favrties = [];
+    if(listFavourite.length !=null || listFavourite !=null){
+      for(int c = 0 ; c < listFavourite.length; c++ ){
+        if(listFavourite[c]['listing'] !=null && listFavourite[c]['listing']['image'].length !=null){
+          listingIdRemoved = listFavourite[c]['listing']['id'];
+          for(int array = 0; array < listFavourite[c]['listing']['image'].length; array++ ){
+            imageAds =listFavourite[c]['listing']['image'][array]['url'];
+          }
+          favrties.add(
+              Padding(
+                padding: const EdgeInsets.only(right: 5,left: 5,top: 10),
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+
+                      Row(
+                        children: [
+                          SizedBox(width:15),
+                          Container(
+                            child: listFavourite[c]['listing']['is_favorite'] == true ?
+                            GestureDetector(
+                                onTap: (){
+
+                                },
+                                child:Image.asset(AppImages.demo_logo,height:50,)
+                            ): null,
+                          ),
+                          SizedBox(width:10),
+                          Container(
+                            child: listFavourite[c]['listing']['is_favorite'] == true ?
+                            GestureDetector(
+                                onTap: (){
+
+                                },
+                                child:Text("jarir bookstore",style: TextStyle(fontSize: 18,fontWeight:FontWeight.bold,color: Colors.grey))
+                            ): null,
+                          ),
+                        ],
+                      ),
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              children: [
+                                listFavourite[c]['listing'] !=null ?
+                                Container(
+                                  child: listFavourite[c]['listing']['is_favorite'] == true ?
+                                  GestureDetector(
+                                      onTap: (){
+                                        removeFvr8z();
+                                      },
+                                      child: Image.asset(AppImages.call,height:30)
+                                  ): null,
+                                ): Container(),
+                                SizedBox(width: 10,),
+                                Container(
+                                  padding: EdgeInsets.only(right:15),
+                                  child: GestureDetector(
+                                      onTap: (){
+                                        launch("tel:${listFavourite[c]['listing']['phone']}");
+                                      },
+                                      child: Image.asset(AppImages.redHeart, height: 30)
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+          );
+        }
+      }
+    }
+    return favrties;
+  }
+
+
   List<Widget> myAddGridView(listFavourite) {
     var newData = [];
     for (int i = 0; i < listFavourite.length; i++) {
@@ -616,6 +861,130 @@ Widget addsCategoryWidget(listingCategoriesData){
                           ),
                         ):Container()
                       ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  void navigateToGoogleLogin() {}
+  var allCheck = false;
+  Color allColor = Colors.grey;
+  bool textAllcheck = false;
+  bool havingCategorybool = false;
+  final addsGet = Get.put(MyAddsController());
+  Widget addCategoryWidget(havingAdds) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 40,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: havingAdds.length,
+            itemBuilder: (context, index) {
+              if (index != 0) {
+                allCheck = true;
+              } else {
+                allCheck = false;
+              }
+              return Row(
+                children: [
+                  allCheck == false
+                      ? Container(
+                    width: 70,
+                    // margin: lang == 'en'
+                    // ? EdgeInsets.only(left: 12.0)
+                    // : EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          havingCategorybool = false;
+                          textAllcheck = false;
+                          selectedIndex = index;
+                          allColor = Colors.grey;
+                          addsGet.myAddsCategory();
+                        });
+                      },
+                      child: Container(
+                        margin: lang == 'en'
+                            ? EdgeInsets.only(left: 6)
+                            : EdgeInsets.only(right: 2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2.0),
+                          border: Border.all(
+                              color: Colors.grey),
+                          color: allColor,
+                        ),
+                        // padding: EdgeInsets.all(10.0),
+                        child: Center(
+                          child: Text(
+                            "all".tr,
+                            style: TextStyle(
+                              color: textAllcheck == false
+                                  ? Colors.white
+                                  : AppColors.grey,
+                              fontSize: 12,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                      : Container(),
+                  Container(
+                    margin: lang == 'en'
+                        ? EdgeInsets.only(left: 12.0)
+                        : EdgeInsets.only(right: 6.0),
+                    decoration: BoxDecoration(),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          havingCategorybool = true;
+                          ind = ++ind;
+                          selectedIndex = index;
+                          allColor = Colors.white;
+                          textAllcheck = true;
+                          id = havingAdds[index]['id'];
+                          controller.addedByIdAddes(
+                              havingAdds[index]['id'], null);
+                        });
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2.0),
+                            border: Border.all(
+                                color: AppColors.grey),
+                            color: selectedIndex == index &&
+                                id == havingAdds[index]['id'] &&
+                                textAllcheck == true
+                                ? AppColors.grey
+                                : Colors.white,
+                          ),
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            havingAdds[index]['category'][lang] != null
+                                ? havingAdds[index]['category'][lang]
+                                : havingAdds[index]['category'][lang] == null
+                                ? havingAdds[index]['category']['en']
+                                : '',
+                            style: TextStyle(
+                              color: selectedIndex == index &&
+                                  id == havingAdds[index]['id'] &&
+                                  textAllcheck == true
+                                  ? Colors.white
+                                  : AppColors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          )),
                     ),
                   ),
                 ],

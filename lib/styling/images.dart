@@ -127,4 +127,5 @@ class AppImages {
   static String chating = imagePath + 'chats.png';
   static String appbar_location = imagePath + 'appbar_location.png';
   static String remove_friend = imagePath + 'remove_request.png';
+  static String demo_logo = imagePath + 'demo_logo.png';
 }

@@ -15,6 +15,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/offer_filtered.dart';
@@ -132,8 +133,11 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
           }
               :
           index == 1 ? () {
-            index == 4 ? filteringCategory(context) :
-            Get.bottomSheet(FriendFilter());
+            Scaffold.of(context).openDrawer();
+            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+            // FriendFilter();
+            // index == 4 ? filteringCategory(context) :
+            // Get.bottomSheet(FriendFilter());
           } :
           index == 3 ? () {
             adsfiltringheet(context);
@@ -235,7 +239,8 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
 
            index == 4 || index==3? GestureDetector(
               onTap: () {
-                filtrationModel(context);
+                index==3?
+                filtrationModel(context): adsfiltringheet(context);
               },
               child: Container(
                   height: 25,
