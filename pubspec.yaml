@@ -135,6 +135,10 @@ flutter:
     - family: Source_Sans_Pro
       fonts:
         - asset: assets/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
+
+    - family: andada
+      fonts:
+        - asset: assets/fonts/andada/AndadaPro-Regular.ttf
         # fonts:
         #   -  assets/fonts/stc.ttf
 

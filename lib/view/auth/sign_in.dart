@@ -289,9 +289,9 @@ class _SignPageState extends State<SignIn> {
 
   Widget eMail() {
     return Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 0.3),
-            borderRadius: BorderRadius.circular(10)),
+        // decoration: BoxDecoration(
+        //     border: Border.all(width: 0.3),
+        //     borderRadius: BorderRadius.circular(10)),
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(
@@ -338,9 +338,9 @@ class _SignPageState extends State<SignIn> {
 
   Widget passwordW() {
     return Container(
-        decoration: BoxDecoration(
-            border: Border.all(width: 0.3),
-            borderRadius: BorderRadius.circular(10)),
+        // decoration: BoxDecoration(
+        //     border: Border.all(width: 0.3),
+        //     borderRadius: BorderRadius.circular(10)),
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(

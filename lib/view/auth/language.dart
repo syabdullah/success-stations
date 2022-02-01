@@ -94,16 +94,17 @@ class _LanguagePageState extends State<Language> {
     final space50 = SizedBox(height: getSize(50, context));
     return Scaffold(
       appBar: AppBar(
+
         title: Text(
           "Previous",
-          style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"Source_Sans_Pro",fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",),
         ),
         backgroundColor: AppColors.appBarBackGroundColor,
         leading: Icon(Icons.arrow_back),
         actions: [
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Text("Language", style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"Source_Sans_Pro",fontWeight: FontWeight.bold)),
+            child: Text("Language", style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold)),
           ),
         ],
       ),

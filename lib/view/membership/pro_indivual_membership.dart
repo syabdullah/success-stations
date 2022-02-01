@@ -101,7 +101,7 @@ List<String> prize = [
 
                 childAspectRatio: Get.height / 3.3 / Get.width / 1.1),
 
-                childAspectRatio: Get.height / 3 / Get.width / 1.1),
+                // childAspectRatio: Get.height / 3 / Get.width / 1.1),
 
             itemCount: titles.length,
             itemBuilder: (context, index) {
