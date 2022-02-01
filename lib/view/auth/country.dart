@@ -101,27 +101,24 @@ class _CountryPageState extends State<Ccountry> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.arrow_back),
-                Padding(
-                  padding: const EdgeInsets.only(right: 158.0),
-                  child: Text("Previous",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold)),
-                ),
-                Text("Country",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold)),
-              ],
+          appBar:  AppBar(
+
+            title: Text(
+              "prev".tr,
+              style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
             ),
-            backgroundColor: AppColors.darkblue,
+            backgroundColor: AppColors.appBarBackGroundColor,
+            leading:InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(AppImages.roundedBack,)),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: 35,left: 35),
+                child: Center(child: Text("country".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(

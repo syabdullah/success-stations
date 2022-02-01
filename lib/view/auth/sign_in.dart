@@ -123,7 +123,7 @@ class _SignPageState extends State<SignIn> {
                               submitButton(
                                   bgcolor: AppColors.darkblue,
                                   textColor: AppColors.appBarBackGroun,
-                                  buttonText: "Log In".tr,
+                                  buttonText: "login".tr,
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "Source_Sans_Pro",
@@ -134,13 +134,13 @@ class _SignPageState extends State<SignIn> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Forgot your log in details?",
+                                  Text("forgot_your_log_in_details".tr,
                                       style: TextStyle(
                                           color: Colors.grey,
                                           fontFamily: "Source_Sans_Pro",
                                           fontSize: 15)),
                                   Text(
-                                    " Get help logging in.",
+                                    " "+"help_login".tr,
                                     style: TextStyle(
                                         color: AppColors.login_help,
                                         fontWeight: FontWeight.bold,

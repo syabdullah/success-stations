@@ -12,6 +12,8 @@ import 'package:success_stations/view/auth/sign_in.dart';
 import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
+import '../../main.dart';
+
 class Language extends StatefulWidget {
   _LanguagePageState createState() => _LanguagePageState();
 }
@@ -75,6 +77,7 @@ class _LanguagePageState extends State<Language> {
             onTap: () {
               Get.toNamed('/Country');
               setState(() {
+
                 index = i;
                 box.write('lang_id', dataLanguage['data'][i]['id']);
                 box.write('lang_code', dataLanguage['data'][i]['short_code']);
@@ -96,15 +99,19 @@ class _LanguagePageState extends State<Language> {
       appBar: AppBar(
 
         title: Text(
-          "Previous",
-          style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",),
+          "prev".tr,
+          style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
         ),
         backgroundColor: AppColors.appBarBackGroundColor,
-        leading: Icon(Icons.arrow_back),
+        leading:InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+            child: Image.asset(AppImages.roundedBack,)),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text("Language", style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold)),
+            padding: EdgeInsets.only(right: 35,left: 35),
+            child: Center(child: Text("language".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),
           ),
         ],
       ),

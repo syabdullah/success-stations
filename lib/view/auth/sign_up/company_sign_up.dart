@@ -217,7 +217,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               Padding(
                 padding: lang == 'ar' ?EdgeInsets.only(left: 250.0):EdgeInsets.only(right: 250.0),
                 child: Text(
-                  "Services".tr,
+                  "services".tr,
                   style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
                 ),
               ),
@@ -1166,7 +1166,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                               width: 10,
                             ),
                             Text(
-                              "individual",
+                              "individual".tr,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: textcolor == 0
@@ -1207,7 +1207,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             Padding(
                               padding: lang == 'ar' ? EdgeInsets.only(right: 45.0):EdgeInsets.only(left: 45.0),
                               child: Text(
-                                "business",
+                                "business".tr,
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: textcolor == 1

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
 import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 
@@ -33,32 +34,30 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      // appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: newAppbar(context,'previous'.tr, AppImages.appBarLogo )),
+        appBar: AppBar(
+
+          title: Text(
+            "prev".tr,
+            style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
+          ),
+          backgroundColor: AppColors.appBarBackGroundColor,
+          leading:InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(AppImages.roundedBack,)),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 35,left: 35),
+              child: Center(child: Text("new_account".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),
+            ),
+          ],
+        ),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: (){
-                  Get.back();
-                },
-                child: ColoredBox(
-                  color: Color(0XFF2B409E),
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(18),
-                          child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,fontFamily: "Source_Sans_Pro"),)
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(top: 18,bottom: 18,left: 130),
-                          child:Text("New Account".tr,style: TextStyle(fontSize: 20,color: Colors.white,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.bold),)
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+
               SizedBox(height: 10,),
               Expanded(
                 child: Column(
