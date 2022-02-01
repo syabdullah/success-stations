@@ -170,65 +170,73 @@ class _CompanySignPageState extends State<CompanySignUp> {
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
-          child: Column(
-            children: [
-              space10,
-              fullName(),
-              space10,
-              eMail(),
-              space10,
-              Row(
-                children: [
-                  password(),
-                  confirmPassword(),
-                ],
-              ),
-              space10,
-              mobile(),
-              space10,
-              space10,
-              // GetBuilder<ContryController>(
-              //   init: ContryController(),
-              //   builder:(val) {
-              //     return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
-              //     Container();
-              //   } ,
-              // ),
-              space10,
-              Row(
-                children: [
-                  GetBuilder<ContryController>(
-                    init: ContryController(),
-                    builder: (val) {
-                      return region(val.regionListdata);
-                    },
-                  ),
-                  GetBuilder<ContryController>(
-                    init: ContryController(),
-                    builder: (val) {
-                      return city(val.cityListData);
-                    },
-                  ),
-                ],
-              ),
-              space10,
-              radioalert(),
-              space10,
-              Padding(
-                padding: lang == 'ar' ?EdgeInsets.only(left: MediaQuery.of(context).size.width/1.5):EdgeInsets.only(right: MediaQuery.of(context).size.width/1.5),
-                child: Text(
-                  "services".tr,
-                  style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                space10,
+                fullName(),
+                space10,
+                eMail(),
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    password(),
+                    confirmPassword(),
+                  ],
                 ),
-              ),
-              space10,
-              Padding(
-                padding:  lang == 'ar' ?EdgeInsets.only(right: MediaQuery.of(context).size.width/17, left: MediaQuery.of(context).size.width/17):EdgeInsets.only(left: 18.0, right: 18.0),
-                child: Container(
+                space10,
+                mobile(),
+                space10,
+
+                // GetBuilder<ContryController>(
+                //   init: ContryController(),
+                //   builder:(val) {
+                //     return val.countryData != null && val.countryData['data']!=null && val.countryData['success'] == true  ?  country(val.countryData['data']):
+                //     Container();
+                //   } ,
+                // ),
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return region(val.regionListdata);
+                      },
+                    ),
+                    GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return city(val.cityListData);
+                      },
+                    ),
+                  ],
+                ),
+                space10,
+                radioalert(),
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left:10,right: 10),
+                      child: Text(
+                        "services".tr,
+                        style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4),),
+                      ),
+                    ),
+                  ],
+                ),
+                space10,
+                Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 0.5, color: Colors.grey)),
+                      // borderRadius: BorderRadius.circular(3),
+                      border: Border.all( color: AppColors.outline)),
                   height: Get.height/8,
                   width: double.infinity,
                   child: GridView.builder(
@@ -252,211 +260,201 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     },
                   ),
                 ),
-              ),
 
-              // GetBuilder<ServicesController>(
-              //   init: ServicesController(),
-              //   builder: (val) {
-              //     return
-              //     services(
-              //       val.servicesListdata,
-              //     );
-              //   },
-              // ),
-              space10,
-              // v == 2 ? comName() : space10,
-              // v == 2
-              //     ? cR()
-              //     : v == 1
-              //         ? Container(
-              //             margin: EdgeInsets.only(bottom: 10),
-              //             child: Column(
-              //               children: [
-              //                 iqama(),
-              //               ],
-              //             ))
-              //         : space10,
-              // responsible(),
-              // space10,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Container(
-              //       decoration:
-              //           BoxDecoration(borderRadius: BorderRadius.circular(60)),
-              //       child: Checkbox(
-              //         activeColor: AppColors.appBarBackGroundColor,
-              //         value: _isChecked,
-              //         onChanged: (value) {
-              //           setState(() {
-              //             _isChecked = value!;
-              //           });
-              //         },
-              //       ),
-              //     ),
-              //     Text("terms".tr,
-              //         style: TextStyle(
-              //             fontFamily: 'Lato',
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.bold)),
-              //     Text("terms_condition".tr,
-              //         style: TextStyle(
-              //             fontFamily: 'Lato',
-              //             color: AppColors.appBarBackGroundColor,
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.bold)),
-              //   ],
-              // ),
-              // space20,
-              // submitButton(
-              //     buttonText: 'sign_up_text'.tr,
-              //     bgcolor: AppColors.appBarBackGroundColor,
-              //     textColor: AppColors.appBarBackGroun,
-              //     fontSize: 18.0,
-              //     callback: _isChecked == true
-              //         ? v == 1
-              //             ? individualSignUp
-              //             : companyUser
-              //         : null),
-              // space20,
-              // Container(
-              //   height: 1,
-              //   color: Colors.grey,
-              // ),
-              //
-              // space20,
-              // GestureDetector(
-              //   onTap: () {
-              //     Get.toNamed('/login');
-              //   },
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text(
-              //         "have_account".tr,
-              //         style: TextStyle(
-              //             fontSize: 18,
-              //             fontWeight: FontWeight.w300,
-              //             color: Colors.grey),
-              //       ),
-              //       Text(
-              //         "sign_in".tr,
-              //         style: TextStyle(
-              //             fontSize: 18,
-              //             color: AppColors.appBarBackGroundColor,
-              //             fontWeight: FontWeight.bold),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // space20,
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding:lang == 'ar' ? EdgeInsets.only(right: MediaQuery.of(context).size.width/17, top: 8) :EdgeInsets.only(left:MediaQuery.of(context).size.width/17, top: 8) ,
+                // GetBuilder<ServicesController>(
+                //   init: ServicesController(),
+                //   builder: (val) {
+                //     return
+                //     services(
+                //       val.servicesListdata,
+                //     );
+                //   },
+                // ),
+                space10,
+                // v == 2 ? comName() : space10,
+                // v == 2
+                //     ? cR()
+                //     : v == 1
+                //         ? Container(
+                //             margin: EdgeInsets.only(bottom: 10),
+                //             child: Column(
+                //               children: [
+                //                 iqama(),
+                //               ],
+                //             ))
+                //         : space10,
+                // responsible(),
+                // space10,
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Container(
+                //       decoration:
+                //           BoxDecoration(borderRadius: BorderRadius.circular(60)),
+                //       child: Checkbox(
+                //         activeColor: AppColors.appBarBackGroundColor,
+                //         value: _isChecked,
+                //         onChanged: (value) {
+                //           setState(() {
+                //             _isChecked = value!;
+                //           });
+                //         },
+                //       ),
+                //     ),
+                //     Text("terms".tr,
+                //         style: TextStyle(
+                //             fontFamily: 'Lato',
+                //             fontSize: 14,
+                //             fontWeight: FontWeight.bold)),
+                //     Text("terms_condition".tr,
+                //         style: TextStyle(
+                //             fontFamily: 'Lato',
+                //             color: AppColors.appBarBackGroundColor,
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.bold)),
+                //   ],
+                // ),
+                // space20,
+                // submitButton(
+                //     buttonText: 'sign_up_text'.tr,
+                //     bgcolor: AppColors.appBarBackGroundColor,
+                //     textColor: AppColors.appBarBackGroun,
+                //     fontSize: 18.0,
+                //     callback: _isChecked == true
+                //         ? v == 1
+                //             ? individualSignUp
+                //             : companyUser
+                //         : null),
+                // space20,
+                // Container(
+                //   height: 1,
+                //   color: Colors.grey,
+                // ),
+                //
+                // space20,
+                // GestureDetector(
+                //   onTap: () {
+                //     Get.toNamed('/login');
+                //   },
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         "have_account".tr,
+                //         style: TextStyle(
+                //             fontSize: 18,
+                //             fontWeight: FontWeight.w300,
+                //             color: Colors.grey),
+                //       ),
+                //       Text(
+                //         "sign_in".tr,
+                //         style: TextStyle(
+                //             fontSize: 18,
+                //             color: AppColors.appBarBackGroundColor,
+                //             fontWeight: FontWeight.bold),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // space20,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
                       child: Container(
-                          height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
-                          width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
+                        decoration: BoxDecoration(
+                          border:Border.all(color:AppColors.outline),
+                            color: Colors.white
+                        ),
+                          height: Get.height/7.8,
+                          width: Get.width/3.5 ,
                           child: Padding(
-                            padding: lang== 'ar'? EdgeInsets.all(10.0):EdgeInsets.all(10.0),
+                            padding:EdgeInsets.all(10.0),
                             child: CircleAvatar(child: Icon(Icons.email)),
                           ),
-                          color: Colors.white
+
 
                         // decoration: BoxDecoration(color: ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: lang == 'ar'?EdgeInsets.only(
-                          top: 8.0,
-                          left: MediaQuery.of(context).size.width/18,
-                          right: MediaQuery.of(context).size.width/60,
-                        ): EdgeInsets.only(
-                          top: 8.0,
-                          right: 10,
-                          left: 10,
-                        ),
-                        child: about(),
-                      )),
-                ],
-              ),
-              space10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Transform.scale(
-                    scale: .9,
-                    child: new Checkbox(
-                      activeColor: AppColors.appBarBackGroundColor,
-                      value: _isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          _isChecked = value!;
-                        });
-                      },
-                    ),
-                  ),
-                  Text('terms'.tr,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold)),
-                  Text("terms_condition".tr,
-                      style: TextStyle(
-                          fontFamily: 'Lato',
-                          color: AppColors.appBarBackGroundColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-              space20,
-              submitButton(
-                  buttonText: 'sign_up_text'.tr,
-                  bgcolor: AppColors.appBarBackGroundColor,
-                  textColor: AppColors.appBarBackGroun,
-                  fontSize: 18.0,
-                  callback: _isChecked == true
-                      ? v == 1
-                          ? individualSignUp
-                          : companyUser
-                      : null),
-              space20,
-              Container(
-                height: 1,
-                color: Colors.grey,
-              ),
-              space20,
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/login');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "have_account".tr,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.grey),
-                    ),
-                    Text(
-                      "sign_in".tr,
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: AppColors.appBarBackGroundColor,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    Expanded(
+                        flex: 6,
+                        child: about()),
                   ],
                 ),
-              ),
-              space20,
-            ],
+                space10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.scale(
+                      scale: .9,
+                      child: new Checkbox(
+                        activeColor: AppColors.appBarBackGroundColor,
+                        value: _isChecked,
+                        onChanged: (value) {
+                          setState(() {
+                            _isChecked = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Text('terms'.tr,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold)),
+                    Text("terms_condition".tr,
+                        style: TextStyle(
+                            fontFamily: 'Lato',
+                            color: AppColors.appBarBackGroundColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                space20,
+                submitButton(
+                    buttonText: 'sign_up_text'.tr,
+                    bgcolor: AppColors.appBarBackGroundColor,
+                    textColor: AppColors.appBarBackGroun,
+                    fontSize: 18.0,
+                    callback: _isChecked == true
+                        ? v == 1
+                            ? individualSignUp
+                            : companyUser
+                        : null),
+                space20,
+                Container(
+                  height: 1,
+                  color: Colors.grey,
+                ),
+                space20,
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/login');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "have_account".tr,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        "sign_in".tr,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.appBarBackGroundColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                space20,
+              ],
+            ),
           ),
         ),
       ),
@@ -465,8 +463,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget fullName() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      // margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width ,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: 10)
@@ -494,8 +492,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget eMail() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
+      // margin: EdgeInsets.only(left: 20, right: 20),
+      width: Get.width ,
       child: CustomTextFiled(
         isObscure: false,
         contentPadding: lang == 'ar'
@@ -527,11 +525,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget mobile() {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
-        width: Get.width * 0.9,
+        // margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
+            // borderRadius: BorderRadius.circular(5),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
@@ -727,12 +725,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-        margin: lang == 'ar'
-            ? EdgeInsets.only(
-            right: 20, left: MediaQuery.of(context).size.width / 46)
-            : EdgeInsets.only(
-            left: 20, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.43,
+        // margin: lang == 'ar'
+        //     ? EdgeInsets.only(
+        //     right: 20, left: MediaQuery.of(context).size.width / 46)
+        //     : EdgeInsets.only(
+        //     left: 20, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -775,9 +773,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget city(List citydata) {
     return Container(
-        margin:lang == 'ar'
-            ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.44,
+        // margin:lang == 'ar'
+        //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.45,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
@@ -921,12 +919,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget password() {
     return Container(
-      margin: lang == 'ar'
-          ? EdgeInsets.only(
-          right: 20, left: MediaQuery.of(context).size.width / 46)
-          : EdgeInsets.only(
-          left: 20, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.43,
+      // margin: lang == 'ar'
+      //     ? EdgeInsets.only(
+      //     right: 20, left: MediaQuery.of(context).size.width / 46)
+      //     : EdgeInsets.only(
+      //     left: 20, right: MediaQuery.of(context).size.width / 46),
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -959,9 +957,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget confirmPassword() {
     return Container(
-      margin:
-      lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
-      width: Get.width * 0.44,
+      // margin:
+      // lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -1112,133 +1110,130 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   radioalert() {
-    return Padding(
-      padding: lang == 'ar' ? EdgeInsets.only(right: 20, left: 5):EdgeInsets.only(left: 20, right: 5),
-      child: Container(
-        // margin:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10,right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: lang == 'ar'
-                    ? EdgeInsets.only(right: 30)
-                    : EdgeInsets.only(left: 10),
-                child: Text(
-                  "Account_type".tr,
-                  style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
-                )),
-            Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // Radio(
-                    //   value: t.index,
-                    //   groupValue: v,
-                    //   activeColor:AppColors.appBarBackGroundColor,
-                    //   onChanged: (int?value ) {
-                    //     setState(() {
-                    //       v = value!;
-                    //     });
-                    //   },
-                    // ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          textcolor = 0;
-                        });
-                        Radio(
-                          value: 1,
-                          groupValue: v,
-                          // activeColor:AppColors.appBarBackGroundColor,
-                          onChanged: (value) => setState(() => v = v),
-                        );
-                      },
-                      child: Container(
-                        height: 45,
-                        width: MediaQuery.of(context).size.width * 0.43,
-                        child: Row(
-                          children: [
-                            Padding(
-                                padding: lang == 'ar' ? EdgeInsets.all(8.0):EdgeInsets.all(8.0),
-                                child: Image.asset("assets/individual.png")),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "individual".tr,
+    return Container(
+      // margin:lang == 'ar'? EdgeInsets.only(right:20) :EdgeInsets.only(left:10,right: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+
+                  padding: EdgeInsets.only(left: 10,right:10),
+              child: Text(
+                "Account_type".tr,
+                style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
+              )),
+          Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Radio(
+                  //   value: t.index,
+                  //   groupValue: v,
+                  //   activeColor:AppColors.appBarBackGroundColor,
+                  //   onChanged: (int?value ) {
+                  //     setState(() {
+                  //       v = value!;
+                  //     });
+                  //   },
+                  // ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        textcolor = 0;
+                      });
+                      Radio(
+                        value: 1,
+                        groupValue: v,
+                        // activeColor:AppColors.appBarBackGroundColor,
+                        onChanged: (value) => setState(() => v = v),
+                      );
+                    },
+                    child: Container(
+                      height: 45,
+                      width: MediaQuery.of(context).size.width * 0.463,
+                      child: Row(
+
+                        children: [
+                          Padding(
+                              padding: lang == 'ar' ? EdgeInsets.all(8.0):EdgeInsets.all(8.0),
+                              child: Image.asset("assets/individual.png")),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "individual".tr,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: textcolor == 0
+                                    ? Colors.blueAccent
+                                    : Colors.grey,
+                                decoration: textcolor == 0
+                                    ? TextDecoration.underline
+                                    : TextDecoration.none,
+                                decorationThickness: 2,
+                                fontWeight: textcolor == 0
+                                    ? FontWeight.w700
+                                    : FontWeight.w200),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color:  AppColors.outline)),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        textcolor = 1;
+                      });
+                      Radio(
+                        value: 2,
+                        groupValue: v,
+                        // activeColor:AppColors.appBarBackGroundColor,
+                        onChanged: (value) => setState(() => v = v),
+                      );
+                    },
+                    child: Container(
+                      height: 45,
+                      width: MediaQuery.of(context).size.width * 0.464,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: lang == 'ar' ? EdgeInsets.only(right: 45.0):EdgeInsets.only(left: 45.0),
+                            child: Text(
+                              "business".tr,
                               style: TextStyle(
                                   fontSize: 14,
-                                  color: textcolor == 0
+                                  color: textcolor == 1
                                       ? Colors.blueAccent
                                       : Colors.grey,
-                                  decoration: textcolor == 0
+                                  decoration: textcolor == 1
                                       ? TextDecoration.underline
                                       : TextDecoration.none,
                                   decorationThickness: 2,
-                                  fontWeight: textcolor == 0
+                                  fontWeight: textcolor == 1
                                       ? FontWeight.w700
                                       : FontWeight.w200),
                             ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey)),
+                          ),
+                          SizedBox(
+                            width: 14,
+                          ),
+                          Image.asset("assets/Bussnise.png"),
+                        ],
                       ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppColors.outline)),
                     ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          textcolor = 1;
-                        });
-                        Radio(
-                          value: 2,
-                          groupValue: v,
-                          // activeColor:AppColors.appBarBackGroundColor,
-                          onChanged: (value) => setState(() => v = v),
-                        );
-                      },
-                      child: Container(
-                        height: 45,
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: lang == 'ar' ? EdgeInsets.only(right: 45.0):EdgeInsets.only(left: 45.0),
-                              child: Text(
-                                "business".tr,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: textcolor == 1
-                                        ? Colors.blueAccent
-                                        : Colors.grey,
-                                    decoration: textcolor == 1
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
-                                    decorationThickness: 2,
-                                    fontWeight: textcolor == 1
-                                        ? FontWeight.w700
-                                        : FontWeight.w200),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 14,
-                            ),
-                            Image.asset("assets/Bussnise.png"),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.grey)),
-                      ),
-                    )
-                    // Container(
-                    // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
-                  ],
-                ))
-          ],
-        ),
+                  )
+                  // Container(
+                  // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
+                ],
+              ))
+        ],
       ),
     );
   }
