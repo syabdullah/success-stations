@@ -858,7 +858,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             : EdgeInsets.only(left: 20, top: 20),
         isObscure: false,
         color: Colors.white,
-        hintText: 'about'.tr,
+        hintText: "aboutsu".tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
         hintColor:
@@ -910,7 +910,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget password() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 5),
+      margin: EdgeInsets.only(left: 20, right:6),
       width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
@@ -944,8 +944,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget confirmPassword() {
     return Container(
-      margin: EdgeInsets.only(right: 20),
-      width: Get.width * 0.43,
+      margin: EdgeInsets.only(right: 4),
+      width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -1007,7 +1007,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
         width: Get.width / 1.1,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(0),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
@@ -1020,6 +1020,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
             filled: true,
             border: InputBorder.none,
             errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.red),
             ),
             focusedErrorBorder: OutlineInputBorder(
@@ -1040,7 +1041,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
           selectorTextStyle: TextStyle(color: Colors.black),
           textFieldController: phoneController,
           formatInput: true,
-          inputBorder: OutlineInputBorder(),
+          inputBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
           onSaved: (PhoneNumber number) {},
           initialValue: companyCode,
         ));
