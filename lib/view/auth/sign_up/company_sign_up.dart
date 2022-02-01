@@ -1092,7 +1092,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     );
   }
 
-  radioalert() {
+   radioalert() {
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 5),
       child: Container(

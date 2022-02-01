@@ -98,7 +98,7 @@ List<String> prize = [
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 18,
-                childAspectRatio: Get.height / 3 / Get.width / 1.1),
+                childAspectRatio: Get.height / 3.5 / Get.width / 1.1),
             itemCount: titles.length,
             itemBuilder: (context, index) {
               return Column(
@@ -106,8 +106,8 @@ List<String> prize = [
                   InkWell(
                     onTap: () {},
                     child: Container(
-                        height: 280,
-                        width: 200,
+                        height: Get.height/3,
+                        width: Get.width/2,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(40),
