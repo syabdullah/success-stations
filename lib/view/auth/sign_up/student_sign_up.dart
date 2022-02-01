@@ -196,7 +196,7 @@ class _SignPageState extends State<StudentSignUp> {
                           height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
                           width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: lang== 'ar'? EdgeInsets.all(10.0):EdgeInsets.all(10.0),
                             child: CircleAvatar(child: Icon(Icons.email)),
                           ),
                           color: Colors.white
