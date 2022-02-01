@@ -22,7 +22,7 @@ class SignIn extends StatefulWidget {
 class _SignPageState extends State<SignIn> {
   final formKey = new GlobalKey<FormState>();
 
-  TextEditingController fulNameController = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
 
@@ -51,7 +51,7 @@ class _SignPageState extends State<SignIn> {
     if (form!.validate()) {
       form.save();
       var jsonData = {
-        "email": fulNameController.text,
+        "email": email.text,
         "password": password.text
       };
       loginCont.loginUserdata(jsonData);
@@ -198,35 +198,38 @@ class _SignPageState extends State<SignIn> {
       );
   }
 
-  Widget eMail() {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: "emails".tr,
-        hintStyle: TextStyle(
-          fontSize: lang == 'ar' ? 14 : 16,
-          color: Colors.grey,
-        ),
-
-        contentPadding:
-        new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {},
-        onSaved: (String? newValue) {},
-        onFieldSubmitted: (value) {},
-        textController: fulNameController,
-        validator: (value) => value == ''
-            ? 'email_required'.tr
-            : !value.contains('@') || !value.contains('.')
-            ? 'enter_valid_email'.tr
-            : null,
-        errorText: '',
-      ),
-    );
-  }
+  // Widget eMail() {
+  //   return Container(
+  //     decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
+  //     margin: EdgeInsets.only(left: 20, right: 20),
+  //     width: Get.width * 0.9,
+  //     child: CustomTextFiled(
+  //
+  //       isObscure: false,
+  //
+  //       hintText: "emails".tr,
+  //       hintStyle: TextStyle(
+  //         fontSize: lang == 'ar' ? 14 : 16,
+  //         color:AppColors.inputTextColor,
+  //       ),
+  //
+  //       contentPadding:
+  //       new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+  //       hintColor: AppColors.inputTextColor,
+  //       onChanged: (value) {},
+  //
+  //       onSaved: (String? newValue) {},
+  //       onFieldSubmitted: (value) {},
+  //       textController: email,
+  //       validator: (value) => value == ''
+  //           ? 'email_required'.tr
+  //           : !value.contains('@') || !value.contains('.')
+  //           ? 'enter_valid_email'.tr
+  //           : null,
+  //       errorText: '',
+  //     ),
+  //   );
+  // }
 
   Widget language(List data) {
     return ButtonTheme(
@@ -272,9 +275,56 @@ class _SignPageState extends State<SignIn> {
     );
   }
 
+  Widget eMail() {
+    return Container(
+        decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.only(left: 20, right: 20),
+        width: Get.width * 0.9,
+        child: TextFormField(
+          obscureText: passwordVisible,
+          decoration: InputDecoration(
+            contentPadding:
+            new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            hintText: ( "emails".tr),
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: lang == 'ar' ? 14 : 16,
+            ),
+            // labelStyle: TextStyle(color: AppColors.basicColor),
+            fillColor: AppColors.inputColor2,
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color:AppColors.outline),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color: AppColors.outline),
+            ),
+
+          ),
+          validator: (value) => value == ''
+              ? 'email_required'.tr
+              : value!.contains('@') || value.contains('.')
+              ? 'enter_valid_email'.tr
+              : null,
+          onSaved: (val) => email = TextEditingController(text: val),
+        ));
+  }
   Widget passwordW() {
     return Container(
-        decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(5)),
+        decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
         margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width * 0.9,
         child: TextFormField(
@@ -291,13 +341,20 @@ class _SignPageState extends State<SignIn> {
             fillColor: AppColors.inputColor2,
             filled: true,
             border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.outline),
+            ),
             errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Colors.red),
             ),
             focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Colors.red),
             ),
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
               borderSide: BorderSide(color: AppColors.outline),
@@ -324,7 +381,7 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      margin: EdgeInsets.only(top: 50,bottom: 5),
+      margin: EdgeInsets.only(top: 70,bottom: 5),
       alignment: Alignment.bottomCenter,
       child: Column(
         children: [

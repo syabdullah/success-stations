@@ -19,6 +19,7 @@ import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
+import 'package:success_stations/view/drawer_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../shimmer.dart';
@@ -31,7 +32,7 @@ class AllAdds extends StatefulWidget {
 
 class _AllAddsState extends State<AllAdds> {
   final ratingcont = Get.put(RatingController());
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final addsGet = Get.put(MyAddsController());
   final catCont = Get.put(CategoryController());
@@ -88,10 +89,13 @@ class _AllAddsState extends State<AllAdds> {
     v = '';
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      drawer:AppDrawer() ,
       appBar: data != null
           ? PreferredSize(
               preferredSize: Size.fromHeight(60.0),
@@ -126,6 +130,7 @@ class _AllAddsState extends State<AllAdds> {
                                   : myAddGridView(val.allAdsData['data'])
                               : controller.resultInvalid.isTrue
                                   ? Container(
+
                                       margin:
                                           EdgeInsets.only(top: Get.height / 3),
                                       child: Center(
@@ -501,9 +506,13 @@ class _AllAddsState extends State<AllAdds> {
                   child: Container(
                       height: Get.height,
                       decoration: BoxDecoration(
+
+                              color: Colors.white,
+
                           border: Border.all(color: Color(0xffC6C5C4))),
                       child: Column(children: [
                         Container(
+
                             width: Get.width < 420
                                 ? Get.width / 1.8
                                 : Get.width / 3.0,

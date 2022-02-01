@@ -122,7 +122,6 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
     //   ),
     // ):
 
-//sanket_filtter
     index == 2 ? Container()
         : Row(
       children: [
@@ -240,7 +239,11 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
            index == 4 || index==3? GestureDetector(
               onTap: () {
                 index==3?
+                // filtrationModel(context): adsfiltringheet(context);
                 filtrationModel(context): adsfiltringheet(context);
+
+
+
               },
               child: Container(
                   height: 25,
