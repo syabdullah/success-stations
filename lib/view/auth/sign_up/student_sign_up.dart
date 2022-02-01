@@ -155,6 +155,7 @@ class _SignPageState extends State<StudentSignUp> {
                       return region(val.regionListdata);
                     },
                   ),
+                  SizedBox(width: 0.5,),
                   GetBuilder<ContryController>(
                     init: ContryController(),
                     builder: (val) {
@@ -191,7 +192,7 @@ class _SignPageState extends State<StudentSignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding:lang == 'ar' ? EdgeInsets.only(right: 20.0, top: 8) :EdgeInsets.only(left: 20.0, top: 8) ,
+                      padding:lang == 'ar' ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19.0, top: 8) :EdgeInsets.only(left: MediaQuery.of(context).size.width/19.0, top: 8) ,
                       child: Container(
                           height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
                           width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
@@ -210,12 +211,12 @@ class _SignPageState extends State<StudentSignUp> {
                       child: Padding(
                         padding: lang == 'ar'?EdgeInsets.only(
                           top: 8.0,
-                          left: 10,
-                          right: 20,
+                          left: MediaQuery.of(context).size.width/170,
+                          right: MediaQuery.of(context).size.width/100,
                         ): EdgeInsets.only(
                           top: 8.0,
-                          right: 10,
-                          left: 10,
+                          right: MediaQuery.of(context).size.width/19,
+                          left: MediaQuery.of(context).size.width/120,
                         ),
                         child: about(),
                       )),
@@ -297,12 +298,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget fullNameStudent() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 20),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         isObscure: false,
         color: Colors.white,
         hintText: 'full_name'.tr,
@@ -327,13 +328,13 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget semester() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         keyboardType: TextInputType.number,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10, top: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         isObscure: false,
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(
@@ -356,12 +357,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget address() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         isObscure: false,
         hintText: 'address'.tr,
         hintStyle: TextStyle(
@@ -385,13 +386,13 @@ class _SignPageState extends State<StudentSignUp> {
   Widget about() {
     return Container(
       // height: ,
-      margin:lang == 'ar'? EdgeInsets.only(left: 07, right: 0): EdgeInsets.only(left: 8, right: 0),
+      margin:lang == 'ar'? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0): EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0),
       width: Get.width * 0.55,
       child: CustomTextFiled(
         maxLine: 4,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 16, top: 20)
-            : EdgeInsets.only(left: 16, top: 20),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19),
         isObscure: false,
         color: Colors.white,
         hintText: 'about'.tr,
@@ -416,12 +417,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget degree() {
     return Container(
-        margin: lang == 'ar' ? EdgeInsets.only(left: 17, right: 20):EdgeInsets.only(left: 20, right: 17),
+        margin: lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19):EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
         width: Get.width * 0.9,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
@@ -459,12 +460,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget eMail() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         isObscure: false,
         color: Colors.white,
         hintText: 'emails'.tr,
@@ -495,17 +496,17 @@ class _SignPageState extends State<StudentSignUp> {
     return Container(
       margin: lang == 'ar'
           ? EdgeInsets.only(
-              right: 20, left: MediaQuery.of(context).size.width / 46)
+              right: MediaQuery.of(context).size.width/19, left: MediaQuery.of(context).size.width / 46)
           : EdgeInsets.only(
-              left: 20, right: MediaQuery.of(context).size.width / 46),
+              left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
       width: Get.width * 0.43,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
@@ -532,15 +533,15 @@ class _SignPageState extends State<StudentSignUp> {
   Widget confirmPassword() {
     return Container(
       margin:
-          lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
+          lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19) : EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
@@ -566,7 +567,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
+        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
         width: Get.width * 0.9,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -578,7 +579,7 @@ class _SignPageState extends State<StudentSignUp> {
           cursorColor: AppColors.appBarBackGroundColor,
           autoFocus: false,
           inputDecoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 10, bottom: 10),
+            contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
             fillColor: Colors.white,
             filled: true,
             border: InputBorder.none,
@@ -614,7 +615,7 @@ class _SignPageState extends State<StudentSignUp> {
   Widget studentdob() {
     return Container(
       color: Colors.white,
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
       child: TextFormField(
         focusNode: FocusNode(),
@@ -636,7 +637,7 @@ class _SignPageState extends State<StudentSignUp> {
               borderSide: BorderSide(color: Colors.grey.shade200)),
 
           contentPadding:
-              EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+              EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19, bottom: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
           hintText:
               finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
@@ -691,7 +692,7 @@ class _SignPageState extends State<StudentSignUp> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
             width: Get.width * 0.9,
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -742,11 +743,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget region(List dataRegion) {
     return Container(
-        margin: lang == 'ar'
-            ? EdgeInsets.only(
-                right: 20, left: MediaQuery.of(context).size.width / 46)
-            : EdgeInsets.only(
-                left: 20, right: MediaQuery.of(context).size.width / 46),
+        margin: lang == 'ar' ?EdgeInsets.only(
+            right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+            left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
         width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -796,8 +795,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget city(List citydata) {
     return Container(
-        margin:lang == 'ar'
-            ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
         width: Get.width * 0.44,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -839,8 +837,8 @@ class _SignPageState extends State<StudentSignUp> {
   Widget university(List daattta) {
     return Container(
         margin: lang == 'ar' ?EdgeInsets.only(
-            right: 20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
-            left: 20, right: MediaQuery.of(context).size.width / 46),
+            right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+            left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
         width: Get.width * 0.43,
         decoration: BoxDecoration(
             color: Colors.white,

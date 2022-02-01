@@ -215,7 +215,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               radioalert(),
               space10,
               Padding(
-                padding: lang == 'ar' ?EdgeInsets.only(left: 250.0):EdgeInsets.only(right: 250.0),
+                padding: lang == 'ar' ?EdgeInsets.only(left: MediaQuery.of(context).size.width/1.5):EdgeInsets.only(right: MediaQuery.of(context).size.width/1.5),
                 child: Text(
                   "Services".tr,
                   style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
@@ -223,7 +223,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
               ),
               space10,
               Padding(
-                padding:  lang == 'ar' ?EdgeInsets.only(right: 18.0, left: 18.0):EdgeInsets.only(left: 18.0, right: 18.0),
+                padding:  lang == 'ar' ?EdgeInsets.only(right: MediaQuery.of(context).size.width/17, left: MediaQuery.of(context).size.width/17):EdgeInsets.only(left: 18.0, right: 18.0),
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -355,7 +355,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding:lang == 'ar' ? EdgeInsets.only(right: 20.0, top: 8) :EdgeInsets.only(left: 20.0, top: 8) ,
+                      padding:lang == 'ar' ? EdgeInsets.only(right: MediaQuery.of(context).size.width/17, top: 8) :EdgeInsets.only(left:MediaQuery.of(context).size.width/17, top: 8) ,
                       child: Container(
                           height: lang == 'ar' ? MediaQuery.of(context).size.height / 8 :MediaQuery.of(context).size.height / 8,
                           width: lang == 'ar' ? MediaQuery.of(context).size.width / 3 : MediaQuery.of(context).size.width / 3 ,
@@ -374,8 +374,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       child: Padding(
                         padding: lang == 'ar'?EdgeInsets.only(
                           top: 8.0,
-                          left: 17,
-                          right: 20,
+                          left: MediaQuery.of(context).size.width/18,
+                          right: MediaQuery.of(context).size.width/60,
                         ): EdgeInsets.only(
                           top: 8.0,
                           right: 10,
