@@ -155,6 +155,7 @@ class _SignPageState extends State<StudentSignUp> {
                       return region(val.regionListdata);
                     },
                   ),
+                  SizedBox(width: 1.8,),
                   GetBuilder<ContryController>(
                     init: ContryController(),
                     builder: (val) {
@@ -172,6 +173,7 @@ class _SignPageState extends State<StudentSignUp> {
                       return university(val.dataUni);
                     },
                   ),
+                  SizedBox(width: 1.8,),
                   GetBuilder<CollegeController>(
                     init: CollegeController(),
                     builder: (val) {
@@ -485,7 +487,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget password() {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 5),
+      margin: EdgeInsets.only(left: 20, right: 8),
       width: Get.width * 0.44,
       child: CustomTextFiled(
         maxLine: 1,
@@ -519,7 +521,7 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget confirmPassword() {
     return Container(
-      margin: EdgeInsets.only(right: 21),
+      // margin: EdgeInsets.only(right: 18),
       width: Get.width * 0.43,
       child: CustomTextFiled(
         maxLine: 1,
@@ -557,7 +559,7 @@ class _SignPageState extends State<StudentSignUp> {
         width: Get.width * 0.9,
         decoration: BoxDecoration(
           color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(0),
             border: Border.all(color: Color(0xFFEEEEEE))),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
@@ -633,7 +635,7 @@ class _SignPageState extends State<StudentSignUp> {
               color: AppColors.inputTextColor,
               fontWeight: FontWeight.normal),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(0.0),
             borderSide: BorderSide(color: Colors.grey.shade100),
           ),
           fillColor: Colors.white,
@@ -685,7 +687,7 @@ class _SignPageState extends State<StudentSignUp> {
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: AppColors.outline),
-                borderRadius: BorderRadius.circular(2.0)),
+                borderRadius: BorderRadius.circular(0.0)),
             child: ButtonTheme(
                 alignedDropdown: true,
                 child: DropdownButtonHideUnderline(
@@ -736,7 +738,7 @@ class _SignPageState extends State<StudentSignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
@@ -786,7 +788,7 @@ class _SignPageState extends State<StudentSignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
@@ -827,7 +829,7 @@ class _SignPageState extends State<StudentSignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
@@ -869,7 +871,7 @@ class _SignPageState extends State<StudentSignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)),
+            borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
