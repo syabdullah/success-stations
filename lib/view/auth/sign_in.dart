@@ -330,7 +330,7 @@ class _SignPageState extends State<SignIn> {
           ),
             validator: (value) => value == ''
                       ? 'email_required'.tr
-                      : !value!.contains('@') || !value!.contains('.')
+                      : !value!.contains('@') || !value.contains('.')
                       ? 'enter_valid_email'.tr
                       : null,
                   // errorText: '',

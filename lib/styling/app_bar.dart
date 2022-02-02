@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,10 +13,9 @@ import 'package:success_stations/controller/offers/offer_category_controller.dar
 import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/offer_filtered.dart';
@@ -26,6 +26,7 @@ final mapCon = Get.put(LocationController());
 final formKey = new GlobalKey<FormState>();
 final gridingData = Get.put(GridListCategory());
 final filterControlller = Get.put(AddBasedController());
+final _scaffoldKey1 = GlobalKey<ScaffoldState>();
 var dis,
     lat,
     long,
@@ -93,470 +94,477 @@ void _getUserLocation() async {
 
 Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
     index) {
+
   var lang = box.read('lang_code');
-  return lang == 'en' || lang == null ? AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: index == 2 ? Container(
-      margin: EdgeInsets.only(top: 8),
-      child: IconButton(
-          iconSize: 40,
-          icon: Image.asset(
-              AppImages.menuDrawer, height: 28, color: AppColors.grey),
-          onPressed: () => globalKey.currentState!.openDrawer()
-      ),
-    ) :
-    // index == 1 ?
-    // InkWell(
-    //   onTap: () => index == 4?  filteringCategory(context):
-    //   Get.bottomSheet(FriendFilter()),
-    //   child: Container(
-    //     margin: EdgeInsets.only( top:08),
-    //     child:  index == 1 ? Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ):
-    //     Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ),
-    //   ),
-    // ):
-
-    index == 2 ? Container()
-        : Row(
-      children: [
-        GestureDetector(
-          onTap:
-          index == 0 ? () {
-            filteringCategory(context);
-          }
-              :
-          index == 1 ? () {
-            Scaffold.of(context).openDrawer();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
-            // FriendFilter();
-            // index == 4 ? filteringCategory(context) :
-            // Get.bottomSheet(FriendFilter());
-          } :
-          index == 3 ? () {
-            adsfiltringheet(context);
-          } :
-          index == 4 ? () {
-            filtrationModel(context);
-          } :
-          null,
-          child: index == 0 || index == 4 ||index ==3 ? Container() :
-
-          GestureDetector(
-  onTap: () => index == 4?  filteringCategory(context):
-    Get.bottomSheet(FriendFilter()),
-            child: Container(
-              margin: EdgeInsets.only(right: 15, top: 08),
-              child: index == 1 ? Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45
-              ) :
-              Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45
-              ),
-            ),
+  return Scaffold(
+    key: _scaffoldKey1,
+    drawer: Drawer(),
+    body: lang == 'en' || lang == null ? AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leadingWidth: 89,
+        leading: index == 2 ? Container(
+          margin: EdgeInsets.only(top: 8),
+          child: IconButton(
+              iconSize: 40,
+              icon: Image.asset(
+                  AppImages.menuDrawer, height: 28, color: AppColors.grey),
+              onPressed: () => globalKey.currentState!.openDrawer()
           ),
-        ),
-        GestureDetector(
-          onTap: index == 3 ? () {
-            Get.to(AddPostingScreen());
-          } :
-          index == 0 ? () {
-            Get.to(AddOffersPage());
-          } :
-          index == 4 ? () {
-            Get.to(AddPostingScreen());
-          } : null,
-          child: Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 08),
-              child: index != 1 ? Image.asset(
-                  AppImages.plusImage1,
-                  color: Colors.black, height: 35
-              ) : Container()
-          ),
-        ),
-      ],
-    ),
-    title: Padding(
-      padding: const EdgeInsets.only(top: 08.0),
-      child: Image.asset(image, height: 40),
-    ),
-    actions: [
-      index == 2 ?
-      GestureDetector(
-        onTap: () {
-          Get.toNamed('/inbox');
-        },
-        child: Container(
-            padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
-            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
-            child: Row(
-              children: [
-                Image.asset(AppImages.chating, color: AppColors.black),
-                Container(height: 20, color: AppColors.grey, width: 1,),
-                Image.asset(AppImages.appbar_location, color: AppColors.black),
-              ],
-            )
-        ),
-      ) :
-      Container(
+        ) :
+        // index == 1 ?
+        // InkWell(
+        //   onTap: () => index == 4?  filteringCategory(context):
+        //   Get.bottomSheet(FriendFilter()),
+        //   child: Container(
+        //     margin: EdgeInsets.only( top:08),
+        //     child:  index == 1 ? Image.asset(AppImages.filterImage,
+        //         color: Colors.grey, height: 30
+        //     ):
+        //     Image.asset(AppImages.filterImage,
+        //         color: Colors.grey, height: 30
+        //     ),
+        //   ),
+        // ):
 
-        margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
-            .only(right: 16,left: 16, top: 08),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        index == 2 ? Container()
+            : Row(
           children: [
-            index == 0 ?
-            InkWell(
-              onTap: () => filteringCategory(context),
-              child: Container(
-                // margin: EdgeInsets.only( top:08),
-                child: index == 1 ? Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ) :
-                Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ),
-              ),
-            ) : Container(),
-            index == 1 ?
-            Padding(
-              padding: const EdgeInsets.only(right:10,left: 10),
-              child: InkWell(
+            GestureDetector(
+              onTap:
+              index == 0 ? () {
+                filteringCategory(context);
+              }
+                  :
+              index == 1 ? () {
+                Scaffold.of(context).openDrawer();
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+                // FriendFilter();
+                // index == 4 ? filteringCategory(context) :
+                // Get.bottomSheet(FriendFilter());
+              } :
+              index == 3 ? () {
+                adsfiltringheet(context);
+              } :
+              index == 4 ? () {
+                filtrationModel(context);
+              } :
+              null,
+              child: index == 0 || index == 4 ||index ==3 ? Container() :
 
+              GestureDetector(
+      // onTap:
+        //   () => index == 4?  filteringCategory(context):
+        // Get.bottomSheet(FriendFilter()),
+     onTap: ()=> _scaffoldKey1.currentState!.openDrawer(),
                 child: Container(
-                  // margin: EdgeInsets.only( top:08),
-                  child: index == 1 ? Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
+                  margin: EdgeInsets.only(right: 15, top: 08),
+                  child: index == 1 ? Image.asset(AppImages.filterImage,
+                      color: Colors.grey, height: 45
                   ) :
-                  Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
+                  Image.asset(AppImages.filterImage,
+                      color: Colors.grey, height: 45
                   ),
                 ),
               ),
-            ) : Container(),
-
-           index == 4 || index==3? GestureDetector(
-              onTap: () {
-                index==3?
-                // filtrationModel(context): adsfiltringheet(context);
-                filtrationModel(context): adsfiltringheet(context);
-
-
-
-              },
+            ),
+            GestureDetector(
+              onTap: index == 3 ? () {
+                Get.to(AddPostingScreen());
+              } :
+              index == 0 ? () {
+                Get.to(AddOffersPage());
+              } :
+              index == 4 ? () {
+                Get.to(AddPostingScreen());
+              } : null,
               child: Container(
+                  margin: EdgeInsets.only(left: 10,right: 10,top: 08),
+                  child: index != 1 ? Image.asset(
+                      AppImages.plusImage1,
+                      color: Colors.black, height: 35
+                  ) : Container()
+              ),
+            ),
+          ],
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 08.0),
+          child: Image.asset(image, height: 40),
+        ),
+        actions: [
+          index == 2 ?
+          GestureDetector(
+            onTap: () {
+              Get.toNamed('/inbox');
+            },
+            child: Container(
+                padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
+                margin: EdgeInsets.only(right: 10,left: 10,top: 10),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.chating, color: AppColors.black),
+                    Container(height: 20, color: AppColors.grey, width: 1,),
+                    Image.asset(AppImages.appbar_location, color: AppColors.black),
+                  ],
+                )
+            ),
+          ) :
+          Container(
+
+            margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
+                .only(right: 16,left: 16, top: 08),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                index == 0 ?
+                InkWell(
+                  onTap: () => filteringCategory(context),
+                  child: Container(
+                    // margin: EdgeInsets.only( top:08),
+                    child: index == 1 ? Image.asset(AppImages.filterImage,
+                        color: Colors.black, height: 40
+                    ) :
+                    Image.asset(AppImages.filterImage,
+                        color: Colors.black, height: 40
+                    ),
+                  ),
+                ) : Container(),
+                index == 1 ?
+                Padding(
+                  padding: const EdgeInsets.only(right:10,left: 10),
+                  child: InkWell(
+
+                    child: Container(
+                      // margin: EdgeInsets.only( top:08),
+                      child: index == 1 ? Image.asset(AppImages.myFriendList,
+                          color: Colors.black, height: 25
+                      ) :
+                      Image.asset(AppImages.myFriendList,
+                          color: Colors.black, height: 25
+                      ),
+                    ),
+                  ),
+                ) : Container(),
+
+               index == 4 || index==3? GestureDetector(
+                  onTap: () {
+                    index==3?
+                    // filtrationModel(context): adsfiltringheet(context);
+                    filtrationModel(context): adsfiltringheet(context);
+
+
+
+                  },
+                  child: Container(
+                      height: 25,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          )
+                      ),
+                      margin: EdgeInsets.only(top: 08),
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Image.asset(
+                                AppImages.adsFilter, color: Colors.black, height: 50),
+                          )
+                  ),
+                ):Container(),
+                index == 4 || index==3?
+                Container(
                   height: 25,
                   width: 30,
+
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.black,
                       )
                   ),
                   margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
+                  child: GestureDetector(
+                      onTap: () {
+
+                        index == 4 ?
+                        gridingData.listingGrid('map') :
+                        gridingData.listingGrid('list');
+                      },
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : index == 4 ?
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            AppImages.listingImage, color: Colors.black, height: 15),
+                      ) :
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            AppImages.listingImage, color: Colors.black, height: 15),
+                      )
+                  ),
+                ):Container(),
+                index == 4 || index==3? GestureDetector(
+                  onTap: () {
+                    gridingData.listingGrid('grid');
+                  },
+                  child: Container(
+                      height: 25,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          )
+                      ),
+                      margin: EdgeInsets.only(top: 08),
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
+                      )
+                  ),
+                ):Container()
+              ],
+            ),
+          ),
+        ],
+        backgroundColor: Colors.white,
+      ) :
+      AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leadingWidth: 89,
+        leading: index == 2 ? Container(
+          margin: EdgeInsets.only(top: 8),
+          child: IconButton(
+              iconSize: 40,
+              icon: Image.asset(
+                  AppImages.menuDrawer, height: 28, color: AppColors.grey),
+              onPressed: () => globalKey.currentState!.openDrawer()
+          ),
+        ) :
+        // index == 1 ?
+        // InkWell(
+        //   onTap: () => index == 4?  filteringCategory(context):
+        //   Get.bottomSheet(FriendFilter()),
+        //   child: Container(
+        //     margin: EdgeInsets.only( top:08),
+        //     child:  index == 1 ? Image.asset(AppImages.filterImage,
+        //         color: Colors.grey, height: 30
+        //     ):
+        //     Image.asset(AppImages.filterImage,
+        //         color: Colors.grey, height: 30
+        //     ),
+        //   ),
+        // ):
+
+        index == 2 ? Container()
+            : Row(
+          children: [
+            GestureDetector(
+              onTap:
+              index == 0 ? () {
+                filteringCategory(context);
+              }
+                  :
+              index == 1 ? () {
+                Scaffold.of(context).openDrawer();
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+                // FriendFilter();
+                // index == 4 ? filteringCategory(context) :
+                // Get.bottomSheet(FriendFilter());
+              } :
+              index == 3 ? () {
+                adsfiltringheet(context);
+              } :
+              index == 4 ? () {
+                filtrationModel(context);
+              } :
+              null,
+              child: index == 0 || index == 4 ||index ==3 ? Container() :
+
+              Container(
+                margin: EdgeInsets.only(left: 15, top: 08),
+                child: index == 1 ? Image.asset(AppImages.filterImage,
+                    color: Colors.grey, height: 45
+                ) :
+                Image.asset(AppImages.filterImage,
+                    color: Colors.grey, height: 45
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: index == 3 ? () {
+                Get.to(AddPostingScreen());
+              } :
+              index == 0 ? () {
+                Get.to(AddOffersPage());
+              } :
+              index == 4 ? () {
+                Get.to(AddPostingScreen());
+              } : null,
+              child: Container(
+                  margin: EdgeInsets.only(left: 10,right: 10,top: 08),
+                  child: index != 1 ? Image.asset(
+                      AppImages.plusImage1,
+                      color: Colors.black, height: 35
+                  ) : Container()
+              ),
+            ),
+          ],
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 08.0),
+          child: Image.asset(image, height: 40),
+        ),
+        actions: [
+          index == 2 ?
+          GestureDetector(
+            onTap: () {
+              Get.toNamed('/inbox');
+            },
+            child: Container(
+                padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
+                margin: EdgeInsets.only(right: 10,left: 10,top: 10),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.chating, color: AppColors.black),
+                    Container(height: 20, color: AppColors.grey, width: 1,),
+                    Image.asset(AppImages.appbar_location, color: AppColors.black),
+                  ],
+                )
+            ),
+          ) :
+          Container(
+
+            margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
+                .only(right: 16,left: 16, top: 08),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                index == 0 ?
+                InkWell(
+                  onTap: () => filteringCategory(context),
+                  child: Container(
+                    // margin: EdgeInsets.only( top:08),
+                    child: index == 1 ? Image.asset(AppImages.filterImage,
+                        color: Colors.black, height: 40
+                    ) :
+                    Image.asset(AppImages.filterImage,
+                        color: Colors.black, height: 40
+                    ),
+                  ),
+                ) : Container(),
+                index == 1 ?
+                Padding(
+                  padding: const EdgeInsets.only(right:10,left: 10),
+                  child: InkWell(
+                    onTap: () => filteringCategory(context),
+                    child: Container(
+                      // margin: EdgeInsets.only( top:08),
+                      child: index == 1 ? Image.asset(AppImages.myFriendList,
+                          color: Colors.black, height: 25
+                      ) :
+                      Image.asset(AppImages.myFriendList,
+                          color: Colors.black, height: 25
+                      ),
+                    ),
+                  ),
+                ) : Container(),
+
+                index == 4 || index==3? GestureDetector(
+                  onTap: () {
+                    index==3?
+                    // filtrationModel(context): adsfiltringheet(context);
+                    filtrationModel(context): adsfiltringheet(context);
+
+
+
+                  },
+                  child: Container(
+                      height: 25,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          )
+                      ),
+                      margin: EdgeInsets.only(top: 08),
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Image.asset(
                             AppImages.adsFilter, color: Colors.black, height: 50),
                       )
-              ),
-            ):Container(),
-            index == 4 || index==3?
-            Container(
-              height: 25,
-              width: 30,
-
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  )
-              ),
-              margin: EdgeInsets.only(top: 08),
-              child: GestureDetector(
-                  onTap: () {
-
-                    index == 4 ?
-                    gridingData.listingGrid('map') :
-                    gridingData.listingGrid('list');
-                  },
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : index == 4 ?
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  ) :
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
+                  ),
+                ):Container(),
+                index == 4 || index==3?
+                Container(
                   height: 25,
                   width: 30,
+
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.black,
                       )
                   ),
                   margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
-                  )
-              ),
-            ):Container()
-          ],
-        ),
-      ),
-    ],
-    backgroundColor: Colors.white,
-  ) :
-  AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: index == 2 ? Container(
-      margin: EdgeInsets.only(top: 8),
-      child: IconButton(
-          iconSize: 40,
-          icon: Image.asset(
-              AppImages.menuDrawer, height: 28, color: AppColors.grey),
-          onPressed: () => globalKey.currentState!.openDrawer()
-      ),
-    ) :
-    // index == 1 ?
-    // InkWell(
-    //   onTap: () => index == 4?  filteringCategory(context):
-    //   Get.bottomSheet(FriendFilter()),
-    //   child: Container(
-    //     margin: EdgeInsets.only( top:08),
-    //     child:  index == 1 ? Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ):
-    //     Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ),
-    //   ),
-    // ):
+                  child: GestureDetector(
+                      onTap: () {
 
-    index == 2 ? Container()
-        : Row(
-      children: [
-        GestureDetector(
-          onTap:
-          index == 0 ? () {
-            filteringCategory(context);
-          }
-              :
-          index == 1 ? () {
-            Scaffold.of(context).openDrawer();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
-            // FriendFilter();
-            // index == 4 ? filteringCategory(context) :
-            // Get.bottomSheet(FriendFilter());
-          } :
-          index == 3 ? () {
-            adsfiltringheet(context);
-          } :
-          index == 4 ? () {
-            filtrationModel(context);
-          } :
-          null,
-          child: index == 0 || index == 4 ||index ==3 ? Container() :
-
-          Container(
-            margin: EdgeInsets.only(left: 15, top: 08),
-            child: index == 1 ? Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
-            ) :
-            Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
+                        index == 4 ?
+                        gridingData.listingGrid('map') :
+                        gridingData.listingGrid('list');
+                      },
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : index == 4 ?
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            AppImages.listingImage, color: Colors.black, height: 15),
+                      ) :
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            AppImages.listingImage, color: Colors.black, height: 15),
+                      )
+                  ),
+                ):Container(),
+                index == 4 || index==3? GestureDetector(
+                  onTap: () {
+                    gridingData.listingGrid('grid');
+                  },
+                  child: Container(
+                      height: 25,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          )
+                      ),
+                      margin: EdgeInsets.only(top: 08),
+                      child: index == 0 || index == 1 ? Container() : index == 2
+                          ? Container()
+                          : Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Image.asset(
+                            index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
+                      )
+                  ),
+                ):Container()
+              ],
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: index == 3 ? () {
-            Get.to(AddPostingScreen());
-          } :
-          index == 0 ? () {
-            Get.to(AddOffersPage());
-          } :
-          index == 4 ? () {
-            Get.to(AddPostingScreen());
-          } : null,
-          child: Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 08),
-              child: index != 1 ? Image.asset(
-                  AppImages.plusImage1,
-                  color: Colors.black, height: 35
-              ) : Container()
-          ),
-        ),
-      ],
+        ],
+        backgroundColor: Colors.white,
     ),
-    title: Padding(
-      padding: const EdgeInsets.only(top: 08.0),
-      child: Image.asset(image, height: 40),
-    ),
-    actions: [
-      index == 2 ?
-      GestureDetector(
-        onTap: () {
-          Get.toNamed('/inbox');
-        },
-        child: Container(
-            padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
-            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
-            child: Row(
-              children: [
-                Image.asset(AppImages.chating, color: AppColors.black),
-                Container(height: 20, color: AppColors.grey, width: 1,),
-                Image.asset(AppImages.appbar_location, color: AppColors.black),
-              ],
-            )
-        ),
-      ) :
-      Container(
-
-        margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
-            .only(right: 16,left: 16, top: 08),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            index == 0 ?
-            InkWell(
-              onTap: () => filteringCategory(context),
-              child: Container(
-                // margin: EdgeInsets.only( top:08),
-                child: index == 1 ? Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ) :
-                Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ),
-              ),
-            ) : Container(),
-            index == 1 ?
-            Padding(
-              padding: const EdgeInsets.only(right:10,left: 10),
-              child: InkWell(
-                onTap: () => filteringCategory(context),
-                child: Container(
-                  // margin: EdgeInsets.only( top:08),
-                  child: index == 1 ? Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ) :
-                  Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ),
-                ),
-              ),
-            ) : Container(),
-
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                index==3?
-                // filtrationModel(context): adsfiltringheet(context);
-                filtrationModel(context): adsfiltringheet(context);
-
-
-
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset(
-                        AppImages.adsFilter, color: Colors.black, height: 50),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3?
-            Container(
-              height: 25,
-              width: 30,
-
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  )
-              ),
-              margin: EdgeInsets.only(top: 08),
-              child: GestureDetector(
-                  onTap: () {
-
-                    index == 4 ?
-                    gridingData.listingGrid('map') :
-                    gridingData.listingGrid('list');
-                  },
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : index == 4 ?
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  ) :
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
-                  )
-              ),
-            ):Container()
-          ],
-        ),
-      ),
-    ],
-    backgroundColor: Colors.white,
   );
 
 }
@@ -1886,5 +1894,8 @@ adsfiltringheet(context) {
       }
   );
 }
+
+
+
 
  
