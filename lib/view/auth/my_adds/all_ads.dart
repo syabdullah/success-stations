@@ -154,7 +154,8 @@ class _AllAddsState extends State<AllAdds> {
                                   val.cData['data'] != null &&
                                   val.cData['success'] == true
                               ? valuees.dataType != 'grid'
-                                  ? myAddsList(val.cData['data'])
+                                  ?myAddGridView(val.cData['data'])
+                          // myAddsList(val.cData['data'])
                                   : myAddGridView(val.cData['data'])
                               : controller.resultInvalid.isTrue
                                   ? Container(
@@ -478,7 +479,7 @@ class _AllAddsState extends State<AllAdds> {
 
   myAddGridView(dataListValue) {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       width: Get.width / 1.10,
       child: dataListValue == null
           ? VideoShimmer()
@@ -531,8 +532,8 @@ class _AllAddsState extends State<AllAdds> {
                                             fit: BoxFit.fill),
                                       ),
                                       Container(
-                                        padding: EdgeInsets.only(
-                                            right: 5, left: 5, top: 5),
+                                        padding: EdgeInsets.symmetric(
+                                           horizontal: 3, vertical: 5),
                                         child: GestureDetector(
                                           onTap: () {
                                             var json = {
@@ -594,8 +595,8 @@ class _AllAddsState extends State<AllAdds> {
                                                 null);
                                           },
                                           child: Container(
-                                              padding: EdgeInsets.only(
-                                                  right: 5, left: 5),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 5),
                                               child: dataListValue[index]
                                                           ['is_favorite'] ==
                                                       false
@@ -677,7 +678,7 @@ class _AllAddsState extends State<AllAdds> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left:10.0,top: 5),
+                              padding: const EdgeInsets.symmetric(horizontal:10,vertical: 5),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -699,27 +700,25 @@ class _AllAddsState extends State<AllAdds> {
                                 ],
                               ),
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left:8.0),
-                                  child: Text(
-                                    ' Store name',
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal:10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Store name',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 14,),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 45.0),
-                                  child: Text(
-                                    ' NEW',
+                                  Text(
+                                    'NEW',
                                     style: TextStyle(
                                         color: Colors.greenAccent,
-                                        fontSize: 15,fontWeight: FontWeight.bold),
+                                        fontSize: 15,fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
