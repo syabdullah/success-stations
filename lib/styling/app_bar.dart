@@ -147,13 +147,17 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
           null,
           child: index == 0 || index == 4 ||index ==3 ? Container() :
 
-          Container(
-            margin: EdgeInsets.only(right: 15, top: 08),
-            child: index == 1 ? Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
-            ) :
-            Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
+          GestureDetector(
+  onTap: () => index == 4?  filteringCategory(context):
+    Get.bottomSheet(FriendFilter()),
+            child: Container(
+              margin: EdgeInsets.only(right: 15, top: 08),
+              child: index == 1 ? Image.asset(AppImages.filterImage,
+                  color: Colors.grey, height: 45
+              ) :
+              Image.asset(AppImages.filterImage,
+                  color: Colors.grey, height: 45
+              ),
             ),
           ),
         ),
@@ -223,7 +227,7 @@ Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
             Padding(
               padding: const EdgeInsets.only(right:10,left: 10),
               child: InkWell(
-                onTap: () => filteringCategory(context),
+
                 child: Container(
                   // margin: EdgeInsets.only( top:08),
                   child: index == 1 ? Image.asset(AppImages.myFriendList,

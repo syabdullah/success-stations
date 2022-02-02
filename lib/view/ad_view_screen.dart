@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
   @override
   void initState() {
+
     id = box.read('user_id');
     lang = box.read('lang_code');
     myName = box.read('name');
@@ -60,6 +62,9 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent
+    ));
     return Scaffold(
       key: _scaffoldKey,
       bottomNavigationBar: GetBuilder<MyAddsController>(
@@ -79,52 +84,77 @@ class _AdViewScreenState extends State<AdViewScreen> {
                   )
                 : Container();
           }),
-      appBar: AppBar(
-          leading: GestureDetector(
+      // appBar: AppBar(
+      //     leading: GestureDetector(
+      //         child: Row(
+      //       children: [
+      //         GestureDetector(
+      //           onTap: () => Get.back(),
+      //           child: Container(
+      //             margin: lang == 'en'
+      //                 ? EdgeInsets.only(left: 10, top: 5)
+      //                 : EdgeInsets.only(right: 10, top: 5),
+      //             child: Icon(Icons.arrow_back, color: Colors.white, size: 25),
+      //           ),
+      //         ),
+      //       ],
+      //     )),
+      //     centerTitle: true,
+      //     backgroundColor: AppColors.appBarBackGroundColor),
+      body: Stack(
+
+        children: [
+              SingleChildScrollView(
+              child: GetBuilder<MyAddsController>(
+                  init: MyAddsController(),
+                  builder: (val) {
+                    return
+                      val.isLoading == true || val.adsD == null
+                        ? shimmer()
+                        : val.adsD == null
+                            ? Container(
+                                child: Center(
+                                  child: Text("no_detail_here!".tr),
+                                ),
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  titleStep(val.adsD['data']),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  commentInput(),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  commentButton(),
+                                  listTileRow2(
+                                      val.adsD['data']['listing_comments']),
+                                ],
+                              );
+                  })),
+          Container(
+            height: Get.height*0.08,
+            width: Get.width,
+            decoration: BoxDecoration(
+color: Colors.white.withOpacity(0.8)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 25),
               child: Row(
-            children: [
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: Container(
-                  margin: lang == 'en'
-                      ? EdgeInsets.only(left: 10, top: 5)
-                      : EdgeInsets.only(right: 10, top: 5),
-                  child: Icon(Icons.arrow_back, color: Colors.white, size: 25),
-                ),
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Image.asset(AppImages.imagearrow1,height: 20,)),
+                ],
               ),
-            ],
-          )),
-          centerTitle: true,
-          backgroundColor: AppColors.appBarBackGroundColor),
-      body: SingleChildScrollView(
-          child: GetBuilder<MyAddsController>(
-              init: MyAddsController(),
-              builder: (val) {
-                return val.isLoading == true || val.adsD == null
-                    ? shimmer()
-                    : val.adsD == null
-                        ? Container(
-                            child: Center(
-                              child: Text("no_detail_here!".tr),
-                            ),
-                          )
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              titleStep(val.adsD['data']),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              commentInput(),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              commentButton(),
-                              listTileRow2(
-                                  val.adsD['data']['listing_comments']),
-                            ],
-                          );
-              })),
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 
@@ -144,12 +174,53 @@ class _AdViewScreenState extends State<AdViewScreen> {
         : Column(
             children: [
               data['image'].length != 0
-                  ? ClipRRect(
-                      child: Image.network(data['image'][0]['url'],
-                          width: Get.width / 1.0,
-                          height: Get.height * 0.30,
-                          fit: BoxFit.fill),
-                    )
+                  ? Stack(
+
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Container(
+                width: Get.width / 1.0,
+                height: Get.height * 0.45,
+                decoration: BoxDecoration(
+                        border: Border.all(
+                          color:AppColors.outline
+                        )
+                ),
+
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 8.0),
+                            child: Image.network(data['image'][0]['url'],
+                                width: Get.width / 1.0,
+                                height: Get.height * 0.40,
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                      ),
+
+                      Positioned(
+                        bottom: 10,
+                        right: 5,
+                        left: 5,
+
+                        child: Center(
+                          child: Container(
+                            width: Get.width ,
+                            height: Get.height * 0.10,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.outline),
+                                color: Colors.black.withOpacity(0.3)),
+                            child: Row(
+                              children: [
+
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+
+                    ],
+                  )
                   : Container(
                       height: Get.height / 4,
                       child: Center(
@@ -169,7 +240,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grey),
+                            border: Border.all(color: AppColors.outline),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
