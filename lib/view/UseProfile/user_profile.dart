@@ -56,25 +56,15 @@ class _UserProfileState extends State<UserProfile>
     return Stack(
       children: [
         Container(
-          height: Get.height / 2.8,
-          width: Get.width,
-          child: ClipRRect(
-              // borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
-              child: Image.asset(AppImages.profileBg, fit: BoxFit.fill)),
+          child: Container(
+            height: Get.height / 2.8,
+            width: Get.width,
+            child: ClipRRect(
+                // borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30),bottomRight:Radius.circular(30)),
+                child: Image.asset(AppImages.profileBg, fit: BoxFit.fill)),
+          ),
         ),
-        Positioned(
-          top: 150,
-          left: 172,
-          child: InkWell(
-              onTap: () {
-                // Get.back();
-                // banner.bannerController();
-              },
-              child: Image.asset(
-                AppImages.profileEdit,
-                height: 60,
-              )),
-        ),
+
         Container(
           margin: EdgeInsets.only(top: 30),
           child:
@@ -103,31 +93,52 @@ class _UserProfileState extends State<UserProfile>
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 3),
-                    shape: BoxShape.circle,
-                  ),
-                  margin: EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: Get.height / 8.5),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      radius: 40.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60.0),
-                        child: userData['image'] == null
-                            ? Image.asset(AppImages.person)
-                            : Image.network(
-                                userData['image']['url'],
-                                fit: BoxFit.fill,
-                                height: Get.height / 5,
-                              ),
-                      ))),
+            Stack(
+              overflow: Overflow.visible,
+              children: [
+
+                Center(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 3),
+                        shape: BoxShape.circle,
+                      ),
+                      margin: EdgeInsets.only(
+                          left: 10.0, right: 10.0, top: Get.height / 8.5),
+                      child: CircleAvatar(
+                          backgroundColor: Colors.grey[100],
+                          // backgroundColor: Colors.black,
+                          radius: 40.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(60.0),
+                            child: userData['image'] == null
+                                ? Image.asset(AppImages.person)
+                                :
+                            Image.network(
+                                    userData['image']['url'],
+                                    fit: BoxFit.fill,
+                                    height: Get.height / 5,
+                                  ),
+                          ))),
+                ),
+                Positioned(
+                  top: 150,
+                  left: 172,
+                  child: InkWell(
+                      onTap: () {
+                        // Get.back();
+                        // banner.bannerController();
+                      },
+                      child: Image.asset(
+                        AppImages.profileEdit,
+                        height: 60,
+                      )),
+                ),
+              ],
             ),
             userData["name"] != null
                 ? Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: 20),
                     child: Text(userData["name"].toString(),
                         style: TextStyle(
                             color: Colors.white,
@@ -169,7 +180,7 @@ class _UserProfileState extends State<UserProfile>
                       color: Color(0xFFf2f2f2),
                       border: Border.all(color: Colors.grey)),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -196,7 +207,7 @@ class _UserProfileState extends State<UserProfile>
                       child: Container(
                         // margin: lang == 'ar'? EdgeInsets.only(right:20,top: 10) :EdgeInsets.only(left: 20,top: 10),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -521,7 +532,7 @@ class _UserProfileState extends State<UserProfile>
                   color: Color(0xFFf2f2f2),
                   border: Border.all(color: Colors.grey)),
               child: Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -542,7 +553,7 @@ class _UserProfileState extends State<UserProfile>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
                   Padding(
@@ -699,7 +710,7 @@ class _UserProfileState extends State<UserProfile>
                   color: Color(0xFFf2f2f2),
                   border: Border.all(color: Colors.grey)),
               child: Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding:EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -720,7 +731,7 @@ class _UserProfileState extends State<UserProfile>
               ),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: lang == 'ar'

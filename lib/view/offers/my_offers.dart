@@ -285,12 +285,12 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       //   )
                       // ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
+                        padding:EdgeInsets.symmetric(horizontal: 10,vertical:5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(),
+                               // margin: EdgeInsets.symmetric(horizontal: 10),
                               child: GestureDetector(
                                 onTap: () {
                                   delete.deleteOfferController(listFavou[c]['id']);
@@ -298,12 +298,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 child: Image.asset(AppImages.delete_offer,height: 25)
                               )
                             ),
+                            SizedBox(width: 5,),
                             GestureDetector(
                               onTap: () {
                                 Get.to(AddOffersPage(), arguments: listFavou[c]);
                               },
                               child: Container(
-                                margin: EdgeInsets.only(right: 10),
+                                // margin: EdgeInsets.symmetric(horizontal: 10),
                                 // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                 child: Image.asset(AppImages.edit_Offer, height: 20)
                               ),
