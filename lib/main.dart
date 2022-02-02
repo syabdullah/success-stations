@@ -35,7 +35,7 @@ class SuccessApp extends StatelessWidget {
     lang =  box.read('lang_code');
     auth =  box.read('access_token');
     print(auth);
-    return ScreenUtilInit(
+    return ScreenUtilInit( 
       builder:()  {       
         return GetMaterialApp(     
         debugShowCheckedModeBanner: false,

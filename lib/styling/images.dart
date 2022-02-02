@@ -83,6 +83,7 @@ class AppImages {
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
   static String nearby = imagePath + 'nearby.png';
+  static String whatsapp = imagePath + 'whatsapp.png';
 
   // memberShip
 
