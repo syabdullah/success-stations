@@ -49,61 +49,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 35,left: 35),
-              child: ColoredBox(
-                color: Color(0XFF2B409E),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(18),
-                      child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.white,decoration: TextDecoration.underline,),)
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20,right: 20),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),),
-                    child:TabBar(
-                        indicator: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            color: AppColors.darkblue),
-                      controller: controller1,
-                      indicatorColor: Colors.white,
-                      unselectedLabelColor: Colors.black,
-                      labelColor: Colors.white,
-                      tabs: <Tab>[
-                        Tab(
-                          child: Text(
-                            'student'.tr,
-                          )
-                        ),
-                        Tab(
-                          child: Text(
-                            'company'.tr,
-                          )
-                        ),
-                      ]
-                    )
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: controller1, 
-                      physics: NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        StudentSignUp(),
-                        CompanySignUp()
-                      ]
-                    ),
-                  ),
-                ],
-              ),
-
+              child: Center(child: Text("new_account".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),
             ),
           ],
         ),
