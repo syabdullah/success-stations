@@ -489,8 +489,7 @@ class _AllAddsState extends State<AllAdds> {
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 10,
-              childAspectRatio:
-              (lang == 'en'
+              childAspectRatio: (lang == 'en'
                   ? Get.height < 700
                       ? Get.width / 0.5 / Get.height / 0.43
                       : Get.width /0.5 / Get.height / 0.41
