@@ -16,11 +16,12 @@ import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
 
 DateTime? dateTime;
 var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 // var str = JSON.encode(dt, toEncodable: myEncode);
 
 class StudentSignUp extends StatefulWidget {
@@ -116,33 +117,37 @@ class _SignPageState extends State<StudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
+    final space20 = SizedBox(height: getSize(Get.width*0.02, context));
+    final space10 = SizedBox(height: getSize(Get.width*0.01, context));
+    final space25 = SizedBox(height: getSize(Get.width*0.025, context));
+    final width10 = SizedBox(width: getSize(Get.width*0.02, context));
     return Scaffold(
       backgroundColor: Colors.white,
-    
+      // bottomNavigationBar:  singIn(),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding:  EdgeInsets.symmetric(horizontal:Get.width*0.023),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                space10,
+                space20,
+                space20,
+
                 fullNameStudent(),
-                space10,
+                space25,
                 eMail(),
-                space10,
+                space25,
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
 
                     password(),
                     confirmPassword(),
                   ],
                 ),
-                space10,
+                space25,
                 mobile(),
                 // space10,
                 // studentdob(),
@@ -153,7 +158,7 @@ class _SignPageState extends State<StudentSignUp> {
                 //     return country(val.countryListdata);
                 //   },
                 // ),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -172,7 +177,7 @@ class _SignPageState extends State<StudentSignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -193,9 +198,9 @@ class _SignPageState extends State<StudentSignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 degree(),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -221,7 +226,8 @@ class _SignPageState extends State<StudentSignUp> {
 
                   ],
                 ),
-                space10,
+                space25,
+                space20,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -237,13 +243,13 @@ class _SignPageState extends State<StudentSignUp> {
                         },
                       ),
                     ),
-              Text('termsline'.tr,
-                  style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black,
-                      fontFamily: "andada",
-                      fontWeight: FontWeight.w600
-                  )),
+                    Text('termsline'.tr,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            fontFamily: "andada",
+                            fontWeight: FontWeight.w600
+                        )),
                     // Text("terms_condition".tr,
                     //     style: TextStyle(
                     //         fontFamily: 'Lato',
@@ -256,54 +262,54 @@ class _SignPageState extends State<StudentSignUp> {
                 submitButton(
                     bgcolor: AppColors.whitedColor,
                     textColor: AppColors.white,
-                    buttonText: "sign_up_text".tr,
+                    buttonText: "sign_up".tr,
                     fontSize: 16.0,
                     callback: _isChecked == true ? createUser : null),
                 space20,
 
-              Container(
-                height: Get.height*0.08,
-                margin: EdgeInsets.only( bottom:  Get.height*0.005,),
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  children: [
-                    Divider(
-                      color: Colors.black,
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.all(Get.height*0.004),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "have_account".tr,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: "Source_Sans_Pro",
-                                fontSize: 17),
-                          ),
-                          GestureDetector(
-                              onTap: () {
-
-                                Get.toNamed('/login');
-
-                              },
-                              child: Text(
-                                "sign_in".tr,
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: "Source_Sans_Pro",
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ],
+                Container(
+                  height: Get.height*0.08,
+                  margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    children: [
+                      Divider(
+                        color: Colors.black,
                       ),
-                    ),
-                  ],
-                ),
-              )
+
+                      Padding(
+                        padding:  EdgeInsets.all(Get.height*0.004),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "have_account".tr,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 17),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+
+                                  Get.toNamed('/login');
+
+                                },
+                                child: Text(
+                                  "sign_in".tr,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: "Source_Sans_Pro",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
 
               ],
             ),
@@ -312,6 +318,7 @@ class _SignPageState extends State<StudentSignUp> {
       ),
     );
   }
+
 
   Widget fullNameStudent() {
     return Container(
@@ -325,9 +332,9 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor:
-            lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
+        lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
         textController: nameController,
@@ -355,7 +362,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 14, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14: 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -384,7 +391,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'address'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -404,9 +411,9 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget about() {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.outline,width: 1.5)
-      ),
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColors.outline,width: 1.5)
+        ),
         height: Get.height*0.15,
         width: Get.width * 0.68,
         // margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
@@ -468,45 +475,45 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget degree() {
     return Container(
-        // margin: lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19):EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+      // margin: lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19):EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
         width: Get.width ,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: Container(
-              margin: EdgeInsets.only(right: 2),
-              child: DropdownButton(
-                hint: Text(
-                    statusSelected == null ? 'degreesu'.tr : statusSelected,
-                    style: TextStyle(
-                        fontSize: lang == 'ar' ? 10 : 12,
-                        color: AppColors.inputTextColor)),
-                dropdownColor: AppColors.inPutFieldColor,
-                icon: Icon(Icons.arrow_drop_down),
-                items: <String>[
-                  'diploma'.tr,
-                  'bachelor\'s'.tr,
-                  'master\'s'.tr,
-                  'doctorate'.tr
-                ].map((String value) {
-                  return DropdownMenuItem(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: TextStyle(color: Colors.grey[800]),
-                      ));
-                }).toList(),
-                onChanged: (val) {
-                  setState(() {
-                    statusSelected = val;
-                  });
-                },
-              ),
-            ))));
+                  margin: EdgeInsets.only(right: 2),
+                  child: DropdownButton(
+                    hint: Text(
+                        statusSelected == null ? 'degreesu'.tr : statusSelected,
+                        style: TextStyle(
+                            fontSize: lang == 'ar' ? 14 : 14,
+                            color: AppColors.inputTextColor)),
+                    dropdownColor: AppColors.inPutFieldColor,
+                    icon: Icon(Icons.arrow_drop_down),
+                    items: <String>[
+                      'diploma'.tr,
+                      'bachelor\'s'.tr,
+                      'master\'s'.tr,
+                      'doctorate'.tr
+                    ].map((String value) {
+                      return DropdownMenuItem(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.grey[800]),
+                          ));
+                    }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        statusSelected = val;
+                      });
+                    },
+                  ),
+                ))));
   }
 
   Widget eMail() {
@@ -521,7 +528,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'emails'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (newValue) {},
@@ -550,7 +557,7 @@ class _SignPageState extends State<StudentSignUp> {
       //         right: MediaQuery.of(context).size.width/19, left: MediaQuery.of(context).size.width / 46)
       //     : EdgeInsets.only(
       //         left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -560,7 +567,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           passwordValue = value;
@@ -585,7 +592,7 @@ class _SignPageState extends State<StudentSignUp> {
     return Container(
       // margin:
       //     lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19) : EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -595,7 +602,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14: 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           confirmPasswordValue = value;
@@ -618,12 +625,12 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget mobile() {
     return Container(
-        // margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+      // margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
         width: Get.width,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(0),
-            border: Border.all(color: Color(0xFFEEEEEE))),
+            border: Border.all(color: AppColors.outline,width: 1.5)),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
@@ -690,9 +697,9 @@ class _SignPageState extends State<StudentSignUp> {
               borderSide: BorderSide(color: Colors.grey.shade200)),
 
           contentPadding:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19, bottom: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
+          EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19, bottom: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
           hintText:
-              finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
+          finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
               fontSize: lang == 'ar' ? 14 : 16,
               color: AppColors.inputTextColor,
@@ -729,11 +736,11 @@ class _SignPageState extends State<StudentSignUp> {
                     ),
                   ),
                   onChanged: (date) {}, onConfirm: (date) {
-                setState(() {
-                  dateTime = date;
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                });
-              }, currentTime: DateTime.now(), locale: LocaleType.en);
+                    setState(() {
+                      dateTime = date;
+                      finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    });
+                  }, currentTime: DateTime.now(), locale: LocaleType.en);
             },
           ),
         ),
@@ -755,234 +762,234 @@ class _SignPageState extends State<StudentSignUp> {
                 alignedDropdown: true,
                 child: DropdownButtonHideUnderline(
                     child: DropdownButton(
-                  hint: Text(
-                      hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                      style: TextStyle(
-                          fontSize: 10, color: AppColors.inputTextColor)),
-                  dropdownColor: AppColors.inPutFieldColor,
-                  icon: Icon(Icons.arrow_drop_down),
-                  items: data.map((coun) {
-                    return DropdownMenuItem(
-                        value: coun,
-                        child: Text(coun['name'][lang] != null
-                            ? coun['name'][lang].toString()
-                            : coun['name']['ar'] == null
+                      hint: Text(
+                          hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                          style: TextStyle(
+                              fontSize: 10, color: AppColors.inputTextColor)),
+                      dropdownColor: AppColors.inPutFieldColor,
+                      icon: Icon(Icons.arrow_drop_down),
+                      items: data.map((coun) {
+                        return DropdownMenuItem(
+                            value: coun,
+                            child: Text(coun['name'][lang] != null
+                                ? coun['name'][lang].toString()
+                                : coun['name']['ar'] == null
                                 ? coun['name']['en'].toString()
                                 : coun['name']['en'] == null
-                                    ? coun['name']['ar'].toString()
-                                    : ''));
-                  }).toList(),
-                  onChanged: (val) {
-                    var mapCountry;
-                    setState(() {
-                      mapCountry = val as Map;
-                      hintTextCountry = mapCountry['name'][lang] != null
-                          ? mapCountry['name'][lang].toString()
-                          : mapCountry['name'][lang] == null
+                                ? coun['name']['ar'].toString()
+                                : ''));
+                      }).toList(),
+                      onChanged: (val) {
+                        var mapCountry;
+                        setState(() {
+                          mapCountry = val as Map;
+                          hintTextCountry = mapCountry['name'][lang] != null
+                              ? mapCountry['name'][lang].toString()
+                              : mapCountry['name'][lang] == null
                               ? mapCountry['name']['en'].toString()
                               : mapCountry['name']['en'] == null
-                                  ? mapCountry['name']['ar']
-                                  : mapCountry['name']['ar'] == null
-                                      ? mapCountry['name']['en']
-                                      : '';
-                      selectedCountry = mapCountry['id'];
-                      countryPut.getRegion(selectedCountry);
-                    });
-                  },
-                )))),
+                              ? mapCountry['name']['ar']
+                              : mapCountry['name']['ar'] == null
+                              ? mapCountry['name']['en']
+                              : '';
+                          selectedCountry = mapCountry['id'];
+                          countryPut.getRegion(selectedCountry);
+                        });
+                      },
+                    )))),
       ],
     );
   }
 
   Widget region(List dataRegion) {
     return Container(
-        // margin: lang == 'ar' ?EdgeInsets.only(
-        //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
-        //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+      // margin: lang == 'ar' ?EdgeInsets.only(
+      //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+      //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
-                  style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: dataRegion.map((reg) {
-                return DropdownMenuItem(
-                    value: reg,
-                    child: Text(
-                      reg['region'][lang] != null
-                          ? reg['region'][lang].toString()
-                          : reg['region']['en'] == null
+                  hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+                      style:
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: dataRegion.map((reg) {
+                    return DropdownMenuItem(
+                        value: reg,
+                        child: Text(
+                          reg['region'][lang] != null
+                              ? reg['region'][lang].toString()
+                              : reg['region']['en'] == null
                               ? reg['region']['ar'].toString()
                               : reg['region']['ar'] == null
-                                  ? reg['region']['en'].toString()
-                                  : '',
-                    ));
-              }).toList(),
-              onChanged: (data) {
-                var mapRegion;
-                setState(() {
-                  mapRegion = data as Map;
-                  hintRegionText = mapRegion['region'][lang] != null
-                      ? mapRegion['region'][lang].toString()
-                      : mapRegion['region'][lang] == null
+                              ? reg['region']['en'].toString()
+                              : '',
+                        ));
+                  }).toList(),
+                  onChanged: (data) {
+                    var mapRegion;
+                    setState(() {
+                      mapRegion = data as Map;
+                      hintRegionText = mapRegion['region'][lang] != null
+                          ? mapRegion['region'][lang].toString()
+                          : mapRegion['region'][lang] == null
                           ? mapRegion['region']['en'].toString()
                           : mapRegion['region']['en'] == null
-                              ? mapRegion['region']['ar']
-                              : mapRegion['region']['ar'] == null
-                                  ? mapRegion['region']['en']
-                                  : '';
-                  selectedRegion = data['id'];
-                  countryPut.getCity(data['id']);
-                });
-              },
-            ))));
+                          ? mapRegion['region']['ar']
+                          : mapRegion['region']['ar'] == null
+                          ? mapRegion['region']['en']
+                          : '';
+                      selectedRegion = data['id'];
+                      countryPut.getCity(data['id']);
+                    });
+                  },
+                ))));
   }
 
   Widget city(List citydata) {
     return Container(
-        // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+      // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintcityText != null ? hintcityText : "city".tr,
-                  style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inputColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: citydata.map((citt) {
-                return DropdownMenuItem(
-                    value: citt,
-                    child: Text(citt['city'][lang] != null
-                        ? citt['city'][lang].toString()
-                        : citt['city'][lang] == null
+                  hint: Text(hintcityText != null ? hintcityText : "city".tr,
+                      style:
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
+                  dropdownColor: AppColors.inputColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: citydata.map((citt) {
+                    return DropdownMenuItem(
+                        value: citt,
+                        child: Text(citt['city'][lang] != null
+                            ? citt['city'][lang].toString()
+                            : citt['city'][lang] == null
                             ? citt['city']['en'].toString()
                             : ''));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  var mapCity;
-                  mapCity = value as Map;
-                  hintcityText = mapCity['city'][lang] != null
-                      ? mapCity['city'][lang].toString()
-                      : mapCity['city'][lang] == null
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      var mapCity;
+                      mapCity = value as Map;
+                      hintcityText = mapCity['city'][lang] != null
+                          ? mapCity['city'][lang].toString()
+                          : mapCity['city'][lang] == null
                           ? mapCity['city']['en'].toString()
                           : '';
-                  selectedCity = mapCity['id'];
-                });
-              },
-            ))));
+                      selectedCity = mapCity['id'];
+                    });
+                  },
+                ))));
   }
 
   Widget university(List daattta) {
     return Container(
-        // margin: lang == 'ar' ?EdgeInsets.only(
-        //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
-        //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+      // margin: lang == 'ar' ?EdgeInsets.only(
+      //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
+      //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              isExpanded: true,
-              hint: Text(hintUniText != null ? hintUniText : "universitysu".tr,
-                  style: TextStyle(
-                      fontSize: lang == 'ar' ? 10 : 12,
-                      color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: daattta.map((uni) {
-                return DropdownMenuItem(
-                    value: uni,
-                    child: Text(uni['name'][lang] != null
-                        ? uni['name'][lang].toString()
-                        : uni['name'][lang] == null
+                  isExpanded: true,
+                  hint: Text(hintUniText != null ? hintUniText : "universitysu".tr,
+                      style: TextStyle(
+                          fontSize: lang == 'ar' ? 14: 14,
+                          color: AppColors.inputTextColor)),
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: daattta.map((uni) {
+                    return DropdownMenuItem(
+                        value: uni,
+                        child: Text(uni['name'][lang] != null
+                            ? uni['name'][lang].toString()
+                            : uni['name'][lang] == null
                             ? uni['name']['en'].toString()
                             : ''));
-              }).toList(),
-              onChanged: (dataa) {
-                setState(() {
-                  mapuni = dataa as Map;
-                  hintUniText = mapuni['name'][lang] != null
-                      ? mapuni['name'][lang].toString()
-                      : mapuni['name'][lang] == null
+                  }).toList(),
+                  onChanged: (dataa) {
+                    setState(() {
+                      mapuni = dataa as Map;
+                      hintUniText = mapuni['name'][lang] != null
+                          ? mapuni['name'][lang].toString()
+                          : mapuni['name'][lang] == null
                           ? mapuni['name']['en'].toString()
                           : '';
-                  selectedUniversity = mapuni['id'];
-                });
-              },
-            ))));
+                      selectedUniversity = mapuni['id'];
+                    });
+                  },
+                ))));
   }
 
   Widget college(List collegeData) {
     return Container(
-        // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+      // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              isExpanded: true,
-              hint: Text(hintClgText != null ? hintClgText : "collegesu".tr,
-                  style: TextStyle(
-                      fontSize: lang == 'ar' ? 10 : 12,
-                      color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: collegeData.map((coll) {
-                return DropdownMenuItem(
-                    value: coll,
-                    child: Text(
-                      coll['college'][lang] != null
-                          ? coll['college'][lang].toString()
-                          : coll['college'][lang] == null
+                  isExpanded: true,
+                  hint: Text(hintClgText != null ? hintClgText : "collegesu".tr,
+                      style: TextStyle(
+                          fontSize: lang == 'ar' ? 14 : 14,
+                          color: AppColors.inputTextColor)),
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: collegeData.map((coll) {
+                    return DropdownMenuItem(
+                        value: coll,
+                        child: Text(
+                          coll['college'][lang] != null
+                              ? coll['college'][lang].toString()
+                              : coll['college'][lang] == null
                               ? coll['college']['en'].toString()
                               : '',
-                    ));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  mapClgSleceted = value as Map;
-                  hintClgText = mapClgSleceted['college'][lang] != null
-                      ? mapClgSleceted['college'][lang].toString()
-                      : mapClgSleceted['college'][lang] == null
+                        ));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      mapClgSleceted = value as Map;
+                      hintClgText = mapClgSleceted['college'][lang] != null
+                          ? mapClgSleceted['college'][lang].toString()
+                          : mapClgSleceted['college'][lang] == null
                           ? mapClgSleceted['college']['en'].toString()
                           : "";
-                  selectedCollege = mapClgSleceted['id'];
-                });
-              },
-            ))));
+                      selectedCollege = mapClgSleceted['id'];
+                    });
+                  },
+                ))));
   }
 
   Widget submitButton(
       {buttonText,
-      fontSize,
-      callback,
-      bgcolor,
-      textColor,
-      fontFamily,
-      fontWeight}) {
+        fontSize,
+        callback,
+        bgcolor,
+        textColor,
+        fontFamily,
+        fontWeight}) {
     return AppButton(
       buttonText: buttonText,
       callback: callback,

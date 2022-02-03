@@ -25,7 +25,7 @@ var lang;
 // class CompanySignUp extends StatefulWidget {
 DateTime? dateTime;
 var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 
 class CompanySignUp extends StatefulWidget {
   final val;
@@ -165,23 +165,26 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
+    final space20 = SizedBox(height: getSize(Get.width * 0.02, context));
+    final space10 = SizedBox(height: getSize(Get.width * 0.01, context));
+    final space25 = SizedBox(height: getSize(Get.width * 0.025, context));
+    final width10 = SizedBox(width: getSize(Get.width * 0.02, context));
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.023),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                space10,
+                space20,
+                space20,
                 fullName(),
-                space10,
+                space25,
                 eMail(),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -189,9 +192,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     confirmPassword(),
                   ],
                 ),
-                space10,
+                space25,
                 mobile(),
-                space10,
+                space25,
 
                 // GetBuilder<ContryController>(
                 //   init: ContryController(),
@@ -200,6 +203,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     Container();
                 //   } ,
                 // ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -217,9 +221,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 radioalert(),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -235,7 +239,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -249,7 +253,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         mainAxisSpacing: 5,
-                       crossAxisSpacing: 10,
+                        crossAxisSpacing: 10,
                         childAspectRatio: Get.height*0.004 ,
                       ),
                       // physics: NeverScrollableScrollPhysics(),
@@ -259,12 +263,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
                           height: Get.height*0.04,
                           decoration: BoxDecoration(
                               border:
-                                  Border.all( color:AppColors.outline),
+                              Border.all( color:AppColors.outline),
                               borderRadius: BorderRadius.circular(5)),
-                          child: Center(child: Text(servicesdemo[index],style: TextStyle(color: Colors.grey),)),
-                        ),
-                      );
-                    },
+                          child: Center(
+                              child: Text(
+                                servicesdemo[index],
+                                style: TextStyle(color: Colors.grey),
+                              )),
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -277,7 +285,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     );
                 //   },
                 // ),
-                space10,
+                space25,
                 // v == 2 ? comName() : space10,
                 // v == 2
                 //     ? cR()
@@ -389,13 +397,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
                   ],
                 ),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Transform.scale(
                       scale: .9,
-                      child:  Checkbox(
+                      child: Checkbox(
                         activeColor: AppColors.whitedColor,
                         value: _isChecked,
                         onChanged: (value) {
@@ -410,8 +418,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             fontSize: 13,
                             color: Colors.black,
                             fontFamily: "andada",
-                            fontWeight: FontWeight.w600
-                        )),
+                            fontWeight: FontWeight.w600)),
                     // Text("terms_condition".tr,
                     //     style: TextStyle(
                     //         fontFamily: 'Lato',
@@ -428,8 +435,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     fontSize: 18.0,
                     callback: _isChecked == true
                         ? v == 1
-                            ? individualSignUp
-                            : companyUser
+                        ? individualSignUp
+                        : companyUser
                         : null),
                 space25,
 
@@ -489,7 +496,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget fullName() {
     return Container(
       // margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width ,
+      width: Get.width,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
@@ -498,7 +505,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
         isObscure: false,
         color: Colors.white,
         hintText: "full_name".tr,
-        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
@@ -518,14 +526,15 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget eMail() {
     return Container(
       // margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width ,
+      width: Get.width,
       child: CustomTextFiled(
         isObscure: false,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10, right: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
         hintText: "emails".tr,
-        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         color: Colors.white,
         onChanged: (value) {},
@@ -550,7 +559,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget mobile() {
     return Container(
-        // margin: EdgeInsets.only(left: 20, right: 20),
+      // margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -623,11 +632,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
               borderSide: BorderSide(color: Colors.grey.shade200)),
 
           contentPadding:
-              EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+          EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
           hintText:
-              finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
+          finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
-              fontSize: lang == 'ar' ?  12 : 14,
+              fontSize: lang == 'ar' ? 12 : 14,
               color: AppColors.inputTextColor,
               fontWeight: FontWeight.normal),
           border: OutlineInputBorder(
@@ -653,7 +662,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         fontSize: 18),
                     doneStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: lang == 'ar' ?  12 : 14,
+                      fontSize: lang == 'ar' ? 12 : 14,
                     ),
                     cancelStyle: TextStyle(
                       color: AppColors.whitedColor,
@@ -661,11 +670,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     ),
                   ),
                   onChanged: (date) {}, onConfirm: (date) {
-                setState(() {
-                  dateTime = date;
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                });
-              }, currentTime: DateTime.now(), locale: LocaleType.en);
+                    setState(() {
+                      dateTime = date;
+                      finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    });
+                  }, currentTime: DateTime.now(), locale: LocaleType.en);
             },
           ),
         ),
@@ -712,49 +721,49 @@ class _CompanySignPageState extends State<CompanySignUp> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(
-                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style:
+                  hint: Text(
+                      hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                      style:
                       TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: data.map((coun) {
-                return DropdownMenuItem(
-                    value: coun,
-                    child: Text(
-                      // coun['name'][lang]!=null ?coun['name'][lang] : ''
-                      coun['name'][lang] != null
-                          ? coun['name'][lang].toString()
-                          : coun['name'][lang] == null
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: data.map((coun) {
+                    return DropdownMenuItem(
+                        value: coun,
+                        child: Text(
+                          // coun['name'][lang]!=null ?coun['name'][lang] : ''
+                          coun['name'][lang] != null
+                              ? coun['name'][lang].toString()
+                              : coun['name'][lang] == null
                               ? coun['name']['en'].toString()
                               : '',
-                    ));
-              }).toList(),
-              onChanged: (val) {
-                var mapCountry;
-                setState(() {
-                  mapCountry = val as Map;
-                  hintTextCountry = mapCountry['name'][lang] != null
-                      ? mapCountry['name'][lang].toString()
-                      : mapCountry['name'][lang] == null
+                        ));
+                  }).toList(),
+                  onChanged: (val) {
+                    var mapCountry;
+                    setState(() {
+                      mapCountry = val as Map;
+                      hintTextCountry = mapCountry['name'][lang] != null
+                          ? mapCountry['name'][lang].toString()
+                          : mapCountry['name'][lang] == null
                           ? mapCountry['name']['en']
                           : '';
-                  selectedCountry = mapCountry['id'];
-                  regionIdByCountry.getRegion(selectedCountry);
-                  hintRegionText = 'Region';
-                  hintcityText = 'City';
-                });
-              },
-            ))));
+                      selectedCountry = mapCountry['id'];
+                      regionIdByCountry.getRegion(selectedCountry);
+                      hintRegionText = 'Region';
+                      hintcityText = 'City';
+                    });
+                  },
+                ))));
   }
 
   Widget region(List dataRegion) {
     return Container(
-        // margin: lang == 'ar'
-        //     ? EdgeInsets.only(
-        //     right: 20, left: MediaQuery.of(context).size.width / 46)
-        //     : EdgeInsets.only(
-        //     left: 20, right: MediaQuery.of(context).size.width / 46),
+      // margin: lang == 'ar'
+      //     ? EdgeInsets.only(
+      //     right: 20, left: MediaQuery.of(context).size.width / 46)
+      //     : EdgeInsets.only(
+      //     left: 20, right: MediaQuery.of(context).size.width / 46),
         width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -764,42 +773,42 @@ class _CompanySignPageState extends State<CompanySignUp> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
-                  style:
+                  hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+                      style:
                       TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: dataRegion.map((reg) {
-                return DropdownMenuItem(
-                    value: reg,
-                    child: Text(
-                      reg['region'][lang] != null
-                          ? reg['region'][lang].toString()
-                          : reg['region'][lang] == null
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: dataRegion.map((reg) {
+                    return DropdownMenuItem(
+                        value: reg,
+                        child: Text(
+                          reg['region'][lang] != null
+                              ? reg['region'][lang].toString()
+                              : reg['region'][lang] == null
                               ? reg['region']['en']
                               : "",
-                    ));
-              }).toList(),
-              onChanged: (data) {
-                var mapRegion;
-                setState(() {
-                  mapRegion = data as Map;
-                  hintRegionText = mapRegion['region'][lang] != null
-                      ? mapRegion['region'][lang].toString()
-                      : mapRegion['region'][lang] == null
+                        ));
+                  }).toList(),
+                  onChanged: (data) {
+                    var mapRegion;
+                    setState(() {
+                      mapRegion = data as Map;
+                      hintRegionText = mapRegion['region'][lang] != null
+                          ? mapRegion['region'][lang].toString()
+                          : mapRegion['region'][lang] == null
                           ? mapRegion['region']['en'].toString()
                           : '';
-                  selectedRegion = data['id'];
-                  regionIdByCountry.getCity(data['id']);
-                });
-              },
-            ))));
+                      selectedRegion = data['id'];
+                      regionIdByCountry.getCity(data['id']);
+                    });
+                  },
+                ))));
   }
 
   Widget city(List citydata) {
     return Container(
-        // margin:lang == 'ar'
-        //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+      // margin:lang == 'ar'
+      //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
         width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -809,33 +818,33 @@ class _CompanySignPageState extends State<CompanySignUp> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintcityText != null ? hintcityText : "city".tr,
-                  style:
+                  hint: Text(hintcityText != null ? hintcityText : "city".tr,
+                      style:
                       TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inputColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: citydata.map((citt) {
-                return DropdownMenuItem(
-                    value: citt,
-                    child: Text(citt['city'][lang] != null
-                        ? citt['city'][lang]
-                        : citt['city'][lang] == null
+                  dropdownColor: AppColors.inputColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: citydata.map((citt) {
+                    return DropdownMenuItem(
+                        value: citt,
+                        child: Text(citt['city'][lang] != null
+                            ? citt['city'][lang]
+                            : citt['city'][lang] == null
                             ? citt['city']['en'].toString()
                             : ''));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  var mapCity;
-                  mapCity = value as Map;
-                  hintcityText = mapCity['city'][lang] != null
-                      ? mapCity['city'][lang].toString()
-                      : mapCity['city'][lang] == null
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      var mapCity;
+                      mapCity = value as Map;
+                      hintcityText = mapCity['city'][lang] != null
+                          ? mapCity['city'][lang].toString()
+                          : mapCity['city'][lang] == null
                           ? mapCity['city']['en'].toString()
                           : '';
-                  selectedCity = mapCity['id'];
-                });
-              },
-            ))));
+                      selectedCity = mapCity['id'];
+                    });
+                  },
+                ))));
   }
 
   Widget services(List serviceName) {
@@ -846,11 +855,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         decoration: BoxDecoration(
           color: Colors.grey,
           border: Border.all(color: AppColors.outline
-              // width: 2,
-              ),
+            // width: 2,
+          ),
         ),
         child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               MultiSelectBottomSheetField(
                 initialChildSize: 0.4,
@@ -860,7 +869,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     style: TextStyle(color: Colors.grey, fontSize: 17)),
                 items: serviceName
                     .map((e) => MultiSelectItem(
-                        e, e['servics_name'] != null ? e['servics_name'] : ''))
+                    e, e['servics_name'] != null ? e['servics_name'] : ''))
                     .toList(),
                 onConfirm: (values) {
                   var valLoop = values;
@@ -983,14 +992,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
       //     right: 20, left: MediaQuery.of(context).size.width / 46)
       //     : EdgeInsets.only(
       //     left: 20, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
@@ -1018,14 +1027,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
       // margin:
       // lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 10)
-            : EdgeInsets.only(left: 10),
+            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
+            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
@@ -1151,12 +1160,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget submitButton(
       {buttonText,
-      fontSize,
-      callback,
-      bgcolor,
-      textColor,
-      fontFamily,
-      fontWeight}) {
+        fontSize,
+        callback,
+        bgcolor,
+        textColor,
+        fontFamily,
+        fontWeight}) {
     return AppButton2(
       buttonText: buttonText,
       callback: callback,
@@ -1185,135 +1194,135 @@ class _CompanySignPageState extends State<CompanySignUp> {
           Padding(
             padding: EdgeInsets.only(top: Get.height*0.008),
             child: Container(
-              width: Get.width,
+                width: Get.width,
                 height: 50,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: AppColors.outline,width: 1.5)),
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Radio(
-                  //   value: t.index,
-                  //   groupValue: v,
-                  //   activeColor:AppColors.whitedColor,
-                  //   onChanged: (int?value ) {
-                  //     setState(() {
-                  //       v = value!;
-                  //     });
-                  //   },
-                  // ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        textcolor = 0;
-                      });
-                      Radio(
-                        value: 1,
-                        groupValue: v,
-                        // activeColor:AppColors.whitedColor,
-                        onChanged: (value) => setState(() => v = v),
-                      );
-                    },
-                    child: Container(
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Radio(
+                    //   value: t.index,
+                    //   groupValue: v,
+                    //   activeColor:AppColors.whitedColor,
+                    //   onChanged: (int?value ) {
+                    //     setState(() {
+                    //       v = value!;
+                    //     });
+                    //   },
+                    // ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = 0;
+                        });
+                        Radio(
+                          value: 1,
+                          groupValue: v,
+                          // activeColor:AppColors.whitedColor,
+                          onChanged: (value) => setState(() => v = v),
+                        );
+                      },
+                      child: Container(
 
-                      child: Padding(
-                        padding:  EdgeInsets.all(Get.height*0.004),
+                        child: Padding(
+                          padding:  EdgeInsets.all(Get.height*0.004),
+                          child: Row(
+                            children: [
+                              Padding(
+                                  padding: lang == 'ar'
+                                      ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                      left: Get.height*0.018,right: Get.height*0.008)
+                                      : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                      left: Get.height*0.008,right: Get.height*0.018),
+                                  child: Image.asset("assets/individual.png")),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "individual".tr,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: textcolor == 0
+                                        ? Colors.blueAccent
+                                        : AppColors.inputTextColor,
+                                    decoration: textcolor == 0
+                                        ? TextDecoration.underline
+                                        : TextDecoration.none,
+                                    decorationThickness: 2,
+                                    fontWeight: textcolor == 0
+                                        ? FontWeight.w700
+                                        : FontWeight.w200),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ),
+                    ),
+                    Container(
+                      width: Get.width*0.005,
+                      decoration: BoxDecoration(
+                          color: AppColors.outline
+
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = 1;
+                        });
+                        Radio(
+                          value: 2,
+                          groupValue: v,
+                          // activeColor:AppColors.whitedColor,
+                          onChanged: (value) => setState(() => v = v),
+                        );
+                      },
+                      child: Container(
+
+                        // width: MediaQuery.of(context).size.width * 0.46,
                         child: Row(
                           children: [
-                            Padding(
-                                padding: lang == 'ar'
-                                    ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
-                                    left: Get.height*0.018,right: Get.height*0.008)
-                                    : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
-                                    left: Get.height*0.008,right: Get.height*0.018),
-                                child: Image.asset("assets/individual.png")),
-                            SizedBox(
-                              width: 10,
-                            ),
                             Text(
-                              "individual".tr,
+                              "business".tr,
                               style: TextStyle(
                                   fontSize: 14,
-                                  color: textcolor == 0
+                                  color: textcolor == 1
                                       ? Colors.blueAccent
-                                      : AppColors.inputTextColor,
-                                  decoration: textcolor == 0
+                                      :  AppColors.inputTextColor,
+                                  decoration: textcolor == 1
                                       ? TextDecoration.underline
                                       : TextDecoration.none,
                                   decorationThickness: 2,
-                                  fontWeight: textcolor == 0
+                                  fontWeight: textcolor == 1
                                       ? FontWeight.w700
                                       : FontWeight.w200),
                             ),
+                            SizedBox(
+                              width: 14,
+                            ),
+                            Padding(
+                              padding: lang == 'ar'
+                                  ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                  left: Get.height*0.008,right: Get.height*0.018)
+                                  : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                  left: Get.height*0.018,right: Get.height*0.008),
+                              child: Image.asset("assets/Bussnise.png"),
+                            ),
                           ],
                         ),
+                        // decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     border: Border.all(color: AppColors.outline)),
                       ),
-
-                    ),
-                  ),
-                 Container(
-                   width: Get.width*0.005,
-                   decoration: BoxDecoration(
-                     color: AppColors.outline
-
-                   ),
-                 ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        textcolor = 1;
-                      });
-                      Radio(
-                        value: 2,
-                        groupValue: v,
-                        // activeColor:AppColors.whitedColor,
-                        onChanged: (value) => setState(() => v = v),
-                      );
-                    },
-                    child: Container(
-
-                      // width: MediaQuery.of(context).size.width * 0.46,
-                      child: Row(
-                        children: [
-                          Text(
-                            "business".tr,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: textcolor == 1
-                                    ? Colors.blueAccent
-                                    :  AppColors.inputTextColor,
-                                decoration: textcolor == 1
-                                    ? TextDecoration.underline
-                                    : TextDecoration.none,
-                                decorationThickness: 2,
-                                fontWeight: textcolor == 1
-                                    ? FontWeight.w700
-                                    : FontWeight.w200),
-                          ),
-                          SizedBox(
-                            width: 14,
-                          ),
-                          Padding(
-                            padding: lang == 'ar'
-                                ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
-                                left: Get.height*0.008,right: Get.height*0.018)
-                                : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
-                                left: Get.height*0.018,right: Get.height*0.008),
-                            child: Image.asset("assets/Bussnise.png"),
-                          ),
-                        ],
-                      ),
-                      // decoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //     border: Border.all(color: AppColors.outline)),
-                    ),
-                  )
-                  // Container(
-                  // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
-                ],
-              )
-                ),
+                    )
+                    // Container(
+                    // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
+                  ],
+                )
+            ),
           ),
 
 
