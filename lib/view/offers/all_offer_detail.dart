@@ -44,7 +44,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
         ),
         centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
-        backgroundColor: AppColors.appBarBackGroundColor),
+        backgroundColor: AppColors.whitedColor),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                         child: Column(
                           children: [
                             Container(
-                              color: AppColors.appBarBackGroundColor,
+                              color: AppColors.whitedColor,
                               padding: EdgeInsets.only(top:10,bottom:15,left: 15),
                               child: idIdId !=null && idIdId['url'] !=null ?
                               Row(

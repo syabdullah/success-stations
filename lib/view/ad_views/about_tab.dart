@@ -437,13 +437,13 @@ Widget lastAds(lastuserad){
                         Container(
                           child: lastuserad[index]['price']!= null ?
                             Text("${lastuserad[index]['price']}",
-                              style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 10),
+                              style: TextStyle(color: AppColors.whitedColor,fontWeight: FontWeight.bold,fontSize: 10),
                             )
                           : Container(),
                         ),
                         SizedBox(width: 5),
                         Text("SAR ",
-                          style: TextStyle(color: AppColors.appBarBackGroundColor,fontWeight: FontWeight.bold,fontSize: 8,)
+                          style: TextStyle(color: AppColors.whitedColor,fontWeight: FontWeight.bold,fontSize: 8,)
                         )
                       ],
                     ),  

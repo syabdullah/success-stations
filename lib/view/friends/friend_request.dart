@@ -57,7 +57,7 @@ class _FriendReqListState extends State<FriendReqList> {
         ],
         centerTitle: true,
         title: Image.asset(AppImages.appBarLogo, height:35),
-        backgroundColor: AppColors.appBarBackGroundColor
+        backgroundColor: AppColors.whitedColor
       ),
       body: ListView(
         children: [
@@ -176,7 +176,7 @@ class _FriendReqListState extends State<FriendReqList> {
                             width: Get.width/4.2,
                             height: 35.0,
                             decoration: BoxDecoration(
-                              color: AppColors.appBarBackGroundColor,
+                              color: AppColors.whitedColor,
                               borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
                             child: Container(                        
@@ -318,7 +318,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         width: Get.width/4.2,
                         height: 35.0,
                         decoration: BoxDecoration(
-                          color: AppColors.appBarBackGroundColor,
+                          color: AppColors.whitedColor,
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
                           ),

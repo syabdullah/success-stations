@@ -151,7 +151,7 @@ class AddOffersState extends State<AddOffersPage> {
             ],
           )
         ),
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor: AppColors.whitedColor,
         title: Text(postDataEdited == null ? 'addOffer'.tr : 'edit offer'.tr),
         centerTitle: true,
       ),
@@ -193,8 +193,8 @@ class AddOffersState extends State<AddOffersPage> {
               roundedRectBorderWidget,
               space10,
               submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,
+                textColor: AppColors.white,
                 buttonText: "publishb".tr,
                 callback:postDataEdited == null ? adOffersCreate : editPost,
               ),
@@ -497,7 +497,7 @@ class AddOffersState extends State<AddOffersPage> {
     return Container(
       padding: EdgeInsets.all(20),
       child: DottedBorder(
-        color: AppColors.appBarBackGroundColor,
+        color: AppColors.whitedColor,
         strokeWidth: 1,
         dashPattern: [10, 6],
         child: Column(

@@ -21,7 +21,7 @@ class _FriendListState extends State<FriendList> {
   GetStorage box = GetStorage();
   var grid = AppImages.gridOf, id, selected, requisterId, lang;
   Color listIconColor = Colors.grey;
-  Color gridIconColor = AppColors.appBarBackGroundColor;
+  Color gridIconColor = AppColors.whitedColor;
   final banner = Get.put(BannerController());
   final gridList = Get.put(GridListCategory());
   final friCont = Get.put(FriendsController());
@@ -523,7 +523,7 @@ class _FriendListState extends State<FriendList> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: AppColors
-                                                    .appBarBackGroundColor,
+                                                    .whitedColor,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(30),
@@ -533,7 +533,7 @@ class _FriendListState extends State<FriendList> {
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         color: AppColors
-                                                            .appBarBackGroundColor,
+                                                            .whitedColor,
                                                         fontWeight:
                                                             FontWeight.bold))),
                                           ),
@@ -604,7 +604,7 @@ class _FriendListState extends State<FriendList> {
                                         //                   BorderRadius.circular(
                                         //                       10),
                                         //               color: AppColors
-                                        //                   .appBarBackGroundColor),
+                                        //                   .whitedColor),
                                         //           child: Center(
                                         //               child: Text(
                                         //                   "viewprofile".tr,
@@ -781,7 +781,7 @@ class _FriendListState extends State<FriendList> {
                 : EdgeInsets.only(top: 8, bottom: 6, right: 8),
             width: Get.width / 3,
             decoration: BoxDecoration(
-                color: AppColors.appBarBackGroundColor,
+                color: AppColors.whitedColor,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             child: Center(
                 child: Text(

@@ -107,7 +107,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
       //       ],
       //     )),
       //     centerTitle: true,
-      //     backgroundColor: AppColors.appBarBackGroundColor),
+      //     backgroundColor: AppColors.whitedColor),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -274,7 +274,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                               child: Text(
                                 "Title :",
                                 style: TextStyle(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
@@ -311,7 +311,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                               child: Text(
                                 "Description : ",
                                 style: TextStyle(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
@@ -347,7 +347,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Category :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
                                   ),
@@ -381,7 +381,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Type :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
@@ -423,7 +423,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Location :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
                                   ),
@@ -461,7 +461,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Phone :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
@@ -505,7 +505,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Price :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13,
                                   ),
@@ -541,7 +541,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                 Text(
                                   "Status :",
                                   style: TextStyle(
-                                    color: AppColors.appBarBackGroundColor,
+                                    color: AppColors.whitedColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
                                   ),
@@ -579,7 +579,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                             Text(
                               "By",
                               style: TextStyle(
-                                color: AppColors.appBarBackGroundColor,
+                                color: AppColors.whitedColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -626,7 +626,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     //             'SAR ${reviewPagePrice[0]}',
                     //             style: TextStyle(
                     //                 fontSize: 15,
-                    //                 color: AppColors.appBarBackGroundColor),
+                    //                 color: AppColors.whitedColor),
                     //           )
                     //         : Container()),
                     // Container(
@@ -840,7 +840,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //         style: AppTextStyles.appTextStyle(
               //             fontSize: 14,
               //             fontWeight: FontWeight.normal,
-              //             color: AppColors.appBarBackGroundColor),
+              //             color: AppColors.whitedColor),
               //       ),
               //     ),
               //   ),
@@ -1054,7 +1054,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
       },
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.appBarBackGroundColor),
+          border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
         height: 40.h,
@@ -1088,7 +1088,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
       },
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.appBarBackGroundColor),
+          border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
         height: 40.h,
@@ -1124,7 +1124,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   //     // },
   //     child: Container(
   //       decoration: BoxDecoration(
-  //         border: Border.all(color: AppColors.appBarBackGroundColor),
+  //         border: Border.all(color: AppColors.whitedColor),
   //         color: Colors.white,
   //       ),
   //       height: 40.h,
@@ -1165,7 +1165,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
         ),
         // fontWeight: FontWeight.bold),
         decoration: InputDecoration(
-          fillColor: AppColors.appBarBackGroundColor.withOpacity(0.1),
+          fillColor: AppColors.whitedColor.withOpacity(0.1),
           filled: true,
           contentPadding: lang == 'en'
               ? EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0)

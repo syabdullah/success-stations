@@ -181,7 +181,7 @@ class _AdListTabState extends State<AdListTab> {
                         children: [
                           allDataAdds[index]['price']!=null ?
                             Text(
-                              "SAR ${allDataAdds[index]['price']}",style: TextStyle(color: AppColors.appBarBackGroundColor)
+                              "SAR ${allDataAdds[index]['price']}",style: TextStyle(color: AppColors.whitedColor)
                             )
                           :Container(),
                           Container(

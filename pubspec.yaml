@@ -76,6 +76,7 @@ dependencies:
   flutter_launcher_icons: "^0.9.2"
   huawei_map: ^5.3.0+301
   material_color_gen: ^2.0.0
+  sizer: ^2.0.15
 
 
 

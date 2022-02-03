@@ -29,7 +29,7 @@ class LocationController extends GetxController {
         res = jsonDecode(value.body);
          Get.to(MyLocations());
         isLoading = false;
-         Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+         Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.whitedColor);
        
         
       }
@@ -45,7 +45,7 @@ editLocationToDB(id,data) async{
         editLoc = jsonDecode(value.body);
          Get.to(MyLocations());
         isLoading = false;
-         Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+         Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.whitedColor);        
       }
     });
     update();
@@ -59,7 +59,7 @@ deleteLocationToDB(id,userId) async {
         var del = jsonDecode(value.body);
         isLoading = false;
         getMyLocationToDB(userId);
-         Get.snackbar("Location deleted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+         Get.snackbar("Location deleted Sucessfully",'',backgroundColor: AppColors.whitedColor);        
       }
     });
     update();

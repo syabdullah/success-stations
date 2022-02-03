@@ -55,7 +55,7 @@ class DraftAdsController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400) {
       getDraftedAds();
       isLoading = false;
-        Get.snackbar(userDataP['message'],'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar(userDataP['message'],'',backgroundColor: AppColors.whitedColor);
       }
     });
     update();

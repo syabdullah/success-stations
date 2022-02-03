@@ -65,7 +65,7 @@ class _CountryPageState extends State<Ccountry> {
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: selectedIndex == index
-                                ? AppColors.appBarBackGroundColor
+                                ? AppColors.whitedColor
                                 : Colors.transparent,
                             width: 2),
                         shape: BoxShape.circle,
@@ -107,7 +107,7 @@ class _CountryPageState extends State<Ccountry> {
               "prev".tr,
               style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
             ),
-            backgroundColor: AppColors.appBarBackGroundColor,
+            backgroundColor: AppColors.whitedColor,
             leading:InkWell(
                 onTap: () {
                   Navigator.pop(context);
@@ -181,7 +181,7 @@ class _CountryPageState extends State<Ccountry> {
             Text(
               "sign_in".tr,
               style: TextStyle(
-                  color: AppColors.appBarBackGroundColor,
+                  color: AppColors.whitedColor,
                   fontWeight: FontWeight.bold),
             ),
           ],

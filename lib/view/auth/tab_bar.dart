@@ -40,7 +40,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
             "prev".tr,
             style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
           ),
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
           leading:InkWell(
               onTap: () {
                 Navigator.pop(context);

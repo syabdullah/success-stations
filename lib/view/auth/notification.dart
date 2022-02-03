@@ -32,7 +32,7 @@ class _NotificationPageState extends State<NotificationPage> {
           child: Icon(Icons.arrow_back)
         ),
         centerTitle: true,title: Text('notifications'.tr),
-        backgroundColor: AppColors.appBarBackGroundColor
+        backgroundColor: AppColors.whitedColor
       ),
       body:SafeArea(
         child: ListView(

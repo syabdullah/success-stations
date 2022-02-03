@@ -60,7 +60,7 @@ class _AllAddsState extends State<AllAdds> {
   bool lisselect = false;
   bool havingCategorybool = false;
   Color selectedColor = Color(0xFF2F4199);
-  Color listIconColor = AppColors.appBarBackGroundColor;
+  Color listIconColor = AppColors.whitedColor;
   bool liked = false;
   Color filterSelecredColor = Color(0xFF2F4199);
   GetStorage box = GetStorage();
@@ -410,7 +410,7 @@ class _AllAddsState extends State<AllAdds> {
                             //             child: Icon(
                             //               Icons.person,
                             //               color:
-                            //                   AppColors.appBarBackGroundColor,
+                            //                   AppColors.whitedColor,
                             //             ))),
                             //     Container(
                             //         margin: EdgeInsets.only(right: 5, left: 5),

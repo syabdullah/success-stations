@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/utils/routes.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:sizer/sizer.dart';
 var auth;
 var lang;
 void main() async {
@@ -32,12 +33,14 @@ getData() async{
 class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Sizer(
+        builder: (context, orientation, deviceType) {
     lang =  box.read('lang_code');
     auth =  box.read('access_token');
     print(auth);
     return ScreenUtilInit( 
       builder:()  {       
-        return GetMaterialApp(     
+        return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
         localizationsDelegates: [
@@ -61,6 +64,8 @@ class SuccessApp extends StatelessWidget {
         initialRoute:  auth == null ? '/login' : '/tabs',
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
       );}
+    );
+        },
     );
   }
 }

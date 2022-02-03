@@ -215,7 +215,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                 height: Get.height / 9 * 0.5,
                 width: Get.width / 3.2,
                 decoration: BoxDecoration(
-                  color: AppColors.appBarBackGroundColor,
+                  color: AppColors.whitedColor,
                   borderRadius: BorderRadius.circular(50)
                 ),
                 child: name == null || name['is_user_friend'] == null
@@ -253,13 +253,13 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(
-                  color: AppColors.appBarBackGroundColor, width: 2,
+                  color: AppColors.whitedColor, width: 2,
                 )
               ),
               child: Center(
                 child: Text("messeges".tr,
                   style: TextStyle(
-                    color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold
+                    color: AppColors.whitedColor, fontWeight: FontWeight.bold
                   )
                 )
               ),
@@ -280,12 +280,12 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
               unselectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.w700,fontSize: 16, color: Color.fromRGBO(142, 142, 142, 1)
               ),
-              labelColor: AppColors.appBarBackGroundColor,
+              labelColor: AppColors.whitedColor,
               labelPadding: EdgeInsets.fromLTRB(0, 0, 0, 8),
               labelStyle: TextStyle(fontFamily: "Roboto",fontSize: 16, fontWeight: FontWeight.w700),
-              indicatorColor:  AppColors.appBarBackGroundColor,
+              indicatorColor:  AppColors.whitedColor,
               indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(color: AppColors.appBarBackGroundColor, width: 2.0),
+                borderSide: BorderSide(color: AppColors.whitedColor, width: 2.0),
               ),
               tabs: [
                 Text(

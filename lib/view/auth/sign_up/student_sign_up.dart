@@ -226,7 +226,7 @@ class _SignPageState extends State<StudentSignUp> {
                     Transform.scale(
                       scale: .9,
                       child: new Checkbox(
-                        activeColor: AppColors.appBarBackGroundColor,
+                        activeColor: AppColors.whitedColor,
                         value: _isChecked,
                         onChanged: (value) {
                           setState(() {
@@ -245,15 +245,15 @@ class _SignPageState extends State<StudentSignUp> {
                     // Text("terms_condition".tr,
                     //     style: TextStyle(
                     //         fontFamily: 'Lato',
-                    //         color: AppColors.appBarBackGroundColor,
+                    //         color: AppColors.whitedColor,
                     //         fontSize: 14,
                     //         fontWeight: FontWeight.bold)),
                   ],
                 ),
                 space20,
                 submitButton(
-                    bgcolor: AppColors.appBarBackGroundColor,
-                    textColor: AppColors.appBarBackGroun,
+                    bgcolor: AppColors.whitedColor,
+                    textColor: AppColors.white,
                     buttonText: "sign_up_text".tr,
                     fontSize: 16.0,
                     callback: _isChecked == true ? createUser : null),
@@ -281,7 +281,7 @@ class _SignPageState extends State<StudentSignUp> {
                         "sign_in".tr,
                         style: TextStyle(
                             fontSize: 13,
-                            color: AppColors.appBarBackGroundColor,
+                            color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -576,7 +576,7 @@ class _SignPageState extends State<StudentSignUp> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
-          cursorColor: AppColors.appBarBackGroundColor,
+          cursorColor: AppColors.whitedColor,
           autoFocus: false,
           inputDecoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
@@ -660,10 +660,10 @@ class _SignPageState extends State<StudentSignUp> {
                   minTime: DateTime(1900, 3, 5),
                   // maxTime: DateTime.now(),
                   theme: DatePickerTheme(
-                    headerColor: AppColors.appBarBackGroundColor,
+                    headerColor: AppColors.whitedColor,
                     backgroundColor: Colors.white,
                     itemStyle: TextStyle(
-                        color: AppColors.appBarBackGroundColor,
+                        color: AppColors.whitedColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                     doneStyle: TextStyle(
@@ -671,7 +671,7 @@ class _SignPageState extends State<StudentSignUp> {
                       fontSize: lang == 'ar' ? 14 : 16,
                     ),
                     cancelStyle: TextStyle(
-                      color: AppColors.appBarBackGroundColor,
+                      color: AppColors.whitedColor,
                       fontSize: lang == 'ar' ? 14 : 16,
                     ),
                   ),

@@ -292,7 +292,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               color: listtype == 'map'
               ? Colors.white
               : listtype == 'grid'
-              ? AppColors.appBarBackGroundColor
+              ? AppColors.whitedColor
               : Colors.white
             ),
             height: 60,
@@ -333,8 +333,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               color: listtype == 'grid'
               ? Colors.white
               : listtype == 'map'
-              ? AppColors.appBarBackGroundColor
-              : AppColors.appBarBackGroundColor
+              ? AppColors.whitedColor
+              : AppColors.whitedColor
             ),
             //color: Colors.black,
             height: 60,

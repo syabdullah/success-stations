@@ -56,7 +56,7 @@ class _LanguagePageState extends State<Language> {
                     border: Border.all(
                         width: 2,
                         color: index == i
-                            ? AppColors.appBarBackGroundColor
+                            ? AppColors.whitedColor
                             : AppColors.border),
                   ),
                   child: dataLanguage['data'][i]['name'] != null
@@ -68,7 +68,7 @@ class _LanguagePageState extends State<Language> {
                             style: TextStyle(
                                 fontSize: 18,
                                 color: index == i
-                                    ? AppColors.appBarBackGroundColor
+                                    ? AppColors.whitedColor
                                     : AppColors.border),
                           ),
                         )
@@ -102,7 +102,7 @@ class _LanguagePageState extends State<Language> {
           "prev".tr,
           style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
         ),
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor: AppColors.whitedColor,
         leading:InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -142,8 +142,8 @@ class _LanguagePageState extends State<Language> {
                           children: getTextWidgets(data.languageList));
                 }),
             // submitButton(
-            //   bgcolor: AppColors.appBarBackGroundColor,
-            //   textColor: AppColors.appBarBackGroun,
+            //   bgcolor: AppColors.whitedColor,
+            //   textColor: AppColors.white,
             //   buttonText: "next".tr,
             //   fontSize: 18.toDouble(),
             //   callback: navigateToHomeScreen

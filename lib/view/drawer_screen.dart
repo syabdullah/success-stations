@@ -109,7 +109,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: Column(
                   children: [
                     Container(
-                      color: AppColors.appBarBackGroundColor,
+                      color: AppColors.whitedColor,
                       width: Get.width,
                       height: Get.height/4,
                       padding: lang == 'ar' ? EdgeInsets.only(top: 20): EdgeInsets.only(top: 20),

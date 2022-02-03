@@ -34,7 +34,7 @@ class _AboutUsState extends State<AboutUs> {
           title: Text(
             userType == 4 ?  'about_company'.tr :  userType == 2 ? 'about_user' .tr: 'about_us'.tr
           ),
-          backgroundColor: AppColors.appBarBackGroundColor
+          backgroundColor: AppColors.whitedColor
         ),
         body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),

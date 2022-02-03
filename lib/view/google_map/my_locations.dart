@@ -209,7 +209,7 @@ class _MyLocationsState extends State<MyLocations> {
                     //               trimExpandedText: 'Show less',
                     //               textAlign: TextAlign.left,
                     //               colorClickableText:
-                    //                   AppColors.appBarBackGroundColor,
+                    //                   AppColors.whitedColor,
                     //               style: TextStyle(
                     //                 fontSize: 13,
                     //                 color: Colors.grey[400],

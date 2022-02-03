@@ -35,7 +35,7 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
               onTap: (){Get.back();},
               child: Icon(Icons.arrow_back)),
           centerTitle: true,
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
           title: Text('choose_language_drop'.tr),
 
         ),
@@ -55,8 +55,8 @@ class ChooseLanguageStatePage extends State<ChooseLanguage> {
             ),
             SizedBox(height: 20,),
             submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,
+                textColor: AppColors.white,
                 buttonText: "save".tr,
                 callback: save
             ),

@@ -52,8 +52,8 @@ class _UserInformationState extends State<UserInformation> {
               space20,
               submitButton(
               buttonText: 'comp_order'.tr,
-              bgcolor: AppColors.appBarBackGroundColor,
-              textColor: AppColors.appBarBackGroun,
+              bgcolor: AppColors.whitedColor,
+              textColor: AppColors.white,
               ),
             ],
           ),

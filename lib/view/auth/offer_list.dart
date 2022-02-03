@@ -50,9 +50,9 @@ class _OfferListState extends State<OfferList> {
       end,
       filterID,
       usertype;
-  Color filterCategoryColor = AppColors.appBarBackGroundColor;
-  Color selectedColor = AppColors.appBarBackGroundColor;
-  Color listIconColor = AppColors.appBarBackGroundColor;
+  Color filterCategoryColor = AppColors.whitedColor;
+  Color selectedColor = AppColors.whitedColor;
+  Color listIconColor = AppColors.whitedColor;
   GetStorage box = GetStorage();
 
   @override
@@ -232,7 +232,7 @@ class _OfferListState extends State<OfferList> {
                                           fontSize: 13),
                                       trimLines: 2,
                                       colorClickableText:
-                                          AppColors.appBarBackGroundColor,
+                                          AppColors.whitedColor,
                                       trimMode: TrimMode.Line,
                                       trimCollapsedText: 'Show more',
                                       trimExpandedText: 'Show less',
@@ -281,7 +281,7 @@ class _OfferListState extends State<OfferList> {
                                     fontStyle: FontStyle.normal,
                                     color: listFavou[c]['status'] == 1
                                         ? AppColors.snackBarColor
-                                        : AppColors.appBarBackGroundColor,
+                                        : AppColors.whitedColor,
                                   ))),
                         ],
                       ),

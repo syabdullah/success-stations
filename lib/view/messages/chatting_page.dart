@@ -101,7 +101,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           Container(
             height: Get.height,
             width: Get.width,
-            color: AppColors.appBarBackGroundColor,
+            color: AppColors.whitedColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -119,7 +119,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                     },
                     child: Icon(Icons.arrow_back)),
                   elevation: 0,
-                  backgroundColor: AppColors.appBarBackGroundColor,
+                  backgroundColor: AppColors.whitedColor,
                   centerTitle: true,
                   title: Text(
                     userData[1].toString(),
@@ -243,7 +243,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                     ),
                     color: (userId != messages[index]["created_by"]
                         ? Colors.grey.shade200
-                        : AppColors.appBarBackGroundColor),
+                        : AppColors.whitedColor),
                   ),
                   padding: EdgeInsets.all(12),
                   child: Column(
@@ -320,7 +320,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   color: Colors.white,
                   size: 18,
                 ),
-                backgroundColor: AppColors.appBarBackGroundColor,
+                backgroundColor: AppColors.whitedColor,
                 elevation: 0,
               ),
             ),

@@ -16,7 +16,7 @@ var otp;
         Get.toNamed('/resetPass');
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Enter valid Verification Code",backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("","Enter valid Verification Code",backgroundColor: AppColors.whitedColor);
       }
     });
   }

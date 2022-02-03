@@ -18,10 +18,10 @@ class  AdDeletingController extends GetxController {
       print(data);
       if(res.statusCode == 200 || res.statusCode < 400){
       
-        Get.snackbar("Ad successfully deleted",'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("Ad successfully deleted",'',backgroundColor: AppColors.whitedColor);
         isLoading(false);      
       } if(res.statusCode >=  400){
-          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.whitedColor);
       }
      });
      update();
