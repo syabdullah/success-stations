@@ -10,6 +10,7 @@ import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
 
 // ignore: unused_import
@@ -24,7 +25,7 @@ var lang;
 // class CompanySignUp extends StatefulWidget {
 DateTime? dateTime;
 var dateFormate =
-    DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
+DateFormat("yyyy-MM-dd").format(DateTime.parse(dateTime.toString()));
 
 class CompanySignUp extends StatefulWidget {
   final val;
@@ -202,7 +203,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     Container();
                 //   } ,
                 // ),
-                space25,
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -227,12 +228,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
                       child: Text(
                         "services".tr,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.black.withOpacity(0.4),
+                          color:AppColors.border,
                         ),
                       ),
                     ),
@@ -243,32 +244,35 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       // borderRadius: BorderRadius.circular(3),
-                      border: Border.all(color: AppColors.outline)),
-                  height: Get.height / 8,
+                      border: Border.all(color: AppColors.outline,width: 1.5)),
+                  height: Get.height*0.13,
                   width: double.infinity,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 2.5,
-                    ),
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: servicesdemo.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                  child: Padding(
+                    padding:  EdgeInsets.all(Get.height*0.008),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: Get.height*0.004 ,
+                      ),
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: servicesdemo.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          height: Get.height*0.04,
                           decoration: BoxDecoration(
                               border:
-                                  Border.all(width: 0.5, color: Colors.grey),
+                              Border.all( color:AppColors.outline),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                               child: Text(
-                            servicesdemo[index],
-                            style: TextStyle(color: Colors.grey),
-                          )),
-                        ),
-                      );
-                    },
+                                servicesdemo[index],
+                                style: TextStyle(color: Colors.grey),
+                              )),
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -369,24 +373,28 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 // ),
                 // space20,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.outline),
-                            color: Colors.white),
-                        height: Get.height / 7.8,
-                        width: Get.width / 3.5,
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CircleAvatar(child: Icon(Icons.email)),
-                        ),
-
-                        // decoration: BoxDecoration(color: ),
+                    Container(
+                      height: Get.height*0.15,
+                      width: Get.width*0.26,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppColors.outline,width: 1.5)
                       ),
+
+
+                      child: Padding(
+                          padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
+                          child:Image.asset(AppImages.man,height: Get.height*0.1,)
+                      ),
+
+
+                      // decoration: BoxDecoration(color: ),
                     ),
-                    Expanded(flex: 6, child: about()),
+                    aboutCompny(),
+
+
                   ],
                 ),
                 space25,
@@ -421,41 +429,57 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 ),
                 space20,
                 submitButton(
-                    buttonText: 'sign_up_text'.tr,
+                    buttonText: 'sign_up'.tr,
                     bgcolor: AppColors.whitedColor,
                     textColor: AppColors.white,
                     fontSize: 18.0,
                     callback: _isChecked == true
                         ? v == 1
-                            ? individualSignUp
-                            : companyUser
+                        ? individualSignUp
+                        : companyUser
                         : null),
-                space20,
+                space25,
+
+
                 Container(
-                  height: 1,
-                  color: Colors.grey,
-                ),
-                space20,
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/login');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  height: Get.height*0.08,
+                  margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
                     children: [
-                      Text(
-                        "have_account".tr,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey),
+                      Divider(
+                        color: Colors.black,
                       ),
-                      Text(
-                        "sign_in".tr,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: AppColors.whitedColor,
-                            fontWeight: FontWeight.bold),
+
+                      Padding(
+                        padding:  EdgeInsets.all(Get.height*0.004),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "have_account".tr,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 17),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+
+                                  Get.toNamed('/login');
+
+                                },
+                                child: Text(
+                                  "sign_in".tr,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: "Source_Sans_Pro",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -477,7 +501,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
             : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
-        padding: EdgeInsets.only(top: 10),
+        // padding: EdgeInsets.only(top: 10),
         isObscure: false,
         color: Colors.white,
         hintText: "full_name".tr,
@@ -535,12 +559,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget mobile() {
     return Container(
-        // margin: EdgeInsets.only(left: 20, right: 20),
+      // margin: EdgeInsets.only(left: 20, right: 20),
         width: Get.width,
         decoration: BoxDecoration(
             color: Colors.white,
             // borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Color(0xFFEEEEEE))),
+            border: Border.all(color: AppColors.outline,width: 1.5)),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
@@ -608,9 +632,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
               borderSide: BorderSide(color: Colors.grey.shade200)),
 
           contentPadding:
-              EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+          EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
           hintText:
-              finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
+          finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
               fontSize: lang == 'ar' ? 12 : 14,
               color: AppColors.inputTextColor,
@@ -646,11 +670,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     ),
                   ),
                   onChanged: (date) {}, onConfirm: (date) {
-                setState(() {
-                  dateTime = date;
-                  finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
-                });
-              }, currentTime: DateTime.now(), locale: LocaleType.en);
+                    setState(() {
+                      dateTime = date;
+                      finalDate = DateFormat('yyyy-MM-dd').format(dateTime!);
+                    });
+                  }, currentTime: DateTime.now(), locale: LocaleType.en);
             },
           ),
         ),
@@ -697,130 +721,130 @@ class _CompanySignPageState extends State<CompanySignUp> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(
-                  hintTextCountry != null ? hintTextCountry : 'country'.tr,
-                  style:
+                  hint: Text(
+                      hintTextCountry != null ? hintTextCountry : 'country'.tr,
+                      style:
                       TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: data.map((coun) {
-                return DropdownMenuItem(
-                    value: coun,
-                    child: Text(
-                      // coun['name'][lang]!=null ?coun['name'][lang] : ''
-                      coun['name'][lang] != null
-                          ? coun['name'][lang].toString()
-                          : coun['name'][lang] == null
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: data.map((coun) {
+                    return DropdownMenuItem(
+                        value: coun,
+                        child: Text(
+                          // coun['name'][lang]!=null ?coun['name'][lang] : ''
+                          coun['name'][lang] != null
+                              ? coun['name'][lang].toString()
+                              : coun['name'][lang] == null
                               ? coun['name']['en'].toString()
                               : '',
-                    ));
-              }).toList(),
-              onChanged: (val) {
-                var mapCountry;
-                setState(() {
-                  mapCountry = val as Map;
-                  hintTextCountry = mapCountry['name'][lang] != null
-                      ? mapCountry['name'][lang].toString()
-                      : mapCountry['name'][lang] == null
+                        ));
+                  }).toList(),
+                  onChanged: (val) {
+                    var mapCountry;
+                    setState(() {
+                      mapCountry = val as Map;
+                      hintTextCountry = mapCountry['name'][lang] != null
+                          ? mapCountry['name'][lang].toString()
+                          : mapCountry['name'][lang] == null
                           ? mapCountry['name']['en']
                           : '';
-                  selectedCountry = mapCountry['id'];
-                  regionIdByCountry.getRegion(selectedCountry);
-                  hintRegionText = 'Region';
-                  hintcityText = 'City';
-                });
-              },
-            ))));
+                      selectedCountry = mapCountry['id'];
+                      regionIdByCountry.getRegion(selectedCountry);
+                      hintRegionText = 'Region';
+                      hintcityText = 'City';
+                    });
+                  },
+                ))));
   }
 
   Widget region(List dataRegion) {
     return Container(
-        // margin: lang == 'ar'
-        //     ? EdgeInsets.only(
-        //     right: 20, left: MediaQuery.of(context).size.width / 46)
-        //     : EdgeInsets.only(
-        //     left: 20, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+      // margin: lang == 'ar'
+      //     ? EdgeInsets.only(
+      //     right: 20, left: MediaQuery.of(context).size.width / 46)
+      //     : EdgeInsets.only(
+      //     left: 20, right: MediaQuery.of(context).size.width / 46),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
-                  style:
+                  hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+                      style:
                       TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inPutFieldColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: dataRegion.map((reg) {
-                return DropdownMenuItem(
-                    value: reg,
-                    child: Text(
-                      reg['region'][lang] != null
-                          ? reg['region'][lang].toString()
-                          : reg['region'][lang] == null
+                  dropdownColor: AppColors.inPutFieldColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: dataRegion.map((reg) {
+                    return DropdownMenuItem(
+                        value: reg,
+                        child: Text(
+                          reg['region'][lang] != null
+                              ? reg['region'][lang].toString()
+                              : reg['region'][lang] == null
                               ? reg['region']['en']
                               : "",
-                    ));
-              }).toList(),
-              onChanged: (data) {
-                var mapRegion;
-                setState(() {
-                  mapRegion = data as Map;
-                  hintRegionText = mapRegion['region'][lang] != null
-                      ? mapRegion['region'][lang].toString()
-                      : mapRegion['region'][lang] == null
+                        ));
+                  }).toList(),
+                  onChanged: (data) {
+                    var mapRegion;
+                    setState(() {
+                      mapRegion = data as Map;
+                      hintRegionText = mapRegion['region'][lang] != null
+                          ? mapRegion['region'][lang].toString()
+                          : mapRegion['region'][lang] == null
                           ? mapRegion['region']['en'].toString()
                           : '';
-                  selectedRegion = data['id'];
-                  regionIdByCountry.getCity(data['id']);
-                });
-              },
-            ))));
+                      selectedRegion = data['id'];
+                      regionIdByCountry.getCity(data['id']);
+                    });
+                  },
+                ))));
   }
 
   Widget city(List citydata) {
     return Container(
-        // margin:lang == 'ar'
-        //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+      // margin:lang == 'ar'
+      //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-              hint: Text(hintcityText != null ? hintcityText : "city".tr,
-                  style:
+                  hint: Text(hintcityText != null ? hintcityText : "city".tr,
+                      style:
                       TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
-              dropdownColor: AppColors.inputColor,
-              icon: Icon(Icons.arrow_drop_down),
-              items: citydata.map((citt) {
-                return DropdownMenuItem(
-                    value: citt,
-                    child: Text(citt['city'][lang] != null
-                        ? citt['city'][lang]
-                        : citt['city'][lang] == null
+                  dropdownColor: AppColors.inputColor,
+                  icon: Icon(Icons.arrow_drop_down),
+                  items: citydata.map((citt) {
+                    return DropdownMenuItem(
+                        value: citt,
+                        child: Text(citt['city'][lang] != null
+                            ? citt['city'][lang]
+                            : citt['city'][lang] == null
                             ? citt['city']['en'].toString()
                             : ''));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  var mapCity;
-                  mapCity = value as Map;
-                  hintcityText = mapCity['city'][lang] != null
-                      ? mapCity['city'][lang].toString()
-                      : mapCity['city'][lang] == null
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      var mapCity;
+                      mapCity = value as Map;
+                      hintcityText = mapCity['city'][lang] != null
+                          ? mapCity['city'][lang].toString()
+                          : mapCity['city'][lang] == null
                           ? mapCity['city']['en'].toString()
                           : '';
-                  selectedCity = mapCity['id'];
-                });
-              },
-            ))));
+                      selectedCity = mapCity['id'];
+                    });
+                  },
+                ))));
   }
 
   Widget services(List serviceName) {
@@ -831,11 +855,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         decoration: BoxDecoration(
           color: Colors.grey,
           border: Border.all(color: AppColors.outline
-              // width: 2,
-              ),
+            // width: 2,
+          ),
         ),
         child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               MultiSelectBottomSheetField(
                 initialChildSize: 0.4,
@@ -845,7 +869,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     style: TextStyle(color: Colors.grey, fontSize: 17)),
                 items: serviceName
                     .map((e) => MultiSelectItem(
-                        e, e['servics_name'] != null ? e['servics_name'] : ''))
+                    e, e['servics_name'] != null ? e['servics_name'] : ''))
                     .toList(),
                 onConfirm: (values) {
                   var valLoop = values;
@@ -866,35 +890,69 @@ class _CompanySignPageState extends State<CompanySignUp> {
             ]));
   }
 
-  Widget about() {
+
+  Widget aboutCompny() {
     return Container(
-      // margin: EdgeInsets.only(left: 20, right: 20),
-      // width: Get.width * 0.55,
-      child: CustomTextFiled(
-        maxLine: 4,
-        contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 20, top: 20)
-            : EdgeInsets.only(left: 20, top: 20),
-        isObscure: false,
-        color: Colors.white,
-        hintText: "aboutsu".tr,
-        hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
-        hintColor:
-            lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: aboutController,
-        onSaved: (newValue) {},
-        validator: (value) {
-          if (value.length == 0) {
-            return "aboutfield".tr;
-          } else
-            return null;
-        },
-        errorText: '',
-      ),
-    );
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColors.outline,width: 1.5)
+        ),
+        height: Get.height*0.15,
+        width: Get.width * 0.68,
+        // margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
+
+        // isObscure: false,
+
+        child: TextFormField(
+
+
+          controller:aboutController ,
+          maxLines: 5,
+
+          // obscureText: passwordVisible,
+          decoration: InputDecoration(
+            contentPadding: lang == 'ar'
+                ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
+                : EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19),
+
+            hintText: ( "aboutsu".tr),
+            hintStyle: TextStyle(
+                fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
+
+            // labelStyle: TextStyle(color: AppColors.basicColor),
+            fillColor: Colors.white,
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide:BorderSide(color:Colors.transparent),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            errorText: '',
+          ),
+          validator: (value) {
+            if (value!.length == 0) {
+              return "aboutfield".tr;
+            } else
+              return null;
+          },
+
+
+          // errorText: '',
+          // onSaved: (val) => email = TextEditingController(text: val),
+        ));
   }
 
   Widget iqama() {
@@ -1102,12 +1160,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   Widget submitButton(
       {buttonText,
-      fontSize,
-      callback,
-      bgcolor,
-      textColor,
-      fontFamily,
-      fontWeight}) {
+        fontSize,
+        callback,
+        bgcolor,
+        textColor,
+        fontFamily,
+        fontWeight}) {
     return AppButton2(
       buttonText: buttonText,
       callback: callback,
@@ -1126,102 +1184,114 @@ class _CompanySignPageState extends State<CompanySignUp> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
               child: Text(
                 "Account_type".tr,
                 style: TextStyle(
-                    fontSize: 16, color: Colors.black.withOpacity(0.4)),
+                    fontSize: 16, color:AppColors.border),
               )),
+
           Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Radio(
-                  //   value: t.index,
-                  //   groupValue: v,
-                  //   activeColor:AppColors.whitedColor,
-                  //   onChanged: (int?value ) {
-                  //     setState(() {
-                  //       v = value!;
-                  //     });
-                  //   },
-                  // ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        textcolor = 0;
-                      });
-                      Radio(
-                        value: 1,
-                        groupValue: v,
-                        // activeColor:AppColors.whitedColor,
-                        onChanged: (value) => setState(() => v = v),
-                      );
-                    },
-                    child: Container(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width * 0.46,
-                      child: Row(
-                        children: [
-                          Padding(
-                              padding: lang == 'ar'
-                                  ? EdgeInsets.all(8.0)
-                                  : EdgeInsets.all(8.0),
-                              child: Image.asset("assets/individual.png")),
-                          SizedBox(
-                            width: 10,
+            padding: EdgeInsets.only(top: Get.height*0.008),
+            child: Container(
+                width: Get.width,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.outline,width: 1.5)),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Radio(
+                    //   value: t.index,
+                    //   groupValue: v,
+                    //   activeColor:AppColors.whitedColor,
+                    //   onChanged: (int?value ) {
+                    //     setState(() {
+                    //       v = value!;
+                    //     });
+                    //   },
+                    // ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = 0;
+                        });
+                        Radio(
+                          value: 1,
+                          groupValue: v,
+                          // activeColor:AppColors.whitedColor,
+                          onChanged: (value) => setState(() => v = v),
+                        );
+                      },
+                      child: Container(
+
+                        child: Padding(
+                          padding:  EdgeInsets.all(Get.height*0.004),
+                          child: Row(
+                            children: [
+                              Padding(
+                                  padding: lang == 'ar'
+                                      ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                      left: Get.height*0.018,right: Get.height*0.008)
+                                      : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                      left: Get.height*0.008,right: Get.height*0.018),
+                                  child: Image.asset("assets/individual.png")),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "individual".tr,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: textcolor == 0
+                                        ? Colors.blueAccent
+                                        : AppColors.inputTextColor,
+                                    decoration: textcolor == 0
+                                        ? TextDecoration.underline
+                                        : TextDecoration.none,
+                                    decorationThickness: 2,
+                                    fontWeight: textcolor == 0
+                                        ? FontWeight.w700
+                                        : FontWeight.w200),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "individual".tr,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: textcolor == 0
-                                    ? Colors.blueAccent
-                                    : Colors.grey,
-                                decoration: textcolor == 0
-                                    ? TextDecoration.underline
-                                    : TextDecoration.none,
-                                decorationThickness: 2,
-                                fontWeight: textcolor == 0
-                                    ? FontWeight.w700
-                                    : FontWeight.w200),
-                          ),
-                        ],
+                        ),
+
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppColors.outline)),
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        textcolor = 1;
-                      });
-                      Radio(
-                        value: 2,
-                        groupValue: v,
-                        // activeColor:AppColors.whitedColor,
-                        onChanged: (value) => setState(() => v = v),
-                      );
-                    },
-                    child: Container(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width * 0.46,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: lang == 'ar'
-                                ? EdgeInsets.only(right: 45.0)
-                                : EdgeInsets.only(left: 45.0),
-                            child: Text(
+                    Container(
+                      width: Get.width*0.005,
+                      decoration: BoxDecoration(
+                          color: AppColors.outline
+
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          textcolor = 1;
+                        });
+                        Radio(
+                          value: 2,
+                          groupValue: v,
+                          // activeColor:AppColors.whitedColor,
+                          onChanged: (value) => setState(() => v = v),
+                        );
+                      },
+                      child: Container(
+
+                        // width: MediaQuery.of(context).size.width * 0.46,
+                        child: Row(
+                          children: [
+                            Text(
                               "business".tr,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: textcolor == 1
                                       ? Colors.blueAccent
-                                      : Colors.grey,
+                                      :  AppColors.inputTextColor,
                                   decoration: textcolor == 1
                                       ? TextDecoration.underline
                                       : TextDecoration.none,
@@ -1230,22 +1300,33 @@ class _CompanySignPageState extends State<CompanySignUp> {
                                       ? FontWeight.w700
                                       : FontWeight.w200),
                             ),
-                          ),
-                          SizedBox(
-                            width: 14,
-                          ),
-                          Image.asset("assets/Bussnise.png"),
-                        ],
+                            SizedBox(
+                              width: 14,
+                            ),
+                            Padding(
+                              padding: lang == 'ar'
+                                  ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                  left: Get.height*0.008,right: Get.height*0.018)
+                                  : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                  left: Get.height*0.018,right: Get.height*0.008),
+                              child: Image.asset("assets/Bussnise.png"),
+                            ),
+                          ],
+                        ),
+                        // decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     border: Border.all(color: AppColors.outline)),
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppColors.outline)),
-                    ),
-                  )
-                  // Container(
-                  // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
-                ],
-              ))
+                    )
+                    // Container(
+                    // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
+                  ],
+                )
+            ),
+          ),
+
+
+
         ],
       ),
     );
