@@ -334,6 +334,7 @@ const Map<String, String> ar = {
   'report': 'أبلغ عن',
   'contactC': 'اتصل',
   'favC': 'المفضلة',
+  'call':"الاتصال",
   "allAds": "جميع الاعلانات",
   "callme": "اتصل بنا الآن",
   "selectService": "حدد الخدمة",
