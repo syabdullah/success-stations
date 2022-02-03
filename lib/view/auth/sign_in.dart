@@ -149,7 +149,11 @@ class _SignPageState extends State<SignIn> {
                                           fontFamily: "Source_Sans_Pro",
                                           fontSize: 15)),
                                   Text(
+<<<<<<< HEAD
                                     " "+"help_login".tr ,
+=======
+                                    " " + "help_login".tr,
+>>>>>>> ae401f7f8c00b9515aec8b291158ef0301e75750
                                     style: TextStyle(
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold,
@@ -252,7 +256,6 @@ class _SignPageState extends State<SignIn> {
   //   );
   // }
 
-
   Widget language(List data) {
     return ButtonTheme(
         alignedDropdown: true,
@@ -305,8 +308,12 @@ class _SignPageState extends State<SignIn> {
         width: Get.width * 0.9,
         // height:  Get.height *0.065,
         child: TextFormField(
+<<<<<<< HEAD
 
           controller:email ,
+=======
+          controller: email,
+>>>>>>> ae401f7f8c00b9515aec8b291158ef0301e75750
           // obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
@@ -339,12 +346,12 @@ class _SignPageState extends State<SignIn> {
               borderSide: BorderSide(color: AppColors.outline,width: 1.5),
             ),
           ),
-            validator: (value) => value == ''
-                      ? 'email_required'.tr
-                      : !value!.contains('@') || !value!.contains('.')
-                      ? 'enter_valid_email'.tr
-                      : null,
-                  // errorText: '',
+          validator: (value) => value == ''
+              ? 'email_required'.tr
+              : !value!.contains('@') || !value.contains('.')
+                  ? 'enter_valid_email'.tr
+                  : null,
+          // errorText: '',
           // onSaved: (val) => email = TextEditingController(text: val),
         ));
   }

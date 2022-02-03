@@ -219,7 +219,6 @@ class _BottomTabsState extends State<BottomTabs> {
                     ],
                   ),
                 ),
-
               ],
             ),
           )
@@ -361,7 +360,6 @@ class _BottomTabsState extends State<BottomTabs> {
                     ],
                   ),
                 ),
-
               ],
             ),
           );
