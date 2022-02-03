@@ -92,7 +92,7 @@ class _LanguagePageState extends State<Language> {
 
   @override
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -112,9 +112,9 @@ class _LanguagePageState extends State<Language> {
                       Navigator.pop(context);
                     },
                     child: Image.asset(
-                      AppImages.roundedBack,height:Get.height*0.05 ,
+                      AppImages.roundedBack,height:Get.height*0.3 ,
                     )),
-                SizedBox(width: Get.width*0.02,),
+
                 Text(
                   "prev".tr,
                   style: TextStyle(
