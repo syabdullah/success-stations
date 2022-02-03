@@ -4,19 +4,18 @@ class AppColors {
   // signUP
   // signUP  #2F4199
   static Color appCategSeleGroundColor = Color(0xFFD4F0FB);
-<<<<<<< HEAD
   // static Color whitedColor = Color(0xFF2F4199);
   static Color whitedColor = Color(0xFF1a429b);
   static Color white = Color(0xFFFFFFFF);
-=======
+
   // static Color appBarBackGroundColor = Color(0xFF2F4199);
   static Color appBarBackGroundColor = Color(0xFF2f4199);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
   static Color homeBackGroun = Color(0xFFf7f5f9);
->>>>>>> ae401f7f8c00b9515aec8b291158ef0301e75750
   static Color backArrow = Color(0xFFF0F7FD);
   static Color black = Color(0xFF000000);
   static Color outline = Color(0xFFd9d9d9);
+  static Color border = Color(0xFF777171);
   static Color inputColor  = Color(0xFFF9F8FA);
   static Color inputColor2  = Color(0xFFF7F5F9);
   static Color inPutFieldColor = Color(0xFFFAF9FB);
@@ -26,7 +25,7 @@ class AppColors {
    static Color themecolor = Color(0xFF4AA6E);
   static Color resetText = Color(0xFF828DA4);
   static Color login_help = Color(0xFF3A70CA);
-  static Color border = Color(0xFFAEABAB);
+
   static Color darkblue = Color(0xFF2B409E);
 
   // login

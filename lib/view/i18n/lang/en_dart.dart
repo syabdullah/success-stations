@@ -28,7 +28,7 @@ const Map<String, String> en = {
   "user_name_placeholder": "User Name",
   "user_name": "User Name",
   "password_placeholder": "Password",
-  "sign_in": " Sign in",
+  "sign_in": " Sign in.",
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "passwordNotMatch": "Password does not match",
