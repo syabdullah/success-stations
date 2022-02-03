@@ -123,7 +123,7 @@ class _SignPageState extends State<StudentSignUp> {
     final width10 = SizedBox(width: getSize(Get.width*0.02, context));
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar:  singIn(),
+      // bottomNavigationBar:  singIn(),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -202,29 +202,28 @@ class _SignPageState extends State<StudentSignUp> {
                 degree(),
                 space25,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        height: 110,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                          border: Border.all(color: AppColors.outline,width: 1.5)
+                    Container(
+                      height: Get.height*0.15,
+width: Get.width*0.26,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                        border: Border.all(color: AppColors.outline,width: 1.5)
+                      ),
+
+
+                        child: Padding(
+                          padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
+                          child:Image.asset(AppImages.man,height: Get.height*0.1,)
                         ),
 
 
-                          child: Padding(
-                            padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
-                            child:Image.asset(AppImages.man,height: Get.height*0.1,)
-                          ),
+                        // decoration: BoxDecoration(color: ),
+                        ),
+                    about(),
 
 
-                          // decoration: BoxDecoration(color: ),
-                          ),
-                    ),width10,
-                    Expanded(
-                        flex: 7,
-                        child: about()),
                   ],
                 ),
                 space25,
@@ -268,7 +267,49 @@ class _SignPageState extends State<StudentSignUp> {
                     callback: _isChecked == true ? createUser : null),
                 space20,
 
+              Container(
+                height: Get.height*0.08,
+                margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: [
+                    Divider(
+                      color: Colors.black,
+                    ),
 
+                    Padding(
+                      padding:  EdgeInsets.all(Get.height*0.004),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "have_account".tr,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: "Source_Sans_Pro",
+                                fontSize: 17),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+
+                                Get.toNamed('/login');
+
+                              },
+                              child: Text(
+                                "sign_in".tr,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
 
               ],
             ),
@@ -277,51 +318,7 @@ class _SignPageState extends State<StudentSignUp> {
       ),
     );
   }
-  Widget singIn() {
-    return Container(
-      height: Get.height*0.08,
-      margin: EdgeInsets.only( bottom:  Get.height*0.005,),
-      alignment: Alignment.bottomCenter,
-      child: Column(
-        children: [
-          Divider(
-            color: Colors.black,
-          ),
 
-          Padding(
-            padding:  EdgeInsets.all(Get.height*0.004),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                "have_account".tr,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontFamily: "Source_Sans_Pro",
-                      fontSize: 17),
-                ),
-                GestureDetector(
-                    onTap: () {
-
-                        Get.toNamed('/login');
-
-                    },
-                    child: Text(
-                      "sign_in".tr,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontFamily: "Source_Sans_Pro",
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget fullNameStudent() {
     return Container(
@@ -386,6 +383,7 @@ class _SignPageState extends State<StudentSignUp> {
     return Container(
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width/19),
       width: Get.width * 0.9,
+
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19)
@@ -410,37 +408,69 @@ class _SignPageState extends State<StudentSignUp> {
     );
   }
 
+
   Widget about() {
     return Container(
-
-      // margin:lang == 'ar'? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0): EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0),
-      // width: Get.width * 0.55,
-      child: CustomTextFiled(
-
-        maxLine: 4,
-        contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19),
-        isObscure: false,
-        color: Colors.white,
-        hintText: 'about'.tr,
-        hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
-        hintColor:
-            lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: aboutController,
-        onSaved: (newValue) {},
-        validator: (value) {
-          if (value.length == 0) {
-            return "aboutfield".tr;
-          } else
-            return null;
-        },
-        errorText: '',
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.outline,width: 1.5)
       ),
-    );
+        height: Get.height*0.15,
+        width: Get.width * 0.68,
+        // margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
+
+        // isObscure: false,
+
+        child: TextFormField(
+
+
+          controller:aboutController ,
+          maxLines: 5,
+
+          // obscureText: passwordVisible,
+          decoration: InputDecoration(
+            contentPadding: lang == 'ar'
+                ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
+                : EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19),
+
+            hintText: ('about'.tr),
+            hintStyle: TextStyle(
+                fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
+
+            // labelStyle: TextStyle(color: AppColors.basicColor),
+            fillColor: Colors.white,
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide:BorderSide(color:Colors.transparent),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            errorText: '',
+          ),
+          validator: (value) {
+            if (value!.length == 0) {
+              return "aboutfield".tr;
+            } else
+              return null;
+          },
+
+
+          // errorText: '',
+          // onSaved: (val) => email = TextEditingController(text: val),
+        ));
   }
 
   Widget degree() {
