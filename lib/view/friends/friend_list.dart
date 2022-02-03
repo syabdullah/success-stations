@@ -17,6 +17,7 @@ class FriendList extends StatefulWidget {
 }
 
 class _FriendListState extends State<FriendList> {
+  static var friendlistappbar = GlobalKey<ScaffoldState>();
   GetStorage box = GetStorage();
   var grid = AppImages.gridOf, id, selected, requisterId, lang;
   Color listIconColor = Colors.grey;
@@ -53,39 +54,42 @@ class _FriendListState extends State<FriendList> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GridListCategory>(
-        init: GridListCategory(),
-        builder: (valuee) {
-          return Column(
-            children: [
-              GetBuilder<FriendsController>(
-                  init: FriendsController(),
-                  builder: (val) {
-                    return val.friendsData == null
-                        ? Expanded(
-                            child: valuee.dataType == 'list'
-                                ? shimmer()
-                                : gridShimmer())
-                        : val.friendsData['success'] == false ||
-                                val.friendsData['data'].length == 0 ||
-                                val.friendsData == null
-                            ? SingleChildScrollView(
-                                child: Container(
-                                  // height: Get.height/1.5,
-                                  child: Center(
-                                      child: Text("nofriends".tr,
-                                          style: TextStyle(fontSize: 20))),
-                                ),
-                              )
-                            : Expanded(
-                                child: valuee.dataType == 'list'
-                                    ? friendGridView(val.friendsData['data'])
-                                    // friendList(val.friendsData['data'])
-                                    : friendGridView(val.friendsData['data']));
-                  })
-            ],
-          );
-        });
+    return Scaffold(
+      key: friendlistappbar,
+      body: GetBuilder<GridListCategory>(
+          init: GridListCategory(),
+          builder: (valuee) {
+            return Column(
+              children: [
+                GetBuilder<FriendsController>(
+                    init: FriendsController(),
+                    builder: (val) {
+                      return val.friendsData == null
+                          ? Expanded(
+                              child: valuee.dataType == 'list'
+                                  ? shimmer()
+                                  : gridShimmer())
+                          : val.friendsData['success'] == false ||
+                                  val.friendsData['data'].length == 0 ||
+                                  val.friendsData == null
+                              ? SingleChildScrollView(
+                                  child: Container(
+                                    // height: Get.height/1.5,
+                                    child: Center(
+                                        child: Text("nofriends".tr,
+                                            style: TextStyle(fontSize: 20))),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: valuee.dataType == 'list'
+                                      ? friendGridView(val.friendsData['data'])
+                                      // friendList(val.friendsData['data'])
+                                      : friendGridView(val.friendsData['data']));
+                    })
+              ],
+            );
+          }),
+    );
   }
 
   var count = 0;

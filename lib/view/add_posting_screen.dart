@@ -461,108 +461,117 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 SizedBox(
                   height: 5.h,
                 ),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    padding: const EdgeInsets.all(2.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(
-                              5.0) //                 <--- border radius here
-                          ),
-                    ),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: Container(
-                          width: Get.width,
-                          child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                            hint: Text(
-                                selectedCategory != null
-                                    ? selectedCategory
-                                    : "categories".tr,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.inputTextColor)),
-                            dropdownColor: AppColors.inPutFieldColor,
-                            icon: Icon(Icons.arrow_drop_down),
-                            items: types.map((coun) {
-                              return DropdownMenuItem(
+                Row(
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(
+                                  5.0) //                 <--- border radius here
+                              ),
+                        ),
+                        child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: Container(
+                              width: Get.width*0.30,
+                              child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
 
-                                  value: coun,
-                                  child: Text(coun['category'][lang] != null
-                                      ? coun['category'][lang]
-                                      : coun['category'][lang] == null
-                                          ? coun['category']['en']
-                                          : '')
-                              );
-                            }
-                            ).toList(),
-                            onChanged: (val) {
-                              var adCategory;
-                              setState(() {
-                                adCategory = val as Map;
-                                selectedCategory =
-                                    adCategory['category'][lang] != null
-                                        ? adCategory['category'][lang]
-                                        : adCategory['category'][lang] == null
-                                            ? adCategory['category']['en']
-                                            : '';
-                                subtypeId = adCategory['id'];
-                                type = adCategory['category_listing_types'];
-                                selectedtype = 'type'.tr;
-                              });
-                            },
-                          )),
-                        ))),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    padding: const EdgeInsets.all(1.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(
+                                hint: Text(
+                                    selectedCategory != null
+                                        ? selectedCategory
+                                        : "categories".tr,
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: AppColors.inputTextColor)),
+                                // dropdownColor: AppColors.inPutFieldColor,
+                                // icon: Icon(Icons.arrow_drop_down),
+                                items: types.map((coun) {
+                                  return DropdownMenuItem(
+
+                                      value: coun,
+                                      child: Text(coun['category'][lang] != null
+                                          ? coun['category'][lang]
+                                          : coun['category'][lang] == null
+                                              ? coun['category']['en']
+                                              : '')
+                                  );
+                                }
+                                ).toList(),
+                                onChanged: (val) {
+                                  var adCategory;
+                                  setState(() {
+                                    adCategory = val as Map;
+                                    selectedCategory =
+                                        adCategory['category'][lang] != null
+                                            ? adCategory['category'][lang]
+                                            : adCategory['category'][lang] == null
+                                                ? adCategory['category']['en']
+                                                : '';
+                                    subtypeId = adCategory['id'];
+                                    type = adCategory['category_listing_types'];
+                                    selectedtype = 'type'.tr;
+                                  });
+                                },
+                              )),
+                            ))),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Container(
+                        width: Get.width*0.30,
+                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                        padding: const EdgeInsets.all(1.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(
                               5.0) //                 <--- border radius here
                           ),
-                    ),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: Container(
-                          width: Get.width,
-                          child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                            hint: Text(
-                                selectedtype != null ? selectedtype : 'type'.tr,
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.inputTextColor)),
-                            dropdownColor: AppColors.inPutFieldColor,
-                            icon: Icon(Icons.arrow_drop_down),
-                            items: type.map((coun) {
-                              return DropdownMenuItem(
-                                  value: coun,
-                                  child: Text(coun['type'][lang] != null
-                                      ? coun['type'][lang].toString()
-                                      : coun['type'][lang] == null
-                                          ? coun['type']['en'].toString()
-                                          : ''));
-                            }).toList(),
-                            onChanged: (val) {
-                              var adsubCategory;
-                              setState(() {
-                                adsubCategory = val as Map;
-                                selectedtype =
-                                    adsubCategory['type'][lang] != null
-                                        ? adsubCategory['type'][lang]
-                                        : adsubCategory['type'][lang] == null
+                        ),
+                        child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: Container(
+                              width: Get.width,
+                              child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    hint: Text(
+                                        selectedtype != null ? selectedtype : 'type'.tr,
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: AppColors.inputTextColor)),
+                                    dropdownColor: AppColors.inPutFieldColor,
+                                    icon: Icon(Icons.arrow_drop_down),
+                                    items: type.map((coun) {
+                                      return DropdownMenuItem(
+                                          value: coun,
+                                          child: Text(coun['type'][lang] != null
+                                              ? coun['type'][lang].toString()
+                                              : coun['type'][lang] == null
+                                              ? coun['type']['en'].toString()
+                                              : ''));
+                                    }).toList(),
+                                    onChanged: (val) {
+                                      var adsubCategory;
+                                      setState(() {
+                                        adsubCategory = val as Map;
+                                        selectedtype =
+                                        adsubCategory['type'][lang] != null
+                                            ? adsubCategory['type'][lang]
+                                            : adsubCategory['type'][lang] == null
                                             ? adsubCategory['type']['en']
                                             : '';
-                                typeId = adsubCategory['id'];
-                              });
-                            },
-                          )),
-                        ))),
+                                        typeId = adsubCategory['id'];
+                                      });
+                                    },
+                                  )),
+                            ))),
+                  ],
+                )
+                ,
+
+
                 SizedBox(
                   height: 5.h,
                 ),
@@ -596,6 +605,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   height: 5.h,
                 ),
                 Container(
+
                     margin: const EdgeInsets.symmetric(horizontal: 15.0),
                     padding: const EdgeInsets.all(3.0),
                     decoration: BoxDecoration(
@@ -634,6 +644,59 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                               });
                             },
                           )),
+                        ))),
+                Container(
+                    width: Get.width/2,
+                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                    padding: const EdgeInsets.all(3.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                          5.0) //                 <--- border radius here
+                      ),
+                    ),
+                    child: ButtonTheme(
+                        alignedDropdown: true,
+                        child: Container(
+                          width: Get.width,
+                          child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                hint: Text(
+                                    selectedCategory != null
+                                        ? selectedCategory
+                                        : "categories".tr,
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color: AppColors.inputTextColor)),
+                                dropdownColor: AppColors.inPutFieldColor,
+                                icon: Icon(Icons.arrow_drop_down),
+
+                                // items: <String>['New', 'Old'].map((String value) {
+                                //   return DropdownMenuItem(
+                                //       value: value, child: Text(value));
+                                // }).toList(),
+
+                                items: types.map((coun) {
+                                  return DropdownMenuItem(
+
+                                      value: coun,
+                                      child: Text(coun['category'][lang] != null
+                                          ? coun['category'][lang]
+                                          : coun['category'][lang] == null
+                                          ? coun['category']['en']
+                                          : '')
+                                  );
+                                }
+                                ).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedStatus = value;
+                                    value == 'New'.tr
+                                        ? selectedStatus = '1'
+                                        : selectedStatus = '0';
+                                  });
+                                },
+                              )),
                         ))),
                 SizedBox(
                   height: 5.h,

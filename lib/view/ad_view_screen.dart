@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,7 +10,6 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/string.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'shimmer.dart';
@@ -80,11 +78,12 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        previousButton2(
-                            AppImages.callerImage, "call".tr, Colors.grey, ''),
-                        previousButton(
-                            AppImages.whatsapp, "whatsapp".tr, Colors.grey, ''),  previousButton(
-                            AppImages.chating, "".tr, Colors.grey, ''),
+                        previousButton2(AppImages.callerImage, "call".tr,
+                            Color(0xFF2F4199), val.adsD['data']),
+                        previousButton(AppImages.whatsapp, "whatsapp".tr,
+                            Color(0xFF2F4199), ''),
+                        previousButton(AppImages.chating, "Massages".tr,
+                            Color(0xFF2F4199), ''),
                         previousButton2(AppImages.heart, ''.tr,
                             Color(0xFF2F4199), val.adsD['data'])
                       ],
@@ -307,7 +306,8 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0, top: 8),
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8.0, top: 8),
                               child: Text(
                                 "Description : ",
                                 style: TextStyle(
@@ -882,7 +882,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Container(
-                        height: Get.height * 0.13,
+                        height: Get.height * 0.15,
                         width: Get.width * 0.95,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -1020,14 +1020,14 @@ class _AdViewScreenState extends State<AdViewScreen> {
 
   Widget commentButton() {
     return Container(
-      padding: const EdgeInsets.only(left: 15.0,right: 15),
+      padding: const EdgeInsets.only(left: 15.0, right: 15),
       height: 40.h,
       width: Get.width,
       child: ElevatedButton(
         style: ButtonStyle(
-            foregroundColor:
-                MaterialStateProperty.all<Color>(Colors.white),
-            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF2F4199)),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Color(0xFF2F4199)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -1037,72 +1037,114 @@ class _AdViewScreenState extends State<AdViewScreen> {
           adDetailCont.adsDetail(adId);
           comment = '';
         },
-        child: Container(child: Text('add_a_comment'.tr,style: TextStyle(fontSize:18))),
+        child: Container(
+            child: Text('add_a_comment'.tr, style: TextStyle(fontSize: 18))),
       ),
     );
   }
 
   Widget previousButton(image, text, Color color, data) {
-    return Container(
-      height: 40.h,
-      width: 150.w,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: color,
-            textStyle: TextStyle(fontSize: 12.h, fontWeight: FontWeight.bold)),
-        onPressed: () {
-          if (text == AppString.fav) {
-            Get.toNamed('/favourities');
-          } else {
-            launch("tel:${data['phone']}");
-          }
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(image),
-            Text(
-              text,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-  Widget previousButton2(image, text, Color color, data) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical:8.0),
-      // onPressed: () {
-      //   if (text == AppString.fav) {
-      //     Get.toNamed('/favourities');
-      //   } else {
-      //     launch("tel:${data['phone']}");
-      //   }
-      // },
+    return InkWell(
+      onTap: () {
+        if (text == AppString.fav) {
+          Get.toNamed('/favourities');
+        } else {
+          launch("tel:${data['phone']}");
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
-          border:Border.all(color:AppColors.appBarBackGroundColor),
+          border: Border.all(color: AppColors.appBarBackGroundColor),
           color: Colors.white,
         ),
         height: 40.h,
-        width: 80.w,
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(image,width:Get.width*0.08),
-
-          Text(
-            text,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(image, width: Get.width * 0.08),
+              SizedBox(
+                width: Get.width * 0.01,
+              ),
+              Text(
+                text,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
       ),
     );
   }
 
+  Widget previousButton2(image, text, Color color, data) {
+    return InkWell(
+      onTap: () {
+        if (image == AppImages.heart) {
+          Get.toNamed('/favourities');
+        } else {
+          launch("tel:${data['phone']}");
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.appBarBackGroundColor),
+          color: Colors.white,
+        ),
+        height: 40.h,
+        // width: 100.w,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(image, width: Get.width * 0.08),
+              SizedBox(
+                width: Get.width * 0.01,
+              ),
+              Text(
+                text,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Widget previousButton2(image, text, Color color, data) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8.0),
+  //     // onPressed: () {
+  //     //   if (text == AppString.fav) {
+  //     //     Get.toNamed('/favourities');
+  //     //   } else {
+  //     //     launch("tel:${data['phone']}");
+  //     //   }
+  //     // },
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         border: Border.all(color: AppColors.appBarBackGroundColor),
+  //         color: Colors.white,
+  //       ),
+  //       height: 40.h,
+  //       width: 80.w,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         children: [
+  //           Image.asset(image, width: Get.width * 0.08),
+  //           Text(
+  //             text,
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget commentInput() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 11.0,vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 11.0, vertical: 10),
       child: TextFormField(
         maxLines: null,
         textAlignVertical: TextAlignVertical.top,
@@ -1118,13 +1160,13 @@ class _AdViewScreenState extends State<AdViewScreen> {
           });
         },
         style: TextStyle(
-            color: AppColors.black,
-            fontSize: 15.h,),
-            // fontWeight: FontWeight.bold),
+          color: AppColors.black,
+          fontSize: 15.h,
+        ),
+        // fontWeight: FontWeight.bold),
         decoration: InputDecoration(
-fillColor: AppColors.appBarBackGroundColor.withOpacity(0.1),
+          fillColor: AppColors.appBarBackGroundColor.withOpacity(0.1),
           filled: true,
-
           contentPadding: lang == 'en'
               ? EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 80.0)
               : EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 80.0),
@@ -1133,7 +1175,6 @@ fillColor: AppColors.appBarBackGroundColor.withOpacity(0.1),
             color: Colors.black,
             fontWeight: FontWeight.normal,
           ),
-
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.inputTextColor),
             borderRadius: BorderRadius.circular(0),

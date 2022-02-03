@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,11 +13,10 @@ import 'package:success_stations/controller/offers/offer_category_controller.dar
 import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
-import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
+import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/offer_filtered.dart';
 import 'package:success_stations/view/offer_grid_filtered.dart';
@@ -40,8 +40,7 @@ var statusFiltered, status;
 var namearray = [];
 
 var color = Colors.grey[100];
-int slctedInd = 0,
-    _selectedIndex = 1;
+int slctedInd = 0, _selectedIndex = 1;
 bool textfeild = true;
 var selectedService;
 // ignore: non_constant_identifier_names
@@ -86,570 +85,625 @@ idSended() {
 var bottomSheetCategory = 0;
 
 void _getUserLocation() async {
-  position = await GeolocatorPlatform.instance.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
+  position = await GeolocatorPlatform.instance
+      .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   currentPostion = LatLng(position.latitude, position.longitude);
 }
-
-Widget appbar(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
-    index) {
+Widget appbar(
+    GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
   var lang = box.read('lang_code');
-  return lang == 'en' || lang == null ? AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: index == 2 ? Container(
-      margin: EdgeInsets.only(top: 8),
-      child: IconButton(
-          iconSize: 40,
-          icon: Image.asset(
-              AppImages.menuDrawer, height: 28, color: AppColors.grey),
-          onPressed: () => globalKey.currentState!.openDrawer()
-      ),
-    ) :
-    // index == 1 ?
-    // InkWell(
-    //   onTap: () => index == 4?  filteringCategory(context):
-    //   Get.bottomSheet(FriendFilter()),
-    //   child: Container(
-    //     margin: EdgeInsets.only( top:08),
-    //     child:  index == 1 ? Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ):
-    //     Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ),
-    //   ),
-    // ):
 
-    index == 2 ? Container()
-        : Row(
-      children: [
-        GestureDetector(
-          onTap:
-          index == 0 ? () {
-            filteringCategory(context);
-          }
-              :
-          index == 1 ? () {
-            Scaffold.of(context).openDrawer();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
-            // FriendFilter();
-            // index == 4 ? filteringCategory(context) :
-            // Get.bottomSheet(FriendFilter());
-          } :
-          index == 3 ? () {
-            adsfiltringheet(context);
-          } :
-          index == 4 ? () {
-            filtrationModel(context);
-          } :
-          null,
-          child: index == 0 || index == 4 ||index ==3 ? Container() :
-
-          GestureDetector(
-  onTap: () => index == 4?  filteringCategory(context):
-    Get.bottomSheet(FriendFilter()),
-            child: Container(
-              margin: EdgeInsets.only(right: 15, top: 08),
-              child: index == 1 ? Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45
-              ) :
-              Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: index == 3 ? () {
-            Get.to(AddPostingScreen());
-          } :
-          index == 0 ? () {
-            Get.to(AddOffersPage());
-          } :
-          index == 4 ? () {
-            Get.to(AddPostingScreen());
-          } : null,
-          child: Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 08),
-              child: index != 1 ? Image.asset(
-                  AppImages.plusImage1,
-                  color: Colors.black, height: 35
-              ) : Container()
-          ),
-        ),
-      ],
-    ),
-    title: Padding(
-      padding: const EdgeInsets.only(top: 08.0),
-      child: Image.asset(image, height: 40),
-    ),
-    actions: [
-      index == 2 ?
-      GestureDetector(
-        onTap: () {
-          Get.toNamed('/inbox');
-        },
-        child: Container(
-            padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
-            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
-            child: Row(
-              children: [
-                Image.asset(AppImages.chating, color: AppColors.black),
-                Container(height: 20, color: AppColors.grey, width: 1,),
-                Image.asset(AppImages.appbar_location, color: AppColors.black),
-              ],
-            )
-        ),
-      ) :
-      Container(
-
-        margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
-            .only(right: 16,left: 16, top: 08),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            index == 0 ?
-            InkWell(
-              onTap: () => filteringCategory(context),
-              child: Container(
-                // margin: EdgeInsets.only( top:08),
-                child: index == 1 ? Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ) :
-                Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ),
-              ),
-            ) : Container(),
-            index == 1 ?
-            Padding(
-              padding: const EdgeInsets.only(right:10,left: 10),
-              child: InkWell(
-
-                child: Container(
-                  // margin: EdgeInsets.only( top:08),
-                  child: index == 1 ? Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ) :
-                  Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ),
-                ),
-              ),
-            ) : Container(),
-
-           index == 4 || index==3? GestureDetector(
-              onTap: () {
-                index==3?
-                // filtrationModel(context): adsfiltringheet(context);
-                filtrationModel(context): adsfiltringheet(context);
-
-
-
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Image.asset(
-                            AppImages.adsFilter, color: Colors.black, height: 50),
-                      )
-              ),
-            ):Container(),
-            index == 4 || index==3?
-            Container(
-              height: 25,
-              width: 30,
-
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  )
-              ),
-              margin: EdgeInsets.only(top: 08),
-              child: GestureDetector(
-                  onTap: () {
-
-                    index == 4 ?
-                    gridingData.listingGrid('map') :
-                    gridingData.listingGrid('list');
-                  },
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : index == 4 ?
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  ) :
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
-                  )
-              ),
-            ):Container()
-          ],
-        ),
-      ),
-    ],
-    backgroundColor: Colors.white,
-  ) :
-  AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: index == 2 ? Container(
-      margin: EdgeInsets.only(top: 8),
-      child: IconButton(
-          iconSize: 40,
-          icon: Image.asset(
-              AppImages.menuDrawer, height: 28, color: AppColors.grey),
-          onPressed: () => globalKey.currentState!.openDrawer()
-      ),
-    ) :
-    // index == 1 ?
-    // InkWell(
-    //   onTap: () => index == 4?  filteringCategory(context):
-    //   Get.bottomSheet(FriendFilter()),
-    //   child: Container(
-    //     margin: EdgeInsets.only( top:08),
-    //     child:  index == 1 ? Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ):
-    //     Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ),
-    //   ),
-    // ):
-
-    index == 2 ? Container()
-        : Row(
-      children: [
-        GestureDetector(
-          onTap:
-          index == 0 ? () {
-            filteringCategory(context);
-          }
-              :
-          index == 1 ? () {
-            Scaffold.of(context).openDrawer();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
-            // FriendFilter();
-            // index == 4 ? filteringCategory(context) :
-            // Get.bottomSheet(FriendFilter());
-          } :
-          index == 3 ? () {
-            adsfiltringheet(context);
-          } :
-          index == 4 ? () {
-            filtrationModel(context);
-          } :
-          null,
-          child: index == 0 || index == 4 ||index ==3 ? Container() :
-
-          Container(
-            margin: EdgeInsets.only(left: 15, top: 08),
-            child: index == 1 ? Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
-            ) :
-            Image.asset(AppImages.filterImage,
-                color: Colors.grey, height: 45
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: index == 3 ? () {
-            Get.to(AddPostingScreen());
-          } :
-          index == 0 ? () {
-            Get.to(AddOffersPage());
-          } :
-          index == 4 ? () {
-            Get.to(AddPostingScreen());
-          } : null,
-          child: Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 08),
-              child: index != 1 ? Image.asset(
-                  AppImages.plusImage1,
-                  color: Colors.black, height: 35
-              ) : Container()
-          ),
-        ),
-      ],
-    ),
-    title: Padding(
-      padding: const EdgeInsets.only(top: 08.0),
-      child: Image.asset(image, height: 40),
-    ),
-    actions: [
-      index == 2 ?
-      GestureDetector(
-        onTap: () {
-          Get.toNamed('/inbox');
-        },
-        child: Container(
-            padding: EdgeInsets.only(right: 2,left: 2, top: 4, bottom: 4),
-            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
-            child: Row(
-              children: [
-                Image.asset(AppImages.chating, color: AppColors.black),
-                Container(height: 20, color: AppColors.grey, width: 1,),
-                Image.asset(AppImages.appbar_location, color: AppColors.black),
-              ],
-            )
-        ),
-      ) :
-      Container(
-
-        margin: index == 0 || index == 1 ? EdgeInsets.only(top: 08) : EdgeInsets
-            .only(right: 16,left: 16, top: 08),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            index == 0 ?
-            InkWell(
-              onTap: () => filteringCategory(context),
-              child: Container(
-                // margin: EdgeInsets.only( top:08),
-                child: index == 1 ? Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ) :
-                Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40
-                ),
-              ),
-            ) : Container(),
-            index == 1 ?
-            Padding(
-              padding: const EdgeInsets.only(right:10,left: 10),
-              child: InkWell(
-                onTap: () => filteringCategory(context),
-                child: Container(
-                  // margin: EdgeInsets.only( top:08),
-                  child: index == 1 ? Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ) :
-                  Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25
-                  ),
-                ),
-              ),
-            ) : Container(),
-
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                index==3?
-                // filtrationModel(context): adsfiltringheet(context);
-                filtrationModel(context): adsfiltringheet(context);
-
-
-
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset(
-                        AppImages.adsFilter, color: Colors.black, height: 50),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3?
-            Container(
-              height: 25,
-              width: 30,
-
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                  )
-              ),
-              margin: EdgeInsets.only(top: 08),
-              child: GestureDetector(
-                  onTap: () {
-
-                    index == 4 ?
-                    gridingData.listingGrid('map') :
-                    gridingData.listingGrid('list');
-                  },
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : index == 4 ?
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  ) :
-                  Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        AppImages.listingImage, color: Colors.black, height: 15),
-                  )
-              ),
-            ):Container(),
-            index == 4 || index==3? GestureDetector(
-              onTap: () {
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )
-                  ),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1 ? Container() : index == 2
-                      ? Container()
-                      : Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Image.asset(
-                        index==3?AppImages.myMap:AppImages.gridView, color: Colors.black, height: 30),
-                  )
-              ),
-            ):Container()
-          ],
-        ),
-      ),
-    ],
-    backgroundColor: Colors.white,
-  );
-
-}
-
-Widget favAdds(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
-    index) {
-  return lang == 'en' || lang == null ? AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: GestureDetector(
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-                child: Icon(Icons.arrow_back,
-                    color: Colors.grey, size: 22
-                ),
-              ),
-            ),
-          ],
-        )
-    ),
-
-    title: Image.asset(
-      AppImages.appBarLogo, height: 40,
-    ),
-    backgroundColor: AppColors.appBarBackGroundColor,
-  ) :
-  AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth: 89,
-    leading: GestureDetector(
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                margin: lang == 'en'
-                    ? EdgeInsets.only(left: 10, top: 14)
-                    : EdgeInsets.only(right: 10, top: 14),
-                child: Icon(Icons.arrow_back,
-                    color: Colors.grey, size: 22
-                ),
-              ),
-            ),
-          ],
-        )
-    ),
-    title: Image.asset(
-      AppImages.appBarLogo, height: 40,
-    ),
-    actions: [
-      Container(
-        margin: lang == 'en' ? EdgeInsets.only(right: 20, top: 14) : EdgeInsets
-            .only(left: 10, top: 14),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-                onTap: () {
-                  gridingData.listingGrid('list');
-                },
-                child: Container(
-                    margin: lang == 'ar'
-                        ? EdgeInsets.only(left: 10, right: 10)
-                        : EdgeInsets.only(right: 10),
-                    child: Image.asset(AppImages.listingImage, height: 18)
+  return lang == 'en' || lang == null
+      ? AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          leadingWidth: 89,
+          leading: index == 2
+              ? Container(
+                  margin: EdgeInsets.only(top: 8),
+                  child: IconButton(
+                      iconSize: 40,
+                      icon: Image.asset(AppImages.menuDrawer,
+                          height: 28, color: AppColors.grey),
+                      onPressed: () => globalKey.currentState!.openDrawer()),
                 )
-            ),
-            GestureDetector(
-              onTap: () {
-                gridingData.listingGrid('grid');
-              },
-              child: Container(
-                  margin: lang == 'ar' ? EdgeInsets.only(right: 10) : EdgeInsets
-                      .only(left: 8),
-                  child: Image.asset(AppImages.gridListing, height: 18)
-              ),
-            )
+              :
+              // index == 1 ?
+              // InkWell(
+              //   onTap: () => index == 4?  filteringCategory(context):
+              //   Get.bottomSheet(FriendFilter()),
+              //   child: Container(
+              //     margin: EdgeInsets.only( top:08),
+              //     child:  index == 1 ? Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ):
+              //     Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ),
+              //   ),
+              // ):
+
+              index == 2
+                  ? Container()
+                  : Row(
+                      children: [
+                        GestureDetector(
+                          onTap: index == 0
+                              ? () {
+                                  filteringCategory(context);
+                                }
+                              : index == 1
+                                  ? () {
+                                      Scaffold.of(context).openDrawer();
+                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+                                      // FriendFilter();
+                                      // index == 4 ? filteringCategory(context) :
+                                      // Get.bottomSheet(FriendFilter());
+                                    }
+                                  : index == 3
+                                      ? () {
+                                          adsfiltringheet(context);
+                                        }
+                                      : index == 4
+                                          ? () {
+                                              filtrationModel(context);
+                                            }
+                                          : null,
+                          child: index == 0 || index == 4 || index == 3
+                              ? Container()
+                              : GestureDetector(
+                                  onTap: () => index == 4
+                                      ? filteringCategory(context)
+                                      : Get.bottomSheet(FriendFilter()),
+                            // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 15, top: 08),
+                                    child: index == 1
+                                        ? Image.asset(AppImages.filterImage,
+                                            color: Colors.grey, height: 45)
+                                        : Image.asset(AppImages.filterImage,
+                                            color: Colors.grey, height: 45),
+                                  ),
+                                ),
+                        ),
+                        GestureDetector(
+                          onTap: index == 3
+                              ? () {
+                                  Get.to(AddPostingScreen());
+                                }
+                              : index == 0
+                                  ? () {
+                                      Get.to(AddOffersPage());
+                                    }
+                                  : index == 4
+                                      ? () {
+                                          Get.to(AddPostingScreen());
+                                        }
+                                      : null,
+                          child: Container(
+                              margin:
+                                  EdgeInsets.only(left: 10, right: 10, top: 08),
+                              child: index != 1
+                                  ? Image.asset(AppImages.plusImage1,
+                                      color: Colors.black, height: 35)
+                                  : Container()),
+                        ),
+                      ],
+                    ),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 08.0),
+            child: Image.asset(image, height: 40),
+          ),
+          actions: [
+            index == 2
+                ? GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/inbox');
+                    },
+                    child: Container(
+                        padding: EdgeInsets.only(
+                            right: 2, left: 2, top: 4, bottom: 4),
+                        margin: EdgeInsets.only(right: 10, left: 10, top: 10),
+                        child: Row(
+                          children: [
+                            Image.asset(AppImages.chating,
+                                color: AppColors.black),
+                            Container(
+                              height: 20,
+                              color: AppColors.grey,
+                              width: 1,
+                            ),
+                            Image.asset(AppImages.appbar_location,
+                                color: AppColors.black),
+                          ],
+                        )),
+                  )
+                : Container(
+                    margin: index == 0 || index == 1
+                        ? EdgeInsets.only(top: 08)
+                        : EdgeInsets.only(right: 16, left: 16, top: 08),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        index == 0
+                            ? InkWell(
+                                onTap: () => filteringCategory(context),
+                                child: Container(
+                                  // margin: EdgeInsets.only( top:08),
+                                  child: index == 1
+                                      ? Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40)
+                                      : Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40),
+                                ),
+                              )
+                            : Container(),
+                        index == 1
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
+                                child: InkWell(
+                                  child: Container(
+                                    // margin: EdgeInsets.only( top:08),
+                                    child: index == 1
+                                        ? Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25)
+                                        : Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25),
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  index == 3
+                                      ?
+                                      // filtrationModel(context): adsfiltringheet(context);
+                                      filtrationModel(context)
+                                      : adsfiltringheet(context);
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                child: Image.asset(
+                                                    AppImages.adsFilter,
+                                                    color: Colors.black,
+                                                    height: 50),
+                                              )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? Container(
+                                height: 25,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: Colors.black,
+                                )),
+                                margin: EdgeInsets.only(top: 08),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      index == 4
+                                          ? gridingData.listingGrid('map')
+                                          : gridingData.listingGrid('list');
+                                    },
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : index == 4
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  gridingData.listingGrid('grid');
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                child: Image.asset(
+                                                    index == 3
+                                                        ? AppImages.myMap
+                                                        : AppImages.gridView,
+                                                    color: Colors.black,
+                                                    height: 30),
+                                              )),
+                              )
+                            : Container()
+                      ],
+                    ),
+                  ),
           ],
-        ),
-      ),
-    ],
-    backgroundColor: AppColors.appBarBackGroundColor,
-  );
+          backgroundColor: Colors.white,
+        )
+      : AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          leadingWidth: 89,
+          leading: index == 2
+              ? Container(
+                  margin: EdgeInsets.only(top: 8),
+                  child: IconButton(
+                      iconSize: 40,
+                      icon: Image.asset(AppImages.menuDrawer,
+                          height: 28, color: AppColors.grey),
+                      onPressed: () => globalKey.currentState!.openDrawer()),
+                )
+              :
+              // index == 1 ?
+              // InkWell(
+              //   onTap: () => index == 4?  filteringCategory(context):
+              //   Get.bottomSheet(FriendFilter()),
+              //   child: Container(
+              //     margin: EdgeInsets.only( top:08),
+              //     child:  index == 1 ? Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ):
+              //     Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ),
+              //   ),
+              // ):
+
+              index == 2
+                  ? Container()
+                  : Row(
+                      children: [
+                        GestureDetector(
+                          onTap: index == 0
+                              ? () {
+                                  filteringCategory(context);
+                                }
+                              : index == 1
+                                  ? () {
+                                      Scaffold.of(context).openDrawer();
+                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+                                      // FriendFilter();
+                                      // index == 4 ? filteringCategory(context) :
+                                      // Get.bottomSheet(FriendFilter());
+                                    }
+                                  : index == 3
+                                      ? () {
+                                          adsfiltringheet(context);
+                                        }
+                                      : index == 4
+                                          ? () {
+                                              filtrationModel(context);
+                                            }
+                                          : null,
+                          child: index == 0 || index == 4 || index == 3
+                              ? Container()
+                              : Container(
+                                  margin: EdgeInsets.only(left: 15, top: 08),
+                                  child: index == 1
+                                      ? Image.asset(AppImages.filterImage,
+                                          color: Colors.grey, height: 45)
+                                      : Image.asset(AppImages.filterImage,
+                                          color: Colors.grey, height: 45),
+                                ),
+                        ),
+                        GestureDetector(
+                          onTap: index == 3
+                              ? () {
+                                  Get.to(AddPostingScreen());
+                                }
+                              : index == 0
+                                  ? () {
+                                      Get.to(AddOffersPage());
+                                    }
+                                  : index == 4
+                                      ? () {
+                                          Get.to(AddPostingScreen());
+                                        }
+                                      : null,
+                          child: Container(
+                              margin:
+                                  EdgeInsets.only(left: 10, right: 10, top: 08),
+                              child: index != 1
+                                  ? Image.asset(AppImages.plusImage1,
+                                      color: Colors.black, height: 35)
+                                  : Container()),
+                        ),
+                      ],
+                    ),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 08.0),
+            child: Image.asset(image, height: 40),
+          ),
+          actions: [
+            index == 2
+                ? GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/inbox');
+                    },
+                    child: Container(
+                        padding: EdgeInsets.only(
+                            right: 2, left: 2, top: 4, bottom: 4),
+                        margin: EdgeInsets.only(right: 10, left: 10, top: 10),
+                        child: Row(
+                          children: [
+                            Image.asset(AppImages.chating,
+                                color: AppColors.black),
+                            Container(
+                              height: 20,
+                              color: AppColors.grey,
+                              width: 1,
+                            ),
+                            Image.asset(AppImages.appbar_location,
+                                color: AppColors.black),
+                          ],
+                        )),
+                  )
+                : Container(
+                    margin: index == 0 || index == 1
+                        ? EdgeInsets.only(top: 08)
+                        : EdgeInsets.only(right: 16, left: 16, top: 08),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        index == 0
+                            ? InkWell(
+                                onTap: () => filteringCategory(context),
+                                child: Container(
+                                  // margin: EdgeInsets.only( top:08),
+                                  child: index == 1
+                                      ? Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40)
+                                      : Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40),
+                                ),
+                              )
+                            : Container(),
+                        index == 1
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
+                                child: InkWell(
+                                  onTap: () => filteringCategory(context),
+                                  child: Container(
+                                    // margin: EdgeInsets.only( top:08),
+                                    child: index == 1
+                                        ? Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25)
+                                        : Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25),
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  index == 3
+                                      ?
+                                      // filtrationModel(context): adsfiltringheet(context);
+                                      filtrationModel(context)
+                                      : adsfiltringheet(context);
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                child: Image.asset(
+                                                    AppImages.adsFilter,
+                                                    color: Colors.black,
+                                                    height: 50),
+                                              )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? Container(
+                                height: 25,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: Colors.black,
+                                )),
+                                margin: EdgeInsets.only(top: 08),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      index == 4
+                                          ? gridingData.listingGrid('map')
+                                          : gridingData.listingGrid('list');
+                                    },
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : index == 4
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  gridingData.listingGrid('grid');
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                child: Image.asset(
+                                                    index == 3
+                                                        ? AppImages.myMap
+                                                        : AppImages.gridView,
+                                                    color: Colors.black,
+                                                    height: 30),
+                                              )),
+                              )
+                            : Container()
+                      ],
+                    ),
+                  ),
+          ],
+          backgroundColor: Colors.white,
+        );
 }
 
-Widget myAdds(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
-    index) {
+Widget favAdds(
+    GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
+  return lang == 'en' || lang == null
+      ? AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          leadingWidth: 89,
+          leading: GestureDetector(
+              child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Icon(Icons.arrow_back, color: Colors.grey, size: 22),
+                ),
+              ),
+            ],
+          )),
+          title: Image.asset(
+            AppImages.appBarLogo,
+            height: 40,
+          ),
+          backgroundColor: AppColors.appBarBackGroundColor,
+        )
+      : AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          leadingWidth: 89,
+          leading: GestureDetector(
+              child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  margin: lang == 'en'
+                      ? EdgeInsets.only(left: 10, top: 14)
+                      : EdgeInsets.only(right: 10, top: 14),
+                  child: Icon(Icons.arrow_back, color: Colors.grey, size: 22),
+                ),
+              ),
+            ],
+          )),
+          title: Image.asset(
+            AppImages.appBarLogo,
+            height: 40,
+          ),
+          actions: [
+            Container(
+              margin: lang == 'en'
+                  ? EdgeInsets.only(right: 20, top: 14)
+                  : EdgeInsets.only(left: 10, top: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        gridingData.listingGrid('list');
+                      },
+                      child: Container(
+                          margin: lang == 'ar'
+                              ? EdgeInsets.only(left: 10, right: 10)
+                              : EdgeInsets.only(right: 10),
+                          child:
+                              Image.asset(AppImages.listingImage, height: 18))),
+                  GestureDetector(
+                    onTap: () {
+                      gridingData.listingGrid('grid');
+                    },
+                    child: Container(
+                        margin: lang == 'ar'
+                            ? EdgeInsets.only(right: 10)
+                            : EdgeInsets.only(left: 8),
+                        child: Image.asset(AppImages.gridListing, height: 18)),
+                  )
+                ],
+              ),
+            ),
+          ],
+          backgroundColor: AppColors.appBarBackGroundColor,
+        );
+}
+
+Widget myAdds(
+    GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
   return AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
@@ -665,27 +719,24 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
                   child: GestureDetector(
                       onTap: () => Get.back(),
                       child: Icon(
-                        Icons.arrow_back, size: 22,
-                      )
-                  )
-              ),
+                        Icons.arrow_back,
+                        size: 22,
+                      ))),
               GestureDetector(
                 onTap: () {
                   Get.to(AddPostingScreen());
                 },
                 child: Container(
                     margin: EdgeInsets.only(top: 08, left: 6, right: 4),
-                    child: Image.asset(
-                        AppImages.plusImage, color: Colors.grey, height: 22)
-                ),
+                    child: Image.asset(AppImages.plusImage,
+                        color: Colors.grey, height: 22)),
               ),
             ],
           ),
         ),
         Padding(
             padding: const EdgeInsets.only(top: 08),
-            child: Text("my_adss".tr, style: TextStyle(fontSize: 16))
-        ),
+            child: Text("my_adss".tr, style: TextStyle(fontSize: 16))),
         Container(
           alignment: lang == 'en' ? Alignment.topLeft : Alignment.topRight,
           child: Row(
@@ -694,17 +745,14 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
                   margin: EdgeInsets.only(top: 08, left: 6),
                   child: GestureDetector(
                       onTap: () => gridingData.listingGrid('list'),
-                      child: Image.asset(AppImages.listingImage, height: 18)
-                  )
-              ),
+                      child: Image.asset(AppImages.listingImage, height: 18))),
               GestureDetector(
                 onTap: () {
                   gridingData.listingGrid('grid');
                 },
                 child: Container(
                     margin: EdgeInsets.only(top: 08, left: 6),
-                    child: Image.asset(AppImages.gridListing, height: 18)
-                ),
+                    child: Image.asset(AppImages.gridListing, height: 18)),
               ),
             ],
           ),
@@ -715,15 +763,17 @@ Widget myAdds(GlobalKey<ScaffoldState> globalKey, context, image, searchImage,
   );
 }
 
-
-Widget sAppbar(context, icon, image,) {
+Widget sAppbar(
+  context,
+  icon,
+  image,
+) {
   return AppBar(
     centerTitle: true,
     leading: Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: IconButton(
-        icon: Icon(icon,
-            color: AppColors.backArrow),
+        icon: Icon(icon, color: AppColors.backArrow),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
@@ -735,14 +785,17 @@ Widget sAppbar(context, icon, image,) {
   );
 }
 
-Widget locationFiltered(context, icon, image,) {
+Widget locationFiltered(
+  context,
+  icon,
+  image,
+) {
   return AppBar(
     centerTitle: true,
     leading: Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: IconButton(
-        icon: Icon(icon,
-            color: AppColors.backArrow),
+        icon: Icon(icon, color: AppColors.backArrow),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
@@ -753,7 +806,6 @@ Widget locationFiltered(context, icon, image,) {
           },
           child: Image.asset(image, height: 10))
     ],
-
     backgroundColor: AppColors.appBarBackGroundColor,
   );
 }
@@ -769,10 +821,10 @@ Widget newAppbar(context, icon, image) {
         child: Container(
           padding: EdgeInsets.only(left: 15, right: 5),
           child: Text(
-            icon, textAlign: TextAlign.left,
-            style: TextStyle(
-                decoration: TextDecoration.underline, fontSize: 16),
-
+            icon,
+            textAlign: TextAlign.left,
+            style:
+                TextStyle(decoration: TextDecoration.underline, fontSize: 16),
           ),
         ),
       ),
@@ -785,31 +837,33 @@ Widget newAppbar(context, icon, image) {
   );
 }
 
-Widget stringAppbar(context, icon, string, searchImage,) {
+Widget stringAppbar(
+  context,
+  icon,
+  string,
+  searchImage,
+) {
   return AppBar(
     centerTitle: true,
     leading: Container(
       margin: EdgeInsets.only(top: 5),
       child: IconButton(
-        icon: Icon(icon,
-            color: AppColors.backArrow
-        ),
+        icon: Icon(icon, color: AppColors.backArrow),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
     title: Container(
       margin: EdgeInsets.only(top: 5, right: Get.width / 6.4),
-      child: Center(
-          child: Text(
-              string
-          )
-      ),
+      child: Center(child: Text(string)),
     ),
     actions: [
-      string != 'choose_language_drop'.tr ?
-      Image.asset(
-        AppImages.appBarSearch, color: Colors.grey, width: 25.w,
-      ) : Container()
+      string != 'choose_language_drop'.tr
+          ? Image.asset(
+              AppImages.appBarSearch,
+              color: Colors.grey,
+              width: 25.w,
+            )
+          : Container()
     ],
     backgroundColor: AppColors.appBarBackGroundColor,
   );
@@ -818,12 +872,9 @@ Widget stringAppbar(context, icon, string, searchImage,) {
 Widget stringbar(context, string) {
   return AppBar(
     centerTitle: true,
-    leading:
-    IconButton(
-        icon: Icon(Icons.arrow_back,
-            color: AppColors.backArrow),
-        onPressed: () => Get.back()
-    ),
+    leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: AppColors.backArrow),
+        onPressed: () => Get.back()),
     title: Text(string),
     backgroundColor: AppColors.appBarBackGroundColor,
   );
@@ -843,391 +894,329 @@ filtrationModel(context) async {
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
-        ),
+            topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
       ),
       backgroundColor: Colors.white,
       builder: (BuildContext context) {
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
-              return Wrap(
-                  children: [
-                    Container(
-                      height: Get.height / 1.6,
-                      child: ListView(
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: 30, right: 30),
-                                        child: Text('filter'.tr,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black
-                                            )
-                                        ),
-                                      ),
-                                      Container(
-                                          margin: EdgeInsets.only(
-                                              right: 20, left: 20),
-                                          child: InkWell(
-                                              onTap: () => Get.back(),
-                                              child: Icon(Icons.close)
-                                          )
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: color,
-                                      borderRadius: BorderRadius.circular(20)
-                                  ),
-                                  width: Get.width / 4,
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  margin: EdgeInsets.only(
-                                      top: 20, left: 30, right: 30),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        child: Icon(Icons.location_on,
-                                            color: AppColors
-                                                .appBarBackGroundColor),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            color = Colors.blue[100];
-                                            textfeild = !textfeild;
-                                          });
-                                          _getUserLocation();
-                                        },
-                                        child: Container(
-                                          child: Text("Nearby".tr,
-                                              style: TextStyle(color: AppColors
-                                                  .appBarBackGroundColor)),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 15),
-                                    child: Form(
-                                      key: formKey,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            child: TextField(
-                                              decoration: InputDecoration(
-                                                  isDense: true,
-                                                  // Added this
-                                                  contentPadding: EdgeInsets
-                                                      .all(12),
-                                                  enabled: textfeild,
-                                                  hintStyle: TextStyle(
-                                                      color: AppColors
-                                                          .inputTextColor,
-                                                      fontSize: 13),
-                                                  labelStyle: TextStyle(
-                                                      color: AppColors
-                                                          .inputTextColor,
-                                                      fontSize: 13),
-                                                  labelText: ('city'.tr),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: const BorderRadius
-                                                        .all(
-                                                      Radius.circular(5.0),
-                                                    ),
-                                                  ),
-                                                  focusedBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Theme
-                                                              .of(context)
-                                                              .primaryColor)
-                                                  )
-                                              ),
-                                              onTap: () {},
-                                              onSubmitted: (val) {
-                                                formKey.currentState!.save();
-                                                setState(() {
-                                                  decideRouter = 'city';
-                                                  array.add(val);
-                                                  cityArray.add('city[]=$val');
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 10),
-                                            child: TextField(
-                                              decoration: InputDecoration(
-                                                  isDense: true,
-                                                  // Added this
-                                                  contentPadding: EdgeInsets
-                                                      .all(12),
-                                                  enabled: textfeild,
-                                                  hintStyle: TextStyle(
-                                                      color: AppColors
-                                                          .inputTextColor,
-                                                      fontSize: 13),
-                                                  labelText: ('locationName'
-                                                      .tr),
-                                                  labelStyle: TextStyle(
-                                                      color: AppColors
-                                                          .inputTextColor,
-                                                      fontSize: 13),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: const BorderRadius
-                                                        .all(
-                                                      const Radius.circular(
-                                                          5.0),
-                                                    ),
-                                                  ),
-                                                  focusedBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Theme
-                                                              .of(context)
-                                                              .primaryColor)
-                                                  )
-                                              ),
-                                              onTap: () {},
-                                              onSubmitted: (val) {
-                                                formKey.currentState!.save();
-                                                setState(() {
-                                                  decideRouter = 'name';
-                                                  namearray.add(val);
-                                                  cityArray.length == 0
-                                                      ?
-                                                  locationName = 'location=$val'
-                                                      :
-                                                  locationName =
-                                                  '&location=$val';
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          GetBuilder<ServicesController>(
-                                              init: ServicesController(),
-                                              builder: (value) {
-                                                return Container(
-                                                    margin: EdgeInsets.only(
-                                                        top: 10),
-                                                    padding: const EdgeInsets
-                                                        .only(top: 2),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.grey,
-                                                          width: 1),
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius.circular(5.0)
-                                                      ),
-                                                    ),
-                                                    child: ButtonTheme(
-                                                        alignedDropdown: true,
-                                                        child: Container(
-                                                          width: Get.width,
-                                                          child: DropdownButtonHideUnderline(
-                                                              child: DropdownButton(
-                                                                hint: Text(
-                                                                    selectedService !=
-                                                                        null
-                                                                        ? selectedService
-                                                                        : 'selectService'
-                                                                        .tr,
-                                                                    style: TextStyle(
-                                                                        fontSize: 13,
-                                                                        color: AppColors
-                                                                            .inputTextColor)
-                                                                ),
-                                                                dropdownColor: AppColors
-                                                                    .inPutFieldColor,
-                                                                icon: Icon(Icons
-                                                                    .arrow_drop_down),
-                                                                items: value
-                                                                    .servicesListdata
-                                                                    .map((
-                                                                    coun) {
-                                                                  return DropdownMenuItem(
-                                                                      value: coun,
-                                                                      child: Text(
-                                                                          coun['servics_name'])
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (
-                                                                    val) {
-                                                                  var adsubCategory;
-                                                                  setState(() {
-                                                                    decideRouter =
-                                                                    'name';
-                                                                    adsubCategory =
-                                                                    val as Map;
-                                                                    selectedService =
-                                                                    adsubCategory['servics_name'];
-                                                                    service_id =
-                                                                    adsubCategory['id'];
-                                                                    locationName !=
-                                                                        null
-                                                                        ?
-                                                                    locationName =
-                                                                    '$locationName&service_id=$service_id'
-                                                                        :
-                                                                    locationName =
-                                                                    'service_id=$service_id';
-                                                                  });
-                                                                },
-                                                              )
-                                                          ),
-                                                        )
-                                                    )
-                                                );
-                                              }
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
-                                  child: Text(
-                                      'distance'.tr, style: TextStyle(
-                                    fontSize: 20, color: Colors.black,)
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 15, right: 15),
-                                  child: Text(
-                                      "${_currentRangeValues.start.round()
-                                          .toString()} miles", style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal)
-                                  ),
-                                ),
-                                Container(
-                                  child: RangeSlider(
-                                    activeColor: AppColors
-                                        .appBarBackGroundColor,
-                                    values: _currentRangeValues,
-                                    min: 1.00,
-                                    max: 10000.00,
-                                    labels: RangeLabels(
-                                      _currentRangeValues.start.round()
-                                          .toString(),
-                                      _currentRangeValues.end.round()
-                                          .toString(),
-                                    ),
-                                    onChanged: (values) {
-                                      setState(() {
-                                        _currentRangeValues = values;
-                                        start =
-                                            _currentRangeValues.start.round()
-                                                .toString();
-                                        end = _currentRangeValues.end.round()
-                                            .toString();
-                                      });
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceAround,
-                                  children: [
-                                    Container(
-                                      // ignore: deprecated_member_use
-                                      child: RaisedButton(
-                                          color: Colors.grey[100],
-                                          child: Container(
-                                              width: Get.width / 4,
-                                              child: Center(
-                                                  child: Text('reset'.tr,
-                                                      style: TextStyle(
-                                                          color: AppColors
-                                                              .inputTextColor
-                                                      )
-                                                  )
-                                              )
-                                          ),
-                                          onPressed: () {
-                                            array.clear();
-                                            cityArray.clear();
-                                            locationName = null;
-                                            selectedService = null;
-                                            Get.back();
-                                            Get.find<LocationController>()
-                                                .getAllLocationToDB();
-                                            // Get.to(SignIn());
-                                          }
-                                      ),
-                                    ),
-                                    Container(
-                                      // ignore: deprecated_member_use
-                                        child: RaisedButton(
-                                          color: AppColors
-                                              .appBarBackGroundColor,
-                                          child: Container(
-                                              width: Get.width / 4,
-                                              child: Center(
-                                                  child: Text("apply".tr,
-                                                      style: TextStyle(
-                                                          color: Colors.grey)
-                                                  )
-                                              )
-                                          ),
-                                          onPressed: () {
-                                            var cityFinalData;
-                                            if (decideRouter == 'city' ||
-                                                decideRouter == 'name') {
-                                              if (cityArray.length != 0) {
-                                                var cityFinal = cityArray
-                                                    .toString();
-                                                cityFinalData =
-                                                    cityFinal.substring(1,
-                                                        cityFinal.length - 1);
-                                              } else {
-                                                cityFinalData = null;
-                                              }
-                                              Get.find<LocationController>()
-                                                  .getAllLocationByCity(
-                                                  cityFinalData, locationName);
-                                            } else if (decideRouter == 'near') {
-                                              Get.find<LocationController>()
-                                                  .getAllLocationNearBy(
-                                                  end, position.latitude,
-                                                  position.longitude);
-                                            }
-                                            Get.back();
-                                          },
-                                        )
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+          return Wrap(children: [
+            Container(
+              height: Get.height / 1.6,
+              child: ListView(
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 30, right: 30),
+                                child: Text('filter'.tr,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.black)),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(right: 20, left: 20),
+                                  child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(Icons.close)))
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-                  ]
-              );
-            });
-      }
-  );
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: color,
+                              borderRadius: BorderRadius.circular(20)),
+                          width: Get.width / 4,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Icon(Icons.location_on,
+                                    color: AppColors.appBarBackGroundColor),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    color = Colors.blue[100];
+                                    textfeild = !textfeild;
+                                  });
+                                  _getUserLocation();
+                                },
+                                child: Container(
+                                  child: Text("Nearby".tr,
+                                      style: TextStyle(
+                                          color:
+                                              AppColors.appBarBackGroundColor)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 15),
+                            child: Form(
+                              key: formKey,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          isDense: true,
+                                          // Added this
+                                          contentPadding: EdgeInsets.all(12),
+                                          enabled: textfeild,
+                                          hintStyle: TextStyle(
+                                              color: AppColors.inputTextColor,
+                                              fontSize: 13),
+                                          labelStyle: TextStyle(
+                                              color: AppColors.inputTextColor,
+                                              fontSize: 13),
+                                          labelText: ('city'.tr),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(5.0),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .primaryColor))),
+                                      onTap: () {},
+                                      onSubmitted: (val) {
+                                        formKey.currentState!.save();
+                                        setState(() {
+                                          decideRouter = 'city';
+                                          array.add(val);
+                                          cityArray.add('city[]=$val');
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          isDense: true,
+                                          // Added this
+                                          contentPadding: EdgeInsets.all(12),
+                                          enabled: textfeild,
+                                          hintStyle: TextStyle(
+                                              color: AppColors.inputTextColor,
+                                              fontSize: 13),
+                                          labelText: ('locationName'.tr),
+                                          labelStyle: TextStyle(
+                                              color: AppColors.inputTextColor,
+                                              fontSize: 13),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(5.0),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .primaryColor))),
+                                      onTap: () {},
+                                      onSubmitted: (val) {
+                                        formKey.currentState!.save();
+                                        setState(() {
+                                          decideRouter = 'name';
+                                          namearray.add(val);
+                                          cityArray.length == 0
+                                              ? locationName = 'location=$val'
+                                              : locationName = '&location=$val';
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  GetBuilder<ServicesController>(
+                                      init: ServicesController(),
+                                      builder: (value) {
+                                        return Container(
+                                            margin: EdgeInsets.only(top: 10),
+                                            padding:
+                                                const EdgeInsets.only(top: 2),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey, width: 1),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                            ),
+                                            child: ButtonTheme(
+                                                alignedDropdown: true,
+                                                child: Container(
+                                                  width: Get.width,
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                          child: DropdownButton(
+                                                    hint: Text(
+                                                        selectedService != null
+                                                            ? selectedService
+                                                            : 'selectService'
+                                                                .tr,
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color: AppColors
+                                                                .inputTextColor)),
+                                                    dropdownColor: AppColors
+                                                        .inPutFieldColor,
+                                                    icon: Icon(
+                                                        Icons.arrow_drop_down),
+                                                    items: value
+                                                        .servicesListdata
+                                                        .map((coun) {
+                                                      return DropdownMenuItem(
+                                                          value: coun,
+                                                          child: Text(coun[
+                                                              'servics_name']));
+                                                    }).toList(),
+                                                    onChanged: (val) {
+                                                      var adsubCategory;
+                                                      setState(() {
+                                                        decideRouter = 'name';
+                                                        adsubCategory =
+                                                            val as Map;
+                                                        selectedService =
+                                                            adsubCategory[
+                                                                'servics_name'];
+                                                        service_id =
+                                                            adsubCategory['id'];
+                                                        locationName != null
+                                                            ? locationName =
+                                                                '$locationName&service_id=$service_id'
+                                                            : locationName =
+                                                                'service_id=$service_id';
+                                                      });
+                                                    },
+                                                  )),
+                                                )));
+                                      }),
+                                ],
+                              ),
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Text('distance'.tr,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 15, right: 15),
+                          child: Text(
+                              "${_currentRangeValues.start.round().toString()} miles",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal)),
+                        ),
+                        Container(
+                          child: RangeSlider(
+                            activeColor: AppColors.appBarBackGroundColor,
+                            values: _currentRangeValues,
+                            min: 1.00,
+                            max: 10000.00,
+                            labels: RangeLabels(
+                              _currentRangeValues.start.round().toString(),
+                              _currentRangeValues.end.round().toString(),
+                            ),
+                            onChanged: (values) {
+                              setState(() {
+                                _currentRangeValues = values;
+                                start = _currentRangeValues.start
+                                    .round()
+                                    .toString();
+                                end =
+                                    _currentRangeValues.end.round().toString();
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              // ignore: deprecated_member_use
+                              child: RaisedButton(
+                                  color: Colors.grey[100],
+                                  child: Container(
+                                      width: Get.width / 4,
+                                      child: Center(
+                                          child: Text('reset'.tr,
+                                              style: TextStyle(
+                                                  color: AppColors
+                                                      .inputTextColor)))),
+                                  onPressed: () {
+                                    array.clear();
+                                    cityArray.clear();
+                                    locationName = null;
+                                    selectedService = null;
+                                    Get.back();
+                                    Get.find<LocationController>()
+                                        .getAllLocationToDB();
+                                    // Get.to(SignIn());
+                                  }),
+                            ),
+                            Container(
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                              color: AppColors.appBarBackGroundColor,
+                              child: Container(
+                                  width: Get.width / 4,
+                                  child: Center(
+                                      child: Text("apply".tr,
+                                          style:
+                                              TextStyle(color: Colors.grey)))),
+                              onPressed: () {
+                                var cityFinalData;
+                                if (decideRouter == 'city' ||
+                                    decideRouter == 'name') {
+                                  if (cityArray.length != 0) {
+                                    var cityFinal = cityArray.toString();
+                                    cityFinalData = cityFinal.substring(
+                                        1, cityFinal.length - 1);
+                                  } else {
+                                    cityFinalData = null;
+                                  }
+                                  Get.find<LocationController>()
+                                      .getAllLocationByCity(
+                                          cityFinalData, locationName);
+                                } else if (decideRouter == 'near') {
+                                  Get.find<LocationController>()
+                                      .getAllLocationNearBy(
+                                          end,
+                                          position.latitude,
+                                          position.longitude);
+                                }
+                                Get.back();
+                              },
+                            )),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ]);
+        });
+      });
 }
 
 var filteredIDCate;
@@ -1243,287 +1232,270 @@ filteringCategory(context) {
       builder: (context) {
         return FractionallySizedBox(
           heightFactor: 0.6,
-          child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return SafeArea(
-                  child: AnimatedPadding(
-                      padding: MediaQuery
-                          .of(context)
-                          .viewInsets,
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.decelerate,
-                      child: Container(
-                        margin: lang == 'en'
-                            ? EdgeInsets.only(top: 10, left: 20, right: 20)
-                            : EdgeInsets.only(top: 10, left: 20, right: 20),
-                        child: ListView(
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  Container(
-                                    margin: lang == 'en'
-                                        ? EdgeInsets.only(top: 8, left: 8)
-                                        : EdgeInsets.only(top: 8, right: 8),
-                                    child: Text("filter".tr,
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.black)),
-                                  ),
-                                  Container(
-                                      margin: lang == 'en'
-                                          ? EdgeInsets.only(top: 8, left: 8)
-                                          : EdgeInsets.only(top: 8, right: 8),
-                                      child: InkWell(
-                                          onTap: () => Get.back(),
-                                          child: Icon(
-                                            Icons.close,
-                                            color: Colors.grey,
-                                          )
-                                      )
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: Get.height * 0.01),
-                            Container(
-                                margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 6, left: 8)
-                                    : EdgeInsets.only(top: 6, right: 8),
-                                child: Text("category".tr,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.grey)
-                                )
-                            ),
-                            GetBuilder<OfferCategoryController>(
-                              init: OfferCategoryController(),
-                              builder: (data) {
-                                return data.allOffersResp != null &&
-                                    data.allOffersResp['data'] != null
-                                    ? Container(
-                                  height: Get.height * 0.035,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: data.allOffersResp['data']
-                                          .length,
-                                      itemBuilder: (BuildContext ctxt,
-                                          int index) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: Get.height * 0.035,
-                                              margin: lang == 'en'
-                                                  ? EdgeInsets.only(left: 8.0)
-                                                  : EdgeInsets.only(right: 8.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    bottomSheetCategory = index;
-                                                    filteredIDCate = data
-                                                        .allOffersResp['data'][index]['id'];
-                                                  });
-                                                },
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .all(
-                                                          Radius.circular(5)
-                                                      ),
-                                                      border: Border.all(
-                                                        color: AppColors
-                                                            .appBarBackGroundColor,
-                                                      ),
-                                                      color: bottomSheetCategory ==
-                                                          index
-                                                          ? AppColors
-                                                          .appCategSeleGroundColor
-                                                          : Colors.grey,
-                                                    ),
-                                                    padding: EdgeInsets.only(
-                                                        left: 6.0,
-                                                        right: 6,
-                                                        top: 2),
-                                                    child: Text(
-                                                      data
-                                                          .allOffersResp['data'][index]['category_name'][lang] !=
-                                                          null ? data
-                                                          .allOffersResp['data'][index]['category_name'][lang]
-                                                          .toString() :
-                                                      data
-                                                          .allOffersResp['data'][index]['category_name'][lang] ==
-                                                          null ? data
-                                                          .allOffersResp['data'][index]['category_name']['en']
-                                                          .toString() : '',
-                                                      style: TextStyle(
-                                                        color: bottomSheetCategory ==
-                                                            index
-                                                            ? AppColors
-                                                            .appBarBackGroundColor
-                                                            : AppColors
-                                                            .appBarBackGroundColor,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w400,
-                                                        fontStyle: FontStyle
-                                                            .normal,
-                                                      ),
-                                                    )
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                  ),
-                                )
-                                    : Container();
-                              },
-                            ),
-                            Container(
+          child: StatefulBuilder(builder:
+              (BuildContext context, void Function(void Function()) setState) {
+            return SafeArea(
+              child: AnimatedPadding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.decelerate,
+                  child: Container(
+                    margin: lang == 'en'
+                        ? EdgeInsets.only(top: 10, left: 20, right: 20)
+                        : EdgeInsets.only(top: 10, left: 20, right: 20),
+                    child: ListView(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
                                 margin: lang == 'en'
                                     ? EdgeInsets.only(top: 8, left: 8)
                                     : EdgeInsets.only(top: 8, right: 8),
-                                child: Text("condition".tr,
+                                child: Text("filter".tr,
                                     style: TextStyle(
-                                        fontSize: 15, color: Colors.grey)
-                                )
-                            ),
-                            Container(
-                              height: Get.height * 0.035,
-                              child: new ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: itemsList.length,
-                                  itemBuilder: (BuildContext ctxt, int index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          onSelected(index);
-                                          statusFiltered = itemsList[index];
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: lang == 'en'
-                                            ? EdgeInsets.only(left: 8)
-                                            : EdgeInsets.only(right: 8),
-                                        width: Get.width / 5,
-                                        height: Get.height / 3,
-                                        decoration: BoxDecoration(
-                                          // ignore: unnecessary_null_comparison
-                                            color: slctedInd != null &&
-                                                slctedInd == index
-                                                ? AppColors
-                                                .appCategSeleGroundColor
-                                                : Colors.grey,
-                                            //Colors.blue[100],
-                                            border: Border.all(
-                                              color: AppColors
-                                                  .appBarBackGroundColor,
-                                              width: 1,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)
-                                            )
-                                        ),
-                                        child: Center(
-                                          child: Container(
-                                            margin: EdgeInsets.only(left: 5),
-                                            child: Text(itemsList[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: slctedInd == index
-                                                      ? AppColors
-                                                      .appBarBackGroundColor
-                                                      : AppColors
-                                                      .appBarBackGroundColor,
-                                                )
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
+                                        fontSize: 20, color: Colors.black)),
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Container(
-                                  height: Get.height * 0.05,
+                              Container(
                                   margin: lang == 'en'
                                       ? EdgeInsets.only(top: 8, left: 8)
                                       : EdgeInsets.only(top: 8, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5)
-                                      )
-                                  ),
-                                  // ignore: deprecated_member_use
-                                  child: GestureDetector(
-                                      child: Center(
-                                          child: Text('reset'.tr,
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .inputTextColor
-                                              )
-                                          )
-                                      ),
-                                      onTap: () {
-                                        Get.back();
-                                      }
-                                  ),
-                                ),
-                                SizedBox(width: 20),
-                                SizedBox(width: 20),
-                                Container(
-                                  height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                      ? EdgeInsets.only(top: 8, left: 8)
-                                      : EdgeInsets.only(top: 8, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.appBarBackGroundColor,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5))),
-                                  child: GestureDetector(
-                                      child: Center(
-                                          child: Text("apply".tr,
-                                              style: TextStyle(
-                                                  color: Colors.grey
-                                              )
-                                          )
-                                      ),
-                                      onTap: filteredIDCate == null &&
-                                          statusFiltered == null
-                                          ? null
-                                          : () {
-                                        idSended();
-                                        Get.off(FilteredCategoryResult(),
-                                            arguments: gridingData.dataType);
-                                        Get.off(FilteredCategory());
-                                      }
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
+                                  child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.grey,
+                                      )))
+                            ],
+                          ),
                         ),
-                      )
-                  ),
-                );
-              }
-          ),
+                        SizedBox(height: Get.height * 0.01),
+                        Container(
+                            margin: lang == 'en'
+                                ? EdgeInsets.only(top: 6, left: 8)
+                                : EdgeInsets.only(top: 6, right: 8),
+                            child: Text("category".tr,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey))),
+                        GetBuilder<OfferCategoryController>(
+                          init: OfferCategoryController(),
+                          builder: (data) {
+                            return data.allOffersResp != null &&
+                                    data.allOffersResp['data'] != null
+                                ? Container(
+                                    height: Get.height * 0.035,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            data.allOffersResp['data'].length,
+                                        itemBuilder:
+                                            (BuildContext ctxt, int index) {
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                height: Get.height * 0.035,
+                                                margin: lang == 'en'
+                                                    ? EdgeInsets.only(left: 8.0)
+                                                    : EdgeInsets.only(
+                                                        right: 8.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      bottomSheetCategory =
+                                                          index;
+                                                      filteredIDCate = data
+                                                              .allOffersResp[
+                                                          'data'][index]['id'];
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    5)),
+                                                        border: Border.all(
+                                                          color: AppColors
+                                                              .appBarBackGroundColor,
+                                                        ),
+                                                        color: bottomSheetCategory ==
+                                                                index
+                                                            ? AppColors
+                                                                .appCategSeleGroundColor
+                                                            : Colors.grey,
+                                                      ),
+                                                      padding: EdgeInsets.only(
+                                                          left: 6.0,
+                                                          right: 6,
+                                                          top: 2),
+                                                      child: Text(
+                                                        data.allOffersResp['data']
+                                                                            [index]
+                                                                        ['category_name']
+                                                                    [lang] !=
+                                                                null
+                                                            ? data
+                                                                .allOffersResp['data']
+                                                                    [index]
+                                                                    ['category_name']
+                                                                    [lang]
+                                                                .toString()
+                                                            : data.allOffersResp['data'][index]['category_name'][lang] ==
+                                                                    null
+                                                                ? data
+                                                                    .allOffersResp['data']
+                                                                        [index]
+                                                                        ['category_name']
+                                                                        ['en']
+                                                                    .toString()
+                                                                : '',
+                                                        style: TextStyle(
+                                                          color: bottomSheetCategory ==
+                                                                  index
+                                                              ? AppColors
+                                                                  .appBarBackGroundColor
+                                                              : AppColors
+                                                                  .appBarBackGroundColor,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                        ),
+                                                      )),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                                  )
+                                : Container();
+                          },
+                        ),
+                        Container(
+                            margin: lang == 'en'
+                                ? EdgeInsets.only(top: 8, left: 8)
+                                : EdgeInsets.only(top: 8, right: 8),
+                            child: Text("condition".tr,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey))),
+                        Container(
+                          height: Get.height * 0.035,
+                          child: new ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: itemsList.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      onSelected(index);
+                                      statusFiltered = itemsList[index];
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: lang == 'en'
+                                        ? EdgeInsets.only(left: 8)
+                                        : EdgeInsets.only(right: 8),
+                                    width: Get.width / 5,
+                                    height: Get.height / 3,
+                                    decoration: BoxDecoration(
+                                        // ignore: unnecessary_null_comparison
+                                        color: slctedInd != null &&
+                                                slctedInd == index
+                                            ? AppColors.appCategSeleGroundColor
+                                            : Colors.grey,
+                                        //Colors.blue[100],
+                                        border: Border.all(
+                                          color:
+                                              AppColors.appBarBackGroundColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5))),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(itemsList[index],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: slctedInd == index
+                                                  ? AppColors
+                                                      .appBarBackGroundColor
+                                                  : AppColors
+                                                      .appBarBackGroundColor,
+                                            )),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Container(
+                              height: Get.height * 0.05,
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, left: 8)
+                                  : EdgeInsets.only(top: 8, right: 8),
+                              width: Get.width / 3,
+                              //height: Get.height / 18,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              // ignore: deprecated_member_use
+                              child: GestureDetector(
+                                  child: Center(
+                                      child: Text('reset'.tr,
+                                          style: TextStyle(
+                                              color:
+                                                  AppColors.inputTextColor))),
+                                  onTap: () {
+                                    Get.back();
+                                  }),
+                            ),
+                            SizedBox(width: 20),
+                            SizedBox(width: 20),
+                            Container(
+                              height: Get.height * 0.05,
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, left: 8)
+                                  : EdgeInsets.only(top: 8, right: 8),
+                              width: Get.width / 3,
+                              //height: Get.height / 18,
+                              decoration: BoxDecoration(
+                                  color: AppColors.appBarBackGroundColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: GestureDetector(
+                                  child: Center(
+                                      child: Text("apply".tr,
+                                          style:
+                                              TextStyle(color: Colors.grey))),
+                                  onTap: filteredIDCate == null &&
+                                          statusFiltered == null
+                                      ? null
+                                      : () {
+                                          idSended();
+                                          Get.off(FilteredCategoryResult(),
+                                              arguments: gridingData.dataType);
+                                          Get.off(FilteredCategory());
+                                        }),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )),
+            );
+          }),
         );
-      }
-  );
+      });
 }
 
 var catFilteredID;
@@ -1539,352 +1511,329 @@ adsfiltringheet(context) {
       builder: (context) {
         return FractionallySizedBox(
           heightFactor: 0.8,
-          child: StatefulBuilder(
-              builder: (BuildContext context,
-                  void Function(void Function()) setState) {
-                return SafeArea(
-                  child: AnimatedPadding(
-                      padding: MediaQuery
-                          .of(context)
-                          .viewInsets,
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.decelerate,
-                      child: Container(
-                        margin: lang == 'en'
-                            ? EdgeInsets.only(top: 10, left: 20, right: 20)
-                            : EdgeInsets.only(top: 10, left: 20, right: 20),
-                        child: ListView(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  Container(
+          child: StatefulBuilder(builder:
+              (BuildContext context, void Function(void Function()) setState) {
+            return SafeArea(
+              child: AnimatedPadding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.decelerate,
+                  child: Container(
+                    margin: lang == 'en'
+                        ? EdgeInsets.only(top: 10, left: 20, right: 20)
+                        : EdgeInsets.only(top: 10, left: 20, right: 20),
+                    child: ListView(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                margin: lang == 'en'
+                                    ? EdgeInsets.only(top: 8, left: 8)
+                                    : EdgeInsets.only(top: 8, right: 8),
+                                child: Text("filter".tr,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.black)),
+                              ),
+                              Container(
+                                  margin: lang == 'en'
+                                      ? EdgeInsets.only(top: 8, left: 8)
+                                      : EdgeInsets.only(top: 8, right: 8),
+                                  child: InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.grey,
+                                      )))
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.01),
+                        Container(
+                            margin: lang == 'en'
+                                ? EdgeInsets.only(top: 8, left: 8)
+                                : EdgeInsets.only(top: 8, right: 8),
+                            child: Text("category".tr,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey))),
+                        GetBuilder<CategoryController>(
+                          init: CategoryController(),
+                          builder: (data) {
+                            return data.isLoading == true
+                                ? Container(
+                                    height: Get.height / 10,
+                                  )
+                                : data.havingAddsList != null &&
+                                        data.havingAddsList['data'] != null
+                                    ? Container(
+                                        height: Get.height * 0.035,
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: data
+                                                .havingAddsList['data'].length,
+                                            itemBuilder:
+                                                (BuildContext ctxt, int index) {
+                                              return Row(
+                                                children: [
+                                                  Container(
+                                                    height: Get.height * 0.035,
+                                                    margin: lang == 'en'
+                                                        ? EdgeInsets.only(
+                                                            left: 8.0)
+                                                        : EdgeInsets.only(
+                                                            right: 8.0),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          filteredIndex = index;
+                                                          catFilteredID =
+                                                              data.havingAddsList[
+                                                                      'data']
+                                                                  [index]['id'];
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                            border: Border.all(
+                                                                color: AppColors
+                                                                    .appBarBackGroundColor),
+                                                            color: filteredIndex ==
+                                                                    index
+                                                                ? AppColors
+                                                                    .appCategSeleGroundColor
+                                                                : Colors.grey,
+                                                          ),
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 6.0,
+                                                                  right: 6,
+                                                                  top: 4),
+                                                          child: Text(
+                                                            data.havingAddsList['data'][index]
+                                                                            ['category'][
+                                                                        lang] !=
+                                                                    null
+                                                                ? data.havingAddsList['data']
+                                                                        [index]
+                                                                        ['category']
+                                                                        [lang]
+                                                                    .toString()
+                                                                : data.havingAddsList['data'][index]['category'][lang] ==
+                                                                        null
+                                                                    ? data
+                                                                        .havingAddsList['data']
+                                                                            [index]
+                                                                            ['category']
+                                                                            ['en']
+                                                                        .toString()
+                                                                    : '',
+                                                            style: TextStyle(
+                                                              color: filteredIndex ==
+                                                                      index
+                                                                  ? AppColors
+                                                                      .appBarBackGroundColor
+                                                                  : AppColors
+                                                                      .appBarBackGroundColor,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            }),
+                                      )
+                                    : Container();
+                          },
+                        ),
+                        Container(
+                            margin: lang == 'en'
+                                ? EdgeInsets.only(top: 8, left: 8)
+                                : EdgeInsets.only(top: 8, right: 8),
+                            child: Text("condition".tr,
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.grey))),
+                        Container(
+                          height: Get.height * 0.035,
+                          child: new ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: itemsList.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      onTSelected(index);
+                                      status = itemsList[index];
+                                    });
+                                  },
+                                  child: Container(
                                     margin: lang == 'en'
-                                        ? EdgeInsets.only(top: 8, left: 8)
-                                        : EdgeInsets.only(top: 8, right: 8),
-                                    child: Text("filter".tr,
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.black
-                                        )
+                                        ? EdgeInsets.only(left: 8)
+                                        : EdgeInsets.only(right: 8),
+                                    width: Get.width / 5,
+                                    height: Get.height / 3,
+                                    decoration: BoxDecoration(
+                                        // ignore: unnecessary_null_comparison
+                                        color: _selectedIndex != null &&
+                                                _selectedIndex == index
+                                            ? AppColors.appCategSeleGroundColor
+                                            : Colors.grey,
+                                        border: Border.all(
+                                          color:
+                                              AppColors.appBarBackGroundColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5))),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(itemsList[index],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: _selectedIndex == index
+                                                    ? AppColors
+                                                        .appBarBackGroundColor
+                                                    : AppColors
+                                                        .appBarBackGroundColor)),
+                                      ),
                                     ),
                                   ),
-                                  Container(
-                                      margin: lang == 'en'
-                                          ? EdgeInsets.only(top: 8, left: 8)
-                                          : EdgeInsets.only(top: 8, right: 8),
-                                      child: InkWell(
-                                          onTap: () => Get.back(),
-                                          child: Icon(Icons.close,
-                                            color: Colors.grey,
-                                          )
-                                      )
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: Get.height * 0.01),
+                                );
+                              }),
+                        ),
+                        SizedBox(height: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Container(
-                                margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
-                                child: Text("category".tr,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.grey
-                                    )
-                                )
-                            ),
-                            GetBuilder<CategoryController>(
-                              init: CategoryController(),
-                              builder: (data) {
-                                return data.isLoading == true
-                                    ? Container(
-                                  height: Get.height / 10,
-                                )
-                                    : data.havingAddsList != null &&
-                                    data.havingAddsList['data'] != null
-                                    ? Container(
-                                  height: Get.height * 0.035,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: data.havingAddsList['data']
-                                          .length,
-                                      itemBuilder: (BuildContext ctxt,
-                                          int index) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: Get.height * 0.035,
-                                              margin: lang == 'en'
-                                                  ? EdgeInsets.only(left: 8.0)
-                                                  : EdgeInsets.only(right: 8.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    filteredIndex = index;
-                                                    catFilteredID = data
-                                                        .havingAddsList['data'][index]['id'];
-                                                  });
-                                                },
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .circular(5.0),
-                                                      border: Border.all(
-                                                          color: AppColors
-                                                              .appBarBackGroundColor),
-                                                      color: filteredIndex ==
-                                                          index
-                                                          ? AppColors
-                                                          .appCategSeleGroundColor
-                                                          : Colors.grey,
-                                                    ),
-                                                    padding: EdgeInsets.only(
-                                                        left: 6.0,
-                                                        right: 6,
-                                                        top: 4),
-                                                    child:
-                                                    Text(data
-                                                        .havingAddsList['data'][index]['category'][lang] !=
-                                                        null ? data
-                                                        .havingAddsList['data'][index]['category'][lang]
-                                                        .toString() :
-                                                    data
-                                                        .havingAddsList['data'][index]['category'][lang] ==
-                                                        null ? data
-                                                        .havingAddsList['data'][index]['category']['en']
-                                                        .toString() : '',
-                                                      style: TextStyle(
-                                                        color: filteredIndex ==
-                                                            index
-                                                            ? AppColors
-                                                            .appBarBackGroundColor
-                                                            : AppColors
-                                                            .appBarBackGroundColor,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w400,
-                                                        fontStyle: FontStyle
-                                                            .normal,
-                                                      ),
-                                                    )
-
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }
-                                  ),
-                                )
-                                    : Container();
-                              },
-                            ),
-                            Container(
-                                margin: lang == 'en'
-                                    ? EdgeInsets.only(top: 8, left: 8)
-                                    : EdgeInsets.only(top: 8, right: 8),
-                                child: Text("condition".tr,
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.grey
-                                    )
-                                )
-                            ),
-                            Container(
-                              height: Get.height * 0.035,
-                              child: new ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: itemsList.length,
-                                  itemBuilder: (BuildContext ctxt, int index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          onTSelected(index);
-                                          status = itemsList[index];
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: lang == 'en'
-                                            ? EdgeInsets.only(left: 8)
-                                            : EdgeInsets.only(right: 8),
-                                        width: Get.width / 5,
-                                        height: Get.height / 3,
-                                        decoration: BoxDecoration(
-                                          // ignore: unnecessary_null_comparison
-                                            color: _selectedIndex != null &&
-                                                _selectedIndex == index
-                                                ? AppColors
-                                                .appCategSeleGroundColor
-                                                : Colors.grey,
-                                            border: Border.all(
-                                              color: AppColors
-                                                  .appBarBackGroundColor,
-                                              width: 1,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)
-                                            )
-                                        ),
-                                        child: Center(
-                                          child: Container(
-                                            margin: EdgeInsets.only(left: 5),
-                                            child: Text(itemsList[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: _selectedIndex ==
-                                                        index
-                                                        ? AppColors
-                                                        .appBarBackGroundColor
-                                                        : AppColors
-                                                        .appBarBackGroundColor
-                                                )
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: lang == 'en'
-                                      ? EdgeInsets.only(left: 8)
-                                      : EdgeInsets.only(right: 8),
-                                  child: Text("price".tr,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors
-                                              .grey // fontWeight: FontWeight.bold,
-                                      )
-                                  ),
-                                ),
-                                Container(
-                                  margin: lang == 'en'
-                                      ? EdgeInsets.only(left: 8)
-                                      : EdgeInsets.only(right: 8),
-                                  child: Text("SAR0 - SAR 10000 ",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF2F4199),
-                                          fontWeight: FontWeight.normal
-                                      )
-                                  ),
-                                ),
-                              ],
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(left: 8)
+                                  : EdgeInsets.only(right: 8),
+                              child: Text("price".tr,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors
+                                          .grey // fontWeight: FontWeight.bold,
+                                      )),
                             ),
                             Container(
                               margin: lang == 'en'
-                                  ? EdgeInsets.only(top: 4, left: 8)
-                                  : EdgeInsets.only(top: 4, right: 8),
-                              child: RangeSlider(
-                                activeColor: Color(0xFF2F4199),
-                                values: _currentRangeValues,
-                                min: 1.00,
-                                max: 10000.00,
-                                // divisions: 5,
-                                labels: RangeLabels(
-
-                                  _currentRangeValues.start.round().toString(),
-                                  _currentRangeValues.end.round().toString(),
-                                ),
-                                onChanged: (values) {
-                                  setState(() {
-                                    _currentRangeValues = values;
-                                    start = _currentRangeValues.start.round()
-                                        .toString();
-                                    end = _currentRangeValues.end.round()
-                                        .toString();
-                                  });
-                                },
-                              ),
+                                  ? EdgeInsets.only(left: 8)
+                                  : EdgeInsets.only(right: 8),
+                              child: Text("SAR0 - SAR 10000 ",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xFF2F4199),
+                                      fontWeight: FontWeight.normal)),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                      ? EdgeInsets.only(
-                                      top: 8, bottom: 6, left: 8)
-                                      : EdgeInsets.only(
-                                      top: 8, bottom: 6, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5))
-                                  ),
-                                  child: GestureDetector(
-                                      child: Center(
-                                          child: Text("reset".tr,
-                                              style: TextStyle(
-                                                  color: AppColors
-                                                      .inputTextColor
-                                              )
-                                          )
-                                      ),
-                                      onTap: () {
-                                        Get.back();
-                                      }
-                                  ),
-                                ),
-                                SizedBox(width: 20),
-                                Container(
-                                  height: Get.height * 0.05,
-                                  margin: lang == 'en'
-                                      ? EdgeInsets.only(
-                                      top: 8, bottom: 6, left: 8)
-                                      : EdgeInsets.only(
-                                      top: 8, bottom: 6, right: 8),
-                                  width: Get.width / 3,
-                                  //height: Get.height / 18,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.appBarBackGroundColor,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(5))
-                                  ),
-                                  child: GestureDetector(
-                                      child: Center(
-                                          child: Text("apply".tr,
-                                            style: TextStyle(
-                                                color: Colors.grey),
-                                          )
-                                      ),
-                                      onTap: catFilteredID == null &&
-                                          status == null
-                                          ? null
-                                          : () {
-                                        applyFiltering();
-                                        Get.off(FilteredAdds(),
-                                            arguments: gridingData.dataType);
-                                        Get.off(FilteredAdds());
-                                      }
-                                  ),
-                                ),
-                              ],
-                            )
                           ],
                         ),
-                        // ),
-                      )
-                  ),
-                );
-              }
-          ),
+                        Container(
+                          margin: lang == 'en'
+                              ? EdgeInsets.only(top: 4, left: 8)
+                              : EdgeInsets.only(top: 4, right: 8),
+                          child: RangeSlider(
+                            activeColor: Color(0xFF2F4199),
+                            values: _currentRangeValues,
+                            min: 1.00,
+                            max: 10000.00,
+                            // divisions: 5,
+                            labels: RangeLabels(
+                              _currentRangeValues.start.round().toString(),
+                              _currentRangeValues.end.round().toString(),
+                            ),
+                            onChanged: (values) {
+                              setState(() {
+                                _currentRangeValues = values;
+                                start = _currentRangeValues.start
+                                    .round()
+                                    .toString();
+                                end =
+                                    _currentRangeValues.end.round().toString();
+                              });
+                            },
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: Get.height * 0.05,
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+                                  : EdgeInsets.only(
+                                      top: 8, bottom: 6, right: 8),
+                              width: Get.width / 3,
+                              //height: Get.height / 18,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: GestureDetector(
+                                  child: Center(
+                                      child: Text("reset".tr,
+                                          style: TextStyle(
+                                              color:
+                                                  AppColors.inputTextColor))),
+                                  onTap: () {
+                                    Get.back();
+                                  }),
+                            ),
+                            SizedBox(width: 20),
+                            Container(
+                              height: Get.height * 0.05,
+                              margin: lang == 'en'
+                                  ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
+                                  : EdgeInsets.only(
+                                      top: 8, bottom: 6, right: 8),
+                              width: Get.width / 3,
+                              //height: Get.height / 18,
+                              decoration: BoxDecoration(
+                                  color: AppColors.appBarBackGroundColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: GestureDetector(
+                                  child: Center(
+                                      child: Text(
+                                    "apply".tr,
+                                    style: TextStyle(color: Colors.grey),
+                                  )),
+                                  onTap: catFilteredID == null && status == null
+                                      ? null
+                                      : () {
+                                          applyFiltering();
+                                          Get.off(FilteredAdds(),
+                                              arguments: gridingData.dataType);
+                                          Get.off(FilteredAdds());
+                                        }),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    // ),
+                  )),
+            );
+          }),
         );
-      }
-  );
+      });
 }
 
- 
