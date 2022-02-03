@@ -108,35 +108,52 @@ class _CountryPageState extends State<Ccountry> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            title: Text(
-              "prev".tr,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontFamily: "andada",
+              bottomOpacity: 0.0,
+              elevation: 0.0,
+              backgroundColor: AppColors.appBarBackGroundColor,
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              leadingWidth: 500,
+              leading: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+                child: Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(
+                          AppImages.roundedBack,
+                          height: Get.height * 0.05,
+                        )),
+                    SizedBox(
+                      width: Get.width * 0.02,
+                    ),
+                    Text(
+                      "prev".tr,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontFamily: "andada",
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            backgroundColor: AppColors.appBarBackGroundColor,
-            leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Image.asset(
-                  AppImages.roundedBack,
-                )),
-            actions: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
-                child: Center(
+              actions: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+                  child: Center(
                     child: Text("country".tr,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: "andada",
-                        ))),
-              ),
-            ],
-          ),
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: "andada",
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ]),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -197,8 +214,7 @@ class _CountryPageState extends State<Ccountry> {
             Text(
               "sign_in".tr,
               style: TextStyle(
-                  color: AppColors.whitedColor,
-                  fontWeight: FontWeight.bold),
+                  color: AppColors.whitedColor, fontWeight: FontWeight.bold),
             ),
           ],
         ),

@@ -141,31 +141,31 @@ class _AppDrawerState extends State<AppDrawer> {
                                             radius: 40.0,
                                             child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(60.0),
+                                                    BorderRadius.circular(60.0),
                                                 child: imageP.toString() !=
-                                                    'null' ||
-                                                    imageP == null
+                                                            'null' ||
+                                                        imageP == null
                                                     ? Image.file(
-                                                  File(imageP),
-                                                  fit: BoxFit.cover,
-                                                  height: Get.height / 5,
-                                                  width: Get.width / 3.3,
-                                                )
+                                                        File(imageP),
+                                                        fit: BoxFit.cover,
+                                                        height: Get.height / 5,
+                                                        width: Get.width / 3.3,
+                                                      )
                                                     : image.toString() ==
-                                                    'null' ||
-                                                    image == null
-                                                    ? Image.asset(
-                                                    AppImages.person,
-                                                    color: Colors
-                                                        .grey[400])
-                                                    : Image.network(
-                                                  image['url'],
-                                                  fit: BoxFit.fill,
-                                                  height:
-                                                  Get.height / 6,
-                                                  width:
-                                                  Get.width / 3.0,
-                                                ))),
+                                                                'null' ||
+                                                            image == null
+                                                        ? Image.asset(
+                                                            AppImages.person,
+                                                            color: Colors
+                                                                .grey[400])
+                                                        : Image.network(
+                                                            image['url'],
+                                                            fit: BoxFit.fill,
+                                                            height:
+                                                                Get.height / 6,
+                                                            width:
+                                                                Get.width / 3.0,
+                                                          ))),
                                       ),
                                       FractionalTranslation(
                                         translation: lang == 'ar'
@@ -245,19 +245,19 @@ class _AppDrawerState extends State<AppDrawer> {
                       userType == 2 && accountType == 'Free'
                           ? Container()
                           : accountType == 'Paid'
-                          ? CustomListTile(
-                          AppImages.location, 'location'.tr, () {
-                        Get.toNamed('/location');
-                      }, 15.0)
-                          : CustomListTile(
-                          AppImages.location, 'location'.tr, () {
-                        Get.toNamed('/location');
-                      }, 15.0),
+                              ? CustomListTile(
+                                  AppImages.location, 'location'.tr, () {
+                                  Get.toNamed('/location');
+                                }, 15.0)
+                              : CustomListTile(
+                                  AppImages.location, 'location'.tr, () {
+                                  Get.toNamed('/location');
+                                }, 15.0),
                       CustomListTile(AppImages.membership, 'membership'.tr, () {
                         Get.to(IndividualMemeberShip());
                       }, 15.0),
                       CustomListTile(AppImages.notification, 'notification'.tr,
-                              () => {Get.toNamed('/notification')}, 15.0),
+                          () => {Get.toNamed('/notification')}, 15.0),
                       /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.toNamed('/friReq');
                           } ,15.0),*/
@@ -266,53 +266,53 @@ class _AppDrawerState extends State<AppDrawer> {
                         child: userType == 2 && accountType == 'Free'
                             ? Container()
                             : userType == 3 && accountType == "Paid"
-                            ? Container()
-                            : accountType == "Free"
-                            ? Container()
-                            : InkWell(
-                          onTap: () {
-                            Get.toNamed('/offerPage');
-                          },
-                          child: Container(
-                            height: 30,
-                            margin: EdgeInsets.only(left: 9),
-                            child: Row(children: [
-                              Image.asset(
-                                AppImages.offers,
-                                height: 25,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    left: 7, right: 10),
-                                child: Text('myoffer'.tr,
-                                    textAlign: TextAlign.start,
-                                    style: lang == 'ar'
-                                        ? TextStyle(
-                                      fontFamily:
-                                      "Cairo Regular",
-                                      fontSize: 12.0,
-                                    )
-                                        : AppTextStyles
-                                        .appTextStyle(
-                                      fontSize: 14,
-                                      fontWeight:
-                                      FontWeight.w500,
-                                      color: Colors
-                                          .grey.shade800,
-                                    )),
-                              ),
-                            ]),
-                          ),
-                        ),
+                                ? Container()
+                                : accountType == "Free"
+                                    ? Container()
+                                    : InkWell(
+                                        onTap: () {
+                                          Get.toNamed('/offerPage');
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          margin: EdgeInsets.only(left: 9),
+                                          child: Row(children: [
+                                            Image.asset(
+                                              AppImages.offers,
+                                              height: 25,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  left: 7, right: 10),
+                                              child: Text('myoffer'.tr,
+                                                  textAlign: TextAlign.start,
+                                                  style: lang == 'ar'
+                                                      ? TextStyle(
+                                                          fontFamily:
+                                                              "Cairo Regular",
+                                                          fontSize: 12.0,
+                                                        )
+                                                      : AppTextStyles
+                                                          .appTextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors
+                                                              .grey.shade800,
+                                                        )),
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
                       ),
                       // : CustomListTile(
                       //     AppImages.offers, 'myoffer'.tr, () {
                       //     Get.toNamed('/offerPage');
                       //   }, 15.0),
                       CustomListTile(AppImages.fav, 'favourite'.tr,
-                              () => {Get.toNamed('/favourities')}, 15.0),
+                          () => {Get.toNamed('/favourities')}, 15.0),
                       CustomListTile(AppImages.language, 'choose_language'.tr,
-                              () => {Get.toNamed('/chooseLang')}, 15.0),
+                          () => {Get.toNamed('/chooseLang')}, 15.0),
                       /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
                             Get.toNamed('/chooseCountry')
                           },15.0 ), */
@@ -327,27 +327,27 @@ class _AppDrawerState extends State<AppDrawer> {
                               color: Colors.grey.shade800),
                         ),
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: Get.height * 0.01),
                       CustomListTile(
                           AppImages.aboutus,
                           userType == 4
                               ? 'about_company'.tr
                               : userType == 2
-                              ? 'about_user'.tr
-                              : "about_us".tr,
-                              () => {Get.toNamed('/aboutUs')},
+                                  ? 'about_user'.tr
+                                  : "about_us".tr,
+                          () => {Get.toNamed('/aboutUs')},
                           15.0),
                       CustomListTile(AppImages.privacy, 'privacy'.tr,
-                              () => {Get.toNamed('/privacy')}, 15.0),
+                          () => {Get.toNamed('/privacy')}, 15.0),
                       CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr,
-                              () => {Get.toNamed('/advertisement')}, 15.0),
+                          () => {Get.toNamed('/advertisement')}, 15.0),
                       CustomListTile(AppImages.ugr, 'UGR'.tr,
-                              () => {Get.toNamed('/userAgrement')}, 12.0),
+                          () => {Get.toNamed('/userAgrement')}, 12.0),
                       CustomListTile(AppImages.contactus, 'contactus'.tr,
-                              () => {Get.toNamed('/contact')}, 15.0),
-                      SizedBox(height: 10.h),
+                          () => {Get.toNamed('/contact')}, 15.0),
+                      SizedBox(height: Get.height * 0.01),
                       Divider(),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: Get.height * 0.01),
                       CustomListTile(AppImages.logout, 'logout'.tr, () {
                         box.remove('user_image_local');
                         box.write('upgrade', true);
@@ -388,19 +388,19 @@ class CustomListTile extends StatelessWidget {
                         child: Center(
                           child: lang == 'ar'
                               ? Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.rotationY(math.pi),
-                            child: Image.asset(
-                              image.toString(),
-                              color: Colors.grey[600],
-                              height: 15,
-                            ),
-                          )
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(math.pi),
+                                  child: Image.asset(
+                                    image.toString(),
+                                    color: Colors.grey[600],
+                                    height: 15,
+                                  ),
+                                )
                               : Image.asset(
-                            image.toString(),
-                            color: Colors.grey[600],
-                            height: 15,
-                          ),
+                                  image.toString(),
+                                  color: Colors.grey[600],
+                                  height: 15,
+                                ),
                         )),
                     Container(
                       margin: EdgeInsets.only(left: 10, right: 10),
@@ -408,14 +408,14 @@ class CustomListTile extends StatelessWidget {
                           textAlign: TextAlign.start,
                           style: lang == 'ar'
                               ? TextStyle(
-                            fontFamily: "Cairo Regular",
-                            fontSize: 12.0,
-                          )
+                                  fontFamily: "Cairo Regular",
+                                  fontSize: 12.0,
+                                )
                               : AppTextStyles.appTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey.shade800,
-                          )),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade800,
+                                )),
                     ),
                   ],
                 ),
