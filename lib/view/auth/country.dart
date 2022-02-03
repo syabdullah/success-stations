@@ -31,73 +31,76 @@ class _CountryPageState extends State<Ccountry> {
     return Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height / 2,
-      child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemCount: countryListData.length,
-          itemBuilder: (BuildContext context, int index) {
-            print(
-                "country name .....${countryListData[index]['name'][lang] == null || countryListData[index]['name'][lang] == ' '}");
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                  box.write("country", selectedIndex);
-                  box.write("country_id", countryListData[index]['id']);
-                  box.write(
-                      "country_code", countryListData[index]['short_code']);
-                  countrycOde = countryListData[index]['short_code'];
-                  countryId = countryListData[index]['id'];
-                });
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(TabBarPage(), arguments: countryListData[index]);
-                    },
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
-                      height: Get.height / 9,
-                      width: Get.width / 4,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: selectedIndex == index
-                                ? AppColors.whitedColor
-                                : Colors.transparent,
-                            width: 2),
-                        shape: BoxShape.circle,
-                        image: countryListData[index]['flag'] != null
-                            ? DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    countryListData[index]['flag']['url']))
-                            : null,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
+        child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 2.0,
+              mainAxisSpacing: 8.0,
+            ),
+            itemCount: countryListData.length,
+            itemBuilder: (BuildContext context, int index) {
+              print(
+                  "country name .....${countryListData[index]['name'][lang] == null || countryListData[index]['name'][lang] == ' '}");
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                    box.write("country", selectedIndex);
+                    box.write("country_id", countryListData[index]['id']);
+                    box.write(
+                        "country_code", countryListData[index]['short_code']);
+                    countrycOde = countryListData[index]['short_code'];
+                    countryId = countryListData[index]['id'];
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(TabBarPage(), arguments: countryListData[index]);
+                      },
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+                        height: Get.height / 9,
+                        width: Get.width / 4,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: selectedIndex == index
+                                  ? AppColors.whitedColor
+                                  : Colors.transparent,
+                              width: 2),
+                          shape: BoxShape.circle,
+                          image: countryListData[index]['flag'] != null
+                              ? DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                      countryListData[index]['flag']['url']))
+                              : null,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: Get.height * 0.017),
-                  Container(
-                      child: Center(
-                    child: Text(
-                      countryListData[index]['name'][lang] != null
-                          ? countryListData[index]['name'][lang]
-                          : '',
-                      // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
-                      // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+                    SizedBox(height: Get.height * 0.017),
+                    Container(
+                        child: Center(
+                      child: Text(
+                        countryListData[index]['name'][lang] != null
+                            ? countryListData[index]['name'][lang]
+                            : '',
+                        // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
+                        // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 
-                      style: TextStyle(color: AppColors.inputTextColor),
-                    ),
-                  )),
-                ],
-              ),
-            );
-          }),
+                        style: TextStyle(color: AppColors.inputTextColor),
+                      ),
+                    )),
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 
