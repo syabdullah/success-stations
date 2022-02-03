@@ -206,21 +206,21 @@ class _SignPageState extends State<StudentSignUp> {
                   children: [
                     Container(
                       height: Get.height*0.15,
-width: Get.width*0.26,
+                      width: Get.width*0.26,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                        border: Border.all(color: AppColors.outline,width: 1.5)
+                          border: Border.all(color: AppColors.outline,width: 1.5)
                       ),
 
 
-                        child: Padding(
+                      child: Padding(
                           padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
                           child:Image.asset(AppImages.man,height: Get.height*0.1,)
-                        ),
+                      ),
 
 
-                        // decoration: BoxDecoration(color: ),
-                        ),
+                      // decoration: BoxDecoration(color: ),
+                    ),
                     about(),
 
 
@@ -642,9 +642,11 @@ width: Get.width*0.26,
             filled: true,
             border: InputBorder.none,
             errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.red),
             ),
             focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.red),
             ),
             // hintText: "mobilee".tr,

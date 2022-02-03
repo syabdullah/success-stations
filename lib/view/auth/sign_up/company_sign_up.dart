@@ -10,6 +10,7 @@ import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
 
 // ignore: unused_import
@@ -169,6 +170,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     final space25 = SizedBox(height: getSize(Get.width * 0.025, context));
     final width10 = SizedBox(width: getSize(Get.width * 0.02, context));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -201,7 +203,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     Container();
                 //   } ,
                 // ),
-                space25,
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -226,12 +228,12 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
                       child: Text(
                         "services".tr,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.black.withOpacity(0.4),
+                          color:AppColors.border,
                         ),
                       ),
                     ),
@@ -242,32 +244,35 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       // borderRadius: BorderRadius.circular(3),
-                      border: Border.all(color: AppColors.outline)),
-                  height: Get.height / 8,
+                      border: Border.all(color: AppColors.outline,width: 1.5)),
+                  height: Get.height*0.13,
                   width: double.infinity,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 2.5,
-                    ),
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: servicesdemo.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                  child: Padding(
+                    padding:  EdgeInsets.all(Get.height*0.008),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 5,
+                       crossAxisSpacing: 10,
+                        childAspectRatio: Get.height*0.004 ,
+                      ),
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: servicesdemo.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          height: Get.height*0.04,
                           decoration: BoxDecoration(
                               border:
-                                  Border.all(width: 0.5, color: Colors.grey),
+                                  Border.all( color:AppColors.outline),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                               child: Text(
                             servicesdemo[index],
                             style: TextStyle(color: Colors.grey),
                           )),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -368,24 +373,28 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 // ),
                 // space20,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.outline),
-                            color: Colors.white),
-                        height: Get.height / 7.8,
-                        width: Get.width / 3.5,
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CircleAvatar(child: Icon(Icons.email)),
-                        ),
-
-                        // decoration: BoxDecoration(color: ),
+                    Container(
+                      height: Get.height*0.15,
+                      width: Get.width*0.26,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppColors.outline,width: 1.5)
                       ),
+
+
+                      child: Padding(
+                          padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
+                          child:Image.asset(AppImages.man,height: Get.height*0.1,)
+                      ),
+
+
+                      // decoration: BoxDecoration(color: ),
                     ),
-                    Expanded(flex: 6, child: about()),
+                    aboutCompny(),
+
+
                   ],
                 ),
                 space25,
@@ -420,7 +429,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 ),
                 space20,
                 submitButton(
-                    buttonText: 'sign_up_text'.tr,
+                    buttonText: 'sign_up'.tr,
                     bgcolor: AppColors.whitedColor,
                     textColor: AppColors.white,
                     fontSize: 18.0,
@@ -429,32 +438,48 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             ? individualSignUp
                             : companyUser
                         : null),
-                space20,
+                space25,
+
+
                 Container(
-                  height: 1,
-                  color: Colors.grey,
-                ),
-                space20,
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/login');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  height: Get.height*0.08,
+                  margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
                     children: [
-                      Text(
-                        "have_account".tr,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey),
+                      Divider(
+                        color: Colors.black,
                       ),
-                      Text(
-                        "sign_in".tr,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: AppColors.whitedColor,
-                            fontWeight: FontWeight.bold),
+
+                      Padding(
+                        padding:  EdgeInsets.all(Get.height*0.004),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "have_account".tr,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 17),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+
+                                  Get.toNamed('/login');
+
+                                },
+                                child: Text(
+                                  "sign_in".tr,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: "Source_Sans_Pro",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -476,7 +501,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
             : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
-        padding: EdgeInsets.only(top: 10),
+        // padding: EdgeInsets.only(top: 10),
         isObscure: false,
         color: Colors.white,
         hintText: "full_name".tr,
@@ -539,7 +564,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             // borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Color(0xFFEEEEEE))),
+            border: Border.all(color: AppColors.outline,width: 1.5)),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
@@ -739,10 +764,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
         //     right: 20, left: MediaQuery.of(context).size.width / 46)
         //     : EdgeInsets.only(
         //     left: 20, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -750,7 +775,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: dataRegion.map((reg) {
@@ -784,10 +809,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
         // margin:lang == 'ar'
         //     ?  EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(2.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -795,7 +820,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintcityText != null ? hintcityText : "city".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inputColor,
               icon: Icon(Icons.arrow_drop_down),
               items: citydata.map((citt) {
@@ -865,35 +890,69 @@ class _CompanySignPageState extends State<CompanySignUp> {
             ]));
   }
 
-  Widget about() {
+
+  Widget aboutCompny() {
     return Container(
-      // margin: EdgeInsets.only(left: 20, right: 20),
-      // width: Get.width * 0.55,
-      child: CustomTextFiled(
-        maxLine: 4,
-        contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: 20, top: 20)
-            : EdgeInsets.only(left: 20, top: 20),
-        isObscure: false,
-        color: Colors.white,
-        hintText: "aboutsu".tr,
-        hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
-        hintColor:
-            lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: aboutController,
-        onSaved: (newValue) {},
-        validator: (value) {
-          if (value.length == 0) {
-            return "aboutfield".tr;
-          } else
-            return null;
-        },
-        errorText: '',
-      ),
-    );
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColors.outline,width: 1.5)
+        ),
+        height: Get.height*0.15,
+        width: Get.width * 0.68,
+        // margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
+
+        // isObscure: false,
+
+        child: TextFormField(
+
+
+          controller:aboutController ,
+          maxLines: 5,
+
+          // obscureText: passwordVisible,
+          decoration: InputDecoration(
+            contentPadding: lang == 'ar'
+                ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
+                : EdgeInsets.only(left: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19),
+
+            hintText: ( "aboutsu".tr),
+            hintStyle: TextStyle(
+                fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
+
+            // labelStyle: TextStyle(color: AppColors.basicColor),
+            fillColor: Colors.white,
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide:BorderSide(color:Colors.transparent),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color:Colors.transparent),
+            ),
+            errorText: '',
+          ),
+          validator: (value) {
+            if (value!.length == 0) {
+              return "aboutfield".tr;
+            } else
+              return null;
+          },
+
+
+          // errorText: '',
+          // onSaved: (val) => email = TextEditingController(text: val),
+        ));
   }
 
   Widget iqama() {
@@ -1107,7 +1166,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       textColor,
       fontFamily,
       fontWeight}) {
-    return AppButton(
+    return AppButton2(
       buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
@@ -1125,15 +1184,22 @@ class _CompanySignPageState extends State<CompanySignUp> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
               child: Text(
                 "Account_type".tr,
                 style: TextStyle(
-                    fontSize: 16, color: Colors.black.withOpacity(0.4)),
+                    fontSize: 16, color:AppColors.border),
               )),
+
           Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Row(
+            padding: EdgeInsets.only(top: Get.height*0.008),
+            child: Container(
+              width: Get.width,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.outline,width: 1.5)),
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Radio(
@@ -1159,40 +1225,49 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       );
                     },
                     child: Container(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width * 0.46,
-                      child: Row(
-                        children: [
-                          Padding(
-                              padding: lang == 'ar'
-                                  ? EdgeInsets.all(8.0)
-                                  : EdgeInsets.all(8.0),
-                              child: Image.asset("assets/individual.png")),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "individual".tr,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: textcolor == 0
-                                    ? Colors.blueAccent
-                                    : Colors.grey,
-                                decoration: textcolor == 0
-                                    ? TextDecoration.underline
-                                    : TextDecoration.none,
-                                decorationThickness: 2,
-                                fontWeight: textcolor == 0
-                                    ? FontWeight.w700
-                                    : FontWeight.w200),
-                          ),
-                        ],
+
+                      child: Padding(
+                        padding:  EdgeInsets.all(Get.height*0.004),
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: lang == 'ar'
+                                    ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                    left: Get.height*0.018,right: Get.height*0.008)
+                                    : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                    left: Get.height*0.008,right: Get.height*0.018),
+                                child: Image.asset("assets/individual.png")),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "individual".tr,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: textcolor == 0
+                                      ? Colors.blueAccent
+                                      : AppColors.inputTextColor,
+                                  decoration: textcolor == 0
+                                      ? TextDecoration.underline
+                                      : TextDecoration.none,
+                                  decorationThickness: 2,
+                                  fontWeight: textcolor == 0
+                                      ? FontWeight.w700
+                                      : FontWeight.w200),
+                            ),
+                          ],
+                        ),
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppColors.outline)),
+
                     ),
                   ),
+                 Container(
+                   width: Get.width*0.005,
+                   decoration: BoxDecoration(
+                     color: AppColors.outline
+
+                   ),
+                 ),
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -1206,45 +1281,52 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       );
                     },
                     child: Container(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width * 0.46,
+
+                      // width: MediaQuery.of(context).size.width * 0.46,
                       child: Row(
                         children: [
-                          Padding(
-                            padding: lang == 'ar'
-                                ? EdgeInsets.only(right: 45.0)
-                                : EdgeInsets.only(left: 45.0),
-                            child: Text(
-                              "business".tr,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: textcolor == 1
-                                      ? Colors.blueAccent
-                                      : Colors.grey,
-                                  decoration: textcolor == 1
-                                      ? TextDecoration.underline
-                                      : TextDecoration.none,
-                                  decorationThickness: 2,
-                                  fontWeight: textcolor == 1
-                                      ? FontWeight.w700
-                                      : FontWeight.w200),
-                            ),
+                          Text(
+                            "business".tr,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: textcolor == 1
+                                    ? Colors.blueAccent
+                                    :  AppColors.inputTextColor,
+                                decoration: textcolor == 1
+                                    ? TextDecoration.underline
+                                    : TextDecoration.none,
+                                decorationThickness: 2,
+                                fontWeight: textcolor == 1
+                                    ? FontWeight.w700
+                                    : FontWeight.w200),
                           ),
                           SizedBox(
                             width: 14,
                           ),
-                          Image.asset("assets/Bussnise.png"),
+                          Padding(
+                            padding: lang == 'ar'
+                                ? EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                left: Get.height*0.008,right: Get.height*0.018)
+                                : EdgeInsets.only(top: Get.height*0.008,bottom: Get.height*0.008,
+                                left: Get.height*0.018,right: Get.height*0.008),
+                            child: Image.asset("assets/Bussnise.png"),
+                          ),
                         ],
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppColors.outline)),
+                      // decoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //     border: Border.all(color: AppColors.outline)),
                     ),
                   )
                   // Container(
                   // child: Text(t.text,style: TextStyle(fontSize: 12,color: Colors.grey),),)
                 ],
-              ))
+              )
+                ),
+          ),
+
+
+
         ],
       ),
     );

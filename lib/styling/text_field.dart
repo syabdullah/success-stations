@@ -73,9 +73,15 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
                   fillColor: widget.color,
                   filled: true,
                   errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
                     borderSide: BorderSide(color: Colors.red),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: AppColors.outline,width: 1.5),
+                  ),
                   focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
                     borderSide: BorderSide(color: Colors.red),
                   ),
                   enabledBorder: OutlineInputBorder(

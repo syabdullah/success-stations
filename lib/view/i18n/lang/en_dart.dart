@@ -56,7 +56,7 @@ const Map<String, String> en = {
   "login_can": "You can now login with your new password.",
   "language": "Language",
   "prev": "Previous",
-  "business": "business",
+  "business": "Business",
   "new_account": "New Account",
   "capsLogin": "LOGIN",
   "password_recovered_desc":
