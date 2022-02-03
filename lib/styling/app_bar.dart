@@ -89,6 +89,7 @@ void _getUserLocation() async {
       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   currentPostion = LatLng(position.latitude, position.longitude);
 }
+
 Widget appbar(
     GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
   var lang = box.read('lang_code');
@@ -155,7 +156,7 @@ Widget appbar(
                                   onTap: () => index == 4
                                       ? filteringCategory(context)
                                       : Get.bottomSheet(FriendFilter()),
-                            // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
+                                  // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
                                     margin: EdgeInsets.only(right: 15, top: 08),
                                     child: index == 1
@@ -198,7 +199,7 @@ Widget appbar(
             index == 2
                 ? GestureDetector(
                     onTap: () {
-                      Get.toNamed('/inbox');
+                      Get.toNamed('/toplocation');
                     },
                     child: Container(
                         padding: EdgeInsets.only(
@@ -1836,4 +1837,3 @@ adsfiltringheet(context) {
         );
       });
 }
-
