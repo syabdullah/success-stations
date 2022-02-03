@@ -16,6 +16,7 @@ import 'package:success_stations/controller/university_controller.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
 
 DateTime? dateTime;
@@ -116,22 +117,28 @@ class _SignPageState extends State<StudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
+    final space20 = SizedBox(height: getSize(Get.width*0.02, context));
+    final space10 = SizedBox(height: getSize(Get.width*0.01, context));
+    final space25 = SizedBox(height: getSize(Get.width*0.025, context));
+    final width10 = SizedBox(width: getSize(Get.width*0.02, context));
     return Scaffold(
+      backgroundColor: Colors.white,
+      bottomNavigationBar:  singIn(),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding:  EdgeInsets.symmetric(horizontal:Get.width*0.023),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                space10,
+                space20,
+                space20,
+
                 fullNameStudent(),
-                space10,
+                space25,
                 eMail(),
-                space10,
+                space25,
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -140,7 +147,7 @@ class _SignPageState extends State<StudentSignUp> {
                     confirmPassword(),
                   ],
                 ),
-                space10,
+                space25,
                 mobile(),
                 // space10,
                 // studentdob(),
@@ -151,7 +158,7 @@ class _SignPageState extends State<StudentSignUp> {
                 //     return country(val.countryListdata);
                 //   },
                 // ),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -170,7 +177,7 @@ class _SignPageState extends State<StudentSignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -191,35 +198,37 @@ class _SignPageState extends State<StudentSignUp> {
                     ),
                   ],
                 ),
-                space10,
+                space25,
                 degree(),
-                space10,
+                space25,
                 Row(
                   children: [
                     Expanded(
                       flex: 3,
                       child: Container(
+                        height: 110,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                          border: Border.all(color:AppColors.outline)
+                          border: Border.all(color: AppColors.outline,width: 1.5)
                         ),
-                          height: Get.height/7.8,
-                          width:Get.width/3,
+
+
                           child: Padding(
-                            padding: lang== 'ar'? EdgeInsets.all(10.0):EdgeInsets.all(10.0),
-                            child: CircleAvatar(child: Icon(Icons.email)),
+                            padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
+                            child:Image.asset(AppImages.man,height: Get.height*0.1,)
                           ),
 
 
                           // decoration: BoxDecoration(color: ),
                           ),
-                    ),
+                    ),width10,
                     Expanded(
-                        flex: 6,
+                        flex: 7,
                         child: about()),
                   ],
                 ),
-                space10,
+                space25,
+                space20,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -254,44 +263,62 @@ class _SignPageState extends State<StudentSignUp> {
                 submitButton(
                     bgcolor: AppColors.whitedColor,
                     textColor: AppColors.white,
-                    buttonText: "sign_up_text".tr,
+                    buttonText: "sign_up".tr,
                     fontSize: 16.0,
                     callback: _isChecked == true ? createUser : null),
                 space20,
-                Container(
-                  height: 1,
-                  color: Colors.grey,
-                ),
-                space20,
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/login');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "have_account".tr,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey),
-                      ),
-                      Text(
-                        "sign_in".tr,
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: AppColors.whitedColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-                space20,
+
+
+
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+  Widget singIn() {
+    return Container(
+      height: Get.height*0.08,
+      margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        children: [
+          Divider(
+            color: Colors.black,
+          ),
+
+          Padding(
+            padding:  EdgeInsets.all(Get.height*0.004),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                "have_account".tr,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontFamily: "Source_Sans_Pro",
+                      fontSize: 17),
+                ),
+                GestureDetector(
+                    onTap: () {
+
+                        Get.toNamed('/login');
+
+                    },
+                    child: Text(
+                      "sign_in".tr,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontFamily: "Source_Sans_Pro",
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -308,7 +335,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'full_name'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -338,7 +365,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'semestersu'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 14, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14: 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -366,7 +393,7 @@ class _SignPageState extends State<StudentSignUp> {
         isObscure: false,
         hintText: 'address'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onFieldSubmitted: (value) {},
@@ -385,10 +412,11 @@ class _SignPageState extends State<StudentSignUp> {
 
   Widget about() {
     return Container(
-      // height: ,
+
       // margin:lang == 'ar'? EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0): EdgeInsets.only(left: MediaQuery.of(context).size.width/19, right: 0),
-      width: Get.width * 0.55,
+      // width: Get.width * 0.55,
       child: CustomTextFiled(
+
         maxLine: 4,
         contentPadding: lang == 'ar'
             ? EdgeInsets.only(right: MediaQuery.of(context).size.width/19, top: MediaQuery.of(context).size.width/19)
@@ -397,7 +425,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'about'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor:
             lang == 'ar' ? AppColors.inputTextColor : AppColors.inputTextColor,
         onChanged: (value) {},
@@ -421,7 +449,7 @@ class _SignPageState extends State<StudentSignUp> {
         width: Get.width ,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -432,7 +460,7 @@ class _SignPageState extends State<StudentSignUp> {
                 hint: Text(
                     statusSelected == null ? 'degreesu'.tr : statusSelected,
                     style: TextStyle(
-                        fontSize: lang == 'ar' ? 10 : 12,
+                        fontSize: lang == 'ar' ? 14 : 14,
                         color: AppColors.inputTextColor)),
                 dropdownColor: AppColors.inPutFieldColor,
                 icon: Icon(Icons.arrow_drop_down),
@@ -470,7 +498,7 @@ class _SignPageState extends State<StudentSignUp> {
         color: Colors.white,
         hintText: 'emails'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (newValue) {},
@@ -499,7 +527,7 @@ class _SignPageState extends State<StudentSignUp> {
       //         right: MediaQuery.of(context).size.width/19, left: MediaQuery.of(context).size.width / 46)
       //     : EdgeInsets.only(
       //         left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -509,7 +537,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           passwordValue = value;
@@ -534,7 +562,7 @@ class _SignPageState extends State<StudentSignUp> {
     return Container(
       // margin:
       //     lang == 'ar' ? EdgeInsets.only(left: MediaQuery.of(context).size.width/19) : EdgeInsets.only(right: MediaQuery.of(context).size.width/19),
-      width: Get.width * 0.45,
+      width: Get.width * 0.46,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
@@ -544,7 +572,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 10 : 12, color: AppColors.inputTextColor),
+            fontSize: lang == 'ar' ? 14: 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {
           confirmPasswordValue = value;
@@ -572,7 +600,7 @@ class _SignPageState extends State<StudentSignUp> {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(0),
-            border: Border.all(color: Color(0xFFEEEEEE))),
+            border: Border.all(color: AppColors.outline,width: 1.5)),
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
@@ -746,10 +774,10 @@ class _SignPageState extends State<StudentSignUp> {
         // margin: lang == 'ar' ?EdgeInsets.only(
         //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
         //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -757,7 +785,7 @@ class _SignPageState extends State<StudentSignUp> {
                 child: DropdownButton(
               hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: dataRegion.map((reg) {
@@ -796,10 +824,10 @@ class _SignPageState extends State<StudentSignUp> {
   Widget city(List citydata) {
     return Container(
         // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -807,7 +835,7 @@ class _SignPageState extends State<StudentSignUp> {
                 child: DropdownButton(
               hint: Text(hintcityText != null ? hintcityText : "city".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inputColor,
               icon: Icon(Icons.arrow_drop_down),
               items: citydata.map((citt) {
@@ -839,10 +867,10 @@ class _SignPageState extends State<StudentSignUp> {
         // margin: lang == 'ar' ?EdgeInsets.only(
         //     right: MediaQuery.of(context).size.width/20, left: MediaQuery.of(context).size.width / 46):EdgeInsets.only(
         //     left: MediaQuery.of(context).size.width/19, right: MediaQuery.of(context).size.width / 46),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -851,7 +879,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintUniText != null ? hintUniText : "universitysu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 10 : 12,
+                      fontSize: lang == 'ar' ? 14: 14,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -881,10 +909,10 @@ class _SignPageState extends State<StudentSignUp> {
   Widget college(List collegeData) {
     return Container(
         // margin:  lang == 'ar' ?EdgeInsets.only(left: 4):EdgeInsets.only(right: 4),
-        width: Get.width * 0.45,
+        width: Get.width * 0.46,
         decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: AppColors.outline),
+            border: Border.all(color: AppColors.outline,width: 1.5),
             borderRadius: BorderRadius.circular(0.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -893,7 +921,7 @@ class _SignPageState extends State<StudentSignUp> {
               isExpanded: true,
               hint: Text(hintClgText != null ? hintClgText : "collegesu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 10 : 12,
+                      fontSize: lang == 'ar' ? 14 : 14,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -930,7 +958,7 @@ class _SignPageState extends State<StudentSignUp> {
       textColor,
       fontFamily,
       fontWeight}) {
-    return AppButton(
+    return AppButton2(
       buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,

@@ -123,6 +123,8 @@ class AppImages {
   static String adsFilter = imagePath + 'filter1.png';
   static String myFriendList = imagePath + 'friendList.png';
   static String myMap = imagePath + 'map.png';
+  static String man = imagePath + 'man.png';
+
   static String gridListing = imagePath + 'gridd.png';
   static String plusImage1 = imagePath + 'plus@2x.png';
   static String chating = imagePath + 'chats.png';

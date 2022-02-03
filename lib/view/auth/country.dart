@@ -30,14 +30,15 @@ class _CountryPageState extends State<Ccountry> {
   Widget featureCountryList(countryListData) {
     return Container(
       alignment: Alignment.bottomCenter,
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 1.8,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 2.0,
-              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 20.0,
+              // mainAxisSpacing: 7.0,
+              childAspectRatio: Get.height*0.5/Get.width*0.6
             ),
             itemCount: countryListData.length,
             itemBuilder: (BuildContext context, int index) {
@@ -83,19 +84,19 @@ class _CountryPageState extends State<Ccountry> {
                         ),
                       ),
                     ),
-                    SizedBox(height: Get.height * 0.017),
+                    // SizedBox(height: Get.height * 0.017),
                     Container(
-                        child: Center(
-                      child: Text(
-                        countryListData[index]['name'][lang] != null
-                            ? countryListData[index]['name'][lang]
-                            : '',
-                        // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
-                        // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+                        child: Text(
+                          countryListData[index]['name'][lang] != null
+                              ? countryListData[index]['name'][lang]
+                              : '',
+                          textAlign: TextAlign.center,
 
-                        style: TextStyle(color: AppColors.inputTextColor),
-                      ),
-                    )),
+                          // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
+                          // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+
+                          style: TextStyle(color: AppColors.inputTextColor),
+                        )),
                   ],
                 ),
               );
@@ -178,12 +179,29 @@ class _CountryPageState extends State<Ccountry> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
-                  child: HorizontalOrLine(label: "oR".tr, height: 2),
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Expanded(
+                        child: Divider(
+                          color: Colors.black,
+                        )),
+                    Text(
+                      " or ".tr,
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                    Expanded(
+                        child: Divider(
+                          color: Colors.black,
+                        )),
+
+                    /*SizedBox(
+                                          width: 3,
+                                        ),*/
+                  ]),
                 ),
-                SizedBox(
-                  height: Get.height * 0.018,
-                ),
+                // SizedBox(
+                //   height: Get.height * 0.018,
+                // ),
 
                 Container(child: existingAccount()),
               ],
@@ -207,19 +225,24 @@ class _CountryPageState extends State<Ccountry> {
         Get.to(SignIn());
       },
       child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "have_account".tr,
-              style: TextStyle(fontWeight: FontWeight.w300, color: Colors.grey),
-            ),
-            Text(
-              "sign_in".tr,
-              style: TextStyle(
-                  color: AppColors.whitedColor, fontWeight: FontWeight.bold),
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.002, vertical: Get.height * 0.005),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("have_account".tr,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey)),
+              Text("sign_in".tr,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.appBarBackGroundColor,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
       ),
     );

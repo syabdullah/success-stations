@@ -18,6 +18,7 @@ const Map<String, String> en = {
   "have_account": "Do you have an account ?",
   "Dont_have_account": "Don’t have an account ? ",
   "sign_up_text": "Sign Up.",
+  "sign_up": "Sign up",
   "forgot_your_log_in_details": "Forgot your login details?",
   "help_login": "Get help logging in.",
   "login": "Log in",

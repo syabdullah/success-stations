@@ -20,6 +20,7 @@ const Map<String, String> ar = {
   "have_account": "هل لديك حساب ؟",
   "Dont_have_account": "ليس لديك حساب؟",
   "sign_up_text": "سجل ",
+  "sign_up": "سجل ",
   "forgot_your_log_in_details":"نسيت معلومات دخولك",
   "help_login":"احصل على المساعدة لتسجيل الدخول",
   "login":"تسجيل الدخول",
