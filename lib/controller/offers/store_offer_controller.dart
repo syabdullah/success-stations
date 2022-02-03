@@ -31,7 +31,7 @@ class StorePostAddesController extends GetxController {
     myofferlistin.drawerMyOffer();
     Get.off(OffersDetail());
     if(result.data['success'] == true){
-      Get.snackbar("Offfer Added successfully created",'',backgroundColor: AppColors.appBarBackGroundColor);
+      Get.snackbar("Offfer Added successfully created",'',backgroundColor: AppColors.whitedColor);
       isLoading(false);
     } 
     update();

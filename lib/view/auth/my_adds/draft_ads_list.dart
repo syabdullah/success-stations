@@ -31,7 +31,7 @@ class _DraftAdsState extends State<DraftAds> {
     return Scaffold(
       appBar:AppBar(
         centerTitle: true,title: Text("drafted_ads".tr),
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor: AppColors.whitedColor,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -149,7 +149,7 @@ Widget draftedlist(allDataAdds){
                       },
                       child: Container(
                         margin: EdgeInsets.only(right: 10,left: 10),
-                        color : AppColors.appBarBackGroundColor,
+                        color : AppColors.whitedColor,
                         height: 30,
                         width: Get.width/4,
                         child: Center(child: Text("publish".tr,style: TextStyle(color: Colors.white),)),

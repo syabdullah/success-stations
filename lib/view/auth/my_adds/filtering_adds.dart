@@ -59,7 +59,7 @@ class _FilteredPageState extends State<FilteredAdds> {
         title: Text(
           "filtered_result".tr,
         ),
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor: AppColors.whitedColor,
       ),
       body: GetBuilder<AddBasedController>(
         init: AddBasedController(),
@@ -413,11 +413,11 @@ class _FilteredPageState extends State<FilteredAdds> {
                       filteredAdds[index]['price'] !=null
                       ? "${splitedPrice[0]}"
                       : '',
-                      style: TextStyle(color: AppColors.appBarBackGroundColor),
+                      style: TextStyle(color: AppColors.whitedColor),
                   ),
                     Text(
                       ' SAR',
-                      style: TextStyle(color: AppColors.appBarBackGroundColor,fontSize: 7),
+                      style: TextStyle(color: AppColors.whitedColor,fontSize: 7),
                   ),
                 ]),
                 Row(

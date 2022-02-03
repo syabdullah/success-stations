@@ -36,7 +36,7 @@ class _MyAddsState extends State<MyAdds> {
   bool categorybool = false;
   var grid = AppImages.gridOf;
   Color selectedColor = Colors.blue;
-  Color gridIconColor = AppColors.appBarBackGroundColor;
+  Color gridIconColor = AppColors.whitedColor;
   Color listIconColor = Colors.grey;
   bool liked = false;
   var lang, userId;
@@ -494,7 +494,7 @@ class _MyAddsState extends State<MyAdds> {
                                         scale: .7,
                                         child: Switch.adaptive(
                                             activeColor:
-                                                AppColors.appBarBackGroundColor,
+                                                AppColors.whitedColor,
                                             value: dataListValue[index]
                                                         ['is_active'] ==
                                                     1
@@ -531,7 +531,7 @@ class _MyAddsState extends State<MyAdds> {
                                           scale: .7,
                                           child: CupertinoSwitch(
                                               activeColor: AppColors
-                                                  .appBarBackGroundColor,
+                                                  .whitedColor,
                                               value: dataListValue[index]
                                                           ['is_active'] ==
                                                       1
@@ -619,7 +619,7 @@ class _MyAddsState extends State<MyAdds> {
                                     ? Text("SAR ${myAddssplitedPrice[0]}",
                                         style: TextStyle(
                                             color:
-                                                AppColors.appBarBackGroundColor,
+                                                AppColors.whitedColor,
                                             fontWeight: FontWeight.bold))
                                     : Container(),
                               ),

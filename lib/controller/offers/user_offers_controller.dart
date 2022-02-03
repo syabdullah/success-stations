@@ -33,7 +33,7 @@ class UserOfferController extends GetxController {
         cont.drawerMyOffer();
         isLoading=false;
       } if(res.statusCode > 400){
-          Get.snackbar(deleteOffer['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar(deleteOffer['errors'],'',backgroundColor: AppColors.whitedColor);
       }
     });
     update();

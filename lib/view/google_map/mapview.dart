@@ -282,24 +282,25 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                 ? EdgeInsets.only(left: 10, top: 20)
                 : EdgeInsets.only(right: 10, top: 20),
             decoration: BoxDecoration(
-                borderRadius: lang == 'en'
-                    ? BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.zero,
-                        bottomLeft: Radius.circular(10.0),
-                        bottomRight: Radius.zero,
-                      )
-                    : BorderRadius.only(
-                        topLeft: Radius.zero,
-                        topRight: Radius.circular(10.0),
-                        bottomLeft: Radius.zero,
-                        bottomRight: Radius.circular(10.0),
-                      ),
-                color: listtype == 'map'
-                    ? Colors.white
-                    : listtype == 'grid'
-                        ? AppColors.appBarBackGroundColor
-                        : Colors.white),
+              borderRadius: lang=='en'
+              ?BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.zero,
+                bottomLeft: Radius.circular(10.0),
+                bottomRight: Radius.zero,
+              )
+              :BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(10.0),
+                bottomLeft: Radius.zero,
+                bottomRight: Radius.circular(10.0),
+              ),
+              color: listtype == 'map'
+              ? Colors.white
+              : listtype == 'grid'
+              ? AppColors.whitedColor
+              : Colors.white
+            ),
             height: 60,
             width: 60,
             child: CupertinoButton(

@@ -36,7 +36,7 @@ class ResetPassWordController extends GetxController {
                 Container(
                   margin: lang == 'en'? EdgeInsets.only(top: 60, left: 20):EdgeInsets.only(right: 20, top: 60) ,
                   child: Text(
-                    "changedPassword".tr  ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
+                    "changedPassword".tr  ,style:  TextStyle(fontSize: 20, color: AppColors.whitedColor)
                   ),
                 ),
                 SizedBox(height:10),
@@ -49,8 +49,8 @@ class ResetPassWordController extends GetxController {
                 SizedBox(height: 30),
                 submitButton(
                   width: Get.width/1.2,
-                  bgcolor: AppColors.appBarBackGroundColor,  
-                  textColor: AppColors.appBarBackGroun,
+                  bgcolor: AppColors.whitedColor,  
+                  textColor: AppColors.white,
                   buttonText: 'capsLogin'.tr,fontSize: 16.0,
                   callback: navaigateToTabs,
                 )
@@ -61,7 +61,7 @@ class ResetPassWordController extends GetxController {
        isLoading(false);
       } 
       if(res.statusCode >=  400){
-        Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.whitedColor);
       }
     });
     update();

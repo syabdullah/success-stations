@@ -14,7 +14,7 @@ class _BecomeMemberState extends State<BecomeMember> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      backgroundColor: AppColors.appBarBackGroundColor,
+      backgroundColor: AppColors.whitedColor,
       body: SafeArea(
         child: Column(
           children: [

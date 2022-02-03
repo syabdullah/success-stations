@@ -36,7 +36,7 @@ class NotificationController extends GetxController {
     allNoti();
         isLoading=false;
       } if(res.statusCode > 400){
-          Get.snackbar(deleteNotification['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar(deleteNotification['errors'],'',backgroundColor: AppColors.whitedColor);
       }
     });
     update();

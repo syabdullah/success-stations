@@ -127,17 +127,17 @@ class _LocationTabState extends State<LocationTab> {
                               onTap: decideRouter == 'city' ? null :  () {
                                 setState((){
                                   decideRouter = 'near';
-                                  color = AppColors.appBarBackGroundColor;
+                                  color = AppColors.whitedColor;
                                 }); 
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left:10),
                                 child: Row(
                                   children: [
-                                    Image.asset(AppImages.nearby,height: 15,color:AppColors.appBarBackGroundColor),
+                                    Image.asset(AppImages.nearby,height: 15,color:AppColors.whitedColor),
                                     SizedBox(width: 5,),
                                     Text(
-                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
+                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: AppColors.whitedColor)
                                     ),
                                   ],
                                 ),
@@ -156,16 +156,16 @@ class _LocationTabState extends State<LocationTab> {
                                      enabled: textfeild,
                                     decoration: InputDecoration(
                                       labelText: ('City'),
-                                      labelStyle: TextStyle(color: AppColors.appBarBackGroundColor),
+                                      labelStyle: TextStyle(color: AppColors.whitedColor),
                                       // labelStyle: TextStyle(color: AppColors.basicColor),
-                                      prefixIcon: Icon(Icons.search,color: AppColors.appBarBackGroundColor,),
+                                      prefixIcon: Icon(Icons.search,color: AppColors.whitedColor,),
                                       border: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                           const Radius.circular(5.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: AppColors.appBarBackGroundColor)
+                                        borderSide: BorderSide(color: AppColors.whitedColor)
                                       )
                                     ),
                                     onSubmitted: (val) {
@@ -194,7 +194,7 @@ class _LocationTabState extends State<LocationTab> {
                                 },
                                 child: Container(                          
                                   decoration: BoxDecoration(
-                                     color: AppColors.appBarBackGroundColor,
+                                     color: AppColors.whitedColor,
                                     borderRadius: BorderRadius.circular(10)
                                   ),
                                   // width: Get.width/4,
@@ -204,7 +204,7 @@ class _LocationTabState extends State<LocationTab> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [                             
                                       Container(
-                                        child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
+                                        child: Text(item,style: TextStyle(color: AppColors.whitedColor)),
                                       ),
                                       GestureDetector(
                                         onTap: (){
@@ -217,7 +217,7 @@ class _LocationTabState extends State<LocationTab> {
                                           });
                                         },
                                         child: Container(
-                                          child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
+                                          child: Icon(Icons.clear,color: AppColors.whitedColor,size:15),
                                         ),
                                       )
                                     ],
@@ -236,7 +236,7 @@ class _LocationTabState extends State<LocationTab> {
                             ),
                              SizedBox(height: 10),
                             RangeSlider(
-                              activeColor: AppColors.appBarBackGroundColor,
+                              activeColor: AppColors.whitedColor,
                               values: _currentRangeValues,
                               min: 5,
                               max: 500,
@@ -263,7 +263,7 @@ class _LocationTabState extends State<LocationTab> {
                                   color: Colors.grey[100],
                                   child: Container(
                                     width: Get.width / 4,
-                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.appBarBackGroundColor )))
+                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.whitedColor )))
                                   ),
                                   onPressed: () {
                                     array.clear();
@@ -277,7 +277,7 @@ class _LocationTabState extends State<LocationTab> {
                                 margin: EdgeInsets.only(top:20),
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
@@ -430,7 +430,7 @@ Widget locationList(lastLocation) {
                                 SizedBox(height: 4),
                              Row(
                                children: [
-                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
+                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.whitedColor)),
                                  lastLocation[index]['services'] !=null ?
                                Text(": ${lastLocation[index]['services']['servics_name']}",
                                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
@@ -446,7 +446,7 @@ Widget locationList(lastLocation) {
                                Container(
                                  child: Text(
                                    "country".tr,
-                                   style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)
+                                   style: TextStyle(fontSize:14,color:AppColors.whitedColor)
                                  ),
                                ),
                                Container(

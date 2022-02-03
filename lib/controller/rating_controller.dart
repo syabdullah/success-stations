@@ -21,7 +21,7 @@ class RatingController extends GetxController {
         isLoading(false);
       }
       else if(rating['success'] == false){
-        Get.snackbar(rating['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar(rating['errors'],'',backgroundColor: AppColors.whitedColor);
         isLoading(false);
       }
     });

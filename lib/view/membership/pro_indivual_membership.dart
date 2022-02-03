@@ -84,7 +84,7 @@ List<String> prize = [
           )),
           centerTitle: true,
           title: Text('mmembership'.tr),
-          backgroundColor: AppColors.appBarBackGroundColor),
+          backgroundColor: AppColors.whitedColor),
       body: Column(
         children: [
           space20,
@@ -148,7 +148,7 @@ List<String> prize = [
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColors.appBarBackGroundColor)),
+                                              color: AppColors.whitedColor)),
                                     ],
                                   )),Padding(
                                   padding: const EdgeInsets.only(top: 5),
@@ -164,7 +164,7 @@ List<String> prize = [
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColors.appBarBackGroundColor)),
+                                              color: AppColors.whitedColor)),
                                     ],
                                   )),Padding(
                                   padding: const EdgeInsets.only(top: 5),
@@ -180,7 +180,7 @@ List<String> prize = [
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColors.appBarBackGroundColor)),
+                                              color: AppColors.whitedColor)),
                                     ],
 
                                   )),
@@ -212,7 +212,7 @@ List<String> prize = [
                                 width:Get.width/3.8,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color:AppColors.appBarBackGroundColor
+                                  color:AppColors.whitedColor
                                 ),
                                 child:  Center(
                                   child: Text("Subscribe",
@@ -259,7 +259,7 @@ List<String> prize = [
           //         height: 50,
           //         width: 120,
           //         decoration: BoxDecoration(
-          //           color: AppColors.appBarBackGroundColor,
+          //           color: AppColors.whitedColor,
           //           borderRadius: BorderRadius.circular(10),
           //           // borderRadius: Border.all()
           //         ),
@@ -282,8 +282,8 @@ List<String> prize = [
           // space50,
           // submitButton(
           //     buttonText: 'update_succe'.tr,
-          //     bgcolor: AppColors.appBarBackGroundColor,
-          //     textColor: AppColors.appBarBackGroun,
+          //     bgcolor: AppColors.whitedColor,
+          //     textColor: AppColors.white,
           //     callback: navigateToHomeScreen),
         ],
       ),
@@ -302,7 +302,7 @@ List<String> prize = [
           children: [
             Container(
                 child: Text("monthly".tr,
-                    style: TextStyle(color: AppColors.appBarBackGroundColor))),
+                    style: TextStyle(color: AppColors.whitedColor))),
             SizedBox(
               width: 5,
             ),
@@ -367,7 +367,7 @@ List<String> prize = [
                   child: Text(memberShipDatta[index],
                       style: TextStyle(
                           fontSize: 16,
-                          color: AppColors.appBarBackGroundColor)),
+                          color: AppColors.whitedColor)),
                 ),
               ],
             );

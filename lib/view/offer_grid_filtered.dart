@@ -42,7 +42,7 @@ class _FilteredCtaegPageState extends State<FilteredCategory> {
         title: Text(
           "filtered_result".tr,
         ),
-        backgroundColor: AppColors.appBarBackGroundColor,
+        backgroundColor: AppColors.whitedColor,
         centerTitle: true,
       ),
       body: GetBuilder<OfferCategoryController>(
@@ -184,7 +184,7 @@ class _FilteredCtaegPageState extends State<FilteredCategory> {
     //                          filteredAdds[index]['status'] == 0 ? "OLD":
     //                          filteredAdds[index]['status'] == null ? '':'',
     //                         style: TextStyle(
-    //                           fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color: filteredAdds[index]['status'] == 1?  AppColors.snackBarColor: AppColors.appBarBackGroundColor,
+    //                           fontSize: 14,fontWeight: FontWeight.bold, fontStyle:FontStyle.normal, color: filteredAdds[index]['status'] == 1?  AppColors.snackBarColor: AppColors.whitedColor,
     //                         )
     //                       )
     //                     ],
@@ -196,7 +196,7 @@ class _FilteredCtaegPageState extends State<FilteredCategory> {
     //                       filteredAdds[index]['description']['en'] : "",
     //                       style:TextStyle(color:AppColors.inputTextColor, fontSize: 13),
     //                       trimLines: 2,
-    //                       colorClickableText: AppColors.appBarBackGroundColor,
+    //                       colorClickableText: AppColors.whitedColor,
     //                       trimMode: TrimMode.Line,
     //                       trimCollapsedText: 'Show more',
     //                       trimExpandedText: 'Show less',
@@ -205,7 +205,7 @@ class _FilteredCtaegPageState extends State<FilteredCategory> {
     //                   SizedBox(height:5),
     //                   Container(
     //                     child:   filteredAdds[index]['url'] != null ? Text(filteredAdds[index]['url'] ,
-    //                       style:TextStyle(color:AppColors.appBarBackGroundColor, fontSize: 13)
+    //                       style:TextStyle(color:AppColors.whitedColor, fontSize: 13)
     //                     ): Container()
     //                   ),
     //                 ],

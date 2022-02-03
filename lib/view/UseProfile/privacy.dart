@@ -34,7 +34,7 @@ class _PrivacyState extends State<Privacy> {
                 child: Icon(Icons.arrow_back)),
             centerTitle: true,
             title: Text('privacy'.tr),
-            backgroundColor: AppColors.appBarBackGroundColor),
+            backgroundColor: AppColors.whitedColor),
         body: GetBuilder<ContentManagmentController>(
             init: ContentManagmentController(),
             builder: (val) {

@@ -11,7 +11,7 @@ class MemberShip extends StatefulWidget {
 
 class _MemberShipState extends State<MemberShip> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  Color selectplanFree = AppColors.appBarBackGroundColor;
+  Color selectplanFree = AppColors.whitedColor;
   Color selectplanPro = Colors.transparent;
   var items = ['info', 'info', 'info', 'info', 'info', 'info', 'info', 'info'];
   bool border = false;
@@ -58,7 +58,7 @@ class _MemberShipState extends State<MemberShip> {
                   onTap: () {
                     setState(() {
                       border = false;
-                      selectplanFree = AppColors.appBarBackGroundColor;
+                      selectplanFree = AppColors.whitedColor;
                       selectplanPro = Colors.transparent;
                     });
                   },
@@ -104,7 +104,7 @@ class _MemberShipState extends State<MemberShip> {
                                         fontWeight: FontWeight.w600,
                                         color: border == true
                                             ? Colors.grey[600]
-                                            : AppColors.appBarBackGroundColor)),
+                                            : AppColors.whitedColor)),
                               ],
                             ),
                           )
@@ -121,7 +121,7 @@ class _MemberShipState extends State<MemberShip> {
                     setState(() {
                       border = true;
                       selectplanFree = Colors.transparent;
-                      selectplanPro = AppColors.appBarBackGroundColor;
+                      selectplanPro = AppColors.whitedColor;
                     });
                   },
                   child: Container(
@@ -166,7 +166,7 @@ class _MemberShipState extends State<MemberShip> {
                                         fontWeight: FontWeight.w600,
                                         color: border == false
                                             ? Colors.grey[600]
-                                            : AppColors.appBarBackGroundColor)),
+                                            : AppColors.whitedColor)),
                               ],
                             ),
                           )
@@ -212,7 +212,7 @@ class _MemberShipState extends State<MemberShip> {
         width: Get.width,
         height: Get.height / 9.5 * .6,
         decoration: BoxDecoration(
-            color: AppColors.appBarBackGroundColor,
+            color: AppColors.whitedColor,
             borderRadius: BorderRadius.circular(8)),
         child: Center(
             child: Text(text,

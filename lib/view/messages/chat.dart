@@ -67,7 +67,7 @@ class _ChattingState extends State<ChattingPage> {
               child: Image.asset(AppImages.arrowBack)),
           ),
           elevation: 0,
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
           centerTitle: true,
           title:Container(
             margin: EdgeInsets.only(top:20),
@@ -82,7 +82,7 @@ class _ChattingState extends State<ChattingPage> {
           Container(
             height: Get.height/3.5,
             width: Get.width,
-            color: AppColors.appBarBackGroundColor,
+            color: AppColors.whitedColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -394,7 +394,7 @@ class ChatMessage{
 //               child: Image.asset(AppImages.arrowBack)),
 //           ),
 //           elevation: 0,
-//           backgroundColor: AppColors.appBarBackGroundColor,
+//           backgroundColor: AppColors.whitedColor,
 //           centerTitle: true,
 //           title:Container(
 //             margin: EdgeInsets.only(top:20),
@@ -410,7 +410,7 @@ class ChatMessage{
 //               Container(
 //                 height: Get.height/3.5,
 //                 width: Get.width,
-//                 color: AppColors.appBarBackGroundColor,
+//                 color: AppColors.whitedColor,
 //                 child: Column(
 //                   crossAxisAlignment: CrossAxisAlignment.start,
 //                   children: [

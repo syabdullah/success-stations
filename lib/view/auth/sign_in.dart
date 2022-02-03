@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/language_controller.dart';
@@ -60,6 +61,7 @@ class _SignPageState extends State<SignIn> {
     return WillPopScope(
       onWillPop: () async => true,
       child: Scaffold(
+        backgroundColor: Colors.white,
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -73,11 +75,16 @@ class _SignPageState extends State<SignIn> {
               },
             ),
           ),
+          bottomNavigationBar:   bottomW(),
           body: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (val) {
                 return Center(
                   child: ListView(
+
+
+
+                      physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Center(
                         child: Form(
@@ -85,15 +92,15 @@ class _SignPageState extends State<SignIn> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: Get.height / 40.0),
+                              SizedBox(height: Get.height*0.02),
                               Container(
-                                margin: EdgeInsets.only(bottom: 50),
+                                margin: EdgeInsets.only(bottom: Get.height*0.05),
                                 child: Image.asset(AppImages.appLogo,
                                     height: Get.height / 6),
                               ),
-                              SizedBox(height: 23),
+                              SizedBox(height: Get.height*0.02),
                               eMail(),
-                              SizedBox(height: 8),
+                              SizedBox(height:Get.height*0.008),
                               passwordW(),
                               loginCont.resultInvalid.isTrue &&
                                       errorCheck == true
@@ -106,7 +113,7 @@ class _SignPageState extends State<SignIn> {
                                       ),
                                     )
                                   : Container(),
-                              SizedBox(height: 8),
+                              SizedBox(height: Get.height*0.008),
                               // GestureDetector(
                               //   onTap: () {
                               //     Navigator.pushNamed(context, '/forgotPass');
@@ -122,14 +129,16 @@ class _SignPageState extends State<SignIn> {
                               // ),
                               submitButton(
                                   bgcolor: AppColors.darkblue,
-                                  textColor: AppColors.appBarBackGroun,
+                                  textColor: AppColors.white,
                                   buttonText: "login".tr,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 15.0,
+                                  width: Get.width * 0.9,
+                                  height:  Get.height *0.065,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "andada",
                                   callback: signIn),
                               SizedBox(
-                                height: 20,
+                                height:  Get.height*0.01,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,18 +149,21 @@ class _SignPageState extends State<SignIn> {
                                           fontFamily: "Source_Sans_Pro",
                                           fontSize: 15)),
                                   Text(
+
+
                                     " " + "help_login".tr,
+
                                     style: TextStyle(
-                                        color: AppColors.login_help,
+                                        color: Colors.blue,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: "Source_Sans_Pro",
-                                        fontSize: 16),
+                                        fontSize: 15),
                                   ),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.only(
-                                    top: 10, bottom: 10, left: 20, right: 20),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: Get.height*0.01, horizontal: Get.height*0.04),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -175,13 +187,13 @@ class _SignPageState extends State<SignIn> {
                                     ]),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: Get.height*0.025,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   submitButton(
-                                      textColor: AppColors.appBarBackGroun,
+                                      textColor: AppColors.white,
                                       buttonText: AppString.facebook,
                                       fontFamily: "Source_Sans_Pro",
                                       callback: navigateToGoogleFaceBook,
@@ -199,9 +211,9 @@ class _SignPageState extends State<SignIn> {
                                 ],
                               ),
                               SizedBox(
-                                height: 40,
+                                height: Get.height*0.04,
                               ),
-                              bottomW()
+
                             ],
                           ),
                         ),
@@ -291,40 +303,44 @@ class _SignPageState extends State<SignIn> {
         // decoration: BoxDecoration(
         //     border: Border.all(width: 0.3),
         //     borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.only(left: 20, right: 20),
+        margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
         width: Get.width * 0.9,
+        // height:  Get.height *0.065,
         child: TextFormField(
-          controller: email,
+
+
+          controller:email ,
+
           // obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
-                new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            new EdgeInsets.symmetric(vertical:Get.height*0.01, horizontal:Get.width*0.04),
             hintText: ("emails".tr),
             hintStyle: TextStyle(
               color: Colors.grey,
               fontSize: lang == 'ar' ? 14 : 16,
             ),
             // labelStyle: TextStyle(color: AppColors.basicColor),
-            fillColor: AppColors.inputColor2,
+            fillColor: Colors.white,
             filled: true,
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.outline),
+              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: Colors.red,width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: Colors.red,width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
-              borderSide: BorderSide(color: AppColors.outline),
+              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
             ),
           ),
           validator: (value) => value == ''
@@ -342,39 +358,40 @@ class _SignPageState extends State<SignIn> {
         // decoration: BoxDecoration(
         //     border: Border.all(width: 0.3),
         //     borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.only(left: 20, right: 20),
+        margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
         width: Get.width * 0.9,
+        // height:  Get.height *0.065,
         child: TextFormField(
           obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
-                new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                new EdgeInsets.symmetric(vertical:Get.height*0.01, horizontal:Get.width*0.04),
             hintText: ('password'.tr),
             hintStyle: TextStyle(
               color: Colors.grey,
               fontSize: lang == 'ar' ? 14 : 16,
             ),
             // labelStyle: TextStyle(color: AppColors.basicColor),
-            fillColor: AppColors.inputColor2,
+            fillColor: Colors.white,
             filled: true,
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.outline),
+              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: Colors.red,width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: Colors.red,width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
-              borderSide: BorderSide(color: AppColors.outline),
+              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
             ),
             suffixIcon: IconButton(
               icon: Icon(
@@ -398,40 +415,42 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      margin: EdgeInsets.only(top: 70, bottom: 5),
+      height: Get.height*0.08,
+      margin: EdgeInsets.only( bottom:  Get.height*0.005,),
       alignment: Alignment.bottomCenter,
       child: Column(
         children: [
           Divider(
             color: Colors.black,
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Dont_have_account".tr,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontFamily: "Source_Sans_Pro",
-                    fontSize: 18),
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/langua');
-                  },
-                  child: Text(
-                    'sign_up_text'.tr,
-                    style: TextStyle(
-                      color: AppColors.appBarBackGroundColor,
+
+          Padding(
+            padding:  EdgeInsets.all(Get.height*0.004),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Dont_have_account".tr,
+                  style: TextStyle(
+                      color: Colors.grey,
                       fontFamily: "Source_Sans_Pro",
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-            ],
+                      fontSize: 17),
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/langua');
+                    },
+                    child: Text(
+                      'sign_up_text'.tr,
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontFamily: "Source_Sans_Pro",
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+              ],
+            ),
           ),
         ],
       ),
@@ -459,6 +478,7 @@ class _SignPageState extends State<SignIn> {
       fontWeight: fontWeight,
       fontSize: fontSize,
       image: image,
+      height: height,
       width: width,
     );
   }

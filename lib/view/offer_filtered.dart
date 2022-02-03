@@ -46,7 +46,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
           title: Text(
             "filtered_result".tr,
           ),
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
           centerTitle: true,
         ),
         body: GetBuilder<OfferCategoryController>(
@@ -132,7 +132,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                                   fontStyle: FontStyle.normal,
                                   color: filteredAdds[index]['status'] == 1
                                       ? AppColors.snackBarColor
-                                      : AppColors.appBarBackGroundColor,
+                                      : AppColors.whitedColor,
                                 ))
                           ],
                         ),
@@ -145,7 +145,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                             style: TextStyle(
                                 color: AppColors.inputTextColor, fontSize: 13),
                             trimLines: 2,
-                            colorClickableText: AppColors.appBarBackGroundColor,
+                            colorClickableText: AppColors.whitedColor,
                             trimMode: TrimMode.Line,
                             trimCollapsedText: 'Show more',
                             trimExpandedText: 'Show less',
@@ -156,7 +156,7 @@ class _FilteredCtaegPageState extends State<FilteredCategoryResult> {
                             child: filteredAdds[index]['url'] != null
                                 ? Text(filteredAdds[index]['url'],
                                     style: TextStyle(
-                                        color: AppColors.appBarBackGroundColor,
+                                        color: AppColors.whitedColor,
                                         fontSize: 13))
                                 : Container()),
                       ],

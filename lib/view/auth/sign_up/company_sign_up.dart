@@ -292,7 +292,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //       decoration:
                 //           BoxDecoration(borderRadius: BorderRadius.circular(60)),
                 //       child: Checkbox(
-                //         activeColor: AppColors.appBarBackGroundColor,
+                //         activeColor: AppColors.whitedColor,
                 //         value: _isChecked,
                 //         onChanged: (value) {
                 //           setState(() {
@@ -309,7 +309,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     Text("terms_condition".tr,
                 //         style: TextStyle(
                 //             fontFamily: 'Lato',
-                //             color: AppColors.appBarBackGroundColor,
+                //             color: AppColors.whitedColor,
                 //             fontSize: 12,
                 //             fontWeight: FontWeight.bold)),
                 //   ],
@@ -317,8 +317,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 // space20,
                 // submitButton(
                 //     buttonText: 'sign_up_text'.tr,
-                //     bgcolor: AppColors.appBarBackGroundColor,
-                //     textColor: AppColors.appBarBackGroun,
+                //     bgcolor: AppColors.whitedColor,
+                //     textColor: AppColors.white,
                 //     fontSize: 18.0,
                 //     callback: _isChecked == true
                 //         ? v == 1
@@ -350,7 +350,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //         "sign_in".tr,
                 //         style: TextStyle(
                 //             fontSize: 18,
-                //             color: AppColors.appBarBackGroundColor,
+                //             color: AppColors.whitedColor,
                 //             fontWeight: FontWeight.bold),
                 //       ),
                 //     ],
@@ -389,7 +389,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     Transform.scale(
                       scale: .9,
                       child:  Checkbox(
-                        activeColor: AppColors.appBarBackGroundColor,
+                        activeColor: AppColors.whitedColor,
                         value: _isChecked,
                         onChanged: (value) {
                           setState(() {
@@ -416,8 +416,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 space20,
                 submitButton(
                     buttonText: 'sign_up_text'.tr,
-                    bgcolor: AppColors.appBarBackGroundColor,
-                    textColor: AppColors.appBarBackGroun,
+                    bgcolor: AppColors.whitedColor,
+                    textColor: AppColors.white,
                     fontSize: 18.0,
                     callback: _isChecked == true
                         ? v == 1
@@ -448,7 +448,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         "sign_in".tr,
                         style: TextStyle(
                             fontSize: 15,
-                            color: AppColors.appBarBackGroundColor,
+                            color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -536,7 +536,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
-          cursorColor: AppColors.appBarBackGroundColor,
+          cursorColor: AppColors.whitedColor,
           autoFocus: false,
           inputDecoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: 10, bottom: 10),
@@ -622,10 +622,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   minTime: DateTime(1900, 3, 5),
                   // maxTime: DateTime.now(),
                   theme: DatePickerTheme(
-                    headerColor: AppColors.appBarBackGroundColor,
+                    headerColor: AppColors.whitedColor,
                     backgroundColor: Colors.white,
                     itemStyle: TextStyle(
-                        color: AppColors.appBarBackGroundColor,
+                        color: AppColors.whitedColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                     doneStyle: TextStyle(
@@ -633,7 +633,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       fontSize: lang == 'ar' ?  12 : 14,
                     ),
                     cancelStyle: TextStyle(
-                      color: AppColors.appBarBackGroundColor,
+                      color: AppColors.whitedColor,
                       fontSize: lang == 'ar' ? 12 : 14,
                     ),
                   ),
@@ -1028,7 +1028,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: InternationalPhoneNumberInput(
           focusNode: FocusNode(),
-          cursorColor: AppColors.appBarBackGroundColor,
+          cursorColor: AppColors.whitedColor,
           autoFocus: false,
           inputDecoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: 10, bottom: 10),
@@ -1132,7 +1132,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                   // Radio(
                   //   value: t.index,
                   //   groupValue: v,
-                  //   activeColor:AppColors.appBarBackGroundColor,
+                  //   activeColor:AppColors.whitedColor,
                   //   onChanged: (int?value ) {
                   //     setState(() {
                   //       v = value!;
@@ -1147,7 +1147,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       Radio(
                         value: 1,
                         groupValue: v,
-                        // activeColor:AppColors.appBarBackGroundColor,
+                        // activeColor:AppColors.whitedColor,
                         onChanged: (value) => setState(() => v = v),
                       );
                     },
@@ -1193,7 +1193,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       Radio(
                         value: 2,
                         groupValue: v,
-                        // activeColor:AppColors.appBarBackGroundColor,
+                        // activeColor:AppColors.whitedColor,
                         onChanged: (value) => setState(() => v = v),
                       );
                     },

@@ -60,7 +60,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         leading: GestureDetector(
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
-        centerTitle: true,title: Text('advertise_with_us'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+        centerTitle: true,title: Text('advertise_with_us'.tr),backgroundColor: AppColors.whitedColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -81,8 +81,8 @@ class AdvertiseStatePage extends State<AdvertisePage> {
               textArea(),
               space10,
               submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,  
+                textColor: AppColors.white,
                 buttonText: "send".tr,
                 fontSize: 18.toDouble(),
                 callback: (){
@@ -116,7 +116,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
         ),
         decoration:InputDecoration( 
           focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+           borderSide: BorderSide(color: AppColors.whitedColor)),
           contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
           hintText: "nameph".tr,
           border: OutlineInputBorder(
@@ -166,7 +166,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
       ),
       decoration:InputDecoration( 
         focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+           borderSide: BorderSide(color: AppColors.whitedColor)),
        contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
         hintText: "phone".tr,
         border: OutlineInputBorder(
@@ -198,7 +198,7 @@ class AdvertiseStatePage extends State<AdvertisePage> {
           ),
           decoration:InputDecoration( 
             focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+           borderSide: BorderSide(color: AppColors.whitedColor)),
             hintText: "description".tr,
             border: OutlineInputBorder(
               

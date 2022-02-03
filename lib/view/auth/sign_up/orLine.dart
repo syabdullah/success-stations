@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class HorizontalOrLine extends StatelessWidget {
   const HorizontalOrLine({
@@ -15,12 +16,10 @@ class HorizontalOrLine extends StatelessWidget {
 
     return Row(children: <Widget>[
       Expanded(
-        child: new Container(
-            margin: const EdgeInsets.only(left: 17.0, right: 17.0),
-            child: Divider(
-              color: Colors.grey,
-              height: height,
-            )),
+        child: Divider(
+          color: Colors.grey,
+          height: height,
+        ),
       ),
 
       Text(label,style: TextStyle(color: Colors.grey,fontSize: 20),),

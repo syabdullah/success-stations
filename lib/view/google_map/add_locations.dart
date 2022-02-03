@@ -229,7 +229,7 @@ class _AddLocationsState extends State<AddLocations> {
           print(jsonLoc);
            dataPage != null ? locCont.editLocationToDB(dataPage['id'],jsonLoc) :  locCont.saveLocationToDB(jsonLoc);
          },
-        child: Text( dataPage != null ? 'update'.tr : 'savecaps'.tr,style: TextStyle( color: AppColors.appBarBackGroundColor),),
+        child: Text( dataPage != null ? 'update'.tr : 'savecaps'.tr,style: TextStyle( color: AppColors.whitedColor),),
       ),
     );
 
@@ -241,7 +241,7 @@ class _AddLocationsState extends State<AddLocations> {
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-        primary: AppColors.appBarBackGroundColor,
+        primary: AppColors.whitedColor,
         textStyle: TextStyle(
         fontSize: 13,
 
@@ -281,7 +281,7 @@ class _AddLocationsState extends State<AddLocations> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Add new location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
+                              'Add new location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.whitedColor)
                             ),
                             place != null ?
                             Row(
@@ -291,7 +291,7 @@ class _AddLocationsState extends State<AddLocations> {
                                   margin: EdgeInsets.only(right: 20),
                                   width: Get.width/1.3,
                                   child:  Text(
-                                    place.toString(),style:  TextStyle(fontSize: 16, color: AppColors.appBarBackGroundColor)
+                                    place.toString(),style:  TextStyle(fontSize: 16, color: AppColors.whitedColor)
                                   ),
                                 ),
                                 Container(
@@ -302,7 +302,7 @@ class _AddLocationsState extends State<AddLocations> {
                                         place = null;
                                       });
                                     },
-                                    child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,)
+                                    child: Icon(Icons.clear,color: AppColors.whitedColor,)
                                   )
                                 ),
                               ],
@@ -317,11 +317,11 @@ class _AddLocationsState extends State<AddLocations> {
                                       _getUserLocation();
                                       Get.back();
                                     },
-                                    child: Icon(Icons.location_disabled_outlined,color: AppColors.appBarBackGroundColor,)
+                                    child: Icon(Icons.location_disabled_outlined,color: AppColors.whitedColor,)
                                   )
                                 ),
                                 Text(
-                                 place != null ? place.toString() :  'Get current Location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
+                                 place != null ? place.toString() :  'Get current Location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.whitedColor)
                                 ),
 
                               ],
@@ -486,7 +486,7 @@ class _AddLocationsState extends State<AddLocations> {
                                         child:
                                          editImage != null && fileName == null  ? Image.network(editImage,fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,):
                                           fileName != null && uploadImageCheck != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,) :
-                                          fileName != null && uploadImageCheck == null ?  CircularProgressIndicator(backgroundColor: AppColors.appBarBackGroundColor) :
+                                          fileName != null && uploadImageCheck == null ?  CircularProgressIndicator(backgroundColor: AppColors.whitedColor) :
                                           Image.asset(AppImages.uploadImage,height: 90)
                                       ),
                                     ),

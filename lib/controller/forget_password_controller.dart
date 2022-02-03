@@ -20,7 +20,7 @@ class ForgetPasswordController extends GetxController {
        Get.toNamed('/forgotCode');
         
       } if(res.statusCode >=  412){
-          Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.whitedColor);
       }
      });
      update();

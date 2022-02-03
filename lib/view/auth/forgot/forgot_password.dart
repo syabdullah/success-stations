@@ -73,8 +73,8 @@ class _ForgotPageState extends State<ForgotPassword> {
               eMail(),
               space20,
               submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,  
+                textColor: AppColors.white,
                 buttonText: "next".tr,
                 fontSize: 18.toDouble(),
                 callback: requiredEmail

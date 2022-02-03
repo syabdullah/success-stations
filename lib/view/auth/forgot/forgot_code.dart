@@ -56,14 +56,14 @@ class _ForgotCodeState extends State<ForgotCode> {
     final otpInputDecoration = InputDecoration(
       filled: true,
        border: OutlineInputBorder(
-        borderSide: BorderSide(color:AppColors.appBarBackGroundColor),
+        borderSide: BorderSide(color:AppColors.whitedColor),
         borderRadius: BorderRadius.circular(15)),
        contentPadding: EdgeInsets.symmetric(
         vertical: 20
       ),
       enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: BorderSide(color:AppColors.appBarBackGroundColor)
+      borderSide: BorderSide(color:AppColors.whitedColor)
       )
     );
    void requiredCode(){
@@ -152,8 +152,8 @@ class _ForgotCodeState extends State<ForgotCode> {
               enterOtp(),
               space20,
               submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,  
+                textColor: AppColors.white,
                 buttonText: "next".tr,
                 fontSize: 18.toDouble(),
                 callback: requiredCode

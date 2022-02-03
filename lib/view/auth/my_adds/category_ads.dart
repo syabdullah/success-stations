@@ -148,7 +148,7 @@ class _CatAddsState extends State<CatAdds> {
                   onPressed: () {
                     setState(() {
                       listtype = 'list';
-                      listIconColor = AppColors.appBarBackGroundColor;
+                      listIconColor = AppColors.whitedColor;
                       grid = AppImages.gridOf;
                     });
                   },

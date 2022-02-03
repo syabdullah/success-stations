@@ -643,7 +643,7 @@ Widget favAdds(
             AppImages.appBarLogo,
             height: 40,
           ),
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
         )
       : AppBar(
           automaticallyImplyLeading: false,
@@ -699,7 +699,7 @@ Widget favAdds(
               ),
             ),
           ],
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
         );
 }
 
@@ -760,7 +760,7 @@ Widget myAdds(
         ),
       ],
     ),
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -782,7 +782,7 @@ Widget sAppbar(
       padding: EdgeInsets.only(top: 10.0),
       child: Image.asset(image, height: 40),
     ),
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -807,7 +807,7 @@ Widget locationFiltered(
           },
           child: Image.asset(image, height: 10))
     ],
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -834,7 +834,7 @@ Widget newAppbar(context, icon, image) {
       padding: const EdgeInsets.only(top: 10.0),
       child: Image.asset(image, height: 40),
     ),
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -866,7 +866,7 @@ Widget stringAppbar(
             )
           : Container()
     ],
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -877,7 +877,7 @@ Widget stringbar(context, string) {
         icon: Icon(Icons.arrow_back, color: AppColors.backArrow),
         onPressed: () => Get.back()),
     title: Text(string),
-    backgroundColor: AppColors.appBarBackGroundColor,
+    backgroundColor: AppColors.whitedColor,
   );
 }
 
@@ -941,7 +941,7 @@ filtrationModel(context) async {
                             children: [
                               Container(
                                 child: Icon(Icons.location_on,
-                                    color: AppColors.appBarBackGroundColor),
+                                    color: AppColors.whitedColor),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -955,7 +955,7 @@ filtrationModel(context) async {
                                   child: Text("Nearby".tr,
                                       style: TextStyle(
                                           color:
-                                              AppColors.appBarBackGroundColor)),
+                                              AppColors.whitedColor)),
                                 ),
                               )
                             ],
@@ -1125,7 +1125,7 @@ filtrationModel(context) async {
                         ),
                         Container(
                           child: RangeSlider(
-                            activeColor: AppColors.appBarBackGroundColor,
+                            activeColor: AppColors.whitedColor,
                             values: _currentRangeValues,
                             min: 1.00,
                             max: 10000.00,
@@ -1176,7 +1176,7 @@ filtrationModel(context) async {
                             Container(
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                              color: AppColors.appBarBackGroundColor,
+                              color: AppColors.whitedColor,
                               child: Container(
                                   width: Get.width / 4,
                                   child: Center(
@@ -1319,7 +1319,7 @@ filteringCategory(context) {
                                                                     5)),
                                                         border: Border.all(
                                                           color: AppColors
-                                                              .appBarBackGroundColor,
+                                                              .whitedColor,
                                                         ),
                                                         color: bottomSheetCategory ==
                                                                 index
@@ -1356,9 +1356,9 @@ filteringCategory(context) {
                                                           color: bottomSheetCategory ==
                                                                   index
                                                               ? AppColors
-                                                                  .appBarBackGroundColor
+                                                                  .whitedColor
                                                               : AppColors
-                                                                  .appBarBackGroundColor,
+                                                                  .whitedColor,
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w400,
@@ -1411,7 +1411,7 @@ filteringCategory(context) {
                                         //Colors.blue[100],
                                         border: Border.all(
                                           color:
-                                              AppColors.appBarBackGroundColor,
+                                              AppColors.whitedColor,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.all(
@@ -1425,9 +1425,9 @@ filteringCategory(context) {
                                               fontSize: 15,
                                               color: slctedInd == index
                                                   ? AppColors
-                                                      .appBarBackGroundColor
+                                                      .whitedColor
                                                   : AppColors
-                                                      .appBarBackGroundColor,
+                                                      .whitedColor,
                                             )),
                                       ),
                                     ),
@@ -1470,7 +1470,7 @@ filteringCategory(context) {
                               width: Get.width / 3,
                               //height: Get.height / 18,
                               decoration: BoxDecoration(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: GestureDetector(
@@ -1606,7 +1606,7 @@ adsfiltringheet(context) {
                                                                         5.0),
                                                             border: Border.all(
                                                                 color: AppColors
-                                                                    .appBarBackGroundColor),
+                                                                    .whitedColor),
                                                             color: filteredIndex ==
                                                                     index
                                                                 ? AppColors
@@ -1641,9 +1641,9 @@ adsfiltringheet(context) {
                                                               color: filteredIndex ==
                                                                       index
                                                                   ? AppColors
-                                                                      .appBarBackGroundColor
+                                                                      .whitedColor
                                                                   : AppColors
-                                                                      .appBarBackGroundColor,
+                                                                      .whitedColor,
                                                               fontSize: 12,
                                                               fontWeight:
                                                                   FontWeight
@@ -1697,7 +1697,7 @@ adsfiltringheet(context) {
                                             : Colors.grey,
                                         border: Border.all(
                                           color:
-                                              AppColors.appBarBackGroundColor,
+                                              AppColors.whitedColor,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.all(
@@ -1711,9 +1711,9 @@ adsfiltringheet(context) {
                                                 fontSize: 15,
                                                 color: _selectedIndex == index
                                                     ? AppColors
-                                                        .appBarBackGroundColor
+                                                        .whitedColor
                                                     : AppColors
-                                                        .appBarBackGroundColor)),
+                                                        .whitedColor)),
                                       ),
                                     ),
                                   ),
@@ -1808,7 +1808,7 @@ adsfiltringheet(context) {
                               width: Get.width / 3,
                               //height: Get.height / 18,
                               decoration: BoxDecoration(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
                               child: GestureDetector(

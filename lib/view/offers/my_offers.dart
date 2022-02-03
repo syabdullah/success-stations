@@ -231,7 +231,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             //         fontSize:10
                             //     ),
                             //     trimLines: 2,
-                            //     colorClickableText:AppColors.appBarBackGroundColor,
+                            //     colorClickableText:AppColors.whitedColor,
                             //     trimMode: TrimMode.Line,
                             //     trimCollapsedText: 'Show more',
                             //     trimExpandedText: 'Show less',
@@ -246,7 +246,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             //       fontSize:
                             //     ),
                             //     trimLines: 2,
-                            //     colorClickableText:AppColors.appBarBackGroundColor,
+                            //     colorClickableText:AppColors.whitedColor,
                             //     trimMode: TrimMode.Line,
                             //     trimCollapsedText: 'Show more',
                             //     trimExpandedText: 'Show less',
@@ -280,7 +280,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       //       fontStyle: FontStyle.normal,
                       //       color: listFavou[c]['status'] == 1
                       //       ? AppColors.snackBarColor
-                      //       : AppColors.appBarBackGroundColor,
+                      //       : AppColors.whitedColor,
                       //     )
                       //   )
                       // ),

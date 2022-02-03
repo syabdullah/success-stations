@@ -255,7 +255,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             stepColor: Colors.yellow,
             lineDotRadius: 0.1,
             lineColor: Colors.grey,
-            activeStepColor: AppColors.appBarBackGroundColor,
+            activeStepColor: AppColors.whitedColor,
             activeStepBorderColor: Colors.grey[700],
             lineLength: 75,
             enableNextPreviousButtons: false,
@@ -338,7 +338,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style:
-            ElevatedButton.styleFrom(primary: AppColors.appBarBackGroundColor),
+            ElevatedButton.styleFrom(primary: AppColors.whitedColor),
         onPressed: () {
           // Increment activeStep, when the next button is tapped. However, check for upper bound.
           if (activeStep < upperBound && _formKey.currentState!.validate()) {
@@ -387,7 +387,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   style: AppTextStyles.appTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.appBarBackGroundColor))
+                      color: AppColors.whitedColor))
               : Text("announce_new".tr,
                   textAlign: TextAlign.center,
                   style: AppTextStyles.appTextStyle(
@@ -400,7 +400,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   style: AppTextStyles.appTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.appBarBackGroundColor))
+                      color: AppColors.whitedColor))
               : Text("contact_information".tr,
                   textAlign: TextAlign.center,
                   style: AppTextStyles.appTextStyle(
@@ -413,7 +413,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   style: AppTextStyles.appTextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.appBarBackGroundColor))
+                      color: AppColors.whitedColor))
               : Text("review_publish".tr,
                   textAlign: TextAlign.center,
                   style: AppTextStyles.appTextStyle(
@@ -1321,7 +1321,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       margin: EdgeInsets.symmetric(horizontal: 15.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: AppColors.appBarBackGroundColor,
+            primary: AppColors.whitedColor,
             textStyle: TextStyle(fontSize: 13.w, fontWeight: FontWeight.bold)),
         onPressed: () {
           editData == null ? adpost() : editpost();

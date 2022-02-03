@@ -108,7 +108,7 @@ class _InboxState extends State<Inbox> {
                Container(
                  width: 25,
                  decoration: BoxDecoration(
-                   color: AppColors.appBarBackGroundColor,
+                   color: AppColors.whitedColor,
                    borderRadius: BorderRadius.all(Radius.circular(8))
                  ),
                  child: Center(
@@ -192,7 +192,7 @@ Widget recentChat(data){
               Container(
                 height: Get.height,
                 width: Get.width,
-                color: AppColors.appBarBackGroundColor,
+                color: AppColors.whitedColor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -204,7 +204,7 @@ Widget recentChat(data){
                         child: Icon(Icons.arrow_back)
                       ),
                       elevation: 0,
-                      backgroundColor: AppColors.appBarBackGroundColor,
+                      backgroundColor: AppColors.whitedColor,
                       centerTitle: true,
                       title:Text("inbox".tr,
                         style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),

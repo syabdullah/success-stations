@@ -5,7 +5,7 @@ import 'package:success_stations/styling/colors.dart';
 
 class SnackBarWidget {
   showToast(String msg,String text) {
-   Get.snackbar(msg,  text,snackPosition:SnackPosition.TOP, backgroundColor:AppColors.appBarBackGroundColor,colorText: Colors.white,duration: Duration(seconds: 
+   Get.snackbar(msg,  text,snackPosition:SnackPosition.TOP, backgroundColor:AppColors.whitedColor,colorText: Colors.white,duration: Duration(seconds: 
    5));
   } 
 }

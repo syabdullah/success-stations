@@ -378,7 +378,7 @@ class _SuggestFriendFilterState extends State<SuggestFriends> {
             : EdgeInsets.only(top: 8, bottom: 6, right: 8),
             width: Get.width / 3,
             decoration: BoxDecoration(
-              color: AppColors.appBarBackGroundColor,
+              color: AppColors.whitedColor,
               borderRadius: BorderRadius.all(Radius.circular(5))
             ),
             child: Center(

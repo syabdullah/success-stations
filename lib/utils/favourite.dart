@@ -917,12 +917,12 @@ class _FavouritePageState extends State<FavouritePage> {
                                   ? "${splitedPrice[0]}"
                                   : '',
                               style: TextStyle(
-                                  color: AppColors.appBarBackGroundColor),
+                                  color: AppColors.whitedColor),
                             ),
                             Text(
                               ' SAR',
                               style: TextStyle(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   fontSize: 7),
                             ),
                           ],
