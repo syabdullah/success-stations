@@ -7,6 +7,7 @@ class AppColors {
   // static Color appBarBackGroundColor = Color(0xFF2F4199);
   static Color appBarBackGroundColor = Color(0xFF2f4199);
   static Color appBarBackGroun = Color(0xFFFFFFFF);
+  static Color homeBackGroun = Color(0xFFf7f5f9);
   static Color backArrow = Color(0xFFF0F7FD);
   static Color black = Color(0xFF000000);
   static Color outline = Color(0xFFECEEEF);

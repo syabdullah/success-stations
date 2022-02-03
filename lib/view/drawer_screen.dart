@@ -261,16 +261,54 @@ class _AppDrawerState extends State<AppDrawer> {
                       /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                            Get.toNamed('/friReq');
                           } ,15.0),*/
-                      userType == 2 && accountType == 'Free'
-                          ? Container()
-                          : userType == 3 && accountType == "Paid"
-                              ? Container()
-                              : accountType == "Free"
-                                  ? Container()
-                                  : CustomListTile(
-                                      AppImages.offers, 'myoffer'.tr, () {
-                                      Get.toNamed('/offerPage');
-                                    }, 15.0),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: userType == 2 && accountType == 'Free'
+                            ? Container()
+                            : userType == 3 && accountType == "Paid"
+                                ? Container()
+                                : accountType == "Free"
+                                    ? Container()
+                                    : InkWell(
+                                        onTap: () {
+                                          Get.toNamed('/offerPage');
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          margin: EdgeInsets.only(left: 9),
+                                          child: Row(children: [
+                                            Image.asset(
+                                              AppImages.offers,
+                                              height: 25,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  left: 7, right: 10),
+                                              child: Text('myoffer'.tr,
+                                                  textAlign: TextAlign.start,
+                                                  style: lang == 'ar'
+                                                      ? TextStyle(
+                                                          fontFamily:
+                                                              "Cairo Regular",
+                                                          fontSize: 12.0,
+                                                        )
+                                                      : AppTextStyles
+                                                          .appTextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors
+                                                              .grey.shade800,
+                                                        )),
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
+                      ),
+                      // : CustomListTile(
+                      //     AppImages.offers, 'myoffer'.tr, () {
+                      //     Get.toNamed('/offerPage');
+                      //   }, 15.0),
                       CustomListTile(AppImages.fav, 'favourite'.tr,
                           () => {Get.toNamed('/favourities')}, 15.0),
                       CustomListTile(AppImages.language, 'choose_language'.tr,
