@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
@@ -33,8 +34,8 @@ class _CountryPageState extends State<Ccountry> {
       child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
+            crossAxisSpacing: 2.0,
+            mainAxisSpacing: 8.0,
           ),
           itemCount: countryListData.length,
           itemBuilder: (BuildContext context, int index) {
@@ -53,15 +54,17 @@ class _CountryPageState extends State<Ccountry> {
                 });
               },
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
                     onTap: () {
                       Get.to(TabBarPage(), arguments: countryListData[index]);
                     },
                     child: Container(
-                      margin: EdgeInsets.only(left: 20),
-                      height: Get.height / 10,
-                      width: Get.width / 5,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+                      height: Get.height / 9,
+                      width: Get.width / 4,
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: selectedIndex == index
@@ -78,18 +81,19 @@ class _CountryPageState extends State<Ccountry> {
                       ),
                     ),
                   ),
+                  SizedBox(height: Get.height * 0.017),
                   Container(
                       child: Center(
-                        child: Text(
-                    countryListData[index]['name'][lang] != null
+                    child: Text(
+                      countryListData[index]['name'][lang] != null
                           ? countryListData[index]['name'][lang]
                           : '',
-                    // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
-                    // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
+                      // countryListData[index]['name'][lang] !=null && countryListData[index]['name'][lang] != ' ' ? countryListData[index]['name'][lang] :
+                      // countryListData[index]['name'][lang]  == null || countryListData[index]['name'][lang] == ' ' ?  countryListData[index]['name']['en']:'',
 
-                    style: TextStyle(color: AppColors.inputTextColor),
-                  ),
-                      )),
+                      style: TextStyle(color: AppColors.inputTextColor),
+                    ),
+                  )),
                 ],
               ),
             );
@@ -99,42 +103,49 @@ class _CountryPageState extends State<Ccountry> {
 
   @override
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
+    final space50 = SizedBox(height: Get.height * 0.05);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar:  AppBar(
-
+          appBar: AppBar(
             title: Text(
               "prev".tr,
-              style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontFamily: "andada",
+              ),
             ),
             backgroundColor: AppColors.appBarBackGroundColor,
-            leading:InkWell(
+            leading: InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Image.asset(AppImages.roundedBack,)),
+                child: Image.asset(
+                  AppImages.roundedBack,
+                )),
             actions: [
               Padding(
-                padding: EdgeInsets.only(right: 35,left: 35),
-                child: Center(child: Text("country".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.08),
+                child: Center(
+                    child: Text("country".tr,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: "andada",
+                        ))),
               ),
             ],
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                // space50,
-                space50,
-                space50,
-                space50,
                 // mainLogo(),
                 // SizedBox(height:40),
                 /*Container(
                 height: MediaQuery.of(context).size.height * 0.05,
                 child: chooseLanguage()),*/
-                // SizedBox(height: 30),
+                SizedBox(height: Get.height * 0.13),
                 GetBuilder<ContryController>(
                   init: ContryController(),
                   builder: (data) {
@@ -146,9 +157,12 @@ class _CountryPageState extends State<Ccountry> {
                   },
                 ),
 
-                HorizontalOrLine(label: "oR".tr, height: 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+                  child: HorizontalOrLine(label: "oR".tr, height: 2),
+                ),
                 SizedBox(
-                  height: 20,
+                  height: Get.height * 0.018,
                 ),
 
                 Container(child: existingAccount()),
@@ -160,7 +174,7 @@ class _CountryPageState extends State<Ccountry> {
 
   Widget mainLogo() {
     return Container(
-      margin: EdgeInsets.only(top: 60),
+      margin: EdgeInsets.symmetric(vertical: Get.height * 0.06),
       child: Center(
         child: Image.asset(AppImages.appLogo, height: Get.height / 4.40),
       ),
