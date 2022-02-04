@@ -327,7 +327,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               color: Colors.grey.shade800),
                         ),
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: Get.height * 0.01),
                       CustomListTile(
                           AppImages.aboutus,
                           userType == 4
@@ -345,9 +345,9 @@ class _AppDrawerState extends State<AppDrawer> {
                               () => {Get.toNamed('/userAgrement')}, 12.0),
                       CustomListTile(AppImages.contactus, 'contactus'.tr,
                               () => {Get.toNamed('/contact')}, 15.0),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: Get.height * 0.01),
                       Divider(),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: Get.height * 0.01),
                       CustomListTile(AppImages.logout, 'logout'.tr, () {
                         box.remove('user_image_local');
                         box.write('upgrade', true);
