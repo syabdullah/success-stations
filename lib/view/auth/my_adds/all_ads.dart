@@ -32,7 +32,8 @@ class AllAdds extends StatefulWidget {
 
 class _AllAddsState extends State<AllAdds> {
   final ratingcont = Get.put(RatingController());
-  static final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>();
   final controller = Get.put(AddBasedController());
   final addsGet = Get.put(MyAddsController());
   final catCont = Get.put(CategoryController());
@@ -89,13 +90,11 @@ class _AllAddsState extends State<AllAdds> {
     v = '';
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer:AppDrawer() ,
+      drawer: AppDrawer(),
       appBar: data != null
           ? PreferredSize(
               preferredSize: Size.fromHeight(60.0),
@@ -108,7 +107,7 @@ class _AllAddsState extends State<AllAdds> {
           builder: (valuees) {
             return ListView(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: Get.height * 0.01),
                 GetBuilder<CategoryController>(
                   init: CategoryController(),
                   builder: (data) {
@@ -118,7 +117,7 @@ class _AllAddsState extends State<AllAdds> {
                         : smallShimmer();
                   },
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: Get.height * 0.02),
                 havingCategorybool == false
                     ? GetBuilder<AddBasedController>(
                         init: AddBasedController(),
@@ -130,7 +129,6 @@ class _AllAddsState extends State<AllAdds> {
                                   : myAddGridView(val.allAdsData['data'])
                               : controller.resultInvalid.isTrue
                                   ? Container(
-
                                       margin:
                                           EdgeInsets.only(top: Get.height / 3),
                                       child: Center(
@@ -154,8 +152,8 @@ class _AllAddsState extends State<AllAdds> {
                                   val.cData['data'] != null &&
                                   val.cData['success'] == true
                               ? valuees.dataType != 'grid'
-                                  ?myAddGridView(val.cData['data'])
-                          // myAddsList(val.cData['data'])
+                                  ? myAddGridView(val.cData['data'])
+                                  // myAddsList(val.cData['data'])
                                   : myAddGridView(val.cData['data'])
                               : controller.resultInvalid.isTrue
                                   ? Container(
@@ -190,286 +188,307 @@ class _AllAddsState extends State<AllAdds> {
       itemCount: allDataAdds.length,
       itemBuilder: (BuildContext context, index) {
         return GestureDetector(
-          onTap: () {
-            Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
-          },
-          child: allDataAdds[index]['is_active'] == 0
-              ? Container()
-              : Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Container(
-                    decoration: BoxDecoration(),
+            onTap: () {
+              Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
+            },
+            child: allDataAdds[index]['is_active'] == 0
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Container(
-                      color: Colors.white,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(),
                       child: Container(
-                        decoration: BoxDecoration(border: Border.all(color: Colors.black26)),
-                        height: 125,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                        color: Colors.white,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black26)),
+                          height: 125,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Center(
-                                  child: Container(
-                                    width: Get.width/4,
-                                      height: Get.height / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: GestureDetector(
-                                            child: allDataAdds[index]['image']
-                                                        .length !=
-                                                    0
-                                                ? ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                0)),
-                                                    child: Image.network(
-                                                      allDataAdds[index]
-                                                          ['image'][0]['url'],
-                                                      width: Get.width / 4,
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  )
-                                                : Container(
-                                                    width: Get.width / 4,
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      size: 50,
-                                                    ),
-                                                  )),
-                                      )),
-                                ),
-                                // Padding(
-                                //   padding: EdgeInsets.only(top: 10),
-                                //   child: Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Container(
-                                //         child: Text(
-                                //           allDataAdds[index]['title']['en']
-                                //               .toString(),
-                                //           style: TextStyle(
-                                //               color: Colors.black,
-                                //               fontWeight: FontWeight.bold),
-                                //         ),
-                                //       ),
-                                //       Row(
-                                //         children: [
-                                //           Container(
-                                //               margin: EdgeInsets.only(top: 5),
-                                //               child: allDataAdds[index]
-                                //                           ['is_rated'] ==
-                                //                       false
-                                //                   ? RatingBar.builder(
-                                //                       initialRating:
-                                //                           allDataAdds[index]
-                                //                                   ['rating']
-                                //                               .toDouble(),
-                                //                       minRating: 1,
-                                //                       direction:
-                                //                           Axis.horizontal,
-                                //                       allowHalfRating: true,
-                                //                       itemCount: 5,
-                                //                       itemSize: 22.5,
-                                //                       itemBuilder:
-                                //                           (context, _) => Icon(
-                                //                         Icons.star,
-                                //                         color: Colors.amber,
-                                //                       ),
-                                //                       onRatingUpdate: (rating) {
-                                //                         var ratingjson = {
-                                //                           'ads_id':
-                                //                               allDataAdds[index]
-                                //                                   ['id'],
-                                //                           'rate': rating
-                                //                         };
-                                //                         ratingcont.ratings(
-                                //                             ratingjson);
-                                //                       },
-                                //                     )
-                                //                   : RatingBar.builder(
-                                //                       initialRating:
-                                //                           allDataAdds[index]
-                                //                                   ['rating']
-                                //                               .toDouble(),
-                                //                       ignoreGestures: true,
-                                //                       minRating: 1,
-                                //                       direction:
-                                //                           Axis.horizontal,
-                                //                       allowHalfRating: true,
-                                //                       itemCount: 5,
-                                //                       itemSize: 22.5,
-                                //                       itemBuilder:
-                                //                           (context, _) => Icon(
-                                //                         Icons.star,
-                                //                         color: Colors.amber,
-                                //                       ),
-                                //                       onRatingUpdate:
-                                //                           (rating) {},
-                                //                     ))
-                                //         ],
-                                //       ),
-                                //       Expanded(
-                                //         flex: 2,
-                                //         child: Row(
-                                //           children: [
-                                //             Icon(Icons.person,
-                                //                 color: Colors.grey),
-                                //             Container(
-                                //               child: Text(
-                                //                 allDataAdds[index]
-                                //                             ['contact_name'] !=
-                                //                         null
-                                //                     ? allDataAdds[index]
-                                //                         ['contact_name']
-                                //                     : '',
-                                //                 style: TextStyle(
-                                //                     color: Colors.grey[300]),
-                                //               ),
-                                //             )
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                      Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Column( mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  allDataAdds[index]['title']['en']
-                                      .toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                                SizedBox(height: 10,),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Row(
                                   children: [
-                                    Row (
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            allDataAdds[index]['price'] != null
-                                                ? "${splitedPrice[0]}"
-                                                : '',
-                                            style: TextStyle(
-                                              color: Colors.black,fontSize: 18,
-
-                                            )),
-
-                                        Text(
-                                          ' SAR',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14),
-                                        ),
-
-                                      ],
+                                    Center(
+                                      child: Container(
+                                          width: Get.width / 4,
+                                          height: Get.height / 4,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: GestureDetector(
+                                                child: allDataAdds[index]
+                                                                ['image']
+                                                            .length !=
+                                                        0
+                                                    ? ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    0)),
+                                                        child: Image.network(
+                                                          allDataAdds[index]
+                                                                  ['image'][0]
+                                                              ['url'],
+                                                          width: Get.width / 4,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        width: Get.width / 4,
+                                                        child: Icon(
+                                                          Icons.image,
+                                                          size: 50,
+                                                        ),
+                                                      )),
+                                          )),
                                     ),
-                                    SizedBox(height: 10,),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          ' Store name',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 14,),
-                                        ),
-                                        SizedBox(width: 120,),
-                                        Text(
-                                          ' NEW',
-                                          style: TextStyle(
-                                              color: Colors.greenAccent,
-                                              fontSize: 15,fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(top: 10),
+                                    //   child: Column(
+                                    //     crossAxisAlignment:
+                                    //         CrossAxisAlignment.start,
+                                    //     children: [
+                                    //       Container(
+                                    //         child: Text(
+                                    //           allDataAdds[index]['title']['en']
+                                    //               .toString(),
+                                    //           style: TextStyle(
+                                    //               color: Colors.black,
+                                    //               fontWeight: FontWeight.bold),
+                                    //         ),
+                                    //       ),
+                                    //       Row(
+                                    //         children: [
+                                    //           Container(
+                                    //               margin: EdgeInsets.only(top: 5),
+                                    //               child: allDataAdds[index]
+                                    //                           ['is_rated'] ==
+                                    //                       false
+                                    //                   ? RatingBar.builder(
+                                    //                       initialRating:
+                                    //                           allDataAdds[index]
+                                    //                                   ['rating']
+                                    //                               .toDouble(),
+                                    //                       minRating: 1,
+                                    //                       direction:
+                                    //                           Axis.horizontal,
+                                    //                       allowHalfRating: true,
+                                    //                       itemCount: 5,
+                                    //                       itemSize: 22.5,
+                                    //                       itemBuilder:
+                                    //                           (context, _) => Icon(
+                                    //                         Icons.star,
+                                    //                         color: Colors.amber,
+                                    //                       ),
+                                    //                       onRatingUpdate: (rating) {
+                                    //                         var ratingjson = {
+                                    //                           'ads_id':
+                                    //                               allDataAdds[index]
+                                    //                                   ['id'],
+                                    //                           'rate': rating
+                                    //                         };
+                                    //                         ratingcont.ratings(
+                                    //                             ratingjson);
+                                    //                       },
+                                    //                     )
+                                    //                   : RatingBar.builder(
+                                    //                       initialRating:
+                                    //                           allDataAdds[index]
+                                    //                                   ['rating']
+                                    //                               .toDouble(),
+                                    //                       ignoreGestures: true,
+                                    //                       minRating: 1,
+                                    //                       direction:
+                                    //                           Axis.horizontal,
+                                    //                       allowHalfRating: true,
+                                    //                       itemCount: 5,
+                                    //                       itemSize: 22.5,
+                                    //                       itemBuilder:
+                                    //                           (context, _) => Icon(
+                                    //                         Icons.star,
+                                    //                         color: Colors.amber,
+                                    //                       ),
+                                    //                       onRatingUpdate:
+                                    //                           (rating) {},
+                                    //                     ))
+                                    //         ],
+                                    //       ),
+                                    //       Expanded(
+                                    //         flex: 2,
+                                    //         child: Row(
+                                    //           children: [
+                                    //             Icon(Icons.person,
+                                    //                 color: Colors.grey),
+                                    //             Container(
+                                    //               child: Text(
+                                    //                 allDataAdds[index]
+                                    //                             ['contact_name'] !=
+                                    //                         null
+                                    //                     ? allDataAdds[index]
+                                    //                         ['contact_name']
+                                    //                     : '',
+                                    //                 style: TextStyle(
+                                    //                     color: Colors.grey[300]),
+                                    //               ),
+                                    //             )
+                                    //           ],
+                                    //         ),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: Get.height * 0.01),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              allDataAdds[index]['title']['en']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: Get.height * 0.01,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      allDataAdds[index]
+                                                                  ['price'] !=
+                                                              null
+                                                          ? "${splitedPrice[0]}"
+                                                          : '',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                      )),
+                                                  Text(
+                                                    ' SAR',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 14),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: Get.height * 0.01,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    ' Store name',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: Get.height * 12,
+                                                  ),
+                                                  Text(
+                                                    ' New',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Colors.greenAccent,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+
+                                      // SizedBox(height: 20),
+                                      // Column(
+                                      //   children: [
+                                      //     Padding(
+                                      //         padding: EdgeInsets.all(10.0),
+                                      //         child: CircleAvatar(
+                                      //             backgroundColor: Colors.grey[200],
+                                      //             child: Icon(
+                                      //               Icons.person,
+                                      //               color:
+                                      //                   AppColors.whitedColor,
+                                      //             ))),
+                                      //     Container(
+                                      //         margin: EdgeInsets.only(right: 5, left: 5),
+                                      //         child: Row(
+                                      //           children: [
+                                      //             GestureDetector(
+                                      //               onTap: () {
+                                      //                 var json = {
+                                      //                   'ads_id': allDataAdds[index]['id']
+                                      //                 };
+                                      //                 allDataAdds[index]['is_favorite'] ==
+                                      //                         false
+                                      //                     ? friCont.profileAdsToFav(
+                                      //                         json, userId)
+                                      //                     : friCont.profileAdsRemove(
+                                      //                         json, userId);
+                                      //                 controller.addedAllAds();
+                                      //                 controller.addedByIdAddes(
+                                      //                     allDataAdds[index]
+                                      //                         ['category_id'],
+                                      //                     null);
+                                      //               },
+                                      //               child: Container(
+                                      //                   padding: EdgeInsets.only(
+                                      //                       right: 5, left: 5),
+                                      //                   child: allDataAdds[index]
+                                      //                               ['is_favorite'] ==
+                                      //                           false
+                                      //                       ? Image.asset(
+                                      //                           AppImages.blueHeart,
+                                      //                           height: 25)
+                                      //                       : Image.asset(
+                                      //                           AppImages.redHeart,
+                                      //                           height: 25)),
+                                      //             ),
+                                      //             Container(
+                                      //                 child: allDataAdds[index]
+                                      //                             ['phone'] !=
+                                      //                         null
+                                      //                     ? GestureDetector(
+                                      //                         onTap: () {
+                                      //                           launch(
+                                      //                               "tel:${allDataAdds[index]['phone']}");
+                                      //                         },
+                                      //                         child: Image.asset(
+                                      //                             AppImages.call,
+                                      //                             height: 25))
+                                      //                     : Container())
+                                      //           ],
+                                      //         ))
+                                      //   ],
+                                      // ),
+                                    )
                                   ],
                                 ),
-                              ],
-                            ),
-
-                            // SizedBox(height: 20),
-                            // Column(
-                            //   children: [
-                            //     Padding(
-                            //         padding: EdgeInsets.all(10.0),
-                            //         child: CircleAvatar(
-                            //             backgroundColor: Colors.grey[200],
-                            //             child: Icon(
-                            //               Icons.person,
-                            //               color:
-                            //                   AppColors.whitedColor,
-                            //             ))),
-                            //     Container(
-                            //         margin: EdgeInsets.only(right: 5, left: 5),
-                            //         child: Row(
-                            //           children: [
-                            //             GestureDetector(
-                            //               onTap: () {
-                            //                 var json = {
-                            //                   'ads_id': allDataAdds[index]['id']
-                            //                 };
-                            //                 allDataAdds[index]['is_favorite'] ==
-                            //                         false
-                            //                     ? friCont.profileAdsToFav(
-                            //                         json, userId)
-                            //                     : friCont.profileAdsRemove(
-                            //                         json, userId);
-                            //                 controller.addedAllAds();
-                            //                 controller.addedByIdAddes(
-                            //                     allDataAdds[index]
-                            //                         ['category_id'],
-                            //                     null);
-                            //               },
-                            //               child: Container(
-                            //                   padding: EdgeInsets.only(
-                            //                       right: 5, left: 5),
-                            //                   child: allDataAdds[index]
-                            //                               ['is_favorite'] ==
-                            //                           false
-                            //                       ? Image.asset(
-                            //                           AppImages.blueHeart,
-                            //                           height: 25)
-                            //                       : Image.asset(
-                            //                           AppImages.redHeart,
-                            //                           height: 25)),
-                            //             ),
-                            //             Container(
-                            //                 child: allDataAdds[index]
-                            //                             ['phone'] !=
-                            //                         null
-                            //                     ? GestureDetector(
-                            //                         onTap: () {
-                            //                           launch(
-                            //                               "tel:${allDataAdds[index]['phone']}");
-                            //                         },
-                            //                         child: Image.asset(
-                            //                             AppImages.call,
-                            //                             height: 25))
-                            //                     : Container())
-                            //           ],
-                            //         ))
-                            //   ],
-                            // ),
-                      )],
+                              ]),
                         ),
-      ]),
                       ),
-                  ),
-        ),
-              ));
+                    ),
+                  ));
       },
     );
   }
@@ -491,10 +510,10 @@ class _AllAddsState extends State<AllAdds> {
               crossAxisSpacing: 10,
               childAspectRatio: (lang == 'en'
                   ? Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 0.43
-                      : Get.width /0.5 / Get.height / 0.41
+                      ? Get.width / 0.5 / Get.height / 1.53
+                      : Get.width / 0.5 / Get.height / 1.86
                   : Get.height < 700
-                      ? Get.width / 0.5/ Get.height / 1.86
+                      ? Get.width / 0.5 / Get.height / 1.86
                       : Get.width / 0.5 / Get.height / 1.86),
               children: List.generate(dataListValue.length, (index) {
                 var price = dataListValue[index]['price'].toString();
@@ -507,117 +526,112 @@ class _AllAddsState extends State<AllAdds> {
                   child: Container(
                       height: Get.height,
                       decoration: BoxDecoration(
-
-                              color: Colors.white,
-
+                          color: Colors.white,
                           border: Border.all(color: Color(0xffC6C5C4))),
                       child: Column(children: [
                         Container(
-
-                            width: Get.width < 420
-                                ? Get.width / 1.8
-                                : Get.width / 3.0,
-                            height: Get.height / 3.2,
-                            child: dataListValue[index]['image'].length != 0
-                                ? Stack(
-                                    alignment: AlignmentDirectional.topStart,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(18.0),
-                                        child: Image.network(
-                                            dataListValue[index]['image'][0]
-                                                ['url'],
-                                            width: Get.width,
-                                            height:300,
-                                            fit: BoxFit.fill),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                           horizontal: 3, vertical: 5),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            var json = {
-                                              'ads_id': dataListValue[index]
-                                                  ['id']
-                                            };
-                                            dataListValue[index]
-                                                        ['is_favorite'] ==
-                                                    false
-                                                ? friCont.profileAdsToFav(
-                                                    json, userId)
-                                                : friCont.profileAdsRemove(
-                                                    json, userId);
-                                            controller.addedAllAds();
-                                            controller.addedByIdAddes(
-                                                dataListValue[index]
-                                                    ['category_id'],
-                                                null);
-                                          },
-                                          child: Container(),
-                                              // padding: EdgeInsets.only(
-                                              //     right: 2, left: 5),
-                                              // child: dataListValue[index]
-                                              //             ['is_favorite'] ==
-                                              //         false
-                                              //     ? Image.asset(
-                                              //         AppImages.blueHeart,
-                                              //         height: 30)
-                                              //     : Image.asset(
-                                              //         AppImages.redHeart,
-                                              //         height: 30)),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : Stack(
-                                    alignment: AlignmentDirectional.topStart,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            right: 6, bottom: 10),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            var json = {
-                                              'ads_id': dataListValue[index]
-                                                  ['id']
-                                            };
-                                            dataListValue[index]
-                                                        ['is_favorite'] ==
-                                                    false
-                                                ? friCont.profileAdsToFav(
-                                                    json, userId)
-                                                : friCont.profileAdsRemove(
-                                                    json, userId);
-                                            controller.addedAllAds();
-                                            controller.addedByIdAddes(
-                                                dataListValue[index]
-                                                    ['category_id'],
-                                                null);
-                                          },
-                                          child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                              child: dataListValue[index]
-                                                          ['is_favorite'] ==
-                                                      false
-                                                  ? Image.asset(
-                                                      AppImages.blueHeart,
-                                                      height: 30)
-                                                  : Image.asset(
-                                                      AppImages.redHeart,
-                                                      height: 30)),
-                                        ),
-                                      ),
-                                      Positioned(
+                          width: Get.width < 420
+                              ? Get.width / 1.8
+                              : Get.width / 3.0,
+                          height: Get.height / 3.2,
+                          child: dataListValue[index]['image'].length != 0
+                              ? Stack(
+                                  alignment: AlignmentDirectional.topStart,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(18.0),
+                                      child: Image.network(
+                                          dataListValue[index]['image'][0]
+                                              ['url'],
+                                          width: Get.width,
+                                          height: Get.height * 30,
+                                          fit: BoxFit.fill),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          var json = {
+                                            'ads_id': dataListValue[index]['id']
+                                          };
+                                          dataListValue[index]['is_favorite'] ==
+                                                  false
+                                              ? friCont.profileAdsToFav(
+                                                  json, userId)
+                                              : friCont.profileAdsRemove(
+                                                  json, userId);
+                                          controller.addedAllAds();
+                                          controller.addedByIdAddes(
+                                              dataListValue[index]
+                                                  ['category_id'],
+                                              null);
+                                        },
                                         child: Container(),
+                                        // padding: EdgeInsets.only(
+                                        //     right: 2, left: 5),
+                                        // child: dataListValue[index]
+                                        //             ['is_favorite'] ==
+                                        //         false
+                                        //     ? Image.asset(
+                                        //         AppImages.blueHeart,
+                                        //         height: 30)
+                                        //     : Image.asset(
+                                        //         AppImages.redHeart,
+                                        //         height: 30)),
                                       ),
-                                    ],
-                                  ),),
+                                    ),
+                                  ],
+                                )
+                              : Stack(
+                                  alignment: AlignmentDirectional.topStart,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                          right: Get.height * 0.006,
+                                          bottom: Get.height * 0.01),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          var json = {
+                                            'ads_id': dataListValue[index]['id']
+                                          };
+                                          dataListValue[index]['is_favorite'] ==
+                                                  false
+                                              ? friCont.profileAdsToFav(
+                                                  json, userId)
+                                              : friCont.profileAdsRemove(
+                                                  json, userId);
+                                          controller.addedAllAds();
+                                          controller.addedByIdAddes(
+                                              dataListValue[index]
+                                                  ['category_id'],
+                                              null);
+                                        },
+                                        child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 5),
+                                            child: dataListValue[index]
+                                                        ['is_favorite'] ==
+                                                    false
+                                                ? Image.asset(
+                                                    AppImages.blueHeart,
+                                                    height: Get.height * 0.03)
+                                                : Image.asset(
+                                                    AppImages.redHeart,
+                                                    height: Get.height * 0.03)),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      child: Container(),
+                                    ),
+                                  ],
+                                ),
+                        ),
                         Container(
                           // margin: EdgeInsets.only(left: 10, right: 10),
                           child: Container(
                               child: dataListValue[index]['is_rated'] == false
-                              ?    Divider()
+                                  ? Divider()
                                   // ? RatingBar.builder(
                                   //     initialRating: dataListValue[index]
                                   //             ['rating']
@@ -655,7 +669,7 @@ class _AllAddsState extends State<AllAdds> {
                                   //     ),
                                   //     onRatingUpdate: (rating) {},
                                   //   )
-                              : Divider()),
+                                  : Divider()),
                         ),
                         Container(
                           alignment: lang == 'en'
@@ -678,7 +692,9 @@ class _AllAddsState extends State<AllAdds> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:10,vertical: 5),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.04,
+                                  vertical: Get.height * 0.008),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -687,35 +703,38 @@ class _AllAddsState extends State<AllAdds> {
                                           ? "${splitedPrice[0]}"
                                           : '',
                                       style: TextStyle(
-                                          color: Colors.black,fontSize: 18,
-
+                                        color: Colors.black,
+                                        fontSize: 18,
                                       )),
                                   Text(
                                     ' SAR',
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14),
+                                        color: Colors.black, fontSize: 14),
                                   ),
-
                                 ],
                               ),
                             ),
                             Padding(
-                              padding:  EdgeInsets.symmetric(horizontal:10.0),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * 0.04,
+                              ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Store name',
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,),
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                   Text(
-                                    'NEW',
+                                    'New',
                                     style: TextStyle(
                                         color: Colors.greenAccent,
-                                        fontSize: 15,fontWeight: FontWeight.w600),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -882,8 +901,7 @@ class _AllAddsState extends State<AllAdds> {
                                   : EdgeInsets.only(right: 2),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                    color: Colors.grey),
+                                border: Border.all(color: Colors.grey),
                                 color: allColor,
                               ),
                               // padding: EdgeInsets.all(10.0),
@@ -894,7 +912,8 @@ class _AllAddsState extends State<AllAdds> {
                                     color: textAllcheck == false
                                         ? Colors.white
                                         : AppColors.grey,
-                                    fontSize: 12,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
                                   ),
                                 ),
@@ -905,7 +924,7 @@ class _AllAddsState extends State<AllAdds> {
                       : Container(),
                   Container(
                     margin: lang == 'en'
-                        ? EdgeInsets.only(left: 12.0)
+                        ? EdgeInsets.only(left: 6.0)
                         : EdgeInsets.only(right: 6.0),
                     decoration: BoxDecoration(),
                     child: GestureDetector(
@@ -924,8 +943,7 @@ class _AllAddsState extends State<AllAdds> {
                       child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.0),
-                            border: Border.all(
-                                color: AppColors.grey),
+                            border: Border.all(color: AppColors.grey),
                             color: selectedIndex == index &&
                                     id == havingAdds[index]['id'] &&
                                     textAllcheck == true
@@ -945,8 +963,7 @@ class _AllAddsState extends State<AllAdds> {
                                       textAllcheck == true
                                   ? Colors.white
                                   : AppColors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 13,
                               fontStyle: FontStyle.normal,
                             ),
                           )),
