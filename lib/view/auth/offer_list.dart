@@ -83,7 +83,7 @@ class _OfferListState extends State<OfferList> {
             init: GridListCategory(),
             builder: (valuee) {
               return ListView(children: [
-                SizedBox(height: 4),
+                SizedBox(height: Get.height * 0.01),
                 GetBuilder<OfferCategoryController>(
                   init: OfferCategoryController(),
                   builder: (val) {
@@ -93,6 +93,7 @@ class _OfferListState extends State<OfferList> {
                         : smallShimmer();
                   },
                 ),
+                SizedBox(height: Get.height * 0.02),
                 allOffer == false
                     ? GetBuilder<OfferController>(
                         init: OfferController(),
@@ -231,8 +232,7 @@ class _OfferListState extends State<OfferList> {
                                           color: AppColors.inputTextColor,
                                           fontSize: 13),
                                       trimLines: 2,
-                                      colorClickableText:
-                                          AppColors.whitedColor,
+                                      colorClickableText: AppColors.whitedColor,
                                       trimMode: TrimMode.Line,
                                       trimCollapsedText: 'Show more',
                                       trimExpandedText: 'Show less',
@@ -241,7 +241,8 @@ class _OfferListState extends State<OfferList> {
                                   Center(
                                     child: Container(
                                         width: Get.width / 3,
-                                        margin: EdgeInsets.only(top: 5),
+                                        margin: EdgeInsets.only(
+                                            top: Get.height * 0.005),
                                         child:
                                             listFavou[c]['description'] != null
                                                 ? Text(
@@ -252,7 +253,8 @@ class _OfferListState extends State<OfferList> {
                                                 : Container()),
                                   ),
                                   Container(
-                                      margin: EdgeInsets.only(top: 5),
+                                      margin: EdgeInsets.only(
+                                          top: Get.height * 0.005),
                                       child: listFavou[c]['url'] != null
                                           ? Text(listFavou[c]['url'],
                                               style:
@@ -262,7 +264,9 @@ class _OfferListState extends State<OfferList> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: Get.height * 0.02,
+                      ),
                       Column(
                         children: [
                           Padding(
@@ -358,7 +362,7 @@ class _OfferListState extends State<OfferList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 45,
+          height: Get.height * 0.05,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dataListedCateOffer.length,
@@ -373,7 +377,8 @@ class _OfferListState extends State<OfferList> {
                 children: [
                   allCheck == false
                       ? Container(
-                          width: 70,
+                          width: Get.height * 0.07,
+                          height: Get.height * 0.047,
                           margin: lang == 'en'
                               ? EdgeInsets.only(
                                   left: 2.0,
@@ -389,35 +394,35 @@ class _OfferListState extends State<OfferList> {
                                 coCatOffer.offerList();
                               });
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(0.0),
-                                    border: Border.all(color: AppColors.grey),
-                                    color: allColor,
-                                  ),
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Center(
-                                    child: Text(
-                                      "all".tr,
-                                      style: TextStyle(
-                                        color: textAllcheck == false
-                                            ? Colors.white
-                                            : AppColors.grey,
-                                        fontSize: 12,
-                                        fontStyle: FontStyle.normal,
-                                      ),
+                            child: Container(
+                                margin: lang == 'en'
+                                    ? EdgeInsets.only(left: 6)
+                                    : EdgeInsets.only(right: 2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  border: Border.all(color: AppColors.grey),
+                                  color: allColor,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "all".tr,
+                                    style: TextStyle(
+                                      color: textAllcheck == false
+                                          ? Colors.white
+                                          : AppColors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FontStyle.normal,
                                     ),
-                                  )),
-                            ),
+                                  ),
+                                )),
                           ),
                         )
                       : Container(),
                   Container(
                     margin: lang == 'en'
-                        ? EdgeInsets.only(left: 12.0)
-                        : EdgeInsets.only(right: 12.0),
+                        ? EdgeInsets.only(left: 6.0)
+                        : EdgeInsets.only(right: 6.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -438,7 +443,7 @@ class _OfferListState extends State<OfferList> {
                               ? AppColors.grey
                               : Colors.white,
                         ),
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(Get.height * 0.01),
                         child: Text(
                           dataListedCateOffer[index]['category_name'][lang] !=
                                   null
@@ -462,7 +467,7 @@ class _OfferListState extends State<OfferList> {
                                 selectedIndex == index && textAllcheck == true
                                     ? Colors.white
                                     : AppColors.grey,
-                            fontSize: 12,
+                            fontSize: 13,
                             fontStyle: FontStyle.normal,
                           ),
                         ),

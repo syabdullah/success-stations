@@ -131,7 +131,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                       val.adsD['data']['listing_comments']),
                                   commentInput(),
                                   SizedBox(
-                                    height: 10.h,
+                                    height: Get.height * 0.01,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
@@ -1021,7 +1021,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget commentButton() {
     return Container(
       padding: const EdgeInsets.only(left: 15.0, right: 15),
-      height: 40.h,
+      height: Get.height * 0.04,
       width: Get.width,
       child: ElevatedButton(
         style: ButtonStyle(
@@ -1057,7 +1057,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: 40.h,
+        height: Get.height * 0.04,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -1091,7 +1091,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: 40.h,
+        height: Get.height * 0.04,
         // width: 100.w,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -1161,7 +1161,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
         },
         style: TextStyle(
           color: AppColors.black,
-          fontSize: 15.h,
+          fontSize: 15,
         ),
         // fontWeight: FontWeight.bold),
         decoration: InputDecoration(
