@@ -75,19 +75,26 @@ class _AdsViewState extends State<AdsView> {
             GetBuilder<CategoryController>(
                 init: CategoryController(),
                 builder: (dat) {
-                  return dat.datacateg.length == 0
+                  return Container(
+                      color: AppColors.white,
+                      child: dat.datacateg.length == 0
                       ? PlayStoreShimmer()
                       : advertisingList(
                          lang=="ar"? Get.height / 4.5:Get.height / 4,
                           Get.width / 3.7,
                           Get.width < 420 ? Get.height / 7.5 : Get.height / 7.5,
-                          dat.datacateg);
+                          dat.datacateg));
                 }),
-            featureTextAdded("jeddah"+" | "+"featured_ads".tr, "".tr),
-            GetBuilder<MyAddsController>(
+    Container(
+    color: AppColors.homeBackGroun,
+    child:
+    Column(children:[
+      SizedBox(height: Get.height *0.02,),
+      featureTextAdded("Jeddah"+" | "+"featured_ads".tr, "".tr),
+             GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data) {
-                  return data.addsListCategory != null &&
+                  return  data.addsListCategory != null &&
                           data.addsListCategory['data'] != null
                       ? featuredAdsList(data.addsListCategory['data'])
                       : addescontrollRefresh.isInvalid.isTrue
@@ -100,39 +107,45 @@ class _AdsViewState extends State<AdsView> {
                               ),
                             )
                           : PlayStoreShimmer();
-                }),
-            SizedBox(height: 15,),
-            text("Jeddah"+" | " +'specialofer'.tr, "".tr),
-            GetBuilder<OfferController>(
-                init: OfferController(),
-                builder: (data) {
-                  return data.offerDataList != null &&
-                          data.offerDataList['data'] != null
-                      ? offerList(
-                          Get.height / 4.3,
-                          Get.width / 2.9,
-                          Get.width < 420 ? Get.height / 5.9 : Get.height / 6.1,
-                          data.offerDataList['data'])
-                      : offerlist.resultInvalid.isTrue
-                          ? Container(
-                              height: Get.height / 8,
-                              child: Center(
-                                child: Text(
-                                  data.offerDataList['errors'],
-                                  style: TextStyle(fontSize: 18),
+                }),])),
+            Container(
+              color: AppColors.white,
+              child: Column(
+                children: [
+                  SizedBox(height: Get.height *0.02,),
+              text("Jeddah"+" | " +'specialofer'.tr, "".tr),
+              GetBuilder<OfferController>(
+                  init: OfferController(),
+                  builder: (data) {
+                    return data.offerDataList != null &&
+                            data.offerDataList['data'] != null
+                        ? offerList(
+                            Get.height / 4.3,
+                            Get.width / 2.9,
+                            Get.width < 420 ? Get.height / 5.9 : Get.height / 6.1,
+                            data.offerDataList['data'])
+                        : offerlist.resultInvalid.isTrue
+                            ? Container(
+                                height: Get.height / 8,
+                                child: Center(
+                                  child: Text(
+                                    data.offerDataList['errors'],
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                              ),
-                            )
-                          : PlayStoreShimmer();
-                }),
+                              )
+                            : PlayStoreShimmer();
+                  })
           ],
         ),
+            ),
         userType == 2 || isVisible == false
             ? Container()
             : userType != 2 && accounType == 'Free'
                 ? upgradeBnner()
                 : Container()
       ],
+    ) ],
     );
   }
 
@@ -317,8 +330,8 @@ class _AdsViewState extends State<AdsView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Container(
-        // margin: EdgeInsets.symmetric(horizontal: 7,),
-        height: conHeight,
+        margin: EdgeInsets.symmetric(horizontal: 7,),
+        height: Get.height < 700 ? Get.height * 0.27: Get.height * 0.23,
         child: GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -338,8 +351,8 @@ class _AdsViewState extends State<AdsView> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: Container(
-                        width: 40,
-                        height: 40,
+                        width: Get.width*0.112,
+                        height: Get.width * 0.111,
                         child: data[index]['media'].length != 0
                             ? Image.network(data[index]['media'][0]['url'],
                                 fit: BoxFit.cover)
@@ -351,10 +364,11 @@ class _AdsViewState extends State<AdsView> {
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: Get.width *0.007,
                 ),
                 Container(
                   width: imageW,
+                  height: Get.height < 400 ? Get.height* 0.05 :Get.height* 0.045,
                   child: Center(
                       child: Text(
                           data[index]['category'][lang] != null
@@ -367,7 +381,7 @@ class _AdsViewState extends State<AdsView> {
                           // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontFamily:  "Source_Sans_Pro",
-                              color: Colors.black))),
+                              color: Colors.black,fontSize: 13))),
                 )
               ],
             );
@@ -459,6 +473,7 @@ class _AdsViewState extends State<AdsView> {
               onTap: () {
                 Get.to(AdViewScreen(), arguments: data[index]['id']);
               },
+
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0),
@@ -466,8 +481,9 @@ class _AdsViewState extends State<AdsView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      // borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
+                    Container(
+                      height:
+                      Get.height < 700 ?Get.width * 0.29 : Get.width * 0.48,
                       child: data[index]['image'].length != 0
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -530,7 +546,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         //           )),
 
                         Padding(
-                          padding: const EdgeInsets.only(left: 5,right: 5),
+                          padding:  EdgeInsets.only(left: 5,right: 5),
                           child: Container(
                               margin: lang == 'ar'
                                   ? EdgeInsets.only(top: 5, right: 5)

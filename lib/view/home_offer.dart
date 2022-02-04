@@ -39,7 +39,7 @@ class _HomePageStateFeature extends State<HomeAllFeature> {
           data: Theme.of(context).copyWith(),
           child: AppDrawer(),
         ),
-        backgroundColor: AppColors.homeBackGroun,
+        // backgroundColor: AppColors.homeBackGroun,
         body: Column(children: [
           GetBuilder<OfferCategoryController>(
             init: OfferCategoryController(),
@@ -70,9 +70,10 @@ class _HomePageStateFeature extends State<HomeAllFeature> {
     List<Widget> favrties = [];
     if (listFavou != null || listFavou.length != null) {
       for (int c = 0; c < listFavou.length; c++) {
-        favrties.add(Container(
+        favrties.add(
+            Container(
           width: Get.width / 1.10,
-          height: Get.height / 0.3,
+          height: Get.height / 0.2,
           child: GridView.count(
               crossAxisCount: 2,
               children: List.generate(listFavou.length, (c) {

@@ -76,7 +76,7 @@ List<String> prize = [
               GestureDetector(
                 onTap: () => Get.back(),
                 child: Container(
-                  margin: EdgeInsets.only(left: 10, top: 5),
+                  margin: EdgeInsets.only(left: Get.height * 0.01, top: Get.height * 0.005),
                   child: Icon(Icons.arrow_back, color: Colors.white, size: 25),
                 ),
               ),
@@ -85,207 +85,208 @@ List<String> prize = [
           centerTitle: true,
           title: Text('mmembership'.tr),
           backgroundColor: AppColors.whitedColor),
-      body: Column(
-        children: [
-          space20,
-          headingMember(),
-          space20,
-          GridView.builder(
-            scrollDirection: Axis.vertical,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 18,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+         SizedBox(height: Get.height * 0.01,),
+            headingMember(),
+            SizedBox(height: Get.height * 0.01,),
+            GridView.builder(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.symmetric(horizontal: Get.height *0.01),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: Get.height *0.01,
 
-                childAspectRatio: Get.height / 3 / Get.width / 1.1,),
+                  childAspectRatio: Get.height <700 ?  Get.height / 2.6 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
 
 
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                        height: 280,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(40),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(2),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              Text(titles[index],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey)),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child: Text("Company Profile",
+              itemCount: titles.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                          height: Get.height < 700 ? Get.height *0.4 : Get.height *0.33,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(40),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(Get.height *0.002),
+                            child: Column(
+                              children: [
+                                SizedBox(height: Get.height *0.024),
+                                Text(titles[index],
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.grey)),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Ads Items: ",
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey)),
-                                      Text(ads_items[index],
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.whitedColor)),
-                                    ],
-                                  )),Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Branches: ",
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey)),
-                                      Text(branches[index],
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.whitedColor)),
-                                    ],
-                                  )),Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Promotions: ",
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey)),
-                                      Text(promotions[index],
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.whitedColor)),
-                                    ],
-
-                                  )),
-                              SizedBox(height:22),
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(prize[index],
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.orange)),
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 1),
-                                        child: Text("SAR",
+                                Padding(
+                                  padding:  EdgeInsets.only(top: Get.height *0.03),
+                                  child: Text("Company Profile",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey)),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Ads Items: ",
                                             style: TextStyle(
                                                 fontSize: 13,
-                                                // fontWeight: FontWeight.w400,
-                                                color:Colors.orange)),
-                                      ),
-                                    ],
-                                  )),
-                              SizedBox(height:10),
-                              Container(
-                                height:Get.height/26,
-                                width:Get.width/3.8,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color:AppColors.whitedColor
-                                ),
-                                child:  Center(
-                                  child: Text("Subscribe",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color:Colors.white)),
-                                ),
-                              )
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(ads_items[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
+                                    )),Padding(
+                                    padding:  EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Branches: ",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(branches[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
+                                    )),Padding(
+                                    padding:  EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Promotions: ",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(promotions[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
 
-                            ],
-                          ),
-                        )),
-                  ),
-                ],
-              );
-            },
-          ),
-          // Container(
-          //   height: Get.height / 1.75,
-          //   width: Get.width / 1.5,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(16.0),
-          //     border: Border.all(
-          //       color: Colors.blue,
-          //       style: BorderStyle.solid,
-          //       width: 2.0,
-          //     ),
-          //   ),
-          //   child: Column(
-          //     children: [
-          //       space20,
-          //       imagess(context),
-          //       dataBox(),
-          //     ],
-          //   ),
-          // ),
-          // GetBuilder<MemberShipController>(
-          //   init: MemberShipController(),
-          //   builder: (val) {
-          //     return FractionalTranslation(
-          //       translation: const Offset(0.0, -0.5),
-          //       child: Container(
-          //         height: 50,
-          //         width: 120,
-          //         decoration: BoxDecoration(
-          //           color: AppColors.whitedColor,
-          //           borderRadius: BorderRadius.circular(10),
-          //           // borderRadius: Border.all()
-          //         ),
-          //         child: Center(
-          //             child: val.result != null
-          //                 ? Text(
-          //                     statustogle == false
-          //                         ? "\$ ${val.result['data']['monthly'].toString()}"
-          //                         : "\$ ${val.result['data']['yearly'].toString()}",
-          //                     style: TextStyle(
-          //                         color: Colors.white,
-          //                         fontWeight: FontWeight.bold,
-          //                         fontSize: 18),
-          //                   )
-          //                 : Text('')),
-          //       ),
-          //     );
-          //   },
-          // ),
-          // space50,
-          // submitButton(
-          //     buttonText: 'update_succe'.tr,
-          //     bgcolor: AppColors.whitedColor,
-          //     textColor: AppColors.white,
-          //     callback: navigateToHomeScreen),
-        ],
+                                    )),
+                                SizedBox(height:Get.height *0.02),
+                                Padding(
+                                    padding:  EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(prize[index],
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.orange)),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 1),
+                                          child: Text("SAR",
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  // fontWeight: FontWeight.w400,
+                                                  color:Colors.orange)),
+                                        ),
+                                      ],
+                                    )),
+                                SizedBox(height:Get.height *0.01),
+                                Container(
+                                  height:Get.height/26,
+                                  width:Get.width/3.8,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color:AppColors.whitedColor
+                                  ),
+                                  child:  Center(
+                                    child: Text("Subscribe",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color:Colors.white)),
+                                  ),
+                                )
+
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                );
+              },
+            ),
+            // Container(
+            //   height: Get.height / 1.75,
+            //   width: Get.width / 1.5,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(16.0),
+            //     border: Border.all(
+            //       color: Colors.blue,
+            //       style: BorderStyle.solid,
+            //       width: 2.0,
+            //     ),
+            //   ),
+            //   child: Column(
+            //     children: [
+            //       space20,
+            //       imagess(context),
+            //       dataBox(),
+            //     ],
+            //   ),
+            // ),
+            // GetBuilder<MemberShipController>(
+            //   init: MemberShipController(),
+            //   builder: (val) {
+            //     return FractionalTranslation(
+            //       translation: const Offset(0.0, -0.5),
+            //       child: Container(
+            //         height: 50,
+            //         width: 120,
+            //         decoration: BoxDecoration(
+            //           color: AppColors.whitedColor,
+            //           borderRadius: BorderRadius.circular(10),
+            //           // borderRadius: Border.all()
+            //         ),
+            //         child: Center(
+            //             child: val.result != null
+            //                 ? Text(
+            //                     statustogle == false
+            //                         ? "\$ ${val.result['data']['monthly'].toString()}"
+            //                         : "\$ ${val.result['data']['yearly'].toString()}",
+            //                     style: TextStyle(
+            //                         color: Colors.white,
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 18),
+            //                   )
+            //                 : Text('')),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // space50,
+            // submitButton(
+            //     buttonText: 'update_succe'.tr,
+            //     bgcolor: AppColors.whitedColor,
+            //     textColor: AppColors.white,
+            //     callback: navigateToHomeScreen),
+          ],
+        ),
       ),
     );
   }
@@ -294,7 +295,7 @@ List<String> prize = [
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(left: 15),
+            margin: EdgeInsets.only(left: Get.height *0.015),
             child: Text('head_members'.tr,
                 style: TextStyle(fontSize: 17, color: Colors.grey[600]))),
         Row(
@@ -304,7 +305,7 @@ List<String> prize = [
                 child: Text("monthly".tr,
                     style: TextStyle(color: AppColors.whitedColor))),
             SizedBox(
-              width: 5,
+              width: Get.height *  0.005,
             ),
             Switch.adaptive(
                 activeColor: Colors.blue,
