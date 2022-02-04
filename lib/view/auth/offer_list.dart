@@ -378,7 +378,7 @@ class _OfferListState extends State<OfferList> {
                   allCheck == false
                       ? Container(
                           width: Get.height * 0.07,
-                          height: Get.height * 0.047,
+                          height: Get.height * 0.04,
                           margin: lang == 'en'
                               ? EdgeInsets.only(
                                   left: 2.0,
@@ -401,7 +401,7 @@ class _OfferListState extends State<OfferList> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(0.0),
                                   border: Border.all(color: AppColors.grey),
-                                  color: allColor,
+                                  color: AppColors.google,
                                 ),
                                 child: Center(
                                   child: Text(
@@ -467,7 +467,7 @@ class _OfferListState extends State<OfferList> {
                                 selectedIndex == index && textAllcheck == true
                                     ? Colors.white
                                     : AppColors.grey,
-                            fontSize: 13,
+                            fontSize: 12,
                             fontStyle: FontStyle.normal,
                           ),
                         ),
