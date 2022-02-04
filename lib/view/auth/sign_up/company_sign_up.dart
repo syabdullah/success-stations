@@ -169,6 +169,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
     final space25 = SizedBox(height: getSize(Get.width * 0.025, context));
     final width10 = SizedBox(width: getSize(Get.width * 0.02, context));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -750,7 +751,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
               items: dataRegion.map((reg) {
@@ -795,7 +796,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 child: DropdownButton(
               hint: Text(hintcityText != null ? hintcityText : "city".tr,
                   style:
-                      TextStyle(fontSize: 10, color: AppColors.inputTextColor)),
+                      TextStyle(fontSize: 14, color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inputColor,
               icon: Icon(Icons.arrow_drop_down),
               items: citydata.map((citt) {
@@ -1107,7 +1108,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
       textColor,
       fontFamily,
       fontWeight}) {
-    return AppButton(
+    return AppButton2(
       buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
