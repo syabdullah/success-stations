@@ -258,9 +258,9 @@ class _AppDrawerState extends State<AppDrawer> {
                       }, 15.0),
                       CustomListTile(AppImages.notification, 'notification'.tr,
                           () => {Get.toNamed('/notification')}, 15.0),
-                      /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                           Get.toNamed('/friReq');
-                          } ,15.0),*/
+                      CustomListTile(AppImages.freq, 'friend_requests'.tr, () {
+                        Get.toNamed('/friReq');
+                      }, 15.0),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: userType == 2 && accountType == 'Free'
