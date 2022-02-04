@@ -99,20 +99,20 @@ class _FavouritePageState extends State<FavouritePage> {
           //     )),
           centerTitle: true,
           leading: Container(
-              margin: EdgeInsets.only(left: 7),
+              margin: EdgeInsets.only(left: Get.width*0.007),
               child: GestureDetector(
                   onTap: () {
-                    _scaffoldKey.currentState!.openDrawer();
+                  Navigator.pop(context);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding:  EdgeInsets.all(Get.width*0.02),
                     child: Image.asset(AppImages.imagearrow1,
-                        color: Colors.black, height: 22),
+                        color: Colors.black, height: Get.height*0.022),
                   ))),
           actions: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(right: 15),
+                padding:  EdgeInsets.symmetric(horizontal: Get.width*0.05),
                 child: Container(
                     // margin: EdgeInsets.only(top: 12),
                     child: Text(
@@ -162,30 +162,28 @@ class _FavouritePageState extends State<FavouritePage> {
               child: SizedBox(
                 height: Get.height / 28,
                 child: TabBar(
-                  indicatorColor: Colors.black,
+                 /* indicatorColor:AppColors.border,
                   indicatorSize: TabBarIndicatorSize.label,
-                  isScrollable: true,
+labelColor:AppColors.border,
+                  unselectedLabelColor:AppColors.border ,
+                  unselectedLabelStyle:TextStyle(
+fontWeight: FontWeight.normal
+
+                  ) ,
+                  isScrollable: true,*/
+                  labelColor:AppColors.border,
+                  unselectedLabelColor: Colors.grey,
+                  indicatorColor: AppColors.border,
+                  indicator: UnderlineTabIndicator(
+                      borderSide: BorderSide(width: 1.0),
+                      insets: EdgeInsets.symmetric(horizontal:15.0)
+                  ),
+                  labelPadding: EdgeInsets.all(0),
+                  indicatorPadding: EdgeInsets.all(0),
                   tabs: [
-                    Tab(
-                        child: Text("item",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                            ))),
-                    Tab(
-                      child: Text("Service Provider",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          )),
-                    ),
-                    Tab(
-                      child: Text("promotions",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          )),
-                    ),
+                    _individualTab("item"),
+                    _individualTab("Service Provider"),
+                    _individualTab("promotions"),
                   ],
                 ),
               ),
@@ -370,7 +368,7 @@ class _FavouritePageState extends State<FavouritePage> {
             imageAds = listFavourite[c]['listing']['image'][array]['url'];
           }
           favrties.add(Padding(
-            padding: const EdgeInsets.only(right: 5, left: 5, top: 10),
+            padding:  EdgeInsets.only(right: Get.height*0.005, left:  Get.height*0.005, top:  Get.height*0.01),
             child: Container(
               height: 120,
               decoration: BoxDecoration(
@@ -384,7 +382,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         child: Container(
                             height: Get.height / 4,
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding:  EdgeInsets.all(Get.height*0.01),
                               child: GestureDetector(
                                   child: listFavourite[c]['listing']['image'] !=
                                               null &&
@@ -404,7 +402,7 @@ class _FavouritePageState extends State<FavouritePage> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding:  EdgeInsets.only(top: Get.height*0.01),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -423,7 +421,7 @@ class _FavouritePageState extends State<FavouritePage> {
                               //   )
                               // ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
                                 child: Container(
                                     child: Text(
                                   "Teaching the brain to read book\n at a special price from",
@@ -436,7 +434,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                 )),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
                                 child: Container(
                                     child: Text(
                                   "55.22 " + "SAR",
@@ -447,7 +445,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                 )),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
                                 child: Container(
                                     child: Text(
                                   "New",
@@ -531,13 +529,13 @@ class _FavouritePageState extends State<FavouritePage> {
                       // ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: Get.height*0.002),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(height: 30),
+                      SizedBox(height:Get.height*0.03),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding:  EdgeInsets.only(bottom: Get.height*0.008,right:Get.height*0.015,left:Get.height*0.015,),
                         child: Row(
                           children: [
                             listFavourite[c]['listing'] != null
@@ -550,7 +548,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                               removeFvr8z();
                                             },
                                             child: Image.asset(AppImages.call,
-                                                height: 22))
+                                                height: Get.height*0.03))
                                         : null,
                                   )
                                 : Container(),
@@ -558,14 +556,14 @@ class _FavouritePageState extends State<FavouritePage> {
                               width: 10,
                             ),
                             Container(
-                              padding: EdgeInsets.only(right: 15),
+
                               child: GestureDetector(
                                   onTap: () {
                                     launch(
                                         "tel:${listFavourite[c]['listing']['phone']}");
                                   },
                                   child: Image.asset(AppImages.redHeart,
-                                      height: 22)),
+                                      height: Get.height*0.030)),
                             ),
                           ],
                         ),
@@ -606,7 +604,7 @@ class _FavouritePageState extends State<FavouritePage> {
 
   Widget promotionsList() {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, left: 1, right: 1),
+      padding:  EdgeInsets.only(top:  Get.height*0.015, left:  Get.height*0.001, right: Get.height*0.001),
       child: SingleChildScrollView(
         child: GridView.builder(
           shrinkWrap: true,
@@ -644,7 +642,7 @@ class _FavouritePageState extends State<FavouritePage> {
                     alignment: Alignment.topRight,
                     child: Image.asset(
                       AppImages.close_promotions,
-                      height: 25,
+                      height:  Get.height*0.03,
                     ))
               ],
             );
@@ -677,7 +675,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 15),
+                      SizedBox(width:Get.height*0.015),
                       Container(
                         child:
                             listFavourite[c]['listing']['is_favorite'] == true
@@ -685,7 +683,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                     onTap: () {},
                                     child: Image.asset(
                                       AppImages.demo_logo,
-                                      height: 50,
+                                      height: Get.height*0.06,
                                     ))
                                 : null,
                       ),
@@ -708,7 +706,7 @@ class _FavouritePageState extends State<FavouritePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding:  EdgeInsets.only(bottom:Get.height*0.009,right:  Get.width*0.017 ,left: Get.width*0.017 ),
                         child: Row(
                           children: [
                             listFavourite[c]['listing'] != null
@@ -721,7 +719,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                               removeFvr8z();
                                             },
                                             child: Image.asset(AppImages.call,
-                                                height: 30))
+                                                height:Get.height*0.03))
                                         : null,
                                   )
                                 : Container(),
@@ -729,14 +727,14 @@ class _FavouritePageState extends State<FavouritePage> {
                               width: 10,
                             ),
                             Container(
-                              padding: EdgeInsets.only(right: 15),
+                              // padding: EdgeInsets.only(right:),
                               child: GestureDetector(
                                   onTap: () {
                                     launch(
                                         "tel:${listFavourite[c]['listing']['phone']}");
                                   },
                                   child: Image.asset(AppImages.redHeart,
-                                      height: 30)),
+                                      height:  Get.width*0.06)),
                             ),
                           ],
                         ),
@@ -934,6 +932,24 @@ class _FavouritePageState extends State<FavouritePage> {
           );
     return faviii;
   }
+
+  Widget _individualTab(String title) {
+    return Container(
+      height: 50 + MediaQuery
+          .of(context)
+          .padding
+          .bottom,
+      padding: EdgeInsets.all(0),
+      width: double.infinity,
+      decoration:  BoxDecoration(border: Border(right: BorderSide(color: AppColors.border, width: 1, style: BorderStyle.solid))),
+      child:Tab(
+          child: Text(title,
+              style: TextStyle(
+
+                // color: Colors.black,
+                fontSize: 15,
+              ))),
+    );}
 
   Widget submitButton(
       {buttonText,
