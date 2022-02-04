@@ -45,7 +45,7 @@ class _UserProfileState extends State<UserProfile>
                     ],
                   )
                 : Padding(
-                    padding:  EdgeInsets.only(top: Get.width * 0.04),
+                    padding: EdgeInsets.only(top: Get.width * 0.04),
                     child: friendProfileShimmer(),
                   );
           }),
@@ -62,7 +62,6 @@ class _UserProfileState extends State<UserProfile>
             child: Image.asset(AppImages.profileBg, fit: BoxFit.fill),
           ),
         ),
-
         Container(
           margin: EdgeInsets.only(top: Get.width * 0.08),
           child:
@@ -74,7 +73,7 @@ class _UserProfileState extends State<UserProfile>
                 },
                 child: Image.asset(
                   AppImages.profileBack,
-                  height: Get.width *  0.16,
+                  height: Get.width * 0.16,
                 )),
             SizedBox(width: Get.width * 0.6),
             InkWell(
@@ -84,7 +83,7 @@ class _UserProfileState extends State<UserProfile>
                 },
                 child: Image.asset(
                   AppImages.profileEdit,
-                  height: Get.width *  0.16,
+                  height: Get.width * 0.16,
                 )),
           ]),
         ),
@@ -94,7 +93,6 @@ class _UserProfileState extends State<UserProfile>
             Stack(
               overflow: Overflow.visible,
               children: [
-
                 Center(
                   child: Container(
                       decoration: BoxDecoration(
@@ -102,7 +100,9 @@ class _UserProfileState extends State<UserProfile>
                         shape: BoxShape.circle,
                       ),
                       margin: EdgeInsets.only(
-                          left: Get.width *  0.010, right: Get.width *  0.010, top: Get.height / 8.5),
+                          left: Get.width * 0.010,
+                          right: Get.width * 0.010,
+                          top: Get.height < 700 ? 90 : 100),
                       child: CircleAvatar(
                           backgroundColor: Colors.grey[100],
                           // backgroundColor: Colors.black,
@@ -111,8 +111,7 @@ class _UserProfileState extends State<UserProfile>
                             borderRadius: BorderRadius.circular(60.0),
                             child: userData['image'] == null
                                 ? Image.asset(AppImages.person)
-                                :
-                            Image.network(
+                                : Image.network(
                                     userData['image']['url'],
                                     fit: BoxFit.fill,
                                     height: Get.height / 5,
@@ -120,8 +119,8 @@ class _UserProfileState extends State<UserProfile>
                           ))),
                 ),
                 Positioned(
-                  top: Get.height  < 700 ? Get.width *   0.38: Get.width *  0.41,
-                  left: Get.width *  0.43,
+                  top: Get.height < 700 ? 150 : 160,
+                  left: Get.width * 0.43,
                   child: InkWell(
                       onTap: () {
                         // Get.back();
@@ -129,7 +128,7 @@ class _UserProfileState extends State<UserProfile>
                       },
                       child: Image.asset(
                         AppImages.profileEdit,
-                        height: Get.width *  0.13,
+                        height: Get.width * 0.13,
                       )),
                 ),
               ],
@@ -196,7 +195,6 @@ class _UserProfileState extends State<UserProfile>
                             )
                           ],
                         ),
-
                       ],
                     ),
                   ),
@@ -213,8 +211,9 @@ class _UserProfileState extends State<UserProfile>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding:
-                                     EdgeInsets.only(top: Get.width  * 0.01, bottom: Get.width * 0.01),
+                                padding: EdgeInsets.only(
+                                    top: Get.width * 0.01,
+                                    bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Text("Name" + ":  ",
@@ -234,7 +233,8 @@ class _UserProfileState extends State<UserProfile>
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Container(
@@ -279,8 +279,8 @@ class _UserProfileState extends State<UserProfile>
                                                                         )
                                                                       : EdgeInsets
                                                                           .only(
-                                                                          left:
-                                                                              Get.width * 0.05,
+                                                                          left: Get.width *
+                                                                              0.05,
                                                                         ),
                                                                   child: Text(
                                                                     userData[
@@ -311,7 +311,8 @@ class _UserProfileState extends State<UserProfile>
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     userData["mobile"] != null
@@ -332,7 +333,8 @@ class _UserProfileState extends State<UserProfile>
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Container(
@@ -361,7 +363,8 @@ class _UserProfileState extends State<UserProfile>
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get. width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Container(
@@ -394,7 +397,8 @@ class _UserProfileState extends State<UserProfile>
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     userData["city"] != null
@@ -555,7 +559,7 @@ class _UserProfileState extends State<UserProfile>
               child: Column(
                 children: [
                   Padding(
-                    padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                    padding: EdgeInsets.only(bottom: Get.width * 0.01),
                     child: Row(
                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -580,7 +584,8 @@ class _UserProfileState extends State<UserProfile>
                                   userData != null &&
                                           userData['university'] != null
                                       ? Container(
-                                          margin: EdgeInsets.only(top: Get.width * 0.01),
+                                          margin: EdgeInsets.only(
+                                              top: Get.width * 0.01),
                                           child: Text(
                                               userData['university']['name']
                                                           [lang] !=
@@ -601,7 +606,8 @@ class _UserProfileState extends State<UserProfile>
                               ),
 
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Container(
@@ -640,7 +646,8 @@ class _UserProfileState extends State<UserProfile>
                               ),
 
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                                padding:
+                                    EdgeInsets.only(bottom: Get.width * 0.01),
                                 child: Row(
                                   children: [
                                     Container(
@@ -708,7 +715,7 @@ class _UserProfileState extends State<UserProfile>
                   color: Color(0xFFf2f2f2),
                   border: Border.all(color: Colors.grey)),
               child: Padding(
-                padding:EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -740,7 +747,7 @@ class _UserProfileState extends State<UserProfile>
                       ? Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
                           child: Padding(
-                            padding:  EdgeInsets.all(Get.width * 0.01),
+                            padding: EdgeInsets.all(Get.width * 0.01),
                             child: Text("     " + userData["about"],
                                 style: TextStyle(color: Colors.black)),
                           ))
