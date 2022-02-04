@@ -883,7 +883,8 @@ class _AllAddsState extends State<AllAdds> {
                 children: [
                   allCheck == false
                       ? Container(
-                          width: 70,
+                          width: Get.height * 0.07,
+                          height: Get.height * 0.041,
                           // margin: lang == 'en'
                           // ? EdgeInsets.only(left: 12.0)
                           // : EdgeInsets.only(right: 12.0),
@@ -902,7 +903,7 @@ class _AllAddsState extends State<AllAdds> {
                                   ? EdgeInsets.only(left: 6)
                                   : EdgeInsets.only(right: 2),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(0.0),
                                 border: Border.all(color: Colors.grey),
                                 color: allColor,
                               ),
@@ -952,7 +953,7 @@ class _AllAddsState extends State<AllAdds> {
                                 ? AppColors.grey
                                 : Colors.white,
                           ),
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(Get.height * 0.01),
                           child: Text(
                             havingAdds[index]['category'][lang] != null
                                 ? havingAdds[index]['category'][lang]
