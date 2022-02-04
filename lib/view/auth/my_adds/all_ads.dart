@@ -510,11 +510,11 @@ class _AllAddsState extends State<AllAdds> {
               crossAxisSpacing: 10,
               childAspectRatio: (lang == 'en'
                   ? Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 1.53
-                      : Get.width / 0.5 / Get.height / 1.86
+                      ? Get.width / 0.5 / Get.height / 1.89
+                      : Get.width / 0.5 / Get.height / 1.89
                   : Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 1.86
-                      : Get.width / 0.5 / Get.height / 1.86),
+                      ? Get.width / 0.5 / Get.height / 1.89
+                      : Get.width / 0.5 / Get.height / 1.89),
               children: List.generate(dataListValue.length, (index) {
                 var price = dataListValue[index]['price'].toString();
                 splitedPrice = price.split('.');
@@ -531,9 +531,11 @@ class _AllAddsState extends State<AllAdds> {
                       child: Column(children: [
                         Container(
                           width: Get.width < 420
-                              ? Get.width / 1.8
+                              ? Get.width / 2.5
                               : Get.width / 3.0,
-                          height: Get.height / 3.2,
+                          height: Get.width < 700
+                              ? Get.height / 3.5
+                              : Get.height / 3.2,
                           child: dataListValue[index]['image'].length != 0
                               ? Stack(
                                   alignment: AlignmentDirectional.topStart,
