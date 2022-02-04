@@ -241,7 +241,8 @@ class _OfferListState extends State<OfferList> {
                                   Center(
                                     child: Container(
                                         width: Get.width / 3,
-                                        margin: EdgeInsets.only(top: 5),
+                                        margin: EdgeInsets.only(
+                                            top: Get.height * 0.005),
                                         child:
                                             listFavou[c]['description'] != null
                                                 ? Text(
@@ -252,7 +253,8 @@ class _OfferListState extends State<OfferList> {
                                                 : Container()),
                                   ),
                                   Container(
-                                      margin: EdgeInsets.only(top: 5),
+                                      margin: EdgeInsets.only(
+                                          top: Get.height * 0.005),
                                       child: listFavou[c]['url'] != null
                                           ? Text(listFavou[c]['url'],
                                               style:
@@ -262,7 +264,9 @@ class _OfferListState extends State<OfferList> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: Get.height * 0.02,
+                      ),
                       Column(
                         children: [
                           Padding(
@@ -439,7 +443,7 @@ class _OfferListState extends State<OfferList> {
                               ? AppColors.grey
                               : Colors.white,
                         ),
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(Get.height * 0.01),
                         child: Text(
                           dataListedCateOffer[index]['category_name'][lang] !=
                                   null
