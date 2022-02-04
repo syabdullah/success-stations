@@ -94,21 +94,81 @@ class _LanguagePageState extends State<Language> {
 
   @override
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
-    return Scaffold(
-      appBar: AppBar(
 
-        title: Text(
-          "prev".tr,
-          style: TextStyle(color: Colors.white, fontSize: 12,fontFamily:"andada",),
-        ),
-        backgroundColor: AppColors.whitedColor,
-        leading:InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-            child: Image.asset(AppImages.roundedBack,)),
-        actions: [
+    return Scaffold(
+      backgroundColor: Colors.white,
+        appBar: AppBar(
+            bottomOpacity: 0.0,
+            elevation: 0.0,
+            backgroundColor: AppColors.appBarBackGroundColor,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leadingWidth: 500,
+            leading: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+              child: Row(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        AppImages.roundedBack,
+                        height: Get.height * 0.05,
+                      )),
+                  SizedBox(
+                    width: Get.width * 0.02,
+                  ),
+                  Text(
+                    "prev".tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontFamily: "andada",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+                child: Center(
+                  child: Text(  "language".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: "andada",
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ]),
+
+
+
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GetBuilder<LanguageController>(
+              init: LanguageController(),
+              builder: (data) {
+                return data.isLoading == true
+                    ? Container(
+                        height: Get.height * 0.25,
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: getTextWidgets(data.languageList));
+              }),
+          // submitButton(
+          //   bgcolor: AppColors.whitedColor,
+          //   textColor: AppColors.white,
+          //   buttonText: "next".tr,
+          //   fontSize: 18.toDouble(),
+          //   callback: navigateToHomeScreen
+          // ),
           Padding(
             padding: EdgeInsets.only(right: 35,left: 35),
             child: Center(child: Text("language".tr, style: TextStyle(color: Colors.white, fontSize: 18,fontFamily:"andada",))),

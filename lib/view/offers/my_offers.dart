@@ -56,15 +56,15 @@ class _MyOffersDetailState extends State<OffersDetail> {
             )),
         centerTitle: true,
         leading: Container(
-            margin: EdgeInsets.only( left: 7),
+            margin: EdgeInsets.only( left: Get.width*0.008),
             child: GestureDetector(
                 onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
                 },
                 child:  Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding:  EdgeInsets.all(Get.height*0.01),
                   child: Image.asset(AppImages.imagearrow1,
-                      color: Colors.black, height: 22),
+                      color: Colors.black, height: Get.height*0.022),
                 ))),
         actions: [
           GestureDetector(
@@ -75,7 +75,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
               child: Container(
                   // margin: EdgeInsets.only( left: 15,),
                   child: Image.asset(AppImages.plusImage,
-                      color: Colors.black, height: 30)),
+                      color: Colors.black, height:Get.height*0.04)),
             ),
           ),
           GestureDetector(
@@ -84,9 +84,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
             },
             child: Center(
               child: Container(
-                  margin: EdgeInsets.only( right:10),
+                  margin: EdgeInsets.only( right:Get.width*0.001),
                   child: Image.asset(AppImages.setting,
-                      color: Colors.black, height: 35)),
+                      color: Colors.black, height: Get.height*0.04)),
             ),
           ),
         ],),
@@ -107,7 +107,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                 )
                   : val.myofferListDrawer != null && val.myofferListDrawer['data'] != null
                 ? Padding(
-                  padding: const EdgeInsets.only(top: 12),
+                  padding:  EdgeInsets.only(top: Get.height*0.0012),
                   child: Column(
                     children: allOffersWidget(val.myofferListDrawer['data'])
                   ),
@@ -136,9 +136,9 @@ class _MyOffersDetailState extends State<OffersDetail> {
       for (int c = 0; c < listFavou.length; c++) {
         favrties.add(
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 13, 8, 0),
+            padding:  EdgeInsets.fromLTRB(Get.width*0.008,Get.height*0.013,Get.width*0.008, 0),
             child: Container(
-              height: 80,
+              height: Get.height*0.09,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -153,7 +153,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       Container(
                         height: Get.height / 4,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 2,bottom: 2,left: 8,right: 8),
+                          padding: EdgeInsets.only(top: Get.height*0.002,bottom:Get.height*0.002,left: Get.width*0.008,right:Get.width*0.008),
                           child: GestureDetector(
                             onTap: () {
                               Get.to(MyOfferDetailMain(),
@@ -172,15 +172,15 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             ):Container(
                               width: Get.width / 4,
                               child: Icon(
-                                Icons.image,size: 50,
+                                Icons.image,size:Get.height*0.05,
                               ),
                             )
                           ),
                         )
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(width:Get.width*0.005,),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding:  EdgeInsets.only(top:Get.height*0.01),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -264,7 +264,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: Get.height*0.02),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -285,7 +285,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       //   )
                       // ),
                       Padding(
-                        padding:EdgeInsets.symmetric(horizontal: 10,vertical:5),
+                        padding:EdgeInsets.symmetric(horizontal:Get.width*0.01,vertical:Get.height*0.005),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -295,10 +295,10 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 onTap: () {
                                   delete.deleteOfferController(listFavou[c]['id']);
                                 },
-                                child: Image.asset(AppImages.delete_offer,height: 25)
+                                child: Image.asset(AppImages.delete_offer,height: Get.height*0.035)
                               )
                             ),
-                            SizedBox(width: 5,),
+                            SizedBox(width: Get.width*0.01,),
                             GestureDetector(
                               onTap: () {
                                 Get.to(AddOffersPage(), arguments: listFavou[c]);
@@ -306,7 +306,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               child: Container(
                                 // margin: EdgeInsets.symmetric(horizontal: 10),
                                 // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
-                                child: Image.asset(AppImages.edit_Offer, height: 20)
+                                child: Image.asset(AppImages.edit_Offer, height:  Get.height*0.028)
                               ),
                             ),
                           ],
