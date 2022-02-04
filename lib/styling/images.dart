@@ -19,6 +19,7 @@ class AppImages {
   static String appLogo = imagePath + 'ss logo@3x.png';
   static String fb = imagePath + 'facebook.png';
   static String google = imagePath + 'google.png';
+  static String man = imagePath + 'man.png';
 
   //Drawer Images
   static String handshake = imagePath + 'handshake.png';
