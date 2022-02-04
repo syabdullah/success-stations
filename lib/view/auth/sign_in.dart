@@ -150,8 +150,8 @@ class _SignPageState extends State<SignIn> {
                                           fontSize: 15)),
                                   Text(
 
+                                    " "+"help_login".tr ,
 
-                                    " " + "help_login".tr,
 
                                     style: TextStyle(
                                         color: Colors.blue,
@@ -308,9 +308,7 @@ class _SignPageState extends State<SignIn> {
         // height:  Get.height *0.065,
         child: TextFormField(
 
-
           controller:email ,
-
           // obscureText: passwordVisible,
           decoration: InputDecoration(
             contentPadding:
@@ -415,7 +413,7 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      height: Get.height*0.08,
+      height: Get.height*0.07,
       margin: EdgeInsets.only( bottom:  Get.height*0.005,),
       alignment: Alignment.bottomCenter,
       child: Column(

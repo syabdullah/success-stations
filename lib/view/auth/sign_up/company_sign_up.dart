@@ -164,26 +164,23 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final space20 = SizedBox(height: getSize(Get.width * 0.02, context));
-    final space10 = SizedBox(height: getSize(Get.width * 0.01, context));
-    final space25 = SizedBox(height: getSize(Get.width * 0.025, context));
-    final width10 = SizedBox(width: getSize(Get.width * 0.02, context));
+    final space20 = SizedBox(height: getSize(20, context));
+    final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.023),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                space20,
-                space20,
+                space10,
                 fullName(),
-                space25,
+                space10,
                 eMail(),
-                space25,
+                space10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -191,9 +188,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     confirmPassword(),
                   ],
                 ),
-                space25,
+                space10,
                 mobile(),
-                space25,
+                space10,
 
                 // GetBuilder<ContryController>(
                 //   init: ContryController(),
@@ -202,7 +199,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     Container();
                 //   } ,
                 // ),
-                space25,
+                space10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -220,31 +217,28 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     ),
                   ],
                 ),
-                space25,
+                space10,
                 radioalert(),
-                space25,
+                space10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(left:10,right: 10),
                       child: Text(
                         "services".tr,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black.withOpacity(0.4),
-                        ),
+                        style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4),),
                       ),
                     ),
                   ],
                 ),
-                space25,
+                space10,
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       // borderRadius: BorderRadius.circular(3),
-                      border: Border.all(color: AppColors.outline)),
-                  height: Get.height / 8,
+                      border: Border.all( color: AppColors.outline)),
+                  height: Get.height/8,
                   width: double.infinity,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -261,11 +255,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                               border:
                                   Border.all(width: 0.5, color: Colors.grey),
                               borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                              child: Text(
-                            servicesdemo[index],
-                            style: TextStyle(color: Colors.grey),
-                          )),
+                          child: Center(child: Text(servicesdemo[index],style: TextStyle(color: Colors.grey),)),
                         ),
                       );
                     },
@@ -281,7 +271,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 //     );
                 //   },
                 // ),
-                space25,
+                space10,
                 // v == 2 ? comName() : space10,
                 // v == 2
                 //     ? cR()
@@ -374,28 +364,32 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       flex: 3,
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.outline),
-                            color: Colors.white),
-                        height: Get.height / 7.8,
-                        width: Get.width / 3.5,
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CircleAvatar(child: Icon(Icons.email)),
+                          border:Border.all(color:AppColors.outline),
+                            color: Colors.white
                         ),
+                          height: Get.height/7.8,
+                          width: Get.width/3.5 ,
+                          child: Padding(
+                            padding:EdgeInsets.all(10.0),
+                            child: CircleAvatar(child: Icon(Icons.email)),
+                          ),
+
 
                         // decoration: BoxDecoration(color: ),
                       ),
                     ),
-                    Expanded(flex: 6, child: about()),
+                    Expanded(
+                        flex: 6,
+                        child: about()),
                   ],
                 ),
-                space25,
+                space10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Transform.scale(
                       scale: .9,
-                      child: Checkbox(
+                      child:  Checkbox(
                         activeColor: AppColors.whitedColor,
                         value: _isChecked,
                         onChanged: (value) {
@@ -410,7 +404,8 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             fontSize: 13,
                             color: Colors.black,
                             fontFamily: "andada",
-                            fontWeight: FontWeight.w600)),
+                            fontWeight: FontWeight.w600
+                        )),
                     // Text("terms_condition".tr,
                     //     style: TextStyle(
                     //         fontFamily: 'Lato',
@@ -472,17 +467,16 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget fullName() {
     return Container(
       // margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width,
+      width: Get.width ,
       child: CustomTextFiled(
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
+            ? EdgeInsets.only(right: 10)
+            : EdgeInsets.only(left: 10, right: 10),
         padding: EdgeInsets.only(top: 10),
         isObscure: false,
         color: Colors.white,
         hintText: "full_name".tr,
-        hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         onChanged: (value) {},
         onSaved: (String? newValue) {},
@@ -502,15 +496,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
   Widget eMail() {
     return Container(
       // margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width,
+      width: Get.width ,
       child: CustomTextFiled(
         isObscure: false,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
+            ? EdgeInsets.only(right: 10)
+            : EdgeInsets.only(left: 10, right: 10),
         hintText: "emails".tr,
-        hintStyle: TextStyle(
-            fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
+        hintStyle: TextStyle(fontSize: 10, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,
         color: Colors.white,
         onChanged: (value) {},
@@ -612,7 +605,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
           hintText:
               finalDate == null ? 'date_of_birth'.tr : finalDate.toString(),
           hintStyle: TextStyle(
-              fontSize: lang == 'ar' ? 12 : 14,
+              fontSize: lang == 'ar' ?  12 : 14,
               color: AppColors.inputTextColor,
               fontWeight: FontWeight.normal),
           border: OutlineInputBorder(
@@ -638,7 +631,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                         fontSize: 18),
                     doneStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: lang == 'ar' ? 12 : 14,
+                      fontSize: lang == 'ar' ?  12 : 14,
                     ),
                     cancelStyle: TextStyle(
                       color: AppColors.whitedColor,
@@ -934,14 +927,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
       //     right: 20, left: MediaQuery.of(context).size.width / 46)
       //     : EdgeInsets.only(
       //     left: 20, right: MediaQuery.of(context).size.width / 46),
-      width: Get.width * 0.46,
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
+            ? EdgeInsets.only(right: 10)
+            : EdgeInsets.only(left: 10),
         hintText: 'password'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
@@ -969,14 +962,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
     return Container(
       // margin:
       // lang == 'ar' ? EdgeInsets.only(left: 4) : EdgeInsets.only(right: 4),
-      width: Get.width * 0.46,
+      width: Get.width * 0.45,
       child: CustomTextFiled(
         maxLine: 1,
         isObscure: true,
         color: Colors.white,
         contentPadding: lang == 'ar'
-            ? EdgeInsets.only(right: MediaQuery.of(context).size.width / 19)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width / 19),
+            ? EdgeInsets.only(right: 10)
+            : EdgeInsets.only(left: 10),
         hintText: 'confirmPassword'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 12 : 14, color: AppColors.inputTextColor),
@@ -1126,11 +1119,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
+
+                  padding: EdgeInsets.only(left: 10,right:10),
               child: Text(
                 "Account_type".tr,
-                style: TextStyle(
-                    fontSize: 16, color: Colors.black.withOpacity(0.4)),
+                style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.4)),
               )),
           Padding(
               padding: EdgeInsets.only(top: 8.0),
@@ -1163,11 +1156,10 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       height: 45,
                       width: MediaQuery.of(context).size.width * 0.46,
                       child: Row(
+
                         children: [
                           Padding(
-                              padding: lang == 'ar'
-                                  ? EdgeInsets.all(8.0)
-                                  : EdgeInsets.all(8.0),
+                              padding: lang == 'ar' ? EdgeInsets.all(8.0):EdgeInsets.all(8.0),
                               child: Image.asset("assets/individual.png")),
                           SizedBox(
                             width: 10,
@@ -1191,7 +1183,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       ),
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: AppColors.outline)),
+                          border: Border.all(color:  AppColors.outline)),
                     ),
                   ),
                   InkWell(
@@ -1212,9 +1204,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: lang == 'ar'
-                                ? EdgeInsets.only(right: 45.0)
-                                : EdgeInsets.only(left: 45.0),
+                            padding: lang == 'ar' ? EdgeInsets.only(right: 45.0):EdgeInsets.only(left: 45.0),
                             child: Text(
                               "business".tr,
                               style: TextStyle(
