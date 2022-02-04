@@ -175,47 +175,6 @@ class _LanguagePageState extends State<Language> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        // children: [
-        child: Column(
-          children: [
-            // space50,
-            // mainLogo(),
-            space50,
-            space50,
-            space50,
-            space50,
-            space50,
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  0.05, /*child: chooseLanguage()*/
-            ),
-            GetBuilder<LanguageController>(
-                init: LanguageController(),
-                builder: (data) {
-                  return data.isLoading == true
-                      ? Container(
-                          height: Get.height * 0.25,
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: getTextWidgets(data.languageList));
-                }),
-            // submitButton(
-            //   bgcolor: AppColors.whitedColor,
-            //   textColor: AppColors.white,
-            //   buttonText: "next".tr,
-            //   fontSize: 18.toDouble(),
-            //   callback: navigateToHomeScreen
-            // ),
-            HorizontalOrLine(label: "oR".tr, height: 2),
-            SizedBox(height: Get.height * 0.03),
-            Container(
-                alignment: Alignment.bottomRight, child: existingAccount()),
-          ],
-        ),
-        // ],
-      ),
     );
   }
 
