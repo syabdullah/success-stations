@@ -231,8 +231,7 @@ class _OfferListState extends State<OfferList> {
                                           color: AppColors.inputTextColor,
                                           fontSize: 13),
                                       trimLines: 2,
-                                      colorClickableText:
-                                          AppColors.whitedColor,
+                                      colorClickableText: AppColors.whitedColor,
                                       trimMode: TrimMode.Line,
                                       trimCollapsedText: 'Show more',
                                       trimExpandedText: 'Show less',
@@ -397,7 +396,7 @@ class _OfferListState extends State<OfferList> {
                                     border: Border.all(color: AppColors.grey),
                                     color: allColor,
                                   ),
-                                  padding: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(12.0),
                                   child: Center(
                                     child: Text(
                                       "all".tr,
@@ -405,7 +404,7 @@ class _OfferListState extends State<OfferList> {
                                         color: textAllcheck == false
                                             ? Colors.white
                                             : AppColors.grey,
-                                        fontSize: 12,
+                                        fontSize: 16,
                                         fontStyle: FontStyle.normal,
                                       ),
                                     ),
@@ -416,8 +415,8 @@ class _OfferListState extends State<OfferList> {
                       : Container(),
                   Container(
                     margin: lang == 'en'
-                        ? EdgeInsets.only(left: 12.0)
-                        : EdgeInsets.only(right: 12.0),
+                        ? EdgeInsets.only(left: 6.0)
+                        : EdgeInsets.only(right: 6.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
