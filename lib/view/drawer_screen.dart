@@ -210,150 +210,153 @@ class _AppDrawerState extends State<AppDrawer> {
                   padding: lang == 'en'
                       ? const EdgeInsets.only(top: 00.0)
                       : const EdgeInsets.only(top: 00.0, right: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "mainMenu".tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey.shade800),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      /*CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
-                            Get.toNamed('/tabs');
-                          },15.0 ),
-                          CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
-                            Get.toNamed('/myDraft');
-                          },15.0 ),*/
-
-                      CustomListTile(AppImages.userProfile, 'profile'.tr, () {
-                        Get.toNamed('/userProfile');
-                      }, 15.0),
-                      CustomListTile(AppImages.ma, 'my_ads'.tr, () {
-                        Get.toNamed('/myAddsPage');
-                      }, 15.0),
-                      // CustomListTile(AppImages.message, 'messeges'.tr, () {
-                      //   Get.toNamed('/inbox');
-                      // },15.0 ),
-                      userType == 2 && accountType == 'Free'
-                          ? Container()
-                          : accountType == 'Paid'
-                          ? CustomListTile(
-                          AppImages.location, 'location'.tr, () {
-                        Get.toNamed('/location');
-                      }, 15.0)
-                          : CustomListTile(
-                          AppImages.location, 'location'.tr, () {
-                        Get.toNamed('/location');
-                      }, 15.0),
-                      CustomListTile(AppImages.membership, 'membership'.tr, () {
-                        Get.to(IndividualMemeberShip());
-                      }, 15.0),
-                      CustomListTile(AppImages.notification, 'notification'.tr,
-                              () => {Get.toNamed('/notification')}, 15.0),
-                      /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                           Get.toNamed('/friReq');
-                          } ,15.0),*/
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: userType == 2 && accountType == 'Free'
-                            ? Container()
-                            : userType == 3 && accountType == "Paid"
-                            ? Container()
-                            : accountType == "Free"
-                            ? Container()
-                            : InkWell(
-                          onTap: () {
-                            Get.toNamed('/offerPage');
-                          },
-                          child: Container(
-                            height: 30,
-                            margin: EdgeInsets.only(left: 9),
-                            child: Row(children: [
-                              Image.asset(
-                                AppImages.offers,
-                                height: 25,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    left: 7, right: 10),
-                                child: Text('myoffer'.tr,
-                                    textAlign: TextAlign.start,
-                                    style: lang == 'ar'
-                                        ? TextStyle(
-                                      fontFamily:
-                                      "Cairo Regular",
-                                      fontSize: 12.0,
-                                    )
-                                        : AppTextStyles
-                                        .appTextStyle(
-                                      fontSize: 14,
-                                      fontWeight:
-                                      FontWeight.w500,
-                                      color: Colors
-                                          .grey.shade800,
-                                    )),
-                              ),
-                            ]),
+                  child: Container(
+                    color: Color(0xFFfafafa),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            "mainMenu".tr,
+                            style: AppTextStyles.appTextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey.shade800),
                           ),
                         ),
-                      ),
-                      // : CustomListTile(
-                      //     AppImages.offers, 'myoffer'.tr, () {
-                      //     Get.toNamed('/offerPage');
-                      //   }, 15.0),
-                      CustomListTile(AppImages.fav, 'favourite'.tr,
-                              () => {Get.toNamed('/favourities')}, 15.0),
-                      CustomListTile(AppImages.language, 'choose_language'.tr,
-                              () => {Get.toNamed('/chooseLang')}, 15.0),
-                      /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
-                            Get.toNamed('/chooseCountry')
-                          },15.0 ), */
-                      Divider(),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          "overviewAndDefications".tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey.shade800),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      SizedBox(height: Get.height * 0.01),
-                      CustomListTile(
-                          AppImages.aboutus,
-                          userType == 4
-                              ? 'about_company'.tr
-                              : userType == 2
-                              ? 'about_user'.tr
-                              : "about_us".tr,
-                              () => {Get.toNamed('/aboutUs')},
-                          15.0),
-                      CustomListTile(AppImages.privacy, 'privacy'.tr,
-                              () => {Get.toNamed('/privacy')}, 15.0),
-                      CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr,
-                              () => {Get.toNamed('/advertisement')}, 15.0),
-                      CustomListTile(AppImages.ugr, 'UGR'.tr,
-                              () => {Get.toNamed('/userAgrement')}, 12.0),
-                      CustomListTile(AppImages.contactus, 'contactus'.tr,
-                              () => {Get.toNamed('/contact')}, 15.0),
-                      SizedBox(height: Get.height * 0.01),
-                      Divider(),
-                      SizedBox(height: Get.height * 0.01),
-                      CustomListTile(AppImages.logout, 'logout'.tr, () {
-                        box.remove('user_image_local');
-                        box.write('upgrade', true);
-                        logoutCont.userLogout();
-                      }, 15.0),
-                    ],
+                        /*CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
+                              Get.toNamed('/tabs');
+                            },15.0 ),
+                            CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
+                              Get.toNamed('/myDraft');
+                            },15.0 ),*/
+
+                        CustomListTile(AppImages.userProfile, 'profile'.tr, () {
+                          Get.toNamed('/userProfile');
+                        }, 15.0),
+                        CustomListTile(AppImages.ma, 'my_ads'.tr, () {
+                          Get.toNamed('/myAddsPage');
+                        }, 15.0),
+                        // CustomListTile(AppImages.message, 'messeges'.tr, () {
+                        //   Get.toNamed('/inbox');
+                        // },15.0 ),
+                        userType == 2 && accountType == 'Free'
+                            ? Container()
+                            : accountType == 'Paid'
+                            ? CustomListTile(
+                            AppImages.location, 'location'.tr, () {
+                          Get.toNamed('/location');
+                        }, 15.0)
+                            : CustomListTile(
+                            AppImages.location, 'location'.tr, () {
+                          Get.toNamed('/location');
+                        }, 15.0),
+                        CustomListTile(AppImages.membership, 'membership'.tr, () {
+                          Get.to(IndividualMemeberShip());
+                        }, 15.0),
+                        CustomListTile(AppImages.notification, 'notification'.tr,
+                                () => {Get.toNamed('/notification')}, 15.0),
+                        /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
+                             Get.toNamed('/friReq');
+                            } ,15.0),*/
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: userType == 2 && accountType == 'Free'
+                              ? Container()
+                              : userType == 3 && accountType == "Paid"
+                              ? Container()
+                              : accountType == "Free"
+                              ? Container()
+                              : InkWell(
+                            onTap: () {
+                              Get.toNamed('/offerPage');
+                            },
+                            child: Container(
+                              height: 30,
+                              margin: EdgeInsets.only(left: 9),
+                              child: Row(children: [
+                                Image.asset(
+                                  AppImages.offers,
+                                  height: 25,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: 7, right: 10),
+                                  child: Text('myoffer'.tr,
+                                      textAlign: TextAlign.start,
+                                      style: lang == 'ar'
+                                          ? TextStyle(
+                                        fontFamily:
+                                        "Cairo Regular",
+                                        fontSize: 12.0,
+                                      )
+                                          : AppTextStyles
+                                          .appTextStyle(
+                                        fontSize: 14,
+                                        fontWeight:
+                                        FontWeight.w500,
+                                        color: Colors
+                                            .grey.shade800,
+                                      )),
+                                ),
+                              ]),
+                            ),
+                          ),
+                        ),
+                        // : CustomListTile(
+                        //     AppImages.offers, 'myoffer'.tr, () {
+                        //     Get.toNamed('/offerPage');
+                        //   }, 15.0),
+                        CustomListTile(AppImages.fav, 'favourite'.tr,
+                                () => {Get.toNamed('/favourities')}, 15.0),
+                        CustomListTile(AppImages.language, 'choose_language'.tr,
+                                () => {Get.toNamed('/chooseLang')}, 15.0),
+                        /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
+                              Get.toNamed('/chooseCountry')
+                            },15.0 ), */
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            "overviewAndDefications".tr,
+                            style: AppTextStyles.appTextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey.shade800),
+                          ),
+                        ),
+                        SizedBox(height: Get.height * 0.01),
+                        CustomListTile(
+                            AppImages.aboutus,
+                            userType == 4
+                                ? 'about_company'.tr
+                                : userType == 2
+                                ? 'about_user'.tr
+                                : "about_us".tr,
+                                () => {Get.toNamed('/aboutUs')},
+                            15.0),
+                        CustomListTile(AppImages.privacy, 'privacy'.tr,
+                                () => {Get.toNamed('/privacy')}, 15.0),
+                        CustomListTile(AppImages.adwithus, 'advertise_with_us'.tr,
+                                () => {Get.toNamed('/advertisement')}, 15.0),
+                        CustomListTile(AppImages.ugr, 'UGR'.tr,
+                                () => {Get.toNamed('/userAgrement')}, 12.0),
+                        CustomListTile(AppImages.contactus, 'contactus'.tr,
+                                () => {Get.toNamed('/contact')}, 15.0),
+                        SizedBox(height: Get.height * 0.01),
+                        Divider(),
+                        SizedBox(height: Get.height * 0.01),
+                        CustomListTile(AppImages.logout, 'logout'.tr, () {
+                          box.remove('user_image_local');
+                          box.write('upgrade', true);
+                          logoutCont.userLogout();
+                        }, 15.0),
+                      ],
+                    ),
                   ),
                 ),
               ],
