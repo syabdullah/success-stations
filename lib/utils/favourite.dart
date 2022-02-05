@@ -162,22 +162,17 @@ class _FavouritePageState extends State<FavouritePage> {
               child: SizedBox(
                 height: Get.height / 28,
                 child: TabBar(
-                 /* indicatorColor:AppColors.border,
-                  indicatorSize: TabBarIndicatorSize.label,
-labelColor:AppColors.border,
-                  unselectedLabelColor:AppColors.border ,
-                  unselectedLabelStyle:TextStyle(
-fontWeight: FontWeight.normal
 
-                  ) ,
-                  isScrollable: true,*/
-                  labelColor:AppColors.border,
-                  unselectedLabelColor: Colors.grey,
-                  indicatorColor: AppColors.border,
-                  indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide(width: 1.0),
-                      insets: EdgeInsets.symmetric(horizontal:15.0)
+                  labelColor:Colors.black,
+                  labelStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    decoration:
+                    TextDecoration.underline,
                   ),
+                  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                  unselectedLabelColor: Colors.black,
+                  indicatorColor: Colors.transparent,
+
                   labelPadding: EdgeInsets.all(0),
                   indicatorPadding: EdgeInsets.all(0),
                   tabs: [
@@ -191,6 +186,7 @@ fontWeight: FontWeight.normal
             SizedBox(
               height: Get.height - 150,
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: [items(), Service(), promotionsList()],
               ),
             ),
@@ -934,21 +930,24 @@ fontWeight: FontWeight.normal
   }
 
   Widget _individualTab(String title) {
-    return Container(
-      height: 50 + MediaQuery
-          .of(context)
-          .padding
-          .bottom,
-      padding: EdgeInsets.all(0),
-      width: double.infinity,
-      decoration:  BoxDecoration(border: Border(right: BorderSide(color: AppColors.border, width: 1, style: BorderStyle.solid))),
-      child:Tab(
-          child: Text(title,
-              style: TextStyle(
+    return Padding(
+      padding:  EdgeInsets.symmetric(vertical:2),
+      child: Container(
+        height: 50 + MediaQuery
+            .of(context)
+            .padding
+            .bottom,
+        padding: EdgeInsets.all(0),
+        width: double.infinity,
+        decoration:  BoxDecoration(border: Border(right: BorderSide(color: AppColors.border, width: 1.5, style: BorderStyle.solid))),
+        child:Tab(
+            child: Text(title,
+                style: TextStyle(
 
-                // color: Colors.black,
-                fontSize: 15,
-              ))),
+                  // color: Colors.black,
+                  fontSize: 15,
+                ))),
+      ),
     );}
 
   Widget submitButton(

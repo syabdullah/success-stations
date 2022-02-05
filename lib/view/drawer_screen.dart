@@ -228,7 +228,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         SizedBox(
                           height: 10,
                         ),
-                        /*CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
+                       /* CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
                               Get.toNamed('/tabs');
                             },15.0 ),
                             CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
@@ -264,9 +264,9 @@ class _AppDrawerState extends State<AppDrawer> {
                             'notification'.tr,
                             () => {Get.toNamed('/notification')},
                             15.0),
-                        /*CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
+                        CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
                              Get.toNamed('/friReq');
-                            } ,15.0),*/
+                            } ,15.0),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: userType == 2 && accountType == 'Free'

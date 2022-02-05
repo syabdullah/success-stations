@@ -28,37 +28,7 @@ class _FriendReqListState extends State<FriendReqList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: Container(
-                  margin: EdgeInsets.only(left:10, top:5),
-                  child: Icon(Icons.arrow_back,
-                    color: Colors.white, size: 22
-                  ),
-                ),
-              ),
-            ],
-          )
-        ),
-        actions: [
-          GestureDetector(
-            onTap: (){
-              Get.bottomSheet(SuggestFriends());
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Image.asset(AppImages.filterImage, height:20),
-            ),
-          )
-        ],
-        centerTitle: true,
-        title: Image.asset(AppImages.appBarLogo, height:35),
-        backgroundColor: AppColors.whitedColor
-      ),
+
       body: ListView(
         children: [
           GetBuilder<FriendsController>(
