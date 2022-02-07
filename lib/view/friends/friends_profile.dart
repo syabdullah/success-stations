@@ -83,12 +83,12 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
     return Stack(
       children: [
         Container(
-          height: Get.height / 2.5,
+          height: Get.height / 3,
           width: Get.width,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)
+              bottomLeft: Radius.circular(0),
+              bottomRight: Radius.circular(0)
             ),
             child: Container(
               child: Image.asset(
@@ -99,15 +99,17 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top:Get.height*0.04,right:Get.width*0.03,left:Get.width*0.03),
           child: Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(Icons.arrow_back, color: Colors.white)
-              ),
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset(
+                    AppImages.roundedBack,
+                    height: Get.height * 0.04,
+                  )),
               Center(
                 widthFactor: 2.7,
                 child: Container(
@@ -133,7 +135,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                   shape: BoxShape.circle
                 ),
                 margin: EdgeInsets.only(left: 0.0, right: 10.0, top: Get.height / 13.5),
-                child: data != null && data['image'] !=null 
+                child: data != null && data['image'] !=null
                 ? CircleAvatar(
                   backgroundImage: NetworkImage(data['image']['url']),
                   radius: 50.0,
@@ -161,7 +163,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
             ),
             Container(
               margin: EdgeInsets.only(top: 0,left: 15 ),
-              child: data != null && data['degree'] !=null 
+              child: data != null && data['degree'] !=null
                 ? Text(data['degree'].toString(),
                   style: TextStyle(  color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)
                 )
@@ -178,7 +180,7 @@ class _FriendProfileState extends State<FriendProfile>with SingleTickerProviderS
                   SizedBox(width: 5),
                   Container(
                     margin: EdgeInsets.only(top: 6),
-                    child: Text( 
+                    child: Text(
                       country['name'][lang] !=null ? country['name'][lang]:  country['name'][lang] == null ? country['name']['en']:'',
                       style: TextStyle( color: Colors.white,fontSize: 20, fontWeight: FontWeight.w400)
                     ),
