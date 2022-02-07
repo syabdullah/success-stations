@@ -81,6 +81,7 @@ class AppImages {
   static String plusImage = imagePath + 'plus@2x.png';
   static String setting = imagePath + '21.png';
   static String imagearrow1 = imagePath + 'imagearrow.png';
+  static String send = imagePath + 'send.png';
   static String listing = imagePath + 'Grouplist.png';
   static String bgImage = imagePath + 'bg.png';
   static String nearby = imagePath + 'nearby.png';
