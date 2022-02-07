@@ -57,7 +57,7 @@ class _UserProfileState extends State<UserProfile>
       children: [
         Container(
           child: Container(
-            height: Get.height / 2.5,
+            height: Get.height / 2.3,
             width: Get.width,
             child: Image.asset(AppImages.profileBg, fit: BoxFit.fill),
           ),
@@ -65,27 +65,30 @@ class _UserProfileState extends State<UserProfile>
         Container(
           margin: EdgeInsets.only(top: Get.width * 0.08),
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: Get.width *0.009),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-                onTap: () {
-                  Get.back();
-                  banner.bannerController();
-                },
-                child: Image.asset(
-                  AppImages.profileBack,
-                  height: Get.width * 0.16,
-                )),
-            SizedBox(width: Get.width * 0.6),
+                  onTap: () {
+                    Get.back();
+                    banner.bannerController();
+                  },
+                  child: Image.asset(
+                    AppImages.profileBack,
+                    height: Get.width * 0.1,
+                  )),
+
             InkWell(
-                onTap: () {
-                  // Get.back();
-                  // banner.bannerController();
-                },
-                child: Image.asset(
-                  AppImages.profileEdit,
-                  height: Get.width * 0.16,
-                )),
+                  onTap: () {
+                    // Get.back();
+                    // banner.bannerController();
+                  },
+                  child: Image.asset(
+                    AppImages.profileEdit,
+                    height: Get.width * 0.1,
+                  )),
           ]),
+              ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,8 +122,8 @@ class _UserProfileState extends State<UserProfile>
                           ))),
                 ),
                 Positioned(
-                  top: Get.height < 700 ? 150 : 160,
-                  left: Get.width * 0.43,
+                  top: Get.height < 700 ? 155 : 165,
+                  left: Get.width * 0.458,
                   child: InkWell(
                       onTap: () {
                         // Get.back();
@@ -128,7 +131,7 @@ class _UserProfileState extends State<UserProfile>
                       },
                       child: Image.asset(
                         AppImages.profileEdit,
-                        height: Get.width * 0.13,
+                        height: Get.width * 0.09,
                       )),
                 ),
               ],
@@ -171,7 +174,7 @@ class _UserProfileState extends State<UserProfile>
             Column(
               children: [
                 Container(
-                  height: Get.width * 0.16,
+                  height: Get.width * 0.12,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Color(0xFFf2f2f2),
@@ -185,9 +188,9 @@ class _UserProfileState extends State<UserProfile>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Personal Info"),
+                            Text("Personal Info".tr),
                             Text(
-                              "Edit",
+                              "Edit".tr,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
@@ -531,7 +534,7 @@ class _UserProfileState extends State<UserProfile>
               ],
             ),
             Container(
-              height: Get.width * 0.16,
+              height: Get.width * 0.12,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Color(0xFFf2f2f2),
@@ -542,9 +545,9 @@ class _UserProfileState extends State<UserProfile>
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Study Info"),
+                    Text("Study Info".tr),
                     Text(
-                      "Edit",
+                      "Edit".tr,
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: AppColors.darkblue,
@@ -709,7 +712,7 @@ class _UserProfileState extends State<UserProfile>
               ),
             ),
             Container(
-              height: Get.width * 0.16,
+              height: Get.width * 0.12,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Color(0xFFf2f2f2),
@@ -722,7 +725,7 @@ class _UserProfileState extends State<UserProfile>
                   children: [
                     Text("About me"),
                     Text(
-                      "Edit",
+                      "Edit".tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,

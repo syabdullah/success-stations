@@ -51,7 +51,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       socket.connect();
       socket.on(
           'connect',
-          (_) => print(
+              (_) => print(
               'connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
       socket.on('message', handleMessage);
       socket.emit('joinRoom', {
@@ -91,71 +91,59 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           return false;
         },
         child: Scaffold(
+          appBar: AppBar(
+              leading: GestureDetector(
+                  onTap: () {
+                    socket.dispose();
+
+                    var json = {'conversation_id': conversationID};
+                    chatCont.readConversation(json);
+                    chatCont.getAllConvo();
+                    Get.back();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(Get.width * 0.03),
+                    child: ImageIcon(
+                        AssetImage(AppImages.imagearrow1)),
+                  )),
+              elevation: 0,
+              backgroundColor: AppColors.whitedColor,
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[400],
+                    radius: 20,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60.0),
+                        child: image != null
+                            ? Image.network(
+                          image,
+                          fit: BoxFit.fill,
+                          height: 80,
+                        )
+                            : Icon(
+                          Icons.person,
+                          color: Colors.blue[100],
+                        )),
+                  ),
+                  Padding(
+                    padding: lang == 'en'
+                        ? EdgeInsets.only(left: Get.width * 0.02)
+                        : EdgeInsets.only(right: Get.width * 0.02),
+                    child: Text(
+                      userData[1].toString(),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontFamily: 'Source_Sans_Pro'),
+                    ),
+                  ),
+                ],
+              )),
           body: Stack(
             children: [
-              Container(
-                  height: Get.height,
-                  width: Get.width,
-                  // color: AppColors.whitedColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppBar(
-                          leading: GestureDetector(
-                              onTap: () {
-                                socket.dispose();
-
-                                var json = {'conversation_id': conversationID};
-                                chatCont.readConversation(json);
-                                chatCont.getAllConvo();
-                                Get.back();
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.all(Get.width * 0.03),
-                                child: ImageIcon(
-                                    AssetImage(AppImages.imagearrow1)),
-                              )),
-                          elevation: 0,
-                          backgroundColor: AppColors.whitedColor,
-                          title: Padding(
-                            padding: lang == 'en'
-                                ? EdgeInsets.only(left: Get.width * 0.1)
-                                : EdgeInsets.only(right: Get.width * 0.14),
-                            child: Text(
-                              userData[1].toString(),
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'Source_Sans_Pro'),
-                            ),
-                          )),
-                    ],
-                  )),
               chattingList(),
-              Padding(
-                padding: lang == 'en'
-                    ? EdgeInsets.only(
-                        top: Get.width * 0.11, left: Get.width * 0.16)
-                    : EdgeInsets.only(
-                        top: Get.width * 0.11, right: Get.width * 0.16),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[400],
-                  radius: 20,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(60.0),
-                      child: image != null
-                          ? Image.network(
-                              image,
-                              fit: BoxFit.fill,
-                              height: 80,
-                            )
-                          : Icon(
-                              Icons.person,
-                              color: Colors.blue[100],
-                            )),
-                ),
-              ),
               textFieldDataSender()
             ],
           ),
@@ -317,7 +305,8 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   //reviewed
   Widget chattingList() {
     return Container(
-      margin: EdgeInsets.only(top: Get.height / 7.9),
+      // margin: EdgeInsets.only(top: Get.height / 7.9),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(00), topRight: Radius.circular(00)),
@@ -326,21 +315,23 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
       padding: EdgeInsets.only(top: 20),
       child: Container(
           child: GetBuilder<ChatController>(
-        init: ChatController(),
-        builder: (val) {
-          if (val.isLoading == false &&
-              val.chat != null &&
-              val.chat['data'] != null) {
-            if (val.chat['data']['participants'] != null) {
-              if (val.chat['data']['participants'][0]['id'] == userId) {
-                if (val.chat['data']['participants'][1]['image'] != null) {
-                  image = val.chat['data']['participants'][1]['image']['url'];
+            init: ChatController(),
+            builder: (val) {
+              if (val.isLoading == false &&
+                  val.chat != null &&
+                  val.chat['data'] != null) {
+                if (val.chat['data']['participants'] != null) {
+                  if (val.chat['data']['participants'][0]['id'] == userId) {
+                    if (val.chat['data']['participants'][1]['image'] != null) {
+                      image = val.chat['data']['participants'][1]['image']['url'];
+                    }
+                  }
                 }
               }
-            }
-          }
-          return val.isLoading == false && val.allChat.length != 0
-              ?
+
+              return val.isLoading == false && val.allChat.length != 0
+                  ?
+
               // ListView(
               //   reverse: true,
               //     children: [
@@ -348,9 +339,10 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   val.allChat, val.chat['data']['messages']['next_page_url'])
               //   ],
               // )
-              : Container();
-        },
-      )),
+
+                  : Container();
+            },
+          )),
     );
   }
 }
