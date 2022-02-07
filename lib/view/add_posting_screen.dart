@@ -333,8 +333,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   /// Returns the next button.
   Widget nextButton() {
     return Container(
-      height: 40.h,
-      width: 130.w,
+      height: 40,
+      width: 130,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style:
@@ -355,8 +355,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   /// Returns the previous button.
   Widget previousButton() {
     return Container(
-      height: 40.h,
-      width: 130.w,
+      height: 40,
+      width: 130,
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -459,7 +459,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
                 Row(
                   children: [
@@ -518,7 +518,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                               )),
                             ))),
                     SizedBox(
-                      width: 5.w,
+                      width: 5,
                     ),
                     Container(
                         width: Get.width*0.30,
@@ -573,7 +573,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
 
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -602,7 +602,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
                 Container(
 
@@ -699,7 +699,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                               )),
                         ))),
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
@@ -735,7 +735,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -767,7 +767,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 10,
                 ),
                 Container(
                   child: DottedBorder(
@@ -809,7 +809,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 5,
                 ),
               ],
             ),
@@ -825,7 +825,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       child: Column(
         children: [
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -854,10 +854,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -886,7 +886,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -915,10 +915,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           SizedBox(
-            height: 5.h,
+            height: 5,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -947,7 +947,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             ),
           ),
           SizedBox(
-            height: 8.h,
+            height: 8,
           ),
           GetBuilder<ContryController>(
               init: ContryController(),
@@ -999,7 +999,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         ))));
               }),
           SizedBox(
-            height: 8.h,
+            height: 8,
           ),
           GetBuilder<ContryController>(
               init: ContryController(),
@@ -1051,7 +1051,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         ))));
               }),
           SizedBox(
-            height: 8.h,
+            height: 8,
           ),
           GetBuilder<ContryController>(
               init: ContryController(),
@@ -1156,7 +1156,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 15.h,
+                            height: 15,
                           ),
                           Text(
                             'title'.tr,
@@ -1165,12 +1165,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 7),
                           Text(titleController.text,
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: 15.h,
+                            height: 15,
                           ),
                           Text(
                             "category".tr,
@@ -1179,14 +1179,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 7),
                           Text(
                             selectedCategory != null ? selectedCategory : '',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
-                            height: 15.h,
+                            height: 15,
                           ),
                           Text(
                             "country".tr,
@@ -1195,14 +1195,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 7),
                           Text(
                             hintTextCountry != null ? hintTextCountry : '',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
-                            height: 15.h,
+                            height: 15,
                           ),
                           Text(
                             "city".tr,
@@ -1211,7 +1211,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 7),
                           Text(
                             hintcityText != null ? hintcityText : '',
                             style: TextStyle(
@@ -1226,7 +1226,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 1.h,
+                              height: 1,
                             ),
                             Text(
                               "name".tr,
@@ -1235,13 +1235,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                             ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 5),
                             Text(
                               fullNameController.text,
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 15.h),
+                            SizedBox(height: 15),
                             Text(
                               'status'.tr,
                               style: TextStyle(
@@ -1249,7 +1249,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                             ),
-                            SizedBox(height: 7.h),
+                            SizedBox(height: 7),
                             Text(
                               selectedStatus == '0'
                                   ? uiStatus = 'Old'
@@ -1259,7 +1259,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 15.h),
+                            SizedBox(height: 15),
                             Text(
                               "region".tr,
                               style: TextStyle(
@@ -1267,7 +1267,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                             ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 5),
                             Text(hintRegionText != null ? hintRegionText : '',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold)),
@@ -1296,7 +1296,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         fontWeight: FontWeight.bold,
                         color: Colors.grey),
                   ),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 5),
                   Text(
                     descController.text,
                     textAlign: TextAlign.justify,
@@ -1316,13 +1316,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
   Widget publishButton() {
     return Container(
-      height: 40.h,
-      width: 130.w,
-      margin: EdgeInsets.symmetric(horizontal: 15.h),
+      height: 40,
+      width: 130,
+      margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: AppColors.whitedColor,
-            textStyle: TextStyle(fontSize: 13.w, fontWeight: FontWeight.bold)),
+            textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
         onPressed: () {
           editData == null ? adpost() : editpost();
         },
@@ -1333,13 +1333,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
   Widget saveAsDraftButton() {
     return Container(
-      height: 40.h,
-      width: 145.w,
-      margin: EdgeInsets.symmetric(horizontal: 15.h),
+      height: 40,
+      width: 145,
+      margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Colors.grey,
-            textStyle: TextStyle(fontSize: 13.w, fontWeight: FontWeight.bold)),
+            textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
         onPressed: () {
           addraft();
         },
