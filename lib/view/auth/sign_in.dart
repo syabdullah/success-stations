@@ -413,8 +413,8 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      height: Get.height*0.07,
-      margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+      height: Get.height*0.08,
+      margin: EdgeInsets.only( bottom:  Get.height*0.006,),
       alignment: Alignment.bottomCenter,
       child: Column(
         children: [
@@ -422,33 +422,30 @@ class _SignPageState extends State<SignIn> {
             color: Colors.black,
           ),
 
-          Padding(
-            padding:  EdgeInsets.all(Get.height*0.004),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Dont_have_account".tr,
-                  style: TextStyle(
-                      color: Colors.grey,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Dont_have_account".tr,
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: "Source_Sans_Pro",
+                    fontSize: 17),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/langua');
+                  },
+                  child: Text(
+                    'sign_up_text'.tr,
+                    style: TextStyle(
+                      color: Colors.blue,
                       fontFamily: "Source_Sans_Pro",
-                      fontSize: 17),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/langua');
-                    },
-                    child: Text(
-                      'sign_up_text'.tr,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontFamily: "Source_Sans_Pro",
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-              ],
-            ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+            ],
           ),
         ],
       ),
