@@ -36,7 +36,7 @@ class _FriendReqListState extends State<FriendReqList> {
             builder: (val) {
               return val.suggestionsData == null?
               Container(
-                height: Get.height/1.5,
+                height: Get.height/2,
                 child:Center(
                   child: Text("No Record Found", style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal))
                 )

@@ -93,7 +93,7 @@ class _FriendListState extends State<FriendList> {
               ),
             ),
             SizedBox(
-              height: Get.height - Get.height * 0.25,
+              height: Get.height<700? Get.height - Get.height * 0.3:Get.height - Get.height * 0.25,
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: [
@@ -497,26 +497,26 @@ class _FriendListState extends State<FriendList> {
     }
     return newData.length == 0
         ? Container(
-            height: Get.height / 1.5,
+            height: Get.height,
             child: Center(
                 child: Text("nofriends".tr, style: TextStyle(fontSize: 20))),
           )
         : Padding(
             padding:  EdgeInsets.only(top:Get.height*0.002),
-            child: Expanded(
-              child: SizedBox(
-                child: GridView.count(
-                    padding: EdgeInsets.only(left:Get.width*0.005),
-                    crossAxisCount: 2,
-                    childAspectRatio: (Get.width / Get.height * 1.35),
-                    children: List.generate(
-                      newData.length,
-                      (index) {
-                        return GestureDetector(
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
+            child: SizedBox(
+              child: GridView.count(
+                  padding: EdgeInsets.only(left:Get.width*0.005),
+                  crossAxisCount: 2,
+                  childAspectRatio: (Get.width / Get.height * 1.30),
+                  children: List.generate(
+                    newData.length,
+                    (index) {
+                      return GestureDetector(
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -563,7 +563,7 @@ class _FriendListState extends State<FriendList> {
                                             child: Center(
                                               child: Container(
                                                 child: CircleAvatar(
-                                                    radius: 50.0,
+                                                    radius:Get.height*0.06,
                                                     backgroundColor:
                                                         Colors.grey[100],
                                                     child: newData[index][
@@ -650,7 +650,7 @@ class _FriendListState extends State<FriendList> {
                                       child: Center(
                                         child: Container(
                                           child: CircleAvatar(
-                                              radius: 50.0,
+                                              radius: Get.height*0.06,
                                               backgroundColor:
                                               Colors.grey[100],
                                               child: newData[index][
@@ -715,10 +715,11 @@ class _FriendListState extends State<FriendList> {
                                                         FontWeight.bold),
                                               )
                                             : Text(
+
                                                 newData[index]['requister']
                                                     ['name'],
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: lang =='ar' ?14.5:18,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )),
@@ -932,10 +933,10 @@ class _FriendListState extends State<FriendList> {
                               ],
                             ),
                           ),
-                        );
-                      },
-                    )),
-              ),
+                        ),
+                      );
+                    },
+                  )),
             ),
           );
   }
