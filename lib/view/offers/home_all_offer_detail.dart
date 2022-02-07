@@ -59,7 +59,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
 
       drawer: Theme(
         data: Theme.of(context).copyWith( ),
-        child: AppDrawer(),
+        child: AppDrawer()
       ),
       body: SingleChildScrollView(
         child: Column(

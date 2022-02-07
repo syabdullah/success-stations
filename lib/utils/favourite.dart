@@ -363,7 +363,8 @@ class _FavouritePageState extends State<FavouritePage> {
               array++) {
             imageAds = listFavourite[c]['listing']['image'][array]['url'];
           }
-          favrties.add(Padding(
+          favrties.add(
+              Padding(
             padding:  EdgeInsets.only(right: Get.height*0.005, left:  Get.height*0.005, top:  Get.height*0.01),
             child: Container(
               height: 120,

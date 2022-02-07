@@ -48,7 +48,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
             ),
             BottomNavigationBarItem(
               // ignore: deprecated_member_use
-              title: Text("friends".tr ,style: AppTextStyles.appTextStyle(
+              title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
                     fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
                   ) 
                 ),

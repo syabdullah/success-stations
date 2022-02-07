@@ -306,6 +306,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   Widget chattingList() {
     return Container(
       // margin: EdgeInsets.only(top: Get.height / 7.9),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(00), topRight: Radius.circular(00)),
@@ -327,8 +328,10 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   }
                 }
               }
+
               return val.isLoading == false && val.allChat.length != 0
                   ?
+
               // ListView(
               //   reverse: true,
               //     children: [
@@ -336,6 +339,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   val.allChat, val.chat['data']['messages']['next_page_url'])
               //   ],
               // )
+
                   : Container();
             },
           )),
