@@ -1,396 +1,377 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
+import 'dart:math' as math; // import this
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:success_stations/controller/friends_controloler.dart';
-import 'package:success_stations/controller/std_sign_up_controller.dart';
-import 'package:success_stations/controller/university_controller.dart';
-import 'package:success_stations/styling/colors.dart';
-import 'package:success_stations/styling/text_field.dart';
 
-class FriendFilter extends StatefulWidget {
-  const FriendFilter({ Key? key }) : super(key: key);
+import 'package:dio/dio.dart' as dio;
+import 'package:success_stations/controller/categories_controller.dart';
+import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/controller/offers/offer_category_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
+
+import 'package:success_stations/styling/colors.dart';
+
+class FriendsFilter extends StatefulWidget {
+  const FriendsFilter({Key? key}) : super(key: key);
 
   @override
-  _FriendFilterState createState() => _FriendFilterState();
+  _FriendsFilterState createState() => _FriendsFilterState();
 }
 
-class _FriendFilterState extends State<FriendFilter> {
-  var lang, countryHint,countryID,  hinText,  mapuni, universitySelected, hinCity, cityMapping, citySelected, collegeID, mapClg, hintClg;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController degreeController = TextEditingController();
-  TextEditingController semesterController = TextEditingController();
-  final callingFreindController = Get.put(FriendsController());
-  GetStorage box = GetStorage();
+class _FriendsFilterState extends State<FriendsFilter> {
+  late List<bool> _isChecked;
+  RangeValues _currentRangeValues = const RangeValues(1, 10000);
 
   @override
   void initState() {
-    lang = box.read('lang_code');
+    // TODO: implement initState
     super.initState();
-  }
 
-  result(){
-    var json = {
-      'name' : nameController.text,
-      'city': citySelected,
-      // 'degree': degreeController.text,
-      'country':countryID,
-      'university':universitySelected,
-      'college':collegeID,
-    };
-    print(" friends suggestion .....$json");
-    callingFreindController.searchFriendControl(json);
   }
+  List<String> itemsList = [
 
+    "New".tr,
+    "used".tr,
+  ];
   @override
   Widget build(BuildContext context) {
-    return 
-        Scaffold(
-          body: Container(
-            margin: EdgeInsets.only(top:02),
-            width: Get.width,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)
-              )
-            ),
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    // SizedBox(height: 10,),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child:  Container(
-                        margin: lang == 'en'
-                        ? EdgeInsets.only(top: 8, left: 8)
-                        : EdgeInsets.only(top: 8, right: 8),
-                        child: Text("filter".tr,
-                          style: TextStyle(
-                            fontSize: 20, color: Colors.black
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    name(),
-                    SizedBox(height: 5),
-                    degree(),
-                    SizedBox(height: 5),
-                    GetBuilder<ContryController>(
-                      init: ContryController(),
-                      builder:(val) {
-                        return country(val.countryListdata);
-                      } ,
-                    ),
-                    SizedBox(height: 5),
-                    GetBuilder<ContryController>(
-                      init: ContryController(),
-                      builder:(val) {
-                        return city(val.cityAll);
-                      } ,
-                    ),
-                    SizedBox(height: 5),
-                    GetBuilder<ContryController>(
-                      init: ContryController(),
-                      builder:(val) {
-                        return college(val.listCollegeData);
-                      } ,
-                    ),
-                    SizedBox(height:5),
-                    GetBuilder<UniversityController>(
-                      init: UniversityController(),
-                      builder: (val){
-                        return  university(val.dataUni);
-                      },
-                    ),
-                    SizedBox(height: 15),
-                    buttons()
-                  ]
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.65,
+      child: Drawer(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: Get.height * 0.04),
+                  height: Get.height * 0.06,
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.border, width: 2)),
+                  child: Center(
+                    child: Text("filter".tr,
+                        style: TextStyle(fontSize: 25, color: Colors.black)),
+                  ),
                 ),
-              ],
-            ),
-
-    ),
-        );
-  }
-
-  Widget name(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:20),
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:20),
-        isObscure: false,
-        hintText: "nameph".tr,
-        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-        hintColor:  lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: nameController,
-        onSaved: (newValue) {},
-        validator: (value) {},
-        errorText: '',
-      ),
-    );
-  }
-
-  Widget country(List data){
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          width: Get.width * 0.9,
-          decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)
-          ),
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                hint: Text(
-                  countryHint != null ? countryHint : 'country'.tr,
-                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Get.height * 0.01, vertical: Get.height * 0.02),
+                child: Center(
+                  child: TextField(
+                      decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: Get.width * 0.04,
+                        vertical: Get.height * 0.015),
+                    isCollapsed: true,
+                    hintText: "Search...",
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.border, width: 1.5),
+                        borderRadius: BorderRadius.circular(10)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.border, width: 1.5),
+                        borderRadius: BorderRadius.circular(10)),
+                  )),
                 ),
-                dropdownColor: AppColors.inPutFieldColor,
-                icon: Icon(Icons.arrow_drop_down),
-                items: data.map((coun) {
-                  print("printed country code...±${ coun['name']['en']}");
-                  return DropdownMenuItem(
-                    
-                    value: coun, 
-                    child:   Text(
-                      coun['name'][lang] !=null ?  coun['name'][lang] :
-                      coun['name'][lang] == null ?  coun['name']['en']:
-                      coun['name']['en'] == "  " ? coun['name']['ar']: coun['name']['ar'] ==  "  " ? coun['name']['en']:''
-                    )
-                  );
-                }).toList(),
-                onChanged: (val) {
-                  var mapCountry;
-                  setState(() {
-                    mapCountry = val as Map;
-                    countryHint = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
-                    mapCountry['name'][lang]== null ? mapCountry['name']['en']:'' ;
-                    countryID = mapCountry['id'];
-                  });
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                      top: Get.height * 0.02,
+                      left: Get.height * 0.02,
+                      right: Get.height * 0.02),
+                  child: Text("category".tr,
+                      style: TextStyle(
+                          fontSize: 15,
+                          letterSpacing: 1,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600))),
+
+
+              GetBuilder<CategoryController>(
+                init: CategoryController(),
+                builder: (data) {
+                  return data.isLoading == true
+                      ? Container(
+                    height: Get.height / 10,
+                  )
+                      : data.havingAddsList != null &&
+                      data.havingAddsList['data'] != null
+                      ? Container(
+                          height: Get.height / 3,
+                          width: Get.width,
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: data
+                                  .havingAddsList['data'].length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                _isChecked = List<bool>.filled( data
+                                    .havingAddsList['data'].length, false);
+                                if(filteredIndex==index){
+                                  _isChecked[index]=true;
+                                }
+
+                                return Row(
+                                  children: [
+                                    SizedBox(
+                                        width:Get.width*0.02,
+
+                                    ),
+                                    Checkbox(
+
+                                        fillColor: MaterialStateProperty.all(AppColors.border),
+                                        value: _isChecked[index],
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _isChecked[index] = val!;
+
+                                            filteredIndex = index;
+                                            catFilteredID =
+                                            data.havingAddsList[
+                                            'data']
+                                            [index]['id'];
+                                          });
+                                        }),
+                                    SizedBox(
+                                      width:Get.width*0.02
+                                    ),
+                                    Text(
+                                      data.havingAddsList['data'][index]
+                                      ['category'][
+                                      lang] !=
+                                          null
+                                          ? data.havingAddsList['data']
+                                      [index]
+                                      ['category']
+                                      [lang]
+                                          .toString()
+                                          : data.havingAddsList['data'][index]['category'][lang] ==
+                                          null
+                                          ? data
+                                          .havingAddsList['data']
+                                      [index]
+                                      ['category']
+                                      ['en']
+                                          .toString()
+                                          : '',
+                                      style: TextStyle(
+                                        color: bottomSheetCategory == index
+                                            ? AppColors.border
+                                            : AppColors.border,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w400,
+                                        fontStyle: FontStyle.normal,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
+                      : Container();
                 },
-              )
-            )
-          )
-        ),
-      ],
-    );
-  }
- 
-  Widget college(List data){
-   return Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint: Text(
-              hintClg !=null ? hintClg: "collegesu".tr, style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)
-            ),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: data.map((coll) {
-              return DropdownMenuItem(
-                value: coll,
-                child:
-                Text(coll['college'][lang] !=null ? coll['college'][lang] :
-                coll['college'][lang] == null ? coll['college']['en'] :'',
-                )
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                mapClg = value as Map;
-                hintClg = mapClg['college'][lang] !=null ? mapClg['college'][lang]: mapClg['college'][lang] == null ? mapClg['college']['en']:'';
-                collegeID =  mapClg['id'];
-              });
-            },
-          )
-        )
-      )
-    );
-  }
- 
-  Widget university(List data){
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(hinText !=null ? hinText: "universitysu".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: data.map((uni) {
-              return DropdownMenuItem(
-                value: uni,
-                child:
-                Text(
-                  uni['name'][lang] !=null ?   uni['name'][lang] :
-                  uni['name'][lang] == null ?   uni['name']['en']:''
-                )
-              );
-            }).toList(),
-            onChanged: (dataa) {
-              setState(() {
-                mapuni = dataa as Map;
-                hinText =  mapuni['name'][lang] !=null ? mapuni['name'][lang]: mapuni['name'][lang] == null ? mapuni['name']['en']:'';
-                universitySelected = mapuni['id'];
-              });
-            },
-          )
-        )
-      )
-    );
-  }
-  
-  Widget city(List data){
-    return  Container(
-      margin:EdgeInsets.only(left:20, right: 20),
-      width: Get.width * 0.9,
-      decoration: BoxDecoration(
-        color: AppColors.inputColor,
-        border: Border.all(color: AppColors.outline),
-        borderRadius: BorderRadius.circular(2.0)
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-            hint:Text(hinCity !=null ? hinCity: "city".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
-            dropdownColor: AppColors.inPutFieldColor,
-            icon: Icon(Icons.arrow_drop_down),
-            items: data.map((city) {
-              return DropdownMenuItem(
-                value: city,
-                child:
-                Text(
-                  city['city'][lang] !=null ? city['city'][lang].toString() : city['city'][lang] == null ? city['city']['en'].toString():'',
-                )
-              );
-            }).toList(),
-            onChanged: (dataa) {
-              setState(() {
-                cityMapping = dataa as Map;
-                hinCity =  cityMapping['city'][lang] !=null ? cityMapping['city'][lang]: cityMapping['city'][lang] == null ? cityMapping['city']['en']:"";
-                citySelected = cityMapping['id'];
-              });
-            },
-          )
-        )
-      )
-    );
-  }
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                      top: Get.height * 0.02,
+                      left: Get.height * 0.02,
+                      right: Get.height * 0.02),
+                  child: Text("condition".tr,
+                      style: TextStyle(
+                          fontSize: 15,
+                          letterSpacing: 1,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600))),
+              SizedBox(
+                height:Get.height*0.02,
 
-  Widget degree(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:20),
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:20),
-        isObscure: false,
-        hintText: "degreesu".tr,
-        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: degreeController,
-        onSaved: (newValue) {},
-        validator: (value) {},
-        errorText: '',
-      )
-    );
-  }
+              ),
+              Container(
+                margin: EdgeInsets.only(
 
-  Widget semester(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal:15),
-      child: CustomTextFiled(
-        contentPadding: lang == 'ar'? EdgeInsets.only(right:10) :EdgeInsets.only(left:10),
-        isObscure: false,
-        hintText: "semester".tr,
-        hintStyle: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor),
-        hintColor:   lang == 'ar'? AppColors.inputTextColor:AppColors.inputTextColor ,
-        onChanged: (value) {},
-        onFieldSubmitted: (value) {},
-        textController: semesterController,
-        onSaved: (newValue) {},
-        validator: (value) {},
-        errorText: '',
-      ),
-    );
-  }
+                    left: Get.height * 0.02,
+                    right: Get.height * 0.02),
+                height: Get.height * 0.045,
 
-  Widget buttons(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: Get.height * 0.05,
-          margin: lang == 'en'
-          ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
-          : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-          width: Get.width / 3,
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.all(Radius.circular(5))
-          ),
-          child: GestureDetector(
-            child: Center(
-              child: Text("cancel".tr,
-                style: TextStyle(
-                  color:AppColors.inputTextColor
-                )
+                child:  ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: itemsList.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            onSelected(index);
+                            statusFiltered = itemsList[index];
+                          });
+                        },
+                        child: Container(
+                          margin: lang == 'en'
+                              ? EdgeInsets.only(left: 4)
+                              : EdgeInsets.only(right: 4),
+                          width: Get.width / 5,
+                          height: Get.height / 3,
+                          decoration: BoxDecoration(
+                            // ignore: unnecessary_null_comparison
+                              color: slctedInd != null &&
+                                  slctedInd == index
+                                  ? AppColors.border
+                                  : Colors.white,
+                              //Colors.blue[100],
+                              border: Border.all(
+                                color:
+                                AppColors.border,
+                                width: 1,
+                              ),
+                          ),
+                          child: Center(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(itemsList[index],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: slctedInd == index
+                                        ? AppColors
+                                        .white
+                                        : AppColors
+                                        .black,
+                                  )),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+
+              Container(
+                  margin: EdgeInsets.only(
+                      top: Get.height * 0.03,
+                      left: Get.height * 0.02,
+                      right: Get.height * 0.02),
+                  child: Text('price'.tr,
+                      style: TextStyle(
+                          fontSize: 15,
+                          letterSpacing: 1,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600))),
+              Container(
+                margin: EdgeInsets.only(
+                    top: Get.height * 0.01,
+                    left: Get.height * 0.03,
+                    right: Get.height * 0.04),
+                child: Text("SAR0 - SAR 10000 ",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF2F4199),
+                        fontWeight: FontWeight.normal)),
+              ),
+              Container(
+                margin: lang == 'en'
+                    ? EdgeInsets.only(top: 4, left: 8)
+                    : EdgeInsets.only(top: 4, right: 8),
+                child: RangeSlider(
+                  activeColor: Color(0xFF2F4199),
+                  values: _currentRangeValues,
+                  min: 1.00,
+                  max: 10000.00,
+                  // divisions: 5,
+                  labels: RangeLabels(
+                    _currentRangeValues.start.round().toString(),
+                    _currentRangeValues.end.round().toString(),
+                  ),
+                  onChanged: (values) {
+                    setState(() {
+                      _currentRangeValues = values;
+                      start = _currentRangeValues.start
+                          .round()
+                          .toString();
+                      end =
+                          _currentRangeValues.end.round().toString();
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height:Get.height*0.1),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    // ignore: deprecated_member_use
+                    child: GestureDetector(
+                      onTap: () {
+                        array.clear();
+                        cityArray.clear();
+                        locationName = null;
+                        selectedService = null;
+                        Get.back();
+                        Get.find<LocationController>()
+                            .getAllLocationToDB();
+                        // Get.to(SignIn());
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color:AppColors.border
+                          ),
+                          height:Get.height*0.045,
+                          width: Get.width*0.25,
+
+                          child: Center(
+                              child: Text("reset".tr,
+                                  style:
+                                  TextStyle(color: Colors.white)))),
+                    ),
+                  ),
+SizedBox(width:Get.width*0.02),
+                  Container(
+                    // ignore: deprecated_member_use
+                      child: GestureDetector(
+                        onTap: () {
+                          var cityFinalData;
+                          if (decideRouter == 'city' ||
+                              decideRouter == 'name') {
+                            if (cityArray.length != 0) {
+                              var cityFinal = cityArray.toString();
+                              cityFinalData = cityFinal.substring(
+                                  1, cityFinal.length - 1);
+                            } else {
+                              cityFinalData = null;
+                            }
+                            Get.find<LocationController>()
+                                .getAllLocationByCity(
+                                cityFinalData, locationName);
+                          } else if (decideRouter == 'near') {
+                            Get.find<LocationController>()
+                                .getAllLocationNearBy(
+                                end,
+                                position.latitude,
+                                position.longitude);
+                          }
+                          Get.back();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                             color: Color(0xFF2F4199)
+                          ),
+                            height:Get.height*0.045,
+                            width: Get.width*0.25,
+
+                            child: Center(
+                                child: Text("apply".tr,
+                                    style:
+                                    TextStyle(color: Colors.white)))),
+                      )),
+                ],
               )
-            ),
-            onTap: () {
-              Get.back();
-            }
-          ),
-        ),
-        SizedBox(width: 20),
-        GestureDetector(
-          onTap: (){
-            result();
-            Get.back();
-          },
-          child: Container(
-            height: Get.height * 0.05,
-            margin: lang == 'en'
-            ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
-            : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-            width: Get.width / 3,
-            decoration: BoxDecoration(
-              color: AppColors.whitedColor,
-              borderRadius: BorderRadius.all(Radius.circular(5))
-            ),
-            child: Center(
-              child: Text("apply".tr,
-                style: TextStyle(color: Colors.white),
-              )
-            ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
