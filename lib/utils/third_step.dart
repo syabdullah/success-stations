@@ -35,19 +35,19 @@ class _ThirdStepState extends State<ThirdStep> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 15,),
+                      SizedBox(height: 15.h,),
                       Text(AppString.citystep,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7),
+                      SizedBox(height: 7.h),
                       Text("DUBAI",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15,),
+                      SizedBox(height: 15.h,),
                        Text("Ad Number:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7),
+                      SizedBox(height: 7.h),
                       Text("123453242342",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15,),
+                      SizedBox(height: 15.h,),
                        Text("SECTION:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                      SizedBox(height: 7),
+                      SizedBox(height: 7.h),
                       Text("MEDICAL SUPPLY",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                      SizedBox(height: 15,),
+                      SizedBox(height: 15.h,),
                       
                     ],
                   ),
@@ -56,15 +56,15 @@ class _ThirdStepState extends State<ThirdStep> {
                      child: Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15,),
+                        SizedBox(height: 15.h,),
                         Text(AppString.type,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7),
+                        SizedBox(height: 7.h),
                         Text("BOOKS",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 15,),
+                        SizedBox(height: 15.h,),
                          Text(AppString.status,style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-                        SizedBox(height: 7),
+                        SizedBox(height: 7.h),
                         Text("NEW",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-                        SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         
                       ],
                       ),
@@ -81,7 +81,7 @@ class _ThirdStepState extends State<ThirdStep> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("${AppString.details}:",style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.grey),),
-            SizedBox(height:5),
+            SizedBox(height:5.h),
             Text("AppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.detailsAppString.details",
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black),)

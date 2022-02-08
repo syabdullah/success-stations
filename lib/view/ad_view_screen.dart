@@ -645,7 +645,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     //                     fontSize: 15,
                     //                     fontWeight: FontWeight.bold,
                     //                     color: Colors.grey)),
-                    //             SizedBox(height: 8),
+                    //             SizedBox(height: 8.h),
                     //             Text(
                     //                 data['country']['name'][lang] != null
                     //                     ? data['country']['name'][lang]

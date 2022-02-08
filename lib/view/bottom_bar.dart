@@ -226,7 +226,7 @@ class _BottomTabsState extends State<BottomTabs> {
             key: _scaffoldKey,
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(60.0),
-                child: _currentIndex == 3
+                child: lang == 'en'&&_currentIndex == 3|| lang == 'ar'&&_currentIndex == 1
                     ? SizedBox(height: Get.height * 0.038)
                     : appbar(_scaffoldKey, context, AppImages.appBarLogo,
                         AppImages.appBarSearch, _currentIndex)),
