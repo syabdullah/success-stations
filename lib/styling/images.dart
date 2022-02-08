@@ -35,6 +35,7 @@ class AppImages {
   static String notification = imagePath + 'notifications.png';
   static String ugr = imagePath + 'uagr.png';
   static String ma = imagePath + 'ma.png';
+  static String chat = imagePath + '30.png';
 
   static String membership = imagePath + 'memr.png';
   static String menuDrawer = imagePath + 'menu-Drawer.png';

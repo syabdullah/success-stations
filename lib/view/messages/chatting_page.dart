@@ -150,73 +150,8 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
               )),
           body: Stack(
             children: [
-              Container(
-                  height: Get.height,
-                  width: Get.width,
-                  // color: AppColors.whitedColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppBar(
-                          leading: GestureDetector(
-                              onTap: () {
-                                socket.dispose();
-
-                                var json = {'conversation_id': conversationID};
-                                chatCont.readConversation(json);
-                                chatCont.getAllConvo();
-                                Get.back();
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.all(Get.width * 0.03),
-                                child: ImageIcon(
-                                    AssetImage(AppImages.imagearrow1)),
-                              )),
-                          elevation: 0,
-                          backgroundColor: AppColors.whitedColor,
-                          title: Padding(
-                            padding: lang == 'en'
-                                ? EdgeInsets.only(left: Get.width * 0.1)
-                                : EdgeInsets.only(right: Get.width * 0.14),
-                            child: Text(
-                              userData[1].toString(),
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'Source_Sans_Pro'),
-                            ),
-                          )),
-                    ],
-                  )),
               chattingList(),
-              Padding(
-                padding: lang == 'en'
-                    ? EdgeInsets.only(
-                        top: Get.width * 0.11, left: Get.width * 0.16)
-                    : EdgeInsets.only(
-                        top: Get.width * 0.11, right: Get.width * 0.16),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[400],
-                  radius: 20,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(60.0),
-                      child: image != null
-                          ? Image.network(
-                              image,
-                              fit: BoxFit.fill,
-                              height: 80,
-                            )
-                          : Icon(
-                              Icons.person,
-                              color: Colors.blue[100],
-                            )),
-                ),
-              ),
-              textFieldDataSender()
-            ],
-          ),
-        ));
+              textFieldDataSender()])));
   }
 
   bool isLoading = false;

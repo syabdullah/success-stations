@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:success_stations/controller/inbox_controller/chat_controller.dart';
 import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
 import 'dart:ui' as ui;
@@ -23,24 +24,13 @@ class _InboxState extends State<Inbox> {
    userId =  box.read('user_id');
   }
   Widget messageList(data,allData) {
-    return Container(    
-      height: Get.height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft:Radius.circular(50),topRight:Radius.circular(50)),
-        color: Colors.grey[200],
-      ),
-      margin: Get.height < 700 ? EdgeInsets.only(top:Get.height/2.9):
-       Get.height > 700 &&
-      Get.height > 800 ?  EdgeInsets.only(top:Get.height/3.4) : EdgeInsets.only(top:Get.height/3.3),
-      child: 
-      ListView.builder(
-        physics: AlwaysScrollableScrollPhysics(),
-        itemCount: conData.length,
-        padding: EdgeInsets.only(top: 15),
-        itemBuilder: (context, index) {
-          return chatListView(conData[index],allData['data'][index]);
-        },
-      ),
+    return ListView.builder(
+      physics: AlwaysScrollableScrollPhysics(),
+      itemCount: conData.length,
+      padding: EdgeInsets.only(top: 15),
+      itemBuilder: (context, index) {
+        return chatListView(conData[index],allData['data'][index]);
+      },
     );
   }
 
@@ -49,88 +39,82 @@ class _InboxState extends State<Inbox> {
     var time = DateFormat().add_jm().format(date.toLocal());
    
     return Container(
-      height: Get.height < 700 ? Get.height/6: Get.height > 700 &&
-      Get.height > 800 ?  Get.height/9 : Get.height/8,
-      margin: EdgeInsets.only(left:10,right: 10,bottom:5),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-       elevation: 3,
-       child: ListTile(
-          onTap: (){          
-            if(data['image'] != null){
-              box.write('chat_image', data['image']['url']);
-            }else {
-              box.remove('chat_image');
-            }
-            chatCont.getChatConvo(data['pivot']['conversation_id'], 1);
-            Get.to(ChattinPagePersonal(),arguments: [data['pivot']['conversation_id'],data['name']]);
-          },
-          title: 
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey[300],
-                radius: 30,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child:  data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 67,) : Icon(Icons.person)
-                ),
-              ),
+      // height: Get.height < 700 ? Get.height/10: Get.height > 700 &&
+      // Get.height > 800 ?  Get.height/9 : Get.height/8,
+      // margin: EdgeInsets.only(left:10,right: 10,bottom:5),
+      child: ListTile(
+         onTap: (){
+           if(data['image'] != null){
+             box.write('chat_image', data['image']['url']);
+           }else {
+             box.remove('chat_image');
+           }
+           chatCont.getChatConvo(data['pivot']['conversation_id'], 1);
+           Get.to(ChattinPagePersonal(),arguments: [data['pivot']['conversation_id'],data['name']]);
+         },
+         title:
+         Row(
+           children: [
+             CircleAvatar(
+               backgroundColor: Colors.grey[300],
+               radius: 30,
+               child: ClipRRect(
+                 borderRadius: BorderRadius.circular(50.0),
+                 child:  data['image'] != null ? Image.network(data['image']['url'],fit: BoxFit.fill,height: 67,) : Icon(Icons.person)
+               ),
+             ),
+             Container(
+               margin: lang == 'ar' ?  EdgeInsets.only(top: Get.width * 0.07,right: Get.width *  0.025):  EdgeInsets.only(top: Get.width * 0.07,left:Get.width * 0.03),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text(
+                     data['name'],
+                     style:TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
+                   ),
+                   Container(
+                     width: Get.width/3.0,
+
+                     child: Text(
+                       dataWithMessage['last_message'] != null ? dataWithMessage['last_message'] :'',
+                       maxLines: 1,
+                       style:TextStyle(color: Colors.grey,fontSize: 13,),
+                     ),
+                   ),
+                 ],
+               ),
+             )
+           ],
+         ),
+         trailing: Column(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+              dataWithMessage['messages_logs_count'] != 0 ?
               Container(
-                margin: lang == 'ar' ?  EdgeInsets.only(top: 20,right: 10):  EdgeInsets.only(top: 20,left:12),
-                child: Column( 
-                  crossAxisAlignment: CrossAxisAlignment.start,              
-                  children: [
-                    Text(
-                      data['name'],
-                      style:TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      width: Get.width/3.0,
-                      
-                      child: Text(
-                        dataWithMessage['last_message'] != null ? dataWithMessage['last_message'] :'',
-                        maxLines: 1,
-                        style:TextStyle(color: Colors.grey,fontSize: 13,),
-                      ),
-                    ),                                       
-                  ],
+                width: 25,
+                decoration: BoxDecoration(
+                  color: AppColors.whitedColor,
+                  borderRadius: BorderRadius.all(Radius.circular(8))
                 ),
-              )
-            ],
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-               dataWithMessage['messages_logs_count'] != 0 ? 
-               Container(
-                 width: 25,
-                 decoration: BoxDecoration(
-                   color: AppColors.whitedColor,
-                   borderRadius: BorderRadius.all(Radius.circular(8))
+                child: Center(
+                 child: Text(
+                   dataWithMessage['messages_logs_count'].toString(),
+                   style:TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,),
                  ),
-                 child: Center(
-                  child: Text(
-                    dataWithMessage['messages_logs_count'].toString(),
-                    style:TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,),
-                  ),
-                 ),
-               ) : Container(width: 20,),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
-                  time.toString(),      
-                  textAlign: TextAlign.end,                
-                  style: TextStyle(fontSize: 12,color: Colors.black),
-                  textDirection: ui.TextDirection.ltr
                 ),
-              ),
-            ],
-          ),         
-        ),
-      ),
+              ) : Container(width: 20,),
+             Container(
+               margin: EdgeInsets.only(top: 10),
+               child: Text(
+                 time.toString(),
+                 textAlign: TextAlign.end,
+                 style: TextStyle(fontSize: 12,color: Colors.black),
+                 textDirection: ui.TextDirection.ltr
+               ),
+             ),
+           ],
+         ),
+       ),
     );
   }
   Widget recentlyContacted(data){
@@ -172,6 +156,33 @@ Widget recentChat(data){
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:
+        AppBar(
+            leading:GestureDetector(
+                onTap: (){
+                  Get.back();
+                },
+                child: ImageIcon(AssetImage(AppImages.setting),color: Color(0XFF181818),)
+            ),
+            elevation: 0,
+          shape: Border(
+              bottom: BorderSide(
+                  color: Color(0xFFcccccc),
+                  width: 1
+              )
+          ),
+            backgroundColor: AppColors.white,
+            centerTitle: true,
+            title:Text("inbox".tr,
+              style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Color(0XFF595959),),
+            ),
+          actions: [
+            Padding(
+              padding:  lang == 'ar' ? EdgeInsets.only(left: Get.width * 0.07) :EdgeInsets.only(right: Get.width * 0.07),
+              child: ImageIcon(AssetImage(AppImages.chat),color: Color(0XFF181818),),
+            )
+          ],
+        ),
       body: GetBuilder<ChatController>(
         init: ChatController(),
         builder: (val) {
@@ -187,56 +198,15 @@ Widget recentChat(data){
               }
             }
           }
-          return  Stack(
-            children: [
-              Container(
-                height: Get.height,
-                width: Get.width,
-                color: AppColors.whitedColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppBar(
-                      leading:GestureDetector(
-                        onTap: (){
-                          Get.back();
-                        },
-                        child: Icon(Icons.arrow_back)
-                      ),
-                      elevation: 0,
-                      backgroundColor: AppColors.whitedColor,
-                      centerTitle: true,
-                      title:Text("inbox".tr,
-                        style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                      )
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:20,right: 20),
-                      child: Text("recentelyContact".tr,
-                        style:AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.white,),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(top:20.0),
-                        height: Get.height,
-                        child: val.isLoading ==false && val.allConvo['success'] == true ? recentlyContacted(conData) :Container()
-                      ),
-                    )     
-                  ],
-                )
-              ),
-              val.isLoading ==false && val.allConvo['success'] == true ? messageList(conData,val.allConvo['data']):Container(
-              margin: EdgeInsets.only(top:Get.height/3.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft:Radius.circular(50),topRight:Radius.circular(50)
-                ),
-                color: Colors.grey[100],
-              ),
-            )
-          ],
-        );
+          return  val.isLoading ==false && val.allConvo['success'] == true ? messageList(conData,val.allConvo['data']):Container(
+          margin: EdgeInsets.only(top:Get.height/3.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft:Radius.circular(50),topRight:Radius.circular(50)
+            ),
+            color: Colors.grey[100],
+          ),
+            );
         }
       ),
     );
