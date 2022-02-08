@@ -102,7 +102,8 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                     Get.back();
                   },
                   child: Padding(
-                    padding: EdgeInsets.only(left:Get.width * 0.03,bottom:Get.width * 0.03,top:Get.width * 0.03),
+                    padding: lang == 'ar' ? EdgeInsets.only(right:Get.width * 0.03,bottom:Get.width * 0.03,top:Get.width * 0.03):EdgeInsets.only(left
+                        :Get.width * 0.03,bottom:Get.width * 0.03,top:Get.width * 0.03),
                     child: ImageIcon(
                         AssetImage(AppImages.imagearrow1)),
                   )),
@@ -127,9 +128,9 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                         )),
                   ),
                   Padding(
-                    padding: lang == 'en'
-                        ? EdgeInsets.only(left: Get.width * 0.02)
-                        : EdgeInsets.only(right: Get.width * 0.02),
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(right: Get.width * 0.02)
+                        : EdgeInsets.only(left: Get.width * 0.02),
                     child: Text(
                       userData[1].toString(),
                       style: TextStyle(
