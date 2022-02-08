@@ -94,17 +94,16 @@ class _BottomTabsState extends State<BottomTabs> {
               child: AppDrawer(),
             ),
             body: _archildren[_currentIndex],
+
             bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               currentIndex: _currentIndex,
               onTap: onTabTapped,
               items: [
                 BottomNavigationBarItem(
                   // ignore: deprecated_member_use
-                  title: Text('offer'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
+                  title: SizedBox.shrink(),
                   icon: Column(
                     children: [
                       ImageIcon(
@@ -112,7 +111,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.offers,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('offer'.tr,
                           style: AppTextStyles.appTextStyle(
@@ -123,6 +122,7 @@ class _BottomTabsState extends State<BottomTabs> {
                   ),
                 ),
                 BottomNavigationBarItem(
+
                   // ignore: deprecated_member_use
                   title: Text('friends'.tr,
                       style: AppTextStyles.appTextStyle(
@@ -136,7 +136,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.friends,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('friends'.tr,
                           style: AppTextStyles.appTextStyle(
@@ -155,12 +155,15 @@ class _BottomTabsState extends State<BottomTabs> {
                           color: AppColors.inputTextColor)),
                   icon: Column(
                     children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.home,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: ImageIcon(
+                          AssetImage(
+                            AppImages.home,
+                          ),
+                          color: AppColors.black,
+                          size: 55,
                         ),
-                        color: AppColors.black,
-                        size: 55,
                       ),
                       // Text('home'.tr, style: AppTextStyles.appTextStyle(
                       //     fontSize: 10,
@@ -169,11 +172,12 @@ class _BottomTabsState extends State<BottomTabs> {
                       // ),
                     ],
                   ),
+
                 ),
                 //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
                 BottomNavigationBarItem(
                   // ignore: deprecated_member_use
-                  title: Text('location'.tr,
+                  title: Text('locationTab'.tr,
                       style: AppTextStyles.appTextStyle(
                           fontSize: 0,
                           fontWeight: FontWeight.bold,
@@ -185,9 +189,9 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.locations,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
-                      Text('location'.tr,
+                      Text('locationTab'.tr,
                           style: AppTextStyles.appTextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -201,7 +205,7 @@ class _BottomTabsState extends State<BottomTabs> {
                       style: AppTextStyles.appTextStyle(
                           fontSize: 0,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
+                          color: AppColors.whitedColor)),
                   icon: Column(
                     children: [
                       ImageIcon(
@@ -209,7 +213,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.ads,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('ads'.tr,
                           style: AppTextStyles.appTextStyle(
@@ -238,6 +242,8 @@ class _BottomTabsState extends State<BottomTabs> {
             ),
             body: _children[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               currentIndex: _currentIndex,
               onTap: onTabTapped,
               items: [
@@ -255,7 +261,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.offers,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('offer'.tr,
                           style: AppTextStyles.appTextStyle(
@@ -271,7 +277,7 @@ class _BottomTabsState extends State<BottomTabs> {
                       style: AppTextStyles.appTextStyle(
                           fontSize: 0,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
+                          color: AppColors.black,)),
                   icon: Column(
                     children: [
                       ImageIcon(
@@ -279,7 +285,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.friends,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('friends'.tr,
                           style: AppTextStyles.appTextStyle(
@@ -298,12 +304,15 @@ class _BottomTabsState extends State<BottomTabs> {
                           color: AppColors.inputTextColor)),
                   icon: Column(
                     children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.home,
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: ImageIcon(
+                          AssetImage(
+                            AppImages.home,
+                          ),
+                          color: AppColors.black,
+                          size: 55,
                         ),
-                        color: AppColors.black,
-                        size: 55,
                       ),
                       // Text('home'.tr, style: AppTextStyles.appTextStyle(
                       //     fontSize: 10,
@@ -312,11 +321,12 @@ class _BottomTabsState extends State<BottomTabs> {
                       // ),
                     ],
                   ),
+
                 ),
                 //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
                 BottomNavigationBarItem(
                   // ignore: deprecated_member_use
-                  title: Text('location'.tr,
+                  title: Text('locationTab'.tr,
                       style: AppTextStyles.appTextStyle(
                           fontSize: 0,
                           fontWeight: FontWeight.bold,
@@ -328,9 +338,9 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.locations,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
-                      Text('location'.tr,
+                      Text('locationTab'.tr,
                           style: AppTextStyles.appTextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -352,7 +362,7 @@ class _BottomTabsState extends State<BottomTabs> {
                           AppImages.ads,
                         ),
                         color: AppColors.black,
-                        size: 40,
+                        size: 25,
                       ),
                       Text('ads'.tr,
                           style: AppTextStyles.appTextStyle(

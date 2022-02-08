@@ -306,7 +306,7 @@ class _SignPageState extends State<StudentSignUp> {
                               child: Text(
                                 "sign_in".tr,
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color:AppColors.whitedColor,
                                   fontFamily: "Source_Sans_Pro",
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
