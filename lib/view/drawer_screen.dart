@@ -325,10 +325,10 @@ class _AppDrawerState extends State<AppDrawer> {
                             }, 15.0),
 
                         Container(
-                          margin: EdgeInsets.only(left: 12, right: 0),
+                          margin: EdgeInsets.only(left: 15, right: 5),
                           child: Row(
                             children: [
-                              Image.asset(AppImages.language,),
+                              Image.asset(AppImages.language, height: 20,),
                               GetBuilder<LanguageController>(
                                 init: LanguageController(),
                                 builder: (val) {
