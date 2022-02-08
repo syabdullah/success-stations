@@ -66,7 +66,7 @@ const Map<String, String> en = {
   "region": "Region",
   "country": "Country",
   "coun": "COUNTRY : ",
-  "featured_ads": "Featured Ad",
+  "featured_ads": "Featured ads",
   "termsline":"I agree to the terms and conditions",
   "descrip": " DESCRIPTION :",
   "city": "City",

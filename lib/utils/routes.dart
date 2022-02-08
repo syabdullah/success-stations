@@ -160,7 +160,7 @@ class SuccessStationRoutes {
       case chooseCountry:
         return MaterialPageRoute(builder: (_) => ChooseCountry());
       case topLocation:
-        return MaterialPageRoute(builder: (_) => CustomInfoWindowExample());
+        return MaterialPageRoute(builder: (_) => Inbox());
       default:
         return MaterialPageRoute(
             builder: (_) => auth == null ? SignIn() : BottomTabs());
