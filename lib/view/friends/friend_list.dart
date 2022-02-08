@@ -92,8 +92,9 @@ class _FriendListState extends State<FriendList> {
                 ),
               ),
             ),
-            SizedBox(
-              height: Get.height<700? Get.height - Get.height * 0.3:Get.height/1.32,
+            Flexible(
+              flex: 2,
+              // height: Get.height<700? Get.height - Get.height * 0.3:Get.height - Get.height*0.28,
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: [
