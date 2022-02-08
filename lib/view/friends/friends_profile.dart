@@ -68,24 +68,24 @@ class _FriendProfileState extends State<FriendProfile>
             builder: (val) {
               return val.friendProfileData == null || val.userAds == null
                   ? SingleChildScrollView(
-                      child: Container(
-                          margin: EdgeInsets.only(top: 40),
-                          child: friendProfileShimmer()))
+                  child: Container(
+                      margin: EdgeInsets.only(top: 40),
+                      child: friendProfileShimmer()))
                   : val.friendProfileData['success'] == false &&
-                          val.friendProfileData['errors'] ==
-                              'No Profile Available'
-                      ? Container(
-                          child: Center(
-                              child: Text(val.friendProfileData['errors'])),
-                        )
-                      : Column(
-                          children: [
-                            profileDetail(val.friendProfileData['data']),
-                            tabs(val.friendProfileData['data']),
-                            general(val.friendProfileData['data'],
-                                val.userAds['data']),
-                          ],
-                        );
+                  val.friendProfileData['errors'] ==
+                      'No Profile Available'
+                  ? Container(
+                child: Center(
+                    child: Text(val.friendProfileData['errors'])),
+              )
+                  : Column(
+                children: [
+                  profileDetail(val.friendProfileData['data']),
+                  tabs(val.friendProfileData['data']),
+                  general(val.friendProfileData['data'],
+                      val.userAds['data']),
+                ],
+              );
             }),
       ),
     );
@@ -117,9 +117,9 @@ class _FriendProfileState extends State<FriendProfile>
                 bottomRight: Radius.circular(0)),
             child: Container(
                 child: Image.asset(
-              AppImages.topImage,
-              fit: BoxFit.fill,
-            )),
+                  AppImages.topImage,
+                  fit: BoxFit.fill,
+                )),
           ),
         ),
         Container(
@@ -146,30 +146,30 @@ class _FriendProfileState extends State<FriendProfile>
                     left: 0.0, right: 10.0, top: Get.height / 16),
                 child: data != null && data['image'] != null
                     ? CircleAvatar(
-                        backgroundImage: NetworkImage(data['image']['url']),
-                        radius: 50.0,
-                      )
+                  backgroundImage: NetworkImage(data['image']['url']),
+                  radius: 50.0,
+                )
                     : CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: Get.height*0.06,
-                        child: Icon(
-                          Icons.person,
-                          size: Get.height * 0.07,
-                          color: Colors.black,
-                        )),
+                    backgroundColor: Colors.grey,
+                    radius: Get.height*0.06,
+                    child: Icon(
+                      Icons.person,
+                      size: Get.height * 0.07,
+                      color: Colors.black,
+                    )),
               ),
             ),
             Container(
                 margin: EdgeInsets.only(top: Get.height * 0.01),
                 child: data != null
                     ? Text(data['name'],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize:lang =='ar' ?20:25,
-                            fontWeight: FontWeight.w600))
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize:lang =='ar' ?20:25,
+                        fontWeight: FontWeight.w600))
                     : Text(
-                        " ",
-                      )),
+                  " ",
+                )),
             // Container(
             //   margin: EdgeInsets.only(top: 0, left:Get.width*0.015),
             //   child: data != null && data['degree'] != null
@@ -182,27 +182,27 @@ class _FriendProfileState extends State<FriendProfile>
             // ),
             country != null
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: Get.height * 0.015),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
-                          child: Text(
-                              country['name'][lang] != null
-                                  ? country['name'][lang]
-                                  : country['name'][lang] == null
-                                      ? country['name']['en']
-                                      : '',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                // fontWeight: FontWeight.w400
-                              )),
-                        ),
-                      ),
-                    ],
-                  )
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: Get.height * 0.015),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Text(
+                        country['name'][lang] != null
+                            ? country['name'][lang]
+                            : country['name'][lang] == null
+                            ? country['name']['en']
+                            : '',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          // fontWeight: FontWeight.w400
+                        )),
+                  ),
+                ),
+              ],
+            )
                 : Container(),
 
             GestureDetector(
@@ -228,31 +228,31 @@ class _FriendProfileState extends State<FriendProfile>
                     ),
                     child: data == null || data['is_user_friend'] == null
                         ? Center(
-                            child: Text("addFriend".tr,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500)),
-                          )
+                      child: Text("addFriend".tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500)),
+                    )
                         : Center(
-                            child: choice == false ||
-                                    data['is_user_friend'].length != 0
-                                ? Text("cancel".tr,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500))
-                                : Text(
-                                    "addFriend".tr,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                          ))),
+                      child: choice == false ||
+                          data['is_user_friend'].length != 0
+                          ? Text("cancel".tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500))
+                          : Text(
+                        "addFriend".tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ))),
           ],
         ),
       ],
@@ -282,7 +282,7 @@ class _FriendProfileState extends State<FriendProfile>
                 labelColor: AppColors.appBarBackGroundColor,
                 labelPadding: EdgeInsets.symmetric(horizontal: 20.0),
                 labelStyle: TextStyle(
-                    // fontFamily: "Roboto",
+                  // fontFamily: "Roboto",
                     fontSize: 16,
                     fontWeight: FontWeight.w700),
                 indicatorColor: Colors.transparent,
@@ -307,7 +307,7 @@ class _FriendProfileState extends State<FriendProfile>
                   Get.to(ChattinPagePersonal(), arguments: [0, name['name']]);
                 },
                 child:
-                    Image.asset(AppImages.chating, height: Get.height * 0.045)),
+                Image.asset(AppImages.chating, height: Get.height * 0.045)),
             SizedBox(width: Get.width * 0.015),
             Image.asset(AppImages.whatsapp, height: Get.height * 0.035),
             SizedBox(width: Get.width * 0.015),
@@ -387,13 +387,13 @@ class _FriendProfileState extends State<FriendProfile>
                                       color: Colors.black))),
                           data != null && data["about"] != null
                               ? Container(
-                                  width: Get.width,
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                      data["about"] != null
-                                          ? data["about"].toString()
-                                          : '',
-                                      style: TextStyle(color: Colors.black)))
+                              width: Get.width,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                  data["about"] != null
+                                      ? data["about"].toString()
+                                      : '',
+                                  style: TextStyle(color: Colors.black)))
                               : Container()
                         ],
                       ),
@@ -421,76 +421,76 @@ class _FriendProfileState extends State<FriendProfile>
                                       color: Colors.black))),
                           data != null && data["about"] != null
                               ? SizedBox(
-                                  height: Get.height * 0.3,
-                                  child: ListView.builder(
-                                    itemCount: 2,
-                                    itemBuilder: (cntx, i) {
-                                      return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  bottom: Get.height * 0.03),
-                                              child: Row(children: [
-                                                Padding(
-                                                  padding:  EdgeInsets.only(bottom:Get.height * 0.05),
-                                                  child: CircleAvatar(
-                                                      backgroundColor:
-                                                          Colors.grey,
-                                                      radius: 20.0,
-                                                      child: Icon(
-                                                        Icons.person,
-                                                        size: Get.height * 0.04,
-                                                        color: Colors.black,
-                                                      )),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          Get.width * 0.02),
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(title[i],
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                        SizedBox(
-                                                          height: Get.height *
-                                                              0.005,
-                                                        ),
-                                                        Text(subtitle[i]),
-                                                        Text(time[i],
-                                                            style: TextStyle(
-                                                                color:
-                                                                AppColors.outline)),
+                            height: Get.height * 0.3,
+                            child: ListView.builder(
+                              itemCount: 2,
+                              itemBuilder: (cntx, i) {
+                                return Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom: Get.height * 0.03),
+                                        child: Row(children: [
+                                          Padding(
+                                            padding:  EdgeInsets.only(bottom:Get.height * 0.05),
+                                            child: CircleAvatar(
+                                                backgroundColor:
+                                                Colors.grey,
+                                                radius: 20.0,
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: Get.height * 0.04,
+                                                  color: Colors.black,
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                Get.width * 0.02),
+                                            child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(title[i],
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold)),
+                                                  SizedBox(
+                                                    height: Get.height *
+                                                        0.005,
+                                                  ),
+                                                  Text(subtitle[i]),
+                                                  Text(time[i],
+                                                      style: TextStyle(
+                                                          color:
+                                                          AppColors.outline)),
 
-                                                        Row(
-                                                          children: [
+                                                  Row(
+                                                    children: [
 
-                                                            Text('grade: '.tr,
-                                                                style: TextStyle(
-                                                                   )),  Text(grade[i],
-                                                                style: TextStyle(
-                                                                   )),
-                                                          ],
-                                                        ),
-                                                      ]),
-                                                )
-                                              ]),
-                                            ),
+                                                      Text('grade: '.tr,
+                                                          style: TextStyle(
+                                                          )),  Text(grade[i],
+                                                          style: TextStyle(
+                                                          )),
+                                                    ],
+                                                  ),
+                                                ]),
+                                          )
+                                        ]),
+                                      ),
 
-                                          ]);
-                                    },
-                                  ),
-                                )
+                                    ]);
+                              },
+                            ),
+                          )
                               : Container()
                         ],
                       ),
@@ -897,199 +897,199 @@ class _FriendProfileState extends State<FriendProfile>
       itemBuilder: (BuildContext context, index) {
         return adsData != null
             ? GestureDetector(
-                onTap: () {},
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: Get.width*0.015,vertical: Get.height*0.004),
-                  decoration: BoxDecoration(
-                    color:Colors.white,
-                    border: Border.all(
-                      color: AppColors.outline
-                    )
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+          onTap: () {},
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: Get.width*0.015,vertical: Get.height*0.004),
+            decoration: BoxDecoration(
+                color:Colors.white,
+                border: Border.all(
+                    color: AppColors.outline
+                )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    height: Get.height*0.15,
+                    child: Padding(
+                      padding:  EdgeInsets.all(Get.height*0.01),
+                      child: GestureDetector(
+                          child:  ClipRRect(
+                            // borderRadius: BorderRadius.all(Radius.circular(10)),
+                              child: adsData[index]['image'].length != 0
+                                  ? Image.network(
+                                adsData[index]['image'][0]['url'],
+                                width: Get.width / 6,
+                                fit: BoxFit.cover,
+                              ):Container(
+                                  height: Get.height / 7,
+                                  child: Icon(
+                                    Icons.image,
+                                    size: 50,
+                                  ))
+                          )
+                      ),
+                    )),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                          height: Get.height*0.15,
-                          child: Padding(
-                            padding:  EdgeInsets.all(Get.height*0.01),
-                            child: GestureDetector(
-                                child:  ClipRRect(
-                                  // borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  child: adsData[index]['image'].length != 0
-                                      ? Image.network(
-                                    adsData[index]['image'][0]['url'],
-                                    width: Get.width / 6,
-                                    fit: BoxFit.cover,
-                                  ):Container(
-                                      height: Get.height / 7,
-                                      child: Icon(
-                                        Icons.image,
-                                        size: 50,
-                                      ))
-                                )
-                                    ),
-                          )),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
 
-                            Padding(
-                              padding:  EdgeInsets.only(bottom: Get.height*0.005),
-                              child: Container(
-                                  child: Text(
-                                    "Teaching the brain to read book\n at a special price from",
-                                    // textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Source_Sans_Pro",
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  )),
-                            ),
-                            Padding(
-                              padding:  EdgeInsets.only(bottom: Get.height*0.005),
-                              child: Container(
-                                  child: Text(
-                                    "55.22 " + "SAR",
-                                    style: TextStyle(
-                                        fontFamily: "Source_Sans_Pro",
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                            ),
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: Get.height*0.005),
+                        child: Container(
+                            child: Text(
+                              "Teaching the brain to read book\n at a special price from",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Source_Sans_Pro",
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400),
+                            )),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: Get.height*0.005),
+                        child: Container(
+                            child: Text(
+                              "55.22 " + "SAR",
+                              style: TextStyle(
+                                  fontFamily: "Source_Sans_Pro",
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                            )),
+                      ),
 
-                            Padding(
-                              padding:  EdgeInsets.only(bottom: Get.height*0.005),
-                              child: Container(
-                                  child: Text(
-                                    "Jarir Bookstore",
-                                    style: TextStyle(
-                                      fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      // fontWeight: FontWeight.w600
-                                    ),
-                                  )),
-                            ),
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: Get.height*0.005),
+                        child: Container(
+                            child: Text(
+                              "Jarir Bookstore",
+                              style: TextStyle(
+                                fontFamily: "Source_Sans_Pro",
+                                color: Colors.black,
+                                // fontWeight: FontWeight.w600
+                              ),
+                            )),
+                      ),
 
-                          ]),
-                      Column(
+                    ]),
+                Column(
 
-                          children: [
+                    children: [
 
-                            Padding(
-                              padding:  EdgeInsets.only(left: Get.width<700?Get.width*0.07:Get.width*0.09,
-                                  right:Get.width<700?Get.width*0.07: Get.width*0.09,top: Get.height * 0.045),
-                              child: Container(
-                                  child: Text(
-                                    "New",
-                                    // textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Source_Sans_Pro",
-                                        color: Colors.lightGreen,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                            ),
+                      Padding(
+                        padding:  EdgeInsets.only(left: Get.width<700?Get.width*0.07:Get.width*0.09,
+                            right:Get.width<700?Get.width*0.07: Get.width*0.09,top: Get.height * 0.045),
+                        child: Container(
+                            child: Text(
+                              "New",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Source_Sans_Pro",
+                                  color: Colors.lightGreen,
+                                  fontWeight: FontWeight.w600),
+                            )),
+                      ),
 
 
 
 
-                          ]),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Container(
-                      //       width: Get.width / 3,
-                      //       child: Text(
-                      //         adsData[index]['title']['en'],
-                      //         style: TextStyle(fontWeight: FontWeight.bold),
-                      //       ),
-                      //     ),
-                      //     SizedBox(height: 5),
-                      //     Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Image.asset(AppImages.location, height: 15),
-                      //       ],
-                      //     ),
-                      //     SizedBox(height: 5),
-                      //     Row(
-                      //       children: [
-                      //         Image.asset(
-                      //           AppImages.person,
-                      //           height: 15,
-                      //         ),
-                      //         SizedBox(width: 5),
-                      //         Container(
-                      //           child: Text(adsData[index]['contact_name'],
-                      //               style:
-                      //                   TextStyle(fontWeight: FontWeight.w600)),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ],
-                      // ),
+                    ]),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Container(
+                //       width: Get.width / 3,
+                //       child: Text(
+                //         adsData[index]['title']['en'],
+                //         style: TextStyle(fontWeight: FontWeight.bold),
+                //       ),
+                //     ),
+                //     SizedBox(height: 5),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         Image.asset(AppImages.location, height: 15),
+                //       ],
+                //     ),
+                //     SizedBox(height: 5),
+                //     Row(
+                //       children: [
+                //         Image.asset(
+                //           AppImages.person,
+                //           height: 15,
+                //         ),
+                //         SizedBox(width: 5),
+                //         Container(
+                //           child: Text(adsData[index]['contact_name'],
+                //               style:
+                //                   TextStyle(fontWeight: FontWeight.w600)),
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
 
-                      // Column(
-                      //   children: [
-                      //     image != null
-                      //         ? CircleAvatar(
-                      //             backgroundImage: NetworkImage(image),
-                      //             radius: 20.0,
-                      //           )
-                      //         : CircleAvatar(
-                      //             backgroundColor: Colors.grey,
-                      //             radius: 20.0,
-                      //             child: Icon(
-                      //               Icons.person,
-                      //               size: 20,
-                      //               color: Colors.black,
-                      //             )),
-                      //     SizedBox(height: 5),
-                      //     Container(
-                      //       margin: EdgeInsets.only(left: 20, right: 30),
-                      //       child: Row(
-                      //         children: [
-                      //           GestureDetector(
-                      //               onTap: () {
-                      //                 var json = {
-                      //                   'ads_id': adsData[index]['id']
-                      //                 };
-                      //                 liked = !liked;
-                      //                 adsData[index]['is_favorite'] == false
-                      //                     ? friCont.profileAdsToFav(json, id)
-                      //                     : friCont.profileAdsRemove(json, id);
-                      //               },
-                      //               child: adsData[index]['is_favorite'] == true
-                      //                   ? Image.asset(AppImages.redHeart,
-                      //                       height: 20)
-                      //                   : Image.asset(
-                      //                       AppImages.blueHeart,
-                      //                       height: 20,
-                      //                     )),
-                      //           SizedBox(width: 5),
-                      //           GestureDetector(
-                      //               onTap: () {
-                      //                 launch.call("tel:12345678912");
-                      //               },
-                      //               child: Image.asset(
-                      //                 AppImages.call,
-                      //                 height: 20,
-                      //               ))
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // )
-                    ],
-                  ),
-                ),
-              )
+                // Column(
+                //   children: [
+                //     image != null
+                //         ? CircleAvatar(
+                //             backgroundImage: NetworkImage(image),
+                //             radius: 20.0,
+                //           )
+                //         : CircleAvatar(
+                //             backgroundColor: Colors.grey,
+                //             radius: 20.0,
+                //             child: Icon(
+                //               Icons.person,
+                //               size: 20,
+                //               color: Colors.black,
+                //             )),
+                //     SizedBox(height: 5),
+                //     Container(
+                //       margin: EdgeInsets.only(left: 20, right: 30),
+                //       child: Row(
+                //         children: [
+                //           GestureDetector(
+                //               onTap: () {
+                //                 var json = {
+                //                   'ads_id': adsData[index]['id']
+                //                 };
+                //                 liked = !liked;
+                //                 adsData[index]['is_favorite'] == false
+                //                     ? friCont.profileAdsToFav(json, id)
+                //                     : friCont.profileAdsRemove(json, id);
+                //               },
+                //               child: adsData[index]['is_favorite'] == true
+                //                   ? Image.asset(AppImages.redHeart,
+                //                       height: 20)
+                //                   : Image.asset(
+                //                       AppImages.blueHeart,
+                //                       height: 20,
+                //                     )),
+                //           SizedBox(width: 5),
+                //           GestureDetector(
+                //               onTap: () {
+                //                 launch.call("tel:12345678912");
+                //               },
+                //               child: Image.asset(
+                //                 AppImages.call,
+                //                 height: 20,
+                //               ))
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // )
+              ],
+            ),
+          ),
+        )
             : Container(
-                child: Text("No_Ads_Yet".tr),
-              );
+          child: Text("No_Ads_Yet".tr),
+        );
       },
     );
   }

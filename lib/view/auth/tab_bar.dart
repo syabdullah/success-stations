@@ -92,7 +92,7 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
                 child: Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.only(left: 20,right: 20),
+                        margin: EdgeInsets.only(left:Get.width*0.023,right:Get.width*0.023),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),),
                         child:TabBar(

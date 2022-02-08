@@ -22,6 +22,7 @@ const Map<String, String> en = {
   "help_login": "Get help logging in.",
   "login": "Log in",
   "home": "Home",
+  'sign_up':"Sign up",
   'UGR': 'USAGE AGREEMENT',
   "addlocation": "Add Location",
   "Select_your_prefered_language": "Select your prefered language",
