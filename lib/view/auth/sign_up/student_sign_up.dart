@@ -127,192 +127,198 @@ class _SignPageState extends State<StudentSignUp> {
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
-          child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal:Get.width*0.023),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                space20,
-                space20,
-
-                fullNameStudent(),
-                space25,
-                eMail(),
-                space25,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal:Get.width*0.023),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    space20,
+                    space20,
 
-                    password(),
-                    confirmPassword(),
-                  ],
-                ),
-                space25,
-                mobile(),
-                // space10,
-                // studentdob(),
-                // space10,
-                // GetBuilder<ContryController>(
-                //   init: ContryController(),
-                //   builder: (val) {
-                //     return country(val.countryListdata);
-                //   },
-                // ),
-                space25,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GetBuilder<ContryController>(
-                      init: ContryController(),
-                      builder: (val) {
-                        return region(val.regionListdata);
-                      },
+                    fullNameStudent(),
+                    space25,
+                    eMail(),
+                    space25,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        password(),
+                        confirmPassword(),
+                      ],
                     ),
-                    SizedBox(width: 0.5,),
-                    GetBuilder<ContryController>(
-                      init: ContryController(),
-                      builder: (val) {
-                        return city(val.cityListData);
-                      },
-                    ),
-                  ],
-                ),
-                space25,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GetBuilder<UniversityController>(
-                      init: UniversityController(),
-                      builder: (val) {
-                        return university(val.dataUni);
-                      },
-                    ),
-                    SizedBox(
-                      width: 1.8,
-                    ),
-                    GetBuilder<CollegeController>(
-                      init: CollegeController(),
-                      builder: (val) {
-                        return college(val.listCollegeData);
-                      },
-                    ),
-                  ],
-                ),
-                space25,
-                degree(),
-                space25,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: Get.height*0.15,
-                      width: Get.width*0.26,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: AppColors.outline,width: 1.5)
-                      ),
-
-
-                      child: Padding(
-                          padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
-                          child:Image.asset(AppImages.man,height: Get.height*0.1,)
-                      ),
-
-
-                      // decoration: BoxDecoration(color: ),
-                    ),
-                    about(),
-
-
-                  ],
-                ),
-                space25,
-                space20,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Transform.scale(
-                      scale: .9,
-                      child: new Checkbox(
-                        activeColor: AppColors.whitedColor,
-                        value: _isChecked,
-                        onChanged: (value) {
-                          setState(() {
-                            _isChecked = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Text('termsline'.tr,
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.black,
-                            fontFamily: "andada",
-                            fontWeight: FontWeight.w600
-                        )),
-                    // Text("terms_condition".tr,
-                    //     style: TextStyle(
-                    //         fontFamily: 'Lato',
-                    //         color: AppColors.whitedColor,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                space20,
-                submitButton(
-                    bgcolor: AppColors.whitedColor,
-                    textColor: AppColors.white,
-                    buttonText: "sign_up".tr,
-                    fontSize: 16.0,
-                    callback: _isChecked == true ? createUser : null),
-                space20,
-
-                Container(
-                  height: Get.height*0.08,
-                  margin: EdgeInsets.only( bottom:  Get.height*0.005,),
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    children: [
-                      Divider(
-                        color: Colors.black,
-                      ),
-
-                      Padding(
-                        padding:  EdgeInsets.all(Get.height*0.004),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "have_account".tr,
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: "Source_Sans_Pro",
-                                  fontSize: 17),
-                            ),
-                            GestureDetector(
-                                onTap: () {
-
-                                  Get.toNamed('/login');
-
-                                },
-                                child: Text(
-                                  "sign_in".tr,
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontFamily: "Source_Sans_Pro",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
-                          ],
+                    space25,
+                    mobile(),
+                    // space10,
+                    // studentdob(),
+                    // space10,
+                    // GetBuilder<ContryController>(
+                    //   init: ContryController(),
+                    //   builder: (val) {
+                    //     return country(val.countryListdata);
+                    //   },
+                    // ),
+                    space25,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GetBuilder<ContryController>(
+                          init: ContryController(),
+                          builder: (val) {
+                            return region(val.regionListdata);
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                )
+                        SizedBox(width: 0.5,),
+                        GetBuilder<ContryController>(
+                          init: ContryController(),
+                          builder: (val) {
+                            return city(val.cityListData);
+                          },
+                        ),
+                      ],
+                    ),
+                    space25,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GetBuilder<UniversityController>(
+                          init: UniversityController(),
+                          builder: (val) {
+                            return university(val.dataUni);
+                          },
+                        ),
+                        SizedBox(
+                          width: 1.8,
+                        ),
+                        GetBuilder<CollegeController>(
+                          init: CollegeController(),
+                          builder: (val) {
+                            return college(val.listCollegeData);
+                          },
+                        ),
+                      ],
+                    ),
+                    space25,
+                    degree(),
+                    space25,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: Get.height*0.15,
+                          width: Get.width*0.26,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: AppColors.outline,width: 1.5)
+                          ),
 
-              ],
-            ),
+
+                          child: Padding(
+                              padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
+                              child:Image.asset(AppImages.man,height: Get.height*0.1,)
+                          ),
+
+
+                          // decoration: BoxDecoration(color: ),
+                        ),
+                        about(),
+
+
+                      ],
+                    ),
+                    space25,
+                    space20,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Transform.scale(
+                          scale: .9,
+                          child: new Checkbox(
+                            activeColor: AppColors.whitedColor,
+                            value: _isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                _isChecked = value!;
+                              });
+                            },
+                          ),
+                        ),
+                        Text('termsline'.tr,
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.black,
+                                fontFamily: "andada",
+                                fontWeight: FontWeight.w600
+                            )),
+                        // Text("terms_condition".tr,
+                        //     style: TextStyle(
+                        //         fontFamily: 'Lato',
+                        //         color: AppColors.whitedColor,
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    space20,
+                    submitButton(
+                        bgcolor: AppColors.whitedColor,
+                        textColor: AppColors.white,
+                        buttonText: "sign_up".tr,
+                        fontSize: 16.0,
+                        fontFamily: "andada",
+                        callback: _isChecked == true ? createUser : null),
+                    space20,
+
+
+
+                  ],
+                ),
+              ),
+              Container(
+                height: Get.height*0.08,
+                margin: EdgeInsets.only( bottom:  Get.height*0.005,),
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: [
+                    Divider(
+                      color: Colors.black,
+                    ),
+
+                    Padding(
+                      padding:  EdgeInsets.all(Get.height*0.004),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "have_account".tr,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: "Source_Sans_Pro",
+                                fontSize: 17),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+
+                                Get.toNamed('/login');
+
+                              },
+                              child: Text(
+                                "sign_in".tr,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: "Source_Sans_Pro",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
@@ -990,7 +996,7 @@ class _SignPageState extends State<StudentSignUp> {
         textColor,
         fontFamily,
         fontWeight}) {
-    return AppButton(
+    return AppButton2(
       buttonText: buttonText,
       callback: callback,
       bgcolor: bgcolor,
