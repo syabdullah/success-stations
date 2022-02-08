@@ -19,7 +19,13 @@ import 'package:success_stations/styling/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/utils/app_headers.dart';
+import 'package:success_stations/utils/routes.dart';
+import 'package:success_stations/view/i18n/lang/ar_lang.dart';
 import 'package:success_stations/view/membership/pro_indivual_membership.dart';
+
+import 'i18n/app_language.dart';
+import 'i18n/lang/ar_lang.dart';
+import 'i18n/lang/ar_lang.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -42,6 +48,8 @@ class _AppDrawerState extends State<AppDrawer> {
   final getLang = Get.put(LanguageController());
   var lang;
   var uploadedImage;
+  var hintTextLang;
+  var selectedLang;
 
   @override
   void dispose() {
@@ -188,15 +196,37 @@ class _AppDrawerState extends State<AppDrawer> {
                                 margin: EdgeInsets.only(
                                   top: 20,
                                 ),
-                                child: Text(
-                                  box.read('name') != null
-                                      ? box.read('name')
-                                      : '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTextStyles.appTextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      box.read('name') != null
+                                          ? box.read('name')
+                                          : '',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTextStyles.appTextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 5
+                                    ),
+                                    Text(
+                                      box.read('name') != null
+                                          ?
+                                      'edit'.tr
+                                          : '',
+
+                                      overflow: TextOverflow.ellipsis,
+
+                                      style: TextStyle(
+                                          decoration:
+                                          TextDecoration.underline,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -208,7 +238,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 Padding(
                   padding: lang == 'en'
-                      ? const EdgeInsets.only(top: 00.0)
+                      ? const EdgeInsets.only(top: 10.0)
                       : const EdgeInsets.only(top: 00.0, right: 10),
                   child: Container(
                     color: Color(0xFFfafafa),
@@ -216,9 +246,9 @@ class _AppDrawerState extends State<AppDrawer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
+                          padding: const EdgeInsets.only(left: 15.0),
                           child: Text(
-                            "mainMenu".tr,
+                            "dashboard".tr,
                             style: AppTextStyles.appTextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -235,90 +265,83 @@ class _AppDrawerState extends State<AppDrawer> {
                               Get.toNamed('/myDraft');
                             },15.0 ),*/
 
-                        CustomListTile(AppImages.userProfile, 'profile'.tr, () {
+                        CustomListTile(AppImages.userProfile,  userType == 2 && accountType == 'Free'
+                            ?'profile'.tr:'business_profile'.tr, () {
                           Get.toNamed('/userProfile');
                         }, 15.0),
                         CustomListTile(AppImages.ma, 'my_ads'.tr, () {
                           Get.toNamed('/myAddsPage');
+
                         }, 15.0),
-                        // CustomListTile(AppImages.message, 'messeges'.tr, () {
-                        //   Get.toNamed('/inbox');
-                        // },15.0 ),
+
                         userType == 2 && accountType == 'Free'
                             ? Container()
                             : accountType == 'Paid'
-                                ? CustomListTile(
-                                    AppImages.location, 'location'.tr, () {
-                                    Get.toNamed('/location');
-                                  }, 15.0)
-                                : CustomListTile(
-                                    AppImages.location, 'location'.tr, () {
-                                    Get.toNamed('/location');
-                                  }, 15.0),
-                        CustomListTile(AppImages.membership, 'membership'.tr,
-                            () {
-                          Get.to(IndividualMemeberShip());
+                            ? CustomListTile(
+                            AppImages.location, 'location'.tr, () {
+                          Get.toNamed('/location');
+                        }, 15.0)
+                            : CustomListTile(
+                            AppImages.location, 'location'.tr, () {
+                          Get.toNamed('/location');
                         }, 15.0),
+
+
+
+                        userType == 2 && accountType == 'Free'
+                            ? Container()
+                            : accountType == 'Paid'
+                            ? CustomListTile(
+                            AppImages.offers, 'myoffer'.tr, () {
+                          Get.toNamed('/offerPage');;
+                        }, 15.0)
+                            : CustomListTile(
+                            AppImages.offers, 'myoffer'.tr, () {
+                          Get.toNamed('/offerPage');
+                        }, 15.0),
+
+                        CustomListTile(AppImages.freq, 'friends'.tr, ()  {
+                          Get.toNamed('/friReq');
+                        } ,15.0),
                         CustomListTile(
                             AppImages.notification,
                             'notification'.tr,
-                            () => {Get.toNamed('/notification')},
+                                () => {Get.toNamed('/notification')},
                             15.0),
-                        CustomListTile(AppImages.freq, 'friend_requests'.tr, ()  {
-                             Get.toNamed('/friReq');
-                            } ,15.0),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: userType == 2 && accountType == 'Free'
-                              ? Container()
-                              : userType == 3 && accountType == "Paid"
-                                  ? Container()
-                                  : accountType == "Free"
-                                      ? Container()
-                                      : InkWell(
-                                          onTap: () {
-                                            Get.toNamed('/offerPage');
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            margin: EdgeInsets.only(left: 9),
-                                            child: Row(children: [
-                                              Image.asset(
-                                                AppImages.offers,
-                                                height: 25,
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 7, right: 10),
-                                                child: Text('myoffer'.tr,
-                                                    textAlign: TextAlign.start,
-                                                    style: lang == 'ar'
-                                                        ? TextStyle(
-                                                            fontFamily:
-                                                                "Cairo Regular",
-                                                            fontSize: 12.0,
-                                                          )
-                                                        : AppTextStyles
-                                                            .appTextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Colors
-                                                                .grey.shade800,
-                                                          )),
-                                              ),
-                                            ]),
-                                          ),
-                                        ),
-                        ),
-                        // : CustomListTile(
-                        //     AppImages.offers, 'myoffer'.tr, () {
-                        //     Get.toNamed('/offerPage');
-                        //   }, 15.0),
-                        CustomListTile(AppImages.fav, 'favourite'.tr,
+                        // CustomListTile(AppImages.message, 'messeges'.tr, () {
+                        //   Get.toNamed('/inbox');
+                        // },15.0 ),
+
+
+
+
+
+
+                        CustomListTile(AppImages.redHeart, 'favourite'.tr,
                             () => {Get.toNamed('/favourities')}, 15.0),
-                        CustomListTile(AppImages.language, 'choose_language'.tr,
-                            () => {Get.toNamed('/chooseLang')}, 15.0),
+                        CustomListTile(AppImages.membership, 'membership'.tr,
+                                () {
+                              Get.to(IndividualMemeberShip());
+                            }, 15.0),
+
+                        Container(
+                          margin: EdgeInsets.only(left: 12, right: 0),
+                          child: Row(
+                            children: [
+                              Image.asset(AppImages.language,),
+                              GetBuilder<LanguageController>(
+                                init: LanguageController(),
+                                builder: (val) {
+                                  return val.languageList == null
+                                      ? Container()
+                                      : language(val.languageList['data']);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        // CustomListTile(AppImages.language, 'choose_language'.tr,
+                        //     () => {Get.toNamed('/chooseLang')}, 15.0),
                         /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
                               Get.toNamed('/chooseCountry')
                             },15.0 ), */
@@ -371,7 +394,90 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
         ));
   }
+  Widget language(List data) {
+    return ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+            child: Container(
+              height: 25.0,
+             
+              child: DropdownButton(
+
+                hint: hintTextLang != null
+                    ? Text(hintTextLang,
+                    style: lang == 'ar'
+                        ? TextStyle(
+                      fontFamily: "Cairo Regular",
+                      fontSize: 12.0,
+                    )
+                        : AppTextStyles.appTextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey.shade800,
+                    ))
+                    : hintTextLang == null && lang == null
+                    ? Text("English",style: lang == 'ar'
+                    ? TextStyle(
+                  fontFamily: "Cairo Regular",
+                  fontSize: 12.0,
+                )
+                    : AppTextStyles.appTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade800,
+                ))
+                    : Text(lang,style: lang == 'ar'
+                    ? TextStyle(
+                  fontFamily: "Cairo Regular",
+                  fontSize: 12.0,
+                )
+                    : AppTextStyles.appTextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade800,
+                )),
+                dropdownColor: AppColors.inPutFieldColor,
+                icon: Icon(
+                  Icons.expand_more_outlined,
+                  color:Colors.transparent,
+                ),
+                items: data.map((coun) {
+                  return DropdownMenuItem(
+
+                    value: coun,
+                    child: coun['name'] != null
+                        ? Text(
+                      coun['name'],
+                        style: lang == 'ar'
+                            ? TextStyle(
+                          fontFamily: "Cairo Regular",
+                          fontSize: 12.0,
+                        )
+                            : AppTextStyles.appTextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey.shade800,
+                        )
+                    )
+                        : Container(),
+                  );
+                }).toList(),
+                onChanged: (val) {
+                  var mapLang;
+                  setState(() {
+                    mapLang = val as Map;
+                    hintTextLang = mapLang['name'];
+                    selectedLang = mapLang['id'];
+                    box.write('lang_id', mapLang['id']);
+                    box.write('lang_code', mapLang['short_code']);
+                    LocalizationServices().changeLocale(mapLang['short_code']);
+                  });
+                },
+              ),
+            )));
+  }
 }
+
 
 // ignore: must_be_immutable
 class CustomListTile extends StatelessWidget {
@@ -387,7 +493,7 @@ class CustomListTile extends StatelessWidget {
         splashColor: Colors.grey,
         onTap: () => onTap(),
         child: Container(
-            height: 30,
+            height: 35,
             margin: EdgeInsets.only(left: 10),
             child: Column(
               children: [
@@ -403,13 +509,13 @@ class CustomListTile extends StatelessWidget {
                                   child: Image.asset(
                                     image.toString(),
                                     color: Colors.grey[600],
-                                    height: 15,
+                                    height: 20,
                                   ),
                                 )
                               : Image.asset(
                                   image.toString(),
                                   color: Colors.grey[600],
-                                  height: 15,
+                                  height: 20,
                                 ),
                         )),
                     Container(
