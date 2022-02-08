@@ -331,13 +331,14 @@ class _AdsViewState extends State<AdsView> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 7,),
-        height: Get.height < 700 ? Get.height * 0.27: Get.height * 0.23,
+        height: Get.height < 700 ? Get.height * 0.30: Get.height * 0.23,
         child: GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 15.0,
+
           ),
           // scrollDirection: Axis.horizontal,
           itemCount: data != null ? data.length : 0,
@@ -363,12 +364,9 @@ class _AdsViewState extends State<AdsView> {
                         ),
                   ),
                 ),
-                SizedBox(
-                  height: Get.width *0.007,
-                ),
                 Container(
                   width: imageW,
-                  height: Get.height < 400 ? Get.height* 0.05 :Get.height* 0.045,
+                  height: Get.height < 700 ? Get.height* 0.0590 :Get.height* 0.049,
                   child: Center(
                       child: Text(
                           data[index]['category'][lang] != null
@@ -377,7 +375,7 @@ class _AdsViewState extends State<AdsView> {
                                   ? data[index]['category']['en']
                                   : '',
                           textAlign: TextAlign.center,
-                          maxLines: 2,
+                          // maxLines: Get.height < 700 ? 1 : 2,
                           // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontFamily:  "Source_Sans_Pro",

@@ -91,6 +91,63 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
           return false;
         },
         child: Scaffold(
+          appBar: AppBar(
+              leading: GestureDetector(
+                  onTap: () {
+                    socket.dispose();
+
+                    var json = {'conversation_id': conversationID};
+                    chatCont.readConversation(json);
+                    chatCont.getAllConvo();
+                    Get.back();
+                  },
+                  child: Padding(
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(
+                            right: Get.width * 0.03,
+                            bottom: Get.width * 0.03,
+                            top: Get.width * 0.03)
+                        : EdgeInsets.only(
+                            left: Get.width * 0.03,
+                            bottom: Get.width * 0.03,
+                            top: Get.width * 0.03),
+                    child: ImageIcon(AssetImage(AppImages.imagearrow1)),
+                  )),
+              elevation: 0,
+              backgroundColor: AppColors.whitedColor,
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[400],
+                    radius: 20,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60.0),
+                        child: image != null
+                            ? Image.network(
+                                image,
+                                fit: BoxFit.fill,
+                                height: 80,
+                              )
+                            : Icon(
+                                Icons.person,
+                                color: Colors.blue[100],
+                              )),
+                  ),
+                  Padding(
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(right: Get.width * 0.02)
+                        : EdgeInsets.only(left: Get.width * 0.02),
+                    child: Text(
+                      userData[1].toString(),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontFamily: 'Source_Sans_Pro'),
+                    ),
+                  ),
+                ],
+              )),
           body: Stack(
             children: [
               Container(
@@ -257,7 +314,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 4.0,horizontal: 2),
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 2),
         child: Row(
           children: [
             Container(
