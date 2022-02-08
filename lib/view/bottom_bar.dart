@@ -15,8 +15,6 @@ import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
 
-import 'friends/friend_filter.dart';
-
 class BottomTabs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -240,7 +238,7 @@ class _BottomTabsState extends State<BottomTabs> {
               data: Theme.of(context).copyWith(
                   // canvasColor: AppColors.botomTiles
                   ),
-              child: _currentIndex == 2?AppDrawer():FriendsFilter()
+              child: AppDrawer(),
             ),
             body: _children[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(

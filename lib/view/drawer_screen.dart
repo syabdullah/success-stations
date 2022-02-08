@@ -104,10 +104,7 @@ class _AppDrawerState extends State<AppDrawer> {
     lang = box.read('lang_code');
 
     return ClipRRect(
-        borderRadius:
-            lang== 'ar'? BorderRadius.only(
-                topLeft: Radius.circular(45), bottomLeft: Radius.circular(30)):
-        BorderRadius.only(
+        borderRadius: BorderRadius.only(
             topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
         child: Drawer(
           child: SingleChildScrollView(
@@ -328,10 +325,10 @@ class _AppDrawerState extends State<AppDrawer> {
                             }, 15.0),
 
                         Container(
-                          margin: EdgeInsets.only(left: 15, right: 5),
+                          margin: EdgeInsets.only(left: 12, right: 0),
                           child: Row(
                             children: [
-                              Image.asset(AppImages.language, height: 20,),
+                              Image.asset(AppImages.language,),
                               GetBuilder<LanguageController>(
                                 init: LanguageController(),
                                 builder: (val) {

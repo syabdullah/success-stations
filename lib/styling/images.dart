@@ -51,7 +51,7 @@ class AppImages {
   //about us logo
 
   static String logo = imagePath + 'logo.png';
-  static String language = imagePath + 'trans.png';
+  static String language = imagePath + 'Union 5.png';
 
   //addviewscreen
   static String profile = imagePath + 'profile.png';
@@ -70,7 +70,7 @@ class AppImages {
   static String redHeart = imagePath + 'like.png';
   static String gridOf = imagePath + 'menu (2)@3x.png';
   static String filter = imagePath + 'filter icon@3x.png';
-  static String location = imagePath + 'loc.png';
+  static String location = imagePath + 'location-pin-13@3x.png';
   static String blueHeart = imagePath + 'Group -57@3x.png';
   static String call = imagePath + 'dissLike.png';
   static String profileBg = imagePath + 'bg.png';
