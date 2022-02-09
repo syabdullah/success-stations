@@ -220,7 +220,7 @@ class _UserProfileState extends State<UserProfile>
                                     bottom: Get.width * 0.02),
                                 child: Row(
                                   children: [
-                                    Text("Name" + ":  ",
+                                    Text("name".tr + ":  ",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           color: Colors.black
@@ -246,7 +246,7 @@ class _UserProfileState extends State<UserProfile>
                                     Container(
                                       //
                                       child: Text(
-                                        'Email' + ":  ",
+                                        'email'.tr + ":  ",
                                         style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             color: Colors.black
@@ -325,7 +325,7 @@ class _UserProfileState extends State<UserProfile>
                                         ? Container(
                                             // margin: EdgeInsets.only(top:),
                                             child: Text(
-                                              "Phone" + ":  ",
+                                              "phone".tr + ":  ",
                                               style: TextStyle(
                                                   // fontWeight: FontWeight.bold,
                                                   // color: Colors.grey
@@ -346,7 +346,7 @@ class _UserProfileState extends State<UserProfile>
                                     Container(
                                       // margin: EdgeInsets.only(top:25),
                                       child: Text(
-                                        "Country" + ":  ",
+                                        "country".tr + ":  ",
                                         style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             // color: Colors.grey
@@ -376,7 +376,7 @@ class _UserProfileState extends State<UserProfile>
                                     Container(
                                       // margin: EdgeInsets.only(top:25),
                                       child: Text(
-                                        "Region".tr + ":  ",
+                                        "region".tr + ":  ",
                                         style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             // color: Colors.grey
@@ -410,7 +410,7 @@ class _UserProfileState extends State<UserProfile>
                                     userData["city"] != null
                                         ? Container(
                                             child: Text(
-                                              "City" + ":  ",
+                                              "city".tr + ":  ",
                                               style: TextStyle(
                                                   // fontWeight: FontWeight.bold,
                                                   // color: Colors.grey
@@ -584,7 +584,7 @@ class _UserProfileState extends State<UserProfile>
                                   Container(
                                     // margin: EdgeInsets.only(top:14,),
                                     child: Text(
-                                      'University' + ":  ",
+                                      'university'.tr + ":  ",
                                       style: TextStyle(
                                           // fontWeight: FontWeight.bold,
                                           // color: Colors.grey
@@ -622,7 +622,7 @@ class _UserProfileState extends State<UserProfile>
                                   children: [
                                     Container(
                                       child: Text(
-                                        "College" + ':  ',
+                                        "college".tr + ':  ',
                                         style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             // color: Colors.grey
@@ -662,7 +662,7 @@ class _UserProfileState extends State<UserProfile>
                                   children: [
                                     Container(
                                       child: Text(
-                                        "Degree" + ":  ",
+                                        "degree".tr + ":  ",
                                         style: TextStyle(
                                             // fontWeight: FontWeight.bold,
                                             // color: Colors.grey
@@ -730,7 +730,7 @@ class _UserProfileState extends State<UserProfile>
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("About me",style: TextStyle(
+                    Text("aboutme".tr,style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 15,
 

@@ -100,14 +100,14 @@ Widget appbar(
   AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          leadingWidth: 89,
+          leadingWidth: 50,
           leading: index == 2
               ? Container(
                   margin: EdgeInsets.only(top: 8),
                   child: IconButton(
-                      iconSize: 40,
+                      iconSize: 20,
                       icon: Image.asset(AppImages.menuDrawer,
-                          height: 28, color: AppColors.grey),
+                          height: 18, color: AppColors.grey),
                       onPressed: () => globalKey.currentState!.openDrawer()),
                 )
               :

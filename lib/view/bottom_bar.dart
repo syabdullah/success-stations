@@ -114,7 +114,7 @@ class _BottomTabsState extends State<BottomTabs> {
                   // ignore: deprecated_member_use
                   // title: Text('offer'.tr,
                   // ),
-                  label: 'offer'.tr,
+                  label: 'promotions'.tr,
                   icon: ImageIcon(
                     AssetImage(
                       AppImages.offers,
@@ -238,7 +238,7 @@ class _BottomTabsState extends State<BottomTabs> {
                   // ignore: deprecated_member_use
                   // title: Text('offer'.tr,
                   // ),
-                  label: 'offer'.tr,
+                  label: 'promotions'.tr,
                   icon: ImageIcon(
                     AssetImage(
                       AppImages.offers,
