@@ -325,10 +325,10 @@ class _AppDrawerState extends State<AppDrawer> {
                             }, 15.0),
 
                         Container(
-                          margin: EdgeInsets.only(left: 12, right: 0),
+                          margin: EdgeInsets.only(left: 15, right: 5),
                           child: Row(
                             children: [
-                              Image.asset(AppImages.language,),
+                              Image.asset(AppImages.language, height: 25,),
                               GetBuilder<LanguageController>(
                                 init: LanguageController(),
                                 builder: (val) {
@@ -493,7 +493,7 @@ class CustomListTile extends StatelessWidget {
         splashColor: Colors.grey,
         onTap: () => onTap(),
         child: Container(
-            height: 35,
+            height: 38,
             margin: EdgeInsets.only(left: 10),
             child: Column(
               children: [
@@ -509,13 +509,13 @@ class CustomListTile extends StatelessWidget {
                                   child: Image.asset(
                                     image.toString(),
                                     color: Colors.grey[600],
-                                    height: 20,
+                                    height: 25,
                                   ),
                                 )
                               : Image.asset(
                                   image.toString(),
                                   color: Colors.grey[600],
-                                  height: 20,
+                                  height: 25,
                                 ),
                         )),
                     Container(

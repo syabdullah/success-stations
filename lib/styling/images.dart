@@ -70,7 +70,7 @@ class AppImages {
   static String redHeart = imagePath + 'like.png';
   static String gridOf = imagePath + 'menu (2)@3x.png';
   static String filter = imagePath + 'filter icon@3x.png';
-  static String location = imagePath + 'location-pin-13@3x.png';
+  static String location = imagePath + 'loc.png';
   static String blueHeart = imagePath + 'Group -57@3x.png';
   static String call = imagePath + 'dissLike.png';
   static String profileBg = imagePath + 'bg.png';
