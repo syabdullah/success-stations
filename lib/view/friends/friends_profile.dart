@@ -270,9 +270,10 @@ class _FriendProfileState extends State<FriendProfile>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            // height: Get.height * 0.06,
-            width: Get.width /2 ,
+            height: Get.height * 0.4,
+            width: Get.width /1.78 ,
             child: TabBar(
+                isScrollable: false,
                 unselectedLabelColor: Color(0xFF0d0d0d),
                 unselectedLabelStyle: TextStyle(
                   // fontWeight: FontWeight.w700,
@@ -295,7 +296,7 @@ class _FriendProfileState extends State<FriendProfile>
                     children: [
                       _individualTabwithoutline('about'.tr),
                       Padding(
-                        padding: lang == 'ar' ? EdgeInsets.only(right: Get.width * 0.19,top: Get.width * 0.03,bottom: Get.width * 0.03,) :EdgeInsets.only(left: Get.width * 0.19,top: Get.width * 0.03,bottom: Get.width * 0.03,),
+                        padding: lang == 'ar' ? EdgeInsets.only(right: Get.width * 0.24,top: Get.width * 0.03,bottom: Get.width * 0.03,) :EdgeInsets.only(left: Get.width * 0.24,top: Get.width * 0.03,bottom: Get.width * 0.03,),
                         child: VerticalDivider(thickness: 2,color: Color(0xFF0d0d0d),),
                       ),
                     ],
@@ -356,17 +357,19 @@ class _FriendProfileState extends State<FriendProfile>
 
   Widget _individualTabwithoutline(String title) {
     return Container(
-      height: 60 + MediaQuery.of(context).padding.bottom,
+      height: Get.height * 0.3,
       padding: EdgeInsets.all(0),
       width: 100,
       decoration: BoxDecoration(),
-      child: Tab(
-          child: Text(title,
-              style: TextStyle(
-                // color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize:  Get.height<700?10:11.4,
-              ))),
+      child: Center(
+        child: Tab(
+            child: Text(title,
+                style: TextStyle(
+                  // color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize:  Get.height<700?10:14,
+                ))),
+      ),
     );
   }
 
@@ -374,6 +377,7 @@ class _FriendProfileState extends State<FriendProfile>
     return Expanded(
       flex: 1,
       child: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
           SingleChildScrollView(
             child: Column(
