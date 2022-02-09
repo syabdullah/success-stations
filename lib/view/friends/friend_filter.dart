@@ -27,13 +27,13 @@ class _FriendsFilterState extends State<FriendsFilter> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
-  List<String> itemsList = [
 
+  List<String> itemsList = [
     "New".tr,
     "used".tr,
   ];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -90,88 +90,84 @@ class _FriendsFilterState extends State<FriendsFilter> {
                           letterSpacing: 1,
                           color: Colors.black,
                           fontWeight: FontWeight.w600))),
-
-
               GetBuilder<CategoryController>(
                 init: CategoryController(),
                 builder: (data) {
                   return data.isLoading == true
                       ? Container(
-                    height: Get.height / 10,
-                  )
-                      : data.havingAddsList != null &&
-                      data.havingAddsList['data'] != null
-                      ? Container(
-                          height: Get.height / 3,
-                          width: Get.width,
-                          child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: data
-                                  .havingAddsList['data'].length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                _isChecked = List<bool>.filled( data
-                                    .havingAddsList['data'].length, false);
-                                if(filteredIndex==index){
-                                  _isChecked[index]=true;
-                                }
-
-                                return Row(
-                                  children: [
-                                    SizedBox(
-                                        width:Get.width*0.02,
-
-                                    ),
-                                    Checkbox(
-
-                                        fillColor: MaterialStateProperty.all(AppColors.border),
-                                        value: _isChecked[index],
-                                        onChanged: (val) {
-                                          setState(() {
-                                            _isChecked[index] = val!;
-
-                                            filteredIndex = index;
-                                            catFilteredID =
-                                            data.havingAddsList[
-                                            'data']
-                                            [index]['id'];
-                                          });
-                                        }),
-                                    SizedBox(
-                                      width:Get.width*0.02
-                                    ),
-                                    Text(
-                                      data.havingAddsList['data'][index]
-                                      ['category'][
-                                      lang] !=
-                                          null
-                                          ? data.havingAddsList['data']
-                                      [index]
-                                      ['category']
-                                      [lang]
-                                          .toString()
-                                          : data.havingAddsList['data'][index]['category'][lang] ==
-                                          null
-                                          ? data
-                                          .havingAddsList['data']
-                                      [index]
-                                      ['category']
-                                      ['en']
-                                          .toString()
-                                          : '',
-                                      style: TextStyle(
-                                        color: bottomSheetCategory == index
-                                            ? AppColors.border
-                                            : AppColors.border,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400,
-                                        fontStyle: FontStyle.normal,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
+                          height: Get.height / 10,
                         )
-                      : Container();
+                      : data.havingAddsList != null &&
+                              data.havingAddsList['data'] != null
+                          ? Container(
+                              height: Get.height / 3,
+                              width: Get.width,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: data.havingAddsList['data'].length,
+                                  itemBuilder: (BuildContext ctxt, int index) {
+                                    _isChecked = List<bool>.filled(
+                                        data.havingAddsList['data'].length,
+                                        false);
+                                    if (filteredIndex == index) {
+                                      _isChecked[index] = true;
+                                    }
+
+                                    return Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Get.width * 0.02,
+                                        ),
+                                        Checkbox(
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    AppColors.border),
+                                            value: _isChecked[index],
+                                            onChanged: (val) {
+                                              setState(() {
+                                                _isChecked[index] = val!;
+
+                                                filteredIndex = index;
+                                                catFilteredID =
+                                                    data.havingAddsList['data']
+                                                        [index]['id'];
+                                              });
+                                            }),
+                                        Text(
+                                          data.havingAddsList['data'][index]
+                                                      ['category'][lang] !=
+                                                  null
+                                              ? data.havingAddsList['data']
+                                                      [index]['category'][lang]
+                                                  .toString()
+                                              : data.havingAddsList['data']
+                                                              [index]
+                                                          ['category'][lang] ==
+                                                      null
+                                                  ? data.havingAddsList['data']
+                                                          [index]['category']
+                                                          ['en']
+                                                      .toString()
+                                                  : '',
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            color: bottomSheetCategory == index
+                                                ? AppColors.border
+                                                : AppColors.border,
+                                            fontSize: Get.height < 700
+                                                ? Get.height * 0.018
+                                                : Get.height * 0.015,
+                                            fontWeight: FontWeight.w400,
+                                            fontStyle: FontStyle.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            )
+                          : Container();
                 },
               ),
               Container(
@@ -186,17 +182,13 @@ class _FriendsFilterState extends State<FriendsFilter> {
                           color: Colors.black,
                           fontWeight: FontWeight.w600))),
               SizedBox(
-                height:Get.height*0.02,
-
+                height: Get.height * 0.02,
               ),
               Container(
                 margin: EdgeInsets.only(
-
-                    left: Get.height * 0.02,
-                    right: Get.height * 0.02),
+                    left: Get.height * 0.02, right: Get.height * 0.02),
                 height: Get.height * 0.045,
-
-                child:  ListView.builder(
+                child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: itemsList.length,
@@ -216,16 +208,14 @@ class _FriendsFilterState extends State<FriendsFilter> {
                           height: Get.height / 3,
                           decoration: BoxDecoration(
                             // ignore: unnecessary_null_comparison
-                              color: slctedInd != null &&
-                                  slctedInd == index
-                                  ? AppColors.border
-                                  : Colors.white,
-                              //Colors.blue[100],
-                              border: Border.all(
-                                color:
-                                AppColors.border,
-                                width: 1,
-                              ),
+                            color: slctedInd != null && slctedInd == index
+                                ? AppColors.border
+                                : Colors.white,
+                            //Colors.blue[100],
+                            border: Border.all(
+                              color: AppColors.border,
+                              width: 1,
+                            ),
                           ),
                           child: Center(
                             child: Container(
@@ -235,10 +225,8 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: slctedInd == index
-                                        ? AppColors
-                                        .white
-                                        : AppColors
-                                        .black,
+                                        ? AppColors.white
+                                        : AppColors.black,
                                   )),
                             ),
                           ),
@@ -246,7 +234,6 @@ class _FriendsFilterState extends State<FriendsFilter> {
                       );
                     }),
               ),
-
               Container(
                   margin: EdgeInsets.only(
                       top: Get.height * 0.03,
@@ -286,16 +273,13 @@ class _FriendsFilterState extends State<FriendsFilter> {
                   onChanged: (values) {
                     setState(() {
                       _currentRangeValues = values;
-                      start = _currentRangeValues.start
-                          .round()
-                          .toString();
-                      end =
-                          _currentRangeValues.end.round().toString();
+                      start = _currentRangeValues.start.round().toString();
+                      end = _currentRangeValues.end.round().toString();
                     });
                   },
                 ),
               ),
-              SizedBox(height:Get.height*0.1),
+              SizedBox(height: Get.height * 0.1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -308,66 +292,55 @@ class _FriendsFilterState extends State<FriendsFilter> {
                         locationName = null;
                         selectedService = null;
                         Get.back();
-                        Get.find<LocationController>()
-                            .getAllLocationToDB();
+                        Get.find<LocationController>().getAllLocationToDB();
                         // Get.to(SignIn());
                       },
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color:AppColors.border
-                          ),
-                          height:Get.height*0.045,
-                          width: Get.width*0.25,
-
+                              color: AppColors.border),
+                          height: Get.height * 0.045,
+                          width: Get.width * 0.25,
                           child: Center(
                               child: Text("reset".tr,
-                                  style:
-                                  TextStyle(color: Colors.white)))),
+                                  style: TextStyle(color: Colors.white)))),
                     ),
                   ),
-SizedBox(width:Get.width*0.02),
+                  SizedBox(width: Get.width * 0.02),
                   Container(
-                    // ignore: deprecated_member_use
+                      // ignore: deprecated_member_use
                       child: GestureDetector(
-                        onTap: () {
-                          var cityFinalData;
-                          if (decideRouter == 'city' ||
-                              decideRouter == 'name') {
-                            if (cityArray.length != 0) {
-                              var cityFinal = cityArray.toString();
-                              cityFinalData = cityFinal.substring(
-                                  1, cityFinal.length - 1);
-                            } else {
-                              cityFinalData = null;
-                            }
-                            Get.find<LocationController>()
-                                .getAllLocationByCity(
-                                cityFinalData, locationName);
-                          } else if (decideRouter == 'near') {
-                            Get.find<LocationController>()
-                                .getAllLocationNearBy(
-                                end,
-                                position.latitude,
-                                position.longitude);
-                          }
-                          Get.back();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                             color: Color(0xFF2F4199)
-                          ),
-                            height:Get.height*0.045,
-                            width: Get.width*0.25,
-
-                            child: Center(
-                                child: Text("apply".tr,
-                                    style:
-                                    TextStyle(color: Colors.white)))),
-                      )),
+                    onTap: () {
+                      var cityFinalData;
+                      if (decideRouter == 'city' || decideRouter == 'name') {
+                        if (cityArray.length != 0) {
+                          var cityFinal = cityArray.toString();
+                          cityFinalData =
+                              cityFinal.substring(1, cityFinal.length - 1);
+                        } else {
+                          cityFinalData = null;
+                        }
+                        Get.find<LocationController>()
+                            .getAllLocationByCity(cityFinalData, locationName);
+                      } else if (decideRouter == 'near') {
+                        Get.find<LocationController>().getAllLocationNearBy(
+                            end, position.latitude, position.longitude);
+                      }
+                      Get.back();
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xFF2F4199)),
+                        height: Get.height * 0.045,
+                        width: Get.width * 0.25,
+                        child: Center(
+                            child: Text("apply".tr,
+                                style: TextStyle(color: Colors.white)))),
+                  )),
                 ],
-              )
+              ),
+              SizedBox(height: Get.height * 0.02),
             ],
           ),
         ),

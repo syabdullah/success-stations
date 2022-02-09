@@ -164,8 +164,8 @@ Widget recentChat(data){
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawer: SizedBox(
-          width: Get.width/1.5,child: FriendFilter()),
+      drawer: SizedBox(child: FriendFilter(),
+      width: Get.width /1.5,),
       appBar:
         AppBar(
             leading:GestureDetector(

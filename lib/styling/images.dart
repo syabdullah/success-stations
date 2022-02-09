@@ -51,7 +51,7 @@ class AppImages {
   //about us logo
 
   static String logo = imagePath + 'logo.png';
-  static String language = imagePath + 'trans.png';
+  static String language = imagePath + 'Union 5.png';
 
   //addviewscreen
   static String profile = imagePath + 'profile.png';

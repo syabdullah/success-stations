@@ -15,6 +15,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
+import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/friends/friend_filter_old.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/friends/suggest_filter_friends.dart';
@@ -51,12 +52,11 @@ var userId = box.read('user_id');
 RangeValues _currentRangeValues = const RangeValues(1, 10000);
 final offerFilterCont = Get.put(OfferCategoryController());
 var lang = box.read('lang_code');
-
 List<String> itemsList = [
-
+  "old".tr,
   "New".tr,
-  "used".tr,
 ];
+
 onSelected(int index) {
   slctedInd = index;
 }
@@ -262,6 +262,7 @@ Widget appbar(
                                 ),
                               )
                             : Container(),
+                        //sucess station ads filter er
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
@@ -420,7 +421,6 @@ Widget appbar(
               : index == 4
               ? () {
             filtrationModel(context);
-
           }
               : null,
           child: index == 0 || index == 4 || index == 3
@@ -532,6 +532,8 @@ Widget appbar(
                 ),
               ),
             )
+
+            //success station ads filter ar
                 : Container(),
             index == 4 || index == 3
                 ? GestureDetector(
@@ -539,8 +541,8 @@ Widget appbar(
                 // index == 3
                 //     ?
                 // filtrationModel(context): adsfiltringheet(context);
-                // filtrationModel(context)
-                //     :
+                // filtrationModel(context);
+
                 globalKey.currentState!.openDrawer();
               },
               child: Container(
@@ -1246,7 +1248,10 @@ filteringCategory(context) {
   showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
-
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(45.0), topRight: Radius.circular(45.0)),
+      ),
       builder: (context) {
         return FractionallySizedBox(
           heightFactor: 0.6,
