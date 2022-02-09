@@ -93,7 +93,7 @@ class _BottomTabsState extends State<BottomTabs> {
               data: Theme.of(context).copyWith(
                   // canvasColor: AppColors.botomTiles
                   ),
-              child: AppDrawer(),
+              child: _currentIndex==2?AppDrawer():FriendsFilter(),
             ),
             body: _archildren[_currentIndex],
 
@@ -193,7 +193,7 @@ class _BottomTabsState extends State<BottomTabs> {
         data: Theme.of(context).copyWith(
           // canvasColor: AppColors.botomTiles
         ),
-        child: AppDrawer(),
+        child:  _currentIndex==2?AppDrawer():FriendsFilter(),
       ),
       body: _archildren[_currentIndex],
 
