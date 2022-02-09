@@ -199,28 +199,33 @@ Widget appbar(
           ),
           actions: [
             index == 2
-                ? GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/toplocation');
-                    },
-                    child: Container(
-                        padding: EdgeInsets.only(
-                            right: 2, left: 2, top: 4, bottom: 4),
-                        margin: EdgeInsets.only(right: 10, left: 10, top: 10),
-                        child: Row(
-                          children: [
-                            Image.asset(AppImages.chating,
-                                color: AppColors.black),
-                            Container(
-                              height: 20,
-                              color: AppColors.grey,
-                              width: 1,
-                            ),
-                            Image.asset(AppImages.appbar_location,
-                                color: AppColors.black),
-                          ],
-                        )),
-                  )
+                ? Container(
+                    padding: EdgeInsets.only(
+                        right: 2, left: 2, top: 4, bottom: 4),
+                    margin: EdgeInsets.only(right: 10, left: 10, top: 10),
+                    child:  Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/inbox');
+                          },
+                          child: Image.asset(AppImages.chating,
+                              color: AppColors.black),
+                        ),
+                        Container(
+                          height: 20,
+                          color: AppColors.grey,
+                          width: 1,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/toplocation');
+                          },
+                          child: Image.asset(AppImages.appbar_location,
+                              color: AppColors.black),
+                        ),
+                      ],
+                    ))
                 : Container(
                     margin: index == 0 || index == 1
                         ? EdgeInsets.only(top: 08)
@@ -465,28 +470,33 @@ Widget appbar(
     ),
     actions: [
       index == 2
-          ? GestureDetector(
-        onTap: () {
-          Get.toNamed('/toplocation');
-        },
-        child: Container(
-            padding: EdgeInsets.only(
-                right: 2, left: 2, top: 4, bottom: 4),
-            margin: EdgeInsets.only(right: 10, left: 10, top: 10),
-            child: Row(
-              children: [
-                Image.asset(AppImages.chating,
-                    color: AppColors.black),
-                Container(
-                  height: 20,
-                  color: AppColors.grey,
-                  width: 1,
-                ),
-                Image.asset(AppImages.appbar_location,
-                    color: AppColors.black),
-              ],
-            )),
-      )
+          ? Container(
+              padding: EdgeInsets.only(
+                  right: 2, left: 2, top: 4, bottom: 4),
+              margin: EdgeInsets.only(right: 10, left: 10, top: 10),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/inbox');
+                    },
+                    child: Image.asset(AppImages.chating,
+                        color: AppColors.black),
+                  ),
+                  Container(
+                    height: 20,
+                    color: AppColors.grey,
+                    width: 1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/toplocation');
+                    },
+                    child: Image.asset(AppImages.appbar_location,
+                        color: AppColors.black),
+                  ),
+                ],
+              ))
           : Container(
         margin: index == 0 || index == 1
             ? EdgeInsets.only(top: 08)

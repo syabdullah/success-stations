@@ -7,6 +7,8 @@ import 'package:success_stations/main.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/friends/friend_filter.dart';
+import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
 import 'dart:ui' as ui;
 
@@ -64,13 +66,16 @@ class _InboxState extends State<Inbox> {
                ),
              ),
              Container(
-               margin: lang == 'ar' ?  EdgeInsets.only(top: Get.width * 0.07,right: Get.width *  0.025):  EdgeInsets.only(top: Get.width * 0.07,left:Get.width * 0.03),
+               margin: lang == 'ar' ?  EdgeInsets.only(top: Get.width * 0.07,right: Get.width *  0.025):  EdgeInsets.only(top: Get.width * 0.01,left:Get.width * 0.03),
                child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   Text(
-                     data['name'],
-                     style:TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
+                   Padding(
+                     padding:  EdgeInsets.only(bottom: Get.width * 0.01),
+                     child: Text(
+                       data['name'],
+                       style:TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),
+                     ),
                    ),
                    Container(
                      width: Get.width/3.0,
@@ -152,15 +157,18 @@ Widget recentChat(data){
     ],
   ); 
 }
+ final GlobalKey<ScaffoldState> _key = GlobalKey();
  var conData=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+      drawer: FriendsFilter(),
       appBar:
         AppBar(
             leading:GestureDetector(
                 onTap: (){
-                  Get.back();
+                  _key.currentState!.openDrawer();
                 },
                 child: ImageIcon(AssetImage(AppImages.setting),color: Color(0XFF181818),)
             ),
@@ -179,7 +187,9 @@ Widget recentChat(data){
           actions: [
             Padding(
               padding:  lang == 'ar' ? EdgeInsets.only(left: Get.width * 0.07) :EdgeInsets.only(right: Get.width * 0.07),
-              child: ImageIcon(AssetImage(AppImages.chat),color: Color(0XFF181818),),
+              child: InkWell(child: ImageIcon(AssetImage(AppImages.chat),color: Color(0XFF181818),),onTap: (){
+                Get.to(SafeArea(child: FriendList()));
+              },),
             )
           ],
         ),

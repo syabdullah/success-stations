@@ -87,7 +87,9 @@ class _BottomTabsState extends State<BottomTabs> {
             key: _scaffoldKey,
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(60.0),
-                child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
+                child:_currentIndex == 1||_currentIndex == 3
+                    ? SizedBox(height: Get.height * 0.038)
+                    :  appbar(_scaffoldKey, context, AppImages.appBarLogo,
                     AppImages.appBarSearch, _currentIndex)),
             drawer: Theme(
               data: Theme.of(context).copyWith(
@@ -232,7 +234,7 @@ class _BottomTabsState extends State<BottomTabs> {
             key: _scaffoldKey,
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(60.0),
-                child: lang == 'en'&&_currentIndex == 3|| lang == 'ar'&&_currentIndex == 1
+                child: _currentIndex == 3|| _currentIndex == 1
                     ? SizedBox(height: Get.height * 0.038)
                     : appbar(_scaffoldKey, context, AppImages.appBarLogo,
                         AppImages.appBarSearch, _currentIndex)),

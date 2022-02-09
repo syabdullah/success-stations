@@ -309,13 +309,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   //reviewed
   Widget chattingList() {
     return Container(
-      margin: EdgeInsets.only(top: Get.height / 7.9),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(00), topRight: Radius.circular(00)),
-        color: Color(0XFFffffff),
-      ),
-      padding: EdgeInsets.only(top: 20),
       child: Container(
           child: GetBuilder<ChatController>(
         init: ChatController(),
