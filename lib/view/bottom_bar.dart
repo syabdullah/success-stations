@@ -15,6 +15,8 @@ import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
 
+import 'friends/friend_filter.dart';
+
 class BottomTabs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -190,33 +192,7 @@ class _BottomTabsState extends State<BottomTabs> {
       ),
       body: _archildren[_currentIndex],
 
-      bottomNavigationBar: BottomNavigationBar(
-
-        currentIndex: _currentIndex,
-        onTap: onTabTapped,type: BottomNavigationBarType.fixed,
-        iconSize: 0,
-
-
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        selectedItemColor:AppColors.whitedColor,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        items: [
-          BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            // title: Text('offer'.tr,
-            // ),
-            label: 'offer'.tr,
-            icon: ImageIcon(
-              AssetImage(
-                AppImages.offers,
-              ),
-              color: AppColors.black,
-              size: 25,
-            ),
-            body: _archildren[_currentIndex],
+      
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: _currentIndex,
               onTap: onTabTapped,
