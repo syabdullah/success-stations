@@ -16,6 +16,7 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/add_posting_screen.dart';
 import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
+import 'package:success_stations/view/friends/friend_filter_old.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/friends/suggest_filter_friends.dart';
 import 'package:success_stations/view/offer_filtered.dart';
