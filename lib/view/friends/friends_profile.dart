@@ -270,10 +270,11 @@ class _FriendProfileState extends State<FriendProfile>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            // height: Get.height * 0.06,
-            width: Get.width /2 ,
+            height: Get.height * 0.4,
+            width: Get.width /1.78 ,
             child: TabBar(
-                unselectedLabelColor: Colors.black,
+                isScrollable: false,
+                unselectedLabelColor: Color(0xFF0d0d0d),
                 unselectedLabelStyle: TextStyle(
                   // fontWeight: FontWeight.w700,
                   fontSize:16,
@@ -291,7 +292,15 @@ class _FriendProfileState extends State<FriendProfile>
                 //   BorderSide(color: AppColors.whitedColor, width: 2.0),
                 // ),
                 tabs: [
-                  _individualTabwithoutline('about'.tr),
+                  Stack(
+                    children: [
+                      _individualTabwithoutline('about'.tr),
+                      Padding(
+                        padding: lang == 'ar' ? EdgeInsets.only(right: Get.width * 0.24,top: Get.width * 0.03,bottom: Get.width * 0.03,) :EdgeInsets.only(left: Get.width * 0.24,top: Get.width * 0.03,bottom: Get.width * 0.03,),
+                        child: VerticalDivider(thickness: 2,color: Color(0xFF0d0d0d),),
+                      ),
+                    ],
+                  ),
                   _individualTabwithoutline(
                     'item'.tr,
                   )
@@ -299,7 +308,9 @@ class _FriendProfileState extends State<FriendProfile>
           ),
           Row(children: [
             SizedBox(width: Get.width * 0.015),
-            Image.asset(AppImages.callerImage, height: Get.height * 0.035),
+            InkWell(child: Image.asset(AppImages.callerImage, height: Get.height * 0.035),onTap: ()  {
+              launch("tel:123456789");
+            },),
             SizedBox(width: Get.width * 0.015),
             GestureDetector(
                 onTap: () {
@@ -309,7 +320,11 @@ class _FriendProfileState extends State<FriendProfile>
                 child:
                 Image.asset(AppImages.chating, height: Get.height * 0.045)),
             SizedBox(width: Get.width * 0.015),
-            Image.asset(AppImages.whatsapp, height: Get.height * 0.035),
+            InkWell(child: Image.asset(AppImages.whatsapp, height: Get.height * 0.035),onTap: (){
+              const url = "https://wa.me/?text=Your Message here";
+              var encoded = Uri.encodeFull(url);
+              launch(encoded);
+            },),
             SizedBox(width: Get.width * 0.015),
           ])
         ],
@@ -342,16 +357,19 @@ class _FriendProfileState extends State<FriendProfile>
 
   Widget _individualTabwithoutline(String title) {
     return Container(
-      height: 60 + MediaQuery.of(context).padding.bottom,
+      height: Get.height * 0.3,
       padding: EdgeInsets.all(0),
       width: 100,
       decoration: BoxDecoration(),
-      child: Tab(
-          child: Text(title,
-              style: TextStyle(
-                // color: Colors.black,
-                fontSize:  Get.height<700?11:12,
-              ))),
+      child: Center(
+        child: Tab(
+            child: Text(title,
+                style: TextStyle(
+                  // color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize:  Get.height<700?10:14,
+                ))),
+      ),
     );
   }
 
@@ -359,6 +377,7 @@ class _FriendProfileState extends State<FriendProfile>
     return Expanded(
       flex: 1,
       child: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
           SingleChildScrollView(
             child: Column(
@@ -470,12 +489,12 @@ class _FriendProfileState extends State<FriendProfile>
                                                   Text(time[i],
                                                       style: TextStyle(
                                                           color:
-                                                          AppColors.outline)),
+                                                          Color(0XFFB9B9B9))),
 
                                                   Row(
                                                     children: [
 
-                                                      Text('grade: '.tr,
+                                                      Text('Grade: '.tr,
                                                           style: TextStyle(
                                                           )),  Text(grade[i],
                                                           style: TextStyle(
