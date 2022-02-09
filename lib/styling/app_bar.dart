@@ -266,11 +266,12 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  index == 3
-                                      ?
-                                      // filtrationModel(context): adsfiltringheet(context);
-                                      filtrationModel(context)
-                                      : adsfiltringheet(context);
+                                  // index == 3
+                                  //     ?
+                                  //     // filtrationModel(context): adsfiltringheet(context);
+                                  //     filtrationModel(context)
+                                  //     : adsfiltringheet(context);
+                                  globalKey.currentState!.openDrawer();
                                 },
                                 child: Container(
                                     height: 25,
@@ -537,12 +538,12 @@ Widget appbar(
             index == 4 || index == 3
                 ? GestureDetector(
               onTap: () {
-                index == 3
-                    ?
-                filtrationModel(context): adsfiltringheet(context);
-                filtrationModel(context);
+                // index == 3
+                //     ?
+                // filtrationModel(context): adsfiltringheet(context);
+                // filtrationModel(context);
 
-                // globalKey.currentState!.openDrawer();
+                globalKey.currentState!.openDrawer();
               },
               child: Container(
                   height: 25,
