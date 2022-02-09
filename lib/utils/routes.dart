@@ -7,6 +7,7 @@ import 'package:success_stations/view/UseProfile/user_agreement.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
+import 'package:success_stations/view/ad_views/location_tab.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/choose_language.dart';
 import 'package:success_stations/view/auth/contact.dart';
@@ -160,7 +161,7 @@ class SuccessStationRoutes {
       case chooseCountry:
         return MaterialPageRoute(builder: (_) => ChooseCountry());
       case topLocation:
-        return MaterialPageRoute(builder: (_) => Inbox());
+        return MaterialPageRoute(builder: (_) => CustomInfoWindowExample());
       default:
         return MaterialPageRoute(
             builder: (_) => auth == null ? SignIn() : BottomTabs());

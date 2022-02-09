@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/banner_controller.dart';
 import 'package:success_stations/controller/friends_controloler.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/button.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
@@ -59,6 +60,10 @@ class _FriendListState extends State<FriendList> {
         length: 4,
         initialIndex: 0,
         child: Scaffold(
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(60.0),
+              child: appbar(friendlistappbar, context, AppImages.appBarLogo,
+                  AppImages.appBarSearch, 1)),
             key: friendlistappbar,
             body:
                 GetBuilder<GridListCategory>(
