@@ -66,7 +66,7 @@ class _InboxState extends State<Inbox> {
                ),
              ),
              Container(
-               margin: lang == 'ar' ?  EdgeInsets.only(top: Get.width * 0.07,right: Get.width *  0.025):  EdgeInsets.only(top: Get.width * 0.01,left:Get.width * 0.03),
+               margin: lang == 'ar' ?  EdgeInsets.only(top: Get.width * 0.01,right: Get.width *  0.025):  EdgeInsets.only(top: Get.width * 0.01,left:Get.width * 0.03),
                child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
@@ -188,7 +188,7 @@ Widget recentChat(data){
             Padding(
               padding:  lang == 'ar' ? EdgeInsets.only(left: Get.width * 0.07) :EdgeInsets.only(right: Get.width * 0.07),
               child: InkWell(child: ImageIcon(AssetImage(AppImages.chat),color: Color(0XFF181818),),onTap: (){
-                Get.to(SafeArea(child: FriendList()));
+                Get.to(FriendList());
               },),
             )
           ],

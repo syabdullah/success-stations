@@ -5,6 +5,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyOfferDetailMain extends StatefulWidget {
   _MyAllOffersDetailState createState() => _MyAllOffersDetailState();
@@ -98,8 +99,11 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       ),
                       Row(children: [
                         // SizedBox(width: Get.width * 0.015),
-                        Image.asset(AppImages.callerImage,
-                            height: Get.height * 0.035),
+                        InkWell(
+                          onTap: (){launch("tel://21213123123");},
+                          child: Image.asset(AppImages.callerImage,
+                              height: Get.height * 0.035),
+                        ),
                         SizedBox(width: Get.width * 0.015),
                         GestureDetector(
                             onTap: () {
@@ -108,8 +112,15 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                             child: Image.asset(AppImages.chating,
                                 height: Get.height * 0.045)),
                         SizedBox(width: Get.width * 0.015),
-                        Image.asset(AppImages.whatsapp,
-                            height: Get.height * 0.035),
+                        InkWell(
+                          onTap: (){
+                            const url = "https://wa.me/?text=Your Message here";
+                            var encoded = Uri.encodeFull(url);
+                            launch(encoded);
+                          },
+                          child: Image.asset(AppImages.whatsapp,
+                              height: Get.height * 0.035),
+                        ),
                         SizedBox(width: Get.width * 0.015),
                       ])
                     ],
@@ -118,7 +129,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                 space50,
                 Padding(
                   padding:  EdgeInsets.all(Get.width * 0.03),
-                  child: Text("""There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look eve........"""),
+                  child: Text("""There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look eve........""",style:  TextStyle(fontSize: 18),),
                 )
               ],
             )
@@ -128,3 +139,4 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
     );
   }
 }
+
