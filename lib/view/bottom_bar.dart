@@ -180,10 +180,14 @@ class _BottomTabsState extends State<BottomTabs> {
           )
         : Scaffold(
             key: _scaffoldKey,
-            appBar: PreferredSize(
+            appBar:  PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+    child: _currentIndex == 1 || _currentIndex == 3
+    ? SizedBox(height: Get.height * 0.038)
+        :PreferredSize(
                 preferredSize: Size.fromHeight(60.0),
                 child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
-                    AppImages.appBarSearch, _currentIndex)),
+                    AppImages.appBarSearch, _currentIndex)),),
             drawer: Theme(
               data: Theme.of(context).copyWith(
                   // canvasColor: AppColors.botomTiles
