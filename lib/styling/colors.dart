@@ -18,6 +18,7 @@ class AppColors {
   static Color outline = Color(0xFFd9d9d9);
   static Color inputColor = Color(0xFFF9F8FA);
   static Color inputColor2 = Color(0xFFF7F5F9);
+  static Color new_color = Color(0xFF00b050);
   static Color inPutFieldColor = Color(0xFFFAF9FB);
   static Color inputTextColor = Color(0xFFA09D9E);
   static Color textInput = Color(0xFF868282);
@@ -34,6 +35,7 @@ class AppColors {
   //forrgort
   static Color forgotPassText = Color(0xFF918D8D);
   static Color grey = Color(0xFFBDBDBD);
+  static Color catagory_color = Color(0xFF595959);
   static Color greySkalton = Colors.grey.shade100;
   static Color shimmer = Color(0xFFFE2E8F6);
 

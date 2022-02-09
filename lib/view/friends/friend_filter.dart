@@ -135,47 +135,51 @@ class _FriendFilterState extends State<FriendFilter> {
     );
   }
 
-  Widget country(List data){
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          width: Get.width * 0.9,
-          decoration: BoxDecoration(
-            color: AppColors.inputColor,
-            border: Border.all(color: AppColors.outline),
-            borderRadius: BorderRadius.circular(2.0)
-          ),
-          child: ButtonTheme(
-            alignedDropdown: true,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton(
-                hint: Text(
-                  countryHint != null ? countryHint : 'country'.tr,
-                  style: TextStyle(fontSize: 18, color: AppColors.inputTextColor)
-                ),
-                dropdownColor: AppColors.inPutFieldColor,
-                icon: Icon(Icons.arrow_drop_down),
-                items: data.map((coun) {
-                  print("printed country code...±${ coun['name']['en']}");
-                  return DropdownMenuItem(
-                    
-                    value: coun, 
-                    child:   Text(
-                      coun['name'][lang] !=null ?  coun['name'][lang] :
-                      coun['name'][lang] == null ?  coun['name']['en']:
-                      coun['name']['en'] == "  " ? coun['name']['ar']: coun['name']['ar'] ==  "  " ? coun['name']['en']:''
-                    )
-                  );
-                }).toList(),
-                onChanged: (val) {
-                  var mapCountry;
-                  setState(() {
-                    mapCountry = val as Map;
-                    countryHint = mapCountry['name'][lang] !=null ? mapCountry['name'][lang]:
-                    mapCountry['name'][lang]== null ? mapCountry['name']['en']:'' ;
-                    countryID = mapCountry['id'];
-                  });
+                                            filteredIndex = index;
+                                            catFilteredID =
+                                            data.havingAddsList[
+                                            'data']
+                                            [index]['id'];
+                                          });
+                                        }),
+
+                                    Text(
+                                      data.havingAddsList['data'][index]
+                                      ['category'][
+                                      lang] !=
+                                          null
+                                          ? data.havingAddsList['data']
+                                      [index]
+                                      ['category']
+                                      [lang]
+                                          .toString()
+                                          : data.havingAddsList['data'][index]['category'][lang] ==
+                                          null
+                                          ? data
+                                          .havingAddsList['data']
+                                      [index]
+                                      ['category']
+                                      ['en']
+                                          .toString()
+                                          : '',
+                                      maxLines:2,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+
+                                        overflow: TextOverflow.ellipsis,
+                                        color: bottomSheetCategory == index
+                                            ? AppColors.border
+                                            : AppColors.border,
+                                        fontSize:Get.height<700? Get.height*0.018: Get.height*0.015,
+                                        fontWeight: FontWeight.w400,
+                                        fontStyle: FontStyle.normal,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
+                      : Container();
                 },
               )
             )
@@ -340,31 +344,15 @@ class _FriendFilterState extends State<FriendFilter> {
     );
   }
 
-  Widget buttons(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: Get.height * 0.05,
-          margin: lang == 'en'
-          ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
-          : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-          width: Get.width / 3,
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.all(Radius.circular(5))
-          ),
-          child: GestureDetector(
-            child: Center(
-              child: Text("cancel".tr,
-                style: TextStyle(
-                  color:AppColors.inputTextColor
-                )
-              )
-            ),
-            onTap: () {
-              Get.back();
-            }
+                            child: Center(
+                                child: Text("apply".tr,
+                                    style:
+                                    TextStyle(color: Colors.white)))),
+                      )),
+                ],
+              ),
+              SizedBox(height:Get.height*0.02),
+            ],
           ),
         ),
         SizedBox(width: 20),

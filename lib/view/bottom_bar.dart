@@ -85,154 +85,7 @@ class _BottomTabsState extends State<BottomTabs> {
             key: _scaffoldKey,
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(60.0),
-                child:_currentIndex == 1||_currentIndex == 3
-                    ? SizedBox(height: Get.height * 0.038)
-                    :  appbar(_scaffoldKey, context, AppImages.appBarLogo,
-                    AppImages.appBarSearch, _currentIndex)),
-            drawer: Theme(
-              data: Theme.of(context).copyWith(
-                  // canvasColor: AppColors.botomTiles
-                  ),
-              child: AppDrawer(),
-            ),
-            body: _archildren[_currentIndex],
-
-            bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: _currentIndex,
-              onTap: onTabTapped,
-              items: [
-                BottomNavigationBarItem(
-                  // ignore: deprecated_member_use
-                  title: SizedBox.shrink(),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.offers,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                      Text('offer'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
-                  ),
-                ),
-                BottomNavigationBarItem(
-
-                  // ignore: deprecated_member_use
-                  title: Text('friends'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.friends,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                      Text('friends'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
-                  ),
-                ),
-                BottomNavigationBarItem(
-                  // ignore: deprecated_member_use
-                  title: Text('home'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: ImageIcon(
-                          AssetImage(
-                            AppImages.home,
-                          ),
-                          color: AppColors.black,
-                          size: 55,
-                        ),
-                      ),
-                      // Text('home'.tr, style: AppTextStyles.appTextStyle(
-                      //     fontSize: 10,
-                      //     fontWeight: FontWeight.w600, color: Colors.black
-                      // )
-                      // ),
-                    ],
-                  ),
-
-                ),
-                //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-                BottomNavigationBarItem(
-                  // ignore: deprecated_member_use
-                  title: Text('locationTab'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.locations,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                      Text('locationTab'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
-                  ),
-                ),
-                BottomNavigationBarItem(
-                  // ignore: deprecated_member_use
-                  title: Text('ads'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whitedColor)),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.ads,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                      Text('ads'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: PreferredSize(
-                preferredSize: Size.fromHeight(60.0),
-                child: _currentIndex == 3|| _currentIndex == 1
+                child: _currentIndex == 1 || _currentIndex == 3
                     ? SizedBox(height: Get.height * 0.038)
                     : appbar(_scaffoldKey, context, AppImages.appBarLogo,
                         AppImages.appBarSearch, _currentIndex)),
@@ -242,44 +95,36 @@ class _BottomTabsState extends State<BottomTabs> {
                   ),
               child: AppDrawer(),
             ),
-            body: _children[_currentIndex],
+            body: _archildren[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
               currentIndex: _currentIndex,
               onTap: onTabTapped,
+              type: BottomNavigationBarType.fixed,
+              iconSize: 0,
+              backgroundColor: Colors.white,
+              unselectedItemColor: Colors.black,
+              selectedItemColor: AppColors.whitedColor,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
               items: [
                 BottomNavigationBarItem(
                   // ignore: deprecated_member_use
-                  title: Text('offer'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.offers,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                      Text('offer'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
+                  // title: Text('offer'.tr,
+                  // ),
+                  label: 'offer'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.offers,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
                   ),
                 ),
                 BottomNavigationBarItem(
+                  label: 'friends'.tr,
                   // ignore: deprecated_member_use
-                  title: Text('friends'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.black,)),
+
                   icon: Column(
                     children: [
                       ImageIcon(
@@ -289,89 +134,136 @@ class _BottomTabsState extends State<BottomTabs> {
                         color: AppColors.black,
                         size: 25,
                       ),
-                      Text('friends'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
                     ],
                   ),
                 ),
                 BottomNavigationBarItem(
+                  label: '',
                   // ignore: deprecated_member_use
-                  title: Text('home'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: ImageIcon(
-                          AssetImage(
-                            AppImages.home,
-                          ),
-                          color: AppColors.black,
-                          size: 55,
-                        ),
-                      ),
-                      // Text('home'.tr, style: AppTextStyles.appTextStyle(
-                      //     fontSize: 10,
-                      //     fontWeight: FontWeight.w600, color: Colors.black
-                      // )
-                      // ),
-                    ],
-                  ),
 
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ImageIcon(
+                      AssetImage(
+                        AppImages.home,
+                      ),
+                      color: AppColors.black,
+                      size: 55,
+                    ),
+                  ),
                 ),
                 //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
                 BottomNavigationBarItem(
+                  label: 'locationTab'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.locations,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'ads'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.ads,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Scaffold(
+            key: _scaffoldKey,
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(60.0),
+                child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
+                    AppImages.appBarSearch, _currentIndex)),
+            drawer: Theme(
+              data: Theme.of(context).copyWith(
+                  // canvasColor: AppColors.botomTiles
+                  ),
+              child: AppDrawer(),
+            ),
+            body: _archildren[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: onTabTapped,
+              type: BottomNavigationBarType.fixed,
+              iconSize: 0,
+              backgroundColor: Colors.white,
+              unselectedItemColor: Colors.black,
+              selectedItemColor: AppColors.whitedColor,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              items: [
+                BottomNavigationBarItem(
                   // ignore: deprecated_member_use
-                  title: Text('locationTab'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
+                  // title: Text('offer'.tr,
+                  // ),
+                  label: 'offer'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.offers,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'friends'.tr,
+                  // ignore: deprecated_member_use
+
                   icon: Column(
                     children: [
                       ImageIcon(
                         AssetImage(
-                          AppImages.locations,
+                          AppImages.friends,
                         ),
                         color: AppColors.black,
                         size: 25,
                       ),
-                      Text('locationTab'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
                     ],
                   ),
                 ),
                 BottomNavigationBarItem(
+                  label: '',
                   // ignore: deprecated_member_use
-                  title: Text('ads'.tr,
-                      style: AppTextStyles.appTextStyle(
-                          fontSize: 0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.inputTextColor)),
-                  icon: Column(
-                    children: [
-                      ImageIcon(
-                        AssetImage(
-                          AppImages.ads,
-                        ),
-                        color: AppColors.black,
-                        size: 25,
+
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ImageIcon(
+                      AssetImage(
+                        AppImages.home,
                       ),
-                      Text('ads'.tr,
-                          style: AppTextStyles.appTextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                    ],
+                      color: AppColors.black,
+                      size: 55,
+                    ),
+                  ),
+                ),
+                //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+                BottomNavigationBarItem(
+                  label: 'locationTab'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.locations,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'ads'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.ads,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
                   ),
                 ),
               ],

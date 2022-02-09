@@ -400,13 +400,13 @@ class _AllAddsState extends State<AllAdds> {
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: Get.height * 12,
+                                                    width: Get.height *0.2,
                                                   ),
                                                   Text(
                                                     ' New',
                                                     style: TextStyle(
                                                         color:
-                                                            Colors.greenAccent,
+                                                            AppColors.new_color,
                                                         fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -734,7 +734,7 @@ class _AllAddsState extends State<AllAdds> {
                                   Text(
                                     'New',
                                     style: TextStyle(
-                                        color: Colors.greenAccent,
+                                        color: AppColors.new_color,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -884,10 +884,9 @@ class _AllAddsState extends State<AllAdds> {
                   allCheck == false
                       ? Container(
                           width: Get.height * 0.07,
-                          height: Get.height * 0.041,
-                          // margin: lang == 'en'
-                          // ? EdgeInsets.only(left: 12.0)
-                          // : EdgeInsets.only(right: 12.0),
+                          height: Get.height * 0.042,
+                          margin:  EdgeInsets.only(left: 6.0,right:6),
+
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -900,11 +899,11 @@ class _AllAddsState extends State<AllAdds> {
                             },
                             child: Container(
                               margin: lang == 'en'
-                                  ? EdgeInsets.only(left: 6)
+                                  ? EdgeInsets.only(left: 10)
                                   : EdgeInsets.only(right: 2),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(0.0),
-                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(1.5),
+                                border: Border.all(color: Colors.grey,width: 0.8),
                                 color: allColor,
                               ),
                               // padding: EdgeInsets.all(10.0),
@@ -914,8 +913,8 @@ class _AllAddsState extends State<AllAdds> {
                                   style: TextStyle(
                                     color: textAllcheck == false
                                         ? Colors.white
-                                        : AppColors.grey,
-                                    fontSize: 16,
+                                        : AppColors.catagory_color,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
                                   ),
@@ -965,7 +964,7 @@ class _AllAddsState extends State<AllAdds> {
                                       id == havingAdds[index]['id'] &&
                                       textAllcheck == true
                                   ? Colors.white
-                                  : AppColors.grey,
+                                  :AppColors.catagory_color,
                               fontSize: 13,
                               fontStyle: FontStyle.normal,
                             ),
