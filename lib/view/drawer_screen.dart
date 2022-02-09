@@ -109,290 +109,296 @@ class _AppDrawerState extends State<AppDrawer> {
                 topLeft: Radius.circular(45), bottomLeft: Radius.circular(30)):
         BorderRadius.only(
             topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
-        child: Drawer(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  color: AppColors.appBarBackGroundColor,
-                  width: Get.width,
-                  height: Get.height / 4,
-                  padding: lang == 'ar'
-                      ? EdgeInsets.only(top: 20)
-                      : EdgeInsets.only(top: 20),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            getImage();
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        // margin:EdgeInsets.only(left: 10),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 3, color: Colors.white),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: CircleAvatar(
-                                            backgroundColor: Colors.grey[200],
-                                            radius: 40.0,
-                                            child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(60.0),
-                                                child: imageP.toString() !=
-                                                            'null' ||
-                                                        imageP == null
-                                                    ? Image.file(
-                                                        File(imageP),
-                                                        fit: BoxFit.cover,
-                                                        height: Get.height / 5,
-                                                        width: Get.width / 3.3,
-                                                      )
-                                                    : image.toString() ==
-                                                                'null' ||
-                                                            image == null
-                                                        ? Image.asset(
-                                                            AppImages.person,
-                                                            color: Colors
-                                                                .grey[400])
-                                                        : Image.network(
-                                                            image['url'],
-                                                            fit: BoxFit.fill,
-                                                            height:
-                                                                Get.height / 6,
-                                                            width:
-                                                                Get.width / 3.0,
-                                                          ))),
-                                      ),
-                                      FractionalTranslation(
-                                        translation: lang == 'ar'
-                                            ? const Offset(-.4, 1.333)
-                                            : const Offset(0.4, 1.333),
-                                        child: IconButton(
-                                            onPressed: () {
-                                              getImage();
-                                            },
-                                            icon: Image.asset(
-                                              AppImages.camera,
-                                              height: 30,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: 20,
-                                ),
-                                child: Column(
+        child: SizedBox(
+          width: Get.width<700?Get.width*0.70:Get.width*0.70,
+          child: Drawer(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    color: AppColors.appBarBackGroundColor,
+                    width: Get.width,
+                    height: Get.height / 4,
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(top: 20)
+                        : EdgeInsets.only(top: 20),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              getImage();
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      box.read('name') != null
-                                          ? box.read('name')
-                                          : '',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTextStyles.appTextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    SizedBox(
-                                      height: 5
-                                    ),
-                                    Text(
-                                      box.read('name') != null
-                                          ?
-                                      'edit'.tr
-                                          : '',
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          // margin:EdgeInsets.only(left: 10),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 3, color: Colors.white),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: CircleAvatar(
+                                              backgroundColor: Colors.grey[200],
+                                              radius: Get.height<700?30:40.0,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(60.0),
+                                                  child: imageP.toString() !=
+                                                              'null' ||
+                                                          imageP == null
+                                                      ? Image.file(
+                                                          File(imageP),
+                                                          fit: BoxFit.cover,
+                                                          height: Get.height / 5,
+                                                          width: Get.width / 3.3,
+                                                        )
+                                                      : image.toString() ==
+                                                                  'null' ||
+                                                              image == null
+                                                          ? Image.asset(
+                                                              AppImages.person,
+                                                              color: Colors
+                                                                  .grey[400])
+                                                          : Image.network(
+                                                              image['url'],
+                                                              fit: BoxFit.fill,
+                                                              height:
+                                                                  Get.height / 6,
+                                                              width:
+                                                                  Get.width / 3.0,
+                                                            ))),
+                                        ),
+                                        FractionalTranslation(
 
-                                      overflow: TextOverflow.ellipsis,
-
-                                      style: TextStyle(
-                                          decoration:
-                                          TextDecoration.underline,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white),
+                                          translation: Get.height<700?lang == 'ar'
+                                              ? const Offset(-0.18, 0.85)
+                                              : const Offset(0.18, 0.85): lang == 'ar'
+                                              ? const Offset(-.39, 1.25)
+                                              : const Offset(0.39, 1.25),
+                                          child: IconButton(
+                                              onPressed: () {
+                                                getImage();
+                                              },
+                                              icon: Image.asset(
+                                                AppImages.camera,
+                                                height: Get.height<700?25:30,
+                                              )),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    top: 20,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        box.read('name') != null
+                                            ? box.read('name')
+                                            : '',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTextStyles.appTextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 5
+                                      ),
+                                      Text(
+                                        box.read('name') != null
+                                            ?
+                                        'edit'.tr
+                                            : '',
+
+                                        overflow: TextOverflow.ellipsis,
+
+                                        style: TextStyle(
+                                            decoration:
+                                            TextDecoration.underline,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: lang == 'en'
-                      ? const EdgeInsets.only(top: 10.0)
-                      : const EdgeInsets.only(top: 00.0, right: 10),
-                  child: Container(
-                    color: Color(0xFFfafafa),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            "dashboard".tr,
-                            style: AppTextStyles.appTextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade800),
+                  Padding(
+                    padding: lang == 'en'
+                        ? const EdgeInsets.only(top: 10.0)
+                        : const EdgeInsets.only(top: 00.0, right: 10),
+                    child: Container(
+                      color: Color(0xFFfafafa),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              "dashboard".tr,
+                              style: AppTextStyles.appTextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade800),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                       /* CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
-                              Get.toNamed('/tabs');
-                            },15.0 ),
-                            CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
-                              Get.toNamed('/myDraft');
-                            },15.0 ),*/
-
-                        CustomListTile(AppImages.userProfile,  userType == 2 && accountType == 'Free'
-                            ?'profile'.tr:'business_profile'.tr, () {
-                          Get.toNamed('/userProfile');
-                        }, 15.0),
-                        CustomListTile(AppImages.ma, 'my_ads'.tr, () {
-                          Get.toNamed('/myAddsPage');
-
-                        }, 15.0),
-
-                        userType == 2 && accountType == 'Free'
-                            ? Container()
-                            : accountType == 'Paid'
-                            ? CustomListTile(
-                            AppImages.location, 'location'.tr, () {
-                          Get.toNamed('/location');
-                        }, 15.0)
-                            : CustomListTile(
-                            AppImages.location, 'location'.tr, () {
-                          Get.toNamed('/location');
-                        }, 15.0),
-
-
-
-                        userType == 2 && accountType == 'Free'
-                            ? Container()
-                            : accountType == 'Paid'
-                            ? CustomListTile(
-                            AppImages.offers, 'myoffer'.tr, () {
-                          Get.toNamed('/offerPage');;
-                        }, 15.0)
-                            : CustomListTile(
-                            AppImages.offers, 'myoffer'.tr, () {
-                          Get.toNamed('/offerPage');
-                        }, 15.0),
-
-                        CustomListTile(AppImages.freq, 'friends'.tr, ()  {
-                          Get.toNamed('/friReq');
-                        } ,15.0),
-                        CustomListTile(
-                            AppImages.notification,
-                            'notification'.tr,
-                                () => {Get.toNamed('/notification')},
-                            15.0),
-                        // CustomListTile(AppImages.message, 'messeges'.tr, () {
-                        //   Get.toNamed('/inbox');
-                        // },15.0 ),
-
-
-
-
-
-
-                        CustomListTile(AppImages.redHeart, 'favourite'.tr,
-                            () => {Get.toNamed('/favourities')}, 15.0),
-                        CustomListTile(AppImages.membership, 'membership'.tr,
-                                () {
-                              Get.to(IndividualMemeberShip());
-                            }, 15.0),
-
-                        Container(
-                          margin: EdgeInsets.only(left: 15, right: 5),
-                          child: Row(
-                            children: [
-                              Image.asset(AppImages.language, height: 20,),
-                              GetBuilder<LanguageController>(
-                                init: LanguageController(),
-                                builder: (val) {
-                                  return val.languageList == null
-                                      ? Container()
-                                      : language(val.languageList['data']);
-                                },
-                              ),
-                            ],
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                        // CustomListTile(AppImages.language, 'choose_language'.tr,
-                        //     () => {Get.toNamed('/chooseLang')}, 15.0),
-                        /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
-                              Get.toNamed('/chooseCountry')
-                            },15.0 ), */
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "overviewAndDefications".tr,
-                            style: AppTextStyles.appTextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade800),
+                         /* CustomListTile(AppImages.homeicon, 'home'.tr, ()  {
+                                Get.toNamed('/tabs');
+                              },15.0 ),
+                              CustomListTile(AppImages.ma, 'draftt'.tr, ()  {
+                                Get.toNamed('/myDraft');
+                              },15.0 ),*/
+
+                          CustomListTile(AppImages.userProfile,  userType == 2 && accountType == 'Free'
+                              ?'profile'.tr:'business_profile'.tr, () {
+                            Get.toNamed('/userProfile');
+                          }, 15.0),
+                          CustomListTile(AppImages.ma, 'my_ads'.tr, () {
+                            Get.toNamed('/myAddsPage');
+
+                          }, 15.0),
+
+                          userType == 2 && accountType == 'Free'
+                              ? Container()
+                              : accountType == 'Paid'
+                              ? CustomListTile(
+                              AppImages.location, 'location'.tr, () {
+                            Get.toNamed('/location');
+                          }, 15.0)
+                              : CustomListTile(
+                              AppImages.location, 'location'.tr, () {
+                            Get.toNamed('/location');
+                          }, 15.0),
+
+
+
+                          userType == 2 && accountType == 'Free'
+                              ? Container()
+                              : accountType == 'Paid'
+                              ? CustomListTile(
+                              AppImages.offers, 'myoffer'.tr, () {
+                            Get.toNamed('/offerPage');;
+                          }, 15.0)
+                              : CustomListTile(
+                              AppImages.offers, 'myoffer'.tr, () {
+                            Get.toNamed('/offerPage');
+                          }, 15.0),
+
+                          CustomListTile(AppImages.freq, 'friends'.tr, ()  {
+                            Get.toNamed('/friReq');
+                          } ,15.0),
+                          CustomListTile(
+                              AppImages.notification,
+                              'notification'.tr,
+                                  () => {Get.toNamed('/notification')},
+                              15.0),
+                          // CustomListTile(AppImages.message, 'messeges'.tr, () {
+                          //   Get.toNamed('/inbox');
+                          // },15.0 ),
+
+
+
+
+
+
+                          CustomListTile(AppImages.redHeart, 'favourite'.tr,
+                              () => {Get.toNamed('/favourities')}, 15.0),
+                          CustomListTile(AppImages.membership, 'membership'.tr,
+                                  () {
+                                Get.to(IndividualMemeberShip());
+                              }, 15.0),
+
+                          Container(
+                            margin: EdgeInsets.only(left: 15, right: 5),
+                            child: Row(
+                              children: [
+                                Image.asset(AppImages.language, height: 20,),
+                                GetBuilder<LanguageController>(
+                                  init: LanguageController(),
+                                  builder: (val) {
+                                    return val.languageList == null
+                                        ? Container()
+                                        : language(val.languageList['data']);
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: Get.height * 0.01),
-                        CustomListTile(
-                            AppImages.aboutus,
-                            userType == 4
-                                ? 'about_company'.tr
-                                : userType == 2
-                                    ? 'about_user'.tr
-                                    : "about_us".tr,
-                            () => {Get.toNamed('/aboutUs')},
-                            15.0),
-                        CustomListTile(AppImages.privacy, 'privacy'.tr,
-                            () => {Get.toNamed('/privacy')}, 15.0),
-                        CustomListTile(
-                            AppImages.adwithus,
-                            'advertise_with_us'.tr,
-                            () => {Get.toNamed('/advertisement')},
-                            15.0),
-                        CustomListTile(AppImages.ugr, 'UGR'.tr,
-                            () => {Get.toNamed('/userAgrement')}, 12.0),
-                        CustomListTile(AppImages.contactus, 'contactus'.tr,
-                            () => {Get.toNamed('/contact')}, 15.0),
-                        SizedBox(height: Get.height * 0.01),
-                        Divider(),
-                        SizedBox(height: Get.height * 0.01),
-                        CustomListTile(AppImages.logout, 'logout'.tr, () {
-                          box.remove('user_image_local');
-                          box.write('upgrade', true);
-                          logoutCont.userLogout();
-                        }, 15.0),
-                      ],
+                          // CustomListTile(AppImages.language, 'choose_language'.tr,
+                          //     () => {Get.toNamed('/chooseLang')}, 15.0),
+                          /*CustomListTile(AppImages.language, 'choose_country'.tr, () => {
+                                Get.toNamed('/chooseCountry')
+                              },15.0 ), */
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "overviewAndDefications".tr,
+                              style: AppTextStyles.appTextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade800),
+                            ),
+                          ),
+                          SizedBox(height: Get.height * 0.01),
+                          CustomListTile(
+                              AppImages.aboutus,
+                              userType == 4
+                                  ? 'about_company'.tr
+                                  : userType == 2
+                                      ? 'about_user'.tr
+                                      : "about_us".tr,
+                              () => {Get.toNamed('/aboutUs')},
+                              15.0),
+                          CustomListTile(AppImages.privacy, 'privacy'.tr,
+                              () => {Get.toNamed('/privacy')}, 15.0),
+                          CustomListTile(
+                              AppImages.adwithus,
+                              'advertise_with_us'.tr,
+                              () => {Get.toNamed('/advertisement')},
+                              15.0),
+                          CustomListTile(AppImages.ugr, 'UGR'.tr,
+                              () => {Get.toNamed('/userAgrement')}, 12.0),
+                          CustomListTile(AppImages.contactus, 'contactus'.tr,
+                              () => {Get.toNamed('/contact')}, 15.0),
+                          SizedBox(height: Get.height * 0.01),
+                          Divider(),
+                          SizedBox(height: Get.height * 0.01),
+                          CustomListTile(AppImages.logout, 'logout'.tr, () {
+                            box.remove('user_image_local');
+                            box.write('upgrade', true);
+                            logoutCont.userLogout();
+                          }, 15.0),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

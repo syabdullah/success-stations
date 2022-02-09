@@ -257,6 +257,7 @@ Widget appbar(
                                 ),
                               )
                             : Container(),
+                        //sucess station ads filter er
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
@@ -522,16 +523,18 @@ Widget appbar(
                 ),
               ),
             )
+
+            //success station ads filter ar
                 : Container(),
             index == 4 || index == 3
                 ? GestureDetector(
               onTap: () {
-                // index == 3
-                //     ?
-                // filtrationModel(context): adsfiltringheet(context);
-                // filtrationModel(context)
-                //     :
-                globalKey.currentState!.openDrawer();
+                index == 3
+                    ?
+                filtrationModel(context): adsfiltringheet(context);
+                filtrationModel(context);
+
+                // globalKey.currentState!.openDrawer();
               },
               child: Container(
                   height: 25,

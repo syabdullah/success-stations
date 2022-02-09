@@ -136,9 +136,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                             [index]['id'];
                                           });
                                         }),
-                                    SizedBox(
-                                      width:Get.width*0.02
-                                    ),
+
                                     Text(
                                       data.havingAddsList['data'][index]
                                       ['category'][
@@ -158,11 +156,15 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                       ['en']
                                           .toString()
                                           : '',
+                                      maxLines:2,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
+
+                                        overflow: TextOverflow.ellipsis,
                                         color: bottomSheetCategory == index
                                             ? AppColors.border
                                             : AppColors.border,
-                                        fontSize: 13,
+                                        fontSize:Get.height<700? Get.height*0.018: Get.height*0.015,
                                         fontWeight: FontWeight.w400,
                                         fontStyle: FontStyle.normal,
                                       ),
@@ -367,7 +369,8 @@ SizedBox(width:Get.width*0.02),
                                     TextStyle(color: Colors.white)))),
                       )),
                 ],
-              )
+              ),
+              SizedBox(height:Get.height*0.02),
             ],
           ),
         ),
