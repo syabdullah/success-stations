@@ -153,7 +153,7 @@ const Map<String, String> ar = {
   "messeges": "الرسائل",
   'item': " صنف",
   'education': 'الثقافة',
-  'grade': 'grade',
+  'Grade': 'Grade',
   "dashboard": "Dashboard",
   "my_profile": "My Profile",
   "favourite": "المفضلة",

@@ -283,7 +283,7 @@ const Map<String, String> en = {
   'add_number': 'Phone Number',
   'owner': 'owner',
   'education':'Education',
-'grade':'Grade',
+'Grade':'Grade',
   'aboutus': 'ABOUT US',
   'suggestion': 'Suggestion',
   'frien_request': 'Friend Request',
