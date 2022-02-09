@@ -104,11 +104,11 @@ class _UserProfileState extends State<UserProfile>
                       margin: EdgeInsets.only(
                           left: Get.width * 0.010,
                           right: Get.width * 0.010,
-                          top: Get.height < 700 ? 90 : 70),
+                          top: Get.height < 700 ? 70 : 70),
                       child: CircleAvatar(
                           backgroundColor: Colors.grey[100],
                           // backgroundColor: Colors.black,
-                          radius: 50.0,
+                          radius:Get.height < 700 ?40: 50.0,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(60.0),
                             child: userData['image'] == null
@@ -121,7 +121,7 @@ class _UserProfileState extends State<UserProfile>
                           ))),
                 ),
                 Positioned(
-                  top: Get.height < 700 ? 155 : 155,
+                  top: Get.height < 700 ? 138 : 155,
                   left: Get.width * 0.458,
                   child: InkWell(
                       onTap: () {
