@@ -11,10 +11,11 @@ import 'package:success_stations/controller/offers/offer_category_controller.dar
 import 'package:success_stations/styling/app_bar.dart';
 
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/view/auth/my_adds/filtering_adds.dart';
 
 class FriendsFilter extends StatefulWidget {
-  const FriendsFilter({Key? key}) : super(key: key);
-
+  final GlobalKey<ScaffoldState> globalKey;
+  FriendsFilter({Key? key, required this.globalKey}) : super(key: key);
   @override
   _FriendsFilterState createState() => _FriendsFilterState();
 }
@@ -67,7 +68,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                         horizontal: Get.width * 0.04,
                         vertical: Get.height * 0.015),
                     isCollapsed: true,
-                    hintText: "Search...",
+                    hintText: "search".tr,
                     focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColors.border, width: 1.5),
@@ -112,7 +113,6 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                     if (filteredIndex == index) {
                                       _isChecked[index] = true;
                                     }
-
                                     return Row(
                                       children: [
                                         SizedBox(
@@ -133,6 +133,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                                         [index]['id'];
                                               });
                                             }),
+                                        SizedBox(width: Get.width * 0.02),
                                         Text(
                                           data.havingAddsList['data'][index]
                                                       ['category'][lang] !=
@@ -197,7 +198,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                         onTap: () {
                           setState(() {
                             onSelected(index);
-                            statusFiltered = itemsList[index];
+                            status = itemsList[index];
                           });
                         },
                         child: Container(
@@ -310,8 +311,15 @@ class _FriendsFilterState extends State<FriendsFilter> {
                   Container(
                       // ignore: deprecated_member_use
                       child: GestureDetector(
-                    onTap: () {
-                      var cityFinalData;
+                    onTap: catFilteredID == null && status == null
+                        ? null
+                        : () {
+                            applyFiltering();
+                            widget.globalKey.currentState!.openEndDrawer();
+                            Get.to(FilteredAdds(),
+                                arguments: gridingData.dataType);
+                            Get.to(FilteredAdds());
+                            /*  var cityFinalData;
                       if (decideRouter == 'city' || decideRouter == 'name') {
                         if (cityArray.length != 0) {
                           var cityFinal = cityArray.toString();
@@ -326,8 +334,8 @@ class _FriendsFilterState extends State<FriendsFilter> {
                         Get.find<LocationController>().getAllLocationNearBy(
                             end, position.latitude, position.longitude);
                       }
-                      Get.back();
-                    },
+                      Get.back();*/
+                          },
                     child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),

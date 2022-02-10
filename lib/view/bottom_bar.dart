@@ -14,6 +14,7 @@ import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
+import 'package:success_stations/view/offers/promotion_filter.dart';
 
 import 'friends/friend_filter.dart';
 
@@ -95,7 +96,11 @@ class _BottomTabsState extends State<BottomTabs> {
               data: Theme.of(context).copyWith(
                   // canvasColor: AppColors.botomTiles
                   ),
-              child: _currentIndex == 2 ? AppDrawer() : FriendsFilter(),
+              child: _currentIndex == 2
+                  ? AppDrawer()
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
             ),
             body: _archildren[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
@@ -180,19 +185,24 @@ class _BottomTabsState extends State<BottomTabs> {
           )
         : Scaffold(
             key: _scaffoldKey,
-            appBar:  PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-    child: _currentIndex == 1 || _currentIndex == 3
-    ? SizedBox(height: Get.height * 0.038)
-        :PreferredSize(
-                preferredSize: Size.fromHeight(60.0),
-                child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
-                    AppImages.appBarSearch, _currentIndex)),),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(60.0),
+              child: _currentIndex == 1 || _currentIndex == 3
+                  ? SizedBox(height: Get.height * 0.038)
+                  : PreferredSize(
+                      preferredSize: Size.fromHeight(60.0),
+                      child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
+                          AppImages.appBarSearch, _currentIndex)),
+            ),
             drawer: Theme(
               data: Theme.of(context).copyWith(
                   // canvasColor: AppColors.botomTiles
                   ),
-              child: _currentIndex == 2 ? AppDrawer() : FriendsFilter(),
+              child: _currentIndex == 2
+                  ? AppDrawer()
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
             ),
             body: _archildren[_currentIndex],
 

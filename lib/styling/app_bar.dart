@@ -96,11 +96,10 @@ Widget appbar(
   var lang = box.read('lang_code');
 
   return lang == 'en' || lang == null
-      ?
-  AppBar(
+      ? AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          leadingWidth:index == 2?50: 89,
+          leadingWidth: index == 2 ? 50 : 89,
           leading: index == 2
               ? Container(
                   margin: EdgeInsets.only(top: 8),
@@ -133,11 +132,12 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 0
                               ? () {
-                                  filteringCategory(context);
+                                  globalKey.currentState!.openDrawer();
+                                  // filteringCategory(context);
                                 }
                               : index == 1
                                   ? () {
-                                      Scaffold.of(context).openDrawer();
+                                      globalKey.currentState!.openDrawer();
                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
                                       // FriendFilter();
                                       // index == 4 ? filteringCategory(context) :
@@ -156,7 +156,7 @@ Widget appbar(
                               ? Container()
                               : GestureDetector(
                                   onTap: () => index == 4
-                                      ? filteringCategory(context)
+                                      ? globalKey.currentState!.openDrawer()
                                       : Get.bottomSheet(FriendFilter()),
                                   // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
@@ -200,10 +200,10 @@ Widget appbar(
           actions: [
             index == 2
                 ? Container(
-                    padding: EdgeInsets.only(
-                        right: 2, left: 2, top: 4, bottom: 4),
+                    padding:
+                        EdgeInsets.only(right: 2, left: 2, top: 4, bottom: 4),
                     margin: EdgeInsets.only(right: 10, left: 10, top: 10),
-                    child:  Row(
+                    child: Row(
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -235,7 +235,8 @@ Widget appbar(
                       children: [
                         index == 0
                             ? InkWell(
-                                onTap: () => filteringCategory(context),
+                                onTap: () =>
+                                    globalKey.currentState!.openDrawer(),
                                 child: Container(
                                   // margin: EdgeInsets.only( top:08),
                                   child: index == 1
@@ -266,11 +267,11 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  // index == 3
-                                  //     ?
-                                  //     // filtrationModel(context): adsfiltringheet(context);
-                                  //     filtrationModel(context)
-                                  //     : adsfiltringheet(context);
+                                  /*                     index == 3
+                                      ?
+                                      // filtrationModel(context): adsfiltringheet(context);
+                                      filtrationModel(context)
+                                      : adsfiltringheet(context);*/
                                   globalKey.currentState!.openDrawer();
                                 },
                                 child: Container(
@@ -371,205 +372,108 @@ Widget appbar(
           backgroundColor: Colors.white,
         )
       : AppBar(
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    leadingWidth:index == 2?50: 89,
-    leading: index == 2
-        ? Container(
-      margin: EdgeInsets.only(top: 8),
-      child: IconButton(
-          iconSize: 40,
-          icon: Image.asset(AppImages.menuDrawer,
-              height: 18, color: AppColors.grey),
-          onPressed: () => globalKey.currentState!.openDrawer()),
-    )
-        :
-    // index == 1 ?
-    // InkWell(
-    //   onTap: () => index == 4?  filteringCategory(context):
-    //   Get.bottomSheet(FriendFilter()),
-    //   child: Container(
-    //     margin: EdgeInsets.only( top:08),
-    //     child:  index == 1 ? Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ):
-    //     Image.asset(AppImages.filterImage,
-    //         color: Colors.grey, height: 30
-    //     ),
-    //   ),
-    // ):
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          leadingWidth: index == 2 ? 50 : 89,
+          leading: index == 2
+              ? Container(
+                  margin: EdgeInsets.only(top: 8),
+                  child: IconButton(
+                      iconSize: 40,
+                      icon: Image.asset(AppImages.menuDrawer,
+                          height: 18, color: AppColors.grey),
+                      onPressed: () => globalKey.currentState!.openDrawer()),
+                )
+              :
+              // index == 1 ?
+              // InkWell(
+              //   onTap: () => index == 4?  filteringCategory(context):
+              //   Get.bottomSheet(FriendFilter()),
+              //   child: Container(
+              //     margin: EdgeInsets.only( top:08),
+              //     child:  index == 1 ? Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ):
+              //     Image.asset(AppImages.filterImage,
+              //         color: Colors.grey, height: 30
+              //     ),
+              //   ),
+              // ):
 
-    index == 2
-        ? Container()
-        : Row(
-      children: [
-        GestureDetector(
-          onTap: index == 0
-              ? () {
-            filteringCategory(context);
-          }
-              : index == 1
-              ? () {
-            Scaffold.of(context).openDrawer();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
-            // FriendFilter();
-            // index == 4 ? filteringCategory(context) :
-            // Get.bottomSheet(FriendFilter());
-          }
-              : index == 3
-              ? () {
-            adsfiltringheet(context);
-          }
-              : index == 4
-              ? () {
-            filtrationModel(context);
-          }
-              : null,
-          child: index == 0 || index == 4 || index == 3
-              ? Container()
-              : GestureDetector(
-            onTap: () => index == 4
-                ? filteringCategory(context)
-                : Get.bottomSheet(FriendFilter()),
-            // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
-            child: Container(
-              margin: EdgeInsets.only(right: 15, top: 08),
-              child: index == 1
-                  ? Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45)
-                  : Image.asset(AppImages.filterImage,
-                  color: Colors.grey, height: 45),
-            ),
+              index == 2
+                  ? Container()
+                  : Row(
+                      children: [
+                        GestureDetector(
+                          onTap: index == 0
+                              ? () {
+                                  globalKey.currentState!.openDrawer();
+                                  //filteringCategory(context);
+                                }
+                              : index == 1
+                                  ? () {
+                                      Scaffold.of(context).openDrawer();
+                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
+                                      // FriendFilter();
+                                      // index == 4 ? filteringCategory(context) :
+                                      // Get.bottomSheet(FriendFilter());
+                                    }
+                                  : index == 3
+                                      ? () {
+                                          adsfiltringheet(context);
+                                        }
+                                      : index == 4
+                                          ? () {
+                                              filtrationModel(context);
+                                            }
+                                          : null,
+                          child: index == 0 || index == 4 || index == 3
+                              ? Container()
+                              : GestureDetector(
+                                  onTap: () => index == 4
+                                      ? globalKey.currentState!.openDrawer()
+                                      : Get.bottomSheet(FriendFilter()),
+                                  // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 15, top: 08),
+                                    child: index == 1
+                                        ? Image.asset(AppImages.filterImage,
+                                            color: Colors.grey, height: 45)
+                                        : Image.asset(AppImages.filterImage,
+                                            color: Colors.grey, height: 45),
+                                  ),
+                                ),
+                        ),
+                        GestureDetector(
+                          onTap: index == 3
+                              ? () {
+                                  Get.to(AddPostingScreen());
+                                }
+                              : index == 0
+                                  ? () {
+                                      Get.to(AddOffersPage());
+                                    }
+                                  : index == 4
+                                      ? () {
+                                          Get.to(AddPostingScreen());
+                                        }
+                                      : null,
+                          child: Container(
+                              margin:
+                                  EdgeInsets.only(left: 10, right: 10, top: 08),
+                              child: index != 1
+                                  ? Image.asset(AppImages.plusImage1,
+                                      color: Colors.black, height: 35)
+                                  : Container()),
+                        ),
+                      ],
+                    ),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 08.0),
+            child: Image.asset(image, height: 40),
           ),
-        ),
-        GestureDetector(
-          onTap: index == 3
-              ? () {
-            Get.to(AddPostingScreen());
-          }
-              : index == 0
-              ? () {
-            Get.to(AddOffersPage());
-          }
-              : index == 4
-              ? () {
-            Get.to(AddPostingScreen());
-          }
-              : null,
-          child: Container(
-              margin:
-              EdgeInsets.only(left: 10, right: 10, top: 08),
-              child: index != 1
-                  ? Image.asset(AppImages.plusImage1,
-                  color: Colors.black, height: 35)
-                  : Container()),
-        ),
-      ],
-    ),
-    title: Padding(
-      padding: const EdgeInsets.only(top: 08.0),
-      child: Image.asset(image, height: 40),
-    ),
-    actions: [
-      index == 2
-          ? Container(
-              padding: EdgeInsets.only(
-                  right: 2, left: 2, top: 4, bottom: 4),
-              margin: EdgeInsets.only(right: 10, left: 10, top: 10),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/inbox');
-                    },
-                    child: Image.asset(AppImages.chating,
-                        color: AppColors.black),
-                  ),
-                  Container(
-                    height: 20,
-                    color: AppColors.grey,
-                    width: 1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/toplocation');
-                    },
-                    child: Image.asset(AppImages.appbar_location,
-                        color: AppColors.black),
-                  ),
-                ],
-              ))
-          : Container(
-        margin: index == 0 || index == 1
-            ? EdgeInsets.only(top: 08)
-            : EdgeInsets.only(right: 16, left: 16, top: 08),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            index == 0
-                ? InkWell(
-              onTap: () => filteringCategory(context),
-              child: Container(
-                // margin: EdgeInsets.only( top:08),
-                child: index == 1
-                    ? Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40)
-                    : Image.asset(AppImages.filterImage,
-                    color: Colors.black, height: 40),
-              ),
-            )
-                : Container(),
-            index == 1
-                ? Padding(
-              padding:
-              const EdgeInsets.only(right: 10, left: 10),
-              child: InkWell(
-                child: Container(
-                  // margin: EdgeInsets.only( top:08),
-                  child: index == 1
-                      ? Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25)
-                      : Image.asset(AppImages.myFriendList,
-                      color: Colors.black, height: 25),
-                ),
-              ),
-            )
-
-            //success station ads filter ar
-                : Container(),
-            index == 4 || index == 3
-                ? GestureDetector(
-              onTap: () {
-                // index == 3
-                //     ?
-                // filtrationModel(context): adsfiltringheet(context);
-                // filtrationModel(context);
-
-                globalKey.currentState!.openDrawer();
-              },
-              child: Container(
-                  height: 25,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                      )),
-                  margin: EdgeInsets.only(top: 08),
-                  child: index == 0 || index == 1
-                      ? Container()
-                      : index == 2
-                      ? Container()
-                      : Padding(
-                    padding:
-                    const EdgeInsets.all(2.0),
-                    child: Image.asset(
-                        AppImages.adsFilter,
-                        color: Colors.black,
-                        height: 50),
-                  )),
-            )
-                : Container(),
-            index == 4 || index == 3
+          actions: [
+            index == 2
                 ? Container(
               height: 25,
               width: 30,
@@ -628,22 +532,175 @@ Widget appbar(
                       ? Container()
                       : Padding(
                     padding:
-                    const EdgeInsets.all(2),
-                    child: Image.asset(
-                        index == 3
-                            ? AppImages.myMap
-                            : AppImages.gridView,
-                        color: Colors.black,
-                        height: 30),
-                  )),
-            )
-                : Container()
+                        EdgeInsets.only(right: 2, left: 2, top: 4, bottom: 4),
+                    margin: EdgeInsets.only(right: 10, left: 10, top: 10),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/inbox');
+                          },
+                          child: Image.asset(AppImages.chating,
+                              color: AppColors.black),
+                        ),
+                        Container(
+                          height: 20,
+                          color: AppColors.grey,
+                          width: 1,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed('/toplocation');
+                          },
+                          child: Image.asset(AppImages.appbar_location,
+                              color: AppColors.black),
+                        ),
+                      ],
+                    ))
+                : Container(
+                    margin: index == 0 || index == 1
+                        ? EdgeInsets.only(top: 08)
+                        : EdgeInsets.only(right: 16, left: 16, top: 08),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        index == 0
+                            ? InkWell(
+                                onTap: () =>
+                                    globalKey.currentState!.openDrawer(),
+                                child: Container(
+                                  // margin: EdgeInsets.only( top:08),
+                                  child: index == 1
+                                      ? Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40)
+                                      : Image.asset(AppImages.filterImage,
+                                          color: Colors.black, height: 40),
+                                ),
+                              )
+                            : Container(),
+                        index == 1
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
+                                child: InkWell(
+                                  child: Container(
+                                    // margin: EdgeInsets.only( top:08),
+                                    child: index == 1
+                                        ? Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25)
+                                        : Image.asset(AppImages.myFriendList,
+                                            color: Colors.black, height: 25),
+                                  ),
+                                ),
+                              )
+
+                            //success station ads filter ar
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  // index == 3
+                                  //     ?
+                                  // filtrationModel(context): adsfiltringheet(context);
+                                  // filtrationModel(context);
+
+                                  globalKey.currentState!.openDrawer();
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                child: Image.asset(
+                                                    AppImages.adsFilter,
+                                                    color: Colors.black,
+                                                    height: 50),
+                                              )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? Container(
+                                height: 25,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: Colors.black,
+                                )),
+                                margin: EdgeInsets.only(top: 08),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      index == 4
+                                          ? gridingData.listingGrid('map')
+                                          : gridingData.listingGrid('list');
+                                    },
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : index == 4
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(2),
+                                                    child: Image.asset(
+                                                        AppImages.listingImage,
+                                                        color: Colors.black,
+                                                        height: 15),
+                                                  )),
+                              )
+                            : Container(),
+                        index == 4 || index == 3
+                            ? GestureDetector(
+                                onTap: () {
+                                  gridingData.listingGrid('grid');
+                                },
+                                child: Container(
+                                    height: 25,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                      color: Colors.black,
+                                    )),
+                                    margin: EdgeInsets.only(top: 08),
+                                    child: index == 0 || index == 1
+                                        ? Container()
+                                        : index == 2
+                                            ? Container()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                child: Image.asset(
+                                                    index == 3
+                                                        ? AppImages.myMap
+                                                        : AppImages.gridView,
+                                                    color: Colors.black,
+                                                    height: 30),
+                                              )),
+                              )
+                            : Container()
+                      ],
+                    ),
+                  ),
           ],
-        ),
-      ),
-    ],
-    backgroundColor: Colors.white,
-  );
+          backgroundColor: Colors.white,
+        );
 }
 
 Widget favAdds(
@@ -980,8 +1037,7 @@ filtrationModel(context) async {
                                 child: Container(
                                   child: Text("Nearby".tr,
                                       style: TextStyle(
-                                          color:
-                                              AppColors.whitedColor)),
+                                          color: AppColors.whitedColor)),
                                 ),
                               )
                             ],
@@ -1436,8 +1492,7 @@ filteringCategory(context) {
                                             : Colors.grey,
                                         //Colors.blue[100],
                                         border: Border.all(
-                                          color:
-                                              AppColors.whitedColor,
+                                          color: AppColors.whitedColor,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.all(
@@ -1450,10 +1505,8 @@ filteringCategory(context) {
                                             style: TextStyle(
                                               fontSize: 15,
                                               color: slctedInd == index
-                                                  ? AppColors
-                                                      .whitedColor
-                                                  : AppColors
-                                                      .whitedColor,
+                                                  ? AppColors.whitedColor
+                                                  : AppColors.whitedColor,
                                             )),
                                       ),
                                     ),
@@ -1722,8 +1775,7 @@ adsfiltringheet(context) {
                                             ? AppColors.appCategSeleGroundColor
                                             : Colors.grey,
                                         border: Border.all(
-                                          color:
-                                              AppColors.whitedColor,
+                                          color: AppColors.whitedColor,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.all(
@@ -1736,10 +1788,8 @@ adsfiltringheet(context) {
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 color: _selectedIndex == index
-                                                    ? AppColors
-                                                        .whitedColor
-                                                    : AppColors
-                                                        .whitedColor)),
+                                                    ? AppColors.whitedColor
+                                                    : AppColors.whitedColor)),
                                       ),
                                     ),
                                   ),
