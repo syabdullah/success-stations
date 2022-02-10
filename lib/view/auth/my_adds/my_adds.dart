@@ -106,7 +106,7 @@ class _MyAddsState extends State<MyAdds> {
               },
               child: Center(
                 child: Container(
-                    margin: EdgeInsets.only( right:10),
+                    margin: lang =="ar"?EdgeInsets.only( left:10):EdgeInsets.only( right:10),
                     child: Image.asset(AppImages.setting,
                         color: Colors.black, height: 18)),
               ),
@@ -215,7 +215,7 @@ class _MyAddsState extends State<MyAdds> {
                 Padding(
                   padding: const EdgeInsets.all(6),
                   child: Container(
-        height: 130,
+        height:110,
         decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -240,7 +240,7 @@ class _MyAddsState extends State<MyAdds> {
                                           dataListValue[index]['media'][0]
                                               ['url'],
                                           fit: BoxFit.fill,
-                                          width: Get.width /6,
+                                          width: Get.width /6.3,
                                           height: Get.height / 3))
                                   : Container(
                                       width: Get.width / 6,
@@ -268,7 +268,7 @@ class _MyAddsState extends State<MyAdds> {
                               //   )
                               // ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
                                 child: Container(
                                     child:
                                     Text(
@@ -286,26 +286,42 @@ class _MyAddsState extends State<MyAdds> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Container(
+                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
 
-                                  child: dataListValue[index]['price'] != null
-                                      ? Text(" ${myAddssplitedPrice[0]} SAR",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold))
-                                      : Container(),
+                                      child: dataListValue[index]['price'] != null
+                                          ? Text(
+                                     myAddssplitedPrice[0]  ,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500))
+                                          : Container(),
+                                    ), Container(
+
+                                      child: dataListValue[index]['price'] != null
+                                          ? Text(
+                                   " "+"sar".tr ,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                              color: Colors.grey,
+                                             ))
+                                          : Container(),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
+                                padding:  EdgeInsets.only(bottom:Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005),
                                 child: Container(
                                     child:
                                     Text(
                                       "New",
                                       style: TextStyle(
                                           fontFamily: "Source_Sans_Pro",
-                                          color: Colors.lightGreen,
+                                          color:AppColors.new_color,
                                           fontWeight: FontWeight.w600
                                       ),
                                     )
@@ -320,8 +336,52 @@ class _MyAddsState extends State<MyAdds> {
                     ],
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                 lang=="ar"?Padding(
+                   padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.01),
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: [
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.end,
+
+
+                         children: [
+
+                           GestureDetector(
+
+                             onTap: () {
+                               Get.to(AddPostingScreen(),
+                                   arguments: dataListValue[index]);
+                             },
+
+                             child: Container(
+                                 margin: EdgeInsets.symmetric(horizontal:Get.height*0.01),
+                                 // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                 child: Image.asset(AppImages.edit_Offer, height: 20)
+                             ),
+                           ),
+                           Container(
+                               margin:  lang=='en'?EdgeInsets.only(right:Get.height*0.005):EdgeInsets.only(left:Get.height*0.005),
+                               child: GestureDetector(
+                                   onTap: () {
+                                     controller.adDelete(
+                                         dataListValue[index]['id']);
+                                     controller.addesMyListAll();
+                                     controller.addesMyListAll();
+                                     controller.addedByIdAddes(
+                                         catID, userId);
+                                     controller.addedByIdAddes(
+                                         catID, userId);
+                                   },
+                                   child: Image.asset(AppImages.delete_offer,height: 22)
+                               )
+                           ),
+                         ],
+                       ),
+                     ],
+                   ),
+                 ): Padding(
+                    padding:  EdgeInsets.only(bottom: Get.height*0.015,right:Get.height*0.01),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -331,7 +391,7 @@ class _MyAddsState extends State<MyAdds> {
 
                           children: [
                             Container(
-                                margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(),
+                                margin:  lang=='en'?EdgeInsets.only(right:Get.height*0.002):EdgeInsets.only(left:Get.height*0.002),
                                 child: GestureDetector(
                                     onTap: () {
                                       controller.adDelete(
@@ -343,7 +403,7 @@ class _MyAddsState extends State<MyAdds> {
                                                             controller.addedByIdAddes(
                                                                 catID, userId);
                                     },
-                                    child: Image.asset(AppImages.delete_offer,height: 25)
+                                    child: Image.asset(AppImages.delete_offer,height: 22)
                                 )
                             ),
                             GestureDetector(
@@ -354,7 +414,7 @@ class _MyAddsState extends State<MyAdds> {
                                 },
 
                               child: Container(
-                                  margin: EdgeInsets.only(right: 10),
+                                  margin: EdgeInsets.symmetric(horizontal:Get.height*0.01),
                                   // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
                                   child: Image.asset(AppImages.edit_Offer, height: 20)
                               ),
@@ -747,7 +807,7 @@ class _MyAddsState extends State<MyAdds> {
                 children: [
                   allCheck == false
                       ? Container(
-                          margin: EdgeInsets.only(left: 10, right: 6),
+                          margin:lang=="ar"? EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
                           width: 70,
                           child: GestureDetector(
                             onTap: () {
@@ -764,9 +824,8 @@ class _MyAddsState extends State<MyAdds> {
                               decoration: BoxDecoration(
 
                                 border: Border.all(
-                                    color:selectedIndex == index &&
-                                        textAllcheck == true
-                                        ? Colors.black26:Colors.black26),
+                                  color: AppColors.border
+                                    ),
                                 color: allColor,
                               ),
                               // padding: EdgeInsets.all(10.0),
@@ -789,7 +848,7 @@ class _MyAddsState extends State<MyAdds> {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 8.0),
+                        margin:lang=="ar"? EdgeInsets.only(right:8):EdgeInsets.only(left:8),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {

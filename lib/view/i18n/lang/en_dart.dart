@@ -125,6 +125,7 @@ const Map<String, String> en = {
   "save_as_draft": "SAVE AS DRAFT",
   "publish": "Publish",
   "publishb": "PUBLISH",
+  "sar":"SAR",
   "details": "Details",
   "ad_posted_at": "Ad Posted at",
   "save": "Save",
