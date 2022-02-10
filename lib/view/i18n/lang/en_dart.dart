@@ -138,7 +138,7 @@ const Map<String, String> en = {
   "search_service": "Search Service",
   "profile": "My Profile",
   "my_ads": "Listing Item",
-  "my_adss": "MY ADS",
+  "my_adss": "My item",
   'item':"Item",
   'edit':"Edit",
   "messeges": "Message",

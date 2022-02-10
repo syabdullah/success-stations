@@ -100,7 +100,7 @@ Widget appbar(
   AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          leadingWidth: 50,
+          leadingWidth:index == 2?50: 89,
           leading: index == 2
               ? Container(
                   margin: EdgeInsets.only(top: 8),
@@ -188,7 +188,7 @@ Widget appbar(
                                   EdgeInsets.only(left: 10, right: 10, top: 08),
                               child: index != 1
                                   ? Image.asset(AppImages.plusImage1,
-                                      color: Colors.black, height: 35)
+                                      color: Colors.black, height: 20)
                                   : Container()),
                         ),
                       ],
@@ -371,14 +371,14 @@ Widget appbar(
       : AppBar(
     automaticallyImplyLeading: false,
     centerTitle: true,
-    leadingWidth: 89,
+    leadingWidth:index == 2?50: 89,
     leading: index == 2
         ? Container(
       margin: EdgeInsets.only(top: 8),
       child: IconButton(
           iconSize: 40,
           icon: Image.asset(AppImages.menuDrawer,
-              height: 28, color: AppColors.grey),
+              height: 18, color: AppColors.grey),
           onPressed: () => globalKey.currentState!.openDrawer()),
     )
         :
