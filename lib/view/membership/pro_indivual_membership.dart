@@ -191,17 +191,46 @@ List<String> prize = [
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        Text(prize[index],
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.orange)),
+                GetBuilder<MemberShipController>(
+                  init: MemberShipController(),
+                  builder: (val) {
+                    return FractionalTranslation(
+                      translation: const Offset(0.0, -0.5),
+                      child:
+                      // val.result != null
+                      //                 ? Text(
+                      //                     statustogle == false
+                      //                         ? "\$ ${val.result['data']['monthly'].toString()}"
+                      //                         : "\$ ${val.result['data']['yearly'].toString()}",
+                      //                     style: TextStyle(
+                      //                         color: Colors.white,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontSize: 18),
+                      //                   )
+                      //                 : Text('')),
+                      Center(
+                          child:  Text(
+                                  statustogle == false
+                                      ? "20"
+                                      : "120",
+                                  style: TextStyle(
+                                      color: Colors.orange,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                              // : Text('', style: TextStyle(
+                              // fontSize: 13,
+                              // // fontWeight: FontWeight.w400,
+                              // color:Colors.orange))),
+                    ));
+                  },
+                ),
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 1),
+                                          padding: const EdgeInsets.only(bottom: 13),
                                           child: Text("SAR",
                                               style: TextStyle(
-                                                  fontSize: 13,
-                                                  // fontWeight: FontWeight.w400,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
                                                   color:Colors.orange)),
                                         ),
                                       ],

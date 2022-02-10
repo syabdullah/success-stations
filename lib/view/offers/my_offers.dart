@@ -138,7 +138,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
           Padding(
             padding:  EdgeInsets.fromLTRB(Get.width*0.008,Get.height*0.013,Get.width*0.008, 0),
             child: Container(
-              height: Get.height*0.09,
+              height: Get.height*0.1,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -165,8 +165,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
 
                               child: Image.network(
                                 listFavou[c]['image']['url'],
-                                width: Get.width / 6,
-                                height: Get.height/6,
+                                width: Get.width / 5.5,
+                                height: Get.height/5.5,
                                 fit: BoxFit.fill,
                               ),
                             ):Container(
@@ -182,44 +182,47 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       Padding(
                         padding:  EdgeInsets.only(top:Get.height*0.01),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Container(
+                              child:
+                              Padding(
+                                padding: lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.06):EdgeInsets.only(left : Get.width * 0.06),
+                                child: Text(
+                                  listFavou[c]['text_ads'][lang]!=null ?
+                                  listFavou[c]['text_ads'][lang].toString():
+                                  listFavou[c]['text_ads'][lang]==null?
+                                  listFavou[c]['text_ads']['en'].toString():'',
+                                   style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              )
+                            ),
                             // Container(
-                            //   child:
-                            //   Text(
-                            //     listFavou[c]['text_ads'][lang]!=null ?
-                            //     listFavou[c]['text_ads'][lang].toString():
-                            //     listFavou[c]['text_ads'][lang]==null?
-                            //     listFavou[c]['text_ads']['en'].toString():'',
-                            //      style: TextStyle(
-                            //       color: Colors.grey[700],
-                            //       fontWeight: FontWeight.bold
-                            //     ),
-                            //   )
+                            //     child:
+                            //     Text(
+                            //     "Catagory:Book,clothes",
+                            //       style: TextStyle(
+                            //         fontFamily: "Source_Sans_Pro",
+                            //           color: Colors.black,
+                            //           fontWeight: FontWeight.w400
+                            //       ),
+                            //     )
                             // ),
-                            Container(
-                                child:
-                                Text(
-                                "Catagory:Book,clothes",
-                                  style: TextStyle(
-                                    fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                )
-                            ),
-                            Container(
-                                child:
-                                Text(
-                                  "End date: 30 - fab - 2022",
-                                  style: TextStyle(
-                                      fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                )
-                            ),
+                            // Container(
+                            //     child:
+                            //     Text(
+                            //       "End date: 30 - fab - 2022",
+                            //       style: TextStyle(
+                            //           fontFamily: "Source_Sans_Pro",
+                            //           color: Colors.black,
+                            //           fontWeight: FontWeight.w400
+                            //       ),
+                            //     )
+                            // ),
 
                             // Container(
                             //   width: Get.width / 2.5,
@@ -237,28 +240,30 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             //     trimExpandedText: 'Show less',
                             //   ),
                             // ),
-                            // Container(
-                            //   width: Get.width / 2.5,
-                            //   child: ReadMoreText(
-                            //     listFavou[c]['description'] != null ? listFavou[c]['description']['en']  : "",
-                            //     style: TextStyle(
-                            //       color: AppColors.inputTextColor,
-                            //       fontSize:
-                            //     ),
-                            //     trimLines: 2,
-                            //     colorClickableText:AppColors.whitedColor,
-                            //     trimMode: TrimMode.Line,
-                            //     trimCollapsedText: 'Show more',
-                            //     trimExpandedText: 'Show less',
-                            //   ),
-                            // ),
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 5),
-                            //   child: listFavou[c]['url'] != null
-                            //   ? Text(listFavou[c]['url'],
-                            //     style: TextStyle(color: Color(0xFF2F4199))
-                            //   ) : Container()
-                            // )
+                            Container(
+                              width: Get.width / 2.5,
+                              child: Column(
+                                children: [
+                                  ReadMoreText(
+                                     listFavou[c]['description'] != null ? listFavou[c]['description']['en']  : "",
+                                    style: TextStyle(
+                                      color: AppColors.inputTextColor,
+                                      fontSize:2
+                                    ),
+                                    trimLines: 1,
+                                    colorClickableText:AppColors.whitedColor,
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: 'Show more',
+                                    trimExpandedText: 'Show less',
+                                  ),
+                                  listFavou[c]['url'] != null
+                                      ? Text(listFavou[c]['url'],
+                                      style: TextStyle(color: Color(0xFF2F4199))
+                                  ) : Container()
+                                ],
+                              ),
+                            ),
+
                           ]
                         ),
                       ),

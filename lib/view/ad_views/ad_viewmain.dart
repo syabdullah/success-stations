@@ -53,7 +53,8 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                   height: Get.height,
                   child: Column(
                     children: [
-                      SizedBox(height: 20.h),
+                      // SizedBox(height: 20.h),
+                      SizedBox(height: 20,),
                       TabBar(
                         indicatorColor: Color(0xFF2F4199),
                         labelColor: AppColors.whitedColor,
