@@ -196,15 +196,27 @@ List<String> prize = [
                   builder: (val) {
                     return FractionalTranslation(
                       translation: const Offset(0.0, -0.5),
-                      child: Center(
+                      child:
+                      // val.result != null
+                      //                 ? Text(
+                      //                     statustogle == false
+                      //                         ? "\$ ${val.result['data']['monthly'].toString()}"
+                      //                         : "\$ ${val.result['data']['yearly'].toString()}",
+                      //                     style: TextStyle(
+                      //                         color: Colors.white,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontSize: 18),
+                      //                   )
+                      //                 : Text('')),
+                      Center(
                           child:  Text(
                                   statustogle == false
-                                      ? "hello"
-                                      : "hi",
+                                      ? "20"
+                                      : "120",
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.orange,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                      fontSize: 20),
                                 ),
                               // : Text('', style: TextStyle(
                               // fontSize: 13,
@@ -214,11 +226,11 @@ List<String> prize = [
                   },
                 ),
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 7),
+                                          padding: const EdgeInsets.only(bottom: 13),
                                           child: Text("SAR",
                                               style: TextStyle(
-                                                  fontSize: 13,
-                                                  // fontWeight: FontWeight.w400,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
                                                   color:Colors.orange)),
                                         ),
                                       ],
