@@ -226,7 +226,7 @@ List<String> prize = [
                                         ),
                                       ],
                                     )),
-                                SizedBox(height:Get.height *0.01),
+                                // SizedBox(height:Get.height *0.01),
                                 Container(
                                   height:Get.height/26,
                                   width:Get.width/3.8,

@@ -65,7 +65,7 @@ class _MemberShipState extends State<MemberShip> {
                   child: Container(
                     margin: EdgeInsets.only(left: 15),
                     width: Get.width / 2.2,
-                    height: Get.height / 7,
+                    height:Get.height<700? Get.height / 9: Get.height / 7,
                     decoration: BoxDecoration(
                         border: Border.all(
                             color:

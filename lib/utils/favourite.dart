@@ -424,7 +424,7 @@ class _FavouritePageState extends State<FavouritePage> {
                               //   )
                               // ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
                                 child: Container(
                                     child: Text(
                                       listFavourite[c]['user_name']!=null ? allWordsCapitilize( listFavourite[c]['user_name']['name'],):"",
@@ -437,28 +437,48 @@ class _FavouritePageState extends State<FavouritePage> {
                                 )),
                               ),
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
-                                child: Container(
-                                    child: Text(
-                                        newData[c]['listing']['price'] != null
-                                            ? "${newData[c]['listing']['price']}"
-                                            : '',
-                                  style: TextStyle(
-                                      fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
-                                )),
+                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+
+                                      child:newData[c]['listing']['price'] != null
+                                          ? Text(
+                                           newData[c]['listing']['price'].split(".")[0],
+
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500))
+                                          : Container(),
+                                    ), Container(
+
+                                      child: newData[c]['listing']['price'] != null
+                                          ? Text(
+                                          " "+"sar".tr ,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                          ))
+                                          : Container(),
+                                    ),
+                                  ],
+                                ),
                               ),
+
                               Padding(
-                                padding:  EdgeInsets.only(bottom: Get.height*0.005),
+                                padding:  EdgeInsets.only(bottom:Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005),
                                 child: Container(
-                                    child: Text(
-                                  "New",
-                                  style: TextStyle(
-                                      fontFamily: "Source_Sans_Pro",
-                                      color: Colors.lightGreen,
-                                      fontWeight: FontWeight.w600),
-                                )),
+                                    child:
+                                    Text(
+                                      "New",
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          color:AppColors.new_color,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    )
+                                ),
                               ),
                             ]),
                       ),
@@ -535,6 +555,7 @@ class _FavouritePageState extends State<FavouritePage> {
                     ],
                   ),
                   SizedBox(height: Get.height*0.002),
+
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -543,9 +564,9 @@ class _FavouritePageState extends State<FavouritePage> {
                         padding:  EdgeInsets.only(bottom: Get.height*0.008,right:Get.height*0.015,left:Get.height*0.015,),
                         child: Row(
                           children: [
-                            listFavourite[c]['listing'] != null
+                            newData[c]['listing'] != null
                                 ? Container(
-                                    child: listFavourite[c]['listing']
+                                    child: newData[c]['listing']
                                                 ['is_favorite'] ==
                                             true
                                         ? GestureDetector(
