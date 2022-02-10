@@ -18,7 +18,7 @@ class AppColors {
   static Color outline = Color(0xFFd9d9d9);
   static Color inputColor = Color(0xFFF9F8FA);
   static Color inputColor2 = Color(0xFFF7F5F9);
-  static Color new_color = Color(0xFF00b050);
+  static Color new_color = Color(0xFF1AB660);
   static Color inPutFieldColor = Color(0xFFFAF9FB);
   static Color inputTextColor = Color(0xFFA09D9E);
   static Color textInput = Color(0xFF868282);

@@ -189,6 +189,7 @@ const Map<String, String> ar = {
   "condition": "الشروط",
   "book_list": "قائمة الاعلانات",
   "promotions": "العروض",
+  'sar':"س.ر",
   "offer title": "عنوان العرض",
   "Offer description": "وصف العرض",
   "link to listing add": "رابط لإضافة القائمة",
