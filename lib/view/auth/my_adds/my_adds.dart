@@ -85,30 +85,37 @@ class _MyAddsState extends State<MyAdds> {
                 child: Image.asset(AppImages.imagearrow1,
                     color: Colors.black, height: 22),
               ))),
-      actions: [
-        GestureDetector(
-          onTap: () {
-            Get.to(AddPostingScreen());
-          },
-          child: Center(
-            child: Container(
-              // margin: EdgeInsets.only( left: 15,),
-                child: Image.asset(AppImages.plusImage,
-                    color: Colors.black, height: 30)),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Get.to(AddLocations());
-          },
-          child: Center(
-            child: Container(
-                margin: EdgeInsets.only( right:10),
-                child: Image.asset(AppImages.setting,
-                    color: Colors.black, height: 35)),
-          ),
-        ),
-      ],),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Get.to(AddPostingScreen());
+              },
+              child: Center(
+                child: Container(
+                  // margin: EdgeInsets.only( left: 15,),
+                    child: Image.asset(AppImages.plusImage,
+                        color: Colors.black, height: 18)),
+              ),
+            ),
+            SizedBox(
+                width:Get.width*0.04
+            ),
+            GestureDetector(
+              onTap: () {
+                // Get.to(AddLocations());
+              },
+              child: Center(
+                child: Container(
+                    margin: EdgeInsets.only( right:10),
+                    child: Image.asset(AppImages.setting,
+                        color: Colors.black, height: 18)),
+              ),
+            ),
+            SizedBox(
+                width:Get.width*0.02
+            ),
+          ]
+      ),
 
       // PreferredSize(
       //   preferredSize: Size.fromHeight(60.0),
@@ -140,7 +147,8 @@ class _MyAddsState extends State<MyAdds> {
                                   val.myALLAdd['success'] == true
                               ? valuee.dataType == 'list'
                                   ? myAddsList(val.myALLAdd['data'])
-                                  : myAddsList(val.myALLAdd['data'])
+                          // myAddGridView(val.myALLAdd['data'])
+                                  : myAddsList (val.myALLAdd['data'])
 
                               : myaddedDr.resultInvalid.isTrue &&
                                       val.myALLAdd['data'] == false
@@ -185,19 +193,21 @@ class _MyAddsState extends State<MyAdds> {
 
   var deleteAdJson;
 
-  Widget myAddsList(allDataAdds) {
+  Widget myAddsList(dataListValue) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: allDataAdds.length,
+      itemCount: dataListValue.length,
       itemBuilder: (BuildContext context, index) {
+        var price = dataListValue[index]['price'].toString();
+        myAddssplitedPrice = price.split('.');
         return GestureDetector(
           onTap: () {
-            Get.to(AdViewScreen(), arguments: allDataAdds[index]['id']);
+            Get.to(AdViewScreen(), arguments: dataListValue[index]['id']);
           },
           child: ColorFiltered(
             colorFilter: ColorFilter.mode(
-                allDataAdds[index]['is_active'] == 0
+                dataListValue[index]['is_active'] == 0
                     ? Colors.white
                     : Colors.transparent,
                 BlendMode.softLight),
@@ -213,217 +223,229 @@ class _MyAddsState extends State<MyAdds> {
         )
         ),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Center(
-                          child: Container(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Center(
+                        child: Container(
 
-                              child: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                                child: allDataAdds[index]['media'].length != 0
-                                    ? ClipRRect(
-                                        // borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                            allDataAdds[index]['media'][0]
-                                                ['url'],
-                                            fit: BoxFit.fill,
-                                            width: Get.width /6,
-                                            height: Get.height / 3))
-                                    : Container(
-                                        width: Get.width / 6,
-                                        child: Icon(Icons.image, size: 50),
-                                      )),
-                          )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // Container(
-                                //   child:
-                                //   Text(
-                                //     listFavou[c]['text_ads'][lang]!=null ?
-                                //     listFavou[c]['text_ads'][lang].toString():
-                                //     listFavou[c]['text_ads'][lang]==null?
-                                //     listFavou[c]['text_ads']['en'].toString():'',
-                                //      style: TextStyle(
-                                //       color: Colors.grey[700],
-                                //       fontWeight: FontWeight.bold
-                                //     ),
-                                //   )
-                                // ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Container(
-                                      child:
-                                      Text(
-                                        "Teaching the brain to read book\n at a special price from",
-                                        // textAlign: TextAlign.center,
-                                        style: TextStyle(
+                            child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: GestureDetector(
+                              child: dataListValue[index]['media'].length != 0
+                                  ? ClipRRect(
+                                      // borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                          dataListValue[index]['media'][0]
+                                              ['url'],
+                                          fit: BoxFit.fill,
+                                          width: Get.width /6,
+                                          height: Get.height / 3))
+                                  : Container(
+                                      width: Get.width / 6,
+                                      child: Icon(Icons.image, size: 50),
+                                    )),
+                        )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Container(
+                              //   child:
+                              //   Text(
+                              //     listFavou[c]['text_ads'][lang]!=null ?
+                              //     listFavou[c]['text_ads'][lang].toString():
+                              //     listFavou[c]['text_ads'][lang]==null?
+                              //     listFavou[c]['text_ads']['en'].toString():'',
+                              //      style: TextStyle(
+                              //       color: Colors.grey[700],
+                              //       fontWeight: FontWeight.bold
+                              //     ),
+                              //   )
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Container(
+                                    child:
+                                    Text(
+                                      dataListValue[index]['title']['en'] != null
+                                          ? dataListValue[index]['title']['en']
+                                          : '',
+                                      // textAlign: TextAlign.center,
+                                      style: TextStyle(
                                           fontSize: 14,
-                                            fontFamily: "Source_Sans_Pro",
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400
-                                        ),
-                                      )
-                                  ),
+                                          fontFamily: "Source_Sans_Pro",
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400
+                                      ),
+                                    )
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.only(bottom: 5),
-                                  child: Container(
-                                      child:
-                                      Text(
-                                        "55.22 " +"SAR" ,
-                                        style: TextStyle(
-                                            fontFamily: "Source_Sans_Pro",
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600
-                                        ),
-                                      )
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Container(
+
+                                  child: dataListValue[index]['price'] != null
+                                      ? Text(" ${myAddssplitedPrice[0]} SAR",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold))
+                                      : Container(),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Container(
-                                      child:
-                                      Text(
-                                        "New",
-                                        style: TextStyle(
-                                            fontFamily: "Source_Sans_Pro",
-                                            color: Colors.lightGreen,
-                                            fontWeight: FontWeight.w600
-                                        ),
-                                      )
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Container(
+                                    child:
+                                    Text(
+                                      "New",
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          color: Colors.lightGreen,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    )
                                 ),
+                              ),
 
 
-                              ]
-                          ),
+                            ]
                         ),
-                        SizedBox(width: Get.height < 700 ? 18 : 38),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                      ),
 
-                                children: [
-                                  Container(
-                                      margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            // delete.deleteOfferController(listFavou[c]['id']);
-                                          },
-                                          child: Image.asset(AppImages.delete_offer,height: 25)
-                                      )
-                                  ),
-                                  GestureDetector(
+                    ],
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+
+
+                          children: [
+                            Container(
+                                margin:  lang=='en'?EdgeInsets.only(right: 10):EdgeInsets.only(),
+                                child: GestureDetector(
                                     onTap: () {
-                                      // Get.to(AddOffersPage(), arguments: listFavou[c]);
+                                      controller.adDelete(
+                                          dataListValue[index]['id']);
+                                                            controller.addesMyListAll();
+                                                            controller.addesMyListAll();
+                                                            controller.addedByIdAddes(
+                                                                catID, userId);
+                                                            controller.addedByIdAddes(
+                                                                catID, userId);
                                     },
-                                    child: Container(
-                                        margin: EdgeInsets.only(right: 10),
-                                        // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
-                                        child: Image.asset(AppImages.edit_Offer, height: 20)
-                                    ),
-                                  ),
-                                ],
+                                    child: Image.asset(AppImages.delete_offer,height: 25)
+                                )
+                            ),
+                            GestureDetector(
+
+                                onTap: () {
+                                  Get.to(AddPostingScreen(),
+                                                            arguments: dataListValue[index]);
+                                },
+
+                              child: Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                  child: Image.asset(AppImages.edit_Offer, height: 20)
                               ),
                             ),
                           ],
-                        )
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 10),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       Container(
-                        //         child: Text(
-                        //           allDataAdds[index]['title']['en'] != null
-                        //               ? allDataAdds[index]['title']['en']
-                        //               : '',
-                        //           style: TextStyle(
-                        //               color: Colors.black,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //       ),
-                        //       SizedBox(
-                        //         height: 5,
-                        //       ),
-                        //       Row(
-                        //         children: [
-                        //           RatingBar.builder(
-                        //             ignoreGestures: true,
-                        //             initialRating:
-                        //                 allDataAdds[index]['rating'].toDouble(),
-                        //             minRating: 1,
-                        //             direction: Axis.horizontal,
-                        //             allowHalfRating: true,
-                        //             itemCount: 5,
-                        //             itemSize: 13.5,
-                        //             itemBuilder: (context, _) => Icon(
-                        //               Icons.star,
-                        //               color: Colors.amber,
-                        //             ),
-                        //             onRatingUpdate: (rating) {},
-                        //           ),
-                        //           Container(
-                        //               margin: EdgeInsets.only(left: 5),
-                        //               child: Text(
-                        //                 "(${allDataAdds[index]['rating_count'].toString()})",
-                        //                 style: TextStyle(fontSize: 13),
-                        //               )),
-                        //         ],
-                        //       ),
-                        //       Expanded(
-                        //         child: Row(
-                        //           children: [
-                        //             GestureDetector(
-                        //                 onTap: () {
-                        //                   controller.adDelete(
-                        //                       allDataAdds[index]['id']);
-                        //                   controller.addesMyListAll();
-                        //                   controller.addesMyListAll();
-                        //                   controller.addedByIdAddes(
-                        //                       catID, userId);
-                        //                   controller.addedByIdAddes(
-                        //                       catID, userId);
-                        //                 },
-                        //                 child: Container(
-                        //                     // margin: lang== 'ar'? EdgeInsets.only(left:10): EdgeInsets.only(),
-                        //                     child: Image.asset(AppImages.delete,
-                        //                         height: 30))),
-                        //             SizedBox(
-                        //               width: 3,
-                        //             ),
-                        //             GestureDetector(
-                        //                 onTap: () {
-                        //                   Get.to(AddPostingScreen(),
-                        //                       arguments: allDataAdds[index]);
-                        //                 },
-                        //                 child: Container(
-                        //                     // margin: lang == 'ar'? EdgeInsets.only(right:20, left:10): EdgeInsets.only(),
-                        //                     child: Image.asset(
-                        //                   AppImages.edit,
-                        //                   height: 30,
-                        //                 )))
-                        //           ],
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
+                        ),
                       ],
                     ),
-                  ],
+                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 10),
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Container(
+                  //         child: Text(
+                  //           allDataAdds[index]['title']['en'] != null
+                  //               ? allDataAdds[index]['title']['en']
+                  //               : '',
+                  //           style: TextStyle(
+                  //               color: Colors.black,
+                  //               fontWeight: FontWeight.bold),
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 5,
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           RatingBar.builder(
+                  //             ignoreGestures: true,
+                  //             initialRating:
+                  //                 allDataAdds[index]['rating'].toDouble(),
+                  //             minRating: 1,
+                  //             direction: Axis.horizontal,
+                  //             allowHalfRating: true,
+                  //             itemCount: 5,
+                  //             itemSize: 13.5,
+                  //             itemBuilder: (context, _) => Icon(
+                  //               Icons.star,
+                  //               color: Colors.amber,
+                  //             ),
+                  //             onRatingUpdate: (rating) {},
+                  //           ),
+                  //           Container(
+                  //               margin: EdgeInsets.only(left: 5),
+                  //               child: Text(
+                  //                 "(${allDataAdds[index]['rating_count'].toString()})",
+                  //                 style: TextStyle(fontSize: 13),
+                  //               )),
+                  //         ],
+                  //       ),
+                  //       Expanded(
+                  //         child: Row(
+                  //           children: [
+                  //             GestureDetector(
+                  //                 onTap: () {
+                  //                   controller.adDelete(
+                  //                       allDataAdds[index]['id']);
+                  //                   controller.addesMyListAll();
+                  //                   controller.addesMyListAll();
+                  //                   controller.addedByIdAddes(
+                  //                       catID, userId);
+                  //                   controller.addedByIdAddes(
+                  //                       catID, userId);
+                  //                 },
+                  //                 child: Container(
+                  //                     // margin: lang== 'ar'? EdgeInsets.only(left:10): EdgeInsets.only(),
+                  //                     child: Image.asset(AppImages.delete,
+                  //                         height: 30))),
+                  //             SizedBox(
+                  //               width: 3,
+                  //             ),
+                  //             GestureDetector(
+                  //                 onTap: () {
+                  //                   Get.to(AddPostingScreen(),
+                  //                       arguments: allDataAdds[index]);
+                  //                 },
+                  //                 child: Container(
+                  //                     // margin: lang == 'ar'? EdgeInsets.only(right:20, left:10): EdgeInsets.only(),
+                  //                     child: Image.asset(
+                  //                   AppImages.edit,
+                  //                   height: 30,
+                  //                 )))
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                ],
               ),
             ),
                 ),
