@@ -197,22 +197,24 @@ List<String> prize = [
                     return FractionalTranslation(
                       translation: const Offset(0.0, -0.5),
                       child: Center(
-                          child: val.result != null
-                              ? Text(
+                          child:  Text(
                                   statustogle == false
-                                      ? "\$ ${val.result['data']['monthly'].toString()}"
-                                      : "\$ ${val.result['data']['yearly'].toString()}",
+                                      ? "hello"
+                                      : "hi",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
-                                )
-                              : Text('')),
-                    );
+                                ),
+                              // : Text('', style: TextStyle(
+                              // fontSize: 13,
+                              // // fontWeight: FontWeight.w400,
+                              // color:Colors.orange))),
+                    ));
                   },
                 ),
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 1),
+                                          padding: const EdgeInsets.only(bottom: 7),
                                           child: Text("SAR",
                                               style: TextStyle(
                                                   fontSize: 13,
