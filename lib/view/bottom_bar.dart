@@ -14,6 +14,7 @@ import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
+import 'package:success_stations/view/offers/promotion_filter.dart';
 
 import 'friends/friend_filter.dart';
 
@@ -97,7 +98,9 @@ class _BottomTabsState extends State<BottomTabs> {
                   ),
               child: _currentIndex == 2
                   ? AppDrawer()
-                  : FriendsFilter(globalKey: _scaffoldKey),
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
             ),
             body: _archildren[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
@@ -197,7 +200,9 @@ class _BottomTabsState extends State<BottomTabs> {
                   ),
               child: _currentIndex == 2
                   ? AppDrawer()
-                  : FriendsFilter(globalKey: _scaffoldKey),
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
             ),
             body: _archildren[_currentIndex],
 

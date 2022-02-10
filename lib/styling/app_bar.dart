@@ -132,11 +132,12 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 0
                               ? () {
-                                  filteringCategory(context);
+                                  globalKey.currentState!.openDrawer();
+                                  // filteringCategory(context);
                                 }
                               : index == 1
                                   ? () {
-                                      Scaffold.of(context).openDrawer();
+                                      globalKey.currentState!.openDrawer();
                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
                                       // FriendFilter();
                                       // index == 4 ? filteringCategory(context) :
@@ -155,7 +156,7 @@ Widget appbar(
                               ? Container()
                               : GestureDetector(
                                   onTap: () => index == 4
-                                      ? filteringCategory(context)
+                                      ? globalKey.currentState!.openDrawer()
                                       : Get.bottomSheet(FriendFilter()),
                                   // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
@@ -234,7 +235,8 @@ Widget appbar(
                       children: [
                         index == 0
                             ? InkWell(
-                                onTap: () => filteringCategory(context),
+                                onTap: () =>
+                                    globalKey.currentState!.openDrawer(),
                                 child: Container(
                                   // margin: EdgeInsets.only( top:08),
                                   child: index == 1
@@ -403,7 +405,8 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 0
                               ? () {
-                                  filteringCategory(context);
+                                  globalKey.currentState!.openDrawer();
+                                  //filteringCategory(context);
                                 }
                               : index == 1
                                   ? () {
@@ -426,7 +429,7 @@ Widget appbar(
                               ? Container()
                               : GestureDetector(
                                   onTap: () => index == 4
-                                      ? filteringCategory(context)
+                                      ? globalKey.currentState!.openDrawer()
                                       : Get.bottomSheet(FriendFilter()),
                                   // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
@@ -505,7 +508,8 @@ Widget appbar(
                       children: [
                         index == 0
                             ? InkWell(
-                                onTap: () => filteringCategory(context),
+                                onTap: () =>
+                                    globalKey.currentState!.openDrawer(),
                                 child: Container(
                                   // margin: EdgeInsets.only( top:08),
                                   child: index == 1

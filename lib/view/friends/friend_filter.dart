@@ -68,7 +68,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                         horizontal: Get.width * 0.04,
                         vertical: Get.height * 0.015),
                     isCollapsed: true,
-                    hintText: "Search...",
+                    hintText: "search".tr,
                     focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: AppColors.border, width: 1.5),
@@ -113,7 +113,6 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                     if (filteredIndex == index) {
                                       _isChecked[index] = true;
                                     }
-
                                     return Row(
                                       children: [
                                         SizedBox(
@@ -134,6 +133,7 @@ class _FriendsFilterState extends State<FriendsFilter> {
                                                         [index]['id'];
                                               });
                                             }),
+                                        SizedBox(width: Get.width * 0.02),
                                         Text(
                                           data.havingAddsList['data'][index]
                                                       ['category'][lang] !=
