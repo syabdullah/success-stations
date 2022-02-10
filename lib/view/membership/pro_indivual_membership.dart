@@ -196,37 +196,28 @@ List<String> prize = [
                   builder: (val) {
                     return FractionalTranslation(
                       translation: const Offset(0.0, -0.5),
-                      child:
-                      // val.result != null
-                      //                 ? Text(
-                      //                     statustogle == false
-                      //                         ? "\$ ${val.result['data']['monthly'].toString()}"
-                      //                         : "\$ ${val.result['data']['yearly'].toString()}",
-                      //                     style: TextStyle(
-                      //                         color: Colors.white,
-                      //                         fontWeight: FontWeight.bold,
-                      //                         fontSize: 18),
-                      //                   )
-                      //                 : Text('')),
-                      Center(
-                          child:  Text(
-                                  statustogle == false
-                                      ? "20"
-                                      : "120",
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                              // : Text('', style: TextStyle(
-                              // fontSize: 13,
-                              // // fontWeight: FontWeight.w400,
-                              // color:Colors.orange))),
-                    ));
+                      child: Center(
+                          child: val.result != null
+                              ? Padding(
+                                padding:  EdgeInsets.only(top: 20.0),
+                                child: Text(
+                                    statustogle == false
+                                        ? "${val.result['data']['monthly'].toString()}"
+                                        : " ${val.result['data']['yearly'].toString()}",
+                                    style: TextStyle(
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                              )
+                              : Text('', style: TextStyle(
+                              // fontWeight: FontWeight.w400,
+                              color:Colors.orange))),
+                    );
                   },
                 ),
                                         Padding(
-                                          padding: const EdgeInsets.only(bottom: 13),
+                                          padding:  EdgeInsets.only(bottom: Get. height <400 ?Get. height * 0.038:Get. height * 0.03),
                                           child: Text("SAR",
                                               style: TextStyle(
                                                   fontSize: 10,

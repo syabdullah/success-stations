@@ -10,6 +10,7 @@ import 'package:success_stations/controller/offers/offer_list_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
+import 'package:success_stations/view/offers/all_offer_detail.dart';
 import 'package:success_stations/view/offers/home_all_offer_detail.dart';
 
 import '../shimmer.dart';
@@ -317,7 +318,7 @@ class _OfferListState extends State<OfferList> {
             children: List.generate(listFavou.length, (c) {
               return GestureDetector(
                 onTap: () {
-                  Get.to(HomeAllOfferDEtailPage(), arguments: listFavou[c]);
+                  Get.to(MyOfferDetailMain(), arguments: listFavou[c]);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -401,7 +402,8 @@ class _OfferListState extends State<OfferList> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(0.0),
                                   border: Border.all(color: AppColors.grey),
-                                  color: AppColors.google,
+                                  color: textAllcheck == false  ? AppColors.grey
+                                      : Colors.white,
                                 ),
                                 child: Center(
                                   child: Text(

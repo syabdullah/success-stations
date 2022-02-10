@@ -893,7 +893,7 @@ class _AllAddsState extends State<AllAdds> {
                                 havingCategorybool = false;
                                 textAllcheck = false;
                                 selectedIndex = index;
-                                allColor = Colors.grey;
+                                allColor = Colors.white;
                                 addsGet.myAddsCategory();
                               });
                             },
