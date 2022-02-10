@@ -66,6 +66,32 @@ class _MyOffersDetailState extends State<OffersDetail> {
                   child: Image.asset(AppImages.imagearrow1,
                       color: Colors.black, height: Get.height*0.022),
                 ))),
+        // actions: [
+        //   GestureDetector(
+        //     onTap: () {
+        //       Get.to(AddOffersPage());
+        //     },
+        //     child: Center(
+        //       child: Container(
+        //           margin: lang == 'ar' ? EdgeInsets.only( left: Get.width < 700 ? Get.width *0.030 : Get.width * 0.035,): EdgeInsets.only( right: Get.width < 700 ? Get.width *0.030 : Get.width * 0.04,),
+        //           child: Image.asset(AppImages.plusImage,
+        //               color: Colors.black, height:Get.height < 700 ? Get.height*0.035 : Get.height * 0.03)),
+        //     ),
+        //   ),
+        //   GestureDetector(
+        //     onTap: () {
+        //       // Get.to(AddLocations());
+        //     },
+        //     child: Center(
+        //       child: Container(
+        //           child : Padding(
+        //             padding:lang == 'ar' ?EdgeInsets.only( left:Get.width < 400 ? Get.width*0.015 : Get.width * 0.001):EdgeInsets.only( right:Get.width < 400 ? Get.width * 0.02 : Get.width * 0.13),
+        //             child: Image.asset(AppImages.setting,
+        //                 color: Colors.black, height: Get.height < 700 ? Get.height*0.035 : Get.height * 0.03),
+        //           )),
+        //     ),
+        //   ),
+        // ]
         actions: [
           GestureDetector(
             onTap: () {
@@ -73,10 +99,13 @@ class _MyOffersDetailState extends State<OffersDetail> {
             },
             child: Center(
               child: Container(
-                  // margin: EdgeInsets.only( left: 15,),
+                // margin: EdgeInsets.only( left: 15,),
                   child: Image.asset(AppImages.plusImage,
-                      color: Colors.black, height:Get.height*0.04)),
+                      color: Colors.black, height: 18)),
             ),
+          ),
+          SizedBox(
+              width:Get.width*0.04
           ),
           GestureDetector(
             onTap: () {
@@ -84,12 +113,16 @@ class _MyOffersDetailState extends State<OffersDetail> {
             },
             child: Center(
               child: Container(
-                  margin: EdgeInsets.only( right:Get.width*0.001),
+                  margin: lang =="ar"?EdgeInsets.only( left:10):EdgeInsets.only( right:10),
                   child: Image.asset(AppImages.setting,
-                      color: Colors.black, height: Get.height*0.04)),
+                      color: Colors.black, height: 18)),
             ),
           ),
-        ],),
+          SizedBox(
+              width:Get.width*0.02
+          ),
+        ]
+    ,),
 
       drawer: Theme(
         data: Theme.of(context).copyWith(),
@@ -138,7 +171,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
           Padding(
             padding:  EdgeInsets.fromLTRB(Get.width*0.008,Get.height*0.013,Get.width*0.008, 0),
             child: Container(
-              height: Get.height*0.09,
+              height: Get.height*0.11,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -153,7 +186,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       Container(
                         height: Get.height / 4,
                         child: Padding(
-                          padding: EdgeInsets.only(top: Get.height*0.002,bottom:Get.height*0.002,left: Get.width*0.008,right:Get.width*0.008),
+                          padding: lang =='ar' ? EdgeInsets.only(top: Get.height*0.002,bottom:Get.height*0.002,left: Get.width*0.008,right:Get.width*0.008):EdgeInsets.only(top: Get.height*0.002,bottom:Get.height*0.002,left: Get.width*0.008,right:Get.width*0.008),
                           child: GestureDetector(
                             onTap: () {
                               Get.to(MyOfferDetailMain(),
@@ -165,8 +198,8 @@ class _MyOffersDetailState extends State<OffersDetail> {
 
                               child: Image.network(
                                 listFavou[c]['image']['url'],
-                                width: Get.width / 6,
-                                height: Get.height/6,
+                                width: Get.width / 5.5,
+                                height: Get.height/5.5,
                                 fit: BoxFit.fill,
                               ),
                             ):Container(
@@ -182,44 +215,47 @@ class _MyOffersDetailState extends State<OffersDetail> {
                       Padding(
                         padding:  EdgeInsets.only(top:Get.height*0.01),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Container(
+                              child:
+                              Padding(
+                                padding: lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.03):EdgeInsets.only(left : Get.width * 0.04),
+                                child: Text(
+                                  listFavou[c]['text_ads'][lang]!=null ?
+                                  listFavou[c]['text_ads'][lang].toString():
+                                  listFavou[c]['text_ads'][lang]==null?
+                                  listFavou[c]['text_ads']['en'].toString():'',
+                                   style: TextStyle(
+                                    color: Color(0XFF1f1f1f),
+
+                                  ),
+                                ),
+                              )
+                            ),
                             // Container(
-                            //   child:
-                            //   Text(
-                            //     listFavou[c]['text_ads'][lang]!=null ?
-                            //     listFavou[c]['text_ads'][lang].toString():
-                            //     listFavou[c]['text_ads'][lang]==null?
-                            //     listFavou[c]['text_ads']['en'].toString():'',
-                            //      style: TextStyle(
-                            //       color: Colors.grey[700],
-                            //       fontWeight: FontWeight.bold
-                            //     ),
-                            //   )
+                            //     child:
+                            //     Text(
+                            //     "Catagory:Book,clothes",
+                            //       style: TextStyle(
+                            //         fontFamily: "Source_Sans_Pro",
+                            //           color: Colors.black,
+                            //           fontWeight: FontWeight.w400
+                            //       ),
+                            //     )
                             // ),
-                            Container(
-                                child:
-                                Text(
-                                "Catagory:Book,clothes",
-                                  style: TextStyle(
-                                    fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                )
-                            ),
-                            Container(
-                                child:
-                                Text(
-                                  "End date: 30 - fab - 2022",
-                                  style: TextStyle(
-                                      fontFamily: "Source_Sans_Pro",
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                )
-                            ),
+                            // Container(
+                            //     child:
+                            //     Text(
+                            //       "End date: 30 - fab - 2022",
+                            //       style: TextStyle(
+                            //           fontFamily: "Source_Sans_Pro",
+                            //           color: Colors.black,
+                            //           fontWeight: FontWeight.w400
+                            //       ),
+                            //     )
+                            // ),
 
                             // Container(
                             //   width: Get.width / 2.5,
@@ -237,28 +273,18 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             //     trimExpandedText: 'Show less',
                             //   ),
                             // ),
-                            // Container(
-                            //   width: Get.width / 2.5,
-                            //   child: ReadMoreText(
-                            //     listFavou[c]['description'] != null ? listFavou[c]['description']['en']  : "",
-                            //     style: TextStyle(
-                            //       color: AppColors.inputTextColor,
-                            //       fontSize:
-                            //     ),
-                            //     trimLines: 2,
-                            //     colorClickableText:AppColors.whitedColor,
-                            //     trimMode: TrimMode.Line,
-                            //     trimCollapsedText: 'Show more',
-                            //     trimExpandedText: 'Show less',
-                            //   ),
-                            // ),
-                            // Container(
-                            //   margin: EdgeInsets.only(top: 5),
-                            //   child: listFavou[c]['url'] != null
-                            //   ? Text(listFavou[c]['url'],
-                            //     style: TextStyle(color: Color(0xFF2F4199))
-                            //   ) : Container()
-                            // )
+                            Container(
+                              width: Get.width / 2.5,
+                              child: listFavou[c]['url'] != null
+                                  ? Padding(
+                                    padding:  lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.03):EdgeInsets.only(left : Get.width * 0.04),
+                                    child: Text(listFavou[c]['url'],
+                                    style: TextStyle(color: Color(0xFF1f1f1f))
+
+                              ),
+                                  ) : Container(),
+                            ),
+
                           ]
                         ),
                       ),
@@ -295,7 +321,10 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                 onTap: () {
                                   delete.deleteOfferController(listFavou[c]['id']);
                                 },
-                                child: Image.asset(AppImages.delete_offer,height: Get.height*0.035)
+                                child: Padding(
+                                  padding:  lang == 'ar' ?EdgeInsets.only(right: Get.width *0.02,left: Get.width *0.02,bottom: Get.width *0.014):EdgeInsets.only(right: Get.width *0.02,left: Get.width *0.02,bottom: Get.width *0.014),
+                                  child: Image.asset(AppImages.delete_offer,height: Get.height*0.030),
+                                )
                               )
                             ),
                             SizedBox(width: Get.width*0.01,),
@@ -305,7 +334,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               },
                               child: Container(
                                 // margin: EdgeInsets.symmetric(horizontal: 10),
-                                // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                padding: lang=='ar'?EdgeInsets.only(left: Get.width *0.02):EdgeInsets.only(right: Get.width *0.02),
                                 child: Image.asset(AppImages.edit_Offer, height:  Get.height*0.028)
                               ),
                             ),

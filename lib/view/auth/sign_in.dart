@@ -23,8 +23,10 @@ class SignIn extends StatefulWidget {
 class _SignPageState extends State<SignIn> {
   final formKey = new GlobalKey<FormState>();
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController(
+    text: 'testzaman@mailinator.com',
+  );
+  TextEditingController password = TextEditingController(text: '12345678');
 
   bool passwordVisible = true;
   GetStorage dataStore = GetStorage();
@@ -61,7 +63,7 @@ class _SignPageState extends State<SignIn> {
     return WillPopScope(
       onWillPop: () async => true,
       child: Scaffold(
-        backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -75,16 +77,13 @@ class _SignPageState extends State<SignIn> {
               },
             ),
           ),
-          bottomNavigationBar:   bottomW(),
+          bottomNavigationBar: bottomW(),
           body: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (val) {
                 return Center(
                   child: ListView(
-
-
-
-                      physics: const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Center(
                         child: Form(
@@ -92,15 +91,16 @@ class _SignPageState extends State<SignIn> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: Get.height*0.02),
+                              SizedBox(height: Get.height * 0.02),
                               Container(
-                                margin: EdgeInsets.only(bottom: Get.height*0.05),
+                                margin:
+                                    EdgeInsets.only(bottom: Get.height * 0.05),
                                 child: Image.asset(AppImages.appLogo,
                                     height: Get.height / 6),
                               ),
-                              SizedBox(height: Get.height*0.02),
+                              SizedBox(height: Get.height * 0.02),
                               eMail(),
-                              SizedBox(height:Get.height*0.008),
+                              SizedBox(height: Get.height * 0.008),
                               passwordW(),
                               loginCont.resultInvalid.isTrue &&
                                       errorCheck == true
@@ -113,7 +113,7 @@ class _SignPageState extends State<SignIn> {
                                       ),
                                     )
                                   : Container(),
-                              SizedBox(height: Get.height*0.008),
+                              SizedBox(height: Get.height * 0.008),
                               // GestureDetector(
                               //   onTap: () {
                               //     Navigator.pushNamed(context, '/forgotPass');
@@ -133,12 +133,12 @@ class _SignPageState extends State<SignIn> {
                                   buttonText: "login".tr,
                                   fontSize: 15.0,
                                   width: Get.width * 0.9,
-                                  height:  Get.height *0.065,
+                                  height: Get.height * 0.065,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "andada",
                                   callback: signIn),
                               SizedBox(
-                                height:  Get.height*0.01,
+                                height: Get.height * 0.01,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -149,10 +149,7 @@ class _SignPageState extends State<SignIn> {
                                           fontFamily: "Source_Sans_Pro",
                                           fontSize: 15)),
                                   Text(
-
-                                    " "+"help_login".tr ,
-
-
+                                    " " + "help_login".tr,
                                     style: TextStyle(
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold,
@@ -163,7 +160,8 @@ class _SignPageState extends State<SignIn> {
                               ),
                               Container(
                                 margin: EdgeInsets.symmetric(
-                                    vertical: Get.height*0.01, horizontal: Get.height*0.04),
+                                    vertical: Get.height * 0.01,
+                                    horizontal: Get.height * 0.04),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -187,7 +185,7 @@ class _SignPageState extends State<SignIn> {
                                     ]),
                               ),
                               SizedBox(
-                                height: Get.height*0.025,
+                                height: Get.height * 0.025,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -211,9 +209,8 @@ class _SignPageState extends State<SignIn> {
                                 ],
                               ),
                               SizedBox(
-                                height: Get.height*0.04,
+                                height: Get.height * 0.04,
                               ),
-
                             ],
                           ),
                         ),
@@ -303,16 +300,15 @@ class _SignPageState extends State<SignIn> {
         // decoration: BoxDecoration(
         //     border: Border.all(width: 0.3),
         //     borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
         width: Get.width * 0.9,
         // height:  Get.height *0.065,
         child: TextFormField(
-
-          controller:email ,
+          controller: email,
           // obscureText: passwordVisible,
           decoration: InputDecoration(
-            contentPadding:
-            new EdgeInsets.symmetric(vertical:Get.height*0.01, horizontal:Get.width*0.04),
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: Get.height * 0.01, horizontal: Get.width * 0.04),
             hintText: ("emails".tr),
             hintStyle: TextStyle(
               color: Colors.grey,
@@ -324,21 +320,21 @@ class _SignPageState extends State<SignIn> {
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red,width: 1.5),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red,width: 1.5),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
-              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
             ),
           ),
           validator: (value) => value == ''
@@ -356,14 +352,15 @@ class _SignPageState extends State<SignIn> {
         // decoration: BoxDecoration(
         //     border: Border.all(width: 0.3),
         //     borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.symmetric(horizontal: Get.width*0.02),
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
         width: Get.width * 0.9,
         // height:  Get.height *0.065,
         child: TextFormField(
+          controller: password,
           obscureText: passwordVisible,
           decoration: InputDecoration(
-            contentPadding:
-                new EdgeInsets.symmetric(vertical:Get.height*0.01, horizontal:Get.width*0.04),
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: Get.height * 0.01, horizontal: Get.width * 0.04),
             hintText: ('password'.tr),
             hintStyle: TextStyle(
               color: Colors.grey,
@@ -375,21 +372,21 @@ class _SignPageState extends State<SignIn> {
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red,width: 1.5),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.red,width: 1.5),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
-              borderSide: BorderSide(color: AppColors.outline,width: 1.5),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
             ),
             suffixIcon: IconButton(
               icon: Icon(
@@ -413,15 +410,16 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      height: Get.height*0.08,
-      margin: EdgeInsets.only( bottom:  Get.height*0.006,),
+      height: Get.height * 0.08,
+      margin: EdgeInsets.only(
+        bottom: Get.height * 0.006,
+      ),
       alignment: Alignment.bottomCenter,
       child: Column(
         children: [
           Divider(
             color: Colors.black,
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
