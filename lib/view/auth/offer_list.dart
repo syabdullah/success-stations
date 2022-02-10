@@ -103,7 +103,7 @@ class _OfferListState extends State<OfferList> {
                                   val.offerDataList['data'] != null
                               ? valuee.dataType == 'grid'
                                   ? allUsers(val.offerDataList['data'])
-                                  : listUsers(val.offerDataList['data'])
+                                  : allUsers(val.offerDataList['data'])
                               : coCatOffer.resultInvalid.isTrue
                                   ? Container(
                                       margin:
@@ -379,7 +379,7 @@ class _OfferListState extends State<OfferList> {
                   allCheck == false
                       ? Container(
                           width: Get.height * 0.07,
-                          height: Get.height * 0.04,
+                          height: lang=="ar"?Get.height * 0.048:Get.height * 0.042,
                           margin: lang == 'en'
                               ? EdgeInsets.only(
                                   left: 2.0,
@@ -469,7 +469,7 @@ class _OfferListState extends State<OfferList> {
                                 selectedIndex == index && textAllcheck == true
                                     ? Colors.white
                                     : AppColors.grey,
-                            fontSize: 12,
+                            fontSize: lang=="ar"?17:12,
                             fontStyle: FontStyle.normal,
                           ),
                         ),

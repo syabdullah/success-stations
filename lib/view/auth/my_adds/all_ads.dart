@@ -380,7 +380,7 @@ class _AllAddsState extends State<AllAdds> {
                                                         fontSize: 18,
                                                       )),
                                                   Text(
-                                                    ' SAR',
+                                                  " " + "sar".tr,
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 14),
@@ -709,7 +709,7 @@ class _AllAddsState extends State<AllAdds> {
                                         fontSize: 18,
                                       )),
                                   Text(
-                                    ' SAR',
+                                   " " + 'sar'.tr,
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 14),
                                   ),
@@ -884,8 +884,8 @@ class _AllAddsState extends State<AllAdds> {
                   allCheck == false
                       ? Container(
                           width: Get.height * 0.07,
-                          height: Get.height * 0.042,
-                          margin:  EdgeInsets.only(left: 6.0,right:6),
+                          height:lang=="ar"? 38:33,
+                          margin: lang=="ar"? EdgeInsets.only(right:6): EdgeInsets.only(),
 
                           child: GestureDetector(
                             onTap: () {
@@ -904,7 +904,9 @@ class _AllAddsState extends State<AllAdds> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(1.5),
                                 border: Border.all(color: Colors.grey,width: 0.8),
-                                color: allColor,
+                                color:  textAllcheck == false
+
+                                    ?  Colors.grey : Colors.white,
                               ),
                               // padding: EdgeInsets.all(10.0),
                               child: Center(
@@ -915,7 +917,7 @@ class _AllAddsState extends State<AllAdds> {
                                         ? Colors.white
                                         : AppColors.catagory_color,
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                    // fontWeight: FontWeight.w600,
                                     fontStyle: FontStyle.normal,
                                   ),
                                 ),

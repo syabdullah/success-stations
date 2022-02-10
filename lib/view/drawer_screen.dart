@@ -104,7 +104,8 @@ class _AppDrawerState extends State<AppDrawer> {
     lang = box.read('lang_code');
 
     return ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: lang=="ar"?BorderRadius.only(
+            topLeft: Radius.circular(45), bottomLeft: Radius.circular(30)):BorderRadius.only(
             topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
         child: SizedBox(
           width: Get.width < 700 ? Get.width * 0.70 : Get.width * 0.70,
