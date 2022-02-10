@@ -191,11 +191,26 @@ List<String> prize = [
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        Text(prize[index],
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.orange)),
+                GetBuilder<MemberShipController>(
+                  init: MemberShipController(),
+                  builder: (val) {
+                    return FractionalTranslation(
+                      translation: const Offset(0.0, -0.5),
+                      child: Center(
+                          child: val.result != null
+                              ? Text(
+                                  statustogle == false
+                                      ? "\$ ${val.result['data']['monthly'].toString()}"
+                                      : "\$ ${val.result['data']['yearly'].toString()}",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )
+                              : Text('')),
+                    );
+                  },
+                ),
                                         Padding(
                                           padding: const EdgeInsets.only(bottom: 1),
                                           child: Text("SAR",

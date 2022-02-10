@@ -336,6 +336,8 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
+                                  index == 3?
+                                  gridingData.listingGrid('map'):
                                   gridingData.listingGrid('grid');
                                 },
                                 child: Container(
@@ -608,6 +610,8 @@ Widget appbar(
             index == 4 || index == 3
                 ? GestureDetector(
               onTap: () {
+                index == 3?
+                gridingData.listingGrid('map'):
                 gridingData.listingGrid('grid');
               },
               child: Container(
