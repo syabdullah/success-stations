@@ -353,15 +353,21 @@ class _FavouritePageState extends State<FavouritePage> {
 
   List<Widget> myAddsList(listFavourite) {
     List<Widget> favrties = [];
-    if (listFavourite.length != null || listFavourite != null) {
-      for (int c = 0; c < listFavourite.length; c++) {
-        if (listFavourite[c]['listing'] != null &&
-            listFavourite[c]['listing']['image'].length != null) {
-          listingIdRemoved = listFavourite[c]['listing']['id'];
+    var newData = [];
+    for (int i = 0; i < listFavourite.length; i++) {
+      if (listFavourite[i] != null && listFavourite[i]['listing'] != null) {
+        newData.add(listFavourite[i]);
+      }
+    }
+    if (newData.length != null || newData != null) {
+      for (int c = 0; c < newData.length; c++) {
+        if (newData[c]['listing'] != null &&
+            newData[c]['listing']['image'].length != null) {
+          listingIdRemoved = newData[c]['listing']['id'];
           for (int array = 0;
-              array < listFavourite[c]['listing']['image'].length;
+              array < newData[c]['listing']['image'].length;
               array++) {
-            imageAds = listFavourite[c]['listing']['image'][array]['url'];
+            imageAds = newData[c]['listing']['image'][array]['url'];
           }
           favrties.add(
               Padding(
@@ -381,7 +387,7 @@ class _FavouritePageState extends State<FavouritePage> {
                             child: Padding(
                               padding:  EdgeInsets.all(Get.height*0.01),
                               child: GestureDetector(
-                                  child: listFavourite[c]['listing']['image'] !=
+                                  child: newData[c]['listing']['image'] !=
                                               null &&
                                           imageAds != null
                                       ? ClipRRect(
@@ -421,7 +427,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                 padding:  EdgeInsets.only(bottom: Get.height*0.005),
                                 child: Container(
                                     child: Text(
-                                  "Teaching the brain to read book\n at a special price from",
+                                      listFavourite[c]['user_name']!=null ? allWordsCapitilize( listFavourite[c]['user_name']['name'],):"",
                                   // textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 14,
@@ -434,7 +440,9 @@ class _FavouritePageState extends State<FavouritePage> {
                                 padding:  EdgeInsets.only(bottom: Get.height*0.005),
                                 child: Container(
                                     child: Text(
-                                  "55.22 " + "SAR",
+                                        newData[c]['listing']['price'] != null
+                                            ? "${newData[c]['listing']['price']}"
+                                            : '',
                                   style: TextStyle(
                                       fontFamily: "Source_Sans_Pro",
                                       color: Colors.black,
