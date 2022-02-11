@@ -364,6 +364,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
+              isExpanded: true,
               hint: Text(hintClg != null ? hintClg : "collegesu".tr,
                   style: TextStyle(
                       fontSize: lang == 'ar' ? 18 : 18,
@@ -409,6 +410,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
             alignedDropdown: true,
             child: DropdownButtonHideUnderline(
                 child: DropdownButton(
+              isExpanded: true,
               hint: Text(hinText != null ? hinText : "universitysu".tr,
                   style: TextStyle(
                       fontSize: lang == 'ar' ? 14 : 16,
