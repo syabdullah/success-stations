@@ -90,7 +90,7 @@ class _AdsViewState extends State<AdsView> {
     child:
     Column(children:[
       SizedBox(height: Get.height *0.02,),
-      featureTextAdded("Jeddah"+" | "+"featured_ads".tr, "".tr),
+      featureTextAdded("jeddah".tr+" | "+"featured_ads".tr, "".tr),
              GetBuilder<MyAddsController>(
                 init: MyAddsController(),
                 builder: (data) {
@@ -113,7 +113,7 @@ class _AdsViewState extends State<AdsView> {
               child: Column(
                 children: [
                   SizedBox(height: Get.height *0.02,),
-              text("Jeddah"+" | " +'specialofer'.tr, "".tr),
+              text("jeddah".tr+" | " +'specialofer'.tr, "".tr),
               GetBuilder<OfferController>(
                   init: OfferController(),
                   builder: (data) {

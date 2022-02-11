@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
@@ -32,6 +33,26 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   List list = [];
   List type = [];
   var selectedtype;
+  List<String> itemsList = [
+    "New".tr,
+    "used".tr,
+  ];
+
+  List<String> ImagesAdds = [
+    "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    "https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    "https://images.unsplash.com/photo-1491183846256-33aec7637311?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  ];
+  onSelected(int index) {
+    slctedInd = index;
+    slctedInd == 0
+        ? selectedStatus = '1'
+        : selectedStatus = '0';
+  }
+  PhoneNumber tttt = PhoneNumber(isoCode: '');
+  var number;
+  int slctedInd = 0;
+  var statusFiltered, status;
   var selectedCategory, subtypeId, selectedStatus, uiStatus;
   final formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
@@ -231,6 +252,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
           leading: GestureDetector(
               child: Row(
@@ -290,41 +312,47 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             : Container();
               }),
           activeStep == 0
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: nextButton(),
-                    ),
-                  ],
-                )
-              : activeStep == 1
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        previousButton(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: nextButton(),
-                        ),
-                      ],
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          saveAsDraftButton(),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: publishButton(),
-                            ),
-                          ),
-                        ],
+              ? Padding(
+                padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      saveAsDraftButton(),
+                      SizedBox(
+                        width: Get.width*0.03,
                       ),
-                    )
+                      nextButton(),
+                    ],
+                  ),
+              )
+              : activeStep == 1
+                  ? Padding(
+            padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                saveAsDraftButton(),
+                SizedBox(
+                  width: Get.width*0.03,
+                ),
+                nextButton(),
+              ],
+            ),
+          )
+
+                  : Padding(
+            padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                saveAsDraftButton(),
+                SizedBox(
+                  width: Get.width*0.03,
+                ),
+                publishButton(),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -333,12 +361,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   /// Returns the next button.
   Widget nextButton() {
     return Container(
-      height: 40,
+      height: 45,
       width: 130,
-      margin: EdgeInsets.symmetric(horizontal: 15),
-      child: ElevatedButton(
-        style:
-            ElevatedButton.styleFrom(primary: AppColors.whitedColor),
+      // margin: EdgeInsets.symmetric(horizontal: 15),
+      child:
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: AppColors.whitedColor,shape:  RoundedRectangleBorder(
+    borderRadius:  BorderRadius.circular(0.0),)),
         onPressed: () {
           // Increment activeStep, when the next button is tapped. However, check for upper bound.
           if (activeStep < upperBound && _formKey.currentState!.validate()) {
@@ -352,15 +381,19 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 
+
+
   /// Returns the previous button.
   Widget previousButton() {
     return Container(
-      height: 40,
-      width: 130 ,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      height: 45,
+      width: 130,
+      // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Colors.grey,
+            primary:Color(0xff404040),
+            shape:  RoundedRectangleBorder(
+              borderRadius:  BorderRadius.circular(0.0),),
             textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
         onPressed: () {
           if (activeStep > 0) {
@@ -461,122 +494,117 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                        padding: const EdgeInsets.all(2.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(
-                                  5.0) //                 <--- border radius here
-                              ),
-                        ),
-                        child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: Container(
-                              width: Get.width*0.30,
-                              child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-
-                                hint: Text(
-                                    selectedCategory != null
-                                        ? selectedCategory
-                                        : "categories".tr,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: AppColors.inputTextColor)),
-                                // dropdownColor: AppColors.inPutFieldColor,
-                                // icon: Icon(Icons.arrow_drop_down),
-                                items: types.map((coun) {
-                                  return DropdownMenuItem(
-
-                                      value: coun,
-                                      child: Text(coun['category'][lang] != null
-                                          ? coun['category'][lang]
-                                          : coun['category'][lang] == null
-                                              ? coun['category']['en']
-                                              : '')
-                                  );
-                                }
-                                ).toList(),
-                                onChanged: (val) {
-                                  var adCategory;
-                                  setState(() {
-                                    adCategory = val as Map;
-                                    selectedCategory =
-                                        adCategory['category'][lang] != null
-                                            ? adCategory['category'][lang]
-                                            : adCategory['category'][lang] == null
-                                                ? adCategory['category']['en']
-                                                : '';
-                                    subtypeId = adCategory['id'];
-                                    type = adCategory['category_listing_types'];
-                                    selectedtype = 'type'.tr;
-                                  });
-                                },
-                              )),
-                            ))),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                        width: Get.width*0.30,
-                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                        padding: const EdgeInsets.all(1.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(
-                              5.0) //                 <--- border radius here
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width:Get.width/2.15,
+                          // margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:
+                                Border.all(color: AppColors.border_form, width: 1),
                           ),
-                        ),
-                        child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: Container(
-                              width: Get.width,
+                          child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: Container(
+                                child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                  hint: Text(
+                                      selectedCategory != null
+                                          ? selectedCategory
+                                          : "categories".tr,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: AppColors.inputTextColor)),
+                                  // dropdownColor: AppColors.inPutFieldColor,
+                                  // icon: Icon(Icons.arrow_drop_down),
+                                  items: types.map((coun) {
+                                    return DropdownMenuItem(
+                                        alignment: Alignment.center,
+                                        value: coun,
+                                        child: Text(coun['category'][lang] != null
+                                            ? coun['category'][lang]
+                                            : coun['category'][lang] == null
+                                                ? coun['category']['en']
+                                                : ''));
+                                  }).toList(),
+                                  onChanged: (val) {
+                                    var adCategory;
+                                    setState(() {
+                                      adCategory = val as Map;
+                                      selectedCategory =
+                                          adCategory['category'][lang] != null
+                                              ? adCategory['category'][lang]
+                                              : adCategory['category'][lang] == null
+                                                  ? adCategory['category']['en']
+                                                  : '';
+                                      subtypeId = adCategory['id'];
+                                      type = adCategory['category_listing_types'];
+                                      selectedtype = 'type'.tr;
+                                    });
+                                  },
+                                )),
+                              ))),
+                      Container(
+                          width:Get.width/2.15,
+                          // margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:
+                            Border.all(color: AppColors.border_form, width: 1),
+                          ),
+                          child: ButtonTheme(
+                              alignedDropdown: true,
                               child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    hint: Text(
-                                        selectedtype != null ? selectedtype : 'type'.tr,
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: AppColors.inputTextColor)),
-                                    dropdownColor: AppColors.inPutFieldColor,
-                                    icon: Icon(Icons.arrow_drop_down),
-                                    items: type.map((coun) {
-                                      return DropdownMenuItem(
-                                          value: coun,
-                                          child: Text(coun['type'][lang] != null
-                                              ? coun['type'][lang].toString()
-                                              : coun['type'][lang] == null
-                                              ? coun['type']['en'].toString()
-                                              : ''));
-                                    }).toList(),
-                                    onChanged: (val) {
-                                      var adsubCategory;
-                                      setState(() {
-                                        adsubCategory = val as Map;
-                                        selectedtype =
-                                        adsubCategory['type'][lang] != null
-                                            ? adsubCategory['type'][lang]
-                                            : adsubCategory['type'][lang] == null
-                                            ? adsubCategory['type']['en']
-                                            : '';
-                                        typeId = adsubCategory['id'];
-                                      });
-                                    },
-                                  )),
-                            ))),
-                  ],
-                )
-                ,
-
-
-                SizedBox(
-                  height: 5,
+                                  child: Container(
+                                    child: DropdownButton(
+                                      hint: Text(
+                                          selectedtype != null ? selectedtype : 'type'.tr,
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              color: AppColors.inputTextColor)),
+                                      dropdownColor: AppColors.inPutFieldColor,
+                                      icon: Icon(Icons.arrow_drop_down),
+                                      items: type.map((coun) {
+                                        return DropdownMenuItem(
+                                            value: coun,
+                                            child: Text(coun['type'][lang] != null
+                                                ? coun['type'][lang].toString()
+                                                : coun['type'][lang] == null
+                                                ? coun['type']['en'].toString()
+                                                : ''));
+                                      }).toList(),
+                                      onChanged: (val) {
+                                        var adsubCategory;
+                                        setState(() {
+                                          adsubCategory = val as Map;
+                                          selectedtype =
+                                          adsubCategory['type'][lang] != null
+                                              ? adsubCategory['type'][lang]
+                                              : adsubCategory['type'][lang] == null
+                                              ? adsubCategory['type']['en']
+                                              : '';
+                                          typeId = adsubCategory['id'];
+                                        });
+                                      },
+                                    ),
+                                  )))),
+                    ],
+                  ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+
+
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
                     maxLength: 20,
                     controller: titleController,
@@ -591,28 +619,92 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       fontSize: 13,
                     ),
                     decoration: InputDecoration(
+                      counterText: "",
+                      fillColor: Colors.white,
+                      filled: true,
                       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
                       hintText: "title".tr,
                       hintStyle: TextStyle(color: Colors.grey[400]),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 Container(
-
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    padding: const EdgeInsets.all(3.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
+                  color: AppColors.inPutFieldColor,
+                  child: TextFormField(
+                    maxLength: 300,
+                    maxLines: 2,
+                    controller: descController,
+                    textAlignVertical: TextAlignVertical.top,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 18,
+                       ),
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      counterText: "",
+                      contentPadding:
+                          EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 100.0),
+                      hintText: "description".tr,
+                      hintStyle:
+                          TextStyle(fontSize: 14, color: Colors.grey[400]),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                        borderSide: BorderSide(color: AppColors.border_form),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+               /* Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(
-                              5.0) //                 <--- border radius here
-                          ),
+                      color: Colors.white,
+                      border:
+                          Border.all(color: AppColors.border_form, width: 1),
                     ),
                     child: ButtonTheme(
                         alignedDropdown: true,
@@ -644,132 +736,187 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                               });
                             },
                           )),
-                        ))),
-                Container(
-                    width: Get.width/2,
-                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
-                    padding: const EdgeInsets.all(3.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          5.0) //                 <--- border radius here
-                      ),
-                    ),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: Container(
-                          width: Get.width,
-                          child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                hint: Text(
-                                    selectedCategory != null
-                                        ? selectedCategory
-                                        : "categories".tr,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: AppColors.inputTextColor)),
-                                dropdownColor: AppColors.inPutFieldColor,
-                                icon: Icon(Icons.arrow_drop_down),
-
-                                // items: <String>['New', 'Old'].map((String value) {
-                                //   return DropdownMenuItem(
-                                //       value: value, child: Text(value));
-                                // }).toList(),
-
-                                items: types.map((coun) {
-                                  return DropdownMenuItem(
-
-                                      value: coun,
-                                      child: Text(coun['category'][lang] != null
-                                          ? coun['category'][lang]
-                                          : coun['category'][lang] == null
-                                          ? coun['category']['en']
-                                          : '')
-                                  );
-                                }
-                                ).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedStatus = value;
-                                    value == 'New'.tr
-                                        ? selectedStatus = '1'
-                                        : selectedStatus = '0';
-                                  });
-                                },
-                              )),
-                        ))),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  color: AppColors.inPutFieldColor,
-                  child: TextFormField(
-                    maxLength: 300,
-                    maxLines: 2,
-                    controller: descController,
-                    textAlignVertical: TextAlignVertical.top,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(15.0, 10.0, 10.0, 100.0),
-                      hintText: "description".tr,
-                      hintStyle:
-                          TextStyle(fontSize: 14, color: Colors.grey[400]),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                    // maxLength: 5,
-                    keyboardType: TextInputType.number,
-                    controller: priceController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                        color: AppColors.inputTextColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.only(left: 15, right: 10, top: 15),
-                      hintText: "price".tr,
-                      hintStyle:
-                          TextStyle(fontSize: 14, color: Colors.grey[400]),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                    ),
-                  ),
-                ),
+                        ))),*/
                 SizedBox(
                   height: 10,
                 ),
                 Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.only(left:Get.width*0.01),
+                        child: Container(
+                          width: Get.width /2.2,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: AppColors.border_form)),
+                          child: Flexible(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  child: TextFormField(
+                                    // maxLength: 5,
+                                    keyboardType: TextInputType.number,
+                                    controller: priceController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }
+                                      return null;
+                                    },
+                                    style: TextStyle(
+                                        color: AppColors.inputTextColor,
+                                        fontSize: 18,
+                                      ),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: AppColors.white,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 15, right: 10, top: 15),
+                                      hintText: "price".tr,
+                                      hintStyle: TextStyle(
+                                          fontSize: 14, color: Colors.grey[400]),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(0.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.transparent),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(0.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.transparent),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(0.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.transparent),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(0.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.transparent),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                        border: Border(
+                                          left: BorderSide(color: AppColors.border_form),
+                                          right: BorderSide(color: AppColors.border_form),
+                                        ),),
+                                      child: ButtonTheme(
+                                          alignedDropdown: true,
+                                          child: Container(
+                                            child: DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                              hint: Text(
+                                                  selectedStatus == null
+                                                      ? 'SAR'.tr
+                                                      : selectedStatus == '1'
+                                                          ? 'SAR'
+                                                          : 'SAR',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: AppColors
+                                                          .inputTextColor)),
+                                              dropdownColor:
+                                                  AppColors.inPutFieldColor,
+                                              icon: Icon(Icons.arrow_drop_down),
+                                              items: <String>['SAR', 'SAR']
+                                                  .map((String value) {
+                                                return DropdownMenuItem(
+                                                    value: value,
+                                                    child: Text(value));
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedStatus = value;
+                                                  value == 'New'.tr
+                                                      ? selectedStatus = '1'
+                                                      : selectedStatus = '0';
+                                                });
+                                              },
+                                            )),
+                                          )),
+                                    )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                           ),
+                        height: Get.height * 0.045,
+                        width: Get.width/2.2,
+
+                        child: Center(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: itemsList.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      onSelected(index);
+                                      status = itemsList[index];
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: lang == 'en'
+                                        ? EdgeInsets.only(left: 5)
+                                        : EdgeInsets.only(right: 5),
+                                    width: Get.width / 5,
+                                    height: Get.height / 3,
+                                    decoration: BoxDecoration(
+                                      // ignore: unnecessary_null_comparison
+                                      color: Colors.white,
+                                      //Colors.blue[100],
+                                      border: Border.all(
+                                        color:  slctedInd != null && slctedInd == index
+                                            ? AppColors.appBarBackGroundColor
+                                            : AppColors.border,
+                                        width:slctedInd != null && slctedInd == index
+                                            ? 2
+                                            : 1,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(itemsList[index],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color:index==0?
+                                                   AppColors.new_color
+                                                  : AppColors.border,
+                                            )),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12)),
                   child: DottedBorder(
                     dashPattern: [10, 6],
                     borderType: BorderType.RRect,
@@ -778,7 +925,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       child: Container(
-                        height: Get.height / 4.7,
+                        height: Get.height / 3.5,
                         width: Get.width / 1.1,
                         child: Center(
                           child: GestureDetector(
@@ -790,14 +937,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                       File(image),
                                       fit: BoxFit.fitWidth,
                                       width: Get.width / 1.1,
-                                      height: Get.height / 4.7,
+                                      height: Get.height / 3.5,
                                     )
                                   : editImage != null
                                       ? Image.network(
                                           editImage,
                                           fit: BoxFit.fill,
                                           width: Get.width / 1.1,
-                                          height: Get.height / 4.7,
+                                          height: Get.height / 3.5,
                                         )
                                       : Image.asset(
                                           AppImages.uploadImage,
@@ -809,7 +956,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
               ],
             ),
@@ -828,7 +975,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             height: 5,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
               focusNode: FocusNode(),
               controller: fullNameController,
@@ -843,85 +990,37 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 fontSize: 13,
               ),
               decoration: InputDecoration(
+                counterText: "",
+                fillColor: Colors.white,
+                filled: true,
                 contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
                 hintText: "full_name".tr,
                 hintStyle: TextStyle(color: Colors.grey[400]),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
                 ),
               ),
             ),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: TextFormField(
-              focusNode: FocusNode(),
-              controller: mobileNoController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'enterSomeText'.tr;
-                }
-                return null;
-              },
-              style: TextStyle(
-                color: AppColors.inputTextColor,
-                fontSize: 13,
-              ),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-                hintText: "mobile_number".tr,
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-            ),
-          ),
+
           SizedBox(
             height: 5,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: TextFormField(
-              focusNode: FocusNode(),
-              controller: telePhoneController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'enterSomeText'.tr;
-                }
-                return null;
-              },
-              style: TextStyle(
-                color: AppColors.inputTextColor,
-                fontSize: 13,
-              ),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-                hintText: "telephone_numbers".tr,
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
               focusNode: FocusNode(),
               controller: emailController,
@@ -935,170 +1034,318 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 color: AppColors.inputTextColor,
                 fontSize: 13,
               ),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-                hintText: "emails".tr,
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(color: Colors.grey),
+                decoration: InputDecoration(
+                  counterText: "",
+                  fillColor: Colors.white,
+                  filled: true,
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                  hintText: "emails".tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0.0),
+                    borderSide: BorderSide(color: AppColors.border_form),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0.0),
+                    borderSide: BorderSide(color: AppColors.border_form),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0.0),
+                    borderSide: BorderSide(color: AppColors.border_form),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0.0),
+                    borderSide: BorderSide(color: AppColors.border_form),
+                  ),
                 ),
-              ),
             ),
           ),
           SizedBox(
-            height: 8,
+            height: 5,
           ),
-          GetBuilder<ContryController>(
-              init: ContryController(),
-              builder: (val) {
-                return Container(
-                    margin: EdgeInsets.only(left: 15, right: 13),
-                    width: Get.width / 0.30,
-                    decoration: BoxDecoration(
-                        color: AppColors.inputColor,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                          hint: Text(
-                              hintTextCountry != null
-                                  ? hintTextCountry
-                                  : 'country'.tr,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.inputTextColor)),
-                          dropdownColor: AppColors.inPutFieldColor,
-                          icon: Icon(Icons.arrow_drop_down),
-                          items: val.countryListdata.map((country) {
-                            return DropdownMenuItem(
-                                value: country,
-                                child: Text(
-                                  country['name'][lang] != null
-                                      ? country['name'][lang]
-                                      : country['name'][lang] == null
-                                          ? country['name']['en']
-                                          : '',
-                                ));
-                          }).toList(),
-                          onChanged: (val) {
-                            var mapCountry;
-                            setState(() {
-                              mapCountry = val as Map;
-                              hintTextCountry = mapCountry['name'][lang] != null
-                                  ? mapCountry['name'][lang]
-                                  : mapCountry['name'][lang] == null
-                                      ? mapCountry['name']['en']
-                                      : '';
-                              selectedCountry = mapCountry['id'];
-                              countryPut.getRegion(selectedCountry);
-                            });
-                          },
-                        ))));
-              }),
+        Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(0),
+                border: Border.all(color: AppColors.border_form)),
+
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5,),
+              child: InternationalPhoneNumberInput(
+                focusNode: FocusNode(),
+                cursorColor: AppColors.whitedColor,
+                autoFocus: false,
+                inputDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  // hintText: "mobilee".tr,
+                  // hintStyle: TextStyle(
+                  //     fontSize: lang == 'ar' ? 14 : 16,
+                  //     color: AppColors.inputTextColor),
+                ),
+                onInputChanged: (PhoneNumber numberr) {
+                  number = numberr;
+                },
+                onInputValidated: (bool value) {},
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                textFieldController: mobileNoController,
+                formatInput: true,
+                inputBorder: OutlineInputBorder(),
+                onSaved: (PhoneNumber number) {},
+                initialValue: tttt,
+              ),
+            )),
+
+          // Container(
+          //   padding: EdgeInsets.symmetric(horizontal: 10),
+          //   child: TextFormField(
+          //     focusNode: FocusNode(),
+          //     controller: mobileNoController,
+          //     validator: (value) {
+          //       if (value == null || value.isEmpty) {
+          //         return 'enterSomeText'.tr;
+          //       }
+          //       return null;
+          //     },
+          //     style: TextStyle(
+          //       color: AppColors.inputTextColor,
+          //       fontSize: 13,
+          //     ),
+          //     decoration: InputDecoration(
+          //       counterText: "",
+          //       fillColor: Colors.white,
+          //       filled: true,
+          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          //       hintText: "mobile_number".tr,
+          //       hintStyle: TextStyle(color: Colors.grey[400]),
+          //       disabledBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(0.0),
+          //         borderSide: BorderSide(color: AppColors.border_form),
+          //       ),
+          //       enabledBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(0.0),
+          //         borderSide: BorderSide(color: AppColors.border_form),
+          //       ),
+          //       focusedBorder: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(0.0),
+          //         borderSide: BorderSide(color: AppColors.border_form),
+          //       ),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(0.0),
+          //         borderSide: BorderSide(color: AppColors.border_form),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
-            height: 8,
+            height: 5,
           ),
-          GetBuilder<ContryController>(
-              init: ContryController(),
-              builder: (val) {
-                return Container(
-                    margin: EdgeInsets.only(left: 15, right: 13),
-                    width: Get.width / 0.30,
-                    decoration: BoxDecoration(
-                        color: AppColors.inputColor,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                          hint: Text(
-                              hintRegionText != null
-                                  ? hintRegionText
-                                  : "region".tr,
-                              style:
-                                  TextStyle(fontSize: 13, color: Colors.grey)),
-                          dropdownColor: AppColors.inPutFieldColor,
-                          icon: Icon(Icons.arrow_drop_down),
-                          items: val.regionListdata.map((reg) {
-                            return DropdownMenuItem(
-                                value: reg,
-                                child: Text(reg['region'][lang] != null
-                                    ? reg['region'][lang]
-                                    : reg['region']['en'] == null
-                                        ? reg['region']['ar']
-                                        : reg['region']['ar'] == null
-                                            ? reg['region']['en']
-                                            : ''));
-                          }).toList(),
-                          onChanged: (data) {
-                            var mapRegion;
-                            setState(() {
-                              mapRegion = data as Map;
-                              print("map region.....$mapRegion");
-                              hintRegionText = mapRegion['region'][lang] != null
-                                  ? mapRegion['region'][lang].toString()
-                                  : mapRegion['region'][lang] == null
-                                      ? mapRegion['region']['en'].toString()
-                                      : '';
-                              selectedRegion = mapRegion['id'];
-                              countryPut.getCity(selectedRegion);
-                            });
-                          },
-                        ))));
-              }),
-          SizedBox(
-            height: 8,
-          ),
-          GetBuilder<ContryController>(
-              init: ContryController(),
-              builder: (val) {
-                return Container(
-                    margin: EdgeInsets.only(left: 15, right: 13),
-                    width: Get.width / 0.30,
-                    decoration: BoxDecoration(
-                        color: AppColors.inputColor,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: ButtonTheme(
-                        alignedDropdown: true,
-                        child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                          hint: Text(
-                              hintcityText != null ? hintcityText : "city".tr,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.inputTextColor)),
-                          dropdownColor: AppColors.inputColor,
-                          icon: Icon(Icons.arrow_drop_down),
-                          items: val.cityListData.map((citt) {
-                            return DropdownMenuItem(
-                                value: citt,
-                                child: Text(citt['city'][lang] != null
-                                    ? citt['city'][lang].toString()
-                                    : citt['city']['en'] == null
-                                        ? citt['city']['ar'].toString()
-                                        : citt['city']['ar'] == null
+          // Container(
+          //   padding: EdgeInsets.symmetric(horizontal: 15),
+          //   child: TextFormField(
+          //     focusNode: FocusNode(),
+          //     controller: telePhoneController,
+          //     validator: (value) {
+          //       if (value == null || value.isEmpty) {
+          //         return 'enterSomeText'.tr;
+          //       }
+          //       return null;
+          //     },
+          //     style: TextStyle(
+          //       color: AppColors.inputTextColor,
+          //       fontSize: 13,
+          //     ),
+          //     decoration: InputDecoration(
+          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          //       hintText: "telephone_numbers".tr,
+          //       hintStyle: TextStyle(color: Colors.grey[400]),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(5.0),
+          //         borderSide: BorderSide(color: Colors.grey),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 5,
+          // ),
+
+
+          // SizedBox(
+          //   height: 8,
+          // ),
+          // GetBuilder<ContryController>(
+          //     init: ContryController(),
+          //     builder: (val) {
+          //       return Container(
+          //           margin: EdgeInsets.only(left: 15, right: 13),
+          //           width: Get.width / 0.30,
+          //           decoration: BoxDecoration(
+          //               color: AppColors.inputColor,
+          //               border: Border.all(color: Colors.grey),
+          //               borderRadius: BorderRadius.circular(5.0)),
+          //           child: ButtonTheme(
+          //               alignedDropdown: true,
+          //               child: DropdownButtonHideUnderline(
+          //                   child: DropdownButton(
+          //                 hint: Text(
+          //                     hintTextCountry != null
+          //                         ? hintTextCountry
+          //                         : 'country'.tr,
+          //                     style: TextStyle(
+          //                         fontSize: 13,
+          //                         color: AppColors.inputTextColor)),
+          //                 dropdownColor: AppColors.inPutFieldColor,
+          //                 icon: Icon(Icons.arrow_drop_down),
+          //                 items: val.countryListdata.map((country) {
+          //                   return DropdownMenuItem(
+          //                       value: country,
+          //                       child: Text(
+          //                         country['name'][lang] != null
+          //                             ? country['name'][lang]
+          //                             : country['name'][lang] == null
+          //                                 ? country['name']['en']
+          //                                 : '',
+          //                       ));
+          //                 }).toList(),
+          //                 onChanged: (val) {
+          //                   var mapCountry;
+          //                   setState(() {
+          //                     mapCountry = val as Map;
+          //                     hintTextCountry = mapCountry['name'][lang] != null
+          //                         ? mapCountry['name'][lang]
+          //                         : mapCountry['name'][lang] == null
+          //                             ? mapCountry['name']['en']
+          //                             : '';
+          //                     selectedCountry = mapCountry['id'];
+          //                     countryPut.getRegion(selectedCountry);
+          //                   });
+          //                 },
+          //               ))));
+          //     }),
+          // SizedBox(
+          //   height: 8,
+          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GetBuilder<ContryController>(
+                  init: ContryController(),
+                  builder: (val) {
+                    return Container(
+                        margin:lang=="ar"? EdgeInsets.only(right: 10,): EdgeInsets.only(left: 10,),
+                        width: Get.width/2.2,
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
+
+                            border: Border.all(color: AppColors.border_form),
+                            borderRadius: BorderRadius.circular(0.0)),
+                        child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                              hint: Text(
+                                  hintRegionText != null
+                                      ? hintRegionText
+                                      : "region".tr,
+                                  style:
+                                      TextStyle(fontSize: 13, color: Colors.grey)),
+                              dropdownColor: AppColors.inPutFieldColor,
+                              icon: Icon(Icons.arrow_drop_down),
+                              items: val.regionListdata.map((reg) {
+                                return DropdownMenuItem(
+                                    value: reg,
+                                    child: Text(reg['region'][lang] != null
+                                        ? reg['region'][lang]
+                                        : reg['region']['en'] == null
+                                            ? reg['region']['ar']
+                                            : reg['region']['ar'] == null
+                                                ? reg['region']['en']
+                                                : ''));
+                              }).toList(),
+                              onChanged: (data) {
+                                var mapRegion;
+                                setState(() {
+                                  mapRegion = data as Map;
+                                  print("map region.....$mapRegion");
+                                  hintRegionText = mapRegion['region'][lang] != null
+                                      ? mapRegion['region'][lang].toString()
+                                      : mapRegion['region'][lang] == null
+                                          ? mapRegion['region']['en'].toString()
+                                          : '';
+                                  selectedRegion = mapRegion['id'];
+                                  countryPut.getCity(selectedRegion);
+                                });
+                              },
+                            ))));
+                  }),
+              GetBuilder<ContryController>(
+                  init: ContryController(),
+                  builder: (val) {
+                    return Container(
+                        margin:lang=="ar"? EdgeInsets.only(left: 10,): EdgeInsets.only(right: 10,),
+                        width: Get.width /2.2,
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
+                            border: Border.all(color:AppColors.border_form),
+                            borderRadius: BorderRadius.circular(0.0)),
+                        child: ButtonTheme(
+                            alignedDropdown: true,
+                            child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  hint: Text(
+                                      hintcityText != null ? hintcityText : "city".tr,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.inputTextColor)),
+                                  dropdownColor: AppColors.inputColor,
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  items: val.cityListData.map((citt) {
+                                    return DropdownMenuItem(
+                                        value: citt,
+                                        child: Text(citt['city'][lang] != null
+                                            ? citt['city'][lang].toString()
+                                            : citt['city']['en'] == null
+                                            ? citt['city']['ar'].toString()
+                                            : citt['city']['ar'] == null
                                             ? citt['city']['en'].toString()
                                             : ''));
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              var mapCity;
-                              mapCity = value as Map;
-                              hintcityText = mapCity['city'][lang] != null
-                                  ? mapCity['city'][lang].toString()
-                                  : mapCity['city'][lang] == null
-                                      ? mapCity['city']['en'].toString()
-                                      : '';
-                              selectedCity = mapCity['id'];
-                            });
-                          },
-                        ))));
-              })
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      var mapCity;
+                                      mapCity = value as Map;
+                                      hintcityText = mapCity['city'][lang] != null
+                                          ? mapCity['city'][lang].toString()
+                                          : mapCity['city'][lang] == null
+                                          ? mapCity['city']['en'].toString()
+                                          : '';
+                                      selectedCity = mapCity['id'];
+                                    });
+                                  },
+                                ))));
+                  })
+            ],
+          ),
+
+
         ],
       ),
     );
@@ -1108,221 +1355,651 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     return Column(
       children: [
         fileName != null
-            ? Image.file(
-                File(image),
-                fit: BoxFit.fill,
-                width: Get.width / 1.1,
-                height: Get.height / 4.7,
-              )
-            : editImage != null
-                ? Image.network(
-                    editImage,
-                    fit: BoxFit.fill,
-                    width: Get.width / 1.1,
-                    height: Get.height / 4.7,
-                  )
-                : Container(),
-        Card(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+            ?Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: Container(
+                width: Get.width / 1.0,
+                height: Get.height * 0.45,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.outline)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25, vertical: 8.0),
+                  child: Image.file(File(image),
+                      width: Get.width / 1.0,
+                      height: Get.height * 0.40,
+                      fit: BoxFit.fill),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 5,
+              left: 5,
+              child: Center(
                 child: Container(
+                  width: Get.width,
+                  height: Get.height * 0.10,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.grey),
+                      color: Colors.black.withOpacity(0.3)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 3),
+                    child: Row(
+                      children: [
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[0],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill)),
+                        SizedBox(width: Get.width * 0.01),
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[1],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill)),
+                        SizedBox(width: Get.width * 0.01),
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[2],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill))
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+            : editImage != null
+                ? Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: Container(
+                width: Get.width / 1.0,
+                height: Get.height * 0.45,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.outline)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25, vertical: 8.0),
+                  child: Image.network(editImage,
+                      width: Get.width / 1.0,
+                      height: Get.height * 0.40,
+                      fit: BoxFit.fill),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 5,
+              left: 5,
+              child: Center(
+                child: Container(
+                  width: Get.width,
+                  height: Get.height * 0.10,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.grey),
+                      color: Colors.black.withOpacity(0.3)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 3),
+                    child: Row(
+                      children: [
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[0],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill)),
+                        SizedBox(width: Get.width * 0.01),
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[1],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill)),
+                        SizedBox(width: Get.width * 0.01),
+                        Container(
+                            height: Get.height * 0.90,
+                            width: Get.width * 0.20,
+                            child: Image.network(ImagesAdds[2],
+                                height: Get.height * 0.20,
+                                fit: BoxFit.fill))
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+                : Container(),
+        Padding(
+          padding:
+          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Container(
+                  height: Get.height * 0.06,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black26),
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          "Title :",
+                          style: TextStyle(
+                            color: AppColors.whitedColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
                       Text(
                         titleController.text,
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "SAR ${priceController.text}",
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey),
-                      ),
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: Get.height * 0.01,
+                width: Get.width
+              ),
               Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    width: Get.width,
+    decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: AppColors.grey)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, top: 8),
+                        child: Text(
+                          "Description : ",
+                          style: TextStyle(
+                            color: AppColors.whitedColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 5),
+                        child: Text(
+                          descController.text,),
+                      )
+                    ]),
+              ),
+              SizedBox(
+                height: Get.height * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 15,
-                          ),
                           Text(
-                            'title'.tr,
+                            "Category :",
                             style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
                           ),
-                          SizedBox(height: 7),
-                          Text(titleController.text,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
                           SizedBox(
-                            height: 15,
+                            width: Get.width * 0.01,
                           ),
-                          Text(
-                            "category".tr,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(height: 7),
                           Text(
                             selectedCategory != null ? selectedCategory : '',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "country".tr,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(height: 7),
-                          Text(
-                            hintTextCountry != null ? hintTextCountry : '',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "city".tr,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(height: 7),
-                          Text(
-                            hintcityText != null ? hintcityText : '',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
+                              color: Colors.grey,
+                              fontSize: 11,
+                            ),
+                          )
                         ],
                       ),
                     ),
-                    Container(
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 1,
+                  ),
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Type :",
+                            style: TextStyle(
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
                             ),
-                            Text(
-                              "name".tr,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.01,
+                          ),
+                          Text(
+    selectedtype != null ? selectedtype : '',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 11,
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              fullNameController.text,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 15),
-                            Text(
-                              'status'.tr,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                            ),
-                            SizedBox(height: 7),
-                            Text(
-                              selectedStatus == '0'
-                                  ? uiStatus = 'Old'
-                                  : selectedStatus == '1'
-                                      ? 'new'
-                                      : ' ',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 15),
-                            Text(
-                              "region".tr,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                            ),
-                            SizedBox(height: 5),
-                            Text(hintRegionText != null ? hintRegionText : '',
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold)),
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: Get.height * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Location :",
+                            style: TextStyle(
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.01,
+                          ),
+                          Text(
+    hintTextCountry != null ? hintTextCountry : '',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 11,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Phone :",
+                            style: TextStyle(
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.01,
+                          ),
+                          Text(
+                            mobileNoController.text,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 11,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: Get.height * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Price :",
+                            style: TextStyle(
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.01,
+                          ),
+                          Text(
+                            priceController.text,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 11,
+                            ),
+                          )
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: Get.height * 0.06,
+                    width: Get.width * 0.46,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black26)),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Status :",
+                            style: TextStyle(
+                              color: AppColors.whitedColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.01,
+                          ),
+                          Text(
+    selectedStatus == '0'
+    ? uiStatus = 'Used'
+        : selectedStatus == '1'
+    ? 'new'
+        : ' ' ,
+                            style: TextStyle(
+                              color: Colors.lightGreen,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: Get.height * 0.01,
+              ),
+
+
             ],
           ),
         ),
-        Container(
-          width: Get.width,
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15, left: 50, right: 50),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${"details".tr}:",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    descController.text,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+        // Card(
+        //   child: Column(
+        //     children: [
+        //       Padding(
+        //         padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+        //         child: Container(
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: [
+        //               Text(
+        //                 titleController.text,
+        //                 style: TextStyle(
+        //                     fontSize: 20, fontWeight: FontWeight.bold),
+        //               ),
+        //               Text(
+        //                 "SAR ${priceController.text}",
+        //                 style: TextStyle(
+        //                     fontSize: 15,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //       Container(
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //           children: [
+        //             Container(
+        //               child: Column(
+        //                 crossAxisAlignment: CrossAxisAlignment.start,
+        //                 children: [
+        //                   SizedBox(
+        //                     height: 15,
+        //                   ),
+        //                   Text(
+        //                     'title'.tr,
+        //                     style: TextStyle(
+        //                         fontSize: 15,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Colors.grey),
+        //                   ),
+        //                   SizedBox(height: 7),
+        //                   Text(titleController.text,
+        //                       style: TextStyle(
+        //                           fontSize: 15, fontWeight: FontWeight.bold)),
+        //                   SizedBox(
+        //                     height: 15,
+        //                   ),
+        //                   Text(
+        //                     "category".tr,
+        //                     style: TextStyle(
+        //                         fontSize: 15,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Colors.grey),
+        //                   ),
+        //                   SizedBox(height: 7),
+        //                   Text(
+        //                     selectedCategory != null ? selectedCategory : '',
+        //                     style: TextStyle(
+        //                         fontSize: 15, fontWeight: FontWeight.bold),
+        //                   ),
+        //                   SizedBox(
+        //                     height: 15,
+        //                   ),
+        //                   Text(
+        //                     "country".tr,
+        //                     style: TextStyle(
+        //                         fontSize: 15,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Colors.grey),
+        //                   ),
+        //                   SizedBox(height: 7),
+        //                   Text(
+        //                     hintTextCountry != null ? hintTextCountry : '',
+        //                     style: TextStyle(
+        //                         fontSize: 15, fontWeight: FontWeight.bold),
+        //                   ),
+        //                   SizedBox(
+        //                     height: 15,
+        //                   ),
+        //                   Text(
+        //                     "city".tr,
+        //                     style: TextStyle(
+        //                         fontSize: 15,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Colors.grey),
+        //                   ),
+        //                   SizedBox(height: 7),
+        //                   Text(
+        //                     hintcityText != null ? hintcityText : '',
+        //                     style: TextStyle(
+        //                         fontSize: 15, fontWeight: FontWeight.bold),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //             Container(
+        //               child: Container(
+        //                 child: Column(
+        //                   crossAxisAlignment: CrossAxisAlignment.start,
+        //                   children: [
+        //                     SizedBox(
+        //                       height: 1,
+        //                     ),
+        //                     Text(
+        //                       "name".tr,
+        //                       style: TextStyle(
+        //                           fontSize: 15,
+        //                           fontWeight: FontWeight.bold,
+        //                           color: Colors.grey),
+        //                     ),
+        //                     SizedBox(height: 5),
+        //                     Text(
+        //                       fullNameController.text,
+        //                       style: TextStyle(
+        //                           fontSize: 15, fontWeight: FontWeight.bold),
+        //                     ),
+        //                     SizedBox(height: 15),
+        //                     Text(
+        //                       'status'.tr,
+        //                       style: TextStyle(
+        //                           fontSize: 15,
+        //                           fontWeight: FontWeight.bold,
+        //                           color: Colors.grey),
+        //                     ),
+        //                     SizedBox(height: 7),
+        //                     Text(
+        //                       selectedStatus == '0'
+        //                           ? uiStatus = 'Used'
+        //                           : selectedStatus == '1'
+        //                               ? 'new'
+        //                               : ' ',
+        //                       style: TextStyle(
+        //                           fontSize: 15, fontWeight: FontWeight.bold),
+        //                     ),
+        //                     SizedBox(height: 15),
+        //                     Text(
+        //                       "region".tr,
+        //                       style: TextStyle(
+        //                           fontSize: 15,
+        //                           fontWeight: FontWeight.bold,
+        //                           color: Colors.grey),
+        //                     ),
+        //                     SizedBox(height: 5),
+        //                     Text(hintRegionText != null ? hintRegionText : '',
+        //                         style: TextStyle(
+        //                             fontSize: 15, fontWeight: FontWeight.bold)),
+        //                   ],
+        //                 ),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
+        // Container(
+        //   width: Get.width,
+        //   child: Card(
+        //     child: Padding(
+        //       padding: const EdgeInsets.only(top: 15, left: 50, right: 50),
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Text(
+        //             "${"details".tr}:",
+        //             style: TextStyle(
+        //                 fontSize: 15,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: Colors.grey),
+        //           ),
+        //           SizedBox(height: 5),
+        //           Text(
+        //             descController.text,
+        //             textAlign: TextAlign.justify,
+        //             style: TextStyle(
+        //                 fontSize: 15,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: Colors.black),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
 
   Widget publishButton() {
     return Container(
-      height: 40,
+      height: 45,
       width: 130,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: AppColors.whitedColor,
-            textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+            primary:AppColors.whitedColor,
+            shape:  RoundedRectangleBorder(
+              borderRadius:  BorderRadius.circular(0.0),),
+            textStyle: TextStyle(fontSize: 13,)),
         onPressed: () {
           editData == null ? adpost() : editpost();
         },
@@ -1333,13 +2010,15 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
   Widget saveAsDraftButton() {
     return Container(
-      height: 40,
-      width: 145,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      height: 45,
+      width: 130,
+      // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Colors.grey,
-            textStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+            primary: Color(0xff404040),
+          shape:  RoundedRectangleBorder(
+            borderRadius:  BorderRadius.circular(0.0),),
+            textStyle: TextStyle(fontSize: 13,)),
         onPressed: () {
           addraft();
         },
