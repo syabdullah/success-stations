@@ -157,7 +157,7 @@ Widget appbar(
                               : GestureDetector(
                                   onTap: () => index == 4
                                       ? globalKey.currentState!.openDrawer()
-                                      : Get.bottomSheet(FriendFilter()),
+                                      : globalKey.currentState!.openDrawer(),
                                   // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
                                     margin: EdgeInsets.only(right: 15, top: 08),
