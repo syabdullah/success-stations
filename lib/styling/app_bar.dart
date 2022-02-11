@@ -692,7 +692,7 @@ Widget favAdds(
       Container(
         margin: lang == 'en'
             ? EdgeInsets.only(right: 20, top: 14)
-            : EdgeInsets.only(left: 10, top: 14),
+            : EdgeInsets.only(left: 15, top: 14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -705,7 +705,7 @@ Widget favAdds(
                         ? EdgeInsets.only(left: 10, right: 10)
                         : EdgeInsets.only(right: 10),
                     child:
-                    Image.asset(AppImages.listingImage, height: 18))),
+                    Image.asset(AppImages.listingImage, height: 18,color:Colors.grey))),
             GestureDetector(
               onTap: () {
                 gridingData.listingGrid('grid');
@@ -714,13 +714,13 @@ Widget favAdds(
                   margin: lang == 'ar'
                       ? EdgeInsets.only(right: 10)
                       : EdgeInsets.only(left: 8),
-                  child: Image.asset(AppImages.gridListing, height: 18)),
+                  child: Image.asset(AppImages.gridListing, height: 20,color:Colors.grey)),
             )
           ],
         ),
       ),
     ],
-    backgroundColor: AppColors.whitedColor,
+    backgroundColor:Colors.white,
   );
 }
 

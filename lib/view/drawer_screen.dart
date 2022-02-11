@@ -224,7 +224,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                       SizedBox(height: 5),
                                       Text(
                                         box.read('name') != null
-                                            ? 'edit'.tr
+                                            ? 'Edit'.tr
                                             : '',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(

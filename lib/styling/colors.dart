@@ -27,6 +27,7 @@ class AppColors {
   static Color resetText = Color(0xFF828DA4);
   static Color login_help = Color(0xFF3A70CA);
   static Color border = Color(0xFFAEABAB);
+  static Color border_form = Color(0xFFBFBFBF);
   static Color darkblue = Color(0xFF2B409E);
 
   // login
