@@ -168,12 +168,32 @@ Widget recentChat(data){
       width: Get.width /1.5,),
       appBar:
         AppBar(
+          leadingWidth: 60,
             leading:GestureDetector(
-                onTap: (){
-                  _key.currentState!.openDrawer();
-                },
-                child: ImageIcon(AssetImage(AppImages.setting),color: Color(0XFF181818),)
-            ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => _key.currentState!.openDrawer() ,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        child:Image.asset(AppImages.setting,height:20),
+                      ),
+                    ),
+                  ],
+                )),
+
+
+
+
+
+
+            // GestureDetector(
+            //     onTap: (){
+            //       _key.currentState!.openDrawer();
+            //     },
+            //     child:Image.asset(AppImages.setting,height:10)
+            //
+            // ),
             elevation: 0,
           shape: Border(
               bottom: BorderSide(
