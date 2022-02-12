@@ -267,12 +267,12 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  /*                     index == 3
+                                  index == 3
                                       ?
                                       // filtrationModel(context): adsfiltringheet(context);
                                       filtrationModel(context)
-                                      : adsfiltringheet(context);*/
-                                  globalKey.currentState!.openDrawer();
+                                      : globalKey.currentState!.openDrawer();
+                                  //
                                 },
                                 child: Container(
                                     height: 25,
@@ -410,7 +410,7 @@ Widget appbar(
                                 }
                               : index == 1
                                   ? () {
-                                      Scaffold.of(context).openDrawer();
+                                      globalKey.currentState!.openDrawer();
                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendFilter()));
                                       // FriendFilter();
                                       // index == 4 ? filteringCategory(context) :
@@ -430,7 +430,8 @@ Widget appbar(
                               : GestureDetector(
                                   onTap: () => index == 4
                                       ? globalKey.currentState!.openDrawer()
-                                      : Get.bottomSheet(FriendFilter()),
+                                      : globalKey.currentState!.openDrawer(),
+                                  // : Get.bottomSheet(FriendFilter()),
                                   // onTap: () => FriendList.friendlistappbar.currentState.openDrawer(),
                                   child: Container(
                                     margin: EdgeInsets.only(right: 15, top: 08),
@@ -544,9 +545,10 @@ Widget appbar(
                                   // index == 3
                                   //     ?
                                   // filtrationModel(context): adsfiltringheet(context);
-                                  // filtrationModel(context);
 
-                                  globalKey.currentState!.openDrawer();
+                                  index == 3
+                                      ? filtrationModel(context)
+                                      : globalKey.currentState!.openDrawer();
                                 },
                                 child: Container(
                                     height: 25,
