@@ -14,11 +14,13 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/ad_view_screen.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
+
 class AboutTab extends StatefulWidget {
-  const AboutTab({ Key? key }) : super(key: key);
+  const AboutTab({Key? key}) : super(key: key);
   @override
   _AboutTabState createState() => _AboutTabState();
 }
+
 class _AboutTabState extends State<AboutTab> {
   GetStorage box = GetStorage();
   final userProfile = Get.put(UserProfileController());
@@ -49,33 +51,37 @@ class _AboutTabState extends State<AboutTab> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              GetBuilder<UserProfileController> (
+              GetBuilder<UserProfileController>(
                   init: UserProfileController(),
                   builder: (value) {
-                    return  value.userData2 != null ?
-                    detail( value.userData2['data'], context):ProfilePageShimmer();
-                  }
-              ),
+                    return value.userData2 != null
+                        ? detail(value.userData2['data'], context)
+                        : ProfilePageShimmer();
+                  }),
               Padding(
-                padding:  EdgeInsets.only(top: 8.0),
+                padding: EdgeInsets.only(top: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                          "lastads".tr,
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16, color: Color(0XFF2f44a0))
-                      ),
+                      child: Text("lastads".tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Color(0XFF2f44a0))),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: InkWell(
-                        onTap: (){ Get.to(AllAdds());},
-                        child: Text(
-                            "Viewall".tr,
-                            style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14, color:Color(0XFF888888))
-                        ),
+                        onTap: () {
+                          Get.to(AllAdds());
+                        },
+                        child: Text("Viewall".tr,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: Color(0XFF888888))),
                       ),
                     ),
                   ],
@@ -83,57 +89,63 @@ class _AboutTabState extends State<AboutTab> {
               ),
               GetBuilder<LastAdsController>(
                   init: LastAdsController(),
-                  builder: (value){
-                    return  value.isLoading == true ? PlayStoreShimmer(): value.lastuserads != null && value.lastuserads['data'].length  !=0?
-                    featuredAdsList(value.lastuserads['data']):
-                    Center(
-                        heightFactor: 4,
-                        child: Text(
-                            "noAdds".tr,
-                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
-                        )
-                    );
-                  }
-              ),
+                  builder: (value) {
+                    return value.isLoading == true
+                        ? PlayStoreShimmer()
+                        : value.lastuserads != null &&
+                                value.lastuserads['data'].length != 0
+                            ? featuredAdsList(value.lastuserads['data'])
+                            : Center(
+                                heightFactor: 4,
+                                child: Text("noAdds".tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 16,
+                                        color: AppColors.black)));
+                  }),
               // SizedBox(height:30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                        "${'lastoffers'.tr}",
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16, color: Color(0XFF2f44a0))
-                    ),
+                    child: Text("${'lastoffers'.tr}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color(0XFF2f44a0))),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20),
                     child: InkWell(
-                      onTap: (){ Get.to(OfferList());},
-                      child: Text(
-                          "Viewall".tr,
-                          style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14, color:Color(0XFF888888))
-                      ),
+                      onTap: () {
+                        Get.to(OfferList());
+                      },
+                      child: Text("Viewall".tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Color(0XFF888888))),
                     ),
                   ),
                 ],
               ),
               GetBuilder<UserOfferController>(
                   init: UserOfferController(),
-                  builder: (value){
-                    return
-                      value.isLoading == true ? PlayStoreShimmer():
-                    value.offerDattaTypeCategory != null && value.offerDattaTypeCategory['data'].length  !=0  ?
-                    offerList(value.offerDattaTypeCategory['data']):
-                     Center(
-                       heightFactor: 4,
-                        child: Text("noOffer".tr,
-                        style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16, color:AppColors.black)
-
-                      )
-                    );
-                  }
-              ),
+                  builder: (value) {
+                    return value.isLoading == true
+                        ? PlayStoreShimmer()
+                        : value.offerDattaTypeCategory != null &&
+                                value.offerDattaTypeCategory['data'].length != 0
+                            ? offerList(value.offerDattaTypeCategory['data'])
+                            : Center(
+                                heightFactor: 4,
+                                child: Text("noOffer".tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 16,
+                                        color: AppColors.black)));
+                  }),
             ],
           ),
         ),
@@ -142,27 +154,31 @@ class _AboutTabState extends State<AboutTab> {
   }
 }
 
-Widget detail(userData2, context){
+Widget detail(userData2, context) {
   return Container(
     decoration: BoxDecoration(border: Border.all(color: Color(0XFFcccccc))),
-    padding: EdgeInsets.only(left:8),
+    padding:lang == 'ar' ? EdgeInsets.only(right: 8):EdgeInsets.only(left: 8),
     margin: EdgeInsets.symmetric(horizontal: 6),
     width: Get.width,
     child: Container(
-      margin: EdgeInsets.only(top: 7,bottom: 7.0),
+      margin: EdgeInsets.only(top: 7, bottom: 7.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${'details'.tr}:",
-            style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold,color: Color(0XFF2f44a0)),
+          Text(
+            "${'details'.tr}:",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFF2f44a0)),
           ),
           // SizedBox(height:5),
-          userData2 !=null && userData2['about'] != null ?
-          Text(
-            userData2['about'],
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 15,color: Colors.black),
-          )
+          userData2 != null && userData2['about'] != null
+              ? Text(
+                  userData2['about'],
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                )
               : Container()
         ],
       ),
@@ -221,7 +237,6 @@ Widget detail(userData2, context){
 //   );
 // }
 
-
 var catID;
 
 Widget featuredAdsList(lastuserad) {
@@ -229,28 +244,26 @@ Widget featuredAdsList(lastuserad) {
     margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
     height: lang == 'en'
         ? Get.height < 700
-        ? Get.height / 2.2
-        : Get.width < 420
-        ? Get.height / 2.8
-        : Get.height / 4.35
+            ? Get.height / 2.2
+            : Get.width < 420
+                ? Get.height / 2.8
+                : Get.height / 4.35
         : Get.height < 700
-        ? Get.height / 3.2
-        : Get.width < 420
-        ? Get.height / 2.8
-        : Get.height / 4.35,
+            ? Get.height / 3.2
+            : Get.width < 420
+                ? Get.height / 2.8
+                : Get.height / 4.35,
     child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: lastuserad.length,
         itemBuilder: (BuildContext context, index) {
-          var doubleval =
-          double.parse(lastuserad[index]['price']);
+          var doubleval = double.parse(lastuserad[index]['price']);
           var price = doubleval.toInt();
           return GestureDetector(
             onTap: () {
               // Get.to(AdViewScreen());
             },
-
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(3.0),
@@ -260,36 +273,33 @@ Widget featuredAdsList(lastuserad) {
                 children: [
                   Container(
                     height:
-                    Get.height < 700 ?Get.width * 0.29 : Get.width * 0.48,
+                        Get.height < 700 ? Get.width * 0.29 : Get.width * 0.48,
                     child: lastuserad[index].length != 0
                         ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                          lastuserad[index],
-                          width: Get.width < 420
-                              ? Get.width / 3.1
-                              : Get.width / 3.3,
-                          height: Get.width < 420
-                              ? Get.height / 4.8
-                              : Get.height / 9.5,
-                          fit: BoxFit.fill),
-                    )
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.network(lastuserad[index],
+                                width: Get.width < 420
+                                    ? Get.width / 3.1
+                                    : Get.width / 3.3,
+                                height: Get.width < 420
+                                    ? Get.height / 4.8
+                                    : Get.height / 9.5,
+                                fit: BoxFit.fill),
+                          )
                         : Container(
-                      child: Icon(Icons.image, size: 50),
-                    ),
+                            child: Icon(Icons.image, size: 50),
+                          ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Padding(
-                        padding:  EdgeInsets.only(left: 5,right: 5),
+                        padding: EdgeInsets.only(left: 5, right: 5),
                         child: Container(
-                            child:
-                            Text("name of author",
+                            child: Text("name of author",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontFamily:  "Source_Sans_Pro",
+                                  fontFamily: "Source_Sans_Pro",
                                   fontSize: 12,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w600,
@@ -298,49 +308,43 @@ Widget featuredAdsList(lastuserad) {
                       SizedBox(
                         height: 20,
                       ),
-
                       Padding(
-                        padding: const EdgeInsets.only(left: 5,right: 5),
-                        child: Row(
-                          children: [
-                            Container(
-                              child:
-                              lastuserad[index]['price'] != null
-                                  ?
-                              Text(
-                                ' SAR' + "{$price}",
-                                style: TextStyle(
-                                    fontFamily:  "Source_Sans_Pro",
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
-                              )
-                              : Container()),
-                              Container(
-                                  child: lastuserad[index]['price'] != null
-                                      ? Text(
-
-                                    '$price' + ".00",
-                                    style: TextStyle(
-                                        fontFamily:  "Source_Sans_Pro",
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                      : Container()),]
-                        ),
+                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        child: Row(children: [
+                          Container(
+                              child: lastuserad[index]['price'] != null
+                                  ? Text(
+                                      ' SAR' + "{$price}",
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  : Container()),
+                          Container(
+                              child: lastuserad[index]['price'] != null
+                                  ? Text(
+                                      '$price' + ".00",
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  : Container()),
+                        ]),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8,right: 8),
+                        padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Container(
                           margin: EdgeInsets.only(
                             top: 4,
                           ),
-                          child: Text(
-                              lastuserad[index]['name'],
+                          child: Text(lastuserad[index]['name'],
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                fontFamily:  "Source_Sans_Pro",
+                                fontFamily: "Source_Sans_Pro",
                                 fontSize: 14,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w400,
@@ -356,6 +360,7 @@ Widget featuredAdsList(lastuserad) {
         }),
   );
 }
+
 Widget offerList(offerDattaTypeCategory) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
@@ -374,29 +379,31 @@ Widget offerList(offerDattaTypeCategory) {
                   },
                   child: Card(
                     elevation: 2,
-                    child: Container(decoration: BoxDecoration(
-                        border: Border.all(width: 2,color: Colors.white)
-                    ),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 2, color: Colors.white)),
                         width: 120,
                         height: 120,
-                        child:
-                        offerDattaTypeCategory[index]['media'].length != 0 &&
-                            offerDattaTypeCategory[index]['media'][0]['url'] != null
-                            ?
-                        Image.network(
-                          offerDattaTypeCategory[index]['media'][0]['url'],
-                          fit: BoxFit.cover,
-                        )
-                          : Container(
-                        child: Icon(
-                          Icons.image,
-                          size: 50,
-                        ),
-                      )),
-                    ),
+                        child: offerDattaTypeCategory[index]['media'].length !=
+                                    0 &&
+                                offerDattaTypeCategory[index]['media'][0]
+                                        ['url'] !=
+                                    null
+                            ? Image.network(
+                                offerDattaTypeCategory[index]['media'][0]
+                                    ['url'],
+                                fit: BoxFit.cover,
+                              )
+                            : Container(
+                                child: Icon(
+                                  Icons.image,
+                                  size: 50,
+                                ),
+                              )),
                   ),
                 ),
-              ],
+              ),
+            ],
           );
         }),
   );

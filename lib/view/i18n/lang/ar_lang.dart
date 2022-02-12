@@ -271,7 +271,7 @@ const Map<String, String> ar = {
   "request_pending": "طلب معلق",
   "New": "جديد",
   'old': "قديم",
-  "Price": "سعر",
+  "price": "سعر",
   "Edit": "تعديل",
   "Personal Info": "المعلومات الشخصية",
   "Study Info": "معلومات الداراسة",

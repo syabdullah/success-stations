@@ -41,7 +41,7 @@ var statusFiltered, status;
 var namearray = [];
 
 var color = Colors.grey[100];
-int slctedInd = 0, _selectedIndex = 1;
+int slctedInd = -1, _selectedIndex = 0;
 bool textfeild = true;
 var selectedService;
 // ignore: non_constant_identifier_names
