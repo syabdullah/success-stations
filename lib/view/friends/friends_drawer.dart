@@ -17,7 +17,8 @@ class FriendsDrawer extends StatefulWidget {
 class _FriendsDrawerState extends State<FriendsDrawer> {
   var lang,
       countryHint,
-      regionHint,
+      hintRegionText,
+      selectedRegion,
       countryID,
       hinText,
       mapuni,
@@ -33,6 +34,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
   TextEditingController degreeController = TextEditingController();
   TextEditingController semesterController = TextEditingController();
   final callingFreindController = Get.put(FriendsController());
+  final regionIdByCountry = Get.put(ContryController());
   GetStorage box = GetStorage();
   var searchText;
   TextEditingController txtSearchField = TextEditingController();
@@ -158,12 +160,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
                 },
               ),
               SizedBox(height: Get.height * 0.01),
-              GetBuilder<UniversityController>(
-                init: UniversityController(),
-                builder: (val) {
-                  return university(val.dataUni);
-                },
-              ),
+              degree(),
               SizedBox(height: Get.height * 0.01),
               Align(
                 heightFactor: 2.0,
@@ -221,6 +218,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
       'name': nameController.text,
       'city': citySelected,
       // 'degree': degreeController.text,
+      "region_id": selectedRegion,
       'country': countryID,
       'university': universitySelected,
       'college': collegeID,
@@ -258,9 +256,13 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
         Container(
             margin: EdgeInsets.only(left: 10, right: 10),
             width: Get.width * 0.9,
+            height: Get.height * 0.05,
             decoration: BoxDecoration(
                 color: AppColors.inputColor,
-                border: Border.all(color: AppColors.darkgrey),
+                border: Border.all(
+                  color: AppColors.black,
+                  width: 1.5,
+                ),
                 borderRadius: BorderRadius.circular(5.0)),
             child: ButtonTheme(
                 alignedDropdown: true,
@@ -268,9 +270,9 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
                     child: DropdownButton(
                   hint: Text(countryHint != null ? countryHint : 'country'.tr,
                       style: TextStyle(
-                          fontSize: 18, color: AppColors.inputTextColor)),
+                          fontSize: 16, color: AppColors.inputTextColor)),
                   dropdownColor: AppColors.inPutFieldColor,
-                  icon: Icon(Icons.arrow_drop_down),
+                  icon: Icon(Icons.arrow_drop_down_sharp),
                   items: data.map((coun) {
                     print("printed country code...±${coun['name']['en']}");
                     return DropdownMenuItem(
@@ -295,6 +297,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
                               ? mapCountry['name']['en']
                               : '';
                       countryID = mapCountry['id'];
+                      regionIdByCountry.getRegion(countryID);
                     });
                   },
                 )))),
@@ -302,63 +305,62 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
     );
   }
 
-  Widget region(List data) {
-    return Column(
-      children: [
-        Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            width: Get.width * 0.9,
-            decoration: BoxDecoration(
-                color: AppColors.inputColor,
-                border: Border.all(color: AppColors.darkgrey),
-                borderRadius: BorderRadius.circular(5.0)),
-            child: ButtonTheme(
-                alignedDropdown: true,
-                child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                  hint: Text(regionHint != null ? regionHint : 'region'.tr,
-                      style: TextStyle(
-                          fontSize: 18, color: AppColors.inputTextColor)),
-                  dropdownColor: AppColors.inPutFieldColor,
-                  icon: Icon(Icons.arrow_drop_down),
-                  items: data.map((coun) {
-                    print("printed country code...±${coun['name']['en']}");
-                    return DropdownMenuItem(
-                        value: coun,
-                        child: Text(coun['name'][lang] != null
-                            ? coun['name'][lang]
-                            : coun['name'][lang] == null
-                                ? coun['name']['en']
-                                : coun['name']['en'] == "  "
-                                    ? coun['name']['ar']
-                                    : coun['name']['ar'] == "  "
-                                        ? coun['name']['en']
-                                        : ''));
-                  }).toList(),
-                  onChanged: (val) {
-                    var mapCountry;
-                    setState(() {
-                      mapCountry = val as Map;
-                      regionHint = mapCountry['name'][lang] != null
-                          ? mapCountry['name'][lang]
-                          : mapCountry['name'][lang] == null
-                              ? mapCountry['name']['en']
-                              : '';
-                      countryID = mapCountry['id'];
-                    });
-                  },
-                )))),
-      ],
-    );
+  Widget region(List dataRegion) {
+    return Container(
+        margin: EdgeInsets.only(left: 10, right: 10),
+        width: Get.width * 0.9,
+        height: Get.height * 0.05,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: AppColors.black, width: 1.5),
+            borderRadius: BorderRadius.circular(5.0)),
+        child: ButtonTheme(
+            alignedDropdown: true,
+            child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+              hint: Text(hintRegionText != null ? hintRegionText : "region".tr,
+                  style:
+                      TextStyle(fontSize: 16, color: AppColors.inputTextColor)),
+              dropdownColor: AppColors.inPutFieldColor,
+              icon: Icon(Icons.arrow_drop_down_sharp),
+              items: dataRegion.map((reg) {
+                return DropdownMenuItem(
+                    value: reg,
+                    child: Text(
+                      reg['region'][lang] != null
+                          ? reg['region'][lang].toString()
+                          : reg['region'][lang] == null
+                              ? reg['region']['en']
+                              : "",
+                    ));
+              }).toList(),
+              onChanged: (data) {
+                var mapRegion;
+                setState(() {
+                  mapRegion = data as Map;
+                  hintRegionText = mapRegion['region'][lang] != null
+                      ? mapRegion['region'][lang].toString()
+                      : mapRegion['region'][lang] == null
+                          ? mapRegion['region']['en'].toString()
+                          : '';
+                  selectedRegion = data['id'];
+                  regionIdByCountry.getCity(data['id']);
+                });
+              },
+            ))));
   }
 
   Widget college(List data) {
     return Container(
         margin: EdgeInsets.only(left: 10, right: 10),
         width: Get.width * 0.9,
+        height: Get.height * 0.05,
         decoration: BoxDecoration(
             color: AppColors.inputColor,
-            border: Border.all(color: AppColors.darkgrey),
+            border: Border.all(
+              color: AppColors.black,
+              width: 1.5,
+            ),
             borderRadius: BorderRadius.circular(5.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -367,7 +369,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
               isExpanded: true,
               hint: Text(hintClg != null ? hintClg : "collegesu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 18 : 18,
+                      fontSize: lang == 'ar' ? 16 : 16,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -402,9 +404,13 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
     return Container(
         margin: EdgeInsets.only(left: 10, right: 10),
         width: Get.width * 0.9,
+        height: Get.height * 0.05,
         decoration: BoxDecoration(
             color: AppColors.inputColor,
-            border: Border.all(color: AppColors.darkgrey),
+            border: Border.all(
+              color: AppColors.black,
+              width: 1.5,
+            ),
             borderRadius: BorderRadius.circular(5.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -413,7 +419,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
               isExpanded: true,
               hint: Text(hinText != null ? hinText : "universitysu".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ? 16 : 16,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -444,9 +450,13 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
     return Container(
         margin: EdgeInsets.only(left: 10, right: 10),
         width: Get.width * 0.9,
+        height: Get.height * 0.05,
         decoration: BoxDecoration(
             color: AppColors.inputColor,
-            border: Border.all(color: AppColors.darkgrey),
+            border: Border.all(
+              color: AppColors.black,
+              width: 1.5,
+            ),
             borderRadius: BorderRadius.circular(5.0)),
         child: ButtonTheme(
             alignedDropdown: true,
@@ -454,7 +464,7 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
                 child: DropdownButton(
               hint: Text(hinCity != null ? hinCity : "city".tr,
                   style: TextStyle(
-                      fontSize: lang == 'ar' ? 14 : 16,
+                      fontSize: lang == 'ar' ? 16 : 16,
                       color: AppColors.inputTextColor)),
               dropdownColor: AppColors.inPutFieldColor,
               icon: Icon(Icons.arrow_drop_down),
@@ -484,27 +494,26 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
   }
 
   Widget degree() {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: CustomTextFiled(
-          contentPadding: lang == 'ar'
-              ? EdgeInsets.only(right: 10)
-              : EdgeInsets.only(left: 20),
-          isObscure: false,
-          hintText: "degreesu".tr,
-          hintStyle: TextStyle(
-              fontSize: lang == 'ar' ? 14 : 16,
-              color: AppColors.inputTextColor),
-          hintColor: lang == 'ar'
-              ? AppColors.inputTextColor
-              : AppColors.inputTextColor,
-          onChanged: (value) {},
-          onFieldSubmitted: (value) {},
-          textController: degreeController,
-          onSaved: (newValue) {},
-          validator: (value) {},
-          errorText: '',
-        ));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: TextField(
+          controller: degreeController,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: Get.width * 0.04, vertical: Get.height * 0.011),
+            isCollapsed: true,
+            hintText: "degreesu".tr,
+            hintStyle: TextStyle(
+                fontSize: lang == 'ar' ? 16 : 16,
+                color: AppColors.inputTextColor),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.black, width: 1.5),
+                borderRadius: BorderRadius.circular(5)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.black, width: 1.5),
+                borderRadius: BorderRadius.circular(5)),
+          )),
+    );
   }
 
   Widget semester() {
