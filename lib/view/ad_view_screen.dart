@@ -75,18 +75,28 @@ class _AdViewScreenState extends State<AdViewScreen> {
           builder: (val) {
             return val.adsD != null && val.adsD['data'] != null
                 ? SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  previousButton2(AppImages.callerImage, "call".tr,
-                      Color(0xFF2F4199), val.adsD['data']),
-                  previousButton(AppImages.whatsapp, "whatsapp".tr,
-                      Color(0xFF2F4199), ''),
-                  previousButton(AppImages.chating, "Massages".tr,
-                      Color(0xFF2F4199), ''),
-                  previousButton2(AppImages.heart, ''.tr,
-                      Color(0xFF2F4199), val.adsD['data'])
-                ],
+              child: Container(
+                height:50,
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                  border: Border.all(color: AppColors.border,)
+                ),
+
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      previousButton2(AppImages.callerImage, "call".tr,
+                          Color(0xFF2F4199), val.adsD['data']),
+                      previousButton(AppImages.whatsapp, "whatsapp".tr,
+                          Color(0xFF2F4199), ''),
+                      previousButton(AppImages.chating1, "massages".tr,
+                          Color(0xFF2F4199), ''),
+                      previousButton2(AppImages.heart, ''.tr,
+                          Color(0xFF2F4199), val.adsD['data'])
+                    ],
+                  ),
+                ),
               ),
             )
                 : Container();
@@ -272,7 +282,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          "Title :",
+                          "title".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -280,15 +290,18 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           ),
                         ),
                       ),
-                      Text(
-                        data['title'][lang] != null
-                            ? data['title'][lang].toString()
-                            : data['title'][lang] == null
-                            ? data['title']['en']
-                            : '',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          data['title'][lang] != null
+                              ? data['title'][lang].toString()
+                              : data['title'][lang] == null
+                              ? data['title']['en']
+                              : '',
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
                         ),
                       )
                     ],
@@ -299,6 +312,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                 height: Get.height * 0.01,
               ),
               Container(
+                width: Get.width,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: AppColors.grey)),
@@ -309,7 +323,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 8),
                         child: Text(
-                          "Description : ",
+                          "description".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -320,9 +334,21 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 5),
-                        child: Text(
-                            """There are many variations of passages of LoremIpsum available, but the majority have suffered alteration in some form, by injected humour,randomised words which don't look eve……..
-                """),
+                        child: Expanded(
+                          child: Text(
+    data['description'][lang] != null
+    ? data['description'][lang].toString()
+        : data['description'][lang] == null
+    ? data['description']['en']
+        : '',
+                            maxLines: 2,
+    style: TextStyle(
+    color: Colors.grey,
+    fontSize: 14,
+    ),
+    ),
+                        )
+
                       )
                     ]),
               ),
@@ -345,7 +371,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Category :",
+                            "categories".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -355,13 +381,22 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            "Books & Reference",
+                          Flexible(
+                                child: Text(
+                            data['category']['category'][lang] != null
+                                  ? data['category']['category'][lang]
+                                  .toString()
+                                  : data['category']['category'][lang] == null
+                                  ? data['category']['category']['en']
+                                  : '',
+                            maxLines: 2,
                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                                color: Colors.grey,
+                                fontSize: lang=="ar"?13:13,
                             ),
-                          )
+                          ),
+                              )
+
                         ],
                       ),
                     ),
@@ -379,7 +414,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Type :",
+                            "type".tr+" :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -389,13 +424,23 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            "Digital marketing",
+                          data['type'] != null
+                              ? Expanded(
+                                child: Text(
+                            data['type']['type'][lang] != null
+                                  ? data['type']['type'][lang]
+                                  .toString()
+                                  : data['type']['type'][lang] == null
+                                  ? data['type']['type']['en']
+                                  : '',
+                                  maxLines: 2,
                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                                color: Colors.grey,
+                                fontSize: 14,
                             ),
-                          )
+                          ),
+                              )
+                              : Container(),
                         ],
                       ),
                     ),
@@ -421,7 +466,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Location :",
+                            "location".tr+" :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -431,15 +476,18 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            data['country']['name'][lang] != null
-                                ? data['country']['name'][lang]
-                                : data['country']['name'][lang] == null
-                                ? data['country']['name']['en']
-                                : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              data['country']['name'][lang] != null
+                                  ? data['country']['name'][lang]
+                                  : data['country']['name'][lang] == null
+                                  ? data['country']['name']['en']
+                                  : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -459,7 +507,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Phone :",
+                            "phone".tr + "  :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -469,13 +517,16 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            data['phone'] != null
-                                ? data['phone'].toString()
-                                : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              data['phone'] != null
+                                  ? data['phone'].toString()
+                                  : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -501,9 +552,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Price :",
+                            "price".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -515,7 +567,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           ),
                           data['price'] != null
                               ? Text(
-                            ' ${reviewPagePrice[0]} SAR',
+                            reviewPagePrice[0] + " " + "sar".tr,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 11,
@@ -539,7 +591,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Status :",
+                            "status".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -550,9 +602,9 @@ class _AdViewScreenState extends State<AdViewScreen> {
                             width: Get.width * 0.01,
                           ),
                           Text(
-                            "New",
+    data['status'] == 0 ? 'Used'.tr : 'New'.tr,
                             style: TextStyle(
-                              color: Colors.lightGreen,
+                              color: data['status'] == 0?Colors.grey:AppColors.new_color,
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
@@ -570,14 +622,14 @@ class _AdViewScreenState extends State<AdViewScreen> {
                 height: Get.height * 0.06,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Colors.black26)),
+                    border: Border.all(color: Color(0xff7F7F7F))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "By",
+                        "by".tr,
                         style: TextStyle(
                           color: AppColors.whitedColor,
                           fontWeight: FontWeight.bold,
@@ -645,7 +697,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                     fontSize: 15,
               //                     fontWeight: FontWeight.bold,
               //                     color: Colors.grey)),
-              //             SizedBox(height: 8.h),
+              //             SizedBox(height: 8),
               //             Text(
               //                 data['country']['name'][lang] != null
               //                     ? data['country']['name'][lang]
@@ -656,7 +708,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                     fontSize: 15,
               //                     fontWeight: FontWeight.bold)),
               //             SizedBox(
-              //               height: 11.h,
+              //               height: 11,
               //             ),
               //             Text(
               //               'city0'.tr,
@@ -665,7 +717,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold,
               //                   color: Colors.grey),
               //             ),
-              //             SizedBox(height: 8.h),
+              //             SizedBox(height: 8),
               //             data['city'] != null
               //                 ? Text(
               //                     data['city']['city'][lang] != null
@@ -679,7 +731,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   )
               //                 : Container(),
               //             SizedBox(
-              //               height: 11.h,
+              //               height: 11,
               //             ),
               //             Text(
               //               "city2".tr,
@@ -688,7 +740,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold,
               //                   color: Colors.grey),
               //             ),
-              //             SizedBox(height: 7.h),
+              //             SizedBox(height: 7),
               //             Text(
               //               data['phone'] != null
               //                   ? data['phone'].toString()
@@ -698,7 +750,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold),
               //             ),
               //             SizedBox(
-              //               height: 15.h,
+              //               height: 15,
               //             ),
               //           ],
               //         ),
@@ -716,7 +768,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold,
               //                   color: Colors.grey),
               //             ),
-              //             SizedBox(height: 8.h),
+              //             SizedBox(height: 8),
               //             data['region'] != null
               //                 ? Text(
               //                     data['region']['region'][lang] != null
@@ -729,7 +781,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                         fontSize: 15,
               //                         fontWeight: FontWeight.bold))
               //                 : Container(),
-              //             SizedBox(height: 11.h),
+              //             SizedBox(height: 11),
               //             Text(
               //               "city1".tr,
               //               style: TextStyle(
@@ -737,7 +789,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold,
               //                   color: Colors.grey),
               //             ),
-              //             SizedBox(height: 7.h),
+              //             SizedBox(height: 15),
               //             data['type'] != null
               //                 ? Text(
               //                     data['type']['type'][lang] != null
@@ -752,7 +804,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   )
               //                 : Container(),
               //             SizedBox(
-              //               height: 10.h,
+              //               height: 10,
               //             ),
               //             Text(
               //               'city3'.tr,
@@ -761,14 +813,14 @@ class _AdViewScreenState extends State<AdViewScreen> {
               //                   fontWeight: FontWeight.bold,
               //                   color: Colors.grey),
               //             ),
-              //             SizedBox(height: 7.h),
+              //             SizedBox(height: 7),
               //             Text(
               //               data['status'] == 0 ? 'old'.tr : 'new'.tr,
               //               style: TextStyle(
               //                   fontSize: 15,
               //                   fontWeight: FontWeight.bold),
               //             ),
-              //             SizedBox(height: 23.h),
+              //             SizedBox(height: 23),
               //           ],
               //         ),
               //       ),
@@ -860,12 +912,17 @@ class _AdViewScreenState extends State<AdViewScreen> {
   }
 
   Widget listTileRow2(data) {
-    return Column(
+    return
+      data.length!=0?Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Text("There are 2 comments",
+          child:data.length==1? Text("There are " +  data.length.toString() + " comment",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey)):Text("There are " +  data.length.toString() + " comments",
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -873,6 +930,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
         ),
         Container(
           height: Get.height * 0.32,
+          width: Get.width,
           child: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
@@ -882,7 +940,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Container(
-                        height: Get.height * 0.15,
+                        // height: Get.height * 0.15,
                         width: Get.width * 0.95,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -925,7 +983,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                                                     : Image.asset(AppImages.person))),
                                         Padding(
                                           padding:
-                                          const EdgeInsets.only(left: 8.0),
+                                          lang=="ar"? EdgeInsets.only(right: 8.0):EdgeInsets.only(left: 8.0),
                                           child: Column(
                                             crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -1011,7 +1069,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
               }),
         ),
       ],
-    );
+    ):SizedBox.shrink();
   }
 
   // Widget mytraling(idU) {
@@ -1021,7 +1079,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget commentButton() {
     return Container(
       padding: const EdgeInsets.only(left: 15.0, right: 15),
-      height: Get.height * 0.04,
+      height: Get.height<700?Get.height * 0.04:Get.height * 0.06,
       width: Get.width,
       child: ElevatedButton(
         style: ButtonStyle(
@@ -1063,9 +1121,9 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height * 0.047,
+        height: Get.height<700?Get.height * 0.047:38,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -1097,10 +1155,10 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height * 0.045,
+        height: Get.height<700?Get.height * 0.045:38,
         // width: 100.w,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -1182,11 +1240,19 @@ class _AdViewScreenState extends State<AdViewScreen> {
             fontWeight: FontWeight.normal,
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.inputTextColor),
+            borderSide: BorderSide(color: AppColors.border),
             borderRadius: BorderRadius.circular(0),
           ),
+          disabledBorder:OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.border),
+            borderRadius: BorderRadius.circular(0),
+          ) ,
+          enabledBorder:OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.border),
+            borderRadius: BorderRadius.circular(0),
+          ) ,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.inputTextColor),
+            borderSide: BorderSide(color: AppColors.border),
             borderRadius: BorderRadius.circular(0),
           ),
         ),

@@ -6,6 +6,7 @@ import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
+import 'package:success_stations/controller/all_add_controller.dart';
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:url_launcher/url_launcher.dart';
 
 class AddPostingScreen extends StatefulWidget {
   const AddPostingScreen({Key? key}) : super(key: key);
@@ -252,6 +254,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+
       backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
           leading: GestureDetector(
@@ -358,6 +361,41 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 
+
+  Widget previousButton2(image, text, Color color, data) {
+    return InkWell(
+      onTap: () {
+        if (image == AppImages.heart) {
+          Get.toNamed('/favourities');
+        } else {
+          launch("tel:${data['phone']}");
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.whitedColor),
+          color: Colors.white,
+        ),
+        height: Get.height * 0.045,
+        // width: 100.w,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(image, width: Get.width * 0.08),
+              SizedBox(
+                width: Get.width * 0.01,
+              ),
+              Text(
+                text,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
   /// Returns the next button.
   Widget nextButton() {
     return Container(
@@ -384,7 +422,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
 
   /// Returns the previous button.
-  Widget previousButton() {
+  Widget previousButton(String whatsapp, String tr, Color color, String s) {
     return Container(
       height: 45,
       width: 130,
@@ -1341,10 +1379,14 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     });
                                   },
                                 ))));
-                  })
+                  }),
+
+
             ],
           ),
-
+          SizedBox(
+            height: Get.height/4,
+          ),
 
         ],
       ),

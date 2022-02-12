@@ -20,6 +20,7 @@ class AppImages {
   static String fb = imagePath + 'facebook.png';
   static String google = imagePath + 'google.png';
   static String man = imagePath + 'man.png';
+  static String tab = imagePath + 'tab.png';
 
   //Drawer Images
   static String handshake = imagePath + 'handshake.png';
@@ -129,6 +130,7 @@ class AppImages {
   static String gridListing = imagePath + 'gridd.png';
   static String plusImage1 = imagePath + 'plus@2x.png';
   static String chating = imagePath + 'chats.png';
+  static String chating1 = imagePath + 'chat.png';
   static String appbar_location = imagePath + 'appbar_location.png';
   static String remove_friend = imagePath + 'remove_request.png';
   static String demo_logo = imagePath + 'demo_logo.png';

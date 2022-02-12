@@ -45,7 +45,7 @@ class _AboutTabState extends State<AboutTab> {
         height: Get.height,
         // padding: EdgeInsets.symmetric(horizontal:10),
         child: ListView(
-          physics: NeverScrollableScrollPhysics(),
+
           children: [
             GetBuilder<UserProfileController> (
               init: UserProfileController(),
