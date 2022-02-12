@@ -6,6 +6,7 @@ import 'package:success_stations/controller/user_profile_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/view/offers/all_offer_detail.dart';
 
+import '../../main.dart';
 import '../shimmer.dart';
 class AdOffers extends StatefulWidget {
   const AdOffers({ Key? key }) : super(key: key);
@@ -46,7 +47,7 @@ class _AdOffersState extends State<AdOffers> {
             )
           ): 
           value.offerDattaTypeCategory != null ?
-          gridView(value.offerDattaTypeCategory['data']): friendReqShimmer();
+          allUsers(value.offerDattaTypeCategory['data']): friendReqShimmer();
         }      
     );
   }
@@ -101,4 +102,55 @@ Widget gridView(offeredList){
       );
     }
   );
+}
+Widget allUsers(offeredList) {
+  return Container(
+      child: GridView.count(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 3,
+          mainAxisSpacing: 0.70,
+          crossAxisSpacing: 0.70,
+          childAspectRatio: Get.width /
+              (Get.height >= 800
+                  ? Get.height * 0.45
+                  : Get.height <= 800
+                  ? lang == 'en'
+                  ? Get.height * 0.5
+                  : Get.height * 0.46
+                  : 0),
+          children: List.generate(offeredList.length, (c) {
+            return GestureDetector(
+              onTap: () {
+                Get.to(MyOfferDetailMain(), arguments: offeredList[c]);
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(00),
+                    topRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0)),
+                child: Container(
+                  // margin:EdgeInsetsDirectional.only(bottom:20),
+                  height: Get.height * 0.18,
+                  width: Get.height * 0.83,
+                  child: offeredList[c]['image'] != null &&
+                      offeredList[c]['image']['url'] != null
+                      ? FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.network(
+                      offeredList[c]['image']['url'],
+                    ),
+                  )
+                      : FittedBox(
+                    fit: BoxFit.cover,
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          })));
 }
