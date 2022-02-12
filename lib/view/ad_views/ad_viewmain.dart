@@ -30,8 +30,8 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     id = Get.arguments;
     userProfile.getUseradProfile(id);
     super.initState();
-  }    
-  
+  }
+
   final List<Tab> myTabs = <Tab>[
     Tab(
       child: Stack(
@@ -39,7 +39,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
           Padding(
             padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.04) :EdgeInsets.only(left:Get.width *0.04),
             child:
-          Text('aboutsu'.tr,style: TextStyle(fontWeight: FontWeight.bold),),),
+            Text('aboutsu'.tr,style: TextStyle(fontWeight: FontWeight.bold),),),
           Padding(
             padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.24) :EdgeInsets.only(left:Get.width *0.24),
             child: Container(height: 20, child: VerticalDivider(color: Colors.black,thickness: 1,)),
@@ -49,17 +49,17 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
     ),
     Tab(
       child:Stack(
-      children: [
-        Padding(
-          padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.04) :EdgeInsets.only(left:Get.width *0.04),
-          child: Text('locationTab1'.tr,style: TextStyle(fontWeight: FontWeight.bold),),
-        ),
-        Padding(
-          padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.24) :EdgeInsets.only(left:Get.width *0.24),
-          child: Container(height: 15, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-        ),
-      ],
-    ),
+        children: [
+          Padding(
+            padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.04) :EdgeInsets.only(left:Get.width *0.04),
+            child: Text('locationTab1'.tr,style: TextStyle(fontWeight: FontWeight.bold),),
+          ),
+          Padding(
+            padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.24) :EdgeInsets.only(left:Get.width *0.24),
+            child: Container(height: 15, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+          ),
+        ],
+      ),
     ),
     Tab(
       child: Stack(
@@ -84,31 +84,31 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: myTabs.length,
-      child: Scaffold(
+        length: myTabs.length,
+        child: Scaffold(
           body: SingleChildScrollView(
             child: Column(
               children: [
                 GetBuilder<UserProfileController>(
                     init: UserProfileController(),
                     builder: (value) {
-                       if(value.userData2 != null && value.userData2['success'] != true ){
-                         name= value.userData2['data']['name'];
-                         print(name);
+                      if(value.userData2 != null && value.userData2['success'] != true ){
+                        name= value.userData2['data']['name'];
+                        print(name);
 
-                         return topImage(value.userData2['data'],myTabs,id,chatCont);
+                        return topImage(value.userData2['data'],myTabs,id,chatCont);
                       }else{
-                      return LinearProgressIndicator();
-                       }
+                        return LinearProgressIndicator();
+                      }
 
                     }
-                  ),
+                ),
 
               ],
             ),
           ),
-        )  
-      );
+        )
+    );
     // );
   }
 }
@@ -127,13 +127,13 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
             children: [
               AppBar(
                 leading: GestureDetector(
-                  onTap: (){
-                    Get.back();
-                  },
-                  child:Padding(
-                    padding:  EdgeInsets.only(bottom: Get.height * 0.05,left: Get.width *0.02,right: Get.width *0.02),
-                    child: ImageIcon(AssetImage(AppImages.imagearrow1),),
-                  )
+                    onTap: (){
+                      Get.back();
+                    },
+                    child:Padding(
+                      padding:  EdgeInsets.only(bottom: Get.height * 0.05,left: Get.width *0.02,right: Get.width *0.02),
+                      child: ImageIcon(AssetImage(AppImages.imagearrow1),),
+                    )
                 ),
                 backgroundColor: Colors.transparent,
               ),
@@ -143,16 +143,16 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
             child: FractionalTranslation(
               translation: lang == 'ar' ? Offset(1.4,1.6) : Offset(-1.4, 1.6),
               child:  userData2 !=null  &&  userData2['image'] != null?
-                CircleAvatar(
-                  backgroundImage: NetworkImage(userData2['image']['url']),
-                  radius: 45.0,
-                )
-              :CircleAvatar(
-                backgroundColor: Colors.grey,
+              CircleAvatar(
+                backgroundImage: NetworkImage(userData2['image']['url']),
                 radius: 45.0,
-                child: Icon(
-                  Icons.person,size: 70,color: Colors.black
-                )
+              )
+                  :CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  radius: 45.0,
+                  child: Icon(
+                      Icons.person,size: 70,color: Colors.black
+                  )
               ),
             ),
           ),
@@ -181,7 +181,10 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                       padding:  EdgeInsets.only(top: 5),
                       child: Text(userData2['name'],style: TextStyle(color:Color(0XFF040404),fontSize: 16,fontWeight: FontWeight.bold),),
                     ),
-                    Text(userData2['name'],style: TextStyle(color:Colors.black,)),
+                    Padding(
+                      padding:  EdgeInsets.only(right: 6.0),
+                      child: Text(userData2['name'],style: TextStyle(color:Colors.black,)),
+                    ),
                   ],
                 ),
                 Row(
@@ -221,7 +224,7 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                   fontSize:14,
                   color: Colors.black,
                 ),
-
+                physics: AlwaysScrollableScrollPhysics(),
                 labelColor: AppColors.appBarBackGroundColor,
                 padding: EdgeInsets.zero,
                 indicatorPadding: EdgeInsets.zero,
@@ -246,12 +249,12 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
 Widget tabBarView(){
   return Expanded(
     child: TabBarView(
-      children: [
-        AboutTab(),
-        LocationTab(),
-        AdListTab(),
-        AdOffers(),
-      ]
+        children: [
+          AboutTab(),
+          LocationTab(),
+          AdListTab(),
+          AdOffers(),
+        ]
     ),
   );
 }
