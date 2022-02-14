@@ -514,9 +514,13 @@ class _FriendListState extends State<FriendList> {
               child: GridView.count(
                   padding: EdgeInsets.only(left: Get.width * 0.005),
                   crossAxisCount: 2,
-                  childAspectRatio: (Get.height < 700
+
+                  childAspectRatio: lang=='en'? (Get.height < 700
                       ? Get.width / Get.height * 1.30
-                      : Get.width / Get.height * 1.4),
+                      : Get.width / Get.height * 1.3):
+                  (Get.height < 700
+                      ? Get.width / Get.height * 1.30
+                      : Get.width / Get.height * 1.3),
                   children: List.generate(
                     newData.length,
                     (index) {
@@ -756,58 +760,62 @@ class _FriendListState extends State<FriendList> {
                                               child: newData[index]['requister']
                                                           ['image'] !=
                                                       null
-                                                  ? ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.asset(
-                                                        AppImages.man,
-                                                        height:
-                                                            Get.height * .03,
-                                                        width: Get.width * .06,
-                                                        fit: BoxFit.fill,
-                                                      ))
-                                                  : ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.asset(
-                                                        AppImages.man,
-                                                        height:
-                                                            Get.height * .03,
-                                                        width: Get.width * .06,
-                                                        fit: BoxFit.fill,
-                                                      ))),
-                                          SizedBox(width: Get.width * 0.006),
+                                                  ? CircleAvatar(
+                                                    child: Image.asset(
+                                                      AppImages.man,
+                                                      height:
+                                                          Get.height * .03,
+                                                      width: Get.width * .06,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )
+                                                  : CircleAvatar(
+                                                    child: Image.asset(
+                                                      AppImages.man,
+                                                      height:
+                                                          Get.height * .03,
+                                                      width: Get.width * .06,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )),
+
                                           Container(
-                                              child: lang=='en'?Text(
+                                              child: lang=='en'?Container(
+                                                width: Get.width*0.2,
+                                                child: Text(
                                             newData[index]['requister']
-                                                        ['university'] !=
-                                                    null
-                                                ? newData[index]['requister']
-                                                    ['university']['name']['en']
-                                                : newData[index]
-                                                            ['user_requisted']
-                                                        ['university']['name']
-                                                    ['en'],
+                                                          ['university'] !=
+                                                      null
+                                                  ? newData[index]['requister']
+                                                      ['university']['name']['en']
+                                                  : newData[index]
+                                                              ['user_requisted']
+                                                          ['university']['name']
+                                                      ['en'],
+                                            maxLines: 2,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.grey),
-                                          ):Text(
-                                                newData[index]['requister']
-                                                ['university'] !=
-                                                    null
-                                                    ? newData[index]['requister']
-                                                ['university']['name']['ar']
-                                                    : newData[index]
-                                                ['user_requisted']
-                                                ['university']['name']
-                                                ['ar'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.grey),
+                                                  fontSize: 13,
+                                                  color: Colors.grey),
+                                          ),
+                                              ):Container(
+                                                width: Get.width*0.2,
+                                                child: Text(
+                                                  newData[index]['requister']
+                                                  ['university'] !=
+                                                      null
+                                                      ? newData[index]['requister']
+                                                  ['university']['name']['ar']
+                                                      : newData[index]
+                                                  ['user_requisted']
+                                                  ['university']['name']
+                                                  ['ar'],
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
                                               )),
                                         ],
                                       ),
