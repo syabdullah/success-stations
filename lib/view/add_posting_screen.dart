@@ -47,10 +47,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   ];
   onSelected(int index) {
     slctedInd = index;
-    slctedInd == 0
-        ? selectedStatus = '1'
-        : selectedStatus = '0';
+    slctedInd == 0 ? selectedStatus = '1' : selectedStatus = '0';
   }
+
   PhoneNumber tttt = PhoneNumber(isoCode: '');
   var number;
   int slctedInd = 0;
@@ -254,7 +253,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-
       backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
           leading: GestureDetector(
@@ -316,51 +314,55 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               }),
           activeStep == 0
               ? Padding(
-                padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
-                child: Row(
+                  padding: EdgeInsets.symmetric(
+                    vertical: Get.width * 0.03,
+                  ),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       saveAsDraftButton(),
                       SizedBox(
-                        width: Get.width*0.03,
+                        width: Get.width * 0.03,
                       ),
                       nextButton(),
                     ],
                   ),
-              )
+                )
               : activeStep == 1
                   ? Padding(
-            padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                saveAsDraftButton(),
-                SizedBox(
-                  width: Get.width*0.03,
-                ),
-                nextButton(),
-              ],
-            ),
-          )
-
+                      padding: EdgeInsets.symmetric(
+                        vertical: Get.width * 0.03,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          saveAsDraftButton(),
+                          SizedBox(
+                            width: Get.width * 0.03,
+                          ),
+                          nextButton(),
+                        ],
+                      ),
+                    )
                   : Padding(
-            padding:  EdgeInsets.symmetric(vertical: Get.width*0.03, ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                saveAsDraftButton(),
-                SizedBox(
-                  width: Get.width*0.03,
-                ),
-                publishButton(),
-              ],
-            ),
-          )
+                      padding: EdgeInsets.symmetric(
+                        vertical: Get.width * 0.03,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          saveAsDraftButton(),
+                          SizedBox(
+                            width: Get.width * 0.03,
+                          ),
+                          publishButton(),
+                        ],
+                      ),
+                    )
         ],
       ),
     );
   }
-
 
   Widget previousButton2(image, text, Color color, data) {
     return InkWell(
@@ -396,16 +398,19 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       ),
     );
   }
+
   /// Returns the next button.
   Widget nextButton() {
     return Container(
       height: 45,
       width: 130,
       // margin: EdgeInsets.symmetric(horizontal: 15),
-      child:
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: AppColors.whitedColor,shape:  RoundedRectangleBorder(
-    borderRadius:  BorderRadius.circular(0.0),)),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            primary: AppColors.whitedColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+            )),
         onPressed: () {
           // Increment activeStep, when the next button is tapped. However, check for upper bound.
           if (activeStep < upperBound && _formKey.currentState!.validate()) {
@@ -419,8 +424,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 
-
-
   /// Returns the previous button.
   Widget previousButton(String whatsapp, String tr, Color color, String s) {
     return Container(
@@ -429,9 +432,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary:Color(0xff404040),
-            shape:  RoundedRectangleBorder(
-              borderRadius:  BorderRadius.circular(0.0),),
+            primary: Color(0xff404040),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+            ),
             textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
         onPressed: () {
           if (activeStep > 0) {
@@ -538,26 +542,26 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width:Get.width/2.15,
+                          width: Get.width / 2.15,
                           // margin: const EdgeInsets.symmetric(horizontal: 10.0),
                           padding: const EdgeInsets.all(2.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border:
-                                Border.all(color: AppColors.border_form, width: 1),
+                            border: Border.all(
+                                color: AppColors.border_form, width: 1),
                           ),
                           child: ButtonTheme(
                               alignedDropdown: true,
                               child: Container(
                                 child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      isExpanded: true,
+                                  isExpanded: true,
                                   hint: Text(
                                       selectedCategory != null
                                           ? selectedCategory
-                                          : "categories".tr,
+                                          : "category".tr,
                                       style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 13,
                                           color: AppColors.inputTextColor)),
                                   // dropdownColor: AppColors.inPutFieldColor,
                                   // icon: Icon(Icons.arrow_drop_down),
@@ -565,82 +569,86 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                     return DropdownMenuItem(
                                         alignment: Alignment.center,
                                         value: coun,
-                                        child: Text(coun['category'][lang] != null
-                                            ? coun['category'][lang]
-                                            : coun['category'][lang] == null
-                                                ? coun['category']['en']
-                                                : ''));
+                                        child:
+                                            Text(coun['category'][lang] != null
+                                                ? coun['category'][lang]
+                                                : coun['category'][lang] == null
+                                                    ? coun['category']['en']
+                                                    : ''));
                                   }).toList(),
                                   onChanged: (val) {
                                     var adCategory;
                                     setState(() {
                                       adCategory = val as Map;
-                                      selectedCategory =
-                                          adCategory['category'][lang] != null
-                                              ? adCategory['category'][lang]
-                                              : adCategory['category'][lang] == null
-                                                  ? adCategory['category']['en']
-                                                  : '';
+                                      selectedCategory = adCategory['category']
+                                                  [lang] !=
+                                              null
+                                          ? adCategory['category'][lang]
+                                          : adCategory['category'][lang] == null
+                                              ? adCategory['category']['en']
+                                              : '';
                                       subtypeId = adCategory['id'];
-                                      type = adCategory['category_listing_types'];
+                                      type =
+                                          adCategory['category_listing_types'];
                                       selectedtype = 'type'.tr;
                                     });
                                   },
                                 )),
                               ))),
                       Container(
-                          width:Get.width/2.15,
+                          width: Get.width / 2.15,
                           // margin: const EdgeInsets.symmetric(horizontal: 10.0),
                           padding: const EdgeInsets.all(2.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border:
-                            Border.all(color: AppColors.border_form, width: 1),
+                            border: Border.all(
+                                color: AppColors.border_form, width: 1),
                           ),
                           child: ButtonTheme(
                               alignedDropdown: true,
                               child: DropdownButtonHideUnderline(
                                   child: Container(
-                                    child: DropdownButton(
-                                      hint: Text(
-                                          selectedtype != null ? selectedtype : 'type'.tr,
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              color: AppColors.inputTextColor)),
-                                      dropdownColor: AppColors.inPutFieldColor,
-                                      icon: Icon(Icons.arrow_drop_down),
-                                      items: type.map((coun) {
-                                        return DropdownMenuItem(
-                                            value: coun,
-                                            child: Text(coun['type'][lang] != null
-                                                ? coun['type'][lang].toString()
-                                                : coun['type'][lang] == null
+                                child: DropdownButton(
+                                  hint: Text(
+                                      selectedtype != null
+                                          ? selectedtype
+                                          : 'type'.tr,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.inputTextColor)),
+                                  dropdownColor: AppColors.inPutFieldColor,
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  items: type.map((coun) {
+                                    return DropdownMenuItem(
+                                        value: coun,
+                                        child: Text(coun['type'][lang] != null
+                                            ? coun['type'][lang].toString()
+                                            : coun['type'][lang] == null
                                                 ? coun['type']['en'].toString()
                                                 : ''));
-                                      }).toList(),
-                                      onChanged: (val) {
-                                        var adsubCategory;
-                                        setState(() {
-                                          adsubCategory = val as Map;
-                                          selectedtype =
-                                          adsubCategory['type'][lang] != null
-                                              ? adsubCategory['type'][lang]
-                                              : adsubCategory['type'][lang] == null
+                                  }).toList(),
+                                  onChanged: (val) {
+                                    var adsubCategory;
+                                    setState(() {
+                                      adsubCategory = val as Map;
+                                      selectedtype = adsubCategory['type']
+                                                  [lang] !=
+                                              null
+                                          ? adsubCategory['type'][lang]
+                                          : adsubCategory['type'][lang] == null
                                               ? adsubCategory['type']['en']
                                               : '';
-                                          typeId = adsubCategory['id'];
-                                        });
-                                      },
-                                    ),
-                                  )))),
+                                      typeId = adsubCategory['id'];
+                                    });
+                                  },
+                                ),
+                              )))),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-
-
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
@@ -702,9 +710,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       return null;
                     },
                     style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 18,
-                       ),
+                      color: Colors.grey[400],
+                      fontSize: 18,
+                    ),
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -736,7 +744,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 SizedBox(
                   height: 10,
                 ),
-               /* Container(
+                /* Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     padding: const EdgeInsets.all(2.0),
                     decoration: BoxDecoration(
@@ -781,12 +789,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
-mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding:  EdgeInsets.only(left:Get.width*0.01),
+                        padding: EdgeInsets.only(left: Get.width * 0.01),
                         child: Container(
-                          width: Get.width /2.2,
+                          width: Get.width / 2.2,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(color: AppColors.border_form)),
@@ -806,9 +814,9 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       return null;
                                     },
                                     style: TextStyle(
-                                        color: AppColors.inputTextColor,
-                                        fontSize: 18,
-                                      ),
+                                      color: AppColors.inputTextColor,
+                                      fontSize: 18,
+                                    ),
                                     decoration: InputDecoration(
                                       filled: true,
                                       fillColor: AppColors.white,
@@ -816,84 +824,90 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           left: 15, right: 10, top: 15),
                                       hintText: "price".tr,
                                       hintStyle: TextStyle(
-                                          fontSize: 14, color: Colors.grey[400]),
+                                          fontSize: 14,
+                                          color: Colors.grey[400]),
                                       disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(0.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(0.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(0.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
                                       ),
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(0.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.transparent),
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Flexible(
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                        border: Border(
-                                          left: BorderSide(color: AppColors.border_form),
-                                          right: BorderSide(color: AppColors.border_form),
-                                        ),),
-                                      child: ButtonTheme(
-                                          alignedDropdown: true,
-                                          child: Container(
-                                            child: DropdownButtonHideUnderline(
-                                                child: DropdownButton(
-                                              hint: Text(
-                                                  selectedStatus == null
-                                                      ? 'SAR'.tr
-                                                      : selectedStatus == '1'
-                                                          ? 'SAR'
-                                                          : 'SAR',
-                                                  style: TextStyle(
-                                                      fontSize: 13,
-                                                      color: AppColors
-                                                          .inputTextColor)),
-                                              dropdownColor:
-                                                  AppColors.inPutFieldColor,
-                                              icon: Icon(Icons.arrow_drop_down),
-                                              items: <String>['SAR', 'SAR']
-                                                  .map((String value) {
-                                                return DropdownMenuItem(
-                                                    value: value,
-                                                    child: Text(value));
-                                              }).toList(),
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  selectedStatus = value;
-                                                  value == 'New'.tr
-                                                      ? selectedStatus = '1'
-                                                      : selectedStatus = '0';
-                                                });
-                                              },
-                                            )),
-                                          )),
-                                    )),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border(
+                                      left: BorderSide(
+                                          color: AppColors.border_form),
+                                      right: BorderSide(
+                                          color: AppColors.border_form),
+                                    ),
+                                  ),
+                                  child: ButtonTheme(
+                                      alignedDropdown: true,
+                                      child: Container(
+                                        child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                          hint: Text(
+                                              selectedStatus == null
+                                                  ? 'SAR'.tr
+                                                  : selectedStatus == '1'
+                                                      ? 'SAR'
+                                                      : 'SAR',
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: AppColors
+                                                      .inputTextColor)),
+                                          dropdownColor:
+                                              AppColors.inPutFieldColor,
+                                          icon: Icon(Icons.arrow_drop_down),
+                                          items: <String>['SAR', 'SAR']
+                                              .map((String value) {
+                                            return DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value));
+                                          }).toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedStatus = value;
+                                              value == 'New'.tr
+                                                  ? selectedStatus = '1'
+                                                  : selectedStatus = '0';
+                                            });
+                                          },
+                                        )),
+                                      )),
+                                )),
                               ],
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(
-                           ),
+                        margin: EdgeInsets.only(),
                         height: Get.height * 0.045,
-                        width: Get.width/2.2,
-
+                        width: Get.width / 2.2,
                         child: Center(
                           child: ListView.builder(
                               shrinkWrap: true,
@@ -918,10 +932,12 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       color: Colors.white,
                                       //Colors.blue[100],
                                       border: Border.all(
-                                        color:  slctedInd != null && slctedInd == index
+                                        color: slctedInd != null &&
+                                                slctedInd == index
                                             ? AppColors.appBarBackGroundColor
                                             : AppColors.border,
-                                        width:slctedInd != null && slctedInd == index
+                                        width: slctedInd != null &&
+                                                slctedInd == index
                                             ? 2
                                             : 1,
                                       ),
@@ -933,8 +949,8 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 15,
-                                              color:index==0?
-                                                   AppColors.new_color
+                                              color: index == 0
+                                                  ? AppColors.new_color
                                                   : AppColors.border,
                                             )),
                                       ),
@@ -944,7 +960,6 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               }),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -952,6 +967,8 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   height: 15,
                 ),
                 Container(
+                  height: Get.height / 3.5,
+                  width: Get.width / 1.1,
                   decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(12)),
@@ -960,35 +977,75 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     borderType: BorderType.RRect,
                     radius: Radius.circular(12),
                     padding: EdgeInsets.all(6),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: Container(
-                        height: Get.height / 3.5,
-                        width: Get.width / 1.1,
-                        child: Center(
-                          child: GestureDetector(
-                              onTap: () {
-                                getImage();
-                              },
-                              child: fileName != null
-                                  ? Image.file(
-                                      File(image),
-                                      fit: BoxFit.fitWidth,
-                                      width: Get.width / 1.1,
-                                      height: Get.height / 3.5,
-                                    )
-                                  : editImage != null
-                                      ? Image.network(
-                                          editImage,
-                                          fit: BoxFit.fill,
-                                          width: Get.width / 1.1,
-                                          height: Get.height / 3.5,
-                                        )
-                                      : Image.asset(
-                                          AppImages.uploadImage,
-                                          height: 90,
-                                        )),
-                        ),
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 1,
+                                itemExtent: 95.0,
+                                itemBuilder:
+                                    (BuildContext context, int index) => Stack(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: Get.height * 0.01),
+                                      child: fileName != null
+                                          ? Image.file(
+                                              File(image),
+                                              fit: BoxFit.fitWidth,
+                                              width: Get.height * 0.1,
+                                              height: Get.height * 0.1,
+                                            )
+                                          : editImage != null
+                                              ? Image.network(
+                                                  editImage,
+                                                  fit: BoxFit.fill,
+                                                  width: Get.height * 0.1,
+                                                  height: Get.height * 0.1,
+                                                )
+                                              : SizedBox.shrink(),
+                                    ),
+                                    fileName != null || editImage != null
+                                        ? Positioned(
+                                            right: -1,
+                                            top: -1,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  fileName = null;
+                                                  editImage = null;
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                AppImages.call,
+                                                height: Get.height * 0.035,
+                                              ),
+                                            ))
+                                        : SizedBox.shrink(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: GestureDetector(
+                                onTap: () {
+                                  getImage();
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: Get.height * 0.02),
+                                  child: Image.asset(
+                                    AppImages.uploadImage,
+                                    height: 90,
+                                  ),
+                                )),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -1072,84 +1129,86 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 color: AppColors.inputTextColor,
                 fontSize: 13,
               ),
-                decoration: InputDecoration(
-                  counterText: "",
-                  fillColor: Colors.white,
-                  filled: true,
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-                  hintText: "emails".tr,
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0.0),
-                    borderSide: BorderSide(color: AppColors.border_form),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0.0),
-                    borderSide: BorderSide(color: AppColors.border_form),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0.0),
-                    borderSide: BorderSide(color: AppColors.border_form),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0.0),
-                    borderSide: BorderSide(color: AppColors.border_form),
-                  ),
+              decoration: InputDecoration(
+                counterText: "",
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                hintText: "emails".tr,
+                hintStyle: TextStyle(color: Colors.grey[400]),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                  borderSide: BorderSide(color: AppColors.border_form),
+                ),
+              ),
             ),
           ),
           SizedBox(
             height: 5,
           ),
-        Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(0),
-                border: Border.all(color: AppColors.border_form)),
-
-            child: Padding(
-              padding: const EdgeInsets.only(left: 5,),
-              child: InternationalPhoneNumberInput(
-                focusNode: FocusNode(),
-                cursorColor: AppColors.whitedColor,
-                autoFocus: false,
-                inputDecoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: InputBorder.none,
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0),
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0),
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
-                  // hintText: "mobilee".tr,
-                  // hintStyle: TextStyle(
-                  //     fontSize: lang == 'ar' ? 14 : 16,
-                  //     color: AppColors.inputTextColor),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(0),
+                  border: Border.all(color: AppColors.border_form)),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 5,
                 ),
-                onInputChanged: (PhoneNumber numberr) {
-                  number = numberr;
-                },
-                onInputValidated: (bool value) {},
-                selectorConfig: SelectorConfig(
-                  selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                child: InternationalPhoneNumberInput(
+                  focusNode: FocusNode(),
+                  cursorColor: AppColors.whitedColor,
+                  autoFocus: false,
+                  inputDecoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 19,
+                        bottom: 10),
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: InputBorder.none,
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    // hintText: "mobilee".tr,
+                    // hintStyle: TextStyle(
+                    //     fontSize: lang == 'ar' ? 14 : 16,
+                    //     color: AppColors.inputTextColor),
+                  ),
+                  onInputChanged: (PhoneNumber numberr) {
+                    number = numberr;
+                  },
+                  onInputValidated: (bool value) {},
+                  selectorConfig: SelectorConfig(
+                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                  ),
+                  ignoreBlank: false,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  selectorTextStyle: TextStyle(color: Colors.black),
+                  textFieldController: mobileNoController,
+                  formatInput: true,
+                  inputBorder: OutlineInputBorder(),
+                  onSaved: (PhoneNumber number) {},
+                  initialValue: tttt,
                 ),
-                ignoreBlank: false,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                selectorTextStyle: TextStyle(color: Colors.black),
-                textFieldController: mobileNoController,
-                formatInput: true,
-                inputBorder: OutlineInputBorder(),
-                onSaved: (PhoneNumber number) {},
-                initialValue: tttt,
-              ),
-            )),
+              )),
 
           // Container(
           //   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -1225,7 +1284,6 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   height: 5,
           // ),
 
-
           // SizedBox(
           //   height: 8,
           // ),
@@ -1288,11 +1346,16 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   init: ContryController(),
                   builder: (val) {
                     return Container(
-                        margin:lang=="ar"? EdgeInsets.only(right: 10,): EdgeInsets.only(left: 10,),
-                        width: Get.width/2.2,
+                        margin: lang == "ar"
+                            ? EdgeInsets.only(
+                                right: 10,
+                              )
+                            : EdgeInsets.only(
+                                left: 10,
+                              ),
+                        width: Get.width / 2.2,
                         decoration: BoxDecoration(
                             color: AppColors.white,
-
                             border: Border.all(color: AppColors.border_form),
                             borderRadius: BorderRadius.circular(0.0)),
                         child: ButtonTheme(
@@ -1303,8 +1366,8 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   hintRegionText != null
                                       ? hintRegionText
                                       : "region".tr,
-                                  style:
-                                      TextStyle(fontSize: 13, color: Colors.grey)),
+                                  style: TextStyle(
+                                      fontSize: 13, color: Colors.grey)),
                               dropdownColor: AppColors.inPutFieldColor,
                               icon: Icon(Icons.arrow_drop_down),
                               items: val.regionListdata.map((reg) {
@@ -1323,7 +1386,8 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 setState(() {
                                   mapRegion = data as Map;
                                   print("map region.....$mapRegion");
-                                  hintRegionText = mapRegion['region'][lang] != null
+                                  hintRegionText = mapRegion['region'][lang] !=
+                                          null
                                       ? mapRegion['region'][lang].toString()
                                       : mapRegion['region'][lang] == null
                                           ? mapRegion['region']['en'].toString()
@@ -1338,56 +1402,61 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   init: ContryController(),
                   builder: (val) {
                     return Container(
-                        margin:lang=="ar"? EdgeInsets.only(left: 10,): EdgeInsets.only(right: 10,),
-                        width: Get.width /2.2,
+                        margin: lang == "ar"
+                            ? EdgeInsets.only(
+                                left: 10,
+                              )
+                            : EdgeInsets.only(
+                                right: 10,
+                              ),
+                        width: Get.width / 2.2,
                         decoration: BoxDecoration(
                             color: AppColors.white,
-                            border: Border.all(color:AppColors.border_form),
+                            border: Border.all(color: AppColors.border_form),
                             borderRadius: BorderRadius.circular(0.0)),
                         child: ButtonTheme(
                             alignedDropdown: true,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                  hint: Text(
-                                      hintcityText != null ? hintcityText : "city".tr,
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: AppColors.inputTextColor)),
-                                  dropdownColor: AppColors.inputColor,
-                                  icon: Icon(Icons.arrow_drop_down),
-                                  items: val.cityListData.map((citt) {
-                                    return DropdownMenuItem(
-                                        value: citt,
-                                        child: Text(citt['city'][lang] != null
-                                            ? citt['city'][lang].toString()
-                                            : citt['city']['en'] == null
+                              hint: Text(
+                                  hintcityText != null
+                                      ? hintcityText
+                                      : "city".tr,
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: AppColors.inputTextColor)),
+                              dropdownColor: AppColors.inputColor,
+                              icon: Icon(Icons.arrow_drop_down),
+                              items: val.cityListData.map((citt) {
+                                return DropdownMenuItem(
+                                    value: citt,
+                                    child: Text(citt['city'][lang] != null
+                                        ? citt['city'][lang].toString()
+                                        : citt['city']['en'] == null
                                             ? citt['city']['ar'].toString()
                                             : citt['city']['ar'] == null
-                                            ? citt['city']['en'].toString()
-                                            : ''));
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      var mapCity;
-                                      mapCity = value as Map;
-                                      hintcityText = mapCity['city'][lang] != null
-                                          ? mapCity['city'][lang].toString()
-                                          : mapCity['city'][lang] == null
+                                                ? citt['city']['en'].toString()
+                                                : ''));
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  var mapCity;
+                                  mapCity = value as Map;
+                                  hintcityText = mapCity['city'][lang] != null
+                                      ? mapCity['city'][lang].toString()
+                                      : mapCity['city'][lang] == null
                                           ? mapCity['city']['en'].toString()
                                           : '';
-                                      selectedCity = mapCity['id'];
-                                    });
-                                  },
-                                ))));
+                                  selectedCity = mapCity['id'];
+                                });
+                              },
+                            ))));
                   }),
-
-
             ],
           ),
           SizedBox(
-            height: Get.height/4,
+            height: Get.height / 4,
           ),
-
         ],
       ),
     );
@@ -1397,139 +1466,138 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
     return Column(
       children: [
         fileName != null
-            ?Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(2),
-              child: Container(
-                width: Get.width / 1.0,
-                height: Get.height * 0.45,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: AppColors.outline)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25, vertical: 8.0),
-                  child: Image.file(File(image),
+            ? Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Container(
                       width: Get.width / 1.0,
-                      height: Get.height * 0.40,
-                      fit: BoxFit.fill),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              right: 5,
-              left: 5,
-              child: Center(
-                child: Container(
-                  width: Get.width,
-                  height: Get.height * 0.10,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.grey),
-                      color: Colors.black.withOpacity(0.3)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 3),
-                    child: Row(
-                      children: [
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[0],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill)),
-                        SizedBox(width: Get.width * 0.01),
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[1],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill)),
-                        SizedBox(width: Get.width * 0.01),
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[2],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill))
-                      ],
+                      height: Get.height * 0.45,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppColors.outline)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 8.0),
+                        child: Image.file(File(image),
+                            width: Get.width / 1.0,
+                            height: Get.height * 0.40,
+                            fit: BoxFit.fill),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
-          ],
-        )
+                  Positioned(
+                    bottom: 10,
+                    right: 5,
+                    left: 5,
+                    child: Center(
+                      child: Container(
+                        width: Get.width,
+                        height: Get.height * 0.10,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.grey),
+                            color: Colors.black.withOpacity(0.3)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 3),
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: Get.height * 0.90,
+                                  width: Get.width * 0.20,
+                                  child: Image.network(ImagesAdds[0],
+                                      height: Get.height * 0.20,
+                                      fit: BoxFit.fill)),
+                              SizedBox(width: Get.width * 0.01),
+                              Container(
+                                  height: Get.height * 0.90,
+                                  width: Get.width * 0.20,
+                                  child: Image.network(ImagesAdds[1],
+                                      height: Get.height * 0.20,
+                                      fit: BoxFit.fill)),
+                              SizedBox(width: Get.width * 0.01),
+                              Container(
+                                  height: Get.height * 0.90,
+                                  width: Get.width * 0.20,
+                                  child: Image.network(ImagesAdds[2],
+                                      height: Get.height * 0.20,
+                                      fit: BoxFit.fill))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
             : editImage != null
                 ? Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(2),
-              child: Container(
-                width: Get.width / 1.0,
-                height: Get.height * 0.45,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: AppColors.outline)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25, vertical: 8.0),
-                  child: Image.network(editImage,
-                      width: Get.width / 1.0,
-                      height: Get.height * 0.40,
-                      fit: BoxFit.fill),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              right: 5,
-              left: 5,
-              child: Center(
-                child: Container(
-                  width: Get.width,
-                  height: Get.height * 0.10,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.grey),
-                      color: Colors.black.withOpacity(0.3)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 5.0, horizontal: 3),
-                    child: Row(
-                      children: [
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[0],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill)),
-                        SizedBox(width: Get.width * 0.01),
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[1],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill)),
-                        SizedBox(width: Get.width * 0.01),
-                        Container(
-                            height: Get.height * 0.90,
-                            width: Get.width * 0.20,
-                            child: Image.network(ImagesAdds[2],
-                                height: Get.height * 0.20,
-                                fit: BoxFit.fill))
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        )
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Container(
+                          width: Get.width / 1.0,
+                          height: Get.height * 0.45,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: AppColors.outline)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 8.0),
+                            child: Image.network(editImage,
+                                width: Get.width / 1.0,
+                                height: Get.height * 0.40,
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 5,
+                        left: 5,
+                        child: Center(
+                          child: Container(
+                            width: Get.width,
+                            height: Get.height * 0.10,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.grey),
+                                color: Colors.black.withOpacity(0.3)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 3),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      height: Get.height * 0.90,
+                                      width: Get.width * 0.20,
+                                      child: Image.network(ImagesAdds[0],
+                                          height: Get.height * 0.20,
+                                          fit: BoxFit.fill)),
+                                  SizedBox(width: Get.width * 0.01),
+                                  Container(
+                                      height: Get.height * 0.90,
+                                      width: Get.width * 0.20,
+                                      child: Image.network(ImagesAdds[1],
+                                          height: Get.height * 0.20,
+                                          fit: BoxFit.fill)),
+                                  SizedBox(width: Get.width * 0.01),
+                                  Container(
+                                      height: Get.height * 0.90,
+                                      width: Get.width * 0.20,
+                                      child: Image.network(ImagesAdds[2],
+                                          height: Get.height * 0.20,
+                                          fit: BoxFit.fill))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
                 : Container(),
         Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1568,13 +1636,10 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
                 ),
               ),
-              SizedBox(
-                height: Get.height * 0.01,
-                width: Get.width
-              ),
+              SizedBox(height: Get.height * 0.01, width: Get.width),
               Container(
-    width: Get.width,
-    decoration: BoxDecoration(
+                width: Get.width,
+                decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: AppColors.grey)),
                 child: Column(
@@ -1621,8 +1686,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1658,8 +1722,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1703,8 +1766,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1740,8 +1802,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1785,8 +1846,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1811,7 +1871,6 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               ),
                             ),
                           )
-
                         ],
                       ),
                     ),
@@ -1823,8 +1882,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         color: Colors.white,
                         border: Border.all(color: Colors.black26)),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1863,8 +1921,6 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
               SizedBox(
                 height: Get.height * 0.01,
               ),
-
-
             ],
           ),
         ),
@@ -2067,10 +2123,13 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
       // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary:AppColors.whitedColor,
-            shape:  RoundedRectangleBorder(
-              borderRadius:  BorderRadius.circular(0.0),),
-            textStyle: TextStyle(fontSize: 13,)),
+            primary: AppColors.whitedColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+            ),
+            textStyle: TextStyle(
+              fontSize: 13,
+            )),
         onPressed: () {
           editData == null ? adpost() : editpost();
         },
@@ -2087,9 +2146,12 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xff404040),
-          shape:  RoundedRectangleBorder(
-            borderRadius:  BorderRadius.circular(0.0),),
-            textStyle: TextStyle(fontSize: 13,)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+            ),
+            textStyle: TextStyle(
+              fontSize: 13,
+            )),
         onPressed: () {
           addraft();
         },
