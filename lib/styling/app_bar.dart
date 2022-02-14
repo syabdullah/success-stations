@@ -35,7 +35,7 @@ var dis,
     position,
     decideRouter,
     array = [],
-    filteredIndex = 0;
+    filteredIndex = -1;
 
 var statusFiltered, status;
 var namearray = [];
@@ -83,7 +83,7 @@ idSended() {
   offerFilterCont.offerFilter(createFilterjson);
 }
 
-var bottomSheetCategory = 0;
+var bottomSheetCategory = -1;
 
 void _getUserLocation() async {
   position = await GeolocatorPlatform.instance
