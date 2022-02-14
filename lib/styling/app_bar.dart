@@ -668,7 +668,7 @@ Widget favAdds(
             AppImages.appBarLogo,
             height: 40,
           ),
-          backgroundColor: AppColors.whitedColor,
+          backgroundColor: AppColors.white,
         )
       : AppBar(
           automaticallyImplyLeading: false,
