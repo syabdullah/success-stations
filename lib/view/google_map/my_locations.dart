@@ -43,7 +43,7 @@ class _MyLocationsState extends State<MyLocations> {
         title: Container(
             // margin: EdgeInsets.only(top: 12),
             child: Text(
-          "Our Location",
+          "location".tr,
           style: TextStyle(
               fontSize: 18,
               color: Colors.black,
@@ -52,7 +52,7 @@ class _MyLocationsState extends State<MyLocations> {
         )),
         centerTitle: true,
         leading: Container(
-            margin: EdgeInsets.only(left: 7),
+            margin: lang == 'ar' ?EdgeInsets.only(right: 7):EdgeInsets.only(left: 7),
             child: GestureDetector(
                 onTap: () {
                   _scaffoldKey.currentState!.openDrawer();
@@ -225,27 +225,31 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                   )),
                                 ),
                                 SizedBox(height: Get.height * 0.005),
-                                Container(
-                                  width: Get.width/2,
-                                  child: ReadMoreText(
-                                    data[index]['formated_address'] != null
-                                        ? data[index]['formated_address']
-                                        : '',
-                                    trimLines: 2,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: 'Show More',
+         Container(
+        width: lang == "ar"?Get.width/1.92:Get.width/2,
+        child: Padding(
+        padding:lang == "ar"?EdgeInsets.only(left: Get.width*0.1):EdgeInsets.only(),
+                                    child: ReadMoreText(
+                                      data[index]['formated_address'] != null
+                                          ? data[index]['formated_address']
+                                          : '',
+                                      trimLines: 2,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: 'Show More',
 
-                                    trimExpandedText: 'Show less',
-                                    textAlign: TextAlign.left,
-                                    colorClickableText:
-                                        AppColors.whitedColor,
-                                    style: TextStyle(
-                                        fontFamily: "Source_Sans_Pro",
-                                        color: Colors.black,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400),
+                                      trimExpandedText: 'Show less',
+                                      textAlign: TextAlign.left,
+                                      colorClickableText:
+                                          AppColors.whitedColor,
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                 ),
+
                               ],
                             ),
                           ),

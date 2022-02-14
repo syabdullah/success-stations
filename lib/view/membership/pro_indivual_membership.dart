@@ -218,7 +218,7 @@ List<String> prize = [
                 ),
                                         Padding(
                                           padding:  EdgeInsets.only(bottom: Get. height <400 ?Get. height * 0.038:Get. height * 0.03),
-                                          child: Text("SAR",
+                                          child: Text("sar".tr,
                                               style: TextStyle(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.bold,

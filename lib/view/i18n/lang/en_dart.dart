@@ -50,7 +50,7 @@ const Map<String, String> en = {
   "new_password": "New password",
   "confirm_password": "Confirm Password",
   "submit": "Submit",
-  "location": "Our Locations",
+  "location": "Our Location",
   "locationTab": "Location",
   "locationTab1": "Branches",
   "password_recovered": "Password Recovered",

@@ -322,7 +322,7 @@ class _MyOffersDetailState extends State<OffersDetail> {
                                   delete.deleteOfferController(listFavou[c]['id']);
                                 },
                                 child: Padding(
-                                  padding:  lang == 'ar' ?EdgeInsets.only(right: Get.width *0.02,left: Get.width *0.02,bottom: Get.width *0.014):EdgeInsets.only(right: Get.width *0.02,left: Get.width *0.02,bottom: Get.width *0.014),
+                                  padding:  lang == 'ar' ?EdgeInsets.only(left: Get.width *0.01,bottom: Get.width *0.013):EdgeInsets.only(right: Get.width *0.02,left: Get.width *0.02,bottom: Get.width *0.011),
                                   child: Image.asset(AppImages.delete_offer,height: Get.height*0.030),
                                 )
                               )

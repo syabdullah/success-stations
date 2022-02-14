@@ -76,6 +76,7 @@ const Map<String, String> ar = {
   "emailAdd": "أدخل عنوان البريد الإلكتروني",
   "location": "موقعنا",
   "locationTab": "العناوين",
+  "locationTab1":"الفروع",
   "offerTab": "العروض",
   "login_can": "يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك",
   "back_to": "العودة الى",

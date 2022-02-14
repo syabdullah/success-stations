@@ -121,7 +121,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         ? EdgeInsets.only(top: 20)
                         : EdgeInsets.only(top: 20),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {getImage();},
                       child: Stack(
                         children: [
                           SizedBox(
@@ -129,7 +129,6 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              getImage();
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -95,7 +95,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       ),
                       Padding(
                         padding: lang == 'ar' ?  EdgeInsets.only(left: Get.width * 0.30) :  EdgeInsets.only(right: Get.width * 0.30),
-                        child: Text("View Profile",style: TextStyle(fontSize: 16,color: Color(0xFF898989)),),
+                        child: Text("viewprofile".tr,style: TextStyle(fontSize: 16,color: Color(0xFF898989)),),
                       ),
                       Row(children: [
                         // SizedBox(width: Get.width * 0.015),
@@ -129,7 +129,21 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                 space50,
                 Padding(
                   padding:  EdgeInsets.all(Get.width * 0.03),
-                  child: Text("""There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look eve........""",style:  TextStyle(fontSize: 18),),
+                  child:Container(
+    margin: EdgeInsets.only(left: 14, right: 10),
+    alignment: Alignment.topLeft,
+    child: idIdId['description'] != null
+    ? Text(
+    idIdId['description'][lang] != null
+    ? idIdId['description'][lang]
+        : idIdId['description'][lang] ==
+    null
+    ? idIdId['description']['en']
+        : '',
+    style: TextStyle(
+    color: Colors.black, fontSize: 14),
+    )
+        : Container()),
                 )
               ],
             )

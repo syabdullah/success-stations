@@ -11,7 +11,8 @@ import 'package:success_stations/view/ad_views/add_offer_tab.dart';
 import 'package:success_stations/view/ad_views/adtab.dart';
 import 'package:success_stations/view/ad_views/location_tab.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+
 
 import '../../main.dart';
 
@@ -37,12 +38,12 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
       child: Stack(
         children: [
           Padding(
-            padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.04) :EdgeInsets.only(left:Get.width *0.04),
+            padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.08) :EdgeInsets.only(left:Get.width *0.04),
             child:
             Text('aboutsu'.tr,style: TextStyle(fontWeight: FontWeight.bold),),),
           Padding(
             padding: lang == 'ar' ? EdgeInsets.only(right:Get.width *0.24) :EdgeInsets.only(left:Get.width *0.24),
-            child: Container(height: 20, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+            child: Container(height: 15, child: VerticalDivider(color: Colors.black,thickness: 1,)),
           ),
         ],
       ),
@@ -65,7 +66,7 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
       child: Stack(
         children: [
           Padding(
-            padding:  lang == 'ar' ? EdgeInsets.only(right:Get.width *0.08) :EdgeInsets.only(left:Get.width *0.08),
+            padding:  lang == 'ar' ? EdgeInsets.only(right:Get.width *0.03) :EdgeInsets.only(left:Get.width *0.08),
             child: Text('ads'.tr,style: TextStyle(fontWeight: FontWeight.bold),),
           ),
           Padding(
@@ -183,16 +184,17 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                     ),
                     Padding(
                       padding:  EdgeInsets.only(right: 6.0),
-                      child: Text(userData2['name'],style: TextStyle(color:Colors.black,)),
+                      child: Text("",style: TextStyle(color:Colors.black,)),
                     ),
                   ],
                 ),
                 Row(
                   children: [
                     Padding(
-                      padding:  EdgeInsets.only(left: 38.0),
+                      padding: lang == 'ar'? EdgeInsets.only(right: 38.0): EdgeInsets.only(left: 38.0),
                       child: InkWell(child: Image.asset(AppImages.callerImage, height: Get.height * 0.035),onTap: ()  {
-                        launch("tel:123456789");
+                        var number = userData2['mobile'];
+                        UrlLauncher.launch('tel: $number');
                       },),
                     ),
                     SizedBox(width: Get.width * 0.015),
@@ -207,12 +209,11 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                     InkWell(child: Image.asset(AppImages.whatsapp, height: Get.height * 0.035),onTap: (){
                       const url = "https://wa.me/?text=Your Message here";
                       var encoded = Uri.encodeFull(url);
-                      launch(encoded);
+                      UrlLauncher.launch(encoded);
                     },),
                     SizedBox(width: Get.width * 0.015),
                   ],
                 ),
-
               ],
             ),
             Divider(),
@@ -224,14 +225,14 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                   fontSize:14,
                   color: Colors.black,
                 ),
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
+                isScrollable: false,
                 labelColor: AppColors.appBarBackGroundColor,
                 padding: EdgeInsets.zero,
-                indicatorPadding: EdgeInsets.zero,
                 labelPadding: EdgeInsets.symmetric(horizontal: 2.0),
                 labelStyle: TextStyle(
                   // fontFamily: "Roboto",
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700),
                 indicatorColor: Colors.transparent,
                 tabs: myTabs,
