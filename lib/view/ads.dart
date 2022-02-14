@@ -121,7 +121,7 @@ class _AdsViewState extends State<AdsView> {
                             data.offerDataList['data'] != null
                         ? offerList(
                             Get.height / 4.3,
-                            Get.width / 2.9,
+                            Get.height<700?Get.width / 3.3 :Get.width / 2.8,
                             Get.width < 420 ? Get.height / 5.9 : Get.height / 6.1,
                             data.offerDataList['data'])
                         : offerlist.resultInvalid.isTrue
@@ -399,32 +399,33 @@ class _AdsViewState extends State<AdsView> {
           itemBuilder: (BuildContext context, index) {
             return Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(2),
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.to(MyOfferDetailMain(), arguments: data[index]);
-                    },
-                    child: Card(
-                      elevation: 2,
-                      child: Container(decoration: BoxDecoration(
-                        border: Border.all(width: 2,color: Colors.white)
-                      ),
-                          width: imageW,
-                          height: imageH,
-                          child: data[index]['media'].length != 0 &&
-                                  data[index]['media'][0]['url'] != null
-                              ? Image.network(
+                GestureDetector(
+                  onTap: () {
+                    Get.to(MyOfferDetailMain(), arguments: data[index]);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    child: Container(
+                        decoration: BoxDecoration(
+                      border: Border.all(color:AppColors.border)
+                    ),
+                        width: imageW,
+                        height: imageH,
+                        child: data[index]['media'].length != 0 &&
+                                data[index]['media'][0]['url'] != null
+                            ? Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Image.network(
                                   data[index]['media'][0]['url'],
                                   fit: BoxFit.cover,
-                                )
-                              : Container(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 50,
-                                  ),
-                                )),
-                    ),
+                                ),
+                            )
+                            : Container(
+                                child: Icon(
+                                  Icons.image,
+                                  size: 50,
+                                ),
+                              )),
                   ),
                 ),
                 // Container(
@@ -453,13 +454,14 @@ class _AdsViewState extends State<AdsView> {
           ? Get.height < 700
               ? Get.height / 2.2
               : Get.width < 420
-                  ? Get.height / 2.8
+                  ? Get.height / 2.75
                   : Get.height / 4.35
           : Get.height < 700
-              ? Get.height / 3.2
+              ? Get.height /2.2
               : Get.width < 420
-                  ? Get.height / 2.8
+                  ? Get.height / 2.75
                   : Get.height / 4.35,
+
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
@@ -476,155 +478,182 @@ class _AdsViewState extends State<AdsView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height:
-                      Get.height < 700 ?Get.width * 0.29 : Get.width * 0.48,
-                      child: data[index]['image'].length != 0
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                  data[index]['image'][0]['url'],
-                                  width: Get.width < 420
-                                      ? Get.width / 3.1
-                                      : Get.width / 3.3,
-                                  height: Get.width < 420
-                                      ? Get.height / 4.8
-                                      : Get.height / 9.5,
-                                  fit: BoxFit.fill),
-                            )
-                          : Container(
-                              child: Icon(Icons.image, size: 50),
-                            ),
-                    ),
-                    Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+                child: Container(
+                  width: Get.width*0.4,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Container(
-                        //     margin: lang == 'ar'
-                        //         ? EdgeInsets.only(top: 5, right: 5)
-                        //         : EdgeInsets.only(top: 5, left: 5),
-                        //     child: data[index]['is_rated'] == false
-                        //         ? RatingBar.builder(
-                        //             initialRating:
-                        //                 data[index]['rating'].toDouble(),
-                        //             minRating: 1,
-                        //             direction: Axis.horizontal,
-                        //             allowHalfRating: true,
-                        //             itemCount: 5,
-                        //             itemSize: 18.0,
-                        //             itemBuilder: (context, _) => Icon(
-                        //               Icons.star,
-                        //               color: Colors.amber,
-                        //             ),
-                        //             onRatingUpdate: (rating) {
-                        //               var ratingjson = {
-                        //                 'ads_id': data[index]['id'],
-                        //                 'rate': rating
-                        //               };
-                        //               ratingcont.ratings(ratingjson);
-                        //             },
-                        //           )
-                        //         : RatingBar.builder(
-                        //             initialRating:
-                        //                 data[index]['rating'].toDouble(),
-                        //             ignoreGestures: true,
-                        //             minRating: 1,
-                        //             direction: Axis.horizontal,
-                        //             allowHalfRating: true,
-                        //             itemCount: 5,
-                        //             itemSize: 22.5,
-                        //             itemBuilder: (context, _) => Icon(
-                        //               Icons.star,
-                        //               color: Colors.amber,
-                        //             ),
-                        //             onRatingUpdate: (rating) {},
-                        //           )),
+                        Container(
+                          height:
+                          Get.height < 700 ?Get.width * 0.46 : Get.width * 0.46,
 
-                        Padding(
-                          padding:  EdgeInsets.only(left: 5,right: 5),
-                          child: Container(
-                              margin: lang == 'ar'
-                                  ? EdgeInsets.only(top: 5, right: 5)
-                                  : EdgeInsets.only(top: 5, left: 5),
-                              child: data[index]['is_rated'] == false
-                                  ? Text("name of author",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily:  "Source_Sans_Pro",
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.w600,
-                                      ))
-                                  : Text("name of author",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily:  "Source_Sans_Pro",
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.w600,
-                                      ))),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
 
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5,right: 5),
-                          child: Row(
-                            children: [
-                              Container(
-                                  child: data[index]['price'] != null
-                                      ? Text(
-                                          ' SAR' + " ",
-                                          style: TextStyle(
+
+                          child: data[index]['image'].length != 0
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.network(
+                                      data[index]['image'][0]['url'],
+                                      width: Get.width < 420
+                                          ? Get.width / 2.8
+                                          : Get.width / 3.3,
+                                      height: Get.width < 420
+                                          ? Get.height / 4.8
+                                          : Get.height / 9.5,
+                                      fit: BoxFit.cover),
+                                )
+                              : Container(
+                                  child: Icon(Icons.image, size: 50),
+                                ),
+                        ),
+                        Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Container(
+                            //     margin: lang == 'ar'
+                            //         ? EdgeInsets.only(top: 5, right: 5)
+                            //         : EdgeInsets.only(top: 5, left: 5),
+                            //     child: data[index]['is_rated'] == false
+                            //         ? RatingBar.builder(
+                            //             initialRating:
+                            //                 data[index]['rating'].toDouble(),
+                            //             minRating: 1,
+                            //             direction: Axis.horizontal,
+                            //             allowHalfRating: true,
+                            //             itemCount: 5,
+                            //             itemSize: 18.0,
+                            //             itemBuilder: (context, _) => Icon(
+                            //               Icons.star,
+                            //               color: Colors.amber,
+                            //             ),
+                            //             onRatingUpdate: (rating) {
+                            //               var ratingjson = {
+                            //                 'ads_id': data[index]['id'],
+                            //                 'rate': rating
+                            //               };
+                            //               ratingcont.ratings(ratingjson);
+                            //             },
+                            //           )
+                            //         : RatingBar.builder(
+                            //             initialRating:
+                            //                 data[index]['rating'].toDouble(),
+                            //             ignoreGestures: true,
+                            //             minRating: 1,
+                            //             direction: Axis.horizontal,
+                            //             allowHalfRating: true,
+                            //             itemCount: 5,
+                            //             itemSize: 22.5,
+                            //             itemBuilder: (context, _) => Icon(
+                            //               Icons.star,
+                            //               color: Colors.amber,
+                            //             ),
+                            //             onRatingUpdate: (rating) {},
+                            //           )),
+
+                            Padding(
+                              padding:  EdgeInsets.only(left: 5,right: 5),
+                              child: Container(
+                                height:Get.height<700?Get.height*0.065:Get.height*0.05,
+                                  // width: Get.width*0.3,
+                                  margin: lang == 'ar'
+                                      ? EdgeInsets.only(top: 5, right: 5)
+                                      : EdgeInsets.only(top: 5, left: 5),
+                                  child: data[index]['is_rated'] == false
+                                      ? Expanded(
+                                        child: Text(
+                                        data[index]['description'][lang] != null
+                                            ? data[index]['description'][lang]
+                                            : data[index]['description']['ar'] == null
+                                            ? data[index]['description']['en']
+                                            : '' ,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
                                               fontFamily:  "Source_Sans_Pro",
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      : Container()),
-                              Container(
-                                  child: data[index]['price'] != null
-                                      ? Text(
-
-                                          '$price' + ".00",
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w600,
+                                            )),
+                                      )
+                                      : Text(
+                                      data[index]['description'][lang] != null
+                                          ? data[index]['description'][lang]
+                                          : data[index]['description']['ar'] == null
+                                          ? data[index]['description']['en']
+                                          : '',
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              fontFamily:  "Source_Sans_Pro",
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      : Container()),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8,right: 8),
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              top: 4,
+                                            fontFamily:  "Source_Sans_Pro",
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w600,
+                                          ))),
                             ),
-                            child: Text(
-                                data[index]['title'][lang] != null
-                                    ? data[index]['title'][lang]
-                                    : data[index]['title']['ar'] == null
-                                        ? data[index]['title']['en']
-                                        : '',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontFamily:  "Source_Sans_Pro",
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                          ),
+                            SizedBox(
+                              height: 10,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10,right: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      child: data[index]['price'] != null
+                                          ? Text(
+                                              'sar'.tr + " ",
+                                              style: TextStyle(
+                                                  fontFamily:  "Source_Sans_Pro",
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          : Container()),
+                                  Container(
+                                      child: data[index]['price'] != null
+                                          ? Text(
+
+                                              '$price' + ".00",
+                                              style: TextStyle(
+                                                  fontFamily:  "Source_Sans_Pro",
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          : Container()),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(left: 12,right: 12),
+                              child: Container(
+                                width: Get.width*0.3,
+                                margin: EdgeInsets.only(
+                                  top: lang=='ar'? 0:4,
+                                ),
+                                child: Expanded(
+                                  child: Text(
+            data[index]['title'][lang] != null
+            ? data[index]['title'][lang]
+                    : data[index]['title']['ar'] == null
+            ? data[index]['title']['en']
+                    : '',
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontFamily:  "Source_Sans_Pro",
+                                        fontSize:14,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400,
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             );
