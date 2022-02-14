@@ -592,7 +592,7 @@ class _FriendListState extends State<FriendList> {
                                                                   'image']['url'],
                                                               height:
                                                                   Get.height *
-                                                                      0.02,
+                                                                      0.2,
                                                               fit: BoxFit.fill,
                                                             ))
                                                         : Image.asset(
@@ -728,10 +728,19 @@ class _FriendListState extends State<FriendList> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )),
-                                    Text("pharmacist",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.grey)),
+                                    Container(
+                                        child: Text(
+                                      newData[index]['requister']['degree'] !=
+                                              null
+                                          ? newData[index]['requister']
+                                              ['degree']
+                                          : newData[index]['user_requisted']
+                                              ['degree'],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.grey),
+                                    )),
+
                                     Padding(
                                       padding: EdgeInsets.only(
                                           left: Get.width * .02,
@@ -769,16 +778,37 @@ class _FriendListState extends State<FriendList> {
                                                         width: Get.width * .06,
                                                         fit: BoxFit.fill,
                                                       ))),
-                                          SizedBox(width: Get.width * .006),
-                                          Flexible(
-                                            flex: 1,
-                                            child: Text("Demascus \nUniversity",
-                                                maxLines: 2,
+                                          SizedBox(width: Get.width * 0.006),
+                                          Container(
+                                              child: lang=='en'?Text(
+                                            newData[index]['requister']
+                                                        ['university'] !=
+                                                    null
+                                                ? newData[index]['requister']
+                                                    ['university']['name']['en']
+                                                : newData[index]
+                                                            ['user_requisted']
+                                                        ['university']['name']
+                                                    ['en'],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.grey),
+                                          ):Text(
+                                                newData[index]['requister']
+                                                ['university'] !=
+                                                    null
+                                                    ? newData[index]['requister']
+                                                ['university']['name']['ar']
+                                                    : newData[index]
+                                                ['user_requisted']
+                                                ['university']['name']
+                                                ['ar'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey)),
-                                          ),
+                                                    fontSize: 15,
+                                                    color: Colors.grey),
+                                              )),
                                         ],
                                       ),
                                     ),
