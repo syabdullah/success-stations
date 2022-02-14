@@ -44,7 +44,7 @@ class _FavouritePageState extends State<FavouritePage> {
   bool itemshow = true;
   int select = 0;
   List<String> headings = [
-    "item     |     ",
+    "item    |     ",
     "Service Provider     |     ",
     "promotions"
   ];
@@ -471,10 +471,10 @@ class _FavouritePageState extends State<FavouritePage> {
                                 child: Container(
                                     child:
                                     Text(
-                                      "New",
+                                      newData[c]['status'] == 0 ? 'New'.tr : 'used'.tr,
                                       style: TextStyle(
                                           fontFamily: "Source_Sans_Pro",
-                                          color:AppColors.new_color,
+                                          color:newData[c]['status'] == 0 ? AppColors.new_color:AppColors.grey,
                                           fontWeight: FontWeight.w600
                                       ),
                                     )

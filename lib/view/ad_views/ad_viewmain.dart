@@ -201,7 +201,7 @@ Widget topImage(userData2, List<Tab> myTabs, id, ChatController chatCont){
                     GestureDetector(
                         onTap: () {
                           chatCont.createConversation(id);
-                          Get.to(ChattinPagePersonal(), arguments: [0, 'name']);
+                          Get.to(ChattinPagePersonal(), arguments: [0, userData2['name']]);
                         },
                         child:
                         Image.asset(AppImages.chating, height: Get.height * 0.045)),
