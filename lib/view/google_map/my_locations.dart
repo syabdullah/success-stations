@@ -228,7 +228,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
          Container(
         width: lang == "ar"?Get.width/1.92:Get.width/2,
         child: Padding(
-        padding:lang == "ar"?EdgeInsets.only(left: Get.width*0.1):EdgeInsets.only(),
+        padding:lang == "ar"?EdgeInsets.only(left: Get.width*0.1,bottom: Get.height *0.01):EdgeInsets.only(),
                                     child: ReadMoreText(
                                       data[index]['formated_address'] != null
                                           ? data[index]['formated_address']
