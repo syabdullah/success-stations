@@ -1546,7 +1546,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          "Title :",
+                          "title".tr +" :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1554,11 +1554,14 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
                         ),
                       ),
-                      Text(
-                        titleController.text,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          titleController.text,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
                         ),
                       )
                     ],
@@ -1581,7 +1584,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 8),
                         child: Text(
-                          "Description : ",
+                          "description".tr+ " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1592,8 +1595,16 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 5),
-                        child: Text(
-                          descController.text,),
+                        child: Expanded(
+                          child: Text(
+                           descController.text,
+                            maxLines: 2,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       )
                     ]),
               ),
@@ -1616,21 +1627,24 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Category :",
+                            "category".tr +" :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              fontSize: 14,
                             ),
                           ),
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            selectedCategory != null ? selectedCategory : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              selectedCategory != null ? selectedCategory : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1650,7 +1664,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Type :",
+                            "type".tr+" :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1660,11 +1674,14 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
+                          Expanded(
+                            child: Text(
     selectedtype != null ? selectedtype : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1692,7 +1709,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Location :",
+                            "locationTab".tr +" :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1702,11 +1719,14 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
+                          Expanded(
+                            child: Text(
     hintTextCountry != null ? hintTextCountry : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1726,7 +1746,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Phone :",
+                            "phone".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1736,11 +1756,14 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            mobileNoController.text,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              mobileNoController.text,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1768,21 +1791,24 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Price :",
+                            "price".tr+ " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              fontSize: 14,
                             ),
                           ),
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            priceController.text,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              priceController.text,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
 
@@ -1803,7 +1829,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Status :",
+                            "status".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1813,16 +1839,19 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
+                          Expanded(
+                            child: Text(
     selectedStatus == '0'
-    ? uiStatus = 'Used'
+    ? uiStatus = 'used'.tr
         : selectedStatus == '1'
-    ? 'new'
+    ? 'New'.tr
         : ' ' ,
-                            style: TextStyle(
-                              color: Colors.lightGreen,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: selectedStatus == '0'?  Colors.grey:Colors.lightGreen,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
