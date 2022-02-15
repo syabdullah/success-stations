@@ -302,6 +302,7 @@ const Map<String, String> en = {
   'head_members': "Please select best plan for your business",
   'update_succe': 'UPDATE SUBSCRITION',
   'yearly': 'Yearly',
+  'My Favorite':'My Favorite',
   'monthly': 'Monthly',
   'pro_comp': 'Pro(Company)',
   'my_offer': 'My Promotions',

@@ -71,6 +71,7 @@ const Map<String, String> ar = {
   "inbox": "صندوق الوارد",
   "home": "الصفحة الرئيسية",
   "addlocation": "أضف عنوان",
+  'My Favorite':'My Favorite',
   "changedPassword": "تم تغيير كلمة السر",
   "capsLogin": "تسجيل الدخول",
   "emailAdd": "أدخل عنوان البريد الإلكتروني",

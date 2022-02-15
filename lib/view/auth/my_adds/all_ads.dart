@@ -403,10 +403,10 @@ class _AllAddsState extends State<AllAdds> {
                                                     width: Get.height *0.2,
                                                   ),
                                                   Text(
-                                                    ' New',
+                                                    allDataAdds[index]['status'] == 0 ? 'New'.tr:'used'.tr,
                                                     style: TextStyle(
-                                                        color:
-                                                            AppColors.new_color,
+                                                        color:allDataAdds[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
+
                                                         fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -732,11 +732,13 @@ class _AllAddsState extends State<AllAdds> {
                                     ),
                                   ),
                                   Text(
-                                    'New',
+                                    dataListValue[index]['status'] == 0 ? 'New'.tr:'used'.tr,
                                     style: TextStyle(
-                                        color: AppColors.new_color,
+                                        color:dataListValue[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
+
                                         fontSize: 15,
-                                        fontWeight: FontWeight.w600),
+                                        fontWeight:
+                                        FontWeight.bold),
                                   ),
                                 ],
                               ),
