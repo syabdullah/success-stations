@@ -26,6 +26,10 @@ class AddPostingScreen extends StatefulWidget {
 }
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
+
+
+
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final catogoryController = Get.put(CategoryController());
   final adpostingController = Get.put(AdPostingController());
@@ -50,7 +54,10 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     slctedInd == 0 ? selectedStatus = '1' : selectedStatus = '0';
   }
 
-  PhoneNumber tttt = PhoneNumber(isoCode: '');
+
+
+
+      PhoneNumber tttt = PhoneNumber(isoCode: '');
   var number;
   int slctedInd = 0;
   var statusFiltered, status;
@@ -1076,7 +1083,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               controller: fullNameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'enterSomeText'.tr;
+                  return 'enterSomeTextName'.tr;
                 }
                 return null;
               },
@@ -1158,184 +1165,124 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           SizedBox(
             height: 5,
           ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(0),
-                  border: Border.all(color: AppColors.border_form)),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 5,
-                ),
-                child: InternationalPhoneNumberInput(
-                  focusNode: FocusNode(),
-                  cursorColor: AppColors.whitedColor,
-                  autoFocus: false,
-                  inputDecoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 19,
-                        bottom: 10),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: InputBorder.none,
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    // hintText: "mobilee".tr,
-                    // hintStyle: TextStyle(
-                    //     fontSize: lang == 'ar' ? 14 : 16,
-                    //     color: AppColors.inputTextColor),
-                  ),
-                  onInputChanged: (PhoneNumber numberr) {
-                    number = numberr;
-                  },
-                  onInputValidated: (bool value) {},
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  textFieldController: mobileNoController,
-                  formatInput: true,
-                  inputBorder: OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {},
-                  initialValue: tttt,
-                ),
-              )),
 
-          // Container(
-          //   padding: EdgeInsets.symmetric(horizontal: 10),
-          //   child: TextFormField(
-          //     focusNode: FocusNode(),
-          //     controller: mobileNoController,
-          //     validator: (value) {
-          //       if (value == null || value.isEmpty) {
-          //         return 'enterSomeText'.tr;
-          //       }
-          //       return null;
-          //     },
-          //     style: TextStyle(
-          //       color: AppColors.inputTextColor,
-          //       fontSize: 13,
-          //     ),
-          //     decoration: InputDecoration(
-          //       counterText: "",
-          //       fillColor: Colors.white,
-          //       filled: true,
-          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          //       hintText: "mobile_number".tr,
-          //       hintStyle: TextStyle(color: Colors.grey[400]),
-          //       disabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       enabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       focusedBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+
+
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+             decoration: BoxDecoration(
+                 color:Colors.white,
+               border : Border.all(color:AppColors.border_form)
+             ),
+
+              child: Row(
+                children: [
+                  GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return Container(
+                            margin: EdgeInsets.only(left: 15, right: 13),
+                            width: Get.width/6,
+
+                            child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      icon: Icon(
+                                        Icons.expand_more_outlined,
+                                        color: Colors.transparent,
+                                      ),
+                                      isExpanded: true,
+                                  hint: Text(
+                                      hintTextCountry != null
+                                          ? hintTextCountry
+                                          : 'country'.tr,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: AppColors.inputTextColor)),
+                                  dropdownColor: AppColors.inPutFieldColor,
+
+                                  items: val.countryListdata.map((country) {
+                                    return DropdownMenuItem(
+
+                                        value: country,
+                                        child: Text(
+                                          country['name'][lang] != null
+                                              ? country['name'][lang]
+                                              : country['name'][lang] == null
+                                                  ? country['name']['en']
+                                                  : '' ,style: TextStyle(
+                                            fontSize: 10,
+                                            color: AppColors.inputTextColor),
+                                        ));
+                                  }).toList(),
+                                  onChanged: (val) {
+                                    var mapCountry;
+                                    setState(() {
+                                      mapCountry = val as Map;
+                                      hintTextCountry = mapCountry['name'][lang] != null
+                                          ? mapCountry['name'][lang]
+                                          : mapCountry['name'][lang] == null
+                                              ? mapCountry['name']['en']
+                                              : '';
+                                      selectedCountry = mapCountry['id'];
+                                      countryPut.getRegion(selectedCountry);
+                                    });
+                                  },
+                                ))));
+                      }),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    width: Get.width-Get.width*0.35,
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      focusNode: FocusNode(),
+                      controller: mobileNoController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'enterSomeTextNum'.tr;
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        color: AppColors.inputTextColor,
+                        fontSize: 13,
+                      ),
+                      decoration: InputDecoration(
+
+                        counterText: "",
+
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SizedBox(
             height: 5,
           ),
-          // Container(
-          //   padding: EdgeInsets.symmetric(horizontal: 15),
-          //   child: TextFormField(
-          //     focusNode: FocusNode(),
-          //     controller: telePhoneController,
-          //     validator: (value) {
-          //       if (value == null || value.isEmpty) {
-          //         return 'enterSomeText'.tr;
-          //       }
-          //       return null;
-          //     },
-          //     style: TextStyle(
-          //       color: AppColors.inputTextColor,
-          //       fontSize: 13,
-          //     ),
-          //     decoration: InputDecoration(
-          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          //       hintText: "telephone_numbers".tr,
-          //       hintStyle: TextStyle(color: Colors.grey[400]),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(5.0),
-          //         borderSide: BorderSide(color: Colors.grey),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 5,
-          // ),
-
-          // SizedBox(
-          //   height: 8,
-          // ),
-          // GetBuilder<ContryController>(
-          //     init: ContryController(),
-          //     builder: (val) {
-          //       return Container(
-          //           margin: EdgeInsets.only(left: 15, right: 13),
-          //           width: Get.width / 0.30,
-          //           decoration: BoxDecoration(
-          //               color: AppColors.inputColor,
-          //               border: Border.all(color: Colors.grey),
-          //               borderRadius: BorderRadius.circular(5.0)),
-          //           child: ButtonTheme(
-          //               alignedDropdown: true,
-          //               child: DropdownButtonHideUnderline(
-          //                   child: DropdownButton(
-          //                 hint: Text(
-          //                     hintTextCountry != null
-          //                         ? hintTextCountry
-          //                         : 'country'.tr,
-          //                     style: TextStyle(
-          //                         fontSize: 13,
-          //                         color: AppColors.inputTextColor)),
-          //                 dropdownColor: AppColors.inPutFieldColor,
-          //                 icon: Icon(Icons.arrow_drop_down),
-          //                 items: val.countryListdata.map((country) {
-          //                   return DropdownMenuItem(
-          //                       value: country,
-          //                       child: Text(
-          //                         country['name'][lang] != null
-          //                             ? country['name'][lang]
-          //                             : country['name'][lang] == null
-          //                                 ? country['name']['en']
-          //                                 : '',
-          //                       ));
-          //                 }).toList(),
-          //                 onChanged: (val) {
-          //                   var mapCountry;
-          //                   setState(() {
-          //                     mapCountry = val as Map;
-          //                     hintTextCountry = mapCountry['name'][lang] != null
-          //                         ? mapCountry['name'][lang]
-          //                         : mapCountry['name'][lang] == null
-          //                             ? mapCountry['name']['en']
-          //                             : '';
-          //                     selectedCountry = mapCountry['id'];
-          //                     countryPut.getRegion(selectedCountry);
-          //                   });
-          //                 },
-          //               ))));
-          //     }),
           // SizedBox(
           //   height: 8,
           // ),
@@ -1457,6 +1404,41 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           SizedBox(
             height: Get.height / 4,
           ),
+
+
+          // Container(
+          //   padding: EdgeInsets.symmetric(horizontal: 15),
+          //   child: TextFormField(
+          //     focusNode: FocusNode(),
+          //     controller: telePhoneController,
+          //     validator: (value) {
+          //       if (value == null || value.isEmpty) {
+          //         return 'enterSomeText'.tr;
+          //       }
+          //       return null;
+          //     },
+          //     style: TextStyle(
+          //       color: AppColors.inputTextColor,
+          //       fontSize: 13,
+          //     ),
+          //     decoration: InputDecoration(
+          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          //       hintText: "telephone_numbers".tr,
+          //       hintStyle: TextStyle(color: Colors.grey[400]),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(5.0),
+          //         borderSide: BorderSide(color: Colors.grey),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 5,
+          // ),
+
+          // SizedBox(
+          //   height: 8,
+          // ),
         ],
       ),
     );
