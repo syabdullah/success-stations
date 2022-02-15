@@ -88,9 +88,9 @@ class _AdViewScreenState extends State<AdViewScreen> {
                     children: [
                       previousButton2(AppImages.callerImage, "call".tr,
                           Color(0xFF2F4199), val.adsD['data']),
-                      previousButton(AppImages.whatsapp, "whatsapp".tr,
+                      previousButton1(AppImages.whatsapp, "whatsapp".tr,
                           Color(0xFF2F4199), ''),
-                      previousButton(AppImages.chating1, "massages".tr,
+                      previousButton3(AppImages.chating1, "massages".tr,
                           Color(0xFF2F4199), ''),
                       previousButton2(AppImages.heart, ''.tr,
                           Color(0xFF2F4199), val.adsD['data'])
@@ -1101,20 +1101,13 @@ class _AdViewScreenState extends State<AdViewScreen> {
     );
   }
 
-  Widget previousButton(image, text, Color color, data)  {
+  Widget previousButton1(image, text, Color color, data)  {
     return InkWell(
-
       onTap: () async {
-        if (text == AppString.fav) {
-          Get.toNamed('/favourities');
-        } else if (text == "whatsapp") {
+        print('Hello sinit');
           const url = "https://wa.me/?text=Your Message here";
           var encoded = Uri.encodeFull(url);
           launch(encoded);
-        } else {
-          const uri = 'sms:+39 348 060 888?body=hello%20there';
-          await launch(uri);
-        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -1150,6 +1143,40 @@ class _AdViewScreenState extends State<AdViewScreen> {
           launch("tel:${data['phone']}");
         }
       },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.whitedColor),
+          color: Colors.white,
+        ),
+        height: Get.height<700?Get.height * 0.045:38,
+        // width: 100.w,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(image, width: Get.width * 0.08),
+              SizedBox(
+                width: Get.width * 0.01,
+              ),
+              Text(
+                text,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  Widget previousButton3(image, text, Color color, data) {
+    return InkWell(
+      onTap: () async {
+        if (image == AppImages.heart) {
+          Get.toNamed('/favourities');
+        } else {
+          const uri = 'sms:+39 348 060 888?body=hello%20there';
+          await launch(uri);
+      }},
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.whitedColor),

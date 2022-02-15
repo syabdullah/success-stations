@@ -95,8 +95,8 @@ Widget appbar(
     GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
   var lang = box.read('lang_code');
 
-  if (lang == 'en' || lang == null) {
-    return AppBar(
+  return lang == 'en' || lang == null
+      ? AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           leadingWidth: index == 2 ? 50 : 89,
@@ -337,7 +337,11 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  gridingData.listingGrid('grid');
+                                  if(index == 3){
+                                    gridingData.listingGrid('map');
+                                  }else {
+                                    gridingData.listingGrid('grid');
+                                  }
                                 },
                                 child: Container(
                                     height: 25,
@@ -354,18 +358,12 @@ Widget appbar(
                                             : Padding(
                                                 padding:
                                                     const EdgeInsets.all(2),
-                                                child: InkWell(
-                                                  onTap: (){
-                                                    index==3 ? gridingData.listingGrid('map'):
-                                                    gridingData.listingGrid('grid');
-                                                  },
-                                                  child: Image.asset(
-                                                      index == 3
-                                                          ? AppImages.myMap
-                                                          : AppImages.gridView,
-                                                      color: Colors.black,
-                                                      height: 30),
-                                                ),
+                                                child: Image.asset(
+                                                    index == 3
+                                                        ? AppImages.myMap
+                                                        : AppImages.gridView,
+                                                    color: Colors.black,
+                                                    height: 30),
                                               )),
                               )
                             : Container()
@@ -374,9 +372,8 @@ Widget appbar(
                   ),
           ],
           backgroundColor: Colors.white,
-        );
-  } else {
-    return AppBar(
+        )
+      : AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           leadingWidth: index == 2 ? 50 : 89,
@@ -619,7 +616,11 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  gridingData.listingGrid('grid');
+                                  if(index == 3){
+                                    gridingData.listingGrid('map');
+                                  }else {
+                                    gridingData.listingGrid('grid');
+                                  }
                                 },
                                 child: Container(
                                     height: 25,
@@ -651,7 +652,6 @@ Widget appbar(
           ],
           backgroundColor: Colors.white,
         );
-  }
 }
 
 Widget favAdds(

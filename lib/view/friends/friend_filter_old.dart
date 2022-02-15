@@ -203,6 +203,7 @@ class _FriendFilterState extends State<FriendFilter> {
             ),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
+            isExpanded: true,
             items: data.map((coll) {
               return DropdownMenuItem(
                 value: coll,
@@ -241,6 +242,7 @@ class _FriendFilterState extends State<FriendFilter> {
             hint:Text(hinText !=null ? hinText: "universitysu".tr,style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor)),
             dropdownColor: AppColors.inPutFieldColor,
             icon: Icon(Icons.arrow_drop_down),
+            isExpanded: true,
             items: data.map((uni) {
               return DropdownMenuItem(
                 value: uni,
@@ -349,7 +351,7 @@ class _FriendFilterState extends State<FriendFilter> {
           margin: lang == 'en'
           ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
           : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-          width: Get.width / 3,
+          width: Get.width / 4.3,
           decoration: BoxDecoration(
             color: Colors.grey[100],
             borderRadius: BorderRadius.all(Radius.circular(5))
@@ -378,7 +380,7 @@ class _FriendFilterState extends State<FriendFilter> {
             margin: lang == 'en'
             ? EdgeInsets.only(top: 8, bottom: 6, left: 8)
             : EdgeInsets.only(top: 8, bottom: 6, right: 8),
-            width: Get.width / 3,
+            width: Get.width / 4.3,
             decoration: BoxDecoration(
               color: AppColors.whitedColor,
               borderRadius: BorderRadius.all(Radius.circular(5))

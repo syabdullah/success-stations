@@ -103,7 +103,7 @@ List<String> prize = [
                   crossAxisCount: 2,
                   crossAxisSpacing: Get.height *0.01,
 
-                  childAspectRatio: Get.height <700 ?  Get.height / 2.6 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
+                  childAspectRatio: Get.height <700 ?  Get.height / 2.4 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
 
 
               itemCount: titles.length,
@@ -113,7 +113,7 @@ List<String> prize = [
                     InkWell(
                       onTap: () {},
                       child: Container(
-                          height: Get.height < 700 ? Get.height *0.4 : Get.height *0.33,
+                          height: Get.height < 700 ? Get.height *0.38 : Get.height *0.33,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(40),

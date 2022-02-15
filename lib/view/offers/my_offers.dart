@@ -222,15 +222,19 @@ class _MyOffersDetailState extends State<OffersDetail> {
                               child:
                               Padding(
                                 padding: lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.03):EdgeInsets.only(left : Get.width * 0.04),
-                                child: Text(
-                                  listFavou[c]['text_ads'][lang]!=null ?
-                                  listFavou[c]['text_ads'][lang].toString():
-                                  listFavou[c]['text_ads'][lang]==null?
-                                  listFavou[c]['text_ads']['en'].toString():'',
-                                   style: TextStyle(
-                                    color: Color(0XFF1f1f1f),
-
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Text('Category:'),
+                                    Text(
+                                      listFavou[c]['text_ads'][lang]!=null ?
+                                      listFavou[c]['text_ads'][lang].toString():
+                                      listFavou[c]['text_ads'][lang]==null?
+                                      listFavou[c]['text_ads']['en'].toString():'',
+                                       style: TextStyle(
+                                        color: Color(0XFF1f1f1f),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )
                             ),
@@ -273,16 +277,23 @@ class _MyOffersDetailState extends State<OffersDetail> {
                             //     trimExpandedText: 'Show less',
                             //   ),
                             // ),
-                            Container(
-                              width: Get.width / 2.5,
-                              child: listFavou[c]['url'] != null
-                                  ? Padding(
-                                    padding:  lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.03):EdgeInsets.only(left : Get.width * 0.04),
-                                    child: Text(listFavou[c]['url'],
-                                    style: TextStyle(color: Color(0xFF1f1f1f))
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: lang == 'ar' ?EdgeInsets.only(right : Get.width * 0.03):EdgeInsets.only(left : Get.width * 0.04),
+                                  child: Text('date:'),
+                                ),
+                                Container(
+                                  width: Get.width / 2.5,
+                                  child: listFavou[c]['url'] != null
+                                      ?
+                                         Text(listFavou[c]['created_at'],
+                                        style: TextStyle(color: Color(0xFF1f1f1f)
 
-                              ),
-                                  ) : Container(),
+                                  ),
+                                      ) : Container(),
+                                ),
+                              ],
                             ),
 
                           ]

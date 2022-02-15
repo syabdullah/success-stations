@@ -4,7 +4,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/messages/chatting_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyOfferDetailMain extends StatefulWidget {
@@ -25,7 +24,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
       // appBar: AppBar(
       //   leading: GestureDetector(
@@ -106,8 +104,9 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                         ),
                         SizedBox(width: Get.width * 0.015),
                         GestureDetector(
-                            onTap: () {
-                              // Get.toNamed('/inbox');
+                            onTap: () async {
+                              const uri = 'sms:+39 348 060 888?body=hello%20there';
+                              await launch(uri);
                             },
                             child: Image.asset(AppImages.chating,
                                 height: Get.height * 0.045)),

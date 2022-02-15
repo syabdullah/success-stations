@@ -161,7 +161,7 @@ class _MyLocationsState extends State<MyLocations> {
       itemCount: data.length,
       // data != null ? data.length : 0,
       itemBuilder: (BuildContext context, index) {
-        print("sanket" + data[index]['formated_address']);
+        print("" + data[index]['formated_address']);
         return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -224,11 +224,11 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                         fontWeight: FontWeight.w400),
                                   )),
                                 ),
-                                SizedBox(height: Get.height * 0.005),
+                                SizedBox(height: Get.height * 0.000),
          Container(
         width: lang == "ar"?Get.width/1.92:Get.width/2,
         child: Padding(
-        padding:lang == "ar"?EdgeInsets.only(left: Get.width*0.1,bottom: Get.height *0.01):EdgeInsets.only(),
+        padding:lang == "ar"?EdgeInsets.only(left: Get.width*0.1,bottom: Get.height *0.02):EdgeInsets.only(),
                                     child: ReadMoreText(
                                       data[index]['formated_address'] != null
                                           ? data[index]['formated_address']

@@ -212,7 +212,7 @@ class _AllAddsState extends State<AllAdds> {
                                   children: [
                                     Center(
                                       child: Container(
-                                          width: Get.width / 4,
+                                          width: Get.width / 4.4,
                                           height: Get.height / 4,
                                           child: Padding(
                                             padding: const EdgeInsets.all(10.0),
@@ -370,10 +370,12 @@ class _AllAddsState extends State<AllAdds> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                      allDataAdds[index]
-                                                                  ['price'] !=
+                                                      allDataAdds[index]['price'] !=
                                                               null
-                                                          ? "${splitedPrice[0]}"
+
+                          /*                var price = dataListValue[index]['price'].toString();
+                        splitedPrice = price.split('.');*/
+                                                          ? allDataAdds[index]['price'].toString().split('.')[0]
                                                           : '',
                                                       style: TextStyle(
                                                         color: Colors.black,
