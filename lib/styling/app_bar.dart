@@ -95,8 +95,8 @@ Widget appbar(
     GlobalKey<ScaffoldState> globalKey, context, image, searchImage, index) {
   var lang = box.read('lang_code');
 
-  return lang == 'en' || lang == null
-      ? AppBar(
+  if (lang == 'en' || lang == null) {
+    return AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           leadingWidth: index == 2 ? 50 : 89,
@@ -354,12 +354,18 @@ Widget appbar(
                                             : Padding(
                                                 padding:
                                                     const EdgeInsets.all(2),
-                                                child: Image.asset(
-                                                    index == 3
-                                                        ? AppImages.myMap
-                                                        : AppImages.gridView,
-                                                    color: Colors.black,
-                                                    height: 30),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    index==3 ? gridingData.listingGrid('map'):
+                                                    gridingData.listingGrid('grid');
+                                                  },
+                                                  child: Image.asset(
+                                                      index == 3
+                                                          ? AppImages.myMap
+                                                          : AppImages.gridView,
+                                                      color: Colors.black,
+                                                      height: 30),
+                                                ),
                                               )),
                               )
                             : Container()
@@ -368,8 +374,9 @@ Widget appbar(
                   ),
           ],
           backgroundColor: Colors.white,
-        )
-      : AppBar(
+        );
+  } else {
+    return AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
           leadingWidth: index == 2 ? 50 : 89,
@@ -584,7 +591,7 @@ Widget appbar(
                                       index == 4
                                           ? gridingData.listingGrid('map')
                                           : gridingData.listingGrid('list');
-                                    
+
                                     },
                                     child: index == 0 || index == 1
                                         ? Container()
@@ -644,6 +651,7 @@ Widget appbar(
           ],
           backgroundColor: Colors.white,
         );
+  }
 }
 
 Widget favAdds(
