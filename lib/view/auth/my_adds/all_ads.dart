@@ -541,7 +541,7 @@ class _AllAddsState extends State<AllAdds> {
                                   alignment: AlignmentDirectional.topStart,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(18.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Image.network(
                                           dataListValue[index]['image'][0]
                                               ['url'],
