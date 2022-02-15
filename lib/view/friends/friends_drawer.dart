@@ -215,13 +215,19 @@ class _FriendsDrawerState extends State<FriendsDrawer> {
 
   result() {
     var json = {
-      'name': nameController.text,
-      'city': citySelected,
-      // 'degree': degreeController.text,
-      "region_id": selectedRegion,
       'country': countryID,
-      'university': universitySelected,
+      "region_id": selectedRegion,
+      'city': citySelected,
       'college': collegeID,
+      'university': universitySelected,
+      'degree': degreeController.text,
+      // 'name': nameController.text,
+
+
+
+
+
+
     };
     print(" friends suggestion .....$json");
     callingFreindController.searchFriendControl(json);

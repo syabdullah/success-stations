@@ -129,16 +129,16 @@ class _FriendListState extends State<FriendList> {
     return GetBuilder<FriendsController>(
         init: FriendsController(),
         builder: (val) {
-          return val.suggestionsData == null
+          return val.friendsData == null
               ? Container(
                   height: Get.height / 1.5,
                   child: Center(
-                      child: Text("No Record Found",
+                      child: Text("No Friend Request",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.normal))))
-              : val.suggestionsData.length == 0 || val.suggestionsData == null
+              : val.friendsData.length == 0 || val.friendsData == null
                   ? Container(
-                      child: Text("suggestion".tr,
+                      child: Text("Friend Request".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24)))
                   : val.friendsData != null
@@ -327,14 +327,12 @@ class _FriendListState extends State<FriendList> {
               : val.friendsData['success'] == false ||
                       val.friendsData['data'].length == 0 ||
                       val.friendsData == null
-                  ? SingleChildScrollView(
-                      child: Container(
-                        // height: Get.height/1.5,
-                        child: Center(
-                            child: Text("nofriends".tr,
-                                style: TextStyle(fontSize: 20))),
-                      ),
-                    )
+                  ? Container(
+                    // height: Get.height/1.5,
+                    child: Center(
+                        child: Text("nofriends".tr,
+                            style: TextStyle(fontSize: 20))),
+                  )
                   : Expanded(
                       child: valuee.dataType == 'list'
                           ? friendGridView(val.friendsData['data'])
@@ -503,11 +501,13 @@ class _FriendListState extends State<FriendList> {
       }
     }
     return newData.length == 0
-        ? Container(
-            height: Get.height,
-            child: Center(
-                child: Text("nofriends".tr, style: TextStyle(fontSize: 20))),
-          )
+        ? Center(
+          child: Container(
+              height: Get.height,
+              child: Center(
+                  child: Text("nofriends".tr, style: TextStyle(fontSize: 20))),
+            ),
+        )
         : Padding(
             padding: EdgeInsets.only(top: Get.height * 0.002),
             child: SizedBox(
