@@ -348,7 +348,10 @@ const Map<String, String> en = {
   'locationName': "Location Name",
   'url': 'URL',
   "enterSomeText": 'Enter Semester',
+
   "enterSomeTextEmail": "Enter your Email",
+  "enterSomeTextNum": "Enter your Number",
+  "enterSomeTextName": "Enter Your Name",
   "city0": "CITY",
   "city1": "TYPE",
   "city2": "PHONE NUMBER",

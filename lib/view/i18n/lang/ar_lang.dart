@@ -9,6 +9,8 @@ const Map<String, String> ar = {
   "Account_type": "نوع الحساب ",
   "google": "جوجل",
   "used": "تستخدم",
+  "enterSomeTextNum": "أدخل رقمك",
+  "enterSomeTextName": "أدخل أسمك",
   "facebook": "فيسبوك",
   "choose_language": "اختر اللغة",
   'choose_language_drop': "اختر اللغة",
