@@ -26,10 +26,7 @@ class AddPostingScreen extends StatefulWidget {
 }
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
-
-
-
-
+  bool _isChecked = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final catogoryController = Get.put(CategoryController());
   final adpostingController = Get.put(AdPostingController());
@@ -44,20 +41,22 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     "used".tr,
   ];
 
+  List<String> countryCode = [
+
+  ];
+
   List<String> ImagesAdds = [
     "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
     "https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
     "https://images.unsplash.com/photo-1491183846256-33aec7637311?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
   ];
+
   onSelected(int index) {
     slctedInd = index;
     slctedInd == 0 ? selectedStatus = '1' : selectedStatus = '0';
   }
 
-
-
-
-      PhoneNumber tttt = PhoneNumber(isoCode: '');
+  PhoneNumber tttt = PhoneNumber(isoCode: '');
   var number;
   int slctedInd = 0;
   var statusFiltered, status;
@@ -93,7 +92,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       hintcityText,
       selectedCity;
   var lang;
-  var editData, hintTextCountry, selectedCountry;
+  var editData, hintTextCountry, hintFlagCountry, selectedCountry;
   final countryPut = Get.put(ContryController());
   var imageName;
   var typeId;
@@ -1073,9 +1072,43 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       key: _formKey,
       child: Column(
         children: [
+
           SizedBox(
-            height: 5,
+            height: 10,
           ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    unselectedWidgetColor: AppColors.border,
+                  ),
+                  child:  Transform.scale(
+                    
+                    scale: 0.75,
+                    child: Checkbox(
+                      checkColor: Colors.white,
+                      activeColor:AppColors.whitedColor,
+                      value: _isChecked,
+                      onChanged: ( value) {
+                        setState(() {
+                          _isChecked = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+
+                Text("Use My contact information",style: TextStyle(
+                  fontWeight: FontWeight.bold
+
+                ))
+              ]
+            ),
+          )
+          ,
+
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
@@ -1166,77 +1199,105 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             height: 5,
           ),
 
-
-
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Container(
-             decoration: BoxDecoration(
-                 color:Colors.white,
-               border : Border.all(color:AppColors.border_form)
-             ),
-
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: AppColors.border_form)),
               child: Row(
                 children: [
                   GetBuilder<ContryController>(
                       init: ContryController(),
                       builder: (val) {
                         return Container(
-                            margin: EdgeInsets.only(left: 15, right: 13),
-                            width: Get.width/6,
 
+                            width: Get.width / 4,
                             child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      icon: Icon(
-                                        Icons.expand_more_outlined,
-                                        color: Colors.transparent,
-                                      ),
-                                      isExpanded: true,
-                                  hint: Text(
-                                      hintTextCountry != null
-                                          ? hintTextCountry
-                                          : 'country'.tr,
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: AppColors.inputTextColor)),
+                                  iconSize: 0.0,
+
+                                  isExpanded: true,
+
+                                  hint:   hintFlagCountry != null?
+                                      Row(
+                                        children: [
+                                          Image.network( hintFlagCountry,height: 15,),
+                                          SizedBox(width: Get.width * 0.02),
+                                          Text("+20")
+                                        ],
+                                      ):
+
+                                  Text(
+
+                                       'country'.tr,
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: AppColors.inputTextColor)),
                                   dropdownColor: AppColors.inPutFieldColor,
 
                                   items: val.countryListdata.map((country) {
                                     return DropdownMenuItem(
+                                      value: country,
+                                      child:
+                                      Row(
+                                        children: [
+                                          Image.network(
 
-                                        value: country,
-                                        child: Text(
-                                          country['name'][lang] != null
-                                              ? country['name'][lang]
-                                              : country['name'][lang] == null
-                                                  ? country['name']['en']
-                                                  : '' ,style: TextStyle(
-                                            fontSize: 10,
-                                            color: AppColors.inputTextColor),
-                                        ));
+                                            country['flag'] != null
+                                                ?  country['flag']['preview']
+                                                :
+                                            "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg",
+                                            height: 15,
+                                          ),
+                                          SizedBox(width: Get.width * 0.02),
+                                          Text("+20")
+                                        ],
+                                      ),
+
+                                      // Text(
+                                      //   country['name'][lang] != null
+                                      //       ? country['name'][lang]
+                                      //       : country['name'][lang] == null
+                                      //       ? country['name']['en']
+                                      //       : '' ,style: TextStyle(
+                                      //     fontSize: 10,
+                                      //     color: AppColors.inputTextColor),
+                                      // )
+                                    );
                                   }).toList(),
                                   onChanged: (val) {
-                                    var mapCountry;
+
+                                    // var mapCountry;
+                                    // setState(() {
+                                    //   mapCountry = val as Map;
+                                    //   hintTextCountry = mapCountry['name'][lang] != null
+                                    //       ? mapCountry['name'][lang]
+                                    //       : mapCountry['name'][lang] == null
+                                    //           ? mapCountry['name']['en']
+                                    //           : '';
+                                    //   selectedCountry = mapCountry['id'];
+                                    //   countryPut.getRegion(selectedCountry);
+                                    // });
+                                    var mapFlag;
                                     setState(() {
-                                      mapCountry = val as Map;
-                                      hintTextCountry = mapCountry['name'][lang] != null
-                                          ? mapCountry['name'][lang]
-                                          : mapCountry['name'][lang] == null
-                                              ? mapCountry['name']['en']
-                                              : '';
-                                      selectedCountry = mapCountry['id'];
+                                      mapFlag = val as Map;
+                                      hintFlagCountry =
+                                      mapFlag ['flag']  != null
+                                              ? mapFlag['flag']['preview']
+                                              :"https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg" ;
+                                      selectedCountry = mapFlag['id'];
                                       countryPut.getRegion(selectedCountry);
                                     });
                                   },
                                 ))));
                       }),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    width: Get.width-Get.width*0.35,
+                    width: Get.width - Get.width * 0.35,
                     child: TextFormField(
+                      maxLength: 10,
                       keyboardType: TextInputType.number,
                       focusNode: FocusNode(),
                       controller: mobileNoController,
@@ -1248,14 +1309,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       },
                       style: TextStyle(
                         color: AppColors.inputTextColor,
-                        fontSize: 13,
+                        fontSize: 16,
                       ),
                       decoration: InputDecoration(
-
                         counterText: "",
-
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
                         hintStyle: TextStyle(color: Colors.grey[400]),
                         disabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0.0),
@@ -1309,6 +1368,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             alignedDropdown: true,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                              isExpanded: true,
                               hint: Text(
                                   hintRegionText != null
                                       ? hintRegionText
@@ -1365,6 +1425,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             alignedDropdown: true,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                              isExpanded: true,
                               hint: Text(
                                   hintcityText != null
                                       ? hintcityText
@@ -1404,7 +1465,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           SizedBox(
             height: Get.height / 4,
           ),
-
 
           // Container(
           //   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -1596,7 +1656,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          "title".tr +" :",
+                          "title".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1631,7 +1691,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 8),
                         child: Text(
-                          "description".tr+ " :",
+                          "description".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1644,7 +1704,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             horizontal: 8.0, vertical: 5),
                         child: Expanded(
                           child: Text(
-                           descController.text,
+                            descController.text,
                             maxLines: 2,
                             style: TextStyle(
                               color: Colors.grey,
@@ -1673,7 +1733,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "category".tr +" :",
+                            "category".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1709,7 +1769,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "type".tr+" :",
+                            "type".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1721,7 +1781,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           ),
                           Expanded(
                             child: Text(
-    selectedtype != null ? selectedtype : '',
+                              selectedtype != null ? selectedtype : '',
                               maxLines: 2,
                               style: TextStyle(
                                 color: Colors.grey,
@@ -1753,7 +1813,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "locationTab".tr +" :",
+                            "locationTab".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1765,7 +1825,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           ),
                           Expanded(
                             child: Text(
-    hintTextCountry != null ? hintTextCountry : '',
+                              hintTextCountry != null ? hintTextCountry : '',
                               maxLines: 2,
                               style: TextStyle(
                                 color: Colors.grey,
@@ -1833,7 +1893,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "price".tr+ " :",
+                            "price".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1881,14 +1941,16 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           ),
                           Expanded(
                             child: Text(
-    selectedStatus == '0'
-    ? uiStatus = 'used'.tr
-        : selectedStatus == '1'
-    ? 'New'.tr
-        : ' ' ,
+                              selectedStatus == '0'
+                                  ? uiStatus = 'used'.tr
+                                  : selectedStatus == '1'
+                                      ? 'New'.tr
+                                      : ' ',
                               maxLines: 2,
                               style: TextStyle(
-                                color: selectedStatus == '0'?  Colors.grey:Colors.lightGreen,
+                                color: selectedStatus == '0'
+                                    ? Colors.grey
+                                    : Colors.lightGreen,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
