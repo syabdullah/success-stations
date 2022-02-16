@@ -172,7 +172,7 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 3
                               ? () {
-                                  Get.to(AddPostingScreen());
+                                  // Get.to(AddPostingScreen());
                                 }
                               : index == 0
                                   ? () {

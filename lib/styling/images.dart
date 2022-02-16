@@ -63,7 +63,7 @@ class AppImages {
 
   //AdviewScreens
 
-  static String topImage = imagePath + 'image.png';
+  static String topImage = imagePath + 'unnamed.png';
   static String arrowBack = imagePath + 'bar.png';
   static String ted = imagePath + 'ted.png';
 
