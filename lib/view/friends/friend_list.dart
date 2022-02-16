@@ -798,7 +798,8 @@ class _FriendListState extends State<FriendList> {
                                                   fontSize: 13,
                                                   color: Colors.grey),
                                           ),
-                                              ):Container(
+                                              ):
+                                              Container(
                                                 width: Get.width*0.2,
                                                 child: Text(
                                                   newData[index]['requister']
@@ -807,9 +808,10 @@ class _FriendListState extends State<FriendList> {
                                                       ? newData[index]['requister']
                                                   ['university']['name']['ar']
                                                       : newData[index]
+                                                  ['user_requisted']['university'] != null ? newData[index]
                                                   ['user_requisted']
                                                   ['university']['name']
-                                                  ['ar'],
+                                                  ['ar']:"",
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   style: TextStyle(
