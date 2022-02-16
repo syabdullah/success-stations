@@ -1,18 +1,21 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
+
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
+
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
@@ -26,7 +29,7 @@ class AddPostingScreen extends StatefulWidget {
 }
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
-  bool _isChecked = true;
+  bool _isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final catogoryController = Get.put(CategoryController());
   final adpostingController = Get.put(AdPostingController());
@@ -41,9 +44,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     "used".tr,
   ];
 
-  List<String> countryCode = [
-
-  ];
+  List<String> countryCode = [];
 
   List<String> ImagesAdds = [
     "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
@@ -75,6 +76,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   GetStorage box = GetStorage();
   final ImagePicker _picker = ImagePicker();
   final con = Get.put(AdPostingController());
+
+
+
 
   // Pick an image
   XFile? pickedFile;
@@ -258,6 +262,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       key: _scaffoldKey,
       backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
@@ -307,17 +312,26 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             },
           ),
           header(),
-          GetBuilder<CategoryController>(
-              init: CategoryController(),
-              builder: (val) {
-                return activeStep == 0
-                    ? istStep(val.subCat['data'], val.datacategTypes)
-                    : activeStep == 1
-                        ? secondStep()
-                        : activeStep == 2
-                            ? thirdStep()
-                            : Container();
-              }),
+
+          GetBuilder<UserProfileController>(
+              init: UserProfileController(),
+              builder: (val1) {
+
+              return GetBuilder<CategoryController>(
+                  init: CategoryController(),
+                  builder: (val) {
+                    return activeStep == 0
+                        ? istStep(val.subCat['data'], val.datacategTypes)
+                        : activeStep == 1
+                            ? val1.userData['data']!= null? secondStep(
+                        val1.userData['data']
+                    ): PlayStoreShimmer()
+                            : activeStep == 2
+                                ? thirdStep()
+                                : Container();
+                  });
+            }
+          ),
           activeStep == 0
               ? Padding(
                   padding: EdgeInsets.symmetric(
@@ -1067,47 +1081,73 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 
-  Widget secondStep() {
+  Widget secondStep(userData) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
+         /* ElevatedButton(
+            child: Text("Tap"),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TimeToCode()));
+            },
+          ),*/
 
+          // userData["name"].toString(),
+          //
+          // userData["email"].toString(),
+          //
+          // userData["region"]["region"][lang].toString(),
+          //
+          // userData["country"]["name"][lang].toString(),
+          //
+          // userData["city"]["city"][lang]
           SizedBox(
             height: 10,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    unselectedWidgetColor: AppColors.border,
-                  ),
-                  child:  Transform.scale(
-                    
-                    scale: 0.75,
-                    child: Checkbox(
-                      checkColor: Colors.white,
-                      activeColor:AppColors.whitedColor,
-                      value: _isChecked,
-                      onChanged: ( value) {
-                        setState(() {
-                          _isChecked = value!;
-                        });
-                      },
-                    ),
+            child: Row(children: [
+
+
+              Theme(
+                data: Theme.of(context).copyWith(
+                  unselectedWidgetColor: AppColors.border,
+                ),
+                child: Transform.scale(
+                  scale: 0.75,
+                  child: Checkbox(
+                    checkColor: Colors.white,
+                    activeColor: AppColors.whitedColor,
+                    value: _isChecked,
+                    onChanged: (value) {
+
+                      setState(() {
+
+
+                        _isChecked = value!;
+
+                        if(_isChecked==false){
+                          fullNameController.text =  "";
+                          emailController.text =  "";
+                          mobileNoController.text ="";
+                        }
+                        else{fullNameController.text =  userData["name"].toString();
+                        emailController.text =  userData["email"].toString();
+                        mobileNoController.text = userData["mobile"].toString();}
+
+
+
+                      });
+                    },
                   ),
                 ),
-
-                Text("Use My contact information",style: TextStyle(
-                  fontWeight: FontWeight.bold
-
-                ))
-              ]
-            ),
-          )
-          ,
+              ),
+              Text("Use My contact information",
+                  style: TextStyle(fontWeight: FontWeight.bold))
+            ]),
+          ),
 
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -1211,45 +1251,38 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       init: ContryController(),
                       builder: (val) {
                         return Container(
-
-                            width: Get.width / 4,
+                            width: Get.width / 3.5,
                             child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                  iconSize: 0.0,
 
                                   isExpanded: true,
-
-                                  hint:   hintFlagCountry != null?
-                                      Row(
-                                        children: [
-                                          Image.network( hintFlagCountry,height: 15,),
-                                          SizedBox(width: Get.width * 0.02),
-                                          Text("+20")
-                                        ],
-                                      ):
-
-                                  Text(
-
-                                       'country'.tr,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: AppColors.inputTextColor)),
+                                  hint: hintFlagCountry != null
+                                      ? Row(
+                                          children: [
+                                            Image.network(
+                                              hintFlagCountry,
+                                              height: 15,
+                                            ),
+                                            SizedBox(width: Get.width * 0.02),
+                                            Text("+20")
+                                          ],
+                                        )
+                                      : Text('country'.tr,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: AppColors.inputTextColor)),
                                   dropdownColor: AppColors.inPutFieldColor,
-
                                   items: val.countryListdata.map((country) {
                                     return DropdownMenuItem(
                                       value: country,
-                                      child:
-                                      Row(
+                                      child: Row(
                                         children: [
                                           Image.network(
-
                                             country['flag'] != null
-                                                ?  country['flag']['preview']
-                                                :
-                                            "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg",
+                                                ? country['flag']['preview']
+                                                : "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg",
                                             height: 15,
                                           ),
                                           SizedBox(width: Get.width * 0.02),
@@ -1269,7 +1302,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                     );
                                   }).toList(),
                                   onChanged: (val) {
-
                                     // var mapCountry;
                                     // setState(() {
                                     //   mapCountry = val as Map;
@@ -1284,10 +1316,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                     var mapFlag;
                                     setState(() {
                                       mapFlag = val as Map;
-                                      hintFlagCountry =
-                                      mapFlag ['flag']  != null
-                                              ? mapFlag['flag']['preview']
-                                              :"https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg" ;
+                                      hintFlagCountry = mapFlag['flag'] != null
+                                          ? mapFlag['flag']['preview']
+                                          : "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg";
                                       selectedCountry = mapFlag['id'];
                                       countryPut.getRegion(selectedCountry);
                                     });
@@ -2207,3 +2238,91 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 }
+
+// class TimeToCode extends StatefulWidget {
+//   TimeToCode({Key? key}) : super(key: key);
+//
+//   @override
+//   _TimeToCodeState createState() => _TimeToCodeState();
+// }
+//
+// class _TimeToCodeState extends State<TimeToCode> {
+//   TextEditingController chargesMaxController1 = TextEditingController();
+//   TextEditingController chargesMaxController2 = TextEditingController();
+//
+//   TextEditingController controller1 = TextEditingController();
+//   TextEditingController controller2 = TextEditingController();
+//
+//   bool tile1CheckBox = false;
+//   bool tile2CheckBox = false;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     chargesMaxController1.addListener(() {
+//       if (tile1CheckBox) {
+//         setState(() {
+//           controller1.text = chargesMaxController1.text;
+//         });
+//       }
+//       if (tile1CheckBox) {
+//         setState(() {
+//           controller2.text = chargesMaxController2.text;
+//         });
+//       }
+//     }
+//
+//     );
+//   }
+//   @override
+//   void dispose() {
+//     chargesMaxController1.dispose();
+//     chargesMaxController2.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         body: Column(
+//           children: [
+//             Text("chargesMax "),
+//             TextField(
+//               controller: chargesMaxController1,
+//             ),TextField(
+//               controller: chargesMaxController2,
+//             ),
+//
+//         Checkbox(
+//           value: tile1CheckBox,
+//           onChanged: (value) {
+//             setState(() {
+//               tile1CheckBox = value!;
+//             });
+//             if (value!) {
+//               setState(() {
+//                 controller1.text = chargesMaxController1
+//                     .text;
+//                 controller2.text = chargesMaxController2
+//                     .text; // handle Ui update on checkedBOx value changes
+//               });
+//             }
+//           },
+//         ),
+//
+//              TextField(
+//                 controller: controller1,
+//               ),
+//             TextField(
+//               controller: controller2,
+//             ),
+//
+//
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
