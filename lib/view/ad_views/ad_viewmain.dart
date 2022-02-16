@@ -101,7 +101,6 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                       }else{
                         return LinearProgressIndicator();
                       }
-
                     }
                 ),
 
