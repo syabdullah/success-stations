@@ -93,8 +93,8 @@ class _AdViewTabState extends State<AdViewTab> with SingleTickerProviderStateMix
                 GetBuilder<UserProfileController>(
                     init: UserProfileController(),
                     builder: (value) {
-                      if(value.userData2 != null && value.userData2['success'] != true ){
-                        name= value.userData2['data']['name'];
+                      if(value.userData2 != null && value.userData2['data']!= null ){
+                        name=value.userData2['data']['name'];
                         print(name);
 
                         return topImage(value.userData2['data'],myTabs,id,chatCont);
