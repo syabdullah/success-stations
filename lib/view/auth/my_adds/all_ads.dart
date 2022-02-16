@@ -243,6 +243,190 @@ class _AllAddsState extends State<AllAdds> {
                                                       )),
                                           )),
                                     ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: Get.height * 0.01),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:  EdgeInsets.symmetric(horizontal:5),
+                                            child: Container(
+
+                                              width: Get.width*0.65,
+                                              height: Get.height*0.065,
+                                              child: Align(
+                                                alignment:lang =="ar"? Alignment.centerRight:Alignment.centerLeft,
+                                                child: Text(
+                                                  allDataAdds[index]['description']
+                                                          ['en']
+                                                      .toString(),
+                                                  maxLines:2,
+
+                                                  style: TextStyle(
+
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+
+                                          SizedBox(
+                                            height: Get.height * 0.005,
+                                          ),
+
+                                          Container(
+
+                                            width: Get.width*0.70,
+
+
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:  EdgeInsets.symmetric(horizontal:5),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                              allDataAdds[index]
+                                                                          ['price'] !=
+                                                                      null
+
+                        //                   var price = dataListValue[index]['
+                        //                       price'].toString();
+                        // splitedPrice = price.split('.');
+                                                                  ? allDataAdds[index]
+                                                                          ['price']
+                                                                      .toString()
+                                                                      .split('.')[0]
+                                                                  : '',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: 16,
+                                                              )),
+                                                          Text(
+                                                            " " + "sar".tr,
+                                                            style: TextStyle(
+                                                                color: Colors.grey,
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: Get.height * 0.005,
+                                                    ),
+                                                    Text(
+                                                      allDataAdds[index]['title']
+                                                              ['en']
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  allDataAdds[index]
+                                                  ['status'] ==
+                                                      0
+                                                      ? 'New'.tr
+                                                      : 'used'.tr,
+                                                  style: TextStyle(
+                                                      color: allDataAdds[
+                                                      index][
+                                                      'status'] ==
+                                                          0
+                                                          ? AppColors
+                                                          .new_color
+                                                          : AppColors.grey,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                      FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      // SizedBox(height: 20),
+                                      // Column(
+                                      //   children: [
+                                      //     Padding(
+                                      //         padding: EdgeInsets.all(10.0),
+                                      //         child: CircleAvatar(
+                                      //             backgroundColor: Colors.grey[200],
+                                      //             child: Icon(
+                                      //               Icons.person,
+                                      //               color:
+                                      //                   AppColors.whitedColor,
+                                      //             ))),
+                                      //     Container(
+                                      //         margin: EdgeInsets.only(right: 5, left: 5),
+                                      //         child: Row(
+                                      //           children: [
+                                      //             GestureDetector(
+                                      //               onTap: () {
+                                      //                 var json = {
+                                      //                   'ads_id': allDataAdds[index]['id']
+                                      //                 };
+                                      //                 allDataAdds[index]['is_favorite'] ==
+                                      //                         false
+                                      //                     ? friCont.profileAdsToFav(
+                                      //                         json, userId)
+                                      //                     : friCont.profileAdsRemove(
+                                      //                         json, userId);
+                                      //                 controller.addedAllAds();
+                                      //                 controller.addedByIdAddes(
+                                      //                     allDataAdds[index]
+                                      //                         ['category_id'],
+                                      //                     null);
+                                      //               },
+                                      //               child: Container(
+                                      //                   padding: EdgeInsets.only(
+                                      //                       right: 5, left: 5),
+                                      //                   child: allDataAdds[index]
+                                      //                               ['is_favorite'] ==
+                                      //                           false
+                                      //                       ? Image.asset(
+                                      //                           AppImages.blueHeart,
+                                      //                           height: 25)
+                                      //                       : Image.asset(
+                                      //                           AppImages.redHeart,
+                                      //                           height: 25)),
+                                      //             ),
+                                      //             Container(
+                                      //                 child: allDataAdds[index]
+                                      //                             ['phone'] !=
+                                      //                         null
+                                      //                     ? GestureDetector(
+                                      //                         onTap: () {
+                                      //                           launch(
+                                      //                               "tel:${allDataAdds[index]['phone']}");
+                                      //                         },
+                                      //                         child: Image.asset(
+                                      //                             AppImages.call,
+                                      //                             height: 25))
+                                      //                     : Container())
+                                      //           ],
+                                      //         ))
+                                      //   ],
+                                      // ),
+                                    )
                                     // Padding(
                                     //   padding: EdgeInsets.only(top: 10),
                                     //   child: Column(
@@ -338,152 +522,6 @@ class _AllAddsState extends State<AllAdds> {
                                     //     ],
                                     //   ),
                                     // ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: Get.height * 0.01),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              allDataAdds[index]['title']['en']
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.01,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      allDataAdds[index]['price'] !=
-                                                              null
-
-                          /*                var price = dataListValue[index]['price'].toString();
-                        splitedPrice = price.split('.');*/
-                                                          ? allDataAdds[index]['price'].toString().split('.')[0]
-                                                          : '',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 18,
-                                                      )),
-                                                  Text(
-                                                  " " + "sar".tr,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 14),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: Get.height * 0.01,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    ' Store name',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.height *0.2,
-                                                  ),
-                                                  Text(
-                                                    allDataAdds[index]['status'] == 0 ? 'New'.tr:'used'.tr,
-                                                    style: TextStyle(
-                                                        color:allDataAdds[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
-
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                      // SizedBox(height: 20),
-                                      // Column(
-                                      //   children: [
-                                      //     Padding(
-                                      //         padding: EdgeInsets.all(10.0),
-                                      //         child: CircleAvatar(
-                                      //             backgroundColor: Colors.grey[200],
-                                      //             child: Icon(
-                                      //               Icons.person,
-                                      //               color:
-                                      //                   AppColors.whitedColor,
-                                      //             ))),
-                                      //     Container(
-                                      //         margin: EdgeInsets.only(right: 5, left: 5),
-                                      //         child: Row(
-                                      //           children: [
-                                      //             GestureDetector(
-                                      //               onTap: () {
-                                      //                 var json = {
-                                      //                   'ads_id': allDataAdds[index]['id']
-                                      //                 };
-                                      //                 allDataAdds[index]['is_favorite'] ==
-                                      //                         false
-                                      //                     ? friCont.profileAdsToFav(
-                                      //                         json, userId)
-                                      //                     : friCont.profileAdsRemove(
-                                      //                         json, userId);
-                                      //                 controller.addedAllAds();
-                                      //                 controller.addedByIdAddes(
-                                      //                     allDataAdds[index]
-                                      //                         ['category_id'],
-                                      //                     null);
-                                      //               },
-                                      //               child: Container(
-                                      //                   padding: EdgeInsets.only(
-                                      //                       right: 5, left: 5),
-                                      //                   child: allDataAdds[index]
-                                      //                               ['is_favorite'] ==
-                                      //                           false
-                                      //                       ? Image.asset(
-                                      //                           AppImages.blueHeart,
-                                      //                           height: 25)
-                                      //                       : Image.asset(
-                                      //                           AppImages.redHeart,
-                                      //                           height: 25)),
-                                      //             ),
-                                      //             Container(
-                                      //                 child: allDataAdds[index]
-                                      //                             ['phone'] !=
-                                      //                         null
-                                      //                     ? GestureDetector(
-                                      //                         onTap: () {
-                                      //                           launch(
-                                      //                               "tel:${allDataAdds[index]['phone']}");
-                                      //                         },
-                                      //                         child: Image.asset(
-                                      //                             AppImages.call,
-                                      //                             height: 25))
-                                      //                     : Container())
-                                      //           ],
-                                      //         ))
-                                      //   ],
-                                      // ),
-                                    )
                                   ],
                                 ),
                               ]),
@@ -512,11 +550,11 @@ class _AllAddsState extends State<AllAdds> {
               crossAxisSpacing: 10,
               childAspectRatio: (lang == 'en'
                   ? Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 1.89
-                      : Get.width / 0.5 / Get.height / 1.89
+                      ? Get.width / 0.5 / Get.height / 1.95
+                      : Get.width / 0.5 / Get.height / 1.95
                   : Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 1.89
-                      : Get.width / 0.5 / Get.height / 1.89),
+                      ? Get.width / 0.5 / Get.height / 2.1
+                      : Get.width / 0.5 / Get.height / 1.95),
               children: List.generate(dataListValue.length, (index) {
                 var price = dataListValue[index]['price'].toString();
                 splitedPrice = price.split('.');
@@ -572,17 +610,6 @@ class _AllAddsState extends State<AllAdds> {
                                               null);
                                         },
                                         child: Container(),
-                                        // padding: EdgeInsets.only(
-                                        //     right: 2, left: 5),
-                                        // child: dataListValue[index]
-                                        //             ['is_favorite'] ==
-                                        //         false
-                                        //     ? Image.asset(
-                                        //         AppImages.blueHeart,
-                                        //         height: 30)
-                                        //     : Image.asset(
-                                        //         AppImages.redHeart,
-                                        //         height: 30)),
                                       ),
                                     ),
                                   ],
@@ -631,122 +658,151 @@ class _AllAddsState extends State<AllAdds> {
                                   ],
                                 ),
                         ),
+                        Divider(),
+
                         Container(
-                          // margin: EdgeInsets.only(left: 10, right: 10),
-                          child: Container(
-                              child: dataListValue[index]['is_rated'] == false
-                                  ? Divider()
-                                  // ? RatingBar.builder(
-                                  //     initialRating: dataListValue[index]
-                                  //             ['rating']
-                                  //         .toDouble(),
-                                  //     minRating: 1,
-                                  //     direction: Axis.horizontal,
-                                  //     allowHalfRating: true,
-                                  //     itemCount: 5,
-                                  //     itemSize: 14.5,
-                                  //     itemBuilder: (context, _) => Icon(
-                                  //       Icons.star,
-                                  //       color: Colors.amber,
-                                  //     ),
-                                  //     onRatingUpdate: (rating) {
-                                  //       var ratingjson = {
-                                  //         'ads_id': dataListValue[index]['id'],
-                                  //         'rate': rating
-                                  //       };
-                                  //       ratingcont.ratings(ratingjson);
-                                  //     },
-                                  //   )
-                                  // : RatingBar.builder(
-                                  //     initialRating: dataListValue[index]
-                                  //             ['rating']
-                                  //         .toDouble(),
-                                  //     ignoreGestures: true,
-                                  //     minRating: 1,
-                                  //     direction: Axis.horizontal,
-                                  //     allowHalfRating: true,
-                                  //     itemCount: 5,
-                                  //     itemSize: 14.5,
-                                  //     itemBuilder: (context, _) => Icon(
-                                  //       Icons.star,
-                                  //       color: Colors.amber,
-                                  //     ),
-                                  //     onRatingUpdate: (rating) {},
-                                  //   )
-                                  : Divider()),
-                        ),
-                        Container(
+                          height:Get.height<700? Get.height * 0.06: Get.height * 0.055,
+                          margin: EdgeInsets.symmetric(horizontal: 18),
                           alignment: lang == 'en'
                               ? Alignment.center
                               : Alignment.center,
                           child: Text(
-                              dataListValue[index]['title'][lang] != null
-                                  ? dataListValue[index]['title'][lang]
+                              dataListValue[index]['description'][lang] != null
+                                  ? dataListValue[index]['description'][lang]
                                       .toString()
-                                  : dataListValue[index]['title'][lang] == null
-                                      ? dataListValue[index]['title']['en']
+                                  : dataListValue[index]['description'][lang] ==
+                                          null
+                                      ? dataListValue[index]['description']
+                                              ['en']
                                           .toString()
                                       : '',
+                              maxLines: 2,
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
+                                fontSize: 13,
+                                color: Colors.black,
+                              )),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.04,
-                                  vertical: Get.height * 0.008),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      dataListValue[index]['price'] != null
-                                          ? "${splitedPrice[0]}"
-                                          : '',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                      )),
-                                  Text(
-                                   " " + 'sar'.tr,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Get.width * 0.03,
+                                      vertical: Get.height * 0.008),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          dataListValue[index]['price'] != null
+                                              ? "${splitedPrice[0]}"
+                                              : '',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                          )),
+                                      Text(
+                                        " " + 'sar'.tr,
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.04,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Store name',
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.03,
+                                  ),
+                                  child: Text(
+                                    dataListValue[index]['title'][lang] != null
+                                        ? dataListValue[index]['title'][lang]
+                                            .toString()
+                                        : dataListValue[index]['title'][lang] ==
+                                                null
+                                            ? dataListValue[index]['title']
+                                                    ['en']
+                                                .toString()
+                                            : '',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.grey,
                                       fontSize: 14,
                                     ),
                                   ),
-                                  Text(
-                                    dataListValue[index]['status'] == 0 ? 'New'.tr:'used'.tr,
-                                    style: TextStyle(
-                                        color:dataListValue[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
-
-                                        fontSize: 15,
-                                        fontWeight:
-                                        FontWeight.bold),
-                                  ),
-                                ],
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.03,
+                                  vertical: Get.height * 0.008),
+                              child: Text(
+                                dataListValue[index]['status'] == 0
+                                    ? 'New'.tr
+                                    : 'used'.tr,
+                                style: TextStyle(
+                                    color: dataListValue[index]['status'] == 0
+                                        ? AppColors.new_color
+                                        : AppColors.grey,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],
                         ),
+
+                        // padding: EdgeInsets.only(
+                        //     right: 2, left: 5),
+                        // child: dataListValue[index]
+                        //             ['is_favorite'] ==
+                        //         false
+                        //     ? Image.asset(
+                        //         AppImages.blueHeart,
+                        //         height: 30)
+                        //     : Image.asset(
+                        //         AppImages.redHeart,
+                        //         height: 30)),
+
+                        // ? RatingBar.builder(
+                        //     initialRating: dataListValue[index]
+                        //             ['rating']
+                        //         .toDouble(),
+                        //     minRating: 1,
+                        //     direction: Axis.horizontal,
+                        //     allowHalfRating: true,
+                        //     itemCount: 5,
+                        //     itemSize: 14.5,
+                        //     itemBuilder: (context, _) => Icon(
+                        //       Icons.star,
+                        //       color: Colors.amber,
+                        //     ),
+                        //     onRatingUpdate: (rating) {
+                        //       var ratingjson = {
+                        //         'ads_id': dataListValue[index]['id'],
+                        //         'rate': rating
+                        //       };
+                        //       ratingcont.ratings(ratingjson);
+                        //     },
+                        //   )
+                        // : RatingBar.builder(
+                        //     initialRating: dataListValue[index]
+                        //             ['rating']
+                        //         .toDouble(),
+                        //     ignoreGestures: true,
+                        //     minRating: 1,
+                        //     direction: Axis.horizontal,
+                        //     allowHalfRating: true,
+                        //     itemCount: 5,
+                        //     itemSize: 14.5,
+                        //     itemBuilder: (context, _) => Icon(
+                        //       Icons.star,
+                        //       color: Colors.amber,
+                        //     ),
+                        //     onRatingUpdate: (rating) {},
+                        //   )
+
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         //   children: [
@@ -888,9 +944,10 @@ class _AllAddsState extends State<AllAdds> {
                   allCheck == false
                       ? Container(
                           width: Get.height * 0.07,
-                          height:lang=="ar"? 38:33,
-                          margin: lang=="ar"? EdgeInsets.only(right:6): EdgeInsets.only(),
-
+                          height: lang == "ar" ? 38 : 33,
+                          margin: lang == "ar"
+                              ? EdgeInsets.only(right: 6)
+                              : EdgeInsets.only(),
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -907,10 +964,11 @@ class _AllAddsState extends State<AllAdds> {
                                   : EdgeInsets.only(right: 2),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(1.5),
-                                border: Border.all(color: Colors.grey,width: 0.8),
-                                color:  textAllcheck == false
-
-                                    ?  Colors.grey : Colors.white,
+                                border:
+                                    Border.all(color: Colors.grey, width: 0.8),
+                                color: textAllcheck == false
+                                    ? Colors.grey
+                                    : Colors.white,
                               ),
                               // padding: EdgeInsets.all(10.0),
                               child: Center(
@@ -970,7 +1028,7 @@ class _AllAddsState extends State<AllAdds> {
                                       id == havingAdds[index]['id'] &&
                                       textAllcheck == true
                                   ? Colors.white
-                                  :AppColors.catagory_color,
+                                  : AppColors.catagory_color,
                               fontSize: 13,
                               fontStyle: FontStyle.normal,
                             ),

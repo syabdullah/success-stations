@@ -567,7 +567,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                           ),
                           data['price'] != null
                               ? Text(
-                            reviewPagePrice[0] + " " + "sar".tr,
+                            reviewPagePrice[0],
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 11,
