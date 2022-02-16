@@ -91,7 +91,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       previousButton1(AppImages.whatsapp, "whatsapp".tr,
                           Color(0xFF2F4199), ''),
                       previousButton3(AppImages.chating1, "massages".tr,
-                          Color(0xFF2F4199), ''),
+                          Color(0xFF2F4199), val.adsD['data']),
                       previousButton2(AppImages.heart, ''.tr,
                           Color(0xFF2F4199), val.adsD['data'])
                     ],
@@ -639,19 +639,22 @@ class _AdViewScreenState extends State<AdViewScreen> {
                       SizedBox(
                         width: Get.width * 0.01,
                       ),
-                      CircleAvatar(
-                          backgroundColor: Colors.white54,
-                          radius: 30.0,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50.0),
-                              child: data['created_by'] != null &&
-                                  data['created_by']['image'] != null
-                                  ? CircleAvatar(
-                                  backgroundColor: Colors.grey[200],
-                                  backgroundImage: NetworkImage(
-                                      data['created_by']['image']
-                                      ['url']))
-                                  : Icon(Icons.image))),
+                      Padding(
+                        padding:  Get.height<700 ?EdgeInsets.only(top:2.0,bottom: 2.0):EdgeInsets.all(0),
+                        child: CircleAvatar(
+                            backgroundColor: Colors.white54,
+                            radius: 30.0,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child: data['created_by'] != null &&
+                                    data['created_by']['image'] != null
+                                    ? CircleAvatar(
+                                    backgroundColor: Colors.grey[200],
+                                    backgroundImage: NetworkImage(
+                                        data['created_by']['image']
+                                        ['url']))
+                                    : Icon(Icons.image))),
+                      ),
                       SizedBox(
                         width: Get.width * 0.01,
                       ),
@@ -1079,7 +1082,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget commentButton() {
     return Container(
       padding: const EdgeInsets.only(left: 15.0, right: 15),
-      height: Get.height<700?Get.height * 0.04:Get.height * 0.06,
+      height: Get.height<700?Get.height * 0.06:Get.height * 0.06,
       width: Get.width,
       child: ElevatedButton(
         style: ButtonStyle(
@@ -1104,7 +1107,6 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget previousButton1(image, text, Color color, data)  {
     return InkWell(
       onTap: () async {
-        print('Hello sinit');
           const url = "https://wa.me/?text=Your Message here";
           var encoded = Uri.encodeFull(url);
           launch(encoded);
@@ -1114,7 +1116,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height<700?Get.height * 0.047:38,
+        height: Get.height<700?Get.height * 0.06:38,
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: Row(
@@ -1148,7 +1150,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height<700?Get.height * 0.045:38,
+        height: Get.height<700?Get.height * 0.06:Get.height * 0.045,
         // width: 100.w,
         child: Padding(
           padding: const EdgeInsets.all(6.0),
@@ -1171,18 +1173,15 @@ class _AdViewScreenState extends State<AdViewScreen> {
   Widget previousButton3(image, text, Color color, data) {
     return InkWell(
       onTap: () async {
-        if (image == AppImages.heart) {
-          Get.toNamed('/favourities');
-        } else {
-          const uri = 'sms:+39 348 060 888?body=hello%20there';
-          await launch(uri);
-      }},
+        var uri = 'sms:${data['phone']}?body=hello%20there';
+        await launch(uri);
+      },
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height<700?Get.height * 0.045:38,
+        height: Get.height<700?Get.height * 0.06:38,
         // width: 100.w,
         child: Padding(
           padding: const EdgeInsets.all(6.0),
