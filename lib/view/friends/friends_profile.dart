@@ -117,7 +117,7 @@ class _FriendProfileState extends State<FriendProfile>
                 bottomRight: Radius.circular(0)),
             child: Container(
                 child: Image.asset(
-                  AppImages.topImage,
+                  AppImages.topImage1,
                   fit: BoxFit.fill,
                 )),
           ),
