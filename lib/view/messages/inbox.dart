@@ -214,25 +214,30 @@ class _InboxState extends State<Inbox> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-          Center(
+      drawer: Container(
+        width: Get.width/2,
+        child: Drawer(
           child: Container(
-          margin: EdgeInsets.only(top: Get.height * 0.04),
-          height: Get.height * 0.06,
-          width: Get.width,
-          decoration: BoxDecoration(
-              border: Border.all(color: AppColors.border, width: 2)),
-          child: Center(
-            child: Text("filter".tr,
-                style: TextStyle(fontSize: 25, color: Colors.black)),
-          ),
-        ),
-      ),]))),
+            child: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+              Center(
+              child: Container(
+              margin: EdgeInsets.only(top: Get.height * 0.04),
+              height: Get.height * 0.06,
+              width: Get.width,
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.border, width: 2)),
+              child: Center(
+                child: Text("filter".tr,
+                    style: TextStyle(fontSize: 25, color: Colors.black)),
+              ),
+            ),
+        ),])),
+          )),
+      ),
       appBar:
         AppBar(
           leadingWidth: 60,

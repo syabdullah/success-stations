@@ -172,7 +172,9 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 3
                               ? () {
-                                  // Get.to(AddPostingScreen());
+                            globalKey.currentState!.openDrawer();
+                            // filtrationModelonModel();
+                            print('hello sinit');
                                 }
                               : index == 0
                                   ? () {
