@@ -217,51 +217,57 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           preferredSize: Size.fromHeight(60.0),
           child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
               AppImages.appBarSearch, 3)),
-      body: GetBuilder<LocationController>(
-          init: LocationController(),
-          builder: (val) {
-            _markers.clear();
-            if (val.allLoc != null && val.allLoc['success'] == true)
-              for (int i = 0; i < val.allLoc['data'].length; i++) {
-                if (val.allLoc['data'] != null) {
-                  setMarkers(
-                      LatLng(val.allLoc['data'][i]['long'],
-                          val.allLoc['data'][i]['long']),
-                      val.allLoc['data'][i]);
-                  _latLng = LatLng(val.allLoc['data'][i]['long'],
-                      val.allLoc['data'][i]['long']);
-                }
-              }
-            return GetBuilder<GridListCategory>(
-                init: GridListCategory(),
-                builder: (valuee) {
-                  return Stack(
-                    children: [
-                      valuee.dataType == 'map'
-                          ? Stack(
-                              children: <Widget>[
-                                val.allLoc != null
-                                    ? googleMap(val.latLng)
-                                    : Container(),
-                                CustomInfoWindow(
-                                  controller: _customInfoWindowController,
-                                  height: Get.height / 6,
-                                  width: Get.width / 1.2,
-                                  offset: 50,
-                                ),
-                              ],
-                            )
-                          : GetBuilder<LocationController>(
-                              init: LocationController(),
-                              builder: (value) {
-                                return value.allLoc != null
-                                    ? allUsers(value.allLoc['data'])
-                                    : gridShimmer();
-                              }),
-                    ],
-                  );
-                });
-          }),
+
+
+      body: Stack(
+        children: [
+          GetBuilder<LocationController>(
+              init: LocationController(),
+              builder: (val) {
+                _markers.clear();
+                if (val.allLoc != null && val.allLoc['success'] == true)
+                  for (int i = 0; i < val.allLoc['data'].length; i++) {
+                    if (val.allLoc['data'] != null) {
+                      setMarkers(
+                          LatLng(val.allLoc['data'][i]['long'],
+                              val.allLoc['data'][i]['long']),
+                          val.allLoc['data'][i]);
+                      _latLng = LatLng(val.allLoc['data'][i]['long'],
+                          val.allLoc['data'][i]['long']);
+                    }
+                  }
+                return GetBuilder<GridListCategory>(
+                    init: GridListCategory(),
+                    builder: (valuee) {
+                      return Stack(
+                        children: [
+                          Stack(
+                                  children: <Widget>[
+                                    val.allLoc != null
+                                        ? googleMap(val.latLng)
+                                        : Container(),
+                                    CustomInfoWindow(
+                                      controller: _customInfoWindowController,
+                                      height: Get.height / 6,
+                                      width: Get.width / 1.2,
+                                      offset: 50,
+                                    ),
+                                    GetBuilder<LocationController>(
+                                        init: LocationController(),
+                                        builder: (value) {
+                                          return value.allLoc != null
+                                              ? allUsers(value.allLoc['data'])
+                                              : gridShimmer();
+                                        }),
+                                  ],
+                                )
+
+                        ],
+                      );
+                    });
+              }),
+        ],
+      ),
     );
   }
 
@@ -374,129 +380,158 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             child: Text("locationFound".tr,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ))
-        : GridView.builder(
-            padding:
-                EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
-            primary: false,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 3,
-              mainAxisSpacing: 3,
-              crossAxisCount: 2,
-              childAspectRatio: Get.width /
-                  (Get.height >= 800
-                      ? Get.height / 1.65
-                      : Get.height <= 800
-                          ? Get.height / 1.60
-                          : 0),
-            ),
-            itemCount: userData.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Get.to(AdViewTab(), arguments: userData[index]['id']);
-                },
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15.0),
-                              topRight: Radius.circular(15.0)),
-                          child: Container(
-                              width: Get.width / 2.2,
-                              height: Get.height / 5.2,
-                              child: userData[index]['image'] != null &&
-                                      userData[index]['image']['url'] != null
-                                  ? Image.network(
-                                      userData[index]['image']['url'],
-                                      fit: BoxFit.fill,
-                                    )
-                                  : FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: Icon(Icons.person,
-                                          color: Colors.grey[400]))),
-                        ),
-                        Container(
-                            margin:
-                                EdgeInsets.only(left: 20, top: 15, right: 15),
-                            child: userData[index]['location'] != null &&
-                                    userData[index]['location'] != null
-                                ? Text(
-                                    userData[index]['location'].toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                  )
-                                : Container()),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              children: [
-                                userData[index]['user_name'] != null
-                                    ? Container(
-                                        child: RatingBar.builder(
-                                          ignoreGestures: true,
-                                          initialRating: userData[index]
-                                                  ['user_name']['rating']
-                                              .toDouble(),
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 13.5,
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          onRatingUpdate: (rating) {},
-                                        ),
-                                      )
-                                    : Container(),
-                                userData[index]['user_name'] != null
-                                    ? Container(
-                                        margin: EdgeInsets.only(left: 5),
-                                        child: Text(
-                                          "(${userData[index]['user_name']['rating_count'].toString()})",
-                                          style: TextStyle(fontSize: 13),
-                                        ))
-                                    : Container()
-                              ],
-                            ),
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     adtofavJson = {
-                            //       'location_id': userData['data'][index]['id']
-                            //     };
-                            //     remtofavJson = {
-                            //       'location_id': userData['data'][index]['id']
-                            //     };
-                            //     userData['data'][index]['is_location_favourite'] == false
-                            //     ? adfavUser.locationToFav(adtofavJson)
-                            //     : adfavUser.locationUnToFav(remtofavJson);
-                            //   },
-                            //   child:userData['data'][index]['is_location_favourite'] == false
-                            //   ? Image.asset(
-                            //     AppImages.blueHeart, height: 20,
-                            //   )
-                            //   : Image.asset(AppImages.heart)
-                            // )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            });
+        :  Container(
+      width: Get.width-100,
+        color:Colors.white,
+
+        child: Center(
+          child: Text("locationFound".tr,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ));
+    // Container(
+    //   height: Get.height /6,
+    //       child: ListView.builder(
+    //   scrollDirection:Axis.horizontal,
+    //           padding:
+    //               EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
+    //           primary: false,
+    //           // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //           //   crossAxisSpacing: 3,
+    //           //   mainAxisSpacing: 3,
+    //           //   crossAxisCount: 2,
+    //           //   childAspectRatio: Get.width /
+    //           //       (Get.height >= 800
+    //           //           ? Get.height / 1.65
+    //           //           : Get.height <= 800
+    //           //               ? Get.height / 1.60
+    //           //               : 0),
+    //           // ),
+    //           itemCount: userData.length,
+    //           itemBuilder: (BuildContext context, int index) {
+    //             return GestureDetector(
+    //               onTap: () {
+    //                 Get.to(AdViewTab(), arguments: userData[index]['id']);
+    //               },
+    //               child: Card(
+    //                 elevation: 1,
+    //                 shape: RoundedRectangleBorder(
+    //                   borderRadius: BorderRadius.circular(10.0),
+    //                 ),
+    //                 child: Container(
+    //                   width:Get.width*0.8,
+    //                   child: Center(
+    //                     child: Row(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Container(
+    //                           height: 200,
+    //                           width: 100,
+    //                           child: Padding(
+    //                             padding: const EdgeInsets.all(8.0),
+    //                             child: ClipRRect(
+    //                               borderRadius: BorderRadius.all(Radius.circular(5.0)
+    //                                   ),
+    //                               child: userData[index]['image'] != null &&
+    //                                       userData[index]['image']['url'] != null
+    //                                   ? Image.network(
+    //                                       userData[index]['image']['url'],
+    //                                       fit: BoxFit.fill,
+    //                                     )
+    //                                   : FittedBox(
+    //                                       fit: BoxFit.contain,
+    //                                       child: Icon(Icons.person,
+    //                                           color: Colors.grey[400])),
+    //                             ),
+    //                           ),
+    //                         ),
+    //
+    //                         Container(
+    //                           width: Get.width*0.3,
+    //                           height: Get.height*0.02,
+    //                           color: Colors.grey,
+    //                             margin:
+    //                                 EdgeInsets.only(left: 10, top: 10, right: 10),
+    //                             child: userData[index]['location'] != null &&
+    //                                     userData[index]['location'] != null
+    //                                 ? Align(
+    //                               alignment:lang =="ar"? Alignment.centerRight:Alignment.centerLeft,
+    //                                   child: Text(
+    //                                       userData[index]['location'].toString(),
+    //                               // "Conred Chicago Restaurant",
+    //
+    //                               maxLines:2,
+    //
+    //                                       style: TextStyle(
+    //
+    //                                           color: Colors.black,
+    //                                           fontWeight: FontWeight.bold,
+    //                                           fontSize: 16),
+    //                                     ),
+    //                                 )
+    //                                 : Container()),
+    //                         // Row(
+    //                         //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                         //   children: [
+    //                         //     Row(
+    //                         //       children: [
+    //                         //         userData[index]['user_name'] != null
+    //                         //             ? Container(
+    //                         //                 child: RatingBar.builder(
+    //                         //                   ignoreGestures: true,
+    //                         //                   initialRating: userData[index]
+    //                         //                           ['user_name']['rating']
+    //                         //                       .toDouble(),
+    //                         //                   minRating: 1,
+    //                         //                   direction: Axis.horizontal,
+    //                         //                   allowHalfRating: true,
+    //                         //                   itemCount: 5,
+    //                         //                   itemSize: 13.5,
+    //                         //                   itemBuilder: (context, _) => Icon(
+    //                         //                     Icons.star,
+    //                         //                     color: Colors.amber,
+    //                         //                   ),
+    //                         //                   onRatingUpdate: (rating) {},
+    //                         //                 ),
+    //                         //               )
+    //                         //             : Container(),
+    //                         //         userData[index]['user_name'] != null
+    //                         //             ? Container(
+    //                         //                 margin: EdgeInsets.only(left: 5),
+    //                         //                 child: Text(
+    //                         //                   "(${userData[index]['user_name']['rating_count'].toString()})",
+    //                         //                   style: TextStyle(fontSize: 13),
+    //                         //                 ))
+    //                         //             : Container()
+    //                         //       ],
+    //                         //     ),
+    //                         //     // GestureDetector(
+    //                         //     //   onTap: () {
+    //                         //     //     adtofavJson = {
+    //                         //     //       'location_id': userData['data'][index]['id']
+    //                         //     //     };
+    //                         //     //     remtofavJson = {
+    //                         //     //       'location_id': userData['data'][index]['id']
+    //                         //     //     };
+    //                         //     //     userData['data'][index]['is_location_favourite'] == false
+    //                         //     //     ? adfavUser.locationToFav(adtofavJson)
+    //                         //     //     : adfavUser.locationUnToFav(remtofavJson);
+    //                         //     //   },
+    //                         //     //   child:userData['data'][index]['is_location_favourite'] == false
+    //                         //     //   ? Image.asset(
+    //                         //     //     AppImages.blueHeart, height: 20,
+    //                         //     //   )
+    //                         //     //   : Image.asset(AppImages.heart)
+    //                         //     // )
+    //                         //   ],
+    //                         // ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //             );
+    //           }),
+    //     );
   }
 
   void handleClick(int item) {
@@ -514,6 +549,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           ? Container(
               height: Get.height,
               child: GoogleMap(
+                zoomControlsEnabled: false,
+
                 mapType: MapType.normal,
                 onTap: (position) {},
                 onCameraMove: (position) {
