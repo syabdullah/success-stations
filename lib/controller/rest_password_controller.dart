@@ -61,7 +61,7 @@ class ResetPassWordController extends GetxController {
        isLoading(false);
       } 
       if(res.statusCode >=  400){
-        Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.whitedColor);
+        Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: Colors.white);
       }
     });
     update();

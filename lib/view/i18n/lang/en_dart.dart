@@ -220,7 +220,7 @@ const Map<String, String> en = {
   "student": "Student",
   "individual": "Individual",
   "recentelyContact": "Recently Contacted",
-  "inbox": "INBOX",
+  "inbox": "Inbox",
   "company": "Company",
   "website": "website",
   "book_list": "Book List",

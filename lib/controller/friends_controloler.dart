@@ -40,7 +40,7 @@ class FriendsController extends GetxController {
 
     } 
     else if (res.statusCode == 429){
-       Get.snackbar("", "Too Many Attempts", backgroundColor: AppColors.whitedColor, colorText: Colors.white);
+       Get.snackbar("", "Too Many Attempts", backgroundColor: Colors.white, colorText: Colors.black);
     }     
     }).catchError((e) {
       return e;
@@ -61,7 +61,7 @@ class FriendsController extends GetxController {
       }
       if(res.statusCode >400){}
       else if( res.statusCode == 429){
-        Get.snackbar("", "Too Many Attempts", backgroundColor: AppColors.whitedColor, colorText: Colors.white);
+        Get.snackbar("", "Too Many Attempts", backgroundColor: Colors.white, colorText: Colors.black);
       }
     });
     update();
@@ -110,7 +110,7 @@ class FriendsController extends GetxController {
         SnackBarWidget().showToast("", sendReq['message']);
       }
       else if( res.statusCode == 429){
-        Get.snackbar("", "Too Many Attempts", backgroundColor:  AppColors.whitedColor, colorText: Colors.white);
+        Get.snackbar("", "Too Many Attempts", backgroundColor:  Colors.white, colorText: Colors.black);
       }
       else {
         SnackBarWidget().showToast("", res.body);
@@ -137,7 +137,7 @@ class FriendsController extends GetxController {
         isLoading = false;
 
       } else if( res.statusCode == 429){
-          Get.snackbar("", "Too Many Arguments", backgroundColor: AppColors.whitedColor, colorText: Colors.white);
+          Get.snackbar("", "Too Many Arguments", backgroundColor: Colors.white, colorText: Colors.black);
 
       }  
     

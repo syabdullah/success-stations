@@ -16,14 +16,14 @@ var phoneEr;
       ad = jsonDecode(response.body);
       responses= response.statusCode;
       if(response.statusCode < 400){
-        Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.blue);
+        Get.snackbar("","Request Successfully Sent",backgroundColor: Colors.white);
         // Get.off(AdsView());
-        Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
+        Get.snackbar("","${ad['message']}",backgroundColor: Colors.white);
       }
       if(response.statusCode > 400){
         phoneEr = ad['errors']['phone'].toString();
         phoneEr = phoneEr.split("[")[1].split("]")[0];
-        Get.snackbar("","${ad['message']} $phoneEr",backgroundColor: Colors.blue);
+        Get.snackbar("","${ad['message']} $phoneEr",backgroundColor: Colors.white);
       }
       
   }
