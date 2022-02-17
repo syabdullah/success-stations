@@ -318,10 +318,10 @@ class _MyAddsState extends State<MyAdds> {
                                 child: Container(
                                     child:
                                     Text(
-                                      "New",
+                                      dataListValue[index]['status'] == 0 ? 'New'.tr:'used'.tr,
                                       style: TextStyle(
                                           fontFamily: "Source_Sans_Pro",
-                                          color:AppColors.new_color,
+                                          color:dataListValue[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
                                           fontWeight: FontWeight.w600
                                       ),
                                     )

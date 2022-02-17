@@ -6,6 +6,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 
+import '../../main.dart';
+
 class IndividualMemeberShip extends StatefulWidget {
   @override
   _StateIndividualMemeberShip createState() => _StateIndividualMemeberShip();
@@ -83,8 +85,9 @@ List<String> prize = [
             ],
           )),
           centerTitle: true,
-          title: Text('mmembership'.tr),
-          backgroundColor: AppColors.whitedColor),
+          title: Text('mmembership'.tr,),
+          backgroundColor: AppColors.darkblue),
+      backgroundColor: Color(0XFFfafafa),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -100,7 +103,7 @@ List<String> prize = [
                   crossAxisCount: 2,
                   crossAxisSpacing: Get.height *0.01,
 
-                  childAspectRatio: Get.height <700 ?  Get.height / 2.6 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
+                  childAspectRatio: Get.height <700 ?  Get.height / 2.4 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
 
 
               itemCount: titles.length,
@@ -110,7 +113,7 @@ List<String> prize = [
                     InkWell(
                       onTap: () {},
                       child: Container(
-                          height: Get.height < 700 ? Get.height *0.4 : Get.height *0.33,
+                          height: Get.height < 700 ? Get.height *0.38 : Get.height *0.33,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(40),
@@ -120,7 +123,7 @@ List<String> prize = [
                             padding: EdgeInsets.all(Get.height *0.002),
                             child: Column(
                               children: [
-                                SizedBox(height: Get.height *0.024),
+                                SizedBox(height: Get.height < 400 ? Get.height *0.03:Get.height *0.024),
                                 Text(titles[index],
                                     style: TextStyle(
                                         fontSize: 18,
@@ -185,12 +188,10 @@ List<String> prize = [
 
                                     )),
                                 SizedBox(height:Get.height *0.02),
-                                Padding(
-                                    padding:  EdgeInsets.only(top: Get.height *0.008),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
                 GetBuilder<MemberShipController>(
                   init: MemberShipController(),
                   builder: (val) {
@@ -201,13 +202,13 @@ List<String> prize = [
                               ? Padding(
                                 padding:  EdgeInsets.only(top: 20.0),
                                 child: Text(
-                                    statustogle == false
-                                        ? "${val.result['data']['monthly'].toString()}"
-                                        : " ${val.result['data']['yearly'].toString()}",
-                                    style: TextStyle(
-                                        color: Colors.orange,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                                statustogle == false
+                                    ? "${val.result['data']['monthly'].toString()}"
+                                    : " ${val.result['data']['yearly'].toString()}",
+                                style: TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
                                   ),
                               )
                               : Text('', style: TextStyle(
@@ -216,30 +217,33 @@ List<String> prize = [
                     );
                   },
                 ),
-                                        Padding(
-                                          padding:  EdgeInsets.only(bottom: Get. height <400 ?Get. height * 0.038:Get. height * 0.03),
-                                          child: Text("SAR",
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:Colors.orange)),
-                                        ),
-                                      ],
-                                    )),
-                                // SizedBox(height:Get.height *0.01),
-                                Container(
-                                  height:Get.height/26,
-                                  width:Get.width/3.8,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color:AppColors.whitedColor
-                                  ),
-                                  child:  Center(
-                                    child: Text("Subscribe",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                            color:Colors.white)),
+                                    Padding(
+                                      padding:  EdgeInsets.only(bottom: Get. height <400 ?Get. height * 0.038:Get. height * 0.03),
+                                      child: Text("sar".tr,
+                                          style: TextStyle(
+                                              fontSize: lang == 'ar'? 13 :10,
+                                              fontWeight: FontWeight.bold,
+                                              color:Colors.orange)),
+                                    ),
+                                  ],
+                                ),
+
+                                Padding(
+                                  padding:  EdgeInsets.only(top:Get.height <400 ?Get.height *0.16:0),
+                                  child: Container(
+                                    height:Get.height/26,
+                                    width:Get.width/3.8,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color:AppColors.whitedColor
+                                    ),
+                                    child:  Center(
+                                      child: Text("Subscribe",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color:Colors.white)),
+                                    ),
                                   ),
                                 )
 

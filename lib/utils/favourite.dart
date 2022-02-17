@@ -44,7 +44,7 @@ class _FavouritePageState extends State<FavouritePage> {
   bool itemshow = true;
   int select = 0;
   List<String> headings = [
-    "item     |     ",
+    "item    |     ",
     "Service Provider     |     ",
     "promotions"
   ];
@@ -116,7 +116,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 child: Container(
                     // margin: EdgeInsets.only(top: 12),
                     child: Text(
-                  "My Favorite",
+                  "My Favorite".tr,
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -176,9 +176,9 @@ class _FavouritePageState extends State<FavouritePage> {
                   labelPadding: EdgeInsets.all(0),
                   indicatorPadding: EdgeInsets.all(0),
                   tabs: [
-                    _individualTab("item"),
-                    _individualTab("Service Provider"),
-                    _individualTab("promotions"),
+                    _individualTab("item".tr),
+                    _individualTab("Service Provider".tr),
+                    _individualTab("promotions".tr),
                   ],
                 ),
               ),
@@ -471,10 +471,10 @@ class _FavouritePageState extends State<FavouritePage> {
                                 child: Container(
                                     child:
                                     Text(
-                                      "New",
+                                      newData[c]['status'] == 0 ? 'New'.tr : 'used'.tr,
                                       style: TextStyle(
                                           fontFamily: "Source_Sans_Pro",
-                                          color:AppColors.new_color,
+                                          color:newData[c]['status'] == 0 ? AppColors.new_color:AppColors.grey,
                                           fontWeight: FontWeight.w600
                                       ),
                                     )
@@ -975,7 +975,7 @@ class _FavouritePageState extends State<FavouritePage> {
                 style: TextStyle(
 
                   // color: Colors.black,
-                  fontSize: 15,
+                  fontSize: 13,
                 ))),
       ),
     );}

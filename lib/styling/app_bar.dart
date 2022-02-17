@@ -172,7 +172,7 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 3
                               ? () {
-                                  Get.to(AddPostingScreen());
+                                  // Get.to(AddPostingScreen());
                                 }
                               : index == 0
                                   ? () {
@@ -337,7 +337,11 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  gridingData.listingGrid('grid');
+                                  if(index == 3){
+                                    gridingData.listingGrid('map');
+                                  }else {
+                                    gridingData.listingGrid('grid');
+                                  }
                                 },
                                 child: Container(
                                     height: 25,
@@ -584,6 +588,7 @@ Widget appbar(
                                       index == 4
                                           ? gridingData.listingGrid('map')
                                           : gridingData.listingGrid('list');
+
                                     },
                                     child: index == 0 || index == 1
                                         ? Container()
@@ -611,7 +616,11 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
-                                  gridingData.listingGrid('grid');
+                                  if(index == 3){
+                                    gridingData.listingGrid('map');
+                                  }else {
+                                    gridingData.listingGrid('grid');
+                                  }
                                 },
                                 child: Container(
                                     height: 25,
@@ -668,7 +677,7 @@ Widget favAdds(
             AppImages.appBarLogo,
             height: 40,
           ),
-          backgroundColor: AppColors.whitedColor,
+          backgroundColor: AppColors.white,
         )
       : AppBar(
           automaticallyImplyLeading: false,

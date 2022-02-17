@@ -1,18 +1,21 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
-import 'package:success_stations/controller/all_add_controller.dart';
+
 import 'package:success_stations/controller/categories_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
+import 'package:success_stations/controller/user_profile_controller.dart';
+
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:success_stations/utils/app_headers.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dio/dio.dart' as dio;
@@ -26,6 +29,7 @@ class AddPostingScreen extends StatefulWidget {
 }
 
 class _AddPostingScreenState extends State<AddPostingScreen> {
+  bool _isChecked = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final catogoryController = Get.put(CategoryController());
   final adpostingController = Get.put(AdPostingController());
@@ -40,11 +44,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     "used".tr,
   ];
 
+  List<String> countryCode = [];
+
   List<String> ImagesAdds = [
     "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
     "https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
     "https://images.unsplash.com/photo-1491183846256-33aec7637311?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
   ];
+
   onSelected(int index) {
     slctedInd = index;
     slctedInd == 0 ? selectedStatus = '1' : selectedStatus = '0';
@@ -70,6 +77,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   final ImagePicker _picker = ImagePicker();
   final con = Get.put(AdPostingController());
 
+
+
+
   // Pick an image
   XFile? pickedFile;
   late String image;
@@ -86,7 +96,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       hintcityText,
       selectedCity;
   var lang;
-  var editData, hintTextCountry, selectedCountry;
+  var editData, hintTextCountry, hintFlagCountry, selectedCountry;
   final countryPut = Get.put(ContryController());
   var imageName;
   var typeId;
@@ -252,6 +262,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       key: _scaffoldKey,
       backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
@@ -301,17 +312,26 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             },
           ),
           header(),
-          GetBuilder<CategoryController>(
-              init: CategoryController(),
-              builder: (val) {
-                return activeStep == 0
-                    ? istStep(val.subCat['data'], val.datacategTypes)
-                    : activeStep == 1
-                        ? secondStep()
-                        : activeStep == 2
-                            ? thirdStep()
-                            : Container();
-              }),
+
+          GetBuilder<UserProfileController>(
+              init: UserProfileController(),
+              builder: (val1) {
+
+              return GetBuilder<CategoryController>(
+                  init: CategoryController(),
+                  builder: (val) {
+                    return activeStep == 0
+                        ? istStep(val.subCat['data'], val.datacategTypes)
+                        : activeStep == 1
+                            ? val1.userData['data']!= null? secondStep(
+                        val1.userData['data']
+                    ): PlayStoreShimmer()
+                            : activeStep == 2
+                                ? thirdStep()
+                                : Container();
+                  });
+            }
+          ),
           activeStep == 0
               ? Padding(
                   padding: EdgeInsets.symmetric(
@@ -1061,14 +1081,74 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 
-  Widget secondStep() {
+  Widget secondStep(userData) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
+         /* ElevatedButton(
+            child: Text("Tap"),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TimeToCode()));
+            },
+          ),*/
+
+          // userData["name"].toString(),
+          //
+          // userData["email"].toString(),
+          //
+          // userData["region"]["region"][lang].toString(),
+          //
+          // userData["country"]["name"][lang].toString(),
+          //
+          // userData["city"]["city"][lang]
           SizedBox(
-            height: 5,
+            height: 10,
           ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(children: [
+
+
+              Theme(
+                data: Theme.of(context).copyWith(
+                  unselectedWidgetColor: AppColors.border,
+                ),
+                child: Transform.scale(
+                  scale: 0.75,
+                  child: Checkbox(
+                    checkColor: Colors.white,
+                    activeColor: AppColors.whitedColor,
+                    value: _isChecked,
+                    onChanged: (value) {
+
+                      setState(() {
+
+
+                        _isChecked = value!;
+
+                        if(_isChecked==false){
+                          fullNameController.text =  "";
+                          emailController.text =  "";
+                          mobileNoController.text ="";
+                        }
+                        else{fullNameController.text =  userData["name"].toString();
+                        emailController.text =  userData["email"].toString();
+                        mobileNoController.text = userData["mobile"].toString();}
+
+
+
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Text("Use My contact information",
+                  style: TextStyle(fontWeight: FontWeight.bold))
+            ]),
+          ),
+
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
@@ -1076,7 +1156,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
               controller: fullNameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'enterSomeText'.tr;
+                  return 'enterSomeTextName'.tr;
                 }
                 return null;
               },
@@ -1158,184 +1238,141 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           SizedBox(
             height: 5,
           ),
-          Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(0),
                   border: Border.all(color: AppColors.border_form)),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 5,
-                ),
-                child: InternationalPhoneNumberInput(
-                  focusNode: FocusNode(),
-                  cursorColor: AppColors.whitedColor,
-                  autoFocus: false,
-                  inputDecoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 19,
-                        bottom: 10),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: InputBorder.none,
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    // hintText: "mobilee".tr,
-                    // hintStyle: TextStyle(
-                    //     fontSize: lang == 'ar' ? 14 : 16,
-                    //     color: AppColors.inputTextColor),
-                  ),
-                  onInputChanged: (PhoneNumber numberr) {
-                    number = numberr;
-                  },
-                  onInputValidated: (bool value) {},
-                  selectorConfig: SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  textFieldController: mobileNoController,
-                  formatInput: true,
-                  inputBorder: OutlineInputBorder(),
-                  onSaved: (PhoneNumber number) {},
-                  initialValue: tttt,
-                ),
-              )),
+              child: Row(
+                children: [
+                  GetBuilder<ContryController>(
+                      init: ContryController(),
+                      builder: (val) {
+                        return Container(
+                            width: Get.width / 3.5,
+                            child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
 
-          // Container(
-          //   padding: EdgeInsets.symmetric(horizontal: 10),
-          //   child: TextFormField(
-          //     focusNode: FocusNode(),
-          //     controller: mobileNoController,
-          //     validator: (value) {
-          //       if (value == null || value.isEmpty) {
-          //         return 'enterSomeText'.tr;
-          //       }
-          //       return null;
-          //     },
-          //     style: TextStyle(
-          //       color: AppColors.inputTextColor,
-          //       fontSize: 13,
-          //     ),
-          //     decoration: InputDecoration(
-          //       counterText: "",
-          //       fillColor: Colors.white,
-          //       filled: true,
-          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          //       hintText: "mobile_number".tr,
-          //       hintStyle: TextStyle(color: Colors.grey[400]),
-          //       disabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       enabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       focusedBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(0.0),
-          //         borderSide: BorderSide(color: AppColors.border_form),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+                                  isExpanded: true,
+                                  hint: hintFlagCountry != null
+                                      ? Row(
+                                          children: [
+                                            Image.network(
+                                              hintFlagCountry,
+                                              height: 15,
+                                            ),
+                                            SizedBox(width: Get.width * 0.02),
+                                            Text("+20")
+                                          ],
+                                        )
+                                      : Text('country'.tr,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: AppColors.inputTextColor)),
+                                  dropdownColor: AppColors.inPutFieldColor,
+                                  items: val.countryListdata.map((country) {
+                                    return DropdownMenuItem(
+                                      value: country,
+                                      child: Row(
+                                        children: [
+                                          Image.network(
+                                            country['flag'] != null
+                                                ? country['flag']['preview']
+                                                : "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg",
+                                            height: 15,
+                                          ),
+                                          SizedBox(width: Get.width * 0.02),
+                                          Text("+20")
+                                        ],
+                                      ),
+
+                                      // Text(
+                                      //   country['name'][lang] != null
+                                      //       ? country['name'][lang]
+                                      //       : country['name'][lang] == null
+                                      //       ? country['name']['en']
+                                      //       : '' ,style: TextStyle(
+                                      //     fontSize: 10,
+                                      //     color: AppColors.inputTextColor),
+                                      // )
+                                    );
+                                  }).toList(),
+                                  onChanged: (val) {
+                                    // var mapCountry;
+                                    // setState(() {
+                                    //   mapCountry = val as Map;
+                                    //   hintTextCountry = mapCountry['name'][lang] != null
+                                    //       ? mapCountry['name'][lang]
+                                    //       : mapCountry['name'][lang] == null
+                                    //           ? mapCountry['name']['en']
+                                    //           : '';
+                                    //   selectedCountry = mapCountry['id'];
+                                    //   countryPut.getRegion(selectedCountry);
+                                    // });
+                                    var mapFlag;
+                                    setState(() {
+                                      mapFlag = val as Map;
+                                      hintFlagCountry = mapFlag['flag'] != null
+                                          ? mapFlag['flag']['preview']
+                                          : "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg";
+                                      selectedCountry = mapFlag['id'];
+                                      countryPut.getRegion(selectedCountry);
+                                    });
+                                  },
+                                ))));
+                      }),
+                  Container(
+                    width: Get.width - Get.width * 0.35,
+                    child: TextFormField(
+                      maxLength: 10,
+                      keyboardType: TextInputType.number,
+                      focusNode: FocusNode(),
+                      controller: mobileNoController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'enterSomeTextNum'.tr;
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        color: AppColors.inputTextColor,
+                        fontSize: 16,
+                      ),
+                      decoration: InputDecoration(
+                        counterText: "",
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SizedBox(
             height: 5,
           ),
-          // Container(
-          //   padding: EdgeInsets.symmetric(horizontal: 15),
-          //   child: TextFormField(
-          //     focusNode: FocusNode(),
-          //     controller: telePhoneController,
-          //     validator: (value) {
-          //       if (value == null || value.isEmpty) {
-          //         return 'enterSomeText'.tr;
-          //       }
-          //       return null;
-          //     },
-          //     style: TextStyle(
-          //       color: AppColors.inputTextColor,
-          //       fontSize: 13,
-          //     ),
-          //     decoration: InputDecoration(
-          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
-          //       hintText: "telephone_numbers".tr,
-          //       hintStyle: TextStyle(color: Colors.grey[400]),
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(5.0),
-          //         borderSide: BorderSide(color: Colors.grey),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 5,
-          // ),
-
-          // SizedBox(
-          //   height: 8,
-          // ),
-          // GetBuilder<ContryController>(
-          //     init: ContryController(),
-          //     builder: (val) {
-          //       return Container(
-          //           margin: EdgeInsets.only(left: 15, right: 13),
-          //           width: Get.width / 0.30,
-          //           decoration: BoxDecoration(
-          //               color: AppColors.inputColor,
-          //               border: Border.all(color: Colors.grey),
-          //               borderRadius: BorderRadius.circular(5.0)),
-          //           child: ButtonTheme(
-          //               alignedDropdown: true,
-          //               child: DropdownButtonHideUnderline(
-          //                   child: DropdownButton(
-          //                 hint: Text(
-          //                     hintTextCountry != null
-          //                         ? hintTextCountry
-          //                         : 'country'.tr,
-          //                     style: TextStyle(
-          //                         fontSize: 13,
-          //                         color: AppColors.inputTextColor)),
-          //                 dropdownColor: AppColors.inPutFieldColor,
-          //                 icon: Icon(Icons.arrow_drop_down),
-          //                 items: val.countryListdata.map((country) {
-          //                   return DropdownMenuItem(
-          //                       value: country,
-          //                       child: Text(
-          //                         country['name'][lang] != null
-          //                             ? country['name'][lang]
-          //                             : country['name'][lang] == null
-          //                                 ? country['name']['en']
-          //                                 : '',
-          //                       ));
-          //                 }).toList(),
-          //                 onChanged: (val) {
-          //                   var mapCountry;
-          //                   setState(() {
-          //                     mapCountry = val as Map;
-          //                     hintTextCountry = mapCountry['name'][lang] != null
-          //                         ? mapCountry['name'][lang]
-          //                         : mapCountry['name'][lang] == null
-          //                             ? mapCountry['name']['en']
-          //                             : '';
-          //                     selectedCountry = mapCountry['id'];
-          //                     countryPut.getRegion(selectedCountry);
-          //                   });
-          //                 },
-          //               ))));
-          //     }),
           // SizedBox(
           //   height: 8,
           // ),
@@ -1362,6 +1399,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             alignedDropdown: true,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                              isExpanded: true,
                               hint: Text(
                                   hintRegionText != null
                                       ? hintRegionText
@@ -1418,6 +1456,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                             alignedDropdown: true,
                             child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
+                              isExpanded: true,
                               hint: Text(
                                   hintcityText != null
                                       ? hintcityText
@@ -1457,6 +1496,40 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           SizedBox(
             height: Get.height / 4,
           ),
+
+          // Container(
+          //   padding: EdgeInsets.symmetric(horizontal: 15),
+          //   child: TextFormField(
+          //     focusNode: FocusNode(),
+          //     controller: telePhoneController,
+          //     validator: (value) {
+          //       if (value == null || value.isEmpty) {
+          //         return 'enterSomeText'.tr;
+          //       }
+          //       return null;
+          //     },
+          //     style: TextStyle(
+          //       color: AppColors.inputTextColor,
+          //       fontSize: 13,
+          //     ),
+          //     decoration: InputDecoration(
+          //       contentPadding: EdgeInsets.fromLTRB(20.0, 00.0, 10.0, 0),
+          //       hintText: "telephone_numbers".tr,
+          //       hintStyle: TextStyle(color: Colors.grey[400]),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(5.0),
+          //         borderSide: BorderSide(color: Colors.grey),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 5,
+          // ),
+
+          // SizedBox(
+          //   height: 8,
+          // ),
         ],
       ),
     );
@@ -1614,7 +1687,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          "Title :",
+                          "title".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1622,11 +1695,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           ),
                         ),
                       ),
-                      Text(
-                        titleController.text,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
+                      Expanded(
+                        child: Text(
+                          titleController.text,
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
                         ),
                       )
                     ],
@@ -1646,7 +1722,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         padding: const EdgeInsets.only(
                             left: 8.0, right: 8.0, top: 8),
                         child: Text(
-                          "Description : ",
+                          "description".tr + " :",
                           style: TextStyle(
                             color: AppColors.whitedColor,
                             fontWeight: FontWeight.bold,
@@ -1657,8 +1733,15 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 5),
-                        child: Text(
-                          descController.text,
+                        child: Expanded(
+                          child: Text(
+                            descController.text,
+                            maxLines: 2,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                       )
                     ]),
@@ -1681,21 +1764,24 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Category :",
+                            "category".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              fontSize: 14,
                             ),
                           ),
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            selectedCategory != null ? selectedCategory : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              selectedCategory != null ? selectedCategory : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1714,7 +1800,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Type :",
+                            "type".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1724,11 +1810,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            selectedtype != null ? selectedtype : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              selectedtype != null ? selectedtype : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1755,7 +1844,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Location :",
+                            "locationTab".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1765,11 +1854,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            hintTextCountry != null ? hintTextCountry : '',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              hintTextCountry != null ? hintTextCountry : '',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1788,7 +1880,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Phone :",
+                            "phone".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1798,11 +1890,14 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            mobileNoController.text,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              mobileNoController.text,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1829,21 +1924,24 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Price :",
+                            "price".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              fontSize: 14,
                             ),
                           ),
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            priceController.text,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
+                          Expanded(
+                            child: Text(
+                              priceController.text,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -1862,7 +1960,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Status :",
+                            "status".tr + " :",
                             style: TextStyle(
                               color: AppColors.whitedColor,
                               fontWeight: FontWeight.bold,
@@ -1872,16 +1970,21 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           SizedBox(
                             width: Get.width * 0.01,
                           ),
-                          Text(
-                            selectedStatus == '0'
-                                ? uiStatus = 'Used'
-                                : selectedStatus == '1'
-                                    ? 'new'
-                                    : ' ',
-                            style: TextStyle(
-                              color: Colors.lightGreen,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                          Expanded(
+                            child: Text(
+                              selectedStatus == '0'
+                                  ? uiStatus = 'used'.tr
+                                  : selectedStatus == '1'
+                                      ? 'New'.tr
+                                      : ' ',
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: selectedStatus == '0'
+                                    ? Colors.grey
+                                    : Colors.lightGreen,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
                           )
                         ],
@@ -2135,3 +2238,91 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     );
   }
 }
+
+// class TimeToCode extends StatefulWidget {
+//   TimeToCode({Key? key}) : super(key: key);
+//
+//   @override
+//   _TimeToCodeState createState() => _TimeToCodeState();
+// }
+//
+// class _TimeToCodeState extends State<TimeToCode> {
+//   TextEditingController chargesMaxController1 = TextEditingController();
+//   TextEditingController chargesMaxController2 = TextEditingController();
+//
+//   TextEditingController controller1 = TextEditingController();
+//   TextEditingController controller2 = TextEditingController();
+//
+//   bool tile1CheckBox = false;
+//   bool tile2CheckBox = false;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     chargesMaxController1.addListener(() {
+//       if (tile1CheckBox) {
+//         setState(() {
+//           controller1.text = chargesMaxController1.text;
+//         });
+//       }
+//       if (tile1CheckBox) {
+//         setState(() {
+//           controller2.text = chargesMaxController2.text;
+//         });
+//       }
+//     }
+//
+//     );
+//   }
+//   @override
+//   void dispose() {
+//     chargesMaxController1.dispose();
+//     chargesMaxController2.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//       child: Scaffold(
+//         body: Column(
+//           children: [
+//             Text("chargesMax "),
+//             TextField(
+//               controller: chargesMaxController1,
+//             ),TextField(
+//               controller: chargesMaxController2,
+//             ),
+//
+//         Checkbox(
+//           value: tile1CheckBox,
+//           onChanged: (value) {
+//             setState(() {
+//               tile1CheckBox = value!;
+//             });
+//             if (value!) {
+//               setState(() {
+//                 controller1.text = chargesMaxController1
+//                     .text;
+//                 controller2.text = chargesMaxController2
+//                     .text; // handle Ui update on checkedBOx value changes
+//               });
+//             }
+//           },
+//         ),
+//
+//              TextField(
+//                 controller: controller1,
+//               ),
+//             TextField(
+//               controller: controller2,
+//             ),
+//
+//
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

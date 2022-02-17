@@ -4,7 +4,6 @@ import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
-import 'package:success_stations/view/messages/chatting_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyOfferDetailMain extends StatefulWidget {
@@ -25,7 +24,6 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
   @override
   Widget build(BuildContext context) {
     final space50 = SizedBox(height: getSize(20, context));
-    final space10 = SizedBox(height: getSize(10, context));
     return Scaffold(
       // appBar: AppBar(
       //   leading: GestureDetector(
@@ -95,7 +93,7 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                       ),
                       Padding(
                         padding: lang == 'ar' ?  EdgeInsets.only(left: Get.width * 0.30) :  EdgeInsets.only(right: Get.width * 0.30),
-                        child: Text("View Profile",style: TextStyle(fontSize: 16,color: Color(0xFF898989)),),
+                        child: Text("viewprofile".tr,style: TextStyle(fontSize: 16,color: Color(0xFF898989)),),
                       ),
                       Row(children: [
                         // SizedBox(width: Get.width * 0.015),
@@ -106,8 +104,9 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                         ),
                         SizedBox(width: Get.width * 0.015),
                         GestureDetector(
-                            onTap: () {
-                              // Get.toNamed('/inbox');
+                            onTap: () async {
+                              const uri = 'sms:+39 348 060 888?body=hello%20there';
+                              await launch(uri);
                             },
                             child: Image.asset(AppImages.chating,
                                 height: Get.height * 0.045)),
@@ -129,7 +128,21 @@ class _MyAllOffersDetailState extends State<MyOfferDetailMain> {
                 space50,
                 Padding(
                   padding:  EdgeInsets.all(Get.width * 0.03),
-                  child: Text("""There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look eve........""",style:  TextStyle(fontSize: 18),),
+                  child:Container(
+    margin: EdgeInsets.only(left: 14, right: 10),
+    alignment: Alignment.topLeft,
+    child: idIdId['description'] != null
+    ? Text(
+    idIdId['description'][lang] != null
+    ? idIdId['description'][lang]
+        : idIdId['description'][lang] ==
+    null
+    ? idIdId['description']['en']
+        : '',
+    style: TextStyle(
+    color: Colors.black, fontSize: 14),
+    )
+        : Container()),
                 )
               ],
             )

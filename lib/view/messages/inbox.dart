@@ -10,6 +10,7 @@ import 'package:success_stations/styling/text_style.dart';
 import 'package:success_stations/view/friends/friend_filter.dart';
 import 'package:success_stations/view/friends/friend_filter_old.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
+import 'package:success_stations/view/friends/friends_drawer.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
 import 'dart:ui' as ui;
 
@@ -164,7 +165,7 @@ Widget recentChat(data){
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawer: SizedBox(child: FriendFilter(),
+      drawer: SizedBox(child: FriendsDrawer(globalKey:_key ,),
       width: Get.width /1.5,),
       appBar:
         AppBar(

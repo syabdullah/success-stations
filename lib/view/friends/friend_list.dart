@@ -129,16 +129,16 @@ class _FriendListState extends State<FriendList> {
     return GetBuilder<FriendsController>(
         init: FriendsController(),
         builder: (val) {
-          return val.suggestionsData == null
+          return val.friendsData == null
               ? Container(
                   height: Get.height / 1.5,
                   child: Center(
-                      child: Text("No Record Found",
+                      child: Text("No Friend Request",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.normal))))
-              : val.suggestionsData.length == 0 || val.suggestionsData == null
+              : val.friendsData.length == 0 || val.friendsData == null
                   ? Container(
-                      child: Text("suggestion".tr,
+                      child: Text("Friend Request".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24)))
                   : val.friendsData != null
@@ -327,14 +327,12 @@ class _FriendListState extends State<FriendList> {
               : val.friendsData['success'] == false ||
                       val.friendsData['data'].length == 0 ||
                       val.friendsData == null
-                  ? SingleChildScrollView(
-                      child: Container(
-                        // height: Get.height/1.5,
-                        child: Center(
-                            child: Text("nofriends".tr,
-                                style: TextStyle(fontSize: 20))),
-                      ),
-                    )
+                  ? Container(
+                    // height: Get.height/1.5,
+                    child: Center(
+                        child: Text("nofriends".tr,
+                            style: TextStyle(fontSize: 20))),
+                  )
                   : Expanded(
                       child: valuee.dataType == 'list'
                           ? friendGridView(val.friendsData['data'])
@@ -503,20 +501,26 @@ class _FriendListState extends State<FriendList> {
       }
     }
     return newData.length == 0
-        ? Container(
-            height: Get.height,
-            child: Center(
-                child: Text("nofriends".tr, style: TextStyle(fontSize: 20))),
-          )
+        ? Center(
+          child: Container(
+              height: Get.height,
+              child: Center(
+                  child: Text("nofriends".tr, style: TextStyle(fontSize: 20))),
+            ),
+        )
         : Padding(
             padding: EdgeInsets.only(top: Get.height * 0.002),
             child: SizedBox(
               child: GridView.count(
                   padding: EdgeInsets.only(left: Get.width * 0.005),
                   crossAxisCount: 2,
-                  childAspectRatio: (Get.height < 700
+
+                  childAspectRatio: lang=='en'? (Get.height < 700
                       ? Get.width / Get.height * 1.30
-                      : Get.width / Get.height * 1.4),
+                      : Get.width / Get.height * 1.3):
+                  (Get.height < 700
+                      ? Get.width / Get.height * 1.30
+                      : Get.width / Get.height * 1.3),
                   children: List.generate(
                     newData.length,
                     (index) {
@@ -592,7 +596,7 @@ class _FriendListState extends State<FriendList> {
                                                                   'image']['url'],
                                                               height:
                                                                   Get.height *
-                                                                      0.02,
+                                                                      0.2,
                                                               fit: BoxFit.fill,
                                                             ))
                                                         : Image.asset(
@@ -728,10 +732,19 @@ class _FriendListState extends State<FriendList> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )),
-                                    Text("pharmacist",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.grey)),
+                                    Container(
+                                        child: Text(
+                                      newData[index]['requister']['degree'] !=
+                                              null
+                                          ? newData[index]['requister']
+                                              ['degree']
+                                          : newData[index]['user_requisted']
+                                              ['degree'],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.grey),
+                                    )),
+
                                     Padding(
                                       padding: EdgeInsets.only(
                                           left: Get.width * .02,
@@ -747,38 +760,65 @@ class _FriendListState extends State<FriendList> {
                                               child: newData[index]['requister']
                                                           ['image'] !=
                                                       null
-                                                  ? ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.asset(
-                                                        AppImages.man,
-                                                        height:
-                                                            Get.height * .03,
-                                                        width: Get.width * .06,
-                                                        fit: BoxFit.fill,
-                                                      ))
-                                                  : ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image.asset(
-                                                        AppImages.man,
-                                                        height:
-                                                            Get.height * .03,
-                                                        width: Get.width * .06,
-                                                        fit: BoxFit.fill,
-                                                      ))),
-                                          SizedBox(width: Get.width * .006),
-                                          Flexible(
-                                            flex: 1,
-                                            child: Text("Demascus \nUniversity",
-                                                maxLines: 2,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey)),
+                                                  ? CircleAvatar(
+                                                    child: Image.asset(
+                                                      AppImages.man,
+                                                      height:
+                                                          Get.height * .03,
+                                                      width: Get.width * .06,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )
+                                                  : CircleAvatar(
+                                                    child: Image.asset(
+                                                      AppImages.man,
+                                                      height:
+                                                          Get.height * .03,
+                                                      width: Get.width * .06,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )),
+
+                                          Container(
+                                              child: lang=='en'?Container(
+                                                width: Get.width*0.2,
+                                                child: Text(
+                                            newData[index]['requister']
+                                                          ['university'] !=
+                                                      null
+                                                  ? newData[index]['requister']
+                                                      ['university']['name']['en']
+                                                  : newData[index]
+                                                              ['user_requisted']
+                                                          ['university']['name']
+                                                      ['en'],
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: Colors.grey),
                                           ),
+                                              ):
+                                              Container(
+                                                width: Get.width*0.2,
+                                                child: Text(
+                                                  newData[index]['requister']
+                                                  ['university'] !=
+                                                      null
+                                                      ? newData[index]['requister']
+                                                  ['university']['name']['ar']
+                                                      : newData[index]
+                                                  ['user_requisted']['university'] != null ? newData[index]
+                                                  ['user_requisted']
+                                                  ['university']['name']
+                                                  ['ar']:"",
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              )),
                                         ],
                                       ),
                                     ),
