@@ -68,7 +68,7 @@ class _InboxState extends State<Inbox> {
               arguments: [data['pivot']['conversation_id'], data['name']]);
         },
         trailing: Padding(
-          padding: EdgeInsets.only(bottom: Get.height * 0.045),
+          padding: lang == 'ar' ? EdgeInsets.only(bottom: Get.height * 0.00): EdgeInsets.only(bottom: Get.height * 0.045),
           child: Container(
             child: Text(time.toString(),
                 textAlign: TextAlign.end,
@@ -91,39 +91,42 @@ class _InboxState extends State<Inbox> {
                         )
                       : Icon(Icons.person)),
             ),
-            Container(
-              margin: lang == 'ar'
-                  ? EdgeInsets.only(
-                      top: Get.width * 0.01, right: Get.width * 0.025)
-                  : EdgeInsets.only(
-                      top: Get.width * 0.01, left: Get.width * 0.03),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: Get.width * 0.01),
-                    child: Text(
-                      data['name'],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Container(
-                    width: Get.width / 3.0,
-                    child: Text(
-                      dataWithMessage['last_message'] != null
-                          ? dataWithMessage['last_message']
-                          : '',
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13,
+            Padding(
+              padding:  lang == 'ar' ?EdgeInsets.only(right: 8.0):EdgeInsets.only(left: 8.0),
+              child: Container(
+                margin: lang == 'ar'
+                    ? EdgeInsets.only(
+                        top: Get.width * 0.01, right: Get.width * 0.025)
+                    : EdgeInsets.only(
+                        top: Get.width * 0.01, left: Get.width * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: Get.width * 0.01),
+                      child: Text(
+                        data['name'],
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: Get.width / 3.0,
+                      child: Text(
+                        dataWithMessage['last_message'] != null
+                            ? dataWithMessage['last_message']
+                            : '',
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -263,11 +266,11 @@ class _InboxState extends State<Inbox> {
             backgroundColor: AppColors.white,
             centerTitle: true,
             title:Text("inbox".tr,
-              style: AppTextStyles.appTextStyle(fontSize: 18, fontWeight: FontWeight.normal, color:Color(0XFF595959),),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color:Color(0XFF595959),),
             ),
           actions: [
             Padding(
-              padding:  lang == 'ar' ? EdgeInsets.only(left: Get.width * 0.06) :EdgeInsets.only(right: Get.width * 0.06),
+              padding:  lang == 'ar' ? EdgeInsets.only(left: Get.width * 0.04) :EdgeInsets.only(right: Get.width * 0.04),
               child: InkWell(child: ImageIcon(AssetImage(AppImages.chat),size: 30,color: Color(0XFF181818),),onTap: (){
                 Get.to(FriendList());
               },),
