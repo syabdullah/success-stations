@@ -290,11 +290,17 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                 height: 45,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(activeStep == 0
+                      image: AssetImage(lang=='en'?activeStep == 0
                           ? AppImages.sistStepIcon
                           : activeStep == 1
                               ? AppImages.ssecStepIcon
-                              : AppImages.strdStepIcon),
+                              : AppImages.strdStepIcon:
+                      activeStep == 0
+                          ? AppImages.arbg1
+
+                          : activeStep == 1
+                          ? AppImages.arbg2
+                          :AppImages.arbg3),
                       //fit: BoxFit.cover
                       fit: BoxFit.fill),
                 ),
@@ -307,8 +313,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         });
                       },
                       child: Container(
-                        width: 100,
-                        child: Center(child: Text("New ads",style: TextStyle(color: Colors.white,fontSize: 13))),
+                        width: lang=='en'?100:110,
+                        child: Center(child: Text("New ads",style: TextStyle(color: Colors.white,fontSize:Get.height<700 ?11: 13))),
                       ),
                     ),
                     InkWell(
@@ -318,8 +324,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         });
                       },
                       child: Container(
-                        width: 100,
-                        child: Center(child: Text("contact_information".tr,style: TextStyle(color: Colors.white,fontSize: 13))),
+                        width:lang=='en'?100:110,
+                        child: Center(child: Text("contact_information".tr,style: TextStyle(color: Colors.white,fontSize:Get.height<700 ?11: lang=='en'?13:12))),
                       ),
                     ),
                     InkWell(
@@ -329,8 +335,8 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         });
                       },
                       child: Container(
-                          width: 110,
-                          child: Center(child: Text("review_publish".tr,style: TextStyle(color: Colors.white,fontSize: 13)))),
+                          width:lang=='en'?100:110,
+                          child: Center(child: Text("review_publish".tr,style: TextStyle(color: Colors.white,fontSize: Get.height<700 ?11: 13)))),
                     )
                   ]),
                 )

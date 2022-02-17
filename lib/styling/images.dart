@@ -15,6 +15,10 @@ class AppImages {
   static String sistStepIcon = imagePath + "1.png";
   static String ssecStepIcon = imagePath + "2.png";
   static String strdStepIcon = imagePath + "3.png";
+  static String arbg1 = imagePath + "ar1.png";
+  static String arbg2 = imagePath + "ar2.png";
+  static String arbg3 = imagePath + "ar3.png";
+
   static String sampleImage = imagePath + "sample.png";
   static String appLogo = imagePath + 'ss logo@3x.png';
   static String fb = imagePath + 'facebook.png';

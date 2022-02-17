@@ -1150,7 +1150,7 @@ class _AdViewScreenState extends State<AdViewScreen> {
           border: Border.all(color: AppColors.whitedColor),
           color: Colors.white,
         ),
-        height: Get.height<700?Get.height * 0.048:Get.height * 0.050,
+        height: Get.height<700?Get.height * 0.06:38,
         // width: 100.w,
         child: Padding(
           padding: const EdgeInsets.all(6.0),

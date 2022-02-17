@@ -550,7 +550,7 @@ class _AllAddsState extends State<AllAdds> {
               crossAxisSpacing: 10,
               childAspectRatio: (lang == 'en'
                   ? Get.height < 700
-                      ? Get.width / 0.5 / Get.height / 1.95
+                      ? Get.width / 0.5 / Get.height / 2
                       : Get.width / 0.5 / Get.height / 1.95
                   : Get.height < 700
                       ? Get.width / 0.5 / Get.height / 2.1
@@ -574,7 +574,7 @@ class _AllAddsState extends State<AllAdds> {
                               ? Get.width / 2.5
                               : Get.width / 3.0,
                           height: Get.width < 700
-                              ? Get.height / 3.5
+                              ? Get.height / 3.6
                               : Get.height / 3.2,
                           child: dataListValue[index]['image'].length != 0
                               ? Stack(
