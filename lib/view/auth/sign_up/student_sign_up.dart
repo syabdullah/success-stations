@@ -895,6 +895,12 @@ class _SignPageState extends State<StudentSignUp> {
                           ? mapCity['city']['en'].toString()
                           : '';
                       selectedCity = mapCity['id'];
+
+
+                      // selectedCity = mapCity['id'];
+                      // selectedRegion = data['id'];
+                      // UniversityController().getUniversities(selectedCity);
+                      // countryPut.getCity(selectedRegion);
                     });
                   },
                 ))));

@@ -15,6 +15,8 @@ class UniversityController extends GetxController {
     dataUni = [];
     super.onInit();
   }
+
+
   
   getUniversities() async{
     dataUni = [];
