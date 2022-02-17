@@ -72,7 +72,7 @@ class _InboxState extends State<Inbox> {
           child: Container(
             child: Text(time.toString(),
                 textAlign: TextAlign.end,
-                style: TextStyle(fontSize: 12, color: Colors.black),
+                style: TextStyle(fontSize: 12, color: Colors.grey),
                 textDirection: ui.TextDirection.ltr),
           ),
         ),
