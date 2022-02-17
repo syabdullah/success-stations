@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/offers/offer_category_action.dart';
@@ -31,7 +32,7 @@ class StorePostAddesController extends GetxController {
     myofferlistin.drawerMyOffer();
     Get.off(OffersDetail());
     if(result.data['success'] == true){
-      Get.snackbar("Offfer Added successfully created",'',backgroundColor: AppColors.whitedColor);
+      Get.snackbar("Offfer Added successfully created",'',backgroundColor: Colors.white);
       isLoading(false);
     } 
     update();

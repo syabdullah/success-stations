@@ -14,11 +14,11 @@ var responses;
       ad = jsonDecode(response.body);
        responses= response.statusCode;
       if(response.statusCode < 400){
-         Get.snackbar("","${ad['message']}",backgroundColor: Colors.blue);
+         Get.snackbar("","${ad['message']}",backgroundColor: Colors.white);
        
       }
       if(response.statusCode > 400){
-         Get.snackbar("","${ad['message']} ${ad['errors']['phone']}",backgroundColor: Colors.blue);
+         Get.snackbar("","${ad['message']} ${ad['errors']['phone']}",backgroundColor: Colors.white);
       }
   }
     );

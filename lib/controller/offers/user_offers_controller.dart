@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/offers/user_offer_action.dart';
 import 'package:success_stations/controller/offers/offer_category_controller.dart';
@@ -33,7 +34,7 @@ class UserOfferController extends GetxController {
         cont.drawerMyOffer();
         isLoading=false;
       } if(res.statusCode > 400){
-          Get.snackbar(deleteOffer['errors'],'',backgroundColor: AppColors.whitedColor);
+          Get.snackbar(deleteOffer['errors'],'',backgroundColor: Colors.white);
       }
     });
     update();

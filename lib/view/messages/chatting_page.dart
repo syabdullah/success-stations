@@ -260,22 +260,25 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                   color: Color(0XFFffffff),
                   borderRadius: BorderRadius.circular(78)),
               // margin: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                controller: msg,
-                maxLines: null,
-                // maxLength: 160,
-                decoration: InputDecoration(
-                  counterText: '',
-                  isDense: true,
-                  focusedBorder: InputBorder.none,
-                  contentPadding: lang == 'en'
-                      ? EdgeInsets.only(left: Get.width * 0.05, top: 8)
-                      : EdgeInsets.only(right: Get.width * 0.05, top: 8),
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  // hintText: "Type_your_message_here".tr,
-                  hintStyle: TextStyle(color: Colors.grey),
+              child: Padding(
+                padding:  lang == 'ar' ? EdgeInsets.only(right: Get.width * 0.05): EdgeInsets.only(left: Get.width * 0.05),
+                child: TextField(
+                  controller: msg,
+                  maxLines: null,
+                  // maxLength: 160,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    isDense: true,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: lang == 'en'
+                        ? EdgeInsets.only(left: Get.width * 0.05, top: 8)
+                        : EdgeInsets.only(right: Get.width * 0.05, top: 8),
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    // hintText: "Type_your_message_here".tr,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
@@ -293,7 +296,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                 child: CircleAvatar(
                   child: ImageIcon(
                     AssetImage(AppImages.send),
-                    color: Color(0XFF606996),
+                    color: Colors.white,
                     size: 18,
                   ),
                   backgroundColor: AppColors.whitedColor,

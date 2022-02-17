@@ -104,9 +104,12 @@ class _AppDrawerState extends State<AppDrawer> {
     lang = box.read('lang_code');
 
     return ClipRRect(
-        borderRadius: lang=="ar"?BorderRadius.only(
-            topLeft: Radius.circular(45), bottomLeft: Radius.circular(30)):BorderRadius.only(
-            topRight: Radius.circular(45), bottomRight: Radius.circular(30)),
+        borderRadius: lang == "ar"
+            ? BorderRadius.only(
+                topLeft: Radius.circular(45), bottomLeft: Radius.circular(30))
+            : BorderRadius.only(
+                topRight: Radius.circular(45),
+                bottomRight: Radius.circular(30)),
         child: SizedBox(
           width: Get.width < 700 ? Get.width * 0.70 : Get.width * 0.70,
           child: Drawer(
@@ -121,15 +124,16 @@ class _AppDrawerState extends State<AppDrawer> {
                         ? EdgeInsets.only(top: 20)
                         : EdgeInsets.only(top: 20),
                     child: GestureDetector(
-                      onTap: () {getImage();},
+                      onTap: () {
+                        getImage();
+                      },
                       child: Stack(
                         children: [
                           SizedBox(
                             height: 10,
                           ),
                           GestureDetector(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -433,7 +437,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey.shade800,
                               ))
-                    : Text(lang,
+                    : Text(lang == "en" ? "English" : "arabic".tr,
                         style: lang == 'ar'
                             ? TextStyle(
                                 fontFamily: "Cairo Regular",

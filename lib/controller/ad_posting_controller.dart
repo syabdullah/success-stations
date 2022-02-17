@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/ad_post_action.dart';
@@ -26,10 +27,10 @@ class  AdPostingController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400){
         adpost = jsonDecode(res.body); 
         Get.off(MyAdds());
-        Get.snackbar("Ads successfully created",'',backgroundColor: AppColors.whitedColor);
+        Get.snackbar("Ads successfully created",'',backgroundColor: Colors.white);
         isLoading(false);      
       } if(res.statusCode >=  400){
-          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.whitedColor);
+          Get.snackbar("You Enter Wrong entries",'',backgroundColor: Colors.white);
       }
      });
      update();
@@ -40,10 +41,10 @@ class  AdPostingController extends GetxController {
       var editAd = jsonDecode(res.body);
       if(res.statusCode == 200 || res.statusCode < 400){
         Get.off(MyAdds());
-        Get.snackbar("Ads successfully updated",'',backgroundColor: AppColors.whitedColor);
+        Get.snackbar("Ads successfully updated",'',backgroundColor: Colors.white);
         isLoading(false);      
       } if(res.statusCode >=  400){
-          Get.snackbar("${editAd['errors']}",'',backgroundColor: AppColors.whitedColor);
+          Get.snackbar("${editAd['errors']}",'',backgroundColor: Colors.white);
       }
      });
      update();
@@ -61,7 +62,7 @@ class  AdPostingController extends GetxController {
       if(result.data['success'] == true){
          isLoading(true);
          Get.toNamed('/myDraft');
-         Get.snackbar("Ad Drafted Successfully",'',backgroundColor: AppColors.whitedColor);
+         Get.snackbar("Ad Drafted Successfully",'',backgroundColor: Colors.white);
          
       } 
     update();
@@ -88,7 +89,7 @@ class  AdPostingController extends GetxController {
         adpost = jsonDecode(res.body);
         isLoading(false);
       } if(res.statusCode >=  400){
-          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.whitedColor);
+          Get.snackbar("You Enter Wrong entries",'',backgroundColor:Colors.white);
       }
      });
      update();
