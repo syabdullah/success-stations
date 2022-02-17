@@ -26,17 +26,20 @@ class CustomInfoWindowExample extends StatefulWidget {
 
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
-      CustomInfoWindowController();
+  CustomInfoWindowController();
   RangeValues _currentRangeValues = const RangeValues(1, 10000);
   final GlobalKey<ScaffoldState> scaffoldKey1 = GlobalKey<ScaffoldState>();
   final mapCon = Get.put(LocationController());
   final adfavUser = Get.put(UserFavController());
+
   // ignore: unused_field
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
   final double _zoom = 5.0;
+
   // ignore: non_constant_identifier_names
   int _makrr_id_counter = 1;
   var listtype = 'map';
+
   //  Marker _markers = [];
   List<Marker> _markers = [];
   var adtofavJson, remtofavJson;
@@ -47,6 +50,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   bool isButtonPressed = false;
   GetStorage box = GetStorage();
   bool visible = false;
+
   @override
   void initState() {
     super.initState();
@@ -103,23 +107,23 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                           children: [
                             data['image'] != null
                                 ? Container(
-                                    width: Get.width / 3.5,
-                                    height: Get.height / 3,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(15),
-                                            bottom: Radius.circular(15)),
-                                        child: Image.network(
-                                          data['image']['url'],
-                                          fit: BoxFit.fitHeight,
-                                        )),
-                                  )
+                              width: Get.width / 3.5,
+                              height: Get.height / 3,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(15),
+                                      bottom: Radius.circular(15)),
+                                  child: Image.network(
+                                    data['image']['url'],
+                                    fit: BoxFit.fitHeight,
+                                  )),
+                            )
                                 : Container(
-                                    height: Get.height / 3,
-                                    width: Get.width / 5.5,
-                                    color: Colors.grey[100],
-                                    margin: EdgeInsets.all(20),
-                                    child: Icon(Icons.image, size: 60)),
+                                height: Get.height / 3,
+                                width: Get.width / 5.5,
+                                color: Colors.grey[100],
+                                margin: EdgeInsets.all(20),
+                                child: Icon(Icons.image, size: 60)),
                             SizedBox(
                               width: 8.0,
                             ),
@@ -131,7 +135,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                   children: [
                                     Container(
                                       margin:
-                                          EdgeInsets.only(top: 10, left: 15),
+                                      EdgeInsets.only(top: 10, left: 15),
                                       child: RatingBar.builder(
                                         initialRating: rat,
                                         minRating: 1,
@@ -142,18 +146,20 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                         itemCount: 5,
                                         itemSize: 19.5,
                                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
+                                        itemBuilder: (context, _) =>
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
                                         onRatingUpdate: (rating) {},
                                       ),
                                     ),
                                     Container(
                                       margin:
-                                          EdgeInsets.only(top: 10, left: 10),
+                                      EdgeInsets.only(top: 10, left: 10),
                                       child: Text(
-                                        "(${data['user_name']['rating_count'].toString()})",
+                                        "(${data['user_name']['rating_count']
+                                            .toString()})",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
@@ -169,10 +175,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16)
-                                      // Theme.of(context).textTheme.headline6!.copyWith(
-                                      //       color: Colors.black,
-                                      //     ),
-                                      ),
+                                    // Theme.of(context).textTheme.headline6!.copyWith(
+                                    //       color: Colors.black,
+                                    //     ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -180,16 +186,16 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                             Container(
                                 margin: EdgeInsets.only(right: 15),
                                 child: data['user_name']
-                                            ['is_location_favourite'] ==
-                                        true
+                                ['is_location_favourite'] ==
+                                    true
                                     ? Image.asset(
-                                        AppImages.redHeart,
-                                        height: 30,
-                                      )
+                                  AppImages.redHeart,
+                                  height: 30,
+                                )
                                     : Image.asset(
-                                        AppImages.blueHeart,
-                                        height: 30,
-                                      ))
+                                  AppImages.blueHeart,
+                                  height: 30,
+                                ))
                           ],
                         ),
                       ),
@@ -238,7 +244,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                           fontSize: 20, color: Colors.black)),
                                 ),
                                 Container(
-                                    margin: EdgeInsets.only(right: 20, left: 20),
+                                    margin: EdgeInsets.only(
+                                        right: 20, left: 20),
                                     child: InkWell(
                                         onTap: () => Get.back(),
                                         child: Icon(Icons.close)))
@@ -251,7 +258,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                 borderRadius: BorderRadius.circular(20)),
                             width: Get.width / 4,
                             padding: EdgeInsets.symmetric(vertical: 10),
-                            margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                            margin: EdgeInsets.only(
+                                top: 20, left: 30, right: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -305,7 +313,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Theme.of(context)
+                                                    color: Theme
+                                                        .of(context)
                                                         .primaryColor))),
                                         onTap: () {},
                                         onSubmitted: (val) {
@@ -341,7 +350,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color: Theme.of(context)
+                                                    color: Theme
+                                                        .of(context)
                                                         .primaryColor))),
                                         onTap: () {},
                                         onSubmitted: (val) {
@@ -351,7 +361,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                             namearray.add(val);
                                             cityArray.length == 0
                                                 ? locationName = 'location=$val'
-                                                : locationName = '&location=$val';
+                                                : locationName =
+                                            '&location=$val';
                                           });
                                         },
                                       ),
@@ -365,7 +376,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                               const EdgeInsets.only(top: 2),
                                               decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: Colors.grey, width: 1),
+                                                    color: Colors.grey,
+                                                    width: 1),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5.0)),
                                               ),
@@ -377,7 +389,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                                     DropdownButtonHideUnderline(
                                                         child: DropdownButton(
                                                           hint: Text(
-                                                              selectedService != null
+                                                              selectedService !=
+                                                                  null
                                                                   ? selectedService
                                                                   : 'selectService'
                                                                   .tr,
@@ -388,19 +401,22 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                                           dropdownColor: AppColors
                                                               .inPutFieldColor,
                                                           icon: Icon(
-                                                              Icons.arrow_drop_down),
+                                                              Icons
+                                                                  .arrow_drop_down),
                                                           items: value
                                                               .servicesListdata
                                                               .map((coun) {
                                                             return DropdownMenuItem(
                                                                 value: coun,
-                                                                child: Text(coun[
-                                                                'servics_name']));
+                                                                child: Text(
+                                                                    coun[
+                                                                    'servics_name']));
                                                           }).toList(),
                                                           onChanged: (val) {
                                                             var adsubCategory;
                                                             setState(() {
-                                                              decideRouter = 'name';
+                                                              decideRouter =
+                                                              'name';
                                                               adsubCategory =
                                                               val as Map;
                                                               selectedService =
@@ -408,8 +424,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                                               'servics_name'];
                                                               service_id =
                                                               adsubCategory['id'];
-                                                              locationName != null
-                                                                  ? locationName =
+                                                              locationName !=
+                                                                  null
+                                                                  ?
+                                                              locationName =
                                                               '$locationName&service_id=$service_id'
                                                                   : locationName =
                                                               'service_id=$service_id';
@@ -432,7 +450,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                           Container(
                             margin: EdgeInsets.only(left: 15, right: 15),
                             child: Text(
-                                "${_currentRangeValues.start.round().toString()} miles",
+                                "${_currentRangeValues.start.round()
+                                    .toString()} miles",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.black,
@@ -455,7 +474,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       .round()
                                       .toString();
                                   end =
-                                      _currentRangeValues.end.round().toString();
+                                      _currentRangeValues.end.round()
+                                          .toString();
                                 });
                               },
                             ),
@@ -497,7 +517,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                         child: Center(
                                             child: Text("apply".tr,
                                                 style:
-                                                TextStyle(color: Colors.grey)))),
+                                                TextStyle(
+                                                    color: Colors.grey)))),
                                     onPressed: () {
                                       var cityFinalData;
                                       if (decideRouter == 'city' ||
@@ -561,25 +582,25 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                       return Stack(
                         children: [
                           Stack(
-                                  children: <Widget>[
-                                    val.allLoc != null
-                                        ? googleMap(val.latLng)
-                                        : Container(),
-                                    CustomInfoWindow(
-                                      controller: _customInfoWindowController,
-                                      height: Get.height / 6,
-                                      width: Get.width / 1.2,
-                                      offset: 50,
-                                    ),
-                                    GetBuilder<LocationController>(
-                                        init: LocationController(),
-                                        builder: (value) {
-                                          return value.allLoc != null
-                                              ? allUsers(value.allLoc['data'])
-                                              : gridShimmer();
-                                        }),
-                                  ],
-                                )
+                            children: <Widget>[
+                              val.allLoc != null
+                                  ? googleMap(val.latLng)
+                                  : Container(),
+                              CustomInfoWindow(
+                                controller: _customInfoWindowController,
+                                height: Get.height / 6,
+                                width: Get.width / 1.2,
+                                offset: 50,
+                              ),
+                              GetBuilder<LocationController>(
+                                  init: LocationController(),
+                                  builder: (value) {
+                                    return value.allLoc != null
+                                        ? allUsers(value.allLoc['data'])
+                                        : gridShimmer();
+                                  }),
+                            ],
+                          )
 
                         ],
                       );
@@ -594,11 +615,11 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     return Container(
       margin: lang == 'en'
           ? EdgeInsets.only(
-              left: 10,
-            )
+        left: 10,
+      )
           : EdgeInsets.only(
-              right: 10,
-            ),
+        right: 10,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -607,24 +628,24 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                 ? EdgeInsets.only(left: 10, top: 20)
                 : EdgeInsets.only(right: 10, top: 20),
             decoration: BoxDecoration(
-              borderRadius: lang=='en'
-              ?BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.zero,
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.zero,
-              )
-              :BorderRadius.only(
-                topLeft: Radius.zero,
-                topRight: Radius.circular(10.0),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.circular(10.0),
-              ),
-              color: listtype == 'map'
-              ? Colors.white
-              : listtype == 'grid'
-              ? AppColors.whitedColor
-              : Colors.white
+                borderRadius: lang == 'en'
+                    ? BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.zero,
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.zero,
+                )
+                    : BorderRadius.only(
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.circular(10.0),
+                ),
+                color: listtype == 'map'
+                    ? Colors.white
+                    : listtype == 'grid'
+                    ? AppColors.whitedColor
+                    : Colors.white
             ),
             height: 60,
             width: 60,
@@ -651,22 +672,22 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             decoration: BoxDecoration(
                 borderRadius: lang == 'en'
                     ? BorderRadius.only(
-                        topLeft: Radius.zero,
-                        topRight: Radius.circular(10.0),
-                        bottomLeft: Radius.zero,
-                        bottomRight: Radius.circular(10.0),
-                      )
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.circular(10.0),
+                )
                     : BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.zero,
-                        bottomLeft: Radius.circular(10.0),
-                        bottomRight: Radius.zero,
-                      ),
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.zero,
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.zero,
+                ),
                 color: listtype == 'grid'
                     ? Colors.white
                     : listtype == 'map'
-                        ? AppColors.appBarBackGroundColor
-                        : AppColors.appBarBackGroundColor),
+                    ? AppColors.appBarBackGroundColor
+                    : AppColors.appBarBackGroundColor),
             //color: Colors.black,
             height: 60,
             width: 60,
@@ -694,163 +715,231 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget allUsers(userData) {
     return userData == null
-        ? Container(
-            child: Center(
-            child: Text("locationFound".tr,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          ))
-        :  Container(
-      width: Get.width-100,
-        color:Colors.white,
+        ? Positioned(
+      bottom: 5,
+      child: Center(
+        child: Container(
+            width: Get.width,
+            height: Get.height / 6,
+            color: Colors.white.withOpacity(0.8),
 
-        child: Center(
-          child: Text("locationFound".tr,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-        ));
-    // Container(
-    //   height: Get.height /6,
-    //       child: ListView.builder(
-    //   scrollDirection:Axis.horizontal,
-    //           padding:
-    //               EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
-    //           primary: false,
-    //           // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //           //   crossAxisSpacing: 3,
-    //           //   mainAxisSpacing: 3,
-    //           //   crossAxisCount: 2,
-    //           //   childAspectRatio: Get.width /
-    //           //       (Get.height >= 800
-    //           //           ? Get.height / 1.65
-    //           //           : Get.height <= 800
-    //           //               ? Get.height / 1.60
-    //           //               : 0),
-    //           // ),
-    //           itemCount: userData.length,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             return GestureDetector(
-    //               onTap: () {
-    //                 Get.to(AdViewTab(), arguments: userData[index]['id']);
-    //               },
-    //               child: Card(
-    //                 elevation: 1,
-    //                 shape: RoundedRectangleBorder(
-    //                   borderRadius: BorderRadius.circular(10.0),
-    //                 ),
-    //                 child: Container(
-    //                   width:Get.width*0.8,
-    //                   child: Center(
-    //                     child: Row(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Container(
-    //                           height: 200,
-    //                           width: 100,
-    //                           child: Padding(
-    //                             padding: const EdgeInsets.all(8.0),
-    //                             child: ClipRRect(
-    //                               borderRadius: BorderRadius.all(Radius.circular(5.0)
-    //                                   ),
-    //                               child: userData[index]['image'] != null &&
-    //                                       userData[index]['image']['url'] != null
-    //                                   ? Image.network(
-    //                                       userData[index]['image']['url'],
-    //                                       fit: BoxFit.fill,
-    //                                     )
-    //                                   : FittedBox(
-    //                                       fit: BoxFit.contain,
-    //                                       child: Icon(Icons.person,
-    //                                           color: Colors.grey[400])),
-    //                             ),
-    //                           ),
-    //                         ),
-    //
-    //                         Container(
-    //                           width: Get.width*0.3,
-    //                           height: Get.height*0.02,
-    //                           color: Colors.grey,
-    //                             margin:
-    //                                 EdgeInsets.only(left: 10, top: 10, right: 10),
-    //                             child: userData[index]['location'] != null &&
-    //                                     userData[index]['location'] != null
-    //                                 ? Align(
-    //                               alignment:lang =="ar"? Alignment.centerRight:Alignment.centerLeft,
-    //                                   child: Text(
-    //                                       userData[index]['location'].toString(),
-    //                               // "Conred Chicago Restaurant",
-    //
-    //                               maxLines:2,
-    //
-    //                                       style: TextStyle(
-    //
-    //                                           color: Colors.black,
-    //                                           fontWeight: FontWeight.bold,
-    //                                           fontSize: 16),
-    //                                     ),
-    //                                 )
-    //                                 : Container()),
-    //                         // Row(
-    //                         //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                         //   children: [
-    //                         //     Row(
-    //                         //       children: [
-    //                         //         userData[index]['user_name'] != null
-    //                         //             ? Container(
-    //                         //                 child: RatingBar.builder(
-    //                         //                   ignoreGestures: true,
-    //                         //                   initialRating: userData[index]
-    //                         //                           ['user_name']['rating']
-    //                         //                       .toDouble(),
-    //                         //                   minRating: 1,
-    //                         //                   direction: Axis.horizontal,
-    //                         //                   allowHalfRating: true,
-    //                         //                   itemCount: 5,
-    //                         //                   itemSize: 13.5,
-    //                         //                   itemBuilder: (context, _) => Icon(
-    //                         //                     Icons.star,
-    //                         //                     color: Colors.amber,
-    //                         //                   ),
-    //                         //                   onRatingUpdate: (rating) {},
-    //                         //                 ),
-    //                         //               )
-    //                         //             : Container(),
-    //                         //         userData[index]['user_name'] != null
-    //                         //             ? Container(
-    //                         //                 margin: EdgeInsets.only(left: 5),
-    //                         //                 child: Text(
-    //                         //                   "(${userData[index]['user_name']['rating_count'].toString()})",
-    //                         //                   style: TextStyle(fontSize: 13),
-    //                         //                 ))
-    //                         //             : Container()
-    //                         //       ],
-    //                         //     ),
-    //                         //     // GestureDetector(
-    //                         //     //   onTap: () {
-    //                         //     //     adtofavJson = {
-    //                         //     //       'location_id': userData['data'][index]['id']
-    //                         //     //     };
-    //                         //     //     remtofavJson = {
-    //                         //     //       'location_id': userData['data'][index]['id']
-    //                         //     //     };
-    //                         //     //     userData['data'][index]['is_location_favourite'] == false
-    //                         //     //     ? adfavUser.locationToFav(adtofavJson)
-    //                         //     //     : adfavUser.locationUnToFav(remtofavJson);
-    //                         //     //   },
-    //                         //     //   child:userData['data'][index]['is_location_favourite'] == false
-    //                         //     //   ? Image.asset(
-    //                         //     //     AppImages.blueHeart, height: 20,
-    //                         //     //   )
-    //                         //     //   : Image.asset(AppImages.heart)
-    //                         //     // )
-    //                         //   ],
-    //                         // ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //             );
-    //           }),
-    //     );
+            child: Center(
+              child: Text("locationFound".tr,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            )),
+      ),
+    )
+        :
+    Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: Get.height / 6,
+        child: Positioned(
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding:
+              EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
+              primary: false,
+              // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //   crossAxisSpacing: 3,
+              //   mainAxisSpacing: 3,
+              //   crossAxisCount: 2,
+              //   childAspectRatio: Get.width /
+              //       (Get.height >= 800
+              //           ? Get.height / 1.65
+              //           : Get.height <= 800
+              //               ? Get.height / 1.60
+              //               : 0),
+              // ),
+              itemCount: userData.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.to(AdViewTab(), arguments: userData[index]['id']);
+                  },
+                  child: Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Container(
+                      width: Get.width * 0.8,
+                      child: Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 200,
+                              width: 100,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5.0)
+                                  ),
+                                  child: userData[index]['image'] != null &&
+                                      userData[index]['image']['url'] != null
+                                      ? Image.network(
+                                    userData[index]['image']['url'],
+                                    fit: BoxFit.fill,
+                                  )
+                                      : FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Icon(Icons.person,
+                                          color: Colors.grey[400])),
+                                ),
+                              ),
+                            ),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    width: Get.width * 0.3,
+                                    height: Get.height * 0.055,
+
+                                    margin:
+                                    EdgeInsets.only(left: 10, top: 10, right: 10),
+                                    child: userData[index]['location'] != null &&
+                                        userData[index]['location'] != null
+                                        ? Align(
+                                      alignment: lang == "ar" ? Alignment
+                                          .centerRight : Alignment.centerLeft,
+                                      child:
+                                      userData[index]['location'].toString()!=null?
+                                      Text(
+
+                                        userData[index]['location'].toString(),
+
+
+                                        maxLines: 2,
+
+                                        style: TextStyle(
+
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ):Container()
+                                    )
+                                        : Container()),
+                                Container(
+                                    width: Get.width * 0.45,
+                                    height: Get.height * 0.025,
+
+                                    margin:
+                                    EdgeInsets.only(left: 10, top: 2, right: 10),
+                                    child: userData[index]['street_address'] != null &&
+                                        userData[index]['street_address'] != null
+                                        ? Align(
+                                      alignment: lang == "ar" ? Alignment
+                                          .centerRight : Alignment.centerLeft,
+                                      child:
+                                      userData[index]['street_address'] != null ?
+                                      Text(
+                                        userData[index]['street_address']
+                                            .toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(color: Colors.grey,fontSize: 14),
+                                      ):Container()
+                                    )
+                                        : Container()),
+                                Container(
+                                  margin:
+                                  EdgeInsets.only(left: 10, top: 3, right: 10),
+
+                                  child:
+                                  userData[index]['user_name'] != null
+                                      ?
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating:
+
+                                    userData[index]
+                                    ['user_name']['rating']
+                                        .toDouble(),
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 13.5,
+                                    itemBuilder: (context, _) =>
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                    onRatingUpdate: (rating) {},
+                                  ):Container()
+                                ),
+                              ],
+                            ),
+                           /* Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    userData[index]['user_name'] != null
+                                        ? Container(
+                                      child: RatingBar.builder(
+                                        ignoreGestures: true,
+                                        initialRating: userData[index]
+                                        ['user_name']['rating']
+                                            .toDouble(),
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 13.5,
+                                        itemBuilder: (context, _) =>
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                        onRatingUpdate: (rating) {},
+                                      ),
+                                    )
+                                        : Container(),
+                                    userData[index]['user_name'] != null
+                                        ? Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          "(${userData[index]['user_name']['rating_count']
+                                              .toString()})",
+                                          style: TextStyle(fontSize: 13),
+                                        ))
+                                        : Container()
+                                  ],
+                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     adtofavJson = {
+                                //       'location_id': userData['data'][index]['id']
+                                //     };
+                                //     remtofavJson = {
+                                //       'location_id': userData['data'][index]['id']
+                                //     };
+                                //     userData['data'][index]['is_location_favourite'] == false
+                                //     ? adfavUser.locationToFav(adtofavJson)
+                                //     : adfavUser.locationUnToFav(remtofavJson);
+                                //   },
+                                //   child:userData['data'][index]['is_location_favourite'] == false
+                                //   ? Image.asset(
+                                //     AppImages.blueHeart, height: 20,
+                                //   )
+                                //   : Image.asset(AppImages.heart)
+                                // )
+                              ],
+                            ),*/
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ),
+    );
   }
 
   void handleClick(int item) {
@@ -866,28 +955,28 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
     return StatefulBuilder(builder: (context, newSetState) {
       return kInitialPosition != null
           ? Container(
-              height: Get.height,
-              child: GoogleMap(
-                zoomControlsEnabled: false,
+        height: Get.height,
+        child: GoogleMap(
+          zoomControlsEnabled: false,
 
-                mapType: MapType.normal,
-                onTap: (position) {},
-                onCameraMove: (position) {
-                  _customInfoWindowController.onCameraMove!();
-                },
-                onMapCreated: (GoogleMapController controller) async {
-                  _customInfoWindowController.googleMapController = controller;
-                },
-                initialCameraPosition: CameraPosition(
-                  target: kInitialPosition,
-                  zoom: _zoom,
-                ),
-                markers: _markers.toSet(),
-              ),
-            )
+          mapType: MapType.normal,
+          onTap: (position) {},
+          onCameraMove: (position) {
+            _customInfoWindowController.onCameraMove!();
+          },
+          onMapCreated: (GoogleMapController controller) async {
+            _customInfoWindowController.googleMapController = controller;
+          },
+          initialCameraPosition: CameraPosition(
+            target: kInitialPosition,
+            zoom: _zoom,
+          ),
+          markers: _markers.toSet(),
+        ),
+      )
           : Center(
-              child: Text("noLoc".tr),
-            );
+        child: Text("noLoc".tr),
+      );
     });
   }
 }
