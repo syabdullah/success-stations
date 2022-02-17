@@ -77,9 +77,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   final ImagePicker _picker = ImagePicker();
   final con = Get.put(AdPostingController());
 
-
-
-
   // Pick an image
   XFile? pickedFile;
   late String image;
@@ -259,10 +256,11 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       key: _scaffoldKey,
       backgroundColor: Color(0xfff2f2f2),
       appBar: AppBar(
@@ -285,53 +283,105 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           backgroundColor: Colors.white),
       body: ListView(
         children: [
-          ImageStepper(
-            stepColor: Colors.yellow,
-            lineDotRadius: 0.1,
-            lineColor: Colors.grey,
-            activeStepColor: AppColors.whitedColor,
-            activeStepBorderColor: Colors.grey[700],
-            lineLength: 75,
-            enableNextPreviousButtons: false,
-            images: [
-              activeStep == 0
-                  ? AssetImage(AppImages.sistStepIcon)
-                  : AssetImage(AppImages.istStepIcon),
-              activeStep == 1
-                  ? AssetImage(AppImages.ssecStepIcon)
-                  : AssetImage(AppImages.secStepIcon),
-              activeStep == 2
-                  ? AssetImage(AppImages.strdStepIcon)
-                  : AssetImage(AppImages.trdStepIcon),
-            ],
-            activeStep: activeStep,
-            onStepReached: (index) {
-              setState(() {
-                activeStep = index;
-              });
-            },
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 15, left: 15, right: 15),
+            child: Container(
+                height: 45,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(activeStep == 0
+                          ? AppImages.sistStepIcon
+                          : activeStep == 1
+                              ? AppImages.ssecStepIcon
+                              : AppImages.strdStepIcon),
+                      //fit: BoxFit.cover
+                      fit: BoxFit.fill),
+                ),
+                child: Center(
+                  child: Row(children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeStep = 0;
+                        });
+                      },
+                      child: Container(
+                        width: 100,
+                        child: Center(child: Text("New ads",style: TextStyle(color: Colors.white,fontSize: 13))),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeStep = 1;
+                        });
+                      },
+                      child: Container(
+                        width: 100,
+                        child: Center(child: Text("contact_information".tr,style: TextStyle(color: Colors.white,fontSize: 13))),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          activeStep = 2;
+                        });
+                      },
+                      child: Container(
+                          width: 110,
+                          child: Center(child: Text("review_publish".tr,style: TextStyle(color: Colors.white,fontSize: 13)))),
+                    )
+                  ]),
+                )
+
+                // ImageStepper(
+                //   stepColor: Colors.yellow,
+                //   lineDotRadius: 0.1,
+                //   lineColor: Colors.grey,
+                //   activeStepColor: AppColors.whitedColor,
+                //   activeStepBorderColor: Colors.grey[700],
+                //   lineLength: 60,
+                //   enableNextPreviousButtons: false,
+                //   images: [
+                //     activeStep == 0
+                //         ? AssetImage(AppImages.sistStepIcon)
+                //         : AssetImage(AppImages.istStepIcon),
+                //     activeStep == 1
+                //         ? AssetImage(AppImages.ssecStepIcon)
+                //         : AssetImage(AppImages.secStepIcon),
+                //     activeStep == 2
+                //         ? AssetImage(AppImages.strdStepIcon)
+                //         : AssetImage(AppImages.trdStepIcon),
+                //   ],
+                //   activeStep: activeStep,
+                //   onStepReached: (index) {
+                //     setState(() {
+                //       activeStep = index;
+                //     });
+                //   },
+                // ),
+                ),
           ),
-          header(),
+          // header(),
 
           GetBuilder<UserProfileController>(
               init: UserProfileController(),
               builder: (val1) {
-
-              return GetBuilder<CategoryController>(
-                  init: CategoryController(),
-                  builder: (val) {
-                    return activeStep == 0
-                        ? istStep(val.subCat['data'], val.datacategTypes)
-                        : activeStep == 1
-                            ? val1.userData['data']!= null? secondStep(
-                        val1.userData['data']
-                    ): PlayStoreShimmer()
-                            : activeStep == 2
-                                ? thirdStep()
-                                : Container();
-                  });
-            }
-          ),
+                return GetBuilder<CategoryController>(
+                    init: CategoryController(),
+                    builder: (val) {
+                      return activeStep == 0
+                          ? istStep(val.subCat['data'], val.datacategTypes)
+                          : activeStep == 1
+                              ? val1.userData['data'] != null
+                                  ? secondStep(val1.userData['data'])
+                                  : PlayStoreShimmer()
+                              : activeStep == 2
+                                  ? thirdStep()
+                                  : Container();
+                    });
+              }),
           activeStep == 0
               ? Padding(
                   padding: EdgeInsets.symmetric(
@@ -383,6 +433,9 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       ),
     );
   }
+
+
+
 
   Widget previousButton2(image, text, Color color, data) {
     return InkWell(
@@ -554,7 +607,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 5,
+                  height: 25,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -1086,7 +1139,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       key: _formKey,
       child: Column(
         children: [
-         /* ElevatedButton(
+          /* ElevatedButton(
             child: Text("Tap"),
             onPressed: () {
               Navigator.push(context,
@@ -1109,8 +1162,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Row(children: [
-
-
               Theme(
                 data: Theme.of(context).copyWith(
                   unselectedWidgetColor: AppColors.border,
@@ -1122,23 +1173,19 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                     activeColor: AppColors.whitedColor,
                     value: _isChecked,
                     onChanged: (value) {
-
                       setState(() {
-
-
                         _isChecked = value!;
 
-                        if(_isChecked==false){
-                          fullNameController.text =  "";
-                          emailController.text =  "";
-                          mobileNoController.text ="";
+                        if (_isChecked == false) {
+                          fullNameController.text = "";
+                          emailController.text = "";
+                          mobileNoController.text = "";
+                        } else {
+                          fullNameController.text = userData["name"].toString();
+                          emailController.text = userData["email"].toString();
+                          mobileNoController.text =
+                              userData["mobile"].toString();
                         }
-                        else{fullNameController.text =  userData["name"].toString();
-                        emailController.text =  userData["email"].toString();
-                        mobileNoController.text = userData["mobile"].toString();}
-
-
-
                       });
                     },
                   ),
@@ -1256,7 +1303,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                 alignedDropdown: true,
                                 child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-
                                   isExpanded: true,
                                   hint: hintFlagCountry != null
                                       ? Row(
@@ -1538,9 +1584,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
   Widget thirdStep() {
     return Column(
       children: [
+        SizedBox(
+          height: 5,
+        ),
         fileName != null
             ? Stack(
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: Container(
@@ -2202,11 +2252,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0.0),
             ),
-            textStyle: TextStyle(
-              fontSize: 13,
-            )),
+            // textStyle: TextStyle(
+            //   fontSize: 13,
+            // )
+        ),
         onPressed: () {
-          editData == null ? adpost() : editpost();
+          editData == null ? Container() : editpost();
         },
         child: Text("publishb".tr),
       ),
