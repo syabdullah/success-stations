@@ -691,44 +691,44 @@ class _SignPageState extends State<StudentSignUp> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(0),
             border: Border.all(color: AppColors.outline,width: 1.5)),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: InternationalPhoneNumberInput(
-          focusNode: FocusNode(),
-          cursorColor: AppColors.whitedColor,
-          autoFocus: false,
-          inputDecoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
-            fillColor: Colors.white,
-            filled: true,
-            border: InputBorder.none,
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(0),
-              borderSide: BorderSide(color: Colors.red),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(height : 30,width:30,child: Image.network(countryIdGet["flag"]["url"])),
             ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(0),
-              borderSide: BorderSide(color: Colors.red),
+            Container(child: Text('+ ${countryIdGet["id"]}',style: TextStyle(color: Colors.grey),),),
+            Container(
+              width: Get.width * 0.6,
+              child: TextField(
+                focusNode: FocusNode(),
+                cursorColor: AppColors.whitedColor,
+                autofocus: false,
+               decoration : InputDecoration(
+                  contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width/19, bottom: 10),
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: InputBorder.none,
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  // hintText: "mobilee".tr,
+                  // hintStyle: TextStyle(
+                  //     fontSize: lang == 'ar' ? 14 : 16,
+                  //     color: AppColors.inputTextColor),
+                ),
+                // autoValidateMode: AutovalidateMode.onUserInteraction,
+                // selectorTextStyle: TextStyle(color: Colors.black),
+                // textFieldController: mobileController,
+                // formatInput: true,
+              ),
             ),
-            // hintText: "mobilee".tr,
-            // hintStyle: TextStyle(
-            //     fontSize: lang == 'ar' ? 14 : 16,
-            //     color: AppColors.inputTextColor),
-          ),
-          onInputChanged: (PhoneNumber numberr) {
-            number = numberr;
-          },
-          onInputValidated: (bool value) {},
-          selectorConfig: SelectorConfig(
-            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-          ),
-          ignoreBlank: false,
-          autoValidateMode: AutovalidateMode.onUserInteraction,
-          selectorTextStyle: TextStyle(color: Colors.black),
-          textFieldController: mobileController,
-          formatInput: true,
-          inputBorder: OutlineInputBorder(),
-          onSaved: (PhoneNumber number) {},
-          initialValue: tttt,
+          ],
         ));
   }
 

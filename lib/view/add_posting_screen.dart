@@ -93,7 +93,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       hintcityText,
       selectedCity;
   var lang;
-  var editData, hintTextCountry, hintFlagCountry, selectedCountry;
+  var editData, hintTextCountry, hintFlagCountry, selectedCountry,hintFlagCountrycode;
   final countryPut = Get.put(ContryController());
   var imageName;
   var typeId;
@@ -1328,7 +1328,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                               height: 15,
                                             ),
                                             SizedBox(width: Get.width * 0.02),
-                                            Text("+20")
+                                            Text("+ ${hintFlagCountrycode}")
                                           ],
                                         )
                                       : Text('country'.tr,
@@ -1348,7 +1348,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                             height: 15,
                                           ),
                                           SizedBox(width: Get.width * 0.02),
-                                          Text("+20")
+                                          Text("+ ${country['id']}")
                                         ],
                                       ),
 
@@ -1378,6 +1378,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                                     var mapFlag;
                                     setState(() {
                                       mapFlag = val as Map;
+                                      hintFlagCountrycode   =    mapFlag['id'];
                                       hintFlagCountry = mapFlag['flag'] != null
                                           ? mapFlag['flag']['preview']
                                           : "https://success-stations.com/beta/public//storage/19/conversions/6120c0a0237b0_255px-Flag_of_Egypt.svg-thumb.jpg";

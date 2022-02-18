@@ -225,7 +225,9 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           builder: (BuildContext context, StateSetter setState) {
             return Wrap(children: [
               Container(
-                height: Get.height / 1.6,
+                color: Colors.white,
+                height: Get.height,
+                width: Get.width /1.5,
                 child: ListView(
                   children: [
                     Container(
@@ -491,7 +493,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                 child: RaisedButton(
                                     color: Colors.grey[100],
                                     child: Container(
-                                        width: Get.width / 4,
+                                        width: Get.width / 7,
                                         child: Center(
                                             child: Text('reset'.tr,
                                                 style: TextStyle(
@@ -513,7 +515,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                   child: RaisedButton(
                                     color: AppColors.whitedColor,
                                     child: Container(
-                                        width: Get.width / 4,
+                                        width: Get.width / 7,
                                         child: Center(
                                             child: Text("apply".tr,
                                                 style:
