@@ -221,340 +221,348 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey1,
-      drawer: StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return Wrap(children: [
-              Container(
-                color: Colors.white,
-                height: Get.height,
-                width: Get.width /1.5,
-                child: ListView(
-                  children: [
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 30, right: 30),
-                                  child: Text('filter'.tr,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
-                                ),
-                                Container(
-                                    margin: EdgeInsets.only(
-                                        right: 20, left: 20),
-                                    child: InkWell(
-                                        onTap: () => Get.back(),
-                                        child: Icon(Icons.close)))
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: color,
-                                borderRadius: BorderRadius.circular(20)),
-                            width: Get.width / 4,
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            margin: EdgeInsets.only(
-                                top: 20, left: 30, right: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Icon(Icons.location_on,
-                                      color: AppColors.whitedColor),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      color = Colors.blue[100];
-                                      textfeild = !textfeild;
-                                    });
-                                    _getUserLocation();
-                                  },
-                                  child: Container(
-                                    child: Text("Nearby".tr,
-                                        style: TextStyle(
-                                            color: AppColors.whitedColor)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
-                              child: Form(
-                                key: formKey,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            isDense: true,
-                                            // Added this
-                                            contentPadding: EdgeInsets.all(12),
-                                            enabled: textfeild,
-                                            hintStyle: TextStyle(
-                                                color: AppColors.inputTextColor,
-                                                fontSize: 13),
-                                            labelStyle: TextStyle(
-                                                color: AppColors.inputTextColor,
-                                                fontSize: 13),
-                                            labelText: ('city'.tr),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                              const BorderRadius.all(
-                                                Radius.circular(5.0),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Theme
-                                                        .of(context)
-                                                        .primaryColor))),
-                                        onTap: () {},
-                                        onSubmitted: (val) {
-                                          formKey.currentState!.save();
-                                          setState(() {
-                                            decideRouter = 'city';
-                                            array.add(val);
-                                            cityArray.add('city[]=$val');
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            isDense: true,
-                                            // Added this
-                                            contentPadding: EdgeInsets.all(12),
-                                            enabled: textfeild,
-                                            hintStyle: TextStyle(
-                                                color: AppColors.inputTextColor,
-                                                fontSize: 13),
-                                            labelText: ('locationName'.tr),
-                                            labelStyle: TextStyle(
-                                                color: AppColors.inputTextColor,
-                                                fontSize: 13),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                              const BorderRadius.all(
-                                                const Radius.circular(5.0),
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Theme
-                                                        .of(context)
-                                                        .primaryColor))),
-                                        onTap: () {},
-                                        onSubmitted: (val) {
-                                          formKey.currentState!.save();
-                                          setState(() {
-                                            decideRouter = 'name';
-                                            namearray.add(val);
-                                            cityArray.length == 0
-                                                ? locationName = 'location=$val'
-                                                : locationName =
-                                            '&location=$val';
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    GetBuilder<ServicesController>(
-                                        init: ServicesController(),
-                                        builder: (value) {
-                                          return Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              padding:
-                                              const EdgeInsets.only(top: 2),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 1),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5.0)),
-                                              ),
-                                              child: ButtonTheme(
-                                                  alignedDropdown: true,
-                                                  child: Container(
-                                                    width: Get.width,
-                                                    child:
-                                                    DropdownButtonHideUnderline(
-                                                        child: DropdownButton(
-                                                          hint: Text(
-                                                              selectedService !=
-                                                                  null
-                                                                  ? selectedService
-                                                                  : 'selectService'
-                                                                  .tr,
-                                                              style: TextStyle(
-                                                                  fontSize: 13,
-                                                                  color: AppColors
-                                                                      .inputTextColor)),
-                                                          dropdownColor: AppColors
-                                                              .inPutFieldColor,
-                                                          icon: Icon(
-                                                              Icons
-                                                                  .arrow_drop_down),
-                                                          items: value
-                                                              .servicesListdata
-                                                              .map((coun) {
-                                                            return DropdownMenuItem(
-                                                                value: coun,
-                                                                child: Text(
-                                                                    coun[
-                                                                    'servics_name']));
-                                                          }).toList(),
-                                                          onChanged: (val) {
-                                                            var adsubCategory;
-                                                            setState(() {
-                                                              decideRouter =
-                                                              'name';
-                                                              adsubCategory =
-                                                              val as Map;
-                                                              selectedService =
-                                                              adsubCategory[
-                                                              'servics_name'];
-                                                              service_id =
-                                                              adsubCategory['id'];
-                                                              locationName !=
-                                                                  null
-                                                                  ?
-                                                              locationName =
-                                                              '$locationName&service_id=$service_id'
-                                                                  : locationName =
-                                                              'service_id=$service_id';
-                                                            });
-                                                          },
-                                                        )),
-                                                  )));
-                                        }),
-                                  ],
-                                ),
-                              )),
-                          Container(
-                            margin: EdgeInsets.only(left: 15, right: 15),
-                            child: Text('distance'.tr,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                )),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 15, right: 15),
-                            child: Text(
-                                "${_currentRangeValues.start.round()
-                                    .toString()} miles",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                          Container(
-                            child: RangeSlider(
-                              activeColor: AppColors.whitedColor,
-                              values: _currentRangeValues,
-                              min: 1.00,
-                              max: 10000.00,
-                              labels: RangeLabels(
-                                _currentRangeValues.start.round().toString(),
-                                _currentRangeValues.end.round().toString(),
-                              ),
-                              onChanged: (values) {
-                                setState(() {
-                                  _currentRangeValues = values;
-                                  start = _currentRangeValues.start
-                                      .round()
-                                      .toString();
-                                  end =
-                                      _currentRangeValues.end.round()
-                                          .toString();
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                // ignore: deprecated_member_use
-                                child: RaisedButton(
-                                    color: Colors.grey[100],
-                                    child: Container(
-                                        width: Get.width / 7,
-                                        child: Center(
-                                            child: Text('reset'.tr,
-                                                style: TextStyle(
-                                                    color: AppColors
-                                                        .inputTextColor)))),
-                                    onPressed: () {
-                                      array.clear();
-                                      cityArray.clear();
-                                      locationName = null;
-                                      selectedService = null;
-                                      Get.back();
-                                      Get.find<LocationController>()
-                                          .getAllLocationToDB();
-                                      // Get.to(SignIn());
-                                    }),
-                              ),
-                              Container(
-                                // ignore: deprecated_member_use
-                                  child: RaisedButton(
-                                    color: AppColors.whitedColor,
-                                    child: Container(
-                                        width: Get.width / 7,
-                                        child: Center(
-                                            child: Text("apply".tr,
-                                                style:
-                                                TextStyle(
-                                                    color: Colors.grey)))),
-                                    onPressed: () {
-                                      var cityFinalData;
-                                      if (decideRouter == 'city' ||
-                                          decideRouter == 'name') {
-                                        if (cityArray.length != 0) {
-                                          var cityFinal = cityArray.toString();
-                                          cityFinalData = cityFinal.substring(
-                                              1, cityFinal.length - 1);
-                                        } else {
-                                          cityFinalData = null;
-                                        }
-                                        Get.find<LocationController>()
-                                            .getAllLocationByCity(
-                                            cityFinalData, locationName);
-                                      } else if (decideRouter == 'near') {
-                                        Get.find<LocationController>()
-                                            .getAllLocationNearBy(
-                                            end,
-                                            position.latitude,
-                                            position.longitude);
-                                      }
-                                      Get.back();
-                                    },
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
+      drawer: Container(
+        height: Get.height,
+        child: SingleChildScrollView(
+          child: Container(
+            width: Get.width /1.4,
+            height: Get.height,
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: Get.height * 0.04),
+                    height: Get.height * 0.06,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border, width: 2)),
+                    child: Center(
+                      child: Text("filter".tr,
+                          style: TextStyle(fontSize: 25, color: Colors.black)),
                     ),
-                  ],
+                  ),
                 ),
-              )
-            ]);
-          }),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.height * 0.01, vertical: Get.height * 0.02),
+                  child: Center(
+                    child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.04,
+                              vertical: Get.height * 0.015),
+                          isCollapsed: true,
+                          hintText: "search".tr,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: AppColors.border, width: 1.5),
+                              borderRadius: BorderRadius.circular(10)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: AppColors.border, width: 1.5),
+                              borderRadius: BorderRadius.circular(10)),
+                        )),
+                  ),
+                ),
+                Container(
+                                      decoration: BoxDecoration(
+                                          color: color,
+                                          borderRadius: BorderRadius.circular(20)),
+                                      width: Get.width / 4,
+                                      padding: EdgeInsets.symmetric(vertical: 10),
+                                      margin: EdgeInsets.only(
+                                          top: 20, left: 30, right: 30),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            child: Icon(Icons.location_on,
+                                                color: AppColors.whitedColor),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                color = Colors.blue[100];
+                                                textfeild = !textfeild;
+                                              });
+                                              _getUserLocation();
+                                            },
+                                            child: Container(
+                                              child: Text("Nearby".tr,
+                                                  style: TextStyle(
+                                                      color: AppColors.whitedColor)),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 15),
+                                        child: Form(
+                                          key: formKey,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      isDense: true,
+                                                      // Added this
+                                                      contentPadding: EdgeInsets.all(12),
+                                                      enabled: textfeild,
+                                                      hintStyle: TextStyle(
+                                                          color: AppColors.inputTextColor,
+                                                          fontSize: 13),
+                                                      labelStyle: TextStyle(
+                                                          color: AppColors.inputTextColor,
+                                                          fontSize: 13),
+                                                      labelText: ('city'.tr),
+                                                      border: OutlineInputBorder(
+                                                        borderRadius:
+                                                        const BorderRadius.all(
+                                                          Radius.circular(5.0),
+                                                        ),
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Theme
+                                                                  .of(context)
+                                                                  .primaryColor))),
+                                                  onTap: () {},
+                                                  onSubmitted: (val) {
+                                                    formKey.currentState!.save();
+                                                    setState(() {
+                                                      decideRouter = 'city';
+                                                      array.add(val);
+                                                      cityArray.add('city[]=$val');
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 10),
+                                                child: TextField(
+                                                  decoration: InputDecoration(
+                                                      isDense: true,
+                                                      // Added this
+                                                      contentPadding: EdgeInsets.all(12),
+                                                      enabled: textfeild,
+                                                      hintStyle: TextStyle(
+                                                          color: AppColors.inputTextColor,
+                                                          fontSize: 13),
+                                                      labelText: ('locationName'.tr),
+                                                      labelStyle: TextStyle(
+                                                          color: AppColors.inputTextColor,
+                                                          fontSize: 13),
+                                                      border: OutlineInputBorder(
+                                                        borderRadius:
+                                                        const BorderRadius.all(
+                                                          const Radius.circular(5.0),
+                                                        ),
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Theme
+                                                                  .of(context)
+                                                                  .primaryColor))),
+                                                  onTap: () {},
+                                                  onSubmitted: (val) {
+                                                    formKey.currentState!.save();
+                                                    setState(() {
+                                                      decideRouter = 'name';
+                                                      namearray.add(val);
+                                                      cityArray.length == 0
+                                                          ? locationName = 'location=$val'
+                                                          : locationName =
+                                                      '&location=$val';
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              GetBuilder<ServicesController>(
+                                                  init: ServicesController(),
+                                                  builder: (value) {
+                                                    return Container(
+                                                        margin: EdgeInsets.only(top: 10),
+                                                        padding:
+                                                        const EdgeInsets.only(top: 2),
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors.grey,
+                                                              width: 1),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(5.0)),
+                                                        ),
+                                                        child: ButtonTheme(
+                                                            alignedDropdown: true,
+                                                            child: Container(
+                                                              width: Get.width,
+                                                              child:
+                                                              DropdownButtonHideUnderline(
+                                                                  child: DropdownButton(
+                                                                    hint: Text(
+                                                                        selectedService !=
+                                                                            null
+                                                                            ? selectedService
+                                                                            : 'selectService'
+                                                                            .tr,
+                                                                        style: TextStyle(
+                                                                            fontSize: 13,
+                                                                            color: AppColors
+                                                                                .inputTextColor)),
+                                                                    dropdownColor: AppColors
+                                                                        .inPutFieldColor,
+                                                                    icon: Icon(
+                                                                        Icons
+                                                                            .arrow_drop_down),
+                                                                    items: value
+                                                                        .servicesListdata
+                                                                        .map((coun) {
+                                                                      return DropdownMenuItem(
+                                                                          value: coun,
+                                                                          child: Text(
+                                                                              coun[
+                                                                              'servics_name']));
+                                                                    }).toList(),
+                                                                    onChanged: (val) {
+                                                                      var adsubCategory;
+                                                                      setState(() {
+                                                                        decideRouter =
+                                                                        'name';
+                                                                        adsubCategory =
+                                                                        val as Map;
+                                                                        selectedService =
+                                                                        adsubCategory[
+                                                                        'servics_name'];
+                                                                        service_id =
+                                                                        adsubCategory['id'];
+                                                                        locationName !=
+                                                                            null
+                                                                            ?
+                                                                        locationName =
+                                                                        '$locationName&service_id=$service_id'
+                                                                            : locationName =
+                                                                        'service_id=$service_id';
+                                                                      });
+                                                                    },
+                                                                  )),
+                                                            )));
+                                                  }),
+                                            ],
+                                          ),
+                                        )),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 15, right: 15),
+                                      child: Text('distance'.tr,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                          )),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 15, right: 15),
+                                      child: Text(
+                                          "${_currentRangeValues.start.round()
+                                              .toString()} miles",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal)),
+                                    ),
+                                    Container(
+                                      child: RangeSlider(
+                                        activeColor: AppColors.whitedColor,
+                                        values: _currentRangeValues,
+                                        min: 1.00,
+                                        max: 10000.00,
+                                        labels: RangeLabels(
+                                          _currentRangeValues.start.round().toString(),
+                                          _currentRangeValues.end.round().toString(),
+                                        ),
+                                        onChanged: (values) {
+                                          setState(() {
+                                            _currentRangeValues = values;
+                                            start = _currentRangeValues.start
+                                                .round()
+                                                .toString();
+                                            end =
+                                                _currentRangeValues.end.round()
+                                                    .toString();
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                          // ignore: deprecated_member_use
+                                          child: RaisedButton(
+                                              color: Colors.grey[100],
+                                              child: Container(
+                                                  width: Get.width / 7,
+                                                  child: Center(
+                                                      child: Text('reset'.tr,
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .inputTextColor)))),
+                                              onPressed: () {
+                                                array.clear();
+                                                cityArray.clear();
+                                                locationName = null;
+                                                selectedService = null;
+                                                Get.back();
+                                                Get.find<LocationController>()
+                                                    .getAllLocationToDB();
+                                                // Get.to(SignIn());
+                                              }),
+                                        ),
+                                        Container(
+                                          // ignore: deprecated_member_use
+                                            child: RaisedButton(
+                                              color: AppColors.whitedColor,
+                                              child: Container(
+                                                  width: Get.width / 7,
+                                                  child: Center(
+                                                      child: Text("apply".tr,
+                                                          style:
+                                                          TextStyle(
+                                                              color: Colors.grey)))),
+                                              onPressed: () {
+                                                var cityFinalData;
+                                                if (decideRouter == 'city' ||
+                                                    decideRouter == 'name') {
+                                                  if (cityArray.length != 0) {
+                                                    var cityFinal = cityArray.toString();
+                                                    cityFinalData = cityFinal.substring(
+                                                        1, cityFinal.length - 1);
+                                                  } else {
+                                                    cityFinalData = null;
+                                                  }
+                                                  Get.find<LocationController>()
+                                                      .getAllLocationByCity(
+                                                      cityFinalData, locationName);
+                                                } else if (decideRouter == 'near') {
+                                                  Get.find<LocationController>()
+                                                      .getAllLocationNearBy(
+                                                      end,
+                                                      position.latitude,
+                                                      position.longitude);
+                                                }
+                                                Get.back();
+                                              },
+                                            )),
+                                      ],
+                                    )
+                                  ]),
+          )),
+      ),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: appbar(scaffoldKey1, context, AppImages.appBarLogo,
