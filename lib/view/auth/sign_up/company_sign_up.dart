@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:success_stations/controller/ad_posting_controller.dart';
+import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
@@ -265,56 +266,11 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     space25,
                     radioalert(),
                     space25,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
-                          child: Text(
-                            "services".tr,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color:Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    space25,
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          // borderRadius: BorderRadius.circular(3),
-                          border: Border.all(color: AppColors.outline,width: 1.5)),
-                      height: Get.height*0.13,
-                      width: double.infinity,
-                      child: Padding(
-                        padding:  EdgeInsets.all(Get.height*0.008),
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 5,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: Get.height*0.004 ,
-                          ),
-                          // physics: NeverScrollableScrollPhysics(),
-                          itemCount: servicesdemo.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              height: Get.height*0.04,
-                              decoration: BoxDecoration(
-                                  border:
-                                  Border.all( color:AppColors.outline),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Center(
-                                  child: Text(
-                                    servicesdemo[index],
-                                    style: TextStyle(color: Colors.grey),
-                                  )),
-                            );
-                          },
-                        ),
-                      ),
+                    GetBuilder<ServicesController>(
+                      init: ServicesController(),
+                      builder: (val){
+                        return services(val.servicesListdata, );
+                      },
                     ),
 
                     // GetBuilder<ServicesController>(
@@ -990,49 +946,62 @@ class _CompanySignPageState extends State<CompanySignUp> {
   }
 
   Widget services(List serviceName) {
-    return Container(
-        color: Colors.white,
-        margin: EdgeInsets.only(left: 2),
-        width: Get.width / 1.1,
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          border: Border.all(color: AppColors.outline
-            // width: 2,
-          ),
-        ),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
             children: <Widget>[
-              MultiSelectBottomSheetField(
-                initialChildSize: 0.4,
-                listType: MultiSelectListType.CHIP,
-                searchable: true,
-                buttonText: Text("services".tr,
-                    style: TextStyle(color: Colors.black, fontSize: 17)),
-                items: serviceName
-                    .map((e) => MultiSelectItem(
-                    e, e['servics_name'] != null ? e['servics_name'] : ''))
-                    .toList(),
-                onConfirm: (values) {
-                  var valLoop = values;
-                  for (int c = 0; c < valLoop.length; c++) {
-                    var idGetServices = valLoop[c] as Map;
-                    var servID = idGetServices['id'];
-                    selectedAnimals2.add(servID);
-                  }
-                },
-                chipDisplay: MultiSelectChipDisplay(
-                  onTap: (value) {
-                    setState(() {
-                      selectedAnimals2.remove(value);
-                    });
-                  },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Get.width*0.01),
+                    child: Text(
+                      "services".tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color:Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              // space25,
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.circular(3),
+                    border: Border.all(color: AppColors.outline,width: 1.5)),
+                height: Get.height*0.13,
+                width: double.infinity,
+                child: Padding(
+                  padding:  EdgeInsets.all(Get.height*0.008),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 5,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: Get.height*0.004 ,
+                    ),
+                    // physics: NeverScrollableScrollPhysics(),
+                    itemCount: serviceName.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        height: Get.height*0.04,
+                        decoration: BoxDecoration(
+                            border:
+                            Border.all( color:AppColors.outline),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Center(
+                            child: Text(
+                              serviceName[index]['servics_name'],
+                              style: TextStyle(color: Colors.grey),
+                            )),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ]));
+            ]);
   }
-
-
   Widget aboutCompny() {
     return Container(
         decoration: BoxDecoration(
