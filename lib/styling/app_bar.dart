@@ -172,9 +172,8 @@ Widget appbar(
                         GestureDetector(
                           onTap: index == 3
                               ? () {
-                            globalKey.currentState!.openDrawer();
                             // filtrationModelonModel();
-                            print('hello sinit');
+                            print('hello location');
                                 }
                               : index == 0
                                   ? () {
@@ -269,11 +268,14 @@ Widget appbar(
                         index == 4 || index == 3
                             ? GestureDetector(
                                 onTap: () {
+                                  print('hello sinit');
                                   index == 3
-                                      ?
-                                      // filtrationModel(context): adsfiltringheet(context);
-                                      filtrationModel(context)
-                                      : globalKey.currentState!.openDrawer();
+                                      ?  globalKey.currentState!.openDrawer():
+                                  Container();
+                                      // ?
+                                      // // filtrationModel(context): adsfiltringheet(context);
+                                      // filtrationModel(context)
+                                      // : globalKey.currentState!.openDrawer();
                                   //
                                 },
                                 child: Container(
