@@ -994,7 +994,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             child: Text(
                               serviceName[index]['servics_name'],
                               style: TextStyle(color: Colors.grey),
-                            )),
+                            ),),
                       );
                     },
                   ),
