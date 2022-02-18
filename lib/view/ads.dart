@@ -77,75 +77,87 @@ class _AdsViewState extends State<AdsView> {
                 builder: (dat) {
                   return Container(
                       color: AppColors.white,
-                      child: dat.datacateg.length == 0
-                      ? PlayStoreShimmer()
-                      : advertisingList(
-                         lang=="ar"? Get.height / 4.5:Get.height / 4,
-                          Get.width / 3.7,
-                          Get.width < 420 ? Get.height / 7.5 : Get.height / 7.5,
-                          dat.datacateg));
+                      child: dat.datacateg == null && dat.datacateg.length == 0
+                          ? PlayStoreShimmer()
+                          : advertisingList(
+                              lang == "ar" ? Get.height / 4.5 : Get.height / 4,
+                              Get.width / 3.7,
+                              Get.width < 420
+                                  ? Get.height / 7.5
+                                  : Get.height / 7.5,
+                              dat.datacateg));
                 }),
-    Container(
-    color: AppColors.homeBackGroun,
-    child:
-    Column(children:[
-      SizedBox(height: Get.height *0.02,),
-      featureTextAdded("jeddah".tr+" | "+"featured_ads".tr, "".tr),
-             GetBuilder<MyAddsController>(
-                init: MyAddsController(),
-                builder: (data) {
-                  return  data.addsListCategory != null &&
-                          data.addsListCategory['data'] != null
-                      ? featuredAdsList(data.addsListCategory['data'])
-                      : addescontrollRefresh.isInvalid.isTrue
-                          ? Container(
-                              child: Center(
-                                child: Text(
-                                  data.addsListCategory['errors'],
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            )
-                          : PlayStoreShimmer();
-                }),])),
+            Container(
+                color: AppColors.homeBackGroun,
+                child: Column(children: [
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
+                  featureTextAdded(
+                      "jeddah".tr + " | " + "featured_ads".tr, "".tr),
+                  GetBuilder<MyAddsController>(
+                      init: MyAddsController(),
+                      builder: (data) {
+                        return data.addsListCategory != null &&
+                                data.addsListCategory['data'] != null
+                            ? featuredAdsList(data.addsListCategory['data'])
+                            : addescontrollRefresh.isInvalid.isTrue
+                                ? Container(
+                                    child: Center(
+                                      child: Text(
+                                        data.addsListCategory['errors'],
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  )
+                                : PlayStoreShimmer();
+                      }),
+                ])),
             Container(
               color: AppColors.white,
               child: Column(
                 children: [
-                  SizedBox(height: Get.height *0.02,),
-              text("jeddah".tr+" | " +'specialofer'.tr, "".tr),
-              GetBuilder<OfferController>(
-                  init: OfferController(),
-                  builder: (data) {
-                    return data.offerDataList != null &&
-                            data.offerDataList['data'] != null
-                        ? offerList(
-                            Get.height / 4.3,
-                            Get.height<700?Get.width / 3.3 :Get.width / 2.8,
-                            Get.width < 420 ? Get.height / 5.9 : Get.height / 6.1,
-                            data.offerDataList['data'])
-                        : offerlist.resultInvalid.isTrue
-                            ? Container(
-                                height: Get.height / 8,
-                                child: Center(
-                                  child: Text(
-                                    data.offerDataList['errors'],
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                ),
-                              )
-                            : PlayStoreShimmer();
-                  })
-          ],
-        ),
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
+                  text("jeddah".tr + " | " + 'specialofer'.tr, "".tr),
+                  GetBuilder<OfferController>(
+                      init: OfferController(),
+                      builder: (data) {
+                        return data.offerDataList != null &&
+                                data.offerDataList['data'] != null
+                            ? offerList(
+                                Get.height / 4.3,
+                                Get.height < 700
+                                    ? Get.width / 3.3
+                                    : Get.width / 2.8,
+                                Get.width < 420
+                                    ? Get.height / 5.9
+                                    : Get.height / 6.1,
+                                data.offerDataList['data'])
+                            : offerlist.resultInvalid.isTrue
+                                ? Container(
+                                    height: Get.height / 8,
+                                    child: Center(
+                                      child: Text(
+                                        data.offerDataList['errors'],
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  )
+                                : PlayStoreShimmer();
+                      })
+                ],
+              ),
             ),
-        userType == 2 || isVisible == false
-            ? Container()
-            : userType != 2 && accounType == 'Free'
-                ? upgradeBnner()
-                : Container()
+            userType == 2 || isVisible == false
+                ? Container()
+                : userType != 2 && accounType == 'Free'
+                    ? upgradeBnner()
+                    : Container()
+          ],
+        )
       ],
-    ) ],
     );
   }
 
@@ -274,7 +286,7 @@ class _AdsViewState extends State<AdsView> {
             child: Text(
               text1,
               style: TextStyle(
-                  fontFamily:  "Source_Sans_Pro",
+                  fontFamily: "Source_Sans_Pro",
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                   color: Colors.grey[700]),
@@ -304,7 +316,7 @@ class _AdsViewState extends State<AdsView> {
             child: Text(
               text1,
               style: TextStyle(
-                  fontFamily:  "Source_Sans_Pro",
+                  fontFamily: "Source_Sans_Pro",
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
                   color: Colors.grey[700]),
@@ -317,7 +329,7 @@ class _AdsViewState extends State<AdsView> {
               margin: EdgeInsets.only(right: 10, left: 10),
               child: Text(text2,
                   style: TextStyle(
-                      fontFamily:  "Source_Sans_Pro",
+                      fontFamily: "Source_Sans_Pro",
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Colors.grey[700]))),
@@ -330,15 +342,16 @@ class _AdsViewState extends State<AdsView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 7,),
-        height: Get.height < 700 ? Get.height * 0.30: Get.height * 0.23,
+        margin: EdgeInsets.symmetric(
+          horizontal: 7,
+        ),
+        height: Get.height < 700 ? Get.height * 0.30 : Get.height * 0.23,
         child: GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 15.0,
-
           ),
           // scrollDirection: Axis.horizontal,
           itemCount: data != null ? data.length : 0,
@@ -352,7 +365,7 @@ class _AdsViewState extends State<AdsView> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: Container(
-                        width: Get.width*0.112,
+                        width: Get.width * 0.112,
                         height: Get.width * 0.111,
                         child: data[index]['media'].length != 0
                             ? Image.network(data[index]['media'][0]['url'],
@@ -366,7 +379,9 @@ class _AdsViewState extends State<AdsView> {
                 ),
                 Container(
                   width: imageW,
-                  height: Get.height < 700 ? Get.height* 0.0590 :Get.height* 0.049,
+                  height: Get.height < 700
+                      ? Get.height * 0.0590
+                      : Get.height * 0.049,
                   child: Center(
                       child: Text(
                           data[index]['category'][lang] != null
@@ -378,8 +393,9 @@ class _AdsViewState extends State<AdsView> {
                           // maxLines: Get.height < 700 ? 1 : 2,
                           // overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontFamily:  "Source_Sans_Pro",
-                              color: Colors.black,fontSize: 13))),
+                              fontFamily: "Source_Sans_Pro",
+                              color: Colors.black,
+                              fontSize: 13))),
                 )
               ],
             );
@@ -407,19 +423,18 @@ class _AdsViewState extends State<AdsView> {
                     padding: const EdgeInsets.symmetric(horizontal: 3),
                     child: Container(
                         decoration: BoxDecoration(
-                      border: Border.all(color:AppColors.border)
-                    ),
+                            border: Border.all(color: AppColors.border)),
                         width: imageW,
                         height: imageH,
                         child: data[index]['media'].length != 0 &&
                                 data[index]['media'][0]['url'] != null
                             ? Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Image.network(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Image.network(
                                   data[index]['media'][0]['url'],
                                   fit: BoxFit.cover,
                                 ),
-                            )
+                              )
                             : Container(
                                 child: Icon(
                                   Icons.image,
@@ -457,11 +472,10 @@ class _AdsViewState extends State<AdsView> {
                   ? Get.height / 2.75
                   : Get.height / 4.35
           : Get.height < 700
-              ? Get.height /2.2
+              ? Get.height / 2.2
               : Get.width < 420
                   ? Get.height / 2.75
                   : Get.height / 4.35,
-
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
@@ -473,23 +487,20 @@ class _AdsViewState extends State<AdsView> {
               onTap: () {
                 Get.to(AdViewScreen(), arguments: data[index]['id']);
               },
-
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0),
                 ),
                 child: Container(
-                  width: Get.width*0.4,
+                  width: Get.width * 0.4,
                   child: Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height:
-                          Get.height < 700 ?Get.width * 0.46 : Get.width * 0.46,
-
-
-
+                          height: Get.height < 700
+                              ? Get.width * 0.46
+                              : Get.width * 0.46,
                           child: data[index]['image'].length != 0
                               ? Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -508,7 +519,7 @@ class _AdsViewState extends State<AdsView> {
                                 ),
                         ),
                         Column(
-crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Container(
                             //     margin: lang == 'ar'
@@ -552,39 +563,51 @@ crossAxisAlignment: CrossAxisAlignment.start,
                             //           )),
 
                             Padding(
-                              padding:  EdgeInsets.only(left: 5,right: 5),
+                              padding: EdgeInsets.only(left: 5, right: 5),
                               child: Container(
-                                height:Get.height<700?Get.height*0.065:Get.height*0.05,
+                                  height: Get.height < 700
+                                      ? Get.height * 0.065
+                                      : Get.height * 0.05,
                                   // width: Get.width*0.3,
                                   margin: lang == 'ar'
                                       ? EdgeInsets.only(top: 5, right: 5)
                                       : EdgeInsets.only(top: 5, left: 5),
                                   child: data[index]['is_rated'] == false
                                       ? Expanded(
-                                        child: Text(
-                                        data[index]['description'][lang] != null
-                                            ? data[index]['description'][lang]
-                                            : data[index]['description']['ar'] == null
-                                            ? data[index]['description']['en']
-                                            : '' ,
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily:  "Source_Sans_Pro",
-                                              fontSize: 12,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.w600,
-                                            )),
-                                      )
+                                          child: Text(
+                                              data[index]['description']
+                                                          [lang] !=
+                                                      null
+                                                  ? data[index]['description']
+                                                      [lang]
+                                                  : data[index]['description']
+                                                              ['ar'] ==
+                                                          null
+                                                      ? data[index]
+                                                          ['description']['en']
+                                                      : '',
+                                              maxLines: 2,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: "Source_Sans_Pro",
+                                                fontSize: 12,
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                        )
                                       : Text(
-                                      data[index]['description'][lang] != null
-                                          ? data[index]['description'][lang]
-                                          : data[index]['description']['ar'] == null
-                                          ? data[index]['description']['en']
-                                          : '',
+                                          data[index]['description'][lang] !=
+                                                  null
+                                              ? data[index]['description'][lang]
+                                              : data[index]['description']
+                                                          ['ar'] ==
+                                                      null
+                                                  ? data[index]['description']
+                                                      ['en']
+                                                  : '',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontFamily:  "Source_Sans_Pro",
+                                            fontFamily: "Source_Sans_Pro",
                                             fontSize: 12,
                                             color: Colors.grey,
                                             fontWeight: FontWeight.w600,
@@ -595,7 +618,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
                             ),
 
                             Padding(
-                              padding: const EdgeInsets.only(left: 10,right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: Row(
                                 children: [
                                   Container(
@@ -603,7 +627,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                           ? Text(
                                               'sar'.tr + " ",
                                               style: TextStyle(
-                                                  fontFamily:  "Source_Sans_Pro",
+                                                  fontFamily: "Source_Sans_Pro",
                                                   fontSize: 14,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w600),
@@ -612,10 +636,9 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                   Container(
                                       child: data[index]['price'] != null
                                           ? Text(
-
                                               '$price' + ".00",
                                               style: TextStyle(
-                                                  fontFamily:  "Source_Sans_Pro",
+                                                  fontFamily: "Source_Sans_Pro",
                                                   fontSize: 14,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w600),
@@ -625,24 +648,24 @@ crossAxisAlignment: CrossAxisAlignment.start,
                               ),
                             ),
                             Padding(
-                              padding:  EdgeInsets.only(left: 12,right: 12),
+                              padding: EdgeInsets.only(left: 12, right: 12),
                               child: Container(
-                                width: Get.width*0.3,
+                                width: Get.width * 0.3,
                                 margin: EdgeInsets.only(
-                                  top: lang=='ar'? 0:4,
+                                  top: lang == 'ar' ? 0 : 4,
                                 ),
                                 child: Expanded(
                                   child: Text(
-            data[index]['title'][lang] != null
-            ? data[index]['title'][lang]
-                    : data[index]['title']['ar'] == null
-            ? data[index]['title']['en']
-                    : '',
+                                      data[index]['title'][lang] != null
+                                          ? data[index]['title'][lang]
+                                          : data[index]['title']['ar'] == null
+                                              ? data[index]['title']['en']
+                                              : '',
                                       maxLines: 1,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
-                                        fontFamily:  "Source_Sans_Pro",
-                                        fontSize:14,
+                                        fontFamily: "Source_Sans_Pro",
+                                        fontSize: 14,
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w400,
                                       )),
