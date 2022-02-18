@@ -438,8 +438,8 @@ class _FriendProfileState extends State<FriendProfile>
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black))),
-                          data != null && data["about"] != null
-                              ? SizedBox(
+
+                          SizedBox(
                             height: Get.height * 0.3,
                             child: ListView.builder(
                               itemCount: 2,
@@ -510,7 +510,7 @@ class _FriendProfileState extends State<FriendProfile>
                               },
                             ),
                           )
-                              : Container()
+
                         ],
                       ),
                     ),

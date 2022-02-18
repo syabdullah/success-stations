@@ -41,6 +41,7 @@ const Map<String, String> ar = {
   "get_help": "احصل على المساعدة لتسجيل الدخول",
   "email": "البريد الإلكتروني",
   "emails": "البريد الإلكتروني",
+  "emailsS": "Email Address",
   "send": "إرسال",
   "or": "أو",
   "sign_up": "سجل",

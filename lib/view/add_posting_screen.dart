@@ -256,8 +256,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -284,23 +282,22 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       body: ListView(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(top: 15, left: 15, right: 15),
+            padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
             child: Container(
                 height: 45,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(lang=='en'?activeStep == 0
-                          ? AppImages.sistStepIcon
-                          : activeStep == 1
-                              ? AppImages.ssecStepIcon
-                              : AppImages.strdStepIcon:
-                      activeStep == 0
-                          ? AppImages.arbg1
-
-                          : activeStep == 1
-                          ? AppImages.arbg2
-                          :AppImages.arbg3),
+                      image: AssetImage(lang == 'en'
+                          ? activeStep == 0
+                              ? AppImages.sistStepIcon
+                              : activeStep == 1
+                                  ? AppImages.ssecStepIcon
+                                  : AppImages.strdStepIcon
+                          : activeStep == 0
+                              ? AppImages.arbg1
+                              : activeStep == 1
+                                  ? AppImages.arbg2
+                                  : AppImages.arbg3),
                       //fit: BoxFit.cover
                       fit: BoxFit.fill),
                 ),
@@ -313,8 +310,12 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         });
                       },
                       child: Container(
-                        width: lang=='en'?100:110,
-                        child: Center(child: Text("New ads",style: TextStyle(color: Colors.white,fontSize:Get.height<700 ?11: 13))),
+                        width: lang == 'en' ? 100 : 110,
+                        child: Center(
+                            child: Text("New ads",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Get.height < 700 ? 11 : 13))),
                       ),
                     ),
                     InkWell(
@@ -324,19 +325,31 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                         });
                       },
                       child: Container(
-                        width:lang=='en'?100:110,
-                        child: Center(child: Text("contact_information".tr,style: TextStyle(color: Colors.white,fontSize:Get.height<700 ?11: lang=='en'?13:12))),
+                        width: lang == 'en' ? 100 : 110,
+                        child: Center(
+                            child: Text("contact_information".tr,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Get.height < 700
+                                        ? 11
+                                        : lang == 'en'
+                                            ? 13
+                                            : 12))),
                       ),
                     ),
                     InkWell(
                       onTap: () {
                         setState(() {
                           activeStep = 2;
-                        });
+                         });
                       },
                       child: Container(
-                          width:lang=='en'?100:110,
-                          child: Center(child: Text("review_publish".tr,style: TextStyle(color: Colors.white,fontSize: Get.height<700 ?11: 13)))),
+                          width: lang == 'en' ? 120 : 110,
+                          child: Center(
+                              child: Text("review_publish".tr,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: Get.height < 700 ? 11 : 13)))),
                     )
                   ]),
                 )
@@ -439,9 +452,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       ),
     );
   }
-
-
-
 
   Widget previousButton2(image, text, Color color, data) {
     return InkWell(
@@ -1596,7 +1606,6 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
         fileName != null
             ? Stack(
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: Container(
@@ -2254,13 +2263,13 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       // margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: AppColors.whitedColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0.0),
-            ),
-            // textStyle: TextStyle(
-            //   fontSize: 13,
-            // )
+          primary: AppColors.whitedColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
+          // textStyle: TextStyle(
+          //   fontSize: 13,
+          // )
         ),
         onPressed: () {
           editData == null ? Container() : editpost();

@@ -148,13 +148,18 @@ class _SignPageState extends State<SignIn> {
                                           color: Colors.grey,
                                           fontFamily: "Source_Sans_Pro",
                                           fontSize: 15)),
-                                  Text(
-                                    " " + "help_login".tr,
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Source_Sans_Pro",
-                                        fontSize: 15),
+                                  InkWell(
+                                      onTap: () {
+                                            Navigator.pushNamed(context, '/forgotPass');
+                                          },
+                                    child: Text(
+                                      " " + "help_login".tr,
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "Source_Sans_Pro",
+                                          fontSize: 15),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -429,6 +434,9 @@ class _SignPageState extends State<SignIn> {
                     color: Colors.grey,
                     fontFamily: "Source_Sans_Pro",
                     fontSize: 17),
+              ),
+              SizedBox(
+                width: Get.width * 0.02,
               ),
               GestureDetector(
                   onTap: () {

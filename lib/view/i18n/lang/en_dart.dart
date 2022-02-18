@@ -39,6 +39,7 @@ const Map<String, String> en = {
   "used": "Used",
   "search": "Search...",
   "emails": "Email",
+  "emailsS": "Email Address",
   "send": "SEND",
   "or": "OR",
   "back_to": "Back to",

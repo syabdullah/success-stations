@@ -221,7 +221,10 @@ class _LanguagePageState extends State<Language> {
                       fontSize: 16,
                       fontWeight: FontWeight.w300,
                       color: Colors.grey)),
-              Text("sign_in".tr,
+              SizedBox(
+                width: Get.width * 0.02,
+              ),
+              Text("sign_in".tr+".",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.blue,

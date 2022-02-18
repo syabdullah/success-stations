@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
 import 'package:success_stations/styling/button.dart';
@@ -12,6 +16,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:success_stations/utils/app_headers.dart';
 
 // ignore: unused_import
 import 'package:success_stations/view/auth/sign_in.dart';
@@ -20,7 +26,7 @@ import 'package:success_stations/view/auth/sign_in.dart';
 // import 'package:iqama_validator/iqama_validator.dart';
 
 var finalIndex, shortCode;
-
+var uploadedImage;
 var lang;
 // class CompanySignUp extends StatefulWidget {
 DateTime? dateTime;
@@ -37,11 +43,15 @@ class CompanySignUp extends StatefulWidget {
   _CompanySignPageState createState() => _CompanySignPageState();
 }
 
+XFile? pickedFile;
+final ImagePicker _picker = ImagePicker();
+
 class _CompanySignPageState extends State<CompanySignUp> {
   var serText, serId;
   final regionIdByCountry = Get.put(ContryController());
   late String savedData;
   var tyming;
+  var editImage;
   var counCode,
       counID,
       hintTextCountry,
@@ -82,9 +92,32 @@ class _CompanySignPageState extends State<CompanySignUp> {
   bool errorCheck = true;
   var type = 'Account Type';
   var serviceName, serviceId;
+  var imageP;
+  var image1;
 
   var v = 1;
   int textcolor = 0;
+  var fileName;
+
+  Future getImage() async {
+    // await ApiHeaders().getData();
+    pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        image1 = pickedFile!.path;
+        fileName = pickedFile!.path.split('/').last;
+      } else {}
+    });
+    try {
+
+      dio.FormData formData = dio.FormData.fromMap({
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path,
+            filename: fileName),
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData);
+      uploadedImage = Get.find<AdPostingController>().adUpload['name'];
+    } catch (e) {}
+  }
 
   List<GroupModel> _group = [
     GroupModel(
@@ -117,6 +150,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
     companyCode = PhoneNumber(isoCode: inputValuePhone);
     errorCheck = true;
     hintTextCountry = counCode['name'][lang];
+
+    // image = box.read('user_image');
+    // imageP = box.read('user_image_local');
   }
 
   companyUser() {
@@ -165,10 +201,13 @@ class _CompanySignPageState extends State<CompanySignUp> {
 
   @override
   Widget build(BuildContext context) {
+    // imageP = box.read('user_image_local').toString();
+    // image = box.read('user_image');
     final space20 = SizedBox(height: getSize(Get.width * 0.02, context));
     final space10 = SizedBox(height: getSize(Get.width * 0.01, context));
     final space25 = SizedBox(height: getSize(Get.width * 0.025, context));
     final width10 = SizedBox(width: getSize(Get.width * 0.02, context));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -377,22 +416,61 @@ class _CompanySignPageState extends State<CompanySignUp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: Get.height*0.15,
-                          width: Get.width*0.26,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: AppColors.outline,width: 1.5)
+                        InkWell(
+                          onTap: () {
+
+                            getImage();
+                          },
+                          child: Container(
+                            height: Get.height*0.15,
+                            width: Get.width*0.26,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: AppColors.outline,width: 1.5)
+                            ),
+
+
+                            child:
+
+                            fileName != null
+                                ? Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                  height:Get.height*0.001,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: AppColors.outline,width: 1.5),
+                                      shape:BoxShape.circle
+                                  ),
+                                  child:CircleAvatar(
+                                    radius: 20,
+                                      backgroundImage:
+                                      FileImage( File(image1),
+
+                                      )
+
+
+                                  )
+
+                              ),
+                            )
+
+
+                                :Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                  height:Get.height*0.1,
+                            decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.outline,width: 1.5),
+                              shape:BoxShape.circle
+                            ),
+                                      child:Center(child: Text("Logo",style: TextStyle(fontWeight: FontWeight.bold)))
+
+                                  ),
+                                ),
+
+
+                            // decoration: BoxDecoration(color: ),
                           ),
-
-
-                          child: Padding(
-                              padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
-                              child:Image.asset(AppImages.man,height: Get.height*0.1,)
-                          ),
-
-
-                          // decoration: BoxDecoration(color: ),
                         ),
                         aboutCompny(),
 
@@ -405,22 +483,31 @@ class _CompanySignPageState extends State<CompanySignUp> {
                       children: [
                         Transform.scale(
                           scale: .9,
-                          child: Checkbox(
-                            activeColor: AppColors.whitedColor,
-                            value: _isChecked,
-                            onChanged: (value) {
-                              setState(() {
-                                _isChecked = value!;
-                              });
-                            },
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              unselectedWidgetColor:AppColors.whitedColor ,
+                            ),
+                            child: Checkbox(
+                              activeColor: AppColors.whitedColor,
+
+                              value: _isChecked,
+                              onChanged: (value) {
+                                setState(() {
+                                  _isChecked = value!;
+                                });
+                              },
+                            ),
                           ),
                         ),
-                        Text('termsline'.tr,
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontFamily: "andada",
-                                fontWeight: FontWeight.w600)),
+                        InkWell(
+                          onTap: () {},
+                          child: Text('termsline'.tr,
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontFamily: "andada",
+                                  fontWeight: FontWeight.w600)),
+                        ),
                         // Text("terms_condition".tr,
                         //     style: TextStyle(
                         //         fontFamily: 'Lato',
@@ -469,6 +556,9 @@ class _CompanySignPageState extends State<CompanySignUp> {
                                 color: Colors.grey,
                                 fontFamily: "Source_Sans_Pro",
                                 fontSize: 17),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.02,
                           ),
                           GestureDetector(
                               onTap: () {
@@ -1250,7 +1340,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: textcolor == 0
-                                        ? Colors.blueAccent
+                                        ? AppColors.appBarBackGroundColor
                                         : AppColors.inputTextColor,
                                     decoration: textcolor == 0
                                         ? TextDecoration.underline
@@ -1295,7 +1385,7 @@ class _CompanySignPageState extends State<CompanySignUp> {
                               style: TextStyle(
                                   fontSize: 14,
                                   color: textcolor == 1
-                                      ? Colors.blueAccent
+                                      ?  AppColors.appBarBackGroundColor
                                       :  AppColors.inputTextColor,
                                   decoration: textcolor == 1
                                       ? TextDecoration.underline

@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/college_controller.dart';
 import 'package:success_stations/controller/sign_up_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
@@ -18,6 +21,7 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_field.dart';
+import 'package:dio/dio.dart' as dio;
 
 DateTime? dateTime;
 var dateFormate =
@@ -76,6 +80,34 @@ class _SignPageState extends State<StudentSignUp> {
 
   final signUpCont = Get.put(SignUpController());
   var lang;
+
+  XFile? pickedFile;
+  final ImagePicker _picker = ImagePicker();
+  var image1;
+  var fileName;
+  var uploadedImage;
+
+  Future getImage() async {
+    // await ApiHeaders().getData();
+    pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        image1 = pickedFile!.path;
+        fileName = pickedFile!.path.split('/').last;
+      } else {}
+    });
+    try {
+
+      dio.FormData formData = dio.FormData.fromMap({
+        "file": await dio.MultipartFile.fromFile(pickedFile!.path,
+            filename: fileName),
+      });
+      Get.find<AdPostingController>().uploadAdImage(formData);
+      uploadedImage = Get.find<AdPostingController>().adUpload['name'];
+    } catch (e) {}
+  }
+
+
 
   @override
   void initState() {
@@ -206,22 +238,41 @@ class _SignPageState extends State<StudentSignUp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: Get.height*0.15,
-                          width: Get.width*0.26,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: AppColors.outline,width: 1.5)
+                        InkWell(
+                          onTap: () {
+
+                            getImage();
+                          },
+                          child: Container(
+                            height: Get.height*0.15,
+                            width: Get.width*0.26,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: AppColors.outline,width: 1.5)
+                            ),
+
+
+                            child:  GestureDetector(
+
+                              child: fileName != null
+                                  ?Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: CircleAvatar(
+                                        radius: 20,
+                                        backgroundImage:
+                                        FileImage( File(image1),
+
+                                        )
+
+
+                                    ),
+                                  )
+                                  :Image.asset(AppImages.man,height: Get.height*0.1,),
+                            ),
+
+
+                            // decoration: BoxDecoration(color: ),
                           ),
-
-
-                          child: Padding(
-                              padding: lang== 'ar'? EdgeInsets.all(Get.height*0.018):EdgeInsets.all(Get.height*0.018),
-                              child:Image.asset(AppImages.man,height: Get.height*0.1,)
-                          ),
-
-
-                          // decoration: BoxDecoration(color: ),
                         ),
                         about(),
 
@@ -296,6 +347,9 @@ class _SignPageState extends State<StudentSignUp> {
                                 color: Colors.grey,
                                 fontFamily: "Source_Sans_Pro",
                                 fontSize: 17),
+                          ),
+                          SizedBox(
+                            width: Get.width * 0.02,
                           ),
                           GestureDetector(
                               onTap: () {
@@ -532,7 +586,7 @@ class _SignPageState extends State<StudentSignUp> {
             : EdgeInsets.only(left: MediaQuery.of(context).size.width/19),
         isObscure: false,
         color: Colors.white,
-        hintText: 'emails'.tr,
+        hintText: 'emailsS'.tr,
         hintStyle: TextStyle(
             fontSize: lang == 'ar' ? 14 : 14, color: AppColors.inputTextColor),
         hintColor: AppColors.inputTextColor,

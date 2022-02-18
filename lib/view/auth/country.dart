@@ -220,7 +220,10 @@ class _CountryPageState extends State<Ccountry> {
   }
 
   Widget existingAccount() {
-    return GestureDetector(
+    return
+
+lang =='en'?
+      GestureDetector(
       onTap: () {
         Get.to(SignIn());
       },
@@ -236,7 +239,10 @@ class _CountryPageState extends State<Ccountry> {
                       fontSize: 16,
                       fontWeight: FontWeight.w300,
                       color: Colors.grey)),
-              Text("sign_in".tr,
+              SizedBox(
+                width: Get.width * 0.02,
+              ),
+              Text("sign_in".tr+".",
                   style: TextStyle(
                       fontSize: 16,
                       color: AppColors.appBarBackGroundColor,
@@ -245,7 +251,36 @@ class _CountryPageState extends State<Ccountry> {
           ),
         ),
       ),
-    );
+    ):GestureDetector(
+  onTap: () {
+    Get.to(SignIn());
+  },
+  child: Container(
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: Get.width * 0.002, vertical: Get.height * 0.005),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("sign_in".tr,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.appBarBackGroundColor,
+                  fontWeight: FontWeight.bold)),
+          SizedBox(
+            width: Get.width * 0.02,
+          ),
+          Text("have_account".tr,
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.grey)),
+
+        ],
+      ),
+    ),
+  ),
+);
   }
 
   Widget chooseLanguage() {
