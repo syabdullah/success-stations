@@ -438,7 +438,8 @@ class _FriendProfileState extends State<FriendProfile>
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black))),
-
+                          data != null && data["university"] != null
+                              ?
                           SizedBox(
                             height: Get.height * 0.3,
                             child: ListView.builder(
@@ -509,7 +510,7 @@ class _FriendProfileState extends State<FriendProfile>
                                     ]);
                               },
                             ),
-                          )
+                          ):Container()
 
                         ],
                       ),
@@ -910,6 +911,7 @@ class _FriendProfileState extends State<FriendProfile>
     );
   }
 
+
   Widget ads(adsData) {
     return ListView.builder(
       itemCount: adsData != null ? adsData.length : 0,
@@ -958,7 +960,7 @@ class _FriendProfileState extends State<FriendProfile>
                         padding:  EdgeInsets.only(bottom: Get.height*0.005),
                         child: Container(
                             child: Text(
-                              "Teaching the brain to read book\n at a special price from",
+                                adsData[index]['title']['en'],
                               // textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 14,
@@ -983,7 +985,7 @@ class _FriendProfileState extends State<FriendProfile>
                         padding:  EdgeInsets.only(bottom: Get.height*0.005),
                         child: Container(
                             child: Text(
-                              "Jarir Bookstore",
+                             adsData[index]['contact_name'],
                               style: TextStyle(
                                 fontFamily: "Source_Sans_Pro",
                                 color: Colors.black,
@@ -1016,92 +1018,92 @@ class _FriendProfileState extends State<FriendProfile>
 
 
                     ]),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Container(
-                //       width: Get.width / 3,
-                //       child: Text(
-                //         adsData[index]['title']['en'],
-                //         style: TextStyle(fontWeight: FontWeight.bold),
-                //       ),
-                //     ),
-                //     SizedBox(height: 5),
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         Image.asset(AppImages.location, height: 15),
-                //       ],
-                //     ),
-                //     SizedBox(height: 5),
-                //     Row(
-                //       children: [
-                //         Image.asset(
-                //           AppImages.person,
-                //           height: 15,
-                //         ),
-                //         SizedBox(width: 5),
-                //         Container(
-                //           child: Text(adsData[index]['contact_name'],
-                //               style:
-                //                   TextStyle(fontWeight: FontWeight.w600)),
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: Get.width / 3,
+                      child: Text(
+                        adsData[index]['title']['en'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(AppImages.location, height: 15),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Image.asset(
+                          AppImages.person,
+                          height: 15,
+                        ),
+                        SizedBox(width: 5),
+                        Container(
+                          child: Text(adsData[index]['contact_name'],
+                              style:
+                                  TextStyle(fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
-                // Column(
-                //   children: [
-                //     image != null
-                //         ? CircleAvatar(
-                //             backgroundImage: NetworkImage(image),
-                //             radius: 20.0,
-                //           )
-                //         : CircleAvatar(
-                //             backgroundColor: Colors.grey,
-                //             radius: 20.0,
-                //             child: Icon(
-                //               Icons.person,
-                //               size: 20,
-                //               color: Colors.black,
-                //             )),
-                //     SizedBox(height: 5),
-                //     Container(
-                //       margin: EdgeInsets.only(left: 20, right: 30),
-                //       child: Row(
-                //         children: [
-                //           GestureDetector(
-                //               onTap: () {
-                //                 var json = {
-                //                   'ads_id': adsData[index]['id']
-                //                 };
-                //                 liked = !liked;
-                //                 adsData[index]['is_favorite'] == false
-                //                     ? friCont.profileAdsToFav(json, id)
-                //                     : friCont.profileAdsRemove(json, id);
-                //               },
-                //               child: adsData[index]['is_favorite'] == true
-                //                   ? Image.asset(AppImages.redHeart,
-                //                       height: 20)
-                //                   : Image.asset(
-                //                       AppImages.blueHeart,
-                //                       height: 20,
-                //                     )),
-                //           SizedBox(width: 5),
-                //           GestureDetector(
-                //               onTap: () {
-                //                 launch.call("tel:12345678912");
-                //               },
-                //               child: Image.asset(
-                //                 AppImages.call,
-                //                 height: 20,
-                //               ))
-                //         ],
-                //       ),
-                //     )
-                //   ],
-                // )
+                Column(
+                  children: [
+                    image != null
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(image),
+                            radius: 20.0,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            radius: 20.0,
+                            child: Icon(
+                              Icons.person,
+                              size: 20,
+                              color: Colors.black,
+                            )),
+                    SizedBox(height: 5),
+                    Container(
+                      margin: EdgeInsets.only(left: 20, right: 30),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                var json = {
+                                  'ads_id': adsData[index]['id']
+                                };
+                                liked = !liked;
+                                adsData[index]['is_favorite'] == false
+                                    ? friCont.profileAdsToFav(json, id)
+                                    : friCont.profileAdsRemove(json, id);
+                              },
+                              child: adsData[index]['is_favorite'] == true
+                                  ? Image.asset(AppImages.redHeart,
+                                      height: 20)
+                                  : Image.asset(
+                                      AppImages.blueHeart,
+                                      height: 20,
+                                    )),
+                          SizedBox(width: 5),
+                          GestureDetector(
+                              onTap: () {
+                                launch.call("tel:12345678912");
+                              },
+                              child: Image.asset(
+                                AppImages.call,
+                                height: 20,
+                              ))
+                        ],
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),
