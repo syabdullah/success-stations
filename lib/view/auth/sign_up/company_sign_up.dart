@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_multiselect/flutter_multiselect.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -991,10 +992,14 @@ class _CompanySignPageState extends State<CompanySignUp> {
                             Border.all( color:AppColors.outline),
                             borderRadius: BorderRadius.circular(5)),
                         child: Center(
-                            child: Text(
-                              serviceName[index]['servics_name'],
-                              style: TextStyle(color: Colors.grey),
-                            ),),
+                            child: MultiSelectChipField<Animal>(
+                              items: serviceName[index]['service_name'],
+                              icon: Icon(Icons.check),
+                              onTap: (values) {
+                                selectedAnimals2 = values;
+                              },
+                            ),
+                            ),
                       );
                     },
                   ),
