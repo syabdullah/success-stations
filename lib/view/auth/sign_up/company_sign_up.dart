@@ -975,36 +975,33 @@ class _CompanySignPageState extends State<CompanySignUp> {
                 width: double.infinity,
                 child: Padding(
                   padding:  EdgeInsets.all(Get.height*0.008),
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: Get.height*0.004 ,
-                    ),
-                    // physics: NeverScrollableScrollPhysics(),
-                    itemCount: serviceName.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
+                  child:  Container(
                         height: Get.height*0.04,
                         decoration: BoxDecoration(
                             border:
                             Border.all( color:AppColors.outline),
                             borderRadius: BorderRadius.circular(5)),
                         child: Center(
-                            child: MultiSelectChipField<Animal>(
-                              items: serviceName[index]['service_name'],
+                            child: MultiSelectChipField<dynamic>(
+                              height: 40,
                               icon: Icon(Icons.check),
+                              items: serviceName.map((e) => MultiSelectItem(e, e['servics_name'] !=null ? e['servics_name']:'')).toList(),
                               onTap: (values) {
-                                selectedAnimals2 = values;
-                              },
-                            ),
-                            ),
-                      );
-                    },
+                                var valLoop = values ;
+                                for(int c = 0 ; c < valLoop.length ; c++){
+                                  var idGetServices = valLoop[c] as Map ;
+                                  var servID =  idGetServices['id'];
+                                  selectedAnimals2.add(servID);
+                                  setState(() {
+                                    selectedAnimals2.remove(values);
+                                  });
+                                }
+                                },
+                              ),
+                            )
+                      ))
                   ),
-                ),
-              ),
+
             ]);
   }
   Widget aboutCompny() {
