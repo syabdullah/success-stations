@@ -121,6 +121,9 @@ class _AdsViewState extends State<AdsView> {
                     height: Get.height * 0.02,
                   ),
                   text("jeddah".tr + " | " + 'specialofer'.tr, "".tr),
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
                   GetBuilder<OfferController>(
                       init: OfferController(),
                       builder: (data) {
@@ -420,7 +423,7 @@ class _AdsViewState extends State<AdsView> {
                     Get.to(MyOfferDetailMain(), arguments: data[index]);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    padding:  EdgeInsets.symmetric(horizontal: 3),
                     child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: AppColors.border)),
@@ -429,7 +432,7 @@ class _AdsViewState extends State<AdsView> {
                         child: data[index]['media'].length != 0 &&
                                 data[index]['media'][0]['url'] != null
                             ? Padding(
-                                padding: const EdgeInsets.all(1.0),
+                                padding:  EdgeInsets.all(1.0),
                                 child: Image.network(
                                   data[index]['media'][0]['url'],
                                   fit: BoxFit.cover,

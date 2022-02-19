@@ -46,11 +46,11 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
 
   List<String> countryCode = [];
 
-  List<String> ImagesAdds = [
-    "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1491183846256-33aec7637311?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-  ];
+  // List<String> ImagesAdds = [
+  //   "https://images.unsplash.com/photo-1643672206356-917a174844b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  //   "https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  //   "https://images.unsplash.com/photo-1491183846256-33aec7637311?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  // ];
 
   onSelected(int index) {
     slctedInd = index;
@@ -1625,48 +1625,48 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    right: 5,
-                    left: 5,
-                    child: Center(
-                      child: Container(
-                        width: Get.width,
-                        height: Get.height * 0.10,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grey),
-                            color: Colors.black.withOpacity(0.3)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 3),
-                          child: Row(
-                            children: [
-                              Container(
-                                  height: Get.height * 0.90,
-                                  width: Get.width * 0.20,
-                                  child: Image.network(ImagesAdds[0],
-                                      height: Get.height * 0.20,
-                                      fit: BoxFit.fill)),
-                              SizedBox(width: Get.width * 0.01),
-                              Container(
-                                  height: Get.height * 0.90,
-                                  width: Get.width * 0.20,
-                                  child: Image.network(ImagesAdds[1],
-                                      height: Get.height * 0.20,
-                                      fit: BoxFit.fill)),
-                              SizedBox(width: Get.width * 0.01),
-                              Container(
-                                  height: Get.height * 0.90,
-                                  width: Get.width * 0.20,
-                                  child: Image.network(ImagesAdds[2],
-                                      height: Get.height * 0.20,
-                                      fit: BoxFit.fill))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   bottom: 10,
+                  //   right: 5,
+                  //   left: 5,
+                  //   child: Center(
+                  //     child: Container(
+                  //       width: Get.width,
+                  //       height: Get.height * 0.10,
+                  //       decoration: BoxDecoration(
+                  //           border: Border.all(color: AppColors.grey),
+                  //           color: Colors.black.withOpacity(0.3)),
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.symmetric(
+                  //             vertical: 5.0, horizontal: 3),
+                  //         child: Row(
+                  //           children: [
+                  //             Container(
+                  //                 height: Get.height * 0.90,
+                  //                 width: Get.width * 0.20,
+                  //                 child: Image.network(ImagesAdds[0],
+                  //                     height: Get.height * 0.20,
+                  //                     fit: BoxFit.fill)),
+                  //             SizedBox(width: Get.width * 0.01),
+                  //             Container(
+                  //                 height: Get.height * 0.90,
+                  //                 width: Get.width * 0.20,
+                  //                 child: Image.network(ImagesAdds[1],
+                  //                     height: Get.height * 0.20,
+                  //                     fit: BoxFit.fill)),
+                  //             SizedBox(width: Get.width * 0.01),
+                  //             Container(
+                  //                 height: Get.height * 0.90,
+                  //                 width: Get.width * 0.20,
+                  //                 child: Image.network(ImagesAdds[2],
+                  //                     height: Get.height * 0.20,
+                  //                     fit: BoxFit.fill))
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               )
             : editImage != null
@@ -1690,48 +1690,48 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 10,
-                        right: 5,
-                        left: 5,
-                        child: Center(
-                          child: Container(
-                            width: Get.width,
-                            height: Get.height * 0.10,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.grey),
-                                color: Colors.black.withOpacity(0.3)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 3),
-                              child: Row(
-                                children: [
-                                  Container(
-                                      height: Get.height * 0.90,
-                                      width: Get.width * 0.20,
-                                      child: Image.network(ImagesAdds[0],
-                                          height: Get.height * 0.20,
-                                          fit: BoxFit.fill)),
-                                  SizedBox(width: Get.width * 0.01),
-                                  Container(
-                                      height: Get.height * 0.90,
-                                      width: Get.width * 0.20,
-                                      child: Image.network(ImagesAdds[1],
-                                          height: Get.height * 0.20,
-                                          fit: BoxFit.fill)),
-                                  SizedBox(width: Get.width * 0.01),
-                                  Container(
-                                      height: Get.height * 0.90,
-                                      width: Get.width * 0.20,
-                                      child: Image.network(ImagesAdds[2],
-                                          height: Get.height * 0.20,
-                                          fit: BoxFit.fill))
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      // Positioned(
+                      //   bottom: 10,
+                      //   right: 5,
+                      //   left: 5,
+                      //   child: Center(
+                      //     child: Container(
+                      //       width: Get.width,
+                      //       height: Get.height * 0.10,
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(color: AppColors.grey),
+                      //           color: Colors.black.withOpacity(0.3)),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.symmetric(
+                      //             vertical: 5.0, horizontal: 3),
+                      //         child: Row(
+                      //           children: [
+                      //             Container(
+                      //                 height: Get.height * 0.90,
+                      //                 width: Get.width * 0.20,
+                      //                 child: Image.network(ImagesAdds[0],
+                      //                     height: Get.height * 0.20,
+                      //                     fit: BoxFit.fill)),
+                      //             SizedBox(width: Get.width * 0.01),
+                      //             Container(
+                      //                 height: Get.height * 0.90,
+                      //                 width: Get.width * 0.20,
+                      //                 child: Image.network(ImagesAdds[1],
+                      //                     height: Get.height * 0.20,
+                      //                     fit: BoxFit.fill)),
+                      //             SizedBox(width: Get.width * 0.01),
+                      //             Container(
+                      //                 height: Get.height * 0.90,
+                      //                 width: Get.width * 0.20,
+                      //                 child: Image.network(ImagesAdds[2],
+                      //                     height: Get.height * 0.20,
+                      //                     fit: BoxFit.fill))
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   )
                 : Container(),
