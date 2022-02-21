@@ -61,30 +61,29 @@ class _MyAddsState extends State<MyAdds> {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
       key: _scaffoldKey,
-      appBar:
-
-
-      AppBar(
-      // leadingWidth: 76,
-      backgroundColor:Colors.white,
-      title: Container(
-        // margin: EdgeInsets.only(top: 12),
-          child: Text(
+      appBar: AppBar(
+          // leadingWidth: 76,
+          backgroundColor: Colors.white,
+          title: Container(
+              // margin: EdgeInsets.only(top: 12),
+              child: Text(
             "my_adss".tr,
             style: TextStyle(
-
-                fontSize: 18,color: Colors.black,fontFamily: "Source_Sans_Pro",fontWeight: FontWeight.w400),
+                fontSize: 18,
+                color: Colors.black,
+                fontFamily: "Source_Sans_Pro",
+                fontWeight: FontWeight.w400),
           )),
-      centerTitle: true,
-      leading: Container(
-          margin: EdgeInsets.only( left: 7),
-          child: GestureDetector(
-              onTap: () => Get.back(),
-              child:  Padding(
-                padding: const EdgeInsets.all(8),
-                child: Image.asset(AppImages.imagearrow1,
-                    color: Colors.black, height: 22),
-              ))),
+          centerTitle: true,
+          leading: Container(
+              margin: EdgeInsets.only(left: 7),
+              child: GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Image.asset(AppImages.imagearrow1,
+                        color: Colors.black, height: 22),
+                  ))),
           actions: [
             GestureDetector(
               onTap: () {
@@ -92,30 +91,27 @@ class _MyAddsState extends State<MyAdds> {
               },
               child: Center(
                 child: Container(
-                  // margin: EdgeInsets.only( left: 15,),
+                    // margin: EdgeInsets.only( left: 15,),
                     child: Image.asset(AppImages.plusImage,
                         color: Colors.black, height: 18)),
               ),
             ),
-            SizedBox(
-                width:Get.width*0.04
-            ),
+            SizedBox(width: Get.width * 0.04),
             GestureDetector(
               onTap: () {
                 // Get.to(AddLocations());
               },
               child: Center(
                 child: Container(
-                    margin: lang =="ar"?EdgeInsets.only( left:10):EdgeInsets.only( right:10),
+                    margin: lang == "ar"
+                        ? EdgeInsets.only(left: 10)
+                        : EdgeInsets.only(right: 10),
                     child: Image.asset(AppImages.setting,
                         color: Colors.black, height: 18)),
               ),
             ),
-            SizedBox(
-                width:Get.width*0.02
-            ),
-          ]
-      ),
+            SizedBox(width: Get.width * 0.02),
+          ]),
 
       // PreferredSize(
       //   preferredSize: Size.fromHeight(60.0),
@@ -147,9 +143,8 @@ class _MyAddsState extends State<MyAdds> {
                                   val.myALLAdd['success'] == true
                               ? valuee.dataType == 'list'
                                   ? myAddsList(val.myALLAdd['data'])
-                          // myAddGridView(val.myALLAdd['data'])
-                                  : myAddsList (val.myALLAdd['data'])
-
+                                  // myAddGridView(val.myALLAdd['data'])
+                                  : myAddsList(val.myALLAdd['data'])
                               : myaddedDr.resultInvalid.isTrue &&
                                       val.myALLAdd['data'] == false
                                   ? Container(
@@ -171,15 +166,13 @@ class _MyAddsState extends State<MyAdds> {
                     : GetBuilder<AddBasedController>(
                         init: AddBasedController(),
                         builder: (val) {
-                          return
-                            val.cData != null &&
+                          return val.cData != null &&
                                   val.cData['data'] != null &&
                                   val.cData['success'] == true
                               ? valuee.dataType != 'grid'
-                                  ?
-                            myAddsList(val.cData['data'])
-                                  :   myAddsList(val.cData['data'])
-                            // myAddGridView(val.cData['data'])
+                                  ? myAddsList(val.cData['data'])
+                                  : myAddsList(val.cData['data'])
+                              // myAddGridView(val.cData['data'])
                               : valuee.dataType != 'grid'
                                   ? gridShimmer()
                                   : shimmer();
@@ -211,304 +204,313 @@ class _MyAddsState extends State<MyAdds> {
                     ? Colors.white
                     : Colors.transparent,
                 BlendMode.softLight),
-            child:
-                Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Container(
-        height:110,
-        decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-        color: Colors.black26
-        )
-        ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Center(
-                        child: Container(
-
-                            child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                              child: dataListValue[index]['media'].length != 0
-                                  ? ClipRRect(
-                                      // borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                          dataListValue[index]['media'][0]
-                                              ['url'],
-                                          fit: BoxFit.fill,
-                                          width: Get.width /6.3,
-                                          height: Get.height / 3))
-                                  : Container(
-                                      width: Get.width / 6,
-                                      child: Icon(Icons.image, size: 50),
-                                    )),
-                        )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // Container(
-                              //   child:
-                              //   Text(
-                              //     listFavou[c]['text_ads'][lang]!=null ?
-                              //     listFavou[c]['text_ads'][lang].toString():
-                              //     listFavou[c]['text_ads'][lang]==null?
-                              //     listFavou[c]['text_ads']['en'].toString():'',
-                              //      style: TextStyle(
-                              //       color: Colors.grey[700],
-                              //       fontWeight: FontWeight.bold
-                              //     ),
-                              //   )
-                              // ),
-                              Padding(
-                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
-                                child: Container(
-                                    child:
-                                    Text(
-                                      dataListValue[index]['title']['en'] != null
-                                          ? dataListValue[index]['title']['en']
-                                          : '',
-                                      // textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: "Source_Sans_Pro",
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400
-                                      ),
-                                    )
-                                ),
-                              ),
-                              Padding(
-                                padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005 ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-
-                                      child: dataListValue[index]['price'] != null
-                                          ? Text(
-                                     myAddssplitedPrice[0]  ,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500))
-                                          : Container(),
-                                    ), Container(
-
-                                      child: dataListValue[index]['price'] != null
-                                          ? Text(
-                                   " "+"sar".tr ,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                              color: Colors.grey,
-                                             ))
-                                          : Container(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:  EdgeInsets.only(bottom:Get.height*0.015,left:Get.height*0.005,right:Get.height*0.005),
-                                child: Container(
-                                    child:
-                                    Text(
-                                      dataListValue[index]['status'] == 0 ? 'New'.tr:'used'.tr,
-                                      style: TextStyle(
-                                          fontFamily: "Source_Sans_Pro",
-                                          color:dataListValue[index]['status'] == 0 ? AppColors.new_color:AppColors.grey,
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                    )
-                                ),
-                              ),
-
-
-                            ]
-                        ),
-                      ),
-
-                    ],
-                  ),
-
-                 lang=="ar"?Padding(
-                   padding:  EdgeInsets.only(bottom: Get.height*0.015,left:Get.height*0.01),
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.end,
-
-
-                         children: [
-
-                           GestureDetector(
-
-                             onTap: () {
-                               Get.to(AddPostingScreen(),
-                                   arguments: dataListValue[index]);
-                             },
-
-                             child: Container(
-                                 margin: EdgeInsets.symmetric(horizontal:Get.height*0.01),
-                                 // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
-                                 child: Image.asset(AppImages.edit_Offer, height: 20)
-                             ),
-                           ),
-                           Container(
-                               margin:  lang=='en'?EdgeInsets.only(right:Get.height*0.005):EdgeInsets.only(left:Get.height*0.005),
-                               child: GestureDetector(
-                                   onTap: () {
-                                     controller.adDelete(
-                                         dataListValue[index]['id']);
-                                     controller.addesMyListAll();
-                                     controller.addesMyListAll();
-                                     controller.addedByIdAddes(
-                                         catID, userId);
-                                     controller.addedByIdAddes(
-                                         catID, userId);
-                                   },
-                                   child: Image.asset(AppImages.delete_offer,height: 22)
-                               )
-                           ),
-                         ],
-                       ),
-                     ],
-                   ),
-                 ): Padding(
-                    padding:  EdgeInsets.only(bottom: Get.height*0.015,right:Get.height*0.01),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: Container(
+                height: 110,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black26)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-
-
-                          children: [
-                            Container(
-                                margin:  lang=='en'?EdgeInsets.only(right:Get.height*0.002):EdgeInsets.only(left:Get.height*0.002),
-                                child: GestureDetector(
-                                    onTap: () {
-                                      controller.adDelete(
-                                          dataListValue[index]['id']);
-                                                            controller.addesMyListAll();
-                                                            controller.addesMyListAll();
-                                                            controller.addedByIdAddes(
-                                                                catID, userId);
-                                                            controller.addedByIdAddes(
-                                                                catID, userId);
-                                    },
-                                    child: Image.asset(AppImages.delete_offer,height: 22)
-                                )
-                            ),
-                            GestureDetector(
-
-                                onTap: () {
-                                  Get.to(AddPostingScreen(),
-                                                            arguments: dataListValue[index]);
-                                },
-
-                              child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal:Get.height*0.01),
-                                  // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
-                                  child: Image.asset(AppImages.edit_Offer, height: 20)
-                              ),
-                            ),
-                          ],
+                        Center(
+                          child: Container(
+                              child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                                child: dataListValue[index]['media'].length != 0
+                                    ? ClipRRect(
+                                        // borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                            dataListValue[index]['media'][0]
+                                                ['url'],
+                                            fit: BoxFit.fill,
+                                            width: Get.width / 6.3,
+                                            height: Get.height / 3))
+                                    : Container(
+                                        width: Get.width / 6,
+                                        child: Icon(Icons.image, size: 50),
+                                      )),
+                          )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Container(
+                                //   child:
+                                //   Text(
+                                //     listFavou[c]['text_ads'][lang]!=null ?
+                                //     listFavou[c]['text_ads'][lang].toString():
+                                //     listFavou[c]['text_ads'][lang]==null?
+                                //     listFavou[c]['text_ads']['en'].toString():'',
+                                //      style: TextStyle(
+                                //       color: Colors.grey[700],
+                                //       fontWeight: FontWeight.bold
+                                //     ),
+                                //   )
+                                // ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: Get.height * 0.015,
+                                      left: Get.height * 0.005,
+                                      right: Get.height * 0.005),
+                                  child: Container(
+                                      child: Text(
+                                    dataListValue[index]['title']['en'] != null
+                                        ? dataListValue[index]['title']['en']
+                                        : '',
+                                    // textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: "Source_Sans_Pro",
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                                  )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: Get.height * 0.015,
+                                      left: Get.height * 0.005,
+                                      right: Get.height * 0.005),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        child: dataListValue[index]['price'] !=
+                                                null
+                                            ? Text(myAddssplitedPrice[0],
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w500))
+                                            : Container(),
+                                      ),
+                                      Container(
+                                        child: dataListValue[index]['price'] !=
+                                                null
+                                            ? Text(" " + "sar".tr,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey,
+                                                ))
+                                            : Container(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: Get.height * 0.015,
+                                      left: Get.height * 0.005,
+                                      right: Get.height * 0.005),
+                                  child: Container(
+                                      child: Text(
+                                    dataListValue[index]['status'] == 0
+                                        ? 'New'.tr
+                                        : 'used'.tr,
+                                    style: TextStyle(
+                                        fontFamily: "Source_Sans_Pro",
+                                        color:
+                                            dataListValue[index]['status'] == 0
+                                                ? AppColors.new_color
+                                                : AppColors.grey,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                                ),
+                              ]),
                         ),
                       ],
                     ),
-                  )
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 10),
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Container(
-                  //         child: Text(
-                  //           allDataAdds[index]['title']['en'] != null
-                  //               ? allDataAdds[index]['title']['en']
-                  //               : '',
-                  //           style: TextStyle(
-                  //               color: Colors.black,
-                  //               fontWeight: FontWeight.bold),
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         height: 5,
-                  //       ),
-                  //       Row(
-                  //         children: [
-                  //           RatingBar.builder(
-                  //             ignoreGestures: true,
-                  //             initialRating:
-                  //                 allDataAdds[index]['rating'].toDouble(),
-                  //             minRating: 1,
-                  //             direction: Axis.horizontal,
-                  //             allowHalfRating: true,
-                  //             itemCount: 5,
-                  //             itemSize: 13.5,
-                  //             itemBuilder: (context, _) => Icon(
-                  //               Icons.star,
-                  //               color: Colors.amber,
-                  //             ),
-                  //             onRatingUpdate: (rating) {},
-                  //           ),
-                  //           Container(
-                  //               margin: EdgeInsets.only(left: 5),
-                  //               child: Text(
-                  //                 "(${allDataAdds[index]['rating_count'].toString()})",
-                  //                 style: TextStyle(fontSize: 13),
-                  //               )),
-                  //         ],
-                  //       ),
-                  //       Expanded(
-                  //         child: Row(
-                  //           children: [
-                  //             GestureDetector(
-                  //                 onTap: () {
-                  //                   controller.adDelete(
-                  //                       allDataAdds[index]['id']);
-                  //                   controller.addesMyListAll();
-                  //                   controller.addesMyListAll();
-                  //                   controller.addedByIdAddes(
-                  //                       catID, userId);
-                  //                   controller.addedByIdAddes(
-                  //                       catID, userId);
-                  //                 },
-                  //                 child: Container(
-                  //                     // margin: lang== 'ar'? EdgeInsets.only(left:10): EdgeInsets.only(),
-                  //                     child: Image.asset(AppImages.delete,
-                  //                         height: 30))),
-                  //             SizedBox(
-                  //               width: 3,
-                  //             ),
-                  //             GestureDetector(
-                  //                 onTap: () {
-                  //                   Get.to(AddPostingScreen(),
-                  //                       arguments: allDataAdds[index]);
-                  //                 },
-                  //                 child: Container(
-                  //                     // margin: lang == 'ar'? EdgeInsets.only(right:20, left:10): EdgeInsets.only(),
-                  //                     child: Image.asset(
-                  //                   AppImages.edit,
-                  //                   height: 30,
-                  //                 )))
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
+
+                    lang == "ar"
+                        ? Padding(
+                            padding: EdgeInsets.only(
+                                bottom: Get.height * 0.015,
+                                left: Get.height * 0.01),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(AddPostingScreen(),
+                                            arguments: dataListValue[index]);
+                                      },
+                                      child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: Get.height * 0.01),
+                                          // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                          child: Image.asset(
+                                              AppImages.edit_Offer,
+                                              height: 20)),
+                                    ),
+                                    Container(
+                                        margin: lang == 'en'
+                                            ? EdgeInsets.only(
+                                                right: Get.height * 0.005)
+                                            : EdgeInsets.only(
+                                                left: Get.height * 0.005),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              controller.adDelete(
+                                                  dataListValue[index]['id']);
+                                              controller.addesMyListAll();
+                                              controller.addesMyListAll();
+                                              controller.addedByIdAddes(
+                                                  catID, userId);
+                                              controller.addedByIdAddes(
+                                                  catID, userId);
+                                            },
+                                            child: Image.asset(
+                                                AppImages.delete_offer,
+                                                height: 22))),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.only(
+                                bottom: Get.height * 0.015,
+                                right: Get.height * 0.01),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        margin: lang == 'en'
+                                            ? EdgeInsets.only(
+                                                right: Get.height * 0.002)
+                                            : EdgeInsets.only(
+                                                left: Get.height * 0.002),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              controller.adDelete(
+                                                  dataListValue[index]['id']);
+                                              controller.addesMyListAll();
+                                              controller.addesMyListAll();
+                                              controller.addedByIdAddes(
+                                                  catID, userId);
+                                              controller.addedByIdAddes(
+                                                  catID, userId);
+                                            },
+                                            child: Image.asset(
+                                                AppImages.delete_offer,
+                                                height: 22))),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(AddPostingScreen(),
+                                            arguments: dataListValue[index]);
+                                      },
+                                      child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: Get.height * 0.01),
+                                          // padding: lang=='en'?EdgeInsets.only(right: 15):EdgeInsets.only(left: 10),
+                                          child: Image.asset(
+                                              AppImages.edit_Offer,
+                                              height: 20)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 10),
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       Container(
+                    //         child: Text(
+                    //           allDataAdds[index]['title']['en'] != null
+                    //               ? allDataAdds[index]['title']['en']
+                    //               : '',
+                    //           style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontWeight: FontWeight.bold),
+                    //         ),
+                    //       ),
+                    //       SizedBox(
+                    //         height: 5,
+                    //       ),
+                    //       Row(
+                    //         children: [
+                    //           RatingBar.builder(
+                    //             ignoreGestures: true,
+                    //             initialRating:
+                    //                 allDataAdds[index]['rating'].toDouble(),
+                    //             minRating: 1,
+                    //             direction: Axis.horizontal,
+                    //             allowHalfRating: true,
+                    //             itemCount: 5,
+                    //             itemSize: 13.5,
+                    //             itemBuilder: (context, _) => Icon(
+                    //               Icons.star,
+                    //               color: Colors.amber,
+                    //             ),
+                    //             onRatingUpdate: (rating) {},
+                    //           ),
+                    //           Container(
+                    //               margin: EdgeInsets.only(left: 5),
+                    //               child: Text(
+                    //                 "(${allDataAdds[index]['rating_count'].toString()})",
+                    //                 style: TextStyle(fontSize: 13),
+                    //               )),
+                    //         ],
+                    //       ),
+                    //       Expanded(
+                    //         child: Row(
+                    //           children: [
+                    //             GestureDetector(
+                    //                 onTap: () {
+                    //                   controller.adDelete(
+                    //                       allDataAdds[index]['id']);
+                    //                   controller.addesMyListAll();
+                    //                   controller.addesMyListAll();
+                    //                   controller.addedByIdAddes(
+                    //                       catID, userId);
+                    //                   controller.addedByIdAddes(
+                    //                       catID, userId);
+                    //                 },
+                    //                 child: Container(
+                    //                     // margin: lang== 'ar'? EdgeInsets.only(left:10): EdgeInsets.only(),
+                    //                     child: Image.asset(AppImages.delete,
+                    //                         height: 30))),
+                    //             SizedBox(
+                    //               width: 3,
+                    //             ),
+                    //             GestureDetector(
+                    //                 onTap: () {
+                    //                   Get.to(AddPostingScreen(),
+                    //                       arguments: allDataAdds[index]);
+                    //                 },
+                    //                 child: Container(
+                    //                     // margin: lang == 'ar'? EdgeInsets.only(right:20, left:10): EdgeInsets.only(),
+                    //                     child: Image.asset(
+                    //                   AppImages.edit,
+                    //                   height: 30,
+                    //                 )))
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
             ),
-                ),
           ),
         );
       },
@@ -575,8 +577,7 @@ class _MyAddsState extends State<MyAdds> {
                                       Transform.scale(
                                         scale: .7,
                                         child: Switch.adaptive(
-                                            activeColor:
-                                                AppColors.whitedColor,
+                                            activeColor: AppColors.whitedColor,
                                             value: dataListValue[index]
                                                         ['is_active'] ==
                                                     1
@@ -612,8 +613,8 @@ class _MyAddsState extends State<MyAdds> {
                                         Transform.scale(
                                           scale: .7,
                                           child: CupertinoSwitch(
-                                              activeColor: AppColors
-                                                  .whitedColor,
+                                              activeColor:
+                                                  AppColors.whitedColor,
                                               value: dataListValue[index]
                                                           ['is_active'] ==
                                                       1
@@ -700,8 +701,7 @@ class _MyAddsState extends State<MyAdds> {
                                 child: dataListValue[index]['price'] != null
                                     ? Text("SAR ${myAddssplitedPrice[0]}",
                                         style: TextStyle(
-                                            color:
-                                                AppColors.whitedColor,
+                                            color: AppColors.whitedColor,
                                             fontWeight: FontWeight.bold))
                                     : Container(),
                               ),
@@ -807,7 +807,9 @@ class _MyAddsState extends State<MyAdds> {
                 children: [
                   allCheck == false
                       ? Container(
-                          margin:lang=="ar"? EdgeInsets.only(right: 10):EdgeInsets.only(left: 10),
+                          margin: lang == "ar"
+                              ? EdgeInsets.only(right: 10)
+                              : EdgeInsets.only(left: 10),
                           width: 70,
                           child: GestureDetector(
                             onTap: () {
@@ -822,10 +824,7 @@ class _MyAddsState extends State<MyAdds> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-
-                                border: Border.all(
-                                  color: AppColors.border
-                                    ),
+                                border: Border.all(color: AppColors.border),
                                 color: allColor,
                               ),
                               // padding: EdgeInsets.all(10.0),
@@ -848,7 +847,9 @@ class _MyAddsState extends State<MyAdds> {
                   Row(
                     children: [
                       Container(
-                        margin:lang=="ar"? EdgeInsets.only(right:8):EdgeInsets.only(left:8),
+                        margin: lang == "ar"
+                            ? EdgeInsets.only(right: 8)
+                            : EdgeInsets.only(left: 8),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -865,9 +866,10 @@ class _MyAddsState extends State<MyAdds> {
                               decoration: BoxDecoration(
                                 // borderRadius: BorderRadius.circular(20.0),
                                 border: Border.all(
-                                    color:selectedIndex == index &&
-                                        textAllcheck == true
-                                        ? Colors.transparent:Colors.black26),
+                                    color: selectedIndex == index &&
+                                            textAllcheck == true
+                                        ? Colors.transparent
+                                        : Colors.black26),
                                 color: selectedIndex == index &&
                                         textAllcheck == true
                                     ? Colors.black26

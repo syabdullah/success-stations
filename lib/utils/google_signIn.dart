@@ -37,7 +37,8 @@ class GoogleSignInC {
         login.loginSocial(json);
         value.authentication.then((googleKey){
               if(googleKey.accessToken != null) {
-              }
+
+              }else{googleKey.accessToken.toString();}
         }).catchError((err){
         });
       } 
