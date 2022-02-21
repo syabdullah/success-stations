@@ -177,7 +177,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   indicatorPadding: EdgeInsets.all(0),
                   tabs: [
                     _individualTab("item".tr),
-                    _individualTab("Service Provider".tr),
+                    _individualTab("service_provider".tr),
                     _individualTab("promotions".tr),
                   ],
                 ),

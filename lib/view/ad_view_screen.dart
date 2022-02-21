@@ -921,11 +921,11 @@ class _AdViewScreenState extends State<AdViewScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-          child:data.length==1? Text("There are " +  data.length.toString() + " comment",
+          child:data.length==1? Text("there_are".tr  +" "+  data.length.toString() + "comment".tr,
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey)):Text("There are " +  data.length.toString() + " comments",
+                  color: Colors.grey)):Text("there_are".tr  +" " + data.length.toString() + "comments".tr,
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

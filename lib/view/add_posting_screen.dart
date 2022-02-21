@@ -215,7 +215,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
       'phone': mobileNoController.text,
       'telephone': telePhoneController.text,
       'title': titleController.text,
-      // 'created_by': id.toString(),
+      'created_by': id.toString(),
       'email': emailController.text,
       'country_id': selectedCountry,
       'region_id': selectedRegion,
@@ -312,7 +312,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                       child: Container(
                         width: lang == 'en' ? 100 : 110,
                         child: Center(
-                            child: Text("New ads",
+                            child: Text('announce_new'.tr,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: Get.height < 700 ? 11 : 13))),
@@ -1207,7 +1207,7 @@ class _AddPostingScreenState extends State<AddPostingScreen> {
                   ),
                 ),
               ),
-              Text("Use My contact information",
+              Text("Use_My_contact_information".tr,
                   style: TextStyle(fontWeight: FontWeight.bold))
             ]),
           ),
