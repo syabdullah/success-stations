@@ -30,42 +30,38 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   @override
   void initState() {
     super.initState();
-    userData = Get.arguments;  
+    userData = Get.arguments;
     userId = box.read('user_id');
-    if(userData[0] == 0) {
-
-    }else
-    conversationID = userData[0];
+    if (userData[0] == 0) {
+    } else
+      conversationID = userData[0];
     image = box.read('chat_image');
     connection();
   }
 
   void connection() async {
-     loginToken = await box.read('access_token');  
-     if(userData[0] == 0)
-     conversationID = await box.read('con_id');
+    loginToken = await box.read('access_token');
+    if (userData[0] == 0) conversationID = await box.read('con_id');
     //  chatCont.getChatConvo(conversationID, page);
-     var json = {
-       'conversation_id':conversationID
-     } ;  
-     chatCont.readConversation(json);
-      try {
-        socket = IO.io('https://ssnode.codility.co',
-        IO.OptionBuilder().setTransports(['websocket']).build());          
-        socket.connect();
-        socket.on('connect',(_) => 
-          print('connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
-        socket.on('message', handleMessage);
-        socket.emit('joinRoom', {
-          "token": loginToken,
-          "room": "convo-$conversationID",
-          "username": "user-$userId"
-        });
-      }
-      catch (e) {
+    var json = {'conversation_id': conversationID};
+    chatCont.readConversation(json);
+    try {
+      socket = IO.io('https://ssnode.codility.co',
+          IO.OptionBuilder().setTransports(['websocket']).build());
+      socket.connect();
+      socket.on(
+          'connect',
+          (_) => print(
+              'connect with token: $loginToken  conversationID: $conversationID userId: $userId'));
+      socket.on('message', handleMessage);
+      socket.emit('joinRoom', {
+        "token": loginToken,
+        "room": "convo-$conversationID",
+        "username": "user-$userId"
+      });
+    } catch (e) {
       print(e.toString());
     }
-    
   }
 
   sendMessage(String chatMessage) {
@@ -73,121 +69,93 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
     socket.emit("chatMessage", chatMessage);
   }
 
-  handleMessage(data) {   
-    chatCont.loadMessage(data);   
+  handleMessage(data) {
+    chatCont.loadMessage(data);
   }
+
   @override
   void dispose() {
     super.dispose();
   }
+
   //reviewd
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
+        onWillPop: () async {
           socket.dispose();
           chatCont.getAllConvo();
-          var json = {
-            'conversation_id':conversationID
-          } ;  
+          var json = {'conversation_id': conversationID};
           chatCont.readConversation(json);
           Get.back();
           return false;
-      },
-      child: Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: Get.height,
-            width: Get.width,
-            color: AppColors.appBarBackGroundColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppBar(
-                  leading: GestureDetector(
-                    onTap: () {    
-                      socket.dispose();
-                      
-                      var json = {
-                          'conversation_id':conversationID
-                        } ;  
-                        chatCont.readConversation(json);
-                        chatCont.getAllConvo();
-                      Get.back();
-                    },
-                    child: Icon(Icons.arrow_back)),
-                  elevation: 0,
-                  backgroundColor: AppColors.appBarBackGroundColor,
-                  centerTitle: true,
-                  title: Text(
-                    userData[1].toString(),
-                    style: AppTextStyles.appTextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+        },
+        child: Scaffold(
+          appBar: AppBar(
+              leading: GestureDetector(
+                  onTap: () {
+                    socket.dispose();
+
+                    var json = {'conversation_id': conversationID};
+                    chatCont.readConversation(json);
+                    chatCont.getAllConvo();
+                    Get.back();
+                  },
+                  child: Padding(
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(
+                            right: Get.width * 0.045,
+                            bottom: Get.width * 0.4,
+                            top: Get.width * 0.045)
+                        : EdgeInsets.only(
+                            left: Get.width * 0.045,
+                            bottom: Get.width * 0.045,
+                            top: Get.width * 0.045),
+                    child: ImageIcon(AssetImage(AppImages.imagearrow1)),
+                  )),
+              elevation: 0,
+              backgroundColor: AppColors.whitedColor,
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[400],
+                    radius: 20,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60.0),
+                        child: image != null
+                            ? Image.network(
+                                image,
+                                fit: BoxFit.fill,
+                                height: 80,
+                              )
+                            : Icon(
+                                Icons.person,
+                                color: Colors.blue[100],
+                              )),
+                  ),
+                  Padding(
+                    padding: lang == 'ar'
+                        ? EdgeInsets.only(right: Get.width * 0.04)
+                        : EdgeInsets.only(left: Get.width * 0.04),
+                    child: Text(
+                      userData[1].toString(),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontFamily: 'Source_Sans_Pro'),
                     ),
-                  )
-                ),
-              ],
-            )
-          ),
-          chattingList(),
-          lang == 'en' ?
-          FractionalTranslation(
-            translation: Get.height > 700 &&
-               Get.height > 800
-              ? const Offset(1.6, 1.4) : Get.height > 700 || Get.height < 800 ? const Offset(1.3, 1.0)
-              : const Offset(1.3, 0.8),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey[400],
-              radius: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child: image != null
-                ? Image.network(
-                    image,
-                    fit: BoxFit.fill,
-                    height: 80,
-                  )
-                : Icon(
-                  Icons.person,
-                  color: Colors.blue[100],
-                )
-              ),
-            )
-          ):
-          FractionalTranslation(
-          translation: Get.height > 700 &&
-              Get.height > 800
-              ? const Offset(-1.5, 1.3) : Get.height > 700 || Get.height < 800 ? const Offset(-1.3, 1.0) 
-              : const Offset(-1.3, 0.8),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey[400],
-              radius: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(60.0),
-                child: image != null
-                ? Image.network(
-                    image,
-                    fit: BoxFit.fill,
-                    height: 80,
-                  )
-                : Icon(
-                    Icons.person,
-                    color: Colors.blue[100],
-                    )
-              ),
-            )
-          ),
-          textFieldDataSender()
-        ],
-      ),
-    )
-    );
+                  ),
+                ],
+              )),
+          body: Stack(
+            children: [
+              chattingList(),
+              textFieldDataSender()])));
   }
 
   bool isLoading = false;
+
   //reviewed
   Future _loadData(data) async {
     await Future.delayed(new Duration(seconds: 1));
@@ -203,7 +171,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   //reviewed
   Widget messageList(messages, nextPageUrl) {
     return Container(
-      height: Get.height/1.0,
+      height: Get.height / 1.0,
       margin: EdgeInsets.only(bottom: 45),
       child: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
@@ -225,8 +193,7 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
             var date = DateTime.parse(messages[index]["created_at"]);
             var time = DateFormat().add_jm().format(date.toLocal());
             return Container(
-              padding:
-                  EdgeInsets.only(left: 14, right: 14, bottom: 10),
+              padding: EdgeInsets.only(left: 14, right: 14, bottom: 10),
               child: Align(
                 alignment: (userId != messages[index]["created_by"]
                     ? Alignment.topLeft
@@ -234,15 +201,18 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                 child: Container(
                   // width: Get.width/1.5,
                   decoration: BoxDecoration(
-                    borderRadius:   BorderRadius.only(
-                        topRight: userId == messages[index]["created_by"] ?  Radius.circular(0): Radius.circular(10.0),
-                       topLeft: userId == messages[index]["created_by"] ?  Radius.circular(10.0): Radius.circular(0.0),
+                    borderRadius: BorderRadius.only(
+                        topRight: userId == messages[index]["created_by"]
+                            ? Radius.circular(0)
+                            : Radius.circular(10.0),
+                        topLeft: userId == messages[index]["created_by"]
+                            ? Radius.circular(10.0)
+                            : Radius.circular(0.0),
                         bottomRight: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0)
-                    ),
+                        bottomLeft: Radius.circular(10.0)),
                     color: (userId != messages[index]["created_by"]
                         ? Colors.grey.shade200
-                        : AppColors.appBarBackGroundColor),
+                        : AppColors.whitedColor),
                   ),
                   padding: EdgeInsets.all(12),
                   child: Column(
@@ -250,13 +220,19 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                     children: [
                       Text(
                         messages[index]['message'],
-                        style: TextStyle(fontSize: 16,color:userId == messages[index]["created_by"] ? Colors.white : Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: userId == messages[index]["created_by"]
+                                ? Colors.white
+                                : Colors.grey),
                       ),
-                      Text(
-                       time.toString(),                      
-                        style: TextStyle(fontSize: 12,color:userId == messages[index]["created_by"] ? Colors.white : Colors.grey),
-                        textDirection: ui.TextDirection.ltr
-                      ),
+                      Text(time.toString(),
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: userId == messages[index]["created_by"]
+                                  ? Colors.white
+                                  : Colors.grey),
+                          textDirection: ui.TextDirection.ltr),
                     ],
                   ),
                 ),
@@ -272,41 +248,44 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   Widget textFieldDataSender() {
     return Align(
       alignment: Alignment.bottomLeft,
-      child: Container(
-        height: 60,
-        
-        decoration: BoxDecoration(
-            color: Colors.grey[300], borderRadius: BorderRadius.circular(78)),
-        margin: EdgeInsets.symmetric(horizontal: 15),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 2),
         child: Row(
-          children: <Widget>[
-            SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: TextField(
-                controller: msg,                
-                maxLines: null,
-                maxLength: 160,
-                decoration: InputDecoration(
-                  counterText: '',
-                isDense: true,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  hintText: "Type_your_message_here".tr,
-                  hintStyle: TextStyle(color: Colors.grey),
+          children: [
+            Container(
+              height: 40,
+              width: Get.width - 45,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Color(0XFFaaaaaa)),
+                  color: Color(0XFFffffff),
+                  borderRadius: BorderRadius.circular(78)),
+              // margin: EdgeInsets.symmetric(horizontal: 15),
+              child: Padding(
+                padding:  lang == 'ar' ? EdgeInsets.only(right: Get.width * 0.05): EdgeInsets.only(left: Get.width * 0.05),
+                child: TextField(
+                  controller: msg,
+                  maxLines: null,
+                  // maxLength: 160,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    isDense: true,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: lang == 'en'
+                        ? EdgeInsets.only(left: Get.width * 0.05, top: 8)
+                        : EdgeInsets.only(right: Get.width * 0.05, top: 8),
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    // hintText: "Type_your_message_here".tr,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              width: 15,
-            ),
             Container(
-              padding: EdgeInsetsDirectional.all(8),
-              child: FloatingActionButton(
-                onPressed: () {
+              height: Get.width * 0.1,
+              child: InkWell(
+                onTap: () {
                   sendMessage(msg.text);
                   setState(() {
                     me.add(ChatMessage(
@@ -314,13 +293,14 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
                     msg.clear();
                   });
                 },
-                child: Icon(
-                  Icons.send,
-                  color: Colors.white,
-                  size: 18,
+                child: CircleAvatar(
+                  child: ImageIcon(
+                    AssetImage(AppImages.send),
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  backgroundColor: AppColors.whitedColor,
                 ),
-                backgroundColor: AppColors.appBarBackGroundColor,
-                elevation: 0,
               ),
             ),
           ],
@@ -332,13 +312,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
   //reviewed
   Widget chattingList() {
     return Container(
-      margin: EdgeInsets.only(top: Get.height / 5.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-        color: Colors.grey[100],
-      ),
-      padding: EdgeInsets.only(top: 20),
       child: Container(
           child: GetBuilder<ChatController>(
         init: ChatController(),
@@ -355,15 +328,15 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
             }
           }
           return val.isLoading == false && val.allChat.length != 0
-            ? 
-            // ListView(
-            //   reverse: true,
-            //     children: [
-                  messageList(val.allChat,
-                      val.chat['data']['messages']['next_page_url'])
+              ?
+              // ListView(
+              //   reverse: true,
+              //     children: [
+              messageList(
+                  val.allChat, val.chat['data']['messages']['next_page_url'])
               //   ],
               // )
-            : Container();
+              : Container();
         },
       )),
     );
@@ -374,5 +347,6 @@ class _ChattinPageState extends State<ChattinPagePersonal> {
 class ChatMessage {
   String messageContent;
   String messageType;
+
   ChatMessage({required this.messageContent, required this.messageType});
 }

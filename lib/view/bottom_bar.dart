@@ -14,13 +14,17 @@ import 'package:success_stations/view/auth/offer_list.dart';
 import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_list.dart';
 import 'package:success_stations/view/google_map/mapview.dart';
+import 'package:success_stations/view/offers/promotion_filter.dart';
+
+import 'friends/friend_filter.dart';
 
 class BottomTabs extends StatefulWidget {
- @override
- State<StatefulWidget> createState() {
+  @override
+  State<StatefulWidget> createState() {
     return _BottomTabsState();
   }
 }
+
 class _BottomTabsState extends State<BottomTabs> {
   final banner = Get.put(BannerController());
   final mapCon = Get.put(LocationController());
@@ -28,6 +32,7 @@ class _BottomTabsState extends State<BottomTabs> {
   var lang;
   var countryIDD;
   GetStorage box = GetStorage();
+
   void initState() {
     banner.bannerController();
     offer.offerList();
@@ -38,163 +43,274 @@ class _BottomTabsState extends State<BottomTabs> {
     print("country iddddd //..... bottom bar ....$countryIDD");
     super.initState();
   }
+
   @override
   void dispose() {
-  
     super.dispose();
-
   }
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentIndex = 2;
   final List<Widget> _children = [
-   
     OfferList(),
     FriendList(),
     AdsView(),
-    AllAdds(),
     CustomInfoWindowExample(),
-  ];
-  final List<Widget> _archildren = [
-   CustomInfoWindowExample(),    
     AllAdds(),
-    AdsView(),   
-    FriendList(),
+  ];
+  // final List<Widget> _archildren = [
+  //   AllAdds(),
+  //   CustomInfoWindowExample(),
+  //   AdsView(),
+  //   FriendList(),
+  //   OfferList(),
+  // ];
+
+  final List<Widget> _archildren = [
     OfferList(),
+    FriendList(),
+    AdsView(),
+    CustomInfoWindowExample(),
+    AllAdds(),
   ];
 
   void onTabTapped(int index) {
-   setState(() {
-     _currentIndex = index;
-     print("...... current index ....$_currentIndex");
-   });
+    setState(() {
+      _currentIndex = index;
+      print("...... current index ....$_currentIndex");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return lang == 'ar' ? 
-    Scaffold(
-      key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,_currentIndex)),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
-      body: _archildren[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-          onTap: onTabTapped,
-        items: [        
-          BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('location'.tr, style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
+    return lang == 'ar'
+        ? Scaffold(
+            key: _scaffoldKey,
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(60.0),
+                child: _currentIndex == 1 || _currentIndex == 3
+                    ? SizedBox(height: Get.height * 0.038)
+                    : appbar(_scaffoldKey, context, AppImages.appBarLogo,
+                        AppImages.appBarSearch, _currentIndex)),
+            drawer: Theme(
+              data: Theme.of(context).copyWith(
+                  // canvasColor: AppColors.botomTiles
+                  ),
+              child: _currentIndex == 2
+                  ? AppDrawer()
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
+            ),
+            body: _archildren[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: onTabTapped,
+              type: BottomNavigationBarType.fixed,
+              iconSize: 0,
+              backgroundColor: Colors.white,
+              unselectedItemColor: Colors.black,
+              selectedItemColor: AppColors.whitedColor,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              items: [
+                BottomNavigationBarItem(
+                  // ignore: deprecated_member_use
+                  // title: Text('offer'.tr,
+                  // ),
+                  label: 'promotions'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.offers,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
                 ),
-              icon: ImageIcon(AssetImage(AppImages.locations),color: AppColors.grey),
-            ),
-          BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('ads'.tr,style: 
-                AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  )
-                ),
-              icon:ImageIcon(AssetImage(AppImages.ma),color: AppColors.grey),
-            ),
-            
-             BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            title: Text('home'.tr, style: AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
-            ),
-            icon: Icon(Icons.home,color: AppColors.grey)
-            //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
-            BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                ) 
-              ),
-              icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
-            ),
-            BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            title: Text('offer'.tr, style: AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
-            ),
-            icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
-           
-        ],
-      ),
-    ):
-    Scaffold(
-      key: _scaffoldKey,
-      appBar:  PreferredSize( preferredSize: Size.fromHeight(60.0),
-      child: appbar(_scaffoldKey,context,AppImages.appBarLogo, AppImages.appBarSearch,_currentIndex)),
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          // canvasColor: AppColors.botomTiles
-        ),
-        child: AppDrawer(),
-      ),
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-          onTap: onTabTapped,
-        items: [        
-          BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            title: Text('offer'.tr, style: AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
-            ),
-            icon: ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
-            BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('friends'.tr ,style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                ) 
-              ),
-              icon:ImageIcon(AssetImage(AppImages.friends),color: AppColors.grey),
-            ),
-             BottomNavigationBarItem(
-            // ignore: deprecated_member_use
-            title: Text('home'.tr, style: AppTextStyles.appTextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-              ) 
-            ),
-            icon: Icon(Icons.home,color: AppColors.grey)
-            //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
-            ),
-             BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('ads'.tr,style: 
-                AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  )
-                ),
-              icon:ImageIcon(AssetImage(AppImages.ma),color: AppColors.grey),
-            ),
-            BottomNavigationBarItem(
-              // ignore: deprecated_member_use
-              title: Text('location'.tr, style: AppTextStyles.appTextStyle(
-                    fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.inputTextColor
-                  ) 
-                ),
-              icon: ImageIcon(AssetImage(AppImages.locations),color: AppColors.grey),
-            ),
-           
-        ],
-      ),
-    );
-  }
+                BottomNavigationBarItem(
+                  label: 'friends'.tr,
+                  // ignore: deprecated_member_use
 
+                  icon: Column(
+                    children: [
+                      ImageIcon(
+                        AssetImage(
+                          AppImages.friends,
+                        ),
+                        color: AppColors.black,
+                        size: 25,
+                      ),
+                    ],
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: '',
+                  // ignore: deprecated_member_use
+
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ImageIcon(
+                      AssetImage(
+                        AppImages.home,
+                      ),
+                      color: AppColors.black,
+                      size: 55,
+                    ),
+                  ),
+                ),
+                //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+                BottomNavigationBarItem(
+                  label: 'locationTab'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.locations,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'ads'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.ads,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Scaffold(
+            key: _scaffoldKey,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(60.0),
+              child: _currentIndex == 1 || _currentIndex == 3
+                  ? SizedBox(height: Get.height * 0.038)
+                  : PreferredSize(
+                      preferredSize: Size.fromHeight(60.0),
+                      child: appbar(_scaffoldKey, context, AppImages.appBarLogo,
+                          AppImages.appBarSearch, _currentIndex)),
+            ),
+            drawer: Theme(
+              data: Theme.of(context).copyWith(
+                  // canvasColor: AppColors.botomTiles
+                  ),
+              child: _currentIndex == 2
+                  ? AppDrawer()
+                  : _currentIndex == 0
+                      ? PromotionsFilter(globalKey: _scaffoldKey)
+                      : FriendsFilter(globalKey: _scaffoldKey),
+            ),
+            body: _archildren[_currentIndex],
+
+            // bottomNavigationBar: BottomNavigationBar(
+
+            //   currentIndex: _currentIndex,
+            //   onTap: onTabTapped,type: BottomNavigationBarType.fixed,
+            //   iconSize: 0,
+
+            //   backgroundColor: Colors.white,
+            //   unselectedItemColor: Colors.black,
+            //   selectedItemColor:AppColors.whitedColor,
+            //   selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            //   selectedFontSize: 12,
+            //   unselectedFontSize: 12,
+            //   items: [
+            //     BottomNavigationBarItem(
+            //       // ignore: deprecated_member_use
+            //       // title: Text('offer'.tr,
+            //       // ),
+            //       label: 'offer'.tr,
+            //       icon: ImageIcon(
+            //         AssetImage(
+            //           AppImages.offers,
+            //         ),
+            //         color: AppColors.black,
+            //         size: 25,
+            //       ),
+            // body: _archildren[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: onTabTapped,
+              type: BottomNavigationBarType.fixed,
+              iconSize: 0,
+              backgroundColor: Colors.white,
+              unselectedItemColor: Colors.black,
+              selectedItemColor: AppColors.whitedColor,
+              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              items: [
+                BottomNavigationBarItem(
+                  // ignore: deprecated_member_use
+                  // title: Text('offer'.tr,
+                  // ),
+                  label: 'promotions'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.offers,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'friends'.tr,
+                  // ignore: deprecated_member_use
+
+                  icon: Column(
+                    children: [
+                      ImageIcon(
+                        AssetImage(
+                          AppImages.friends,
+                        ),
+                        color: AppColors.black,
+                        size: 25,
+                      ),
+                    ],
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: '',
+                  // ignore: deprecated_member_use
+
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ImageIcon(
+                      AssetImage(
+                        AppImages.home,
+                      ),
+                      color: AppColors.black,
+                      size: 55,
+                    ),
+                  ),
+                ),
+                //  ImageIcon(AssetImage(AppImages.offers,),color: AppColors.grey),
+                BottomNavigationBarItem(
+                  label: 'locationTab'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.locations,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: 'ads'.tr,
+                  icon: ImageIcon(
+                    AssetImage(
+                      AppImages.ads,
+                    ),
+                    color: AppColors.black,
+                    size: 25,
+                  ),
+                ),
+              ],
+            ),
+          );
+  }
 }

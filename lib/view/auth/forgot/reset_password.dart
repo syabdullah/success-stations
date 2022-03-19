@@ -80,8 +80,8 @@ class _ResetPasswordState extends State<ResetPassword> {
               Center(
                 child:  submitButton(
                   width: Get.width/1.2,
-                  bgcolor: AppColors.appBarBackGroundColor,  
-                  textColor: AppColors.appBarBackGroun,
+                  bgcolor: AppColors.whitedColor,  
+                  textColor: AppColors.white,
                   buttonText: "reset".tr,fontSize: 16.0,
                   callback: requiredPassword,
                 )

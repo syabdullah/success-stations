@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:success_stations/styling/colors.dart';
+import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/view/auth/sign_up/company_sign_up.dart';
 import 'package:success_stations/view/auth/sign_up/student_sign_up.dart';
 
@@ -33,71 +34,105 @@ class _TabBarState extends State<TabBarPage>with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      // appBar: PreferredSize( preferredSize: Size.fromHeight(70.0),
-      // child: newAppbar(context,'previous'.tr, AppImages.appBarLogo )),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: (){
-                Get.back();
-              },
-              child: Container(
-                padding: EdgeInsets.all(7),
-                child:Text("previous".tr,style: TextStyle(fontSize: 18,color: Colors.black,decoration: TextDecoration.underline,),)
-              ),
-            ),
-            SizedBox(height: 10,),
-            Expanded(
-              child: Column(
+        appBar: AppBar(
+            bottomOpacity: 0.0,
+            elevation: 0.0,
+            backgroundColor: AppColors.appBarBackGroundColor,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leadingWidth: 500,
+            leading: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+              child: Row(
                 children: [
-                  Container(
-                    color:Colors.white,
-                    child:TabBar(
-                      
-                      controller: controller1,
-                      indicatorColor: AppColors.appBarBackGroundColor,
-                      // indicatorColor: controller1.index==1 ?  AppColors.appBarBackGroundColor: Colors.grey,
-                      // labelColor:controller1.index==1 ? AppColors.appBarBackGroundColor: Colors.grey,
-                      unselectedLabelColor: Colors.grey,
-                      
-                      tabs: <Tab>[
-                        Tab(
-                          child: Text(
-                            'student'.tr,
-                            style: TextStyle(
-                              color: Colors.grey ,
-                              fontSize: 18
-                              // controller1.index==1 ?  Colors.blue : Colors.grey
-                            
-                            )
-                          )
-                        ),
-                        Tab(
-                          child: Text(
-                            'company'.tr, style: TextStyle(color: Colors.grey,fontSize: 18),
-                          )
-                        ),
-                      ]
-                    )
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        AppImages.roundedBack,
+                        height: Get.height * 0.05,
+                      )),
+                  SizedBox(
+                    width: Get.width * 0.02,
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: controller1, 
-                      physics: NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        StudentSignUp(),
-                        CompanySignUp()
-                      ]
+                  Text(
+                    "prev".tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontFamily: "andada",
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      )
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+                child: Center(
+                  child: Text(  "new_account".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: "andada",
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ]),
+
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              SizedBox(height: 10,),
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(left:Get.width*0.023,right:Get.width*0.023),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),),
+                        child:TabBar(
+                            indicator: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                color: AppColors.darkblue),
+                            controller: controller1,
+                            indicatorColor: Colors.white,
+                            unselectedLabelColor: Colors.black,
+                            labelColor: Colors.white,
+                            tabs: <Tab>[
+                              Tab(
+                                  child: Text(
+                                    'student'.tr,
+                                  )
+                              ),
+                              Tab(
+                                  child: Text(
+                                    'company'.tr,
+                                  )
+                              ),
+                            ]
+                        )
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                          controller: controller1,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: <Widget>[
+                            StudentSignUp(),
+                            CompanySignUp()
+                          ]
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
     );
   }
 

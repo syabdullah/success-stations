@@ -32,12 +32,13 @@ getData() async{
 class SuccessApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     lang =  box.read('lang_code');
     auth =  box.read('access_token');
     print(auth);
-    return ScreenUtilInit(
+    return ScreenUtilInit( 
       builder:()  {       
-        return GetMaterialApp(     
+        return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'SuccessStation Codility',
         localizationsDelegates: [
@@ -50,7 +51,7 @@ class SuccessApp extends StatelessWidget {
         translations: LocalizationServices(),
         theme:   ThemeData(
            primaryColor: Color(0xFF2F4199),
-           fontFamily: lang == 'en' || lang == null ? 'Poppins Regular': 'STC Bold',
+           fontFamily: lang == 'en' || lang == null ? 'Source_Sans_Pro': 'Source_Sans_Pro',
            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFF2F4199)),
            textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFF2F4199)),
           //  textTheme: TextTheme(bodyText1: TextStyle(fontSize: 20.0))
@@ -62,5 +63,6 @@ class SuccessApp extends StatelessWidget {
         onGenerateRoute: SuccessStationRoutes.successStationRoutes,
       );}
     );
+
   }
 }

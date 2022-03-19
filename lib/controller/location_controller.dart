@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/action/location_action/last_location_action.dart';
@@ -29,7 +30,7 @@ class LocationController extends GetxController {
         res = jsonDecode(value.body);
          Get.to(MyLocations());
         isLoading = false;
-         Get.snackbar("Location saved Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);
+         Get.snackbar("Location saved Sucessfully",'',backgroundColor: Colors.white);
        
         
       }
@@ -45,7 +46,7 @@ editLocationToDB(id,data) async{
         editLoc = jsonDecode(value.body);
          Get.to(MyLocations());
         isLoading = false;
-         Get.snackbar("Location updated Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+         Get.snackbar("Location updated Sucessfully",'',backgroundColor: Colors.white);
       }
     });
     update();
@@ -59,7 +60,7 @@ deleteLocationToDB(id,userId) async {
         var del = jsonDecode(value.body);
         isLoading = false;
         getMyLocationToDB(userId);
-         Get.snackbar("Location deleted Sucessfully",'',backgroundColor: AppColors.appBarBackGroundColor);        
+         Get.snackbar("Location deleted Sucessfully",'',backgroundColor: Colors.white);
       }
     });
     update();

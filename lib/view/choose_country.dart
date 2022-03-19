@@ -36,7 +36,7 @@ class ChooseCountryStatePage extends State<ChooseCountry> {
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
           centerTitle: true,
-          backgroundColor: AppColors.appBarBackGroundColor,
+          backgroundColor: AppColors.whitedColor,
           title: Text('choose_country'.tr),
         ),
         body : Column(
@@ -54,8 +54,8 @@ class ChooseCountryStatePage extends State<ChooseCountry> {
           ),
           SizedBox(height: 20,),
           submitButton(
-            bgcolor: AppColors.appBarBackGroundColor,
-            textColor: AppColors.appBarBackGroun,
+            bgcolor: AppColors.whitedColor,
+            textColor: AppColors.white,
             buttonText: "save".tr,
             callback: save
           ),

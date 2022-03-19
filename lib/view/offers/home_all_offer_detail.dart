@@ -52,14 +52,14 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
             AppImages.appBarLogo,
             height: 40,
           ),
-            backgroundColor: AppColors.appBarBackGroundColor,
+            backgroundColor: AppColors.whitedColor,
             centerTitle: true,
         ),
       ),
 
       drawer: Theme(
         data: Theme.of(context).copyWith( ),
-        child: AppDrawer(),
+        child: AppDrawer()
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,7 +91,7 @@ class _HomeAllOfferDEtailPageState extends State<HomeAllOfferDEtailPage> {
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width / 1,
-                                color: AppColors.appBarBackGroundColor,
+                                color: AppColors.whitedColor,
                                 padding: EdgeInsets.only( top: 10, bottom: 15, right: 25,left: 20),
                                 child: homeCategoryById != null &&  homeCategoryById['url'] != null
                                 ? Row(

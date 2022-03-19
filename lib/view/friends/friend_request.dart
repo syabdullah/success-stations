@@ -28,37 +28,7 @@ class _FriendReqListState extends State<FriendReqList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: Container(
-                  margin: EdgeInsets.only(left:10, top:5),
-                  child: Icon(Icons.arrow_back,
-                    color: Colors.white, size: 22
-                  ),
-                ),
-              ),
-            ],
-          )
-        ),
-        actions: [ 
-          GestureDetector(
-            onTap: (){
-              Get.bottomSheet(SuggestFriends());
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Image.asset(AppImages.filterImage, height:20),
-            ),
-          )
-        ],
-        centerTitle: true,
-        title: Image.asset(AppImages.appBarLogo, height:35),
-        backgroundColor: AppColors.appBarBackGroundColor
-      ),
+
       body: ListView(
         children: [
           GetBuilder<FriendsController>(
@@ -66,20 +36,20 @@ class _FriendReqListState extends State<FriendReqList> {
             builder: (val) {
               return val.suggestionsData == null?
               Container(
-                height: Get.height/1.5,
+                height: Get.height/2,
                 child:Center(
                   child: Text("No Record Found", style:TextStyle(fontSize: 16, fontWeight: FontWeight.normal))
                 )
               ):
-              val.suggestionsData.length == 0  || val.suggestionsData == null? 
+              val.suggestionsData.length == 0  || val.suggestionsData == null?
               Container(
                 child: Text(
-                  "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24) 
+                  "suggestion".tr ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24)
                 )
               ):
               Column(
                 children: [
-                  val.friendsData != null ? 
+                  val.friendsData != null ?
                   Column(
                     children: friendList(val.friendsData['data']),
                   ) :
@@ -176,7 +146,7 @@ class _FriendReqListState extends State<FriendReqList> {
                             width: Get.width/4.2,
                             height: 35.0,
                             decoration: BoxDecoration(
-                              color: AppColors.appBarBackGroundColor,
+                              color: AppColors.whitedColor,
                               borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
                             child: Container(                        
@@ -318,7 +288,7 @@ class _FriendReqListState extends State<FriendReqList> {
                         width: Get.width/4.2,
                         height: 35.0,
                         decoration: BoxDecoration(
-                          color: AppColors.appBarBackGroundColor,
+                          color: AppColors.whitedColor,
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
                           ),

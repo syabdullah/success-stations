@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:success_stations/controller/language_controller.dart';
@@ -21,9 +23,10 @@ class SignIn extends StatefulWidget {
 class _SignPageState extends State<SignIn> {
   final formKey = new GlobalKey<FormState>();
 
-  TextEditingController fulNameController = TextEditingController();
-  TextEditingController password = TextEditingController();
-  
+  TextEditingController email = TextEditingController(
+    text: 'testzaman@mailinator.com',
+  );
+  TextEditingController password = TextEditingController(text: '12345678');
 
   bool passwordVisible = true;
   GetStorage dataStore = GetStorage();
@@ -45,25 +48,22 @@ class _SignPageState extends State<SignIn> {
     loginCont.resultInvalid(false);
     errorCheck = true;
   }
+
   signIn() {
     final form = formKey.currentState;
     if (form!.validate()) {
       form.save();
-      var jsonData = {
-        "email": fulNameController.text,
-        "password": password.text
-      };
+      var jsonData = {"email": email.text, "password": password.text};
       loginCont.loginUserdata(jsonData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-     WillPopScope(
-      onWillPop: () async => true,      
-      child:
-       Scaffold(
+    return WillPopScope(
+      onWillPop: () async => true,
+      child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: Colors.transparent,
@@ -71,17 +71,19 @@ class _SignPageState extends State<SignIn> {
             title: GetBuilder<LanguageController>(
               init: LanguageController(),
               builder: (val) {
-                return   val.languageList == null
+                return val.languageList == null
                     ? Container()
                     : language(val.languageList['data']);
               },
             ),
           ),
+          bottomNavigationBar: bottomW(),
           body: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (val) {
                 return Center(
                   child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Center(
                         child: Form(
@@ -89,17 +91,19 @@ class _SignPageState extends State<SignIn> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: Get.height / 8.0),
+                              SizedBox(height: Get.height * 0.02),
                               Container(
-                                margin: EdgeInsets.only(bottom: 20),
+                                margin:
+                                    EdgeInsets.only(bottom: Get.height * 0.05),
                                 child: Image.asset(AppImages.appLogo,
                                     height: Get.height / 6),
                               ),
-                              SizedBox(height: 23),
+                              SizedBox(height: Get.height * 0.02),
                               eMail(),
-                              SizedBox(height: 8),
+                              SizedBox(height: Get.height * 0.008),
                               passwordW(),
-                              loginCont.resultInvalid.isTrue && errorCheck == true
+                              loginCont.resultInvalid.isTrue &&
+                                      errorCheck == true
                                   ? Container(
                                       child: Container(
                                         child: Text(
@@ -109,72 +113,104 @@ class _SignPageState extends State<SignIn> {
                                       ),
                                     )
                                   : Container(),
-                              //SizedBox(height: 4),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/forgotPass');
-                                },
-                                child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  margin: EdgeInsets.only(
-                                      bottom: 10, right: 18, top: 6),
-                                  child: Text('forgot_password'.tr,
-                                      style: TextStyle(color: Colors.grey),
-                                      textAlign: TextAlign.end),
-                                ),
-                              ),
+                              SizedBox(height: Get.height * 0.008),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.pushNamed(context, '/forgotPass');
+                              //   },
+                              //   child: Container(
+                              //     alignment: Alignment.bottomRight,
+                              //     margin: EdgeInsets.only(
+                              //         bottom: 10, right: 18, top: 6),
+                              //     child: Text('forgot_password'.tr,
+                              //         style: TextStyle(color: Colors.grey),
+                              //         textAlign: TextAlign.end),
+                              //   ),
+                              // ),
                               submitButton(
-                                  bgcolor: AppColors.appBarBackGroundColor,
-                                  textColor: AppColors.appBarBackGroun,
+                                  bgcolor: AppColors.darkblue,
+                                  textColor: AppColors.white,
                                   buttonText: "login".tr,
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
+                                  width: Get.width * 0.9,
+                                  height: Get.height * 0.065,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "andada",
                                   callback: signIn),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("forgot_your_log_in_details".tr,
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: "Source_Sans_Pro",
+                                          fontSize: 15)),
+                                  Text(
+                                    " " + "help_login".tr,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Source_Sans_Pro",
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              ),
                               Container(
-                                margin: EdgeInsets.only(
-                                    top: 10, bottom: 10, left: 20, right: 20),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: Get.height * 0.01,
+                                    horizontal: Get.height * 0.04),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // Expanded(
-                                      //     child: Divider(
-                                      //   color: Colors.black,
-                                      // )),
-                                      // SizedBox(
-                                      //   width: 3,
-                                      // ),
+                                      Expanded(
+                                          child: Divider(
+                                        color: Colors.black,
+                                      )),
                                       Text(
-                                        "or".tr,
-                                        style: TextStyle(color: Colors.grey),
+                                        " or ".tr,
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 20),
                                       ),
-                                      SizedBox(
+                                      Expanded(
+                                          child: Divider(
+                                        color: Colors.black,
+                                      )),
+
+                                      /*SizedBox(
                                         width: 3,
-                                      ),
-                                      
+                                      ),*/
                                     ]),
                               ),
-                              
+                              SizedBox(
+                                height: Get.height * 0.025,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   submitButton(
-                                    textColor: AppColors.appBarBackGroun,
-                                    buttonText: AppString.facebook,
-                                    callback: navigateToGoogleFaceBook,
-                                    width: Get.width / 2.3,
-                                    image: AppImages.fb
-                                  ),
-                                  SizedBox(width: 20),
+                                      textColor: AppColors.white,
+                                      buttonText: AppString.facebook,
+                                      fontFamily: "Source_Sans_Pro",
+                                      callback: navigateToGoogleFaceBook,
+                                      width: Get.width / 2.3,
+                                      image: AppImages.fb),
+                                  SizedBox(width: 10),
                                   submitButton(
-                                    textColor: AppColors.google,
-                                    buttonText: AppString.facebook,
-                                    borderColor: AppColors.google,
-                                    callback: navigateToGoogleLogin,
-                                    width: Get.width / 2.3,
-                                    image: AppImages.google
-                                  ),
+                                      textColor: AppColors.google,
+                                      buttonText: AppString.facebook,
+                                      fontFamily: "Source_Sans_Pro",
+                                      borderColor: AppColors.google,
+                                      callback: navigateToGoogleLogin,
+                                      width: Get.width / 2.3,
+                                      image: AppImages.google),
                                 ],
                               ),
-                              bottomW()
+                              SizedBox(
+                                height: Get.height * 0.04,
+                              ),
                             ],
                           ),
                         ),
@@ -186,60 +222,63 @@ class _SignPageState extends State<SignIn> {
     );
   }
 
-  Widget eMail() {
-    return Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
-      width: Get.width * 0.9,
-      child: CustomTextFiled(
-        isObscure: false,
-        hintText: "emails".tr,
-        hintStyle: TextStyle(
-          fontSize: lang == 'ar' ? 14 : 16,
-          color: Colors.grey,
-        ),
-        contentPadding:
-            new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        hintColor: AppColors.inputTextColor,
-        onChanged: (value) {},
-        onSaved: (String? newValue) {},
-        onFieldSubmitted: (value) {},
-        textController: fulNameController,
-        validator: (value) => value == ''
-            ? 'email_required'.tr
-            : !value.contains('@') || !value.contains('.')
-                ? 'enter_valid_email'.tr
-                : null,
-        errorText: '',
-      ),
-    );
-  }
+  // Widget eMail() {
+  //   return Container(
+  //     decoration: BoxDecoration(border: Border.all(width: 0.3),borderRadius: BorderRadius.circular(10)),
+  //     margin: EdgeInsets.only(left: 20, right: 20),
+  //     width: Get.width * 0.9,
+  //     child: CustomTextFiled(
+  //       isObscure: false,
+  //       hintText: "emails".tr,
+  //       hintStyle: TextStyle(
+  //         fontSize: lang == 'ar' ? 14 : 16,
+  //         color: Colors.grey,
+  //       ),
+  //
+  //       contentPadding:
+  //       new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+  //       hintColor: AppColors.inputTextColor,
+  //       onChanged: (value) {},
+  //       onSaved: (String? newValue) {},
+  //       onFieldSubmitted: (value) {},
+  //       textController: email,
+  //       validator: (value) => value == ''
+  //           ? 'email_required'.tr
+  //           : !value.contains('@') || !value.contains('.')
+  //           ? 'enter_valid_email'.tr
+  //           : null,
+  //       errorText: '',
+  //     ),
+  //   );
+  // }
 
   Widget language(List data) {
     return ButtonTheme(
-      alignedDropdown: true,
-      child: DropdownButtonHideUnderline(
-          child: DropdownButton(
-        hint: hintTextLang!=null
-        ? Text(hintTextLang,
-         
-          style: TextStyle(fontSize: lang == 'ar' ? 14 : 16, color: AppColors.inputTextColor))
-        : hintTextLang == null && lang == null
-        ? Text("English")
-        : Text(lang),
-        dropdownColor: AppColors.inPutFieldColor,
-        icon: Icon(
-          Icons.expand_more_outlined,
-          color: AppColors.inputTextColor,
-        ),
-        items: data.map((coun) {
-          return DropdownMenuItem(
-            value: coun,
-            child: coun['name'] != null
-            ? Text(
-              coun['name'],
-              style: TextStyle(color: AppColors.inputTextColor),
-            )
-              : Container(),
+        alignedDropdown: true,
+        child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+          hint: hintTextLang != null
+              ? Text(hintTextLang,
+                  style: TextStyle(
+                      fontSize: lang == 'ar' ? 14 : 16,
+                      color: AppColors.inputTextColor))
+              : hintTextLang == null && lang == null
+                  ? Text("English")
+                  : Text(lang),
+          dropdownColor: AppColors.inPutFieldColor,
+          icon: Icon(
+            Icons.expand_more_outlined,
+            color: AppColors.inputTextColor,
+          ),
+          items: data.map((coun) {
+            return DropdownMenuItem(
+              value: coun,
+              child: coun['name'] != null
+                  ? Text(
+                      coun['name'],
+                      style: TextStyle(color: AppColors.inputTextColor),
+                    )
+                  : Container(),
             );
           }).toList(),
           onChanged: (val) {
@@ -253,39 +292,101 @@ class _SignPageState extends State<SignIn> {
               LocalizationServices().changeLocale(mapLang['short_code']);
             });
           },
-        )
-      )
-    );
+        )));
+  }
+
+  Widget eMail() {
+    return Container(
+        // decoration: BoxDecoration(
+        //     border: Border.all(width: 0.3),
+        //     borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+        width: Get.width * 0.9,
+        // height:  Get.height *0.065,
+        child: TextFormField(
+          controller: email,
+          // obscureText: passwordVisible,
+          decoration: InputDecoration(
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: Get.height * 0.01, horizontal: Get.width * 0.04),
+            hintText: ("emails".tr),
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: lang == 'ar' ? 14 : 16,
+            ),
+            // labelStyle: TextStyle(color: AppColors.basicColor),
+            fillColor: Colors.white,
+            filled: true,
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              //borderRadius: BorderRadius.circular(20.0),
+
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
+            ),
+          ),
+          validator: (value) => value == ''
+              ? 'email_required'.tr
+              : !value!.contains('@') || !value.contains('.')
+                  ? 'enter_valid_email'.tr
+                  : null,
+          // errorText: '',
+          // onSaved: (val) => email = TextEditingController(text: val),
+        ));
   }
 
   Widget passwordW() {
     return Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
+        // decoration: BoxDecoration(
+        //     border: Border.all(width: 0.3),
+        //     borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
         width: Get.width * 0.9,
+        // height:  Get.height *0.065,
         child: TextFormField(
+          controller: password,
           obscureText: passwordVisible,
           decoration: InputDecoration(
-            contentPadding:
-                new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: Get.height * 0.01, horizontal: Get.width * 0.04),
             hintText: ('password'.tr),
             hintStyle: TextStyle(
               color: Colors.grey,
-               fontSize: lang == 'ar' ? 14 : 16,
+              fontSize: lang == 'ar' ? 14 : 16,
             ),
             // labelStyle: TextStyle(color: AppColors.basicColor),
-            fillColor: AppColors.inputColor,
+            fillColor: Colors.white,
             filled: true,
             border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
+            ),
             errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
             ),
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
               //borderRadius: BorderRadius.circular(20.0),
 
-              borderSide: BorderSide(color: AppColors.outline),
+              borderSide: BorderSide(color: AppColors.outline, width: 1.5),
             ),
             suffixIcon: IconButton(
               icon: Icon(
@@ -309,25 +410,41 @@ class _SignPageState extends State<SignIn> {
 
   Widget bottomW() {
     return Container(
-      margin: EdgeInsets.only(top: 50),
+      height: Get.height * 0.08,
+      margin: EdgeInsets.only(
+        bottom: Get.height * 0.006,
+      ),
       alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Text(
-            "Dont_have_account".tr,
-            style: TextStyle(color: Colors.grey),
+          Divider(
+            color: Colors.black,
           ),
-          GestureDetector(
-              onTap: () {
-                Get.toNamed('/langua');
-              },
-              child: Text(
-                'sign_up_text'.tr,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Dont_have_account".tr,
                 style: TextStyle(
-                  color: AppColors.appBarBackGroundColor,
-                ),
-              )),
+                    color: Colors.grey,
+                    fontFamily: "Source_Sans_Pro",
+                    fontSize: 17),
+              ),
+              GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/langua');
+                  },
+                  child: Text(
+                    'sign_up_text'.tr,
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontFamily: "Source_Sans_Pro",
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+            ],
+          ),
         ],
       ),
     );
@@ -354,6 +471,7 @@ class _SignPageState extends State<SignIn> {
       fontWeight: fontWeight,
       fontSize: fontSize,
       image: image,
+      height: height,
       width: width,
     );
   }

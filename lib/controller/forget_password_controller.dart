@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,7 +21,7 @@ class ForgetPasswordController extends GetxController {
        Get.toNamed('/forgotCode');
         
       } if(res.statusCode >=  412){
-          Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar("You Enter Wrong Email Address",'',backgroundColor: Colors.white);
       }
      });
      update();

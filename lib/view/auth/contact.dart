@@ -49,7 +49,7 @@ class ContactPageState extends State<Contact> {
        leading: GestureDetector(
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
-       centerTitle: true,title: Text('contactus'.tr),backgroundColor: AppColors.appBarBackGroundColor),
+       centerTitle: true,title: Text('contactus'.tr),backgroundColor: AppColors.whitedColor),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -63,8 +63,8 @@ class ContactPageState extends State<Contact> {
               textArea(),
               space10,
               submitButton(
-                bgcolor: AppColors.appBarBackGroundColor,  
-                textColor: AppColors.appBarBackGroun,
+                bgcolor: AppColors.whitedColor,  
+                textColor: AppColors.white,
                 buttonText: "send".tr,
                 fontSize: 18.toDouble(),
                 callback: (){
@@ -98,7 +98,7 @@ Widget name() {
         ),
         decoration:InputDecoration( 
           focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+           borderSide: BorderSide(color: AppColors.whitedColor)),
          contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
           hintText: "nameph".tr,
           hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
@@ -131,7 +131,7 @@ Widget name() {
       ),
       decoration:InputDecoration( 
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+        borderSide: BorderSide(color: AppColors.whitedColor)),
         hintText: "phone".tr,
         hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
           contentPadding: EdgeInsets.only(left:10,top: 10,bottom: 10,right: 10),
@@ -164,7 +164,7 @@ Widget name() {
           decoration:InputDecoration( 
             contentPadding: EdgeInsets.only(bottom:10, left:10),
             focusedBorder: OutlineInputBorder(
-           borderSide: BorderSide(color: AppColors.appBarBackGroundColor)),
+           borderSide: BorderSide(color: AppColors.whitedColor)),
             hintText: "description".tr,
             hintStyle: TextStyle(fontSize: 14, color: AppColors.inputTextColor),
             border: OutlineInputBorder(

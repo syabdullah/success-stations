@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:success_stations/styling/colors.dart';
+
 class CustomTextFiled extends StatefulWidget {
   final String hintText;
   final hintStyle;
@@ -14,34 +15,33 @@ class CustomTextFiled extends StatefulWidget {
   final FormFieldSetter<String> onSaved;
   final ValueChanged onChanged;
   final bool autoFocus;
-  final  validator;
+  final validator;
   final contentPadding;
+  Color? color = AppColors.inputColor2;
   final keyboardType;
   final maxLine;
   final obscureText;
-  CustomTextFiled(
-    {
-      this.hintText ='',
-      required this.errorText,
-      required this.isObscure ,
-      required this.textController,
-      this.isIcon = true,
-      this.padding = const EdgeInsets.only(left:0),
-      this.hintColor = Colors.black,
-      this.iconColor = Colors.black  ,
-      required this.onFieldSubmitted,
-      required this.onChanged,
-      this.autoFocus = true,
-      required this.validator,
-      required this.onSaved,
-      this.hintStyle,
-      this.contentPadding,
-      this.obscureText,
-      this.keyboardType,
-      this.maxLine
-
-    }
-  );
+  CustomTextFiled({
+    this.hintText = '',
+    required this.errorText,
+    required this.isObscure,
+    required this.textController,
+    this.isIcon = true,
+    this.padding = const EdgeInsets.only(left: 0),
+    this.hintColor = Colors.black,
+    this.iconColor = Colors.black,
+    required this.onFieldSubmitted,
+    required this.onChanged,
+    this.autoFocus = true,
+    required this.validator,
+    required this.onSaved,
+    this.hintStyle,
+    this.contentPadding,
+    this.obscureText,
+    this.keyboardType,
+    this.maxLine,
+    this.color,
+  });
   @override
   _CustomTextFiledState createState() => _CustomTextFiledState();
 }
@@ -55,46 +55,44 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         Container(
           child: Padding(
             padding: widget.padding,
-            child: TextFormField( 
-              obscureText : widget.isObscure,
+            child: TextFormField(
+              obscureText: widget.isObscure,
               maxLines: widget.maxLine,
-              keyboardType: widget.keyboardType, 
-              style: TextStyle(
-                color:AppColors.inputTextColor
-              ),   
-                focusNode: FocusNode(),      
-                controller: widget.textController,
-                onFieldSubmitted: widget.onFieldSubmitted,
-                onChanged: widget.onChanged,
-                validator: widget.validator,
-                // obscureText: widget.obscureText,
-                onSaved: widget.onSaved,
-                decoration: InputDecoration(
+              keyboardType: widget.keyboardType,
+              style: TextStyle(color: AppColors.inputTextColor),
+              focusNode: FocusNode(),
+              controller: widget.textController,
+              onFieldSubmitted: widget.onFieldSubmitted,
+              onChanged: widget.onChanged,
+              validator: widget.validator,
+              // obscureText: widget.obscureText,
+              onSaved: widget.onSaved,
+              decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: widget.contentPadding,
-                  fillColor: AppColors.inputColor,
+                  fillColor: widget.color,
                   filled: true,
                   errorBorder: OutlineInputBorder(
-                     borderSide: BorderSide(
-                      color: Colors.red
-                    ),
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red,width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: AppColors.outline,width: 1.5),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                     borderSide: BorderSide(
-                      color: Colors.red
-                    ),
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: Colors.red,width: 1.5),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade200
-                    ),
+                    borderRadius: BorderRadius.circular(0),
+                    borderSide: BorderSide(color: AppColors.outline,width: 1.5),
                   ),
                   hintText: widget.hintText,
-                  hintStyle: widget.hintStyle
-                ),
-              ),
+                  hintStyle: widget.hintStyle),
             ),
           ),
+        ),
       ],
     );
   }

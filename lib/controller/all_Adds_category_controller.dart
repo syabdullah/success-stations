@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/ad_delete_action.dart';
 import 'package:success_stations/action/ad_post_action.dart';
@@ -82,10 +83,10 @@ class AddBasedController extends GetxController {
       if(res.statusCode == 200 || res.statusCode < 400){
       addesMyListAll();
        addesMyListAll();
-        Get.snackbar("Ad successfully deleted",'',backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("Ad successfully deleted",'',backgroundColor: Colors.white);
       isLoading = false;      
       } if(res.statusCode >=  400){
-          Get.snackbar("You Enter Wrong entries",'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar("You Enter Wrong entries",'',backgroundColor: Colors.white);
       }
      });
      update();

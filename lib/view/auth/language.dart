@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,7 +10,6 @@ import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/utils/page_util.dart';
 import 'package:success_stations/view/auth/country.dart';
 import 'package:success_stations/view/auth/sign_in.dart';
-import 'package:success_stations/view/auth/sign_up/orLine.dart';
 import 'package:success_stations/view/i18n/app_language.dart';
 
 class Language extends StatefulWidget {
@@ -45,16 +45,17 @@ class _LanguagePageState extends State<Language> {
           GestureDetector(
             child: Center(
               child: Container(
-                  margin: EdgeInsets.only(left: 20),
+                  margin: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
                   height: Get.height * 0.25,
                   width: Get.width / 3,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
+                    color: Colors.white,
                     border: Border.all(
                         width: 2,
                         color: index == i
-                            ? AppColors.appBarBackGroundColor
-                            : AppColors.grey),
+                            ? AppColors.whitedColor
+                            : AppColors.border),
                   ),
                   child: dataLanguage['data'][i]['name'] != null
                       ? Center(
@@ -64,9 +65,10 @@ class _LanguagePageState extends State<Language> {
                             ),
                             style: TextStyle(
                                 fontSize: 18,
+                                fontFamily: "andada",
                                 color: index == i
-                                    ? AppColors.appBarBackGroundColor
-                                    : Colors.grey),
+                                    ? AppColors.whitedColor
+                                    : AppColors.black),
                           ),
                         )
                       : Container()),
@@ -90,49 +92,105 @@ class _LanguagePageState extends State<Language> {
 
   @override
   Widget build(BuildContext context) {
-    final space50 = SizedBox(height: getSize(50, context));
+
     return Scaffold(
-      body: SingleChildScrollView(
-        // children: [
-         child:  Column(
-            children: [
-              // space50, 
-              // mainLogo(),
-              space50,
-              space50,
-              space50,
-              space50,
-              space50,
-              Container(
-                height: MediaQuery.of(context).size.height * 0.05,
-                child: chooseLanguage()),
-            GetBuilder<LanguageController>(
-                init: LanguageController(),
-                builder:(data){
-                  return  data.isLoading == true ? Container(
-                    height: Get.height * 0.25,
-                  ):  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: getTextWidgets(data.languageList)
-                  );
-                }
+      backgroundColor: Colors.white,
+        appBar: AppBar(
+            bottomOpacity: 0.0,
+            elevation: 0.0,
+            backgroundColor: AppColors.appBarBackGroundColor,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leadingWidth: 500,
+            leading: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+              child: Row(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        AppImages.roundedBack,
+                        height: Get.height * 0.05,
+                      )),
+                  SizedBox(
+                    width: Get.width * 0.02,
+                  ),
+                  Text(
+                    "prev".tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontFamily: "andada",
+                    ),
+                  ),
+                ],
               ),
-              // submitButton(
-              //   bgcolor: AppColors.appBarBackGroundColor,  
-              //   textColor: AppColors.appBarBackGroun,
-              //   buttonText: "next".tr,
-              //   fontSize: 18.toDouble(),
-              //   callback: navigateToHomeScreen
-              // ),
-              HorizontalOrLine(label: "oR".tr, height: 2),
-              SizedBox(height: Get.height * 0.03),
-              Container(
-                alignment: Alignment.bottomRight,
-                child: existingAccount()
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+                child: Center(
+                  child: Text(  "language".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: "andada",
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold)),
+                ),
               ),
-            ],
+            ]),
+
+
+
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GetBuilder<LanguageController>(
+              init: LanguageController(),
+              builder: (data) {
+                return data.isLoading == true
+                    ? Container(
+                        height: Get.height * 0.25,
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: getTextWidgets(data.languageList));
+              }),
+          // submitButton(
+          //   bgcolor: AppColors.whitedColor,
+          //   textColor: AppColors.white,
+          //   buttonText: "next".tr,
+          //   fontSize: 18.toDouble(),
+          //   callback: navigateToHomeScreen
+          // ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Expanded(
+                  child: Divider(
+                color: Colors.black,
+              )),
+              Text(
+                " or ".tr,
+                style: TextStyle(color: Colors.grey, fontSize: 20),
+              ),
+              Expanded(
+                  child: Divider(
+                color: Colors.black,
+              )),
+
+              /*SizedBox(
+                                          width: 3,
+                                        ),*/
+            ]),
           ),
-        // ],
+
+          existingAccount(),
+        ],
       ),
     );
   }
@@ -149,25 +207,27 @@ class _LanguagePageState extends State<Language> {
   Widget existingAccount() {
     return GestureDetector(
       onTap: () {
-       Get.to(SignIn());
+        Get.to(SignIn());
       },
       child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             Container(
-              margin:EdgeInsets.only(left:2),
-              child: Text(
-                "have_account".tr, style:TextStyle(fontWeight: FontWeight.w300,color: Colors.grey)
-              )
-            ),
-            Container(
-              margin:EdgeInsets.only(right:2),
-              child: Text(
-                "sign_in".tr, style: TextStyle(color: AppColors.appBarBackGroundColor, fontWeight: FontWeight.bold)
-              )
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.002, vertical: Get.height * 0.005),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("have_account".tr,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey)),
+              Text("sign_in".tr,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
       ),
     );

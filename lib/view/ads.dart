@@ -33,7 +33,8 @@ class _AdsViewState extends State<AdsView> {
   final offerlist = Get.put(OfferController());
   var userType;
   GetStorage box = GetStorage();
-  var lang ,address, newv, accounType; var isVisible = true ;
+  var lang, address, newv, accounType;
+  var isVisible = true;
 
   @override
   void initState() {
@@ -51,103 +52,140 @@ class _AdsViewState extends State<AdsView> {
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     lang = box.read('lang_code');
     return Stack(
       children: [
         ListView(
-          children: [            
+          children: [
             GetBuilder<BannerController>(
-              init: BannerController(),
-              builder: (data){
-                imgList = [];
-                return data.bannerData == null || data.bannerData['message'] == "Unauthenticated" ? 
-                Center(heightFactor: 1, child:shimmer2()):  Column(
-                  children: [
-                    carosalImage(data.bannerData['data']),
-                  ],
-                );
-              }
-            ),
-             featureTextAdded("advertisingCategories".tr,"all".tr),
-              GetBuilder<CategoryController>(
-              init: CategoryController(),
-                builder: (dat){
-                  return  dat.datacateg.length == 0  ? PlayStoreShimmer()
-                  :
-                  advertisingList(Get.height/5.5,Get.width/3.7,Get.width < 420 ? Get.height/7.5: Get.height/7.5,dat.datacateg);
-                }
-              ),
-             featureTextAdded("FeaturedAds".tr,"all".tr), 
-              GetBuilder<MyAddsController>(
-                init: MyAddsController(),
-                builder: (data){ 
-                  return  data.addsListCategory!=null && data.addsListCategory['data'] != null ?   featuredAdsList(data.addsListCategory['data']) 
-                 : 
-                  addescontrollRefresh.isInvalid.isTrue? 
-                  Container(
-                    child: Center(
-                      child: Text(
-                        data.addsListCategory['errors'],
-                        style: TextStyle( fontSize:18),
-                      ),
-                    ),
-                  ) : 
-                  PlayStoreShimmer();
-
-                }
-              ),
-              text('specialofer'.tr,"all".tr),
-                GetBuilder<OfferController>(
-                init: OfferController(),
-                builder: (data){
-                  return data.offerDataList != null && data.offerDataList['data']!=null  ? 
-                   offerList(Get.height/4.3,Get.width/2.9,Get.width < 420 ?Get.height/5.9: Get.height/6.1,data.offerDataList['data']): 
-                   offerlist.resultInvalid.isTrue?  
-                   Container(
-                     height: Get.height/8,
-                    child: Center(
-                      child: Text(
-                        data.offerDataList['errors'],
-                        style: TextStyle( fontSize: 18),
-                      ),
-                    ),
-                  ):  PlayStoreShimmer();
+                init: BannerController(),
+                builder: (data) {
+                  imgList = [];
+                  return data.bannerData == null ||
+                          data.bannerData['message'] == "Unauthenticated"
+                      ? Center(heightFactor: 1, child: shimmer2())
+                      : Column(
+                          children: [
+                            carosalImage(data.bannerData['data']),
+                          ],
+                        );
                 }),
+            // featureTextAdded("advertisingCategories".tr,"all".tr),
+            GetBuilder<CategoryController>(
+                init: CategoryController(),
+                builder: (dat) {
+                  return Container(
+                      color: AppColors.white,
+                      child: dat.datacateg == null && dat.datacateg.length == 0
+                          ? PlayStoreShimmer()
+                          : advertisingList(
+                              lang == "ar" ? Get.height / 4.5 : Get.height / 4,
+                              Get.width / 3.7,
+                              Get.width < 420
+                                  ? Get.height / 7.5
+                                  : Get.height / 7.5,
+                              dat.datacateg));
+                }),
+            Container(
+                color: AppColors.homeBackGroun,
+                child: Column(children: [
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
+                  featureTextAdded(
+                      "jeddah".tr + " | " + "featured_ads".tr, "".tr),
+                  GetBuilder<MyAddsController>(
+                      init: MyAddsController(),
+                      builder: (data) {
+                        return data.addsListCategory != null &&
+                                data.addsListCategory['data'] != null
+                            ? featuredAdsList(data.addsListCategory['data'])
+                            : addescontrollRefresh.isInvalid.isTrue
+                                ? Container(
+                                    child: Center(
+                                      child: Text(
+                                        data.addsListCategory['errors'],
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  )
+                                : PlayStoreShimmer();
+                      }),
+                ])),
+            Container(
+              color: AppColors.white,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Get.height * 0.02,
+                  ),
+                  text("jeddah".tr + " | " + 'specialofer'.tr, "".tr),
+                  GetBuilder<OfferController>(
+                      init: OfferController(),
+                      builder: (data) {
+                        return data.offerDataList != null &&
+                                data.offerDataList['data'] != null
+                            ? offerList(
+                                Get.height / 4.3,
+                                Get.height < 700
+                                    ? Get.width / 3.3
+                                    : Get.width / 2.8,
+                                Get.width < 420
+                                    ? Get.height / 5.9
+                                    : Get.height / 6.1,
+                                data.offerDataList['data'])
+                            : offerlist.resultInvalid.isTrue
+                                ? Container(
+                                    height: Get.height / 8,
+                                    child: Center(
+                                      child: Text(
+                                        data.offerDataList['errors'],
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  )
+                                : PlayStoreShimmer();
+                      })
+                ],
+              ),
+            ),
+            userType == 2 || isVisible == false
+                ? Container()
+                : userType != 2 && accounType == 'Free'
+                    ? upgradeBnner()
+                    : Container()
           ],
-        ),
-        userType == 2 || isVisible == false ? Container() : userType !=2 && accounType == 'Free'? upgradeBnner() : Container()
+        )
       ],
     );
   }
 
-  Widget upgradeBnner (){
-    return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal:4.0),
+  Widget upgradeBnner() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Visibility(
         visible: isVisible,
         maintainSize: true,
         maintainAnimation: true,
         maintainState: true,
         child: Container(
-          margin: EdgeInsets.only(top:5),
-          height: Get.height/10,
+          margin: EdgeInsets.only(top: 5),
+          height: Get.height / 10,
           width: Get.width,
-          decoration: BoxDecoration(
-            color: Colors.red
-          ),
+          decoration: BoxDecoration(color: Colors.red),
           child: Padding(
-            padding: const EdgeInsets.only(top:10,left:10,right: 10),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Row(
               children: [
                 Container(
-                  width: Get.width/1.2,
-                  child: Text(
-                    "payme".tr,style: TextStyle(color: Colors.white),
-                  )
-                ),
+                    width: Get.width / 1.2,
+                    child: Text(
+                      "payme".tr,
+                      style: TextStyle(color: Colors.white),
+                    )),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     setState(() {
                       isVisible = false;
                     });
@@ -155,11 +193,11 @@ class _AdsViewState extends State<AdsView> {
                     newv = box.read('upgrade');
                   },
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 30,left:10),
-                    child: Icon(
-                      Icons.close,color: Colors.white,
-                    )
-                  ),
+                      margin: EdgeInsets.only(bottom: 30, left: 10),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      )),
                 )
               ],
             ),
@@ -169,324 +207,480 @@ class _AdsViewState extends State<AdsView> {
     );
   }
 
-  Widget carosalImage(data) { 
-    if(data != null)
-    for(int i=0; i < data.length; i++) {
-      imgList.add(data[i]['image']['url']);
-    }
-    return  imgList.length != 0 ? Column(
+  Widget carosalImage(data) {
+    if (data != null)
+      for (int i = 0; i < data.length; i++) {
+        imgList.add(data[i]['image']['url']);
+      }
+    return imgList.length != 0
+        ? Column(
+            children: [
+              CarouselSlider(
+                items: imgList
+                    .map<Widget>((item) => Container(
+                          child: Stack(
+                            children: <Widget>[
+                              Image.network(
+                                item,
+                                fit: BoxFit.cover,
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+                carouselController: _controller,
+                options: CarouselOptions(
+                    enableInfiniteScroll: false,
+                    reverse: false,
+                    viewportFraction: 1,
+                    aspectRatio: 1.8,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    }),
+              ),
+              imgList.length == 0
+                  ? Container(
+                      child: Text("No Image added yet!"),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: imgList.asMap().entries.map((entry) {
+                        return GestureDetector(
+                          onTap: () => _controller.animateToPage(entry.key),
+                          child: Container(
+                            width: 20.0,
+                            height: 4.0,
+                            margin: EdgeInsets.symmetric(horizontal: 4.0),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: (Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.white)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+            ],
+          )
+        : Container(
+            height: Get.height / 4.5,
+            margin: EdgeInsets.all(20),
+            // child: Text("No Banners Here!"),
+          );
+  }
+
+  Widget text(text1, text2) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CarouselSlider(
-          items: imgList
-          .map<Widget>((item) => 
-            Container(
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.cover,),
-                ],
-              ),
-            )
-          ).toList(),
-          carouselController: _controller,
-          options: CarouselOptions(
-            enableInfiniteScroll: false,
-            reverse: false,
-            viewportFraction: 1,
-            aspectRatio: 1.8,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _current = index;
-              });
-            }
-          ),
-        ),
-        imgList.length == 0 ? 
         Container(
-          child: Text("No Image added yet!"),
-        ):
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: imgList.asMap().entries.map((entry) {
-            return GestureDetector(
-              onTap: () => _controller.animateToPage(entry.key),
-              child: Container(
-                width: 20.0,
-                height: 4.0,
-                margin: EdgeInsets.symmetric( horizontal: 4.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: (Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : AppColors.appBarBackGroundColor)
-                  .withOpacity(_current == entry.key ? 0.9 : 0.4
-                )
-              ),
+            margin: EdgeInsets.only(
+              left: 10,
+              right: 10,
             ),
-            );
-          }).toList(),
-        ),
-      ],
-    ):
-    Container(
-      height: Get.height/4.5,
-      margin: EdgeInsets.all(20),
-      // child: Text("No Banners Here!"),
-    );  
-  }
-
-  Widget text(text1,text2) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-           margin: EdgeInsets.only(left:10,right: 10,),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.grey[700]),
-          )
-        ),
+            child: Text(
+              text1,
+              style: TextStyle(
+                  fontFamily: "Source_Sans_Pro",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: Colors.grey[700]),
+            )),
         GestureDetector(
           onTap: () {
-            Get.to(OfferList(),arguments: 100);
+            Get.to(OfferList(), arguments: 100);
           },
           child: Container(
-            margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
-          ),
-        )
-      ],
-    );
-  }
-  Widget featureTextAdded(text1,text2) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          margin: EdgeInsets.only(left:10,right: 10),
-          child: Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize:17,color: Colors.grey[700]),
-          )
-        ),
-        GestureDetector(
-          onTap: () {
-            Get.to(AllAdds(),arguments: ['cat',1]);
-          },
-          child: Container(
-            margin: EdgeInsets.only(right:10,left: 10),
-            child: Text(text2,style: TextStyle(fontWeight: FontWeight.bold,fontSize:16,color: Colors.grey[700]))
-          ),
+              margin: EdgeInsets.only(right: 10, left: 10),
+              child: Text(text2,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.grey[700]))),
         )
       ],
     );
   }
 
-  advertisingList(conHeight,imageW,imageH,data) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7,),
-      height: conHeight,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: data != null ?  data.length : 0,
-        itemBuilder: (BuildContext context,index) {
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.to(AllAdds(),arguments:['cat',data[index]['id']]);
-                },
-                child: Card(
-                  elevation: 5,
-                  shape:  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
+  Widget featureTextAdded(text1, text2) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              text1,
+              style: TextStyle(
+                  fontFamily: "Source_Sans_Pro",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: Colors.grey[700]),
+            )),
+        GestureDetector(
+          onTap: () {
+            Get.to(AllAdds(), arguments: ['cat', 1]);
+          },
+          child: Container(
+              margin: EdgeInsets.only(right: 10, left: 10),
+              child: Text(text2,
+                  style: TextStyle(
+                      fontFamily: "Source_Sans_Pro",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.grey[700]))),
+        )
+      ],
+    );
+  }
+
+  advertisingList(conHeight, imageW, imageH, data) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 7,
+        ),
+        height: Get.height < 700 ? Get.height * 0.30 : Get.height * 0.23,
+        child: GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 15.0,
+          ),
+          // scrollDirection: Axis.horizontal,
+          itemCount: data != null ? data.length : 0,
+          itemBuilder: (BuildContext context, index) {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(AllAdds(), arguments: ['cat', data[index]['id']]);
+                  },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(25),
                     child: Container(
-                      width: imageW,
-                      height: imageH,
-                      child:data[index]['media'].length != 0 ? 
-                      Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover) :
-                      Container(
-                        child: Icon(Icons.image,size: 50),
-                      )
-                      //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
-                    ),
+                        width: Get.width * 0.112,
+                        height: Get.width * 0.111,
+                        child: data[index]['media'].length != 0
+                            ? Image.network(data[index]['media'][0]['url'],
+                                fit: BoxFit.cover)
+                            : Container(
+                                child: Icon(Icons.image, size: 55),
+                              )
+                        //  Image.asset(AppImages.profileBg,fit: BoxFit.fill,)
+                        ),
                   ),
                 ),
-              ),
-              Container(
-                width: imageW,
-                child: Center(
-                  child: Text(
-                    data[index]['category'][lang] != null  ? data[index]['category'][lang] : data[index]['category'][lang]==null ? data[index]['category']['en']:'',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: AppColors.grey)
-                  ),
-                ),
-              )
-            ],
-          );
-        }
+                Container(
+                  width: imageW,
+                  height: Get.height < 700
+                      ? Get.height * 0.0590
+                      : Get.height * 0.049,
+                  child: Center(
+                      child: Text(
+                          data[index]['category'][lang] != null
+                              ? data[index]['category'][lang]
+                              : data[index]['category'][lang] == null
+                                  ? data[index]['category']['en']
+                                  : '',
+                          textAlign: TextAlign.center,
+                          // maxLines: Get.height < 700 ? 1 : 2,
+                          // overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: "Source_Sans_Pro",
+                              color: Colors.black,
+                              fontSize: 13))),
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
 
-  offerList(conHeight,imageW,imageH,data) {
+  offerList(conHeight, imageW, imageH, data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
+      margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
       height: conHeight,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: data.length,
-        itemBuilder: (BuildContext context,index) {
-          return Column(
-            children: [
-              Card(
-                elevation: 5,
-                shape:  RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: GestureDetector(
-                    onTap: (){
-                     Get.to(MyOfferDetailMain(), arguments: data[index]);
-                    },
+          scrollDirection: Axis.horizontal,
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, index) {
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(MyOfferDetailMain(), arguments: data[index]);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
                     child: Container(
-                      width: imageW,
-                      height: imageH,
-                      child:data[index]['media'].length != 0 && data[index]['media'][0]['url'] != null ? Image.network(data[index]['media'][0]['url'],fit: BoxFit.cover,) : Container(
-                         child: Icon(Icons.image,size: 50,),
-                      )
-                    ),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.border)),
+                        width: imageW,
+                        height: imageH,
+                        child: data[index]['media'].length != 0 &&
+                                data[index]['media'][0]['url'] != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Image.network(
+                                  data[index]['media'][0]['url'],
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(
+                                child: Icon(
+                                  Icons.image,
+                                  size: 50,
+                                ),
+                              )),
                   ),
                 ),
-              ),
-              Container(
-                width: 100,
-                child: Text(
-                  data[index]['text_ads'][lang] != null ?
-                  data[index]['text_ads'][lang].toString():  data[index]['text_ads'][lang]  == null ?  data[index]['text_ads']['en'].toString():'',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: AppColors.grey)
-                ),
-              )
-            ],
-          );
-        }
-      ),
+                // Container(
+                //   width: 100,
+                //   child: Text(
+                //       data[index]['text_ads'][lang] != null
+                //           ? data[index]['text_ads'][lang].toString()
+                //           : data[index]['text_ads'][lang] == null
+                //               ? data[index]['text_ads']['en'].toString()
+                //               : '',
+                //       overflow: TextOverflow.ellipsis,
+                //       style: TextStyle(color: AppColors.grey)),
+                // )
+              ],
+            );
+          }),
     );
   }
 
   var tttt;
+
   featuredAdsList(data) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 7,vertical: 7),
-      height: lang =='en'? Get.height < 700 ? Get.height/2.2 : Get.width < 420 ? Get.height/4.26: Get.height/4.35:
-      Get.height < 700 ? Get.height/3.2 : Get.width < 420 ? Get.height/4.16: Get.height/4.35,
-
+      margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+      height: lang == 'en'
+          ? Get.height < 700
+              ? Get.height / 2.2
+              : Get.width < 420
+                  ? Get.height / 2.75
+                  : Get.height / 4.35
+          : Get.height < 700
+              ? Get.height / 2.2
+              : Get.width < 420
+                  ? Get.height / 2.75
+                  : Get.height / 4.35,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: data.length,
-        itemBuilder: (BuildContext context,index) {
-          var doubleval = double.parse(data[index]['price']);
-          var price = doubleval.toInt();
-          return 
-          GestureDetector(
-            onTap: () {
-              Get.to(AdViewScreen(),arguments:data[index]['id']);
-            },
-            child: Card(
-              elevation: 3,
-              shape:  RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                    child: data[index]['image'].length != 0 ? Image.network(
-                      data[index]['image'][0]['url'],
-                      width: Get.width < 420 ? Get.width/2.2: Get.width/2.3,
-                      height: Get.width < 420 ? Get.height/9.2:  Get.height/9.5,
-                      fit:BoxFit.fill
-                    )
-                    : Container(
-                      child: Icon(Icons.image,size: 50),
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, index) {
+            var doubleval = double.parse(data[index]['price']);
+            var price = doubleval.toInt();
+            return GestureDetector(
+              onTap: () {
+                Get.to(AdViewScreen(), arguments: data[index]['id']);
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3.0),
+                ),
+                child: Container(
+                  width: Get.width * 0.4,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: Get.height < 700
+                              ? Get.width * 0.46
+                              : Get.width * 0.46,
+                          child: data[index]['image'].length != 0
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.network(
+                                      data[index]['image'][0]['url'],
+                                      width: Get.width < 420
+                                          ? Get.width / 2.8
+                                          : Get.width / 3.3,
+                                      height: Get.width < 420
+                                          ? Get.height / 4.8
+                                          : Get.height / 9.5,
+                                      fit: BoxFit.cover),
+                                )
+                              : Container(
+                                  child: Icon(Icons.image, size: 50),
+                                ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Container(
+                            //     margin: lang == 'ar'
+                            //         ? EdgeInsets.only(top: 5, right: 5)
+                            //         : EdgeInsets.only(top: 5, left: 5),
+                            //     child: data[index]['is_rated'] == false
+                            //         ? RatingBar.builder(
+                            //             initialRating:
+                            //                 data[index]['rating'].toDouble(),
+                            //             minRating: 1,
+                            //             direction: Axis.horizontal,
+                            //             allowHalfRating: true,
+                            //             itemCount: 5,
+                            //             itemSize: 18.0,
+                            //             itemBuilder: (context, _) => Icon(
+                            //               Icons.star,
+                            //               color: Colors.amber,
+                            //             ),
+                            //             onRatingUpdate: (rating) {
+                            //               var ratingjson = {
+                            //                 'ads_id': data[index]['id'],
+                            //                 'rate': rating
+                            //               };
+                            //               ratingcont.ratings(ratingjson);
+                            //             },
+                            //           )
+                            //         : RatingBar.builder(
+                            //             initialRating:
+                            //                 data[index]['rating'].toDouble(),
+                            //             ignoreGestures: true,
+                            //             minRating: 1,
+                            //             direction: Axis.horizontal,
+                            //             allowHalfRating: true,
+                            //             itemCount: 5,
+                            //             itemSize: 22.5,
+                            //             itemBuilder: (context, _) => Icon(
+                            //               Icons.star,
+                            //               color: Colors.amber,
+                            //             ),
+                            //             onRatingUpdate: (rating) {},
+                            //           )),
+
+                            Padding(
+                              padding: EdgeInsets.only(left: 5, right: 5),
+                              child: Container(
+                                  height: Get.height < 700
+                                      ? Get.height * 0.065
+                                      : Get.height * 0.05,
+                                  // width: Get.width*0.3,
+                                  margin: lang == 'ar'
+                                      ? EdgeInsets.only(top: 5, right: 5)
+                                      : EdgeInsets.only(top: 5, left: 5),
+                                  child: data[index]['is_rated'] == false
+                                      ? Expanded(
+                                          child: Text(
+                                              data[index]['description']
+                                                          [lang] !=
+                                                      null
+                                                  ? data[index]['description']
+                                                      [lang]
+                                                  : data[index]['description']
+                                                              ['ar'] ==
+                                                          null
+                                                      ? data[index]
+                                                          ['description']['en']
+                                                      : '',
+                                              maxLines: 2,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: "Source_Sans_Pro",
+                                                fontSize: 12,
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                        )
+                                      : Text(
+                                          data[index]['description'][lang] !=
+                                                  null
+                                              ? data[index]['description'][lang]
+                                              : data[index]['description']
+                                                          ['ar'] ==
+                                                      null
+                                                  ? data[index]['description']
+                                                      ['en']
+                                                  : '',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: "Source_Sans_Pro",
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w600,
+                                          ))),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      child: data[index]['price'] != null
+                                          ? Text(
+                                              'sar'.tr + " ",
+                                              style: TextStyle(
+                                                  fontFamily: "Source_Sans_Pro",
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          : Container()),
+                                  Container(
+                                      child: data[index]['price'] != null
+                                          ? Text(
+                                              '$price' + ".00",
+                                              style: TextStyle(
+                                                  fontFamily: "Source_Sans_Pro",
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          : Container()),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 12, right: 12),
+                              child: Container(
+                                width: Get.width * 0.3,
+                                margin: EdgeInsets.only(
+                                  top: lang == 'ar' ? 0 : 4,
+                                ),
+                                child: Expanded(
+                                  child: Text(
+                                      data[index]['title'][lang] != null
+                                          ? data[index]['title'][lang]
+                                          : data[index]['title']['ar'] == null
+                                              ? data[index]['title']['en']
+                                              : '',
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontFamily: "Source_Sans_Pro",
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w400,
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [   
-                      Container(
-                        margin: lang == 'ar' ?  EdgeInsets.only(top:5,right: 5):  EdgeInsets.only(top:5,left: 5),
-                        child: data[index]['is_rated'] == false
-                        ? RatingBar.builder(
-                          initialRating:
-                          data[index]['rating'].toDouble(),
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemSize: 18.0,
-                          itemBuilder: (context, _) =>Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (rating) {
-                            var ratingjson = {
-                              'ads_id':data[index]['id'],
-                              'rate': rating
-                            };
-                            ratingcont.ratings(ratingjson);
-                          },
-                        )
-                        :RatingBar.builder(
-                          initialRating:
-                          data[index]['rating'].toDouble(),
-                          ignoreGestures: true,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemSize: 22.5,
-                          itemBuilder: (context, _) =>
-                          Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (rating) {},
-                        )
-                      ),       
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(                   
-                          margin: EdgeInsets.only(top:5,),
-                          child: Text(data[index]['title'][lang] != null ? data[index]['title'][lang]: data[index]['title']['ar'] == null  ? data[index]['title']['en']:'',textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,)),
-                        ),
-                      ),         
-                      Row(
-                        children: [
-                          Container(
-                            child: data[index]['price'] !=null ? Text(
-                              '$price',style: TextStyle(fontSize: 13,color:AppColors.appBarBackGroundColor),
-                            ): Container()
-                          ),
-                          Container(
-                            child: data[index]['price'] !=null ? 
-                            Text(
-                              ' SAR',style: TextStyle(fontSize: 8,color:AppColors.appBarBackGroundColor,),
-                            ): Container()
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ),
-          );
-        }
-      ),
+            );
+          }),
     );
   }
 }

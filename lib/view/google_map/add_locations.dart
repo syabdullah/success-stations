@@ -12,6 +12,7 @@ import 'package:success_stations/controller/ad_posting_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/controller/std_sign_up_controller.dart';
+import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:success_stations/styling/images.dart';
@@ -24,7 +25,10 @@ class AddLocations extends StatefulWidget {
   _AddLocationsState createState() => _AddLocationsState();
 }
 
+
 class _AddLocationsState extends State<AddLocations> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final locCont = Get.put(LocationController());
   TextEditingController fullNameController = TextEditingController();
   final mapCon = Get.put(LocationController());
@@ -64,8 +68,8 @@ class _AddLocationsState extends State<AddLocations> {
    var editData, hintTextCountry, selectedCountry,lang;
     @override
   void initState() {
-    super.initState();   
-    dataPage = Get.arguments; 
+    super.initState();
+    dataPage = Get.arguments;
     if(dataPage != null) {
       uploadImageCheck = null;
       fileName = null;
@@ -87,7 +91,7 @@ class _AddLocationsState extends State<AddLocations> {
       uploadedImage = dataPage['image'] != null ? dataPage['image']['file_name']: null;
       _modalBottomSheetMenu(adrr,null);
 
-    }   
+    }
   }
    _getUserLocation() async {
     position = await GeolocatorPlatform.instance
@@ -96,10 +100,14 @@ class _AddLocationsState extends State<AddLocations> {
       _latLng = LatLng(position.latitude, position.longitude);
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      // appBar:PreferredSize( preferredSize: Size.fromHeight(60.0),
+      //   child: appbar(_scaffoldKey,context,AppImages.appBarLogo,AppImages.appBarSearch,1),
+      // ),
       body:SafeArea(
         child: Stack(
           children: [
@@ -111,7 +119,7 @@ class _AddLocationsState extends State<AddLocations> {
                 ],
               ),
             ),
-          ],          
+          ],
         ),
       ),
     );
@@ -120,21 +128,21 @@ class _AddLocationsState extends State<AddLocations> {
   Widget googleMap(){
     return Container(
       height: Get.height,
-      child: PlacePicker(   
+      child: PlacePicker(
         apiKey: "AIzaSyCPLXiudqcih9E93EAmcB2Bs5MF-oxcO2g",
         initialPosition: _latLng,
         useCurrentLocation: true,
         usePlaceDetailSearch: true,
-        selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {         
+        selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
           if(state != SearchingState.Searching && adrr != selectedPlace!.formattedAddress) {
             adrr = selectedPlace.formattedAddress;
             _modalBottomSheetMenu(adrr , selectedPlace);
           }
-          return 
+          return
           Container();
         },
       ),
-    ); 
+    );
   }
   Widget saveButton(data) {
   final f;
@@ -148,7 +156,7 @@ class _AddLocationsState extends State<AddLocations> {
    s = data!.adrAddress.replaceAll('</span>','');
    street = s.toString().replaceAll('<span class=','');
    f = street.toString().replaceAll('>','');
-  
+
    var sp = f.split(',');
    for(int i=0; i< sp.length; i++) {
      if(sp[i].contains('street-address')){
@@ -159,7 +167,7 @@ class _AddLocationsState extends State<AddLocations> {
       var spl = city.split('"');
       city = spl[0];
      }
-     
+
      if(sp[i].contains('postal-code') && city != null){
        postCode = sp[i].replaceAll('"postal-code"', '');
        var pc;
@@ -179,15 +187,15 @@ class _AddLocationsState extends State<AddLocations> {
          re = re.split(',');
           region = re[0];
           postCode = re[1];
-       }       
+       }
      }
      if(sp[i].contains('country-name')){
        countryName = sp[i].replaceAll('"country-name"', '');
-     }   
+     }
    }
   }
-  
-  //  var streetAdr = 
+
+  //  var streetAdr =
     return Container(
        height: 50,
       width: 130,
@@ -196,10 +204,10 @@ class _AddLocationsState extends State<AddLocations> {
         style: ElevatedButton.styleFrom(
         primary: Colors.white,
         textStyle: TextStyle(
-          fontSize: 13,      
+          fontSize: 13,
           fontWeight: FontWeight.bold)
         ),
-        onPressed: () { 
+        onPressed: () {
           var jsonLoc = {
             "location": fullNameController.text,
             "long":lng,
@@ -221,10 +229,10 @@ class _AddLocationsState extends State<AddLocations> {
           print(jsonLoc);
            dataPage != null ? locCont.editLocationToDB(dataPage['id'],jsonLoc) :  locCont.saveLocationToDB(jsonLoc);
          },
-        child: Text( dataPage != null ? 'update'.tr : 'savecaps'.tr,style: TextStyle( color: AppColors.appBarBackGroundColor),),
+        child: Text( dataPage != null ? 'update'.tr : 'savecaps'.tr,style: TextStyle( color: AppColors.whitedColor),),
       ),
     );
-  
+
   }
   Widget cancelButton() {
     return Container(
@@ -233,12 +241,12 @@ class _AddLocationsState extends State<AddLocations> {
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-        primary: AppColors.appBarBackGroundColor,
+        primary: AppColors.whitedColor,
         textStyle: TextStyle(
         fontSize: 13,
-       
+
         fontWeight: FontWeight.bold)),
-        onPressed: () { 
+        onPressed: () {
           Get.back();
          },
         child: Text('cancelCaps'.tr,style: TextStyle( color: Colors.white,),),
@@ -252,14 +260,14 @@ class _AddLocationsState extends State<AddLocations> {
       fullNameController = TextEditingController(text: '');
     }
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      await 
+      await
       showModalBottomSheet(
         isScrollControlled: true,
         // isDismissible: false,
         context: context,
         builder: (builder) {
           return FractionallySizedBox(
-            child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {             
+            child: StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
             return
               Wrap(
               children: [
@@ -267,13 +275,13 @@ class _AddLocationsState extends State<AddLocations> {
                   height:Get.height/1.6,
                   child: ListView(
                     children: [
-                      Container(                      
+                      Container(
                         margin:EdgeInsets.only(top: 15, left: 20,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[   
+                          children: <Widget>[
                             Text(
-                              'Add new location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
+                              'Add new location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.whitedColor)
                             ),
                             place != null ?
                             Row(
@@ -283,7 +291,7 @@ class _AddLocationsState extends State<AddLocations> {
                                   margin: EdgeInsets.only(right: 20),
                                   width: Get.width/1.3,
                                   child:  Text(
-                                    place.toString(),style:  TextStyle(fontSize: 16, color: AppColors.appBarBackGroundColor)
+                                    place.toString(),style:  TextStyle(fontSize: 16, color: AppColors.whitedColor)
                                   ),
                                 ),
                                 Container(
@@ -293,8 +301,8 @@ class _AddLocationsState extends State<AddLocations> {
                                       setState((){
                                         place = null;
                                       });
-                                    }, 
-                                    child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,)
+                                    },
+                                    child: Icon(Icons.clear,color: AppColors.whitedColor,)
                                   )
                                 ),
                               ],
@@ -308,14 +316,14 @@ class _AddLocationsState extends State<AddLocations> {
                                     onTap:() {
                                       _getUserLocation();
                                       Get.back();
-                                    }, 
-                                    child: Icon(Icons.location_disabled_outlined,color: AppColors.appBarBackGroundColor,)
+                                    },
+                                    child: Icon(Icons.location_disabled_outlined,color: AppColors.whitedColor,)
                                   )
                                 ),
                                 Text(
-                                 place != null ? place.toString() :  'Get current Location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.appBarBackGroundColor)
+                                 place != null ? place.toString() :  'Get current Location'.tr ,style:  TextStyle(fontSize: 20, color: AppColors.whitedColor)
                                 ),
-                                
+
                               ],
                             ),
                             Container(
@@ -340,14 +348,14 @@ class _AddLocationsState extends State<AddLocations> {
                                       )
                                     ),
                                     onSubmitted: (val) {
-                                      // formKey.currentState!.save();                          
+                                      // formKey.currentState!.save();
                                     },
                                   ),
                                 ),
                               )
-                            ), 
+                            ),
                             GetBuilder<ServicesController>( // specify type as Controller
-                              init: ServicesController(), // 
+                              init: ServicesController(), //
                               builder: (value) {
                                 return Container(
                                   //  margin: EdgeInsets.only(top:10),
@@ -365,7 +373,7 @@ class _AddLocationsState extends State<AddLocations> {
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton(
                                           hint: Text(
-                                            selectedService != null ? selectedService : 'selectService'.tr, 
+                                            selectedService != null ? selectedService : 'selectService'.tr,
                                             style: TextStyle(color: AppColors.inputTextColor, fontSize: 14)
                                           ),
                                           dropdownColor: AppColors.inPutFieldColor,
@@ -413,7 +421,7 @@ class _AddLocationsState extends State<AddLocations> {
                                         dropdownColor: AppColors.inPutFieldColor,
                                         icon: Icon(Icons.arrow_drop_down),
                                         items: val.countryListdata.map((country) {
-                                          return DropdownMenuItem(value: country, 
+                                          return DropdownMenuItem(value: country,
                                           child:  country['name'] !=null ?  Text(
                                             country['name']['en']
                                           ): Container()
@@ -454,8 +462,8 @@ class _AddLocationsState extends State<AddLocations> {
                                           pickedFile =   await _picker.pickImage(source: ImageSource.gallery);
                                           setState(() {
                                             if (pickedFile != null) {
-                                              image = pickedFile!.path;      
-                                              fileName = pickedFile!.path.split('/').last;  
+                                              image = pickedFile!.path;
+                                              fileName = pickedFile!.path.split('/').last;
                                               setState((){
                                               editImage = null;
                                             });
@@ -463,29 +471,29 @@ class _AddLocationsState extends State<AddLocations> {
                                             }
                                           });
                                           try {
-                                            dio.FormData formData = dio.FormData.fromMap({          
-                                              "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),            
+                                            dio.FormData formData = dio.FormData.fromMap({
+                                              "file": await dio.MultipartFile.fromFile(pickedFile!.path, filename:fileName),
                                             });
                                              print("..///././../........$formData");
-                                            await upload.uploadAdImage(formData);      
+                                            await upload.uploadAdImage(formData);
                                             uploadedImage  =  upload.adUpload['name'];
                                             setState((){
                                               editImage = null;
                                               uploadImageCheck = uploadedImage;
                                             });
-                                          } catch (e) {}  
+                                          } catch (e) {}
                                         },
-                                        child: 
+                                        child:
                                          editImage != null && fileName == null  ? Image.network(editImage,fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,):
-                                          fileName != null && uploadImageCheck != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,) : 
-                                          fileName != null && uploadImageCheck == null ?  CircularProgressIndicator(backgroundColor: AppColors.appBarBackGroundColor) :
+                                          fileName != null && uploadImageCheck != null ? Image.file(File(image),fit: BoxFit.fitWidth,width: Get.width/1.1,height: Get.height/4.7,) :
+                                          fileName != null && uploadImageCheck == null ?  CircularProgressIndicator(backgroundColor: AppColors.whitedColor) :
                                           Image.asset(AppImages.uploadImage,height: 90)
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ), 
+                            ),
                             SizedBox(height: 15),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -493,7 +501,7 @@ class _AddLocationsState extends State<AddLocations> {
                                 cancelButton(),
                                 saveButton(fromatd)
                               ],
-                            )                       
+                            )
                           ],
                         ),
                       ),
@@ -512,13 +520,12 @@ class _AddLocationsState extends State<AddLocations> {
       //   setState(() {
       //     fileName  = null;
       //     service_id = null;
-      //     selectedService = null; 
+      //     selectedService = null;
       //   });
       //   // Get.back();
       //   print("this is on closed method --=-=-=------$value");
       // } );
     });
   }
-  
+
 }
-  

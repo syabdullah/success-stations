@@ -6,6 +6,8 @@ import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/get_size.dart';
 import 'package:success_stations/styling/images.dart';
 
+import '../../main.dart';
+
 class IndividualMemeberShip extends StatefulWidget {
   @override
   _StateIndividualMemeberShip createState() => _StateIndividualMemeberShip();
@@ -15,7 +17,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
   bool statustogle = false;
   bool value = true;
   final memberShipCon = Get.put(MemberShipController());
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> memberShipDatta = [
     "profile".tr,
     "my_ads".tr,
@@ -26,6 +28,38 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     "friend_requests".tr,
     "favourite".tr,
   ];
+
+  List<String> titles = [
+    "Basic",
+    "Advance",
+    "Pro",
+    "unlimited",
+  ];
+  List<String> ads_items = [
+    "Unlimited",
+    "Unlimited",
+    "Unlimited",
+    "Unlimited",
+  ];
+  List<String> branches = [
+    "5 Locations",
+    "10 Locations",
+    "20 Locations",
+    "Unlimited",
+  ];
+  List<String> promotions = [
+    "1 Weekly",
+    "2 Weekly",
+    "10 Weekly",
+    "Unlimited",
+  ];
+List<String> prize = [
+    "49",
+    "99",
+    "199",
+    "299",
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -38,91 +72,287 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-         leading: GestureDetector(
-          child: Row(
+          leading: GestureDetector(
+              child: Row(
             children: [
               GestureDetector(
                 onTap: () => Get.back(),
                 child: Container(
-                  margin: EdgeInsets.only(left:10, top:5),
-                  child: Icon(Icons.arrow_back,
-                    color: Colors.white, size: 25
-                  ),
+                  margin: EdgeInsets.only(left: Get.height * 0.01, top: Get.height * 0.005),
+                  child: Icon(Icons.arrow_back, color: Colors.white, size: 25),
                 ),
               ),
             ],
-          )
-        ),
-        centerTitle: true,title: Text('mmembership'.tr),backgroundColor: AppColors.appBarBackGroundColor),
-      body: Column(
-        children: [
-          space20,
-          headingMember(),
-          space20,
-          Container(
-            height: Get.height / 1.75,
-            width: Get.width / 1.5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              border: Border.all(
-                color: Colors.blue,
-                style: BorderStyle.solid,
-                width: 2.0,
-              ),
-            ),
-            child: Column(
-              children: [
-                space20,
-                imagess(context),
-                dataBox(),
-              ],
-            ),
-          ),
-          GetBuilder<MemberShipController>(
-            init: MemberShipController(),
-            builder: (val) {
-              return FractionalTranslation(
-                translation: const Offset(0.0, -0.5),
-                child: Container(
-                  height: 50,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: AppColors.appBarBackGroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                    // borderRadius: Border.all()
-                  ),
-                  child: Center(
-                      child: val.result != null
-                          ? Text(
-                              statustogle == false
-                                  ? "\$ ${val.result['data']['monthly'].toString()}"
-                                  : "\$ ${val.result['data']['yearly'].toString()}",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            )
-                          : Text('')),
+          )),
+          centerTitle: true,
+          title: Text('mmembership'.tr,),
+          backgroundColor: AppColors.darkblue),
+      backgroundColor: Color(0XFFfafafa),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+         SizedBox(height: Get.height * 0.01,),
+            headingMember(),
+            SizedBox(height: Get.height * 0.01,),
+            GridView.builder(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.symmetric(horizontal: Get.height *0.01),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: Get.height *0.01,
+
+                  childAspectRatio: Get.height <700 ?  Get.height / 2.4 / Get.width / 1.1 : Get.height / 3.0 / Get.width / 1.1 ),
+
+
+              itemCount: titles.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                          height: Get.height < 700 ? Get.height *0.38 : Get.height *0.33,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(40),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(Get.height *0.002),
+                            child: Column(
+                              children: [
+                                SizedBox(height: Get.height < 400 ? Get.height *0.03:Get.height *0.024),
+                                Text(titles[index],
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey)),
+                                Padding(
+                                  padding:  EdgeInsets.only(top: Get.height *0.03),
+                                  child: Text("Company Profile",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey)),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Ads Items: ",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(ads_items[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
+                                    )),Padding(
+                                    padding:  EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Branches: ",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(branches[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
+                                    )),Padding(
+                                    padding:  EdgeInsets.only(top: Get.height *0.008),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Promotions: ",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.grey)),
+                                        Text(promotions[index],
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.whitedColor)),
+                                      ],
+
+                                    )),
+                                SizedBox(height:Get.height *0.02),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                GetBuilder<MemberShipController>(
+                  init: MemberShipController(),
+                  builder: (val) {
+                    return FractionalTranslation(
+                      translation: const Offset(0.0, -0.5),
+                      child: Center(
+                          child: val.result != null
+                              ? Padding(
+                                padding:  EdgeInsets.only(top: 20.0),
+                                child: Text(
+                                statustogle == false
+                                    ? "${val.result['data']['monthly'].toString()}"
+                                    : " ${val.result['data']['yearly'].toString()}",
+                                style: TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                  ),
+                              )
+                              : Text('', style: TextStyle(
+                              // fontWeight: FontWeight.w400,
+                              color:Colors.orange))),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-          // space50,
-          submitButton(
-              buttonText: 'update_succe'.tr,
-              bgcolor: AppColors.appBarBackGroundColor,
-              textColor: AppColors.appBarBackGroun,
-              callback: navigateToHomeScreen),
-        ],
+                                    Padding(
+                                      padding:  EdgeInsets.only(bottom: Get. height <400 ?Get. height * 0.038:Get. height * 0.03),
+                                      child: Text("sar".tr,
+                                          style: TextStyle(
+                                              fontSize: lang == 'ar'? 13 :10,
+                                              fontWeight: FontWeight.bold,
+                                              color:Colors.orange)),
+                                    ),
+                                  ],
+                                ),
+
+                                Padding(
+                                  padding:  EdgeInsets.only(top:Get.height <400 ?Get.height *0.16:0),
+                                  child: Container(
+                                    height:Get.height/26,
+                                    width:Get.width/3.8,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color:AppColors.whitedColor
+                                    ),
+                                    child:  Center(
+                                      child: Text("Subscribe",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color:Colors.white)),
+                                    ),
+                                  ),
+                                )
+
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                );
+              },
+            ),
+            // Container(
+            //   height: Get.height / 1.75,
+            //   width: Get.width / 1.5,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(16.0),
+            //     border: Border.all(
+            //       color: Colors.blue,
+            //       style: BorderStyle.solid,
+            //       width: 2.0,
+            //     ),
+            //   ),
+            //   child: Column(
+            //     children: [
+            //       space20,
+            //       imagess(context),
+            //       dataBox(),
+            //     ],
+            //   ),
+            // ),
+            // GetBuilder<MemberShipController>(
+            //   init: MemberShipController(),
+            //   builder: (val) {
+            //     return FractionalTranslation(
+            //       translation: const Offset(0.0, -0.5),
+            //       child: Container(
+            //         height: 50,
+            //         width: 120,
+            //         decoration: BoxDecoration(
+            //           color: AppColors.whitedColor,
+            //           borderRadius: BorderRadius.circular(10),
+            //           // borderRadius: Border.all()
+            //         ),
+            //         child: Center(
+            //             child: val.result != null
+            //                 ? Text(
+            //                     statustogle == false
+            //                         ? "\$ ${val.result['data']['monthly'].toString()}"
+            //                         : "\$ ${val.result['data']['yearly'].toString()}",
+            //                     style: TextStyle(
+            //                         color: Colors.white,
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 18),
+            //                   )
+            //                 : Text('')),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // space50,
+            // submitButton(
+            //     buttonText: 'update_succe'.tr,
+            //     bgcolor: AppColors.whitedColor,
+            //     textColor: AppColors.white,
+            //     callback: navigateToHomeScreen),
+          ],
+        ),
       ),
     );
   }
 
   Widget headingMember() {
-    return Container(
-        margin: EdgeInsets.only(left: 15),
-        child: Text('head_members'.tr,
-            style: TextStyle(fontSize: 17, color: Colors.grey[600])));
+    return Column(
+      children: [
+        Container(
+            margin: EdgeInsets.only(left: Get.height *0.015),
+            child: Text('head_members'.tr,
+                style: TextStyle(fontSize: 17, color: Colors.grey[600]))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                child: Text("monthly".tr,
+                    style: TextStyle(color: AppColors.whitedColor))),
+            SizedBox(
+              width: Get.height *  0.005,
+            ),
+            Switch.adaptive(
+                activeColor: Colors.blue,
+                value: statustogle,
+                onChanged: (newValue) {
+                  setState(() {
+                    statustogle = newValue;
+                    // toggleSwitch(value);
+                  });
+                }),
+            SizedBox(
+              width: 5,
+            ),
+            Container(
+                child: Text('yearly '.tr,
+                    style: TextStyle(color: Colors.grey[400]))),
+            Container(
+                child: Text('15% off'.tr,
+                    style: TextStyle(color: Colors.grey[600]))),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget imagess(context) {
@@ -142,32 +372,6 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[500]))),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                child: Text("monthly".tr,
-                    style: TextStyle(color: AppColors.appBarBackGroundColor))),
-            SizedBox(
-              width: 5,
-            ),
-            Switch.adaptive(
-                activeColor: Colors.blue,
-                value: statustogle,
-                onChanged: (newValue) {
-                  setState(() {
-                    statustogle = newValue;
-                    // toggleSwitch(value);
-                  });
-                }),
-            SizedBox(
-              width: 5,
-            ),
-            Container(
-                child: Text('yearly'.tr,
-                    style: TextStyle(color: Colors.grey[400]))),
-          ],
-        ),
       ],
     );
   }
@@ -188,7 +392,7 @@ class _StateIndividualMemeberShip extends State<IndividualMemeberShip> {
                   child: Text(memberShipDatta[index],
                       style: TextStyle(
                           fontSize: 16,
-                          color: AppColors.appBarBackGroundColor)),
+                          color: AppColors.whitedColor)),
                 ),
               ],
             );

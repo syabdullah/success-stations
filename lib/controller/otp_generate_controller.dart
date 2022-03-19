@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:success_stations/action/otp_generate_action.dart';
@@ -16,7 +17,7 @@ var otp;
         Get.toNamed('/resetPass');
       }
       if(response.statusCode > 400){
-        Get.snackbar("","Enter valid Verification Code",backgroundColor: AppColors.appBarBackGroundColor);
+        Get.snackbar("","Enter valid Verification Code",backgroundColor: Colors.white);
       }
     });
   }

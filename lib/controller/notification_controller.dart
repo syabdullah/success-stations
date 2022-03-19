@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:success_stations/action/notification_action.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -36,7 +37,7 @@ class NotificationController extends GetxController {
     allNoti();
         isLoading=false;
       } if(res.statusCode > 400){
-          Get.snackbar(deleteNotification['errors'],'',backgroundColor: AppColors.appBarBackGroundColor);
+          Get.snackbar(deleteNotification['errors'],'',backgroundColor: Colors.white);
       }
     });
     update();

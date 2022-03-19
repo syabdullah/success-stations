@@ -3,11 +3,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:readmore/readmore.dart';
 import 'package:success_stations/controller/location_controller.dart';
 import 'package:success_stations/styling/colors.dart';
 import 'package:success_stations/styling/images.dart';
 import 'package:success_stations/styling/text_style.dart';
+import 'package:success_stations/view/google_map/add_locations.dart';
 
+import '../../main.dart';
 import '../shimmer.dart';
 
 class LocationTab extends StatefulWidget {
@@ -61,7 +64,7 @@ class _LocationTabState extends State<LocationTab> {
           init: LocationController(), 
           builder: (value){ 
             return value.lastLocation !=null &&  value.lastLocation['data']!=null   ?
-            locationList(value.lastLocation['data']):
+            myAddsList(value.lastLocation['data']):
              Center(
               heightFactor: 15,
                 child: Text( "noLoaction".tr, 
@@ -127,17 +130,17 @@ class _LocationTabState extends State<LocationTab> {
                               onTap: decideRouter == 'city' ? null :  () {
                                 setState((){
                                   decideRouter = 'near';
-                                  color = AppColors.appBarBackGroundColor;
+                                  color = AppColors.whitedColor;
                                 }); 
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left:10),
                                 child: Row(
                                   children: [
-                                    Image.asset(AppImages.nearby,height: 15,color:AppColors.appBarBackGroundColor),
+                                    Image.asset(AppImages.nearby,height: 15,color:AppColors.whitedColor),
                                     SizedBox(width: 5,),
                                     Text(
-                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: AppColors.appBarBackGroundColor)
+                                      "Nearby".tr,style:  TextStyle(fontSize: 15, color: AppColors.whitedColor)
                                     ),
                                   ],
                                 ),
@@ -156,16 +159,16 @@ class _LocationTabState extends State<LocationTab> {
                                      enabled: textfeild,
                                     decoration: InputDecoration(
                                       labelText: ('City'),
-                                      labelStyle: TextStyle(color: AppColors.appBarBackGroundColor),
+                                      labelStyle: TextStyle(color: AppColors.whitedColor),
                                       // labelStyle: TextStyle(color: AppColors.basicColor),
-                                      prefixIcon: Icon(Icons.search,color: AppColors.appBarBackGroundColor,),
+                                      prefixIcon: Icon(Icons.search,color: AppColors.whitedColor,),
                                       border: OutlineInputBorder(
                                         borderRadius: const BorderRadius.all(
                                           const Radius.circular(5.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: AppColors.appBarBackGroundColor)
+                                        borderSide: BorderSide(color: AppColors.whitedColor)
                                       )
                                     ),
                                     onSubmitted: (val) {
@@ -194,7 +197,7 @@ class _LocationTabState extends State<LocationTab> {
                                 },
                                 child: Container(                          
                                   decoration: BoxDecoration(
-                                     color: AppColors.appBarBackGroundColor,
+                                     color: AppColors.whitedColor,
                                     borderRadius: BorderRadius.circular(10)
                                   ),
                                   // width: Get.width/4,
@@ -204,7 +207,7 @@ class _LocationTabState extends State<LocationTab> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [                             
                                       Container(
-                                        child: Text(item,style: TextStyle(color: AppColors.appBarBackGroundColor)),
+                                        child: Text(item,style: TextStyle(color: AppColors.whitedColor)),
                                       ),
                                       GestureDetector(
                                         onTap: (){
@@ -217,7 +220,7 @@ class _LocationTabState extends State<LocationTab> {
                                           });
                                         },
                                         child: Container(
-                                          child: Icon(Icons.clear,color: AppColors.appBarBackGroundColor,size:15),
+                                          child: Icon(Icons.clear,color: AppColors.whitedColor,size:15),
                                         ),
                                       )
                                     ],
@@ -236,7 +239,7 @@ class _LocationTabState extends State<LocationTab> {
                             ),
                              SizedBox(height: 10),
                             RangeSlider(
-                              activeColor: AppColors.appBarBackGroundColor,
+                              activeColor: AppColors.whitedColor,
                               values: _currentRangeValues,
                               min: 5,
                               max: 500,
@@ -263,7 +266,7 @@ class _LocationTabState extends State<LocationTab> {
                                   color: Colors.grey[100],
                                   child: Container(
                                     width: Get.width / 4,
-                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.appBarBackGroundColor )))
+                                    child: Center(child: Text('reset'.tr, style: TextStyle(color: AppColors.whitedColor )))
                                   ),
                                   onPressed: () {
                                     array.clear();
@@ -277,7 +280,7 @@ class _LocationTabState extends State<LocationTab> {
                                 margin: EdgeInsets.only(top:20),
                                 // ignore: deprecated_member_use
                                 child: RaisedButton(
-                                  color: AppColors.appBarBackGroundColor,
+                                  color: AppColors.whitedColor,
                                   child: Container(
                                     width: Get.width / 4,
                                     child: Center(child: Text("apply".tr, style: TextStyle(color:Colors.white)))
@@ -328,7 +331,7 @@ class _LocationTabState extends State<LocationTab> {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.grey[300],
       ),
-      width: Get.width/5,
+      width: lang=='ar' ?Get.width/4:Get.width/5,
       
       margin: EdgeInsets.only(left:10),
       padding: const EdgeInsets.all(8.0),
@@ -353,7 +356,7 @@ class _LocationTabState extends State<LocationTab> {
            child: Text('filter'.tr,
              style: AppTextStyles.appTextStyle(
               fontSize: 14, fontWeight: FontWeight.normal, color:AppColors.darkgrey
-            ) 
+            )
            ),
          )
          ],
@@ -430,7 +433,7 @@ Widget locationList(lastLocation) {
                                 SizedBox(height: 4),
                              Row(
                                children: [
-                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)),
+                                 Text("services".tr,style: TextStyle(fontSize:14,color:AppColors.whitedColor)),
                                  lastLocation[index]['services'] !=null ?
                                Text(": ${lastLocation[index]['services']['servics_name']}",
                                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),
@@ -446,7 +449,7 @@ Widget locationList(lastLocation) {
                                Container(
                                  child: Text(
                                    "country".tr,
-                                   style: TextStyle(fontSize:14,color:AppColors.appBarBackGroundColor)
+                                   style: TextStyle(fontSize:14,color:AppColors.whitedColor)
                                  ),
                                ),
                                Container(
@@ -476,6 +479,109 @@ Widget locationList(lastLocation) {
        ),
     );
   }
+Widget myAddsList(lastLocation) {
+  return ListView.builder(
+    // padding: EdgeInsets.only(left:10),
+    itemCount: lastLocation.length,
+    // data != null ? data.length : 0,
+    itemBuilder: (BuildContext context, index) {
+      print("sanket" + lastLocation[index]['formated_address']);
+      return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black26)),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: lang == "ar"
+                              ? EdgeInsets.only(top: 3, bottom: 3, right: 3)
+                              : EdgeInsets.only(
+                              top: 3, bottom: 3, left: 3, right: 0),
+                          child: Center(
+                            child: Container(
+                              child: GestureDetector(
+                                  child: lastLocation[index]['image'] != null &&
+                                      lastLocation[index]['image']['url'] != null
+                                      ? Image.network(
+                                    lastLocation[index]['image']['url'],
+                                    width: Get.width / 4.4,
+                                    height: Get.height * 0.08,
+                                    fit: BoxFit.cover,
+                                  )
+                                      : Container(
+                                      child: Image.asset(AppImages.locationimg),
+                                      width: Get.width / 6)),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: lang == "ar"
+                              ? EdgeInsets.only(right: Get.width * 0.04)
+                              : EdgeInsets.only(left: Get.width * 0.04),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: lang == "ar"
+                                    ? EdgeInsets.only(
+                                    right: Get.width * 0.01,
+                                    top: Get.width * 0.01)
+                                    : EdgeInsets.only(
+                                    left: Get.width * 0.01,
+                                    top: Get.width * 0.01),
+                                child: Container(
+                                    child: Text(
+                                      lastLocation[index]['location'],
+                                      style: TextStyle(
+                                          fontFamily: "Source_Sans_Pro",
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400),
+                                    )),
+                              ),
+                              SizedBox(height: Get.height * 0.005),
+                              Container(
+                                width: Get.width/2,
+                                child: ReadMoreText(
+                                  lastLocation[index]['formated_address'] != null
+                                      ? lastLocation[index]['formated_address']
+                                      : '',
+                                  trimLines: 2,
+                                  trimMode: TrimMode.Line,
+                                  trimCollapsedText: 'Show More',
+
+                                  trimExpandedText: 'Show less',
+                                  textAlign: TextAlign.left,
+                                  colorClickableText:
+                                  AppColors.whitedColor,
+                                  style: TextStyle(
+                                      fontFamily: "Source_Sans_Pro",
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ],
+              )));
+    },
+  );
+}
   void handleClick(int item) {
   switch (item) {
     case 0:

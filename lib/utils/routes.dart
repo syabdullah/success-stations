@@ -7,6 +7,7 @@ import 'package:success_stations/view/UseProfile/user_agreement.dart';
 import 'package:success_stations/view/UseProfile/user_profile.dart';
 import 'package:success_stations/view/about_us.dart';
 import 'package:success_stations/view/ad_views/ad_viewmain.dart';
+import 'package:success_stations/view/ad_views/location_tab.dart';
 import 'package:success_stations/view/auth/advertise.dart';
 import 'package:success_stations/view/auth/choose_language.dart';
 import 'package:success_stations/view/auth/contact.dart';
@@ -30,6 +31,7 @@ import 'package:success_stations/view/drawer_screen.dart';
 import 'package:success_stations/view/friends/friend_request.dart';
 import 'package:success_stations/view/friends/friends_profile.dart';
 import 'package:success_stations/view/google_map/add_locations.dart';
+import 'package:success_stations/view/google_map/mapview.dart';
 import 'package:success_stations/view/google_map/my_locations.dart';
 import 'package:success_stations/view/messages/chatting_page.dart';
 import 'package:success_stations/view/messages/inbox.dart';
@@ -77,87 +79,92 @@ const String addLocation = '/addLocation';
 const String privacy = '/privacy';
 const String chooseLang = '/chooseLang';
 const String chooseCountry = '/chooseCountry';
-const String  myOfferMain = '/myOfferMain';
+const String myOfferMain = '/myOfferMain';
+const String topLocation = '/toplocation';
+
 class SuccessStationRoutes {
   static Route<dynamic> successStationRoutes(RouteSettings settings) {
     var auth = box.read('access_token');
     switch (settings.name) {
       case login:
-      return MaterialPageRoute(builder: (_) => SignIn());
+        return MaterialPageRoute(builder: (_) => SignIn());
       case tabBar:
-      return MaterialPageRoute(builder: (_) => TabBarPage());
+        return MaterialPageRoute(builder: (_) => TabBarPage());
       case adViewScreen:
-      return MaterialPageRoute(builder: (_) => AdViewScreen());
+        return MaterialPageRoute(builder: (_) => AdViewScreen());
       case addLocation:
-      return MaterialPageRoute(builder: (_) => AddLocations());
+        return MaterialPageRoute(builder: (_) => AddLocations());
       case adPostingScreen:
-      return MaterialPageRoute(builder: (_) => AddPostingScreen());
+        return MaterialPageRoute(builder: (_) => AddPostingScreen());
       case tabs:
-      return MaterialPageRoute(builder: (_) => BottomTabs());
+        return MaterialPageRoute(builder: (_) => BottomTabs());
       case homeAllOffer:
-      return MaterialPageRoute(builder: (_) => HomeAllOfferDEtailPage());
+        return MaterialPageRoute(builder: (_) => HomeAllOfferDEtailPage());
       case friendPro:
-      return MaterialPageRoute(builder: (_) =>  FriendProfile());
+        return MaterialPageRoute(builder: (_) => FriendProfile());
       case myOfferMain:
-      return MaterialPageRoute(builder: (_) => MyOfferDetailMain());
+        return MaterialPageRoute(builder: (_) => MyOfferDetailMain());
       case chat:
-      return MaterialPageRoute(builder: (_) => ChattinPagePersonal());
+        return MaterialPageRoute(builder: (_) => ChattinPagePersonal());
       case adverrtise:
-      return MaterialPageRoute(builder: (_) => AdvertisePage());
+        return MaterialPageRoute(builder: (_) => AdvertisePage());
       case notification:
-      return MaterialPageRoute(builder: (_) => NotificationPage());
+        return MaterialPageRoute(builder: (_) => NotificationPage());
       case addOffers:
-      return MaterialPageRoute(builder: (_) => AddOffersPage());
+        return MaterialPageRoute(builder: (_) => AddOffersPage());
       case myAdd:
-      return MaterialPageRoute(builder: (_) => MyAdds());
-        case userNoti:
-      return MaterialPageRoute(builder: (_) => NotifierUser());
+        return MaterialPageRoute(builder: (_) => MyAdds());
+      case userNoti:
+        return MaterialPageRoute(builder: (_) => NotifierUser());
       case allAds:
-      return MaterialPageRoute(builder: (_) => AllAdds());
+        return MaterialPageRoute(builder: (_) => AllAdds());
       case offerList:
-      return MaterialPageRoute(builder: (_) => OfferList());
+        return MaterialPageRoute(builder: (_) => OfferList());
       case DRAFT:
-      return MaterialPageRoute(builder: (_) => DraftAds());
+        return MaterialPageRoute(builder: (_) => DraftAds());
       case contact:
-      return MaterialPageRoute(builder: (_) => Contact());
+        return MaterialPageRoute(builder: (_) => Contact());
       case forgotCode:
-      return MaterialPageRoute(builder: (_) => ForgotCode());
+        return MaterialPageRoute(builder: (_) => ForgotCode());
       case language:
-      return MaterialPageRoute(builder: (_) => Language());
+        return MaterialPageRoute(builder: (_) => Language());
       case country:
-      return MaterialPageRoute(builder: (_) => Ccountry());
+        return MaterialPageRoute(builder: (_) => Ccountry());
       case resetPass:
-      return MaterialPageRoute(builder: (_) => ResetPassword());
-      case userAgrement: 
-      return MaterialPageRoute(builder: (_) => UserAgreement());
-      case location: 
-      return MaterialPageRoute(builder: (_) => MyLocations());
+        return MaterialPageRoute(builder: (_) => ResetPassword());
+      case userAgrement:
+        return MaterialPageRoute(builder: (_) => UserAgreement());
+      case location:
+        return MaterialPageRoute(builder: (_) => MyLocations());
       case favPage:
-      return MaterialPageRoute(builder: (_) => FavouritePage());
+        return MaterialPageRoute(builder: (_) => FavouritePage());
       case forgot:
-      return MaterialPageRoute(builder: (_) => ForgotPassword());
+        return MaterialPageRoute(builder: (_) => ForgotPassword());
       case detailOffferPage:
-      return MaterialPageRoute(builder: (_) => OffersDetail());
+        return MaterialPageRoute(builder: (_) => OffersDetail());
       case aboutUs:
-      return MaterialPageRoute(builder: (_) => AboutUs());
+        return MaterialPageRoute(builder: (_) => AboutUs());
       case adViewTab:
-      return MaterialPageRoute(builder: (_) => AdViewTab());
+        return MaterialPageRoute(builder: (_) => AdViewTab());
       case inbox:
-      return MaterialPageRoute(builder: (_) => Inbox());
+        return MaterialPageRoute(builder: (_) => Inbox());
       case friReq:
-      return MaterialPageRoute(builder: (_) => FriendReqList());
+        return MaterialPageRoute(builder: (_) => FriendReqList());
       case userPro:
-      return MaterialPageRoute(builder: (_) => UserProfile());
+        return MaterialPageRoute(builder: (_) => UserProfile());
       case draweer:
-      return MaterialPageRoute(builder: (_) => AppDrawer());
+        return MaterialPageRoute(builder: (_) => AppDrawer());
       case privacy:
-      return MaterialPageRoute(builder: (_) => Privacy());
+        return MaterialPageRoute(builder: (_) => Privacy());
       case chooseLang:
-      return MaterialPageRoute(builder: (_) => ChooseLanguage());
-       case chooseCountry:
-      return MaterialPageRoute(builder: (_) => ChooseCountry());
+        return MaterialPageRoute(builder: (_) => ChooseLanguage());
+      case chooseCountry:
+        return MaterialPageRoute(builder: (_) => ChooseCountry());
+      case topLocation:
+        return MaterialPageRoute(builder: (_) => CustomInfoWindowExample());
       default:
-      return MaterialPageRoute(builder: (_) => auth == null ? SignIn() : BottomTabs());
+        return MaterialPageRoute(
+            builder: (_) => auth == null ? SignIn() : BottomTabs());
     }
   }
 }

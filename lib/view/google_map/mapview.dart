@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:success_stations/controller/app_bar_filtered_controller.dart';
 import 'package:success_stations/controller/location_controller.dart';
+import 'package:success_stations/controller/services_controller.dart';
 import 'package:success_stations/controller/user_fav_controller.dart';
 import 'package:success_stations/styling/app_bar.dart';
 import 'package:success_stations/styling/colors.dart';
@@ -25,16 +26,20 @@ class CustomInfoWindowExample extends StatefulWidget {
 
 class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   CustomInfoWindowController _customInfoWindowController =
-      CustomInfoWindowController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  CustomInfoWindowController();
+  RangeValues _currentRangeValues = const RangeValues(1, 10000);
+  final GlobalKey<ScaffoldState> scaffoldKey1 = GlobalKey<ScaffoldState>();
   final mapCon = Get.put(LocationController());
   final adfavUser = Get.put(UserFavController());
+
   // ignore: unused_field
   late LatLng _latLng = LatLng(51.5160322, 51.516032199999984);
   final double _zoom = 5.0;
+
   // ignore: non_constant_identifier_names
   int _makrr_id_counter = 1;
   var listtype = 'map';
+
   //  Marker _markers = [];
   List<Marker> _markers = [];
   var adtofavJson, remtofavJson;
@@ -45,6 +50,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   bool isButtonPressed = false;
   GetStorage box = GetStorage();
   bool visible = false;
+
   @override
   void initState() {
     super.initState();
@@ -101,21 +107,23 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                           children: [
                             data['image'] != null
                                 ? Container(
-                                    width: Get.width / 3.5,
-                                    height: Get.height / 3,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(15),
-                                            bottom: Radius.circular(15)),
-                                        child: Image.network(
-                                            data['image']['url'],fit: BoxFit.fitHeight,)),
-                                  )
+                              width: Get.width / 3.5,
+                              height: Get.height / 3,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(15),
+                                      bottom: Radius.circular(15)),
+                                  child: Image.network(
+                                    data['image']['url'],
+                                    fit: BoxFit.fitHeight,
+                                  )),
+                            )
                                 : Container(
-                                    height: Get.height / 3,
-                                    width: Get.width / 5.5,
-                                    color: Colors.grey[100],
-                                    margin: EdgeInsets.all(20),
-                                    child: Icon(Icons.image, size: 60)),
+                                height: Get.height / 3,
+                                width: Get.width / 5.5,
+                                color: Colors.grey[100],
+                                margin: EdgeInsets.all(20),
+                                child: Icon(Icons.image, size: 60)),
                             SizedBox(
                               width: 8.0,
                             ),
@@ -127,7 +135,7 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                   children: [
                                     Container(
                                       margin:
-                                          EdgeInsets.only(top: 10, left: 15),
+                                      EdgeInsets.only(top: 10, left: 15),
                                       child: RatingBar.builder(
                                         initialRating: rat,
                                         minRating: 1,
@@ -138,19 +146,20 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                         itemCount: 5,
                                         itemSize: 19.5,
                                         // itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        onRatingUpdate: (rating) {
-                                        },
+                                        itemBuilder: (context, _) =>
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                        onRatingUpdate: (rating) {},
                                       ),
                                     ),
                                     Container(
                                       margin:
-                                          EdgeInsets.only(top: 10, left: 10),
+                                      EdgeInsets.only(top: 10, left: 10),
                                       child: Text(
-                                        "(${data['user_name']['rating_count'].toString()})",
+                                        "(${data['user_name']['rating_count']
+                                            .toString()})",
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.bold,
@@ -166,27 +175,28 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16)
-                                      // Theme.of(context).textTheme.headline6!.copyWith(
-                                      //       color: Colors.black,
-                                      //     ),
-                                      ),
+                                    // Theme.of(context).textTheme.headline6!.copyWith(
+                                    //       color: Colors.black,
+                                    //     ),
+                                  ),
                                 ),
                               ],
                             ),
                             Spacer(),
                             Container(
-                              margin: EdgeInsets.only(right: 15),
-                              child: data['user_name']['is_location_favourite'] ==
-                                  true
-                              ? Image.asset(
+                                margin: EdgeInsets.only(right: 15),
+                                child: data['user_name']
+                                ['is_location_favourite'] ==
+                                    true
+                                    ? Image.asset(
                                   AppImages.redHeart,
                                   height: 30,
                                 )
-                              : Image.asset(
+                                    : Image.asset(
                                   AppImages.blueHeart,
                                   height: 30,
                                 ))
-                           ],
+                          ],
                         ),
                       ),
                     ),
@@ -204,138 +214,480 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
             ),
             point,
           );
-        }
-      )
-    );
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, 
-      body: GetBuilder<LocationController>(
-        init: LocationController(),
-        builder: (val) { 
-          _markers.clear();
-          if (val.allLoc != null && val.allLoc['success'] == true)
-          for (int i = 0; i < val.allLoc['data'].length; i++) {
-            if ( val.allLoc['data']!=null ) {
-              setMarkers(
-                LatLng(
-                  val.allLoc['data'][i]['long'],
-                  val.allLoc['data'][i]['long']),
-                  val.allLoc['data'][i]);
-                  _latLng = LatLng(val.allLoc['data'][i]['long'],
-                  val.allLoc['data'][i]['long']);
-                }
-            }
-            return GetBuilder<GridListCategory>(
-            init: GridListCategory(),
-            builder: (valuee){
-              return Stack(
-              children: [
-                valuee.dataType == 'map'
-                ? Stack(
-                  children: <Widget>[
-                    val.allLoc != null
-                    ? googleMap(val.latLng)
-                    : Container(),
-                    CustomInfoWindow(
-                      controller: _customInfoWindowController,
-                      height: Get.height / 6,
-                      width: Get.width / 1.2,
-                      offset: 50,
+      key: scaffoldKey1,
+      drawer: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Wrap(children: [
+              Container(
+                height: Get.height / 1.6,
+                child: ListView(
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 30, right: 30),
+                                  child: Text('filter'.tr,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black)),
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        right: 20, left: 20),
+                                    child: InkWell(
+                                        onTap: () => Get.back(),
+                                        child: Icon(Icons.close)))
+                              ],
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: color,
+                                borderRadius: BorderRadius.circular(20)),
+                            width: Get.width / 4,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            margin: EdgeInsets.only(
+                                top: 20, left: 30, right: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Icon(Icons.location_on,
+                                      color: AppColors.whitedColor),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      color = Colors.blue[100];
+                                      textfeild = !textfeild;
+                                    });
+                                    _getUserLocation();
+                                  },
+                                  child: Container(
+                                    child: Text("Nearby".tr,
+                                        style: TextStyle(
+                                            color: AppColors.whitedColor)),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 15),
+                              child: Form(
+                                key: formKey,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            // Added this
+                                            contentPadding: EdgeInsets.all(12),
+                                            enabled: textfeild,
+                                            hintStyle: TextStyle(
+                                                color: AppColors.inputTextColor,
+                                                fontSize: 13),
+                                            labelStyle: TextStyle(
+                                                color: AppColors.inputTextColor,
+                                                fontSize: 13),
+                                            labelText: ('city'.tr),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                              const BorderRadius.all(
+                                                Radius.circular(5.0),
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor))),
+                                        onTap: () {},
+                                        onSubmitted: (val) {
+                                          formKey.currentState!.save();
+                                          setState(() {
+                                            decideRouter = 'city';
+                                            array.add(val);
+                                            cityArray.add('city[]=$val');
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            // Added this
+                                            contentPadding: EdgeInsets.all(12),
+                                            enabled: textfeild,
+                                            hintStyle: TextStyle(
+                                                color: AppColors.inputTextColor,
+                                                fontSize: 13),
+                                            labelText: ('locationName'.tr),
+                                            labelStyle: TextStyle(
+                                                color: AppColors.inputTextColor,
+                                                fontSize: 13),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                              const BorderRadius.all(
+                                                const Radius.circular(5.0),
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor))),
+                                        onTap: () {},
+                                        onSubmitted: (val) {
+                                          formKey.currentState!.save();
+                                          setState(() {
+                                            decideRouter = 'name';
+                                            namearray.add(val);
+                                            cityArray.length == 0
+                                                ? locationName = 'location=$val'
+                                                : locationName =
+                                            '&location=$val';
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    GetBuilder<ServicesController>(
+                                        init: ServicesController(),
+                                        builder: (value) {
+                                          return Container(
+                                              margin: EdgeInsets.only(top: 10),
+                                              padding:
+                                              const EdgeInsets.only(top: 2),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey,
+                                                    width: 1),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                              ),
+                                              child: ButtonTheme(
+                                                  alignedDropdown: true,
+                                                  child: Container(
+                                                    width: Get.width,
+                                                    child:
+                                                    DropdownButtonHideUnderline(
+                                                        child: DropdownButton(
+                                                          hint: Text(
+                                                              selectedService !=
+                                                                  null
+                                                                  ? selectedService
+                                                                  : 'selectService'
+                                                                  .tr,
+                                                              style: TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: AppColors
+                                                                      .inputTextColor)),
+                                                          dropdownColor: AppColors
+                                                              .inPutFieldColor,
+                                                          icon: Icon(
+                                                              Icons
+                                                                  .arrow_drop_down),
+                                                          items: value
+                                                              .servicesListdata
+                                                              .map((coun) {
+                                                            return DropdownMenuItem(
+                                                                value: coun,
+                                                                child: Text(
+                                                                    coun[
+                                                                    'servics_name']));
+                                                          }).toList(),
+                                                          onChanged: (val) {
+                                                            var adsubCategory;
+                                                            setState(() {
+                                                              decideRouter =
+                                                              'name';
+                                                              adsubCategory =
+                                                              val as Map;
+                                                              selectedService =
+                                                              adsubCategory[
+                                                              'servics_name'];
+                                                              service_id =
+                                                              adsubCategory['id'];
+                                                              locationName !=
+                                                                  null
+                                                                  ?
+                                                              locationName =
+                                                              '$locationName&service_id=$service_id'
+                                                                  : locationName =
+                                                              'service_id=$service_id';
+                                                            });
+                                                          },
+                                                        )),
+                                                  )));
+                                        }),
+                                  ],
+                                ),
+                              )),
+                          Container(
+                            margin: EdgeInsets.only(left: 15, right: 15),
+                            child: Text('distance'.tr,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                )),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 15, right: 15),
+                            child: Text(
+                                "${_currentRangeValues.start.round()
+                                    .toString()} miles",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal)),
+                          ),
+                          Container(
+                            child: RangeSlider(
+                              activeColor: AppColors.whitedColor,
+                              values: _currentRangeValues,
+                              min: 1.00,
+                              max: 10000.00,
+                              labels: RangeLabels(
+                                _currentRangeValues.start.round().toString(),
+                                _currentRangeValues.end.round().toString(),
+                              ),
+                              onChanged: (values) {
+                                setState(() {
+                                  _currentRangeValues = values;
+                                  start = _currentRangeValues.start
+                                      .round()
+                                      .toString();
+                                  end =
+                                      _currentRangeValues.end.round()
+                                          .toString();
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                    color: Colors.grey[100],
+                                    child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                            child: Text('reset'.tr,
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .inputTextColor)))),
+                                    onPressed: () {
+                                      array.clear();
+                                      cityArray.clear();
+                                      locationName = null;
+                                      selectedService = null;
+                                      Get.back();
+                                      Get.find<LocationController>()
+                                          .getAllLocationToDB();
+                                      // Get.to(SignIn());
+                                    }),
+                              ),
+                              Container(
+                                // ignore: deprecated_member_use
+                                  child: RaisedButton(
+                                    color: AppColors.whitedColor,
+                                    child: Container(
+                                        width: Get.width / 4,
+                                        child: Center(
+                                            child: Text("apply".tr,
+                                                style:
+                                                TextStyle(
+                                                    color: Colors.grey)))),
+                                    onPressed: () {
+                                      var cityFinalData;
+                                      if (decideRouter == 'city' ||
+                                          decideRouter == 'name') {
+                                        if (cityArray.length != 0) {
+                                          var cityFinal = cityArray.toString();
+                                          cityFinalData = cityFinal.substring(
+                                              1, cityFinal.length - 1);
+                                        } else {
+                                          cityFinalData = null;
+                                        }
+                                        Get.find<LocationController>()
+                                            .getAllLocationByCity(
+                                            cityFinalData, locationName);
+                                      } else if (decideRouter == 'near') {
+                                        Get.find<LocationController>()
+                                            .getAllLocationNearBy(
+                                            end,
+                                            position.latitude,
+                                            position.longitude);
+                                      }
+                                      Get.back();
+                                    },
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
-                )
-                : GetBuilder<LocationController>(
-                  init:  LocationController(),
-                  builder: (value) {
-                    return value.allLoc != null 
-                    ? allUsers(value.allLoc['data']) :
-                    gridShimmer();
-                  } 
                 ),
-            ],
-          );
-            }
-            );
-        }
+              )
+            ]);
+          }),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: appbar(scaffoldKey1, context, AppImages.appBarLogo,
+              AppImages.appBarSearch, 3)),
+
+
+      body: Stack(
+        children: [
+          GetBuilder<LocationController>(
+              init: LocationController(),
+              builder: (val) {
+                _markers.clear();
+                if (val.allLoc != null && val.allLoc['success'] == true)
+                  for (int i = 0; i < val.allLoc['data'].length; i++) {
+                    if (val.allLoc['data'] != null) {
+                      setMarkers(
+                          LatLng(val.allLoc['data'][i]['long'],
+                              val.allLoc['data'][i]['long']),
+                          val.allLoc['data'][i]);
+                      _latLng = LatLng(val.allLoc['data'][i]['long'],
+                          val.allLoc['data'][i]['long']);
+                    }
+                  }
+                return GetBuilder<GridListCategory>(
+                    init: GridListCategory(),
+                    builder: (valuee) {
+                      return Stack(
+                        children: [
+                          Stack(
+                            children: <Widget>[
+                              val.allLoc != null
+                                  ? googleMap(val.latLng)
+                                  : Container(),
+                              CustomInfoWindow(
+                                controller: _customInfoWindowController,
+                                height: Get.height / 6,
+                                width: Get.width / 1.2,
+                                offset: 50,
+                              ),
+                              GetBuilder<LocationController>(
+                                  init: LocationController(),
+                                  builder: (value) {
+                                    return value.allLoc != null
+                                        ? allUsers(value.allLoc['data'])
+                                        : gridShimmer();
+                                  }),
+                            ],
+                          )
+
+                        ],
+                      );
+                    });
+              }),
+        ],
       ),
     );
   }
 
   Widget topWidget() {
     return Container(
-      margin: lang == 'en' ? EdgeInsets.only(left: 10, ) : EdgeInsets.only(right: 10, ),
+      margin: lang == 'en'
+          ? EdgeInsets.only(
+        left: 10,
+      )
+          : EdgeInsets.only(
+        right: 10,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             margin: lang == 'en'
-            ?EdgeInsets.only(left: 10, top: 20)
-            :EdgeInsets.only(right: 10, top: 20),
+                ? EdgeInsets.only(left: 10, top: 20)
+                : EdgeInsets.only(right: 10, top: 20),
             decoration: BoxDecoration(
-              borderRadius: lang=='en'
-              ?BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.zero,
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.zero,
-              )
-              :BorderRadius.only(
-                topLeft: Radius.zero,
-                topRight: Radius.circular(10.0),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.circular(10.0),
-              ),
-              color: listtype == 'map'
-              ? Colors.white
-              : listtype == 'grid'
-              ? AppColors.appBarBackGroundColor
-              : Colors.white
+                borderRadius: lang == 'en'
+                    ? BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.zero,
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.zero,
+                )
+                    : BorderRadius.only(
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.circular(10.0),
+                ),
+                color: listtype == 'map'
+                    ? Colors.white
+                    : listtype == 'grid'
+                    ? AppColors.whitedColor
+                    : Colors.white
             ),
             height: 60,
             width: 60,
             child: CupertinoButton(
-              minSize: double.minPositive,
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                setState(() {
-                  listtype = 'grid';
-                  box.write("type", listtype);
-                  isButtonPressed = !isButtonPressed;
-                  grid = AppImages.grid;
-                });
-              },
-              child: Image.asset(
-                AppImages.gridOf,
-                height: 45,
-                width: 30,
-                color: listtype=='grid'? Colors.white:Colors.grey,
-              )
-            ),
+                minSize: double.minPositive,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  setState(() {
+                    listtype = 'grid';
+                    box.write("type", listtype);
+                    isButtonPressed = !isButtonPressed;
+                    grid = AppImages.grid;
+                  });
+                },
+                child: Image.asset(
+                  AppImages.gridOf,
+                  height: 45,
+                  width: 30,
+                  color: listtype == 'grid' ? Colors.white : Colors.grey,
+                )),
           ),
           Container(
             margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
-              borderRadius:lang=='en'? BorderRadius.only(
-                topLeft: Radius.zero,
-                topRight: Radius.circular(10.0),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.circular(10.0),
-              ):BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.zero,
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.zero,
-              ),
-              color: listtype == 'grid'
-              ? Colors.white
-              : listtype == 'map'
-              ? AppColors.appBarBackGroundColor
-              : AppColors.appBarBackGroundColor
-            ),
+                borderRadius: lang == 'en'
+                    ? BorderRadius.only(
+                  topLeft: Radius.zero,
+                  topRight: Radius.circular(10.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.circular(10.0),
+                )
+                    : BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.zero,
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.zero,
+                ),
+                color: listtype == 'grid'
+                    ? Colors.white
+                    : listtype == 'map'
+                    ? AppColors.appBarBackGroundColor
+                    : AppColors.appBarBackGroundColor),
             //color: Colors.black,
             height: 60,
             width: 60,
@@ -350,7 +702,8 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
               },
               child: Image.asset(
                 AppImages.map,
-                color:listtype=='map'? Colors.white:Colors.grey,height: 50,
+                color: listtype == 'map' ? Colors.white : Colors.grey,
+                height: 50,
               ),
             ),
           ),
@@ -361,133 +714,232 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
   }
 
   Widget allUsers(userData) {
-    return  userData == null ?
-    Container(
+    return userData == null
+        ? Positioned(
+      bottom: 5,
       child: Center(
-        child: Text(
-          "locationFound".tr, style:TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
-        )
-      ): GridView.builder(
-        padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
-        primary: false,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 3,
-          mainAxisSpacing: 3,
-          crossAxisCount: 2,
-          childAspectRatio: Get.width /
-          (Get.height >= 800
-          ? Get.height / 1.65
-          : Get.height <= 800
-          ? Get.height / 1.60
-          : 0),
-        ),
-        itemCount: userData.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              Get.to(AdViewTab(),
-              arguments: userData[index]['id']);
-            },
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.0),
-                        topRight: Radius.circular(15.0)
-                      ),
-                      child: Container(
-                        width: Get.width / 2.2,
-                        height: Get.height / 5.2,
-                        child:  userData[index]['image'] !=null && userData[index]['image']['url'] !=null ? 
-                        Image.network( userData[index]['image']['url'],
-                            fit: BoxFit.fill,
-                        )
-                        :
-                        FittedBox(
-                          fit:BoxFit.contain,
-                          child: Icon(Icons.person, color: Colors.grey[400])
-                        )
-                      ),
+        child: Container(
+            width: Get.width,
+            height: Get.height / 6,
+            color: Colors.white.withOpacity(0.8),
+
+            child: Center(
+              child: Text("locationFound".tr,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            )),
+      ),
+    )
+        :
+    Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: Get.height / 6,
+        child: Positioned(
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding:
+              EdgeInsets.only(left: 5.0, right: 5.0, top: 12, bottom: 10),
+              primary: false,
+              // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //   crossAxisSpacing: 3,
+              //   mainAxisSpacing: 3,
+              //   crossAxisCount: 2,
+              //   childAspectRatio: Get.width /
+              //       (Get.height >= 800
+              //           ? Get.height / 1.65
+              //           : Get.height <= 800
+              //               ? Get.height / 1.60
+              //               : 0),
+              // ),
+              itemCount: userData.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.to(AdViewTab(), arguments: userData[index]['id']);
+                  },
+                  child: Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20, top: 15,right: 15),
-                      child: userData[index]['location']!=null &&  userData[index]['location'] !=null ? 
-                      Text(
-                        userData[index]['location'].toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14
-                        ),
-                      ):Container()
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
+                    child: Container(
+                      width: Get.width * 0.8,
+                      child: Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            userData[index]['user_name']!=null ? 
                             Container(
-                              child: RatingBar.builder(
-                                ignoreGestures: true,
-                                initialRating: userData[index]['user_name']['rating'].toDouble(),
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemSize: 13.5,
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
+                              height: 200,
+                              width: 100,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(5.0)
+                                  ),
+                                  child: userData[index]['image'] != null &&
+                                      userData[index]['image']['url'] != null
+                                      ? Image.network(
+                                    userData[index]['image']['url'],
+                                    fit: BoxFit.fill,
+                                  )
+                                      : FittedBox(
+                                      fit: BoxFit.contain,
+                                      child: Icon(Icons.person,
+                                          color: Colors.grey[400])),
                                 ),
-                                 onRatingUpdate: (rating) {},
                               ),
-                            ):Container(),
-                            userData[index]['user_name']!=null ? 
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: Text(
-                                "(${userData[index]['user_name']['rating_count'].toString()})",
-                                style: TextStyle(fontSize: 13),
-                              )
-                            ):Container()
+                            ),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    width: Get.width * 0.3,
+                                    height: Get.height * 0.055,
+
+                                    margin:
+                                    EdgeInsets.only(left: 10, top: 10, right: 10),
+                                    child: userData[index]['location'] != null &&
+                                        userData[index]['location'] != null
+                                        ? Align(
+                                      alignment: lang == "ar" ? Alignment
+                                          .centerRight : Alignment.centerLeft,
+                                      child:
+                                      userData[index]['location'].toString()!=null?
+                                      Text(
+
+                                        userData[index]['location'].toString(),
+
+
+                                        maxLines: 2,
+
+                                        style: TextStyle(
+
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ):Container()
+                                    )
+                                        : Container()),
+                                Container(
+                                    width: Get.width * 0.45,
+                                    height: Get.height * 0.025,
+
+                                    margin:
+                                    EdgeInsets.only(left: 10, top: 2, right: 10),
+                                    child: userData[index]['street_address'] != null &&
+                                        userData[index]['street_address'] != null
+                                        ? Align(
+                                      alignment: lang == "ar" ? Alignment
+                                          .centerRight : Alignment.centerLeft,
+                                      child:
+                                      userData[index]['street_address'] != null ?
+                                      Text(
+                                        userData[index]['street_address']
+                                            .toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(color: Colors.grey,fontSize: 14),
+                                      ):Container()
+                                    )
+                                        : Container()),
+                                Container(
+                                  margin:
+                                  EdgeInsets.only(left: 10, top: 3, right: 10),
+
+                                  child:
+                                  userData[index]['user_name'] != null
+                                      ?
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    initialRating:
+
+                                    userData[index]
+                                    ['user_name']['rating']
+                                        .toDouble(),
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 13.5,
+                                    itemBuilder: (context, _) =>
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                    onRatingUpdate: (rating) {},
+                                  ):Container()
+                                ),
+                              ],
+                            ),
+                           /* Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    userData[index]['user_name'] != null
+                                        ? Container(
+                                      child: RatingBar.builder(
+                                        ignoreGestures: true,
+                                        initialRating: userData[index]
+                                        ['user_name']['rating']
+                                            .toDouble(),
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 13.5,
+                                        itemBuilder: (context, _) =>
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                        onRatingUpdate: (rating) {},
+                                      ),
+                                    )
+                                        : Container(),
+                                    userData[index]['user_name'] != null
+                                        ? Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          "(${userData[index]['user_name']['rating_count']
+                                              .toString()})",
+                                          style: TextStyle(fontSize: 13),
+                                        ))
+                                        : Container()
+                                  ],
+                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     adtofavJson = {
+                                //       'location_id': userData['data'][index]['id']
+                                //     };
+                                //     remtofavJson = {
+                                //       'location_id': userData['data'][index]['id']
+                                //     };
+                                //     userData['data'][index]['is_location_favourite'] == false
+                                //     ? adfavUser.locationToFav(adtofavJson)
+                                //     : adfavUser.locationUnToFav(remtofavJson);
+                                //   },
+                                //   child:userData['data'][index]['is_location_favourite'] == false
+                                //   ? Image.asset(
+                                //     AppImages.blueHeart, height: 20,
+                                //   )
+                                //   : Image.asset(AppImages.heart)
+                                // )
+                              ],
+                            ),*/
                           ],
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     adtofavJson = {
-                        //       'location_id': userData['data'][index]['id']
-                        //     };
-                        //     remtofavJson = {
-                        //       'location_id': userData['data'][index]['id']
-                        //     };
-                        //     userData['data'][index]['is_location_favourite'] == false
-                        //     ? adfavUser.locationToFav(adtofavJson)
-                        //     : adfavUser.locationUnToFav(remtofavJson);
-                        //   },
-                        //   child:userData['data'][index]['is_location_favourite'] == false
-                        //   ? Image.asset(
-                        //     AppImages.blueHeart, height: 20,
-                        //   )
-                        //   : Image.asset(AppImages.heart)
-                        // )
-                      ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-      );
+                  ),
+                );
+              }),
+        ),
+      ),
+    );
   }
 
   void handleClick(int item) {
@@ -501,16 +953,18 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
 
   Widget googleMap(kInitialPosition) {
     return StatefulBuilder(builder: (context, newSetState) {
-      return kInitialPosition != null ?Container(
+      return kInitialPosition != null
+          ? Container(
         height: Get.height,
         child: GoogleMap(
+          zoomControlsEnabled: false,
+
           mapType: MapType.normal,
           onTap: (position) {},
           onCameraMove: (position) {
             _customInfoWindowController.onCameraMove!();
           },
           onMapCreated: (GoogleMapController controller) async {
-             
             _customInfoWindowController.googleMapController = controller;
           },
           initialCameraPosition: CameraPosition(
@@ -519,7 +973,10 @@ class _CustomInfoWindowExampleState extends State<CustomInfoWindowExample> {
           ),
           markers: _markers.toSet(),
         ),
-      ):Center(child: Text("noLoc".tr),);
+      )
+          : Center(
+        child: Text("noLoc".tr),
+      );
     });
   }
 }

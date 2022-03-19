@@ -21,7 +21,7 @@ class _UserAgreement extends State<UserAgreement> {
         leading: GestureDetector(
           onTap: (){Get.back();},
           child: Icon(Icons.arrow_back)),
-          centerTitle: true,title: Text('UGR'.tr),backgroundColor: AppColors.appBarBackGroundColor
+          centerTitle: true,title: Text('UGR'.tr),backgroundColor: AppColors.whitedColor
         ),
         body: GetBuilder<ContentManagmentController>( 
           init: ContentManagmentController(),
